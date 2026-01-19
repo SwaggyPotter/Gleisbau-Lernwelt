@@ -16,6 +16,6 @@ export class LoginPage {
 
   handleLogin(): void {
     this.authService.loginAsAdmin();
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/home']);
   }
 }

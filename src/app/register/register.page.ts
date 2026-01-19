@@ -37,6 +37,6 @@ export class RegisterPage {
     }
     this.error = '';
     this.authService.loginWithRecord(record);
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/home']);
   }
 }

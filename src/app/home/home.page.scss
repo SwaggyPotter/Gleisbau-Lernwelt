@@ -140,6 +140,12 @@
   color: rgba(232, 238, 245, 0.7);
 }
 
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .hero-panel ion-card {
   --background: rgba(255, 255, 255, 0.94);
   color: #0b1626;
@@ -241,6 +247,67 @@
   margin-left: 6px;
 }
 
+.learning-section {
+  margin-top: 28px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.06), rgba(26, 163, 122, 0.12));
+  border: 1px solid var(--rail-line);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
+}
+
+.learning-head {
+  margin: 12px 0 8px;
+}
+
+.tile-card {
+  --background: rgba(255, 255, 255, 0.94);
+  color: #0b1626;
+  border-radius: 14px;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(12, 24, 36, 0.06);
+}
+
+.tile-card.completed {
+  border-color: rgba(26, 163, 122, 0.4);
+  box-shadow: 0 18px 40px rgba(26, 163, 122, 0.25);
+}
+
+.tile-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.tile-description {
+  margin: 8px 0 0;
+  color: #4b5563;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-value {
+  font-weight: 700;
+  color: #0b1626;
+  min-width: 48px;
+  text-align: right;
+}
+
+.admin-link {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.placeholder {
+  text-align: left;
+}
+
 @media (max-width: 767px) {
   .hero {
     padding: 24px;
@@ -265,5 +332,10 @@
   .toolbar-actions ion-button {
     --padding-start: 10px;
     --padding-end: 10px;
+  }
+
+  .tile-top {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

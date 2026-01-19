@@ -1,20 +1,145 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="home-header">
   <ion-toolbar>
-    <ion-title>
-      Blank
+    <ion-title class="brand">
+      <span class="brand-mark">Gleisbau</span>
+      <span class="brand-sub">Lernwelt</span>
     </ion-title>
+    <ion-buttons slot="end" class="toolbar-actions">
+      <ion-button fill="clear" routerLink="/login">Login</ion-button>
+      <ion-button color="primary" routerLink="/register">Registrieren</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="home-content" [fullscreen]="true">
+  <div class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Digitale Trainingsstrecke</p>
+      <h1>Willkommen in der Gleisbau Lernwelt</h1>
+      <p class="lede">
+        Praxisnahes Lernen mit klaren Modulen, Checklisten und schnellen Wiederholungen direkt auf deinem Geraet.
+        So wird jeder Baustellentag sicherer und effizienter.
+      </p>
+      <div class="hero-actions">
+        <ion-button size="large" routerLink="/register">Jetzt starten</ion-button>
+        <ion-button size="large" fill="outline" color="light" routerLink="/login">Ich habe bereits Zugang</ion-button>
+      </div>
+      <div class="hero-tags">
+        <div class="pill">
+          <span class="pill-label">Lernpfade</span>
+          <strong>3 Tracks</strong>
+        </div>
+        <div class="pill">
+          <span class="pill-label">Praxischecks</span>
+          <strong>20+ Aufgaben</strong>
+        </div>
+        <div class="pill">
+          <span class="pill-label">Zugang</span>
+          <strong>Desktop & Mobile</strong>
+        </div>
+      </div>
+    </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <div class="hero-panel">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>Dein Fahrplan</ion-card-subtitle>
+          <ion-card-title>Erste Etappe</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list lines="none" class="module-list">
+            <ion-item>
+              <ion-label>
+                <h3>Grundlagen der Strecke</h3>
+                <p>Video und kurze Uebung</p>
+              </ion-label>
+              <ion-badge color="success">Startklar</ion-badge>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                <h3>Werkzeuge & Sicherheit</h3>
+                <p>Checkliste zum Abhaken</p>
+              </ion-label>
+              <ion-badge color="warning">in Arbeit</ion-badge>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                <h3>Qualitaet & Dokumentation</h3>
+                <p>Quiz und Fotobeweis</p>
+              </ion-label>
+              <ion-badge color="medium">demnaechst</ion-badge>
+            </ion-item>
+          </ion-list>
+          <div class="panel-footer">
+            <ion-button fill="clear" size="small" routerLink="/register">Plan freischalten</ion-button>
+            <ion-button size="small" routerLink="/login">Letzten Stand laden</ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </div>
+
+  <section class="highlights">
+    <div class="section-header">
+      <p class="eyebrow">Dein Vorteil</p>
+      <h2>Alles fuer sichere Gleisbaustellen an einem Ort</h2>
+      <p class="section-lead">
+        Kurze Lernhappen, klare Uebungen und sofort nutzbare Vorlagen fuer Teams draussen auf der Strecke.
+      </p>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="4">
+          <ion-card class="highlight-card">
+            <ion-card-header>
+              <ion-card-title>Gefuehrte Lernpfade</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p>Starte mit Einsteigerkursen und arbeite dich zu spezialisierten Szenarien vor.</p>
+              <ion-chip color="tertiary" outline="true">
+                <ion-label>Step by step</ion-label>
+              </ion-chip>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" sizeMd="4">
+          <ion-card class="highlight-card">
+            <ion-card-header>
+              <ion-card-title>Praxisaufgaben</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p>Checklisten, Fotoaufgaben und kurze Quizze sorgen fuer echtes Koennen.</p>
+              <ion-chip color="success" outline="true">
+                <ion-label>Hands-on</ion-label>
+              </ion-chip>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" sizeMd="4">
+          <ion-card class="highlight-card">
+            <ion-card-header>
+              <ion-card-title>Teambereit</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p>Ideal fuer Einweisungen, Wiederholungen und Nachweise im Team.</p>
+              <ion-chip color="warning" outline="true">
+                <ion-label>Vor Ort</ion-label>
+              </ion-chip>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <section class="cta-strip">
+    <div class="cta-text">
+      <p class="eyebrow">Bereit zum Start?</p>
+      <h3>Erstelle deinen Account oder logge dich ein und fuehre dein Team sicher ans Ziel.</h3>
+    </div>
+    <div class="cta-actions">
+      <ion-button color="light" fill="outline" routerLink="/login">Zum Login</ion-button>
+      <ion-button color="dark" routerLink="/register">Account anlegen</ion-button>
+    </div>
+  </section>
 </ion-content>

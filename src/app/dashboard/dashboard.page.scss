@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+:host {
+  --rail-night: #0b1626;
+  --rail-deep: #0f2438;
+  --rail-amber: #f59e0b;
+  --rail-teal: #1aa37a;
+  --rail-line: rgba(255, 255, 255, 0.08);
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  color: #e8eef5;
+}
+
+.dash-header ion-toolbar {
+  --background: transparent;
+  --color: #e8eef5;
+  padding-inline: 12px;
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.brand-mark {
+  color: #f6eee2;
+  text-transform: uppercase;
+}
+
+.brand-sub {
+  color: var(--rail-amber);
+  text-transform: uppercase;
+}
+
+.toolbar-actions ion-chip {
+  margin-right: 6px;
+}
+
+.dash-content {
+  --background: linear-gradient(135deg, var(--rail-night) 0%, var(--rail-deep) 70%, #0c1824 100%);
+  padding: 14px 16px 48px;
+}
+
+.welcome {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.06), rgba(26, 163, 122, 0.12));
+  border: 1px solid var(--rail-line);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
+}
+
+.eyebrow {
+  color: var(--rail-amber);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+.lede {
+  margin: 0 0 14px;
+  color: rgba(232, 238, 245, 0.8);
+}
+
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 10px 12px;
+  min-width: 130px;
+}
+
+.pill span {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgba(232, 238, 245, 0.7);
+}
+
+.pill strong {
+  display: block;
+  margin-top: 4px;
+  color: #f8fbff;
+}
+
+.snapshot {
+  --background: rgba(255, 255, 255, 0.95);
+  color: #0b1626;
+  border-radius: 14px;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.3);
+}
+
+.grid-section {
+  margin-top: 28px;
+}
+
+.section-head h2 {
+  margin: 6px 0 0;
+  color: #f8fbff;
+}
+
+.tile-card {
+  --background: rgba(255, 255, 255, 0.94);
+  color: #0b1626;
+  border-radius: 14px;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(12, 24, 36, 0.06);
+}
+
+.tile-card.completed {
+  border-color: rgba(26, 163, 122, 0.4);
+  box-shadow: 0 18px 40px rgba(26, 163, 122, 0.25);
+}
+
+.tile-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.tile-description {
+  margin: 0 0 12px;
+  color: #4b5563;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-value {
+  font-weight: 700;
+  color: #0b1626;
+  min-width: 48px;
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  .tile-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

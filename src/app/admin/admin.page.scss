@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+:host {
+  --rail-night: #0b1626;
+  --rail-deep: #0f2438;
+  --rail-amber: #f59e0b;
+  --rail-line: rgba(255, 255, 255, 0.08);
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  color: #e8eef5;
+}
+
+.admin-header ion-toolbar {
+  --background: transparent;
+  --color: #e8eef5;
+  padding-inline: 12px;
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.brand-mark {
+  color: #f6eee2;
+  text-transform: uppercase;
+}
+
+.brand-sub {
+  color: var(--rail-amber);
+  text-transform: uppercase;
+}
+
+.admin-content {
+  --background: linear-gradient(135deg, var(--rail-night) 0%, var(--rail-deep) 70%, #0c1824 100%);
+  padding: 14px 16px 48px;
+}
+
+.panel {
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.06), rgba(26, 163, 122, 0.12));
+  border: 1px solid var(--rail-line);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
+  margin-bottom: 22px;
+}
+
+.panel-head h1 {
+  margin: 6px 0;
+  color: #f8fbff;
+}
+
+.panel-body {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.generate-btn {
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+.last-key {
+  font-weight: 700;
+}
+
+.key-list ion-item {
+  --background: rgba(255, 255, 255, 0.9);
+  color: #0b1626;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+.user-card {
+  --background: rgba(255, 255, 255, 0.94);
+  color: #0b1626;
+  border-radius: 14px;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(12, 24, 36, 0.06);
+}
+
+.user-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.user-stats p {
+  margin: 0;
+  color: #4b5563;
+}
+
+.mistake-list ion-item {
+  --background: transparent;
+}
+
+.eyebrow {
+  color: var(--rail-amber);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+.lede {
+  margin: 0 0 12px;
+  color: rgba(232, 238, 245, 0.8);
+}

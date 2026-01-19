@@ -12,27 +12,25 @@
     <div class="auth-card">
       <p class="eyebrow">Account anlegen</p>
       <h1>Starte in der Gleisbau Lernwelt</h1>
-      <p class="lede">Registriere dich in wenigen Schritten und sichere dir den Zugang zu allen Modulen. (Zur Demo ohne Eingaben moeglich.)</p>
+      <p class="lede">Registriere dich mit Vor- und Nachname sowie deinem Lern-Key. Die Zuordnung zum Lehrjahr erfolgt automatisch.</p>
 
       <form novalidate>
         <ion-list lines="none">
           <ion-item>
             <ion-label position="stacked">Vor- und Nachname</ion-label>
-            <ion-input type="text" name="fullName" [(ngModel)]="fullName" placeholder="Max Beispiel"></ion-input>
+            <ion-input required type="text" name="fullName" [(ngModel)]="fullName" placeholder="Max Beispiel"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label position="stacked">E-Mail</ion-label>
-            <ion-input type="email" name="email" placeholder="du@example.de"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">Passwort</ion-label>
-            <ion-input type="password" name="password" placeholder="Mindestens 8 Zeichen"></ion-input>
+            <ion-label position="stacked">Lern-Key</ion-label>
+            <ion-input required type="text" name="key" [(ngModel)]="key" placeholder="z.B. J1-DEMO-001"></ion-input>
           </ion-item>
         </ion-list>
 
         <ion-button expand="block" size="large" class="primary-action" type="button" (click)="handleRegister()">
           Registrieren & Einloggen
         </ion-button>
+
+        <p class="error" *ngIf="error">{{ error }}</p>
 
         <div class="auth-footer">
           <span>Schon registriert?</span>

@@ -7,8 +7,9 @@
     <ion-buttons slot="end" class="toolbar-actions">
       <ion-chip color="light" outline="true">
         <ion-icon name="person-circle-outline"></ion-icon>
-        <ion-label>Angemeldet als {{ (user$ | async)?.name || 'Admin' }}</ion-label>
+        <ion-label>Angemeldet als {{ user?.name || 'Admin' }}</ion-label>
       </ion-chip>
+      <ion-button *ngIf="isAdmin()" fill="clear" (click)="goToAdmin()">Admin Panel</ion-button>
       <ion-button fill="clear" routerLink="/home">Start</ion-button>
       <ion-button color="medium" (click)="handleLogout()">Logout</ion-button>
     </ion-buttons>
@@ -19,7 +20,7 @@
   <section class="welcome">
     <div class="welcome-copy">
       <p class="eyebrow">Uebersicht</p>
-      <h1>Hallo {{ (user$ | async)?.name || 'Admin' }}, hier sind deine Lernfelder</h1>
+      <h1>Hallo {{ user?.name || 'Admin' }}, hier sind deine Lernfelder</h1>
       <p class="lede">
         Bearbeite die Kacheln in deinem Tempo. Der Fortschrittsbalken zeigt dir sofort, was noch offen ist
         und welche Module du bereits abgeschlossen hast.
@@ -27,15 +28,15 @@
       <div class="pill-row">
         <div class="pill">
           <span>Abgeschlossen</span>
-          <strong>1/6</strong>
+          <strong>{{ summary.completed }}</strong>
         </div>
         <div class="pill">
           <span>In Arbeit</span>
-          <strong>3/6</strong>
+          <strong>{{ summary.inProgress }}</strong>
         </div>
         <div class="pill">
           <span>Geplant</span>
-          <strong>2/6</strong>
+          <strong>{{ summary.planned }}</strong>
         </div>
       </div>
     </div>
@@ -66,34 +67,34 @@
     </ion-card>
   </section>
 
-  <section class="grid-section">
+  <section class="grid-section" *ngFor="let group of groupedTiles">
     <div class="section-head">
-      <p class="eyebrow">Lernfelder</p>
+      <p class="eyebrow">Lehrjahr {{ group.year }}</p>
       <h2>Kacheln mit Fortschritt</h2>
     </div>
     <ion-grid>
       <ion-row>
-        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of tiles">
-          <ion-card class="tile-card" [class.completed]="tile.status === 'Abgeschlossen'">
+        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of group.fields">
+          <ion-card class="tile-card" [class.completed]="tileStatus(tile.progress).label === 'Abgeschlossen'">
             <ion-card-header>
               <div class="tile-top">
-                <ion-chip [color]="tile.color" outline="true">
+                <ion-chip color="primary" outline="true">
                   <ion-label>{{ tile.tag }}</ion-label>
                 </ion-chip>
-                <ion-badge [color]="tile.color">
-                  <ion-icon *ngIf="tile.status === 'Abgeschlossen'" name="checkmark-circle-outline"></ion-icon>
-                  {{ tile.status }}
+                <ion-badge [color]="tileStatus(tile.progress).color">
+                  <ion-icon *ngIf="tileStatus(tile.progress).label === 'Abgeschlossen'" name="checkmark-circle-outline"></ion-icon>
+                  {{ tileStatus(tile.progress).label }}
                 </ion-badge>
               </div>
               <ion-card-title>{{ tile.title }}</ion-card-title>
-              <ion-card-subtitle>{{ tile.eta }}</ion-card-subtitle>
+              <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
-              <p class="tile-description">{{ tile.description }}</p>
               <div class="progress-row">
-                <ion-progress-bar [value]="tile.progress" [color]="tile.color"></ion-progress-bar>
+                <ion-progress-bar [value]="tile.progress" [color]="tileStatus(tile.progress).color"></ion-progress-bar>
                 <span class="progress-value">{{ (tile.progress * 100) | number:'1.0-0' }}%</span>
               </div>
+              <p class="tile-description">Fehlversuche: {{ tile.mistakes }}</p>
             </ion-card-content>
           </ion-card>
         </ion-col>

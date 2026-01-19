@@ -1,0 +1,96 @@
+<ion-header [translucent]="true" class="admin-header">
+  <ion-toolbar>
+    <ion-title class="brand">
+      <span class="brand-mark">Gleisbau</span>
+      <span class="brand-sub">Admin</span>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="gotoDashboard()">Zurueck zur Uebersicht</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="admin-content" [fullscreen]="true">
+  <section class="panel">
+    <div class="panel-head">
+      <p class="eyebrow">Keys</p>
+      <h1>Lern-Keys generieren</h1>
+      <p class="lede">Lege fest, fuer welches Lehrjahr ein Key gilt. Vor- und Nachname sind bei der Registrierung Pflicht.</p>
+    </div>
+    <div class="panel-body">
+      <ion-segment [(ngModel)]="selectedYear" value="1">
+        <ion-segment-button value="1">Lehrjahr 1</ion-segment-button>
+        <ion-segment-button value="2">Lehrjahr 2</ion-segment-button>
+        <ion-segment-button value="3">Lehrjahr 3</ion-segment-button>
+      </ion-segment>
+      <ion-button color="primary" class="generate-btn" (click)="generateKey()">Key erstellen</ion-button>
+      <ion-chip *ngIf="lastKey" color="success" outline="true" class="last-key">
+        <ion-icon name="key-outline"></ion-icon>
+        <ion-label>{{ lastKey.key }} (J{{ lastKey.year }})</ion-label>
+      </ion-chip>
+    </div>
+
+    <ion-list lines="none" class="key-list">
+      <ion-list-header>Aktive Keys</ion-list-header>
+      <ion-item *ngFor="let key of keys$ | async">
+        <ion-icon slot="start" name="key-outline"></ion-icon>
+        <ion-label>
+          <h3>{{ key.key }}</h3>
+          <p>Lehrjahr {{ key.year }} · erstellt {{ key.createdAt | date:'dd.MM.yyyy' }} · Aussteller: {{ key.issuedBy }}</p>
+        </ion-label>
+        <ion-badge color="primary">Verwendet: {{ key.uses }}</ion-badge>
+      </ion-item>
+    </ion-list>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <p class="eyebrow">Fortschritt & Fehler</p>
+      <h1>Team-Tracking</h1>
+      <p class="lede">Wer hat was abgeschlossen und wo treten die meisten Fehlversuche auf?</p>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="6" *ngFor="let user of snapshots">
+          <ion-card class="user-card">
+            <ion-card-header>
+              <ion-card-title>{{ user.fullName }}</ion-card-title>
+              <ion-card-subtitle>Lehrjahr {{ user.year || '-' }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="user-stats">
+                <div>
+                  <p>Abgeschlossen</p>
+                  <strong>{{ user.completed }}</strong>
+                </div>
+                <div>
+                  <p>In Arbeit</p>
+                  <strong>{{ user.inProgress }}</strong>
+                </div>
+                <div>
+                  <p>Geplant</p>
+                  <strong>{{ user.planned }}</strong>
+                </div>
+                <div>
+                  <p>Fehlversuche</p>
+                  <strong>{{ user.mistakesTotal }}</strong>
+                </div>
+              </div>
+
+              <ion-list lines="none" class="mistake-list">
+                <ion-list-header>Fehlversuche nach Thema</ion-list-header>
+                <ion-item *ngFor="let entry of user.mistakesByField">
+                  <ion-label>
+                    <h3>{{ entry.fieldTitle }}</h3>
+                  </ion-label>
+                  <ion-badge [color]="entry.mistakes > 0 ? 'warning' : 'success'">{{ entry.mistakes }}</ion-badge>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+</ion-content>

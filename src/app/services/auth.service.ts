@@ -5,6 +5,7 @@ import { UserRecord } from './learning-data.service';
 export interface UserProfile {
   id: string;
   name: string;
+  email?: string;
   role: 'admin' | 'user';
   year?: 1 | 2 | 3;
   keyUsed?: string;
@@ -25,6 +26,7 @@ export class AuthService {
     this.userSubject.next({
       id: record.userId,
       name: record.fullName,
+      email: record.email,
       role: record.role,
       year: record.year,
       keyUsed: record.keyUsed,

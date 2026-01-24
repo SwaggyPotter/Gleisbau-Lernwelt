@@ -65,10 +65,6 @@ export class HomePage implements OnDestroy {
     this.refreshTiles();
   }
 
-  demoAdminLogin(): void {
-    this.authService.login('admin', 'leotobieteo12').subscribe(() => {});
-  }
-
   scrollToLearning(): void {
     const target = document.getElementById('learning-section');
     target?.scrollIntoView({ behavior: 'smooth' });

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, switchMap, of } from 'rxjs';
 import { AuthService, UserProfile } from '../services/auth.service';
@@ -10,11 +10,12 @@ import { ApiService, FieldDto, SnapshotDto } from '../services/api.service';
   styleUrls: ['home.page.scss'],
   standalone: false,
 })
-export class HomePage implements OnDestroy {
+export class HomePage implements OnInit, OnDestroy {
   user: UserProfile | null = null;
   groupedTiles: Array<{ year: 1 | 2 | 3; fields: Array<FieldDto> }> = [];
   summary = { completed: 0, inProgress: 0, planned: 0 };
   private sub = new Subscription();
+  darkMode = true;
 
   constructor(
     private readonly authService: AuthService,
@@ -39,6 +40,11 @@ export class HomePage implements OnDestroy {
           this.applySnapshot(snapshotResponse.snapshot as SnapshotDto);
         })
     );
+  }
+
+  ngOnInit(): void {
+    document.body.classList.add('ion-palette-dark');
+    this.darkMode = true;
   }
 
   ngOnDestroy(): void {
@@ -68,6 +74,11 @@ export class HomePage implements OnDestroy {
   scrollToLearning(): void {
     const target = document.getElementById('learning-section');
     target?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  toggleTheme(): void {
+    const enabled = document.body.classList.toggle('ion-palette-dark');
+    this.darkMode = enabled;
   }
 
   private refreshTiles(): void {

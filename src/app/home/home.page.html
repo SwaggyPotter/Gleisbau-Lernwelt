@@ -22,6 +22,7 @@
 </ion-header>
 
 <ion-content class="home-content" [fullscreen]="true">
+  <div class="page-shell">
   <div class="hero">
     <div class="hero-copy">
       <p class="eyebrow">Digitale Trainingsstrecke</p>
@@ -31,12 +32,18 @@
         So wird jeder Baustellentag sicherer und effizienter.
       </p>
       <div class="hero-actions" *ngIf="user; else guestHeroActions">
+        <ion-button size="large" fill="outline" color="light" (click)="toggleTheme()">
+          {{ darkMode ? 'Day Mode' : 'Night Mode' }}
+        </ion-button>
         <ion-button size="large" (click)="scrollToLearning()">Lernfelder anzeigen</ion-button>
         <ion-button *ngIf="isAdmin()" size="large" fill="outline" color="light" (click)="goToAdmin()">Admin Panel</ion-button>
         <ion-button size="large" fill="outline" color="medium" (click)="handleLogout()">Logout</ion-button>
       </div>
       <ng-template #guestHeroActions>
         <div class="hero-actions">
+          <ion-button size="large" fill="outline" color="light" (click)="toggleTheme()">
+            {{ darkMode ? 'Day Mode' : 'Night Mode' }}
+          </ion-button>
           <ion-button size="large" routerLink="/register">Jetzt starten</ion-button>
           <ion-button size="large" fill="outline" color="light" routerLink="/login">Ich habe bereits Zugang</ion-button>
         </div>
@@ -233,4 +240,5 @@
       <ion-button color="dark" routerLink="/register">Account anlegen</ion-button>
     </div>
   </section>
+  </div>
 </ion-content>

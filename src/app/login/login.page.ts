@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -9,13 +10,32 @@ import { AuthService } from '../services/auth.service';
   standalone: false,
 })
 export class LoginPage {
+  email = '';
+  password = '';
+  error = '';
+
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
   ) {}
 
   handleLogin(): void {
-    this.authService.loginAsAdmin();
-    this.router.navigate(['/home']);
+    this.error = '';
+    const email = this.email.trim();
+    const password = this.password;
+    if (!email || !password) {
+      this.error = 'Bitte E-Mail und Passwort eingeben.';
+      return;
+    }
+    this.authService.login(email, password).pipe(
+      catchError(() => {
+        this.error = 'Login fehlgeschlagen. Bitte pruefe deine Eingaben.';
+        return of(null);
+      }),
+    ).subscribe(res => {
+      if (res) {
+        this.router.navigate(['/home']);
+      }
+    });
   }
 }

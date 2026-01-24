@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { UserRecord } from './learning-data.service';
+import { BehaviorSubject, tap } from 'rxjs';
+import { ApiService, ApiUser } from './api.service';
 
 export interface UserProfile {
   id: string;
@@ -18,19 +18,18 @@ export class AuthService {
   private readonly userSubject = new BehaviorSubject<UserProfile | null>(null);
   readonly user$ = this.userSubject.asObservable();
 
-  loginAsAdmin(name: string = 'Admin'): void {
-    this.userSubject.next({ id: 'demo-admin', name, role: 'admin' });
+  constructor(private readonly api: ApiService) {}
+
+  login(email: string, password: string) {
+    return this.api.login(email, password).pipe(
+      tap(res => this.userSubject.next(this.toProfile(res.user))),
+    );
   }
 
-  loginWithRecord(record: UserRecord): void {
-    this.userSubject.next({
-      id: record.userId,
-      name: record.fullName,
-      email: record.email,
-      role: record.role,
-      year: record.year,
-      keyUsed: record.keyUsed,
-    });
+  register(fullName: string, email: string, password: string, key: string) {
+    return this.api.register(fullName, email, password, key).pipe(
+      tap(res => this.userSubject.next(this.toProfile(res.user))),
+    );
   }
 
   logout(): void {
@@ -39,5 +38,16 @@ export class AuthService {
 
   get currentUser(): UserProfile | null {
     return this.userSubject.value;
+  }
+
+  private toProfile(user: ApiUser): UserProfile {
+    return {
+      id: user.id,
+      name: user.full_name,
+      email: user.email,
+      role: user.role,
+      year: user.year as 1 | 2 | 3 | undefined,
+      keyUsed: user.key_used,
+    };
   }
 }

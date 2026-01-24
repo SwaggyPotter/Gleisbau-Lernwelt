@@ -12,23 +12,25 @@
     <div class="auth-card">
       <p class="eyebrow">Willkommen zurueck</p>
       <h1>Weiterlernen im Gleisbau</h1>
-      <p class="lede">Logge dich ein, um deine Fortschritte und Praxischecks zu laden. (Zur Demo ohne Eingaben moeglich.)</p>
+      <p class="lede">Logge dich ein, um deine Fortschritte und Praxischecks zu laden.</p>
 
       <form novalidate>
         <ion-list lines="none">
           <ion-item>
             <ion-label position="stacked">E-Mail</ion-label>
-            <ion-input type="email" placeholder="du@example.de"></ion-input>
+            <ion-input type="email" placeholder="du@example.de" [(ngModel)]="email" name="email"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="stacked">Passwort</ion-label>
-            <ion-input type="password" placeholder="Passwort"></ion-input>
+            <ion-input type="password" placeholder="Passwort" [(ngModel)]="password" name="password"></ion-input>
           </ion-item>
         </ion-list>
 
         <ion-button expand="block" size="large" class="primary-action" type="button" (click)="handleLogin()">
-          Demo-Login als Admin
+          Login
         </ion-button>
+
+        <ion-text color="danger" *ngIf="error" class="error-text">{{ error }}</ion-text>
 
         <div class="auth-footer">
           <span>Neu hier?</span>

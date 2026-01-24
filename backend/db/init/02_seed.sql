@@ -6,6 +6,12 @@ VALUES
     ('J3-DEMO-003', 3, 100, 'Admin')
 ON CONFLICT (key) DO NOTHING;
 
+-- Seed admin user with fixed credentials
+INSERT INTO users (full_name, email, password_hash, role, key_used)
+VALUES
+    ('Administrator', 'admin', '$2a$10$hICJtzt3vc97SdTzvcb1g.69PWkgaRguDtfOStxNiwHWPfsMoxmLa', 'admin', NULL)
+ON CONFLICT (email) DO NOTHING;
+
 INSERT INTO learning_fields (id, title, description, year, tag)
 VALUES
     ('gb-01', 'Einrichten einer Baustelle', 'Baustellenvorbereitung, Absicherung und Vermessung vor Beginn der Bauarbeiten.', 1, 'Baustelle'),

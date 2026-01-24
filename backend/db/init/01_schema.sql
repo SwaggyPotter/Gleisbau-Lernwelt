@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     full_name text NOT NULL,
     email text NOT NULL UNIQUE,
+    password_hash text NOT NULL,
     role text NOT NULL DEFAULT 'user' CHECK (role IN ('user', 'admin')),
     year smallint CHECK (year BETWEEN 1 AND 3),
     key_used text REFERENCES registration_keys(key),

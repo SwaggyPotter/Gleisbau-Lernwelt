@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { LearningDataService, RegistrationKey, UserSnapshot } from '../services/learning-data.service';
+import { ApiService, RegistrationKeyDto, SnapshotDto } from '../services/api.service';
 
 @Component({
   selector: 'app-admin',
@@ -12,23 +12,17 @@ import { LearningDataService, RegistrationKey, UserSnapshot } from '../services/
 })
 export class AdminPage implements OnDestroy {
   selectedYear: 1 | 2 | 3 = 1;
-  lastKey?: RegistrationKey;
-  snapshots: UserSnapshot[] = [];
+  lastKey?: RegistrationKeyDto;
+  snapshots: SnapshotDto[] = [];
   sub = new Subscription();
-  keys$ = this.learningData.registrationKeys$;
+  keys: RegistrationKeyDto[] = [];
 
   constructor(
-    private readonly learningData: LearningDataService,
+    private readonly api: ApiService,
     private readonly auth: AuthService,
     private readonly router: Router,
   ) {
     this.refresh();
-    this.sub.add(
-      this.learningData.usersStream$.subscribe(() => this.refresh())
-    );
-    this.sub.add(
-      this.learningData.registrationKeys$.subscribe(() => {})
-    );
   }
 
   ngOnDestroy(): void {
@@ -36,14 +30,28 @@ export class AdminPage implements OnDestroy {
   }
 
   generateKey(): void {
-    this.lastKey = this.learningData.generateKey(this.selectedYear, this.auth.currentUser?.name ?? 'Admin');
+    this.api.createKey(this.selectedYear).subscribe({
+      next: res => {
+        this.lastKey = res.key;
+        this.loadKeys();
+      },
+    });
   }
 
   refresh(): void {
-    this.snapshots = this.learningData.getAllSnapshots();
+    this.loadKeys();
+    this.api.getSnapshots().subscribe(res => {
+      this.snapshots = res.snapshots;
+    });
   }
 
   gotoDashboard(): void {
     this.router.navigate(['/dashboard']);
+  }
+
+  private loadKeys(): void {
+    this.api.getKeys().subscribe(res => {
+      this.keys = res.keys;
+    });
   }
 }

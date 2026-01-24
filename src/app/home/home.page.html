@@ -125,15 +125,15 @@
       <ion-grid>
         <ion-row>
           <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of group.fields">
-            <ion-card class="tile-card" [class.completed]="tileStatus(tile.progress).label === 'Abgeschlossen'">
+            <ion-card class="tile-card" [class.completed]="tileStatus((tile.progress || 0)).label === 'Abgeschlossen'">
               <ion-card-header>
                 <div class="tile-top">
                   <ion-chip color="primary" outline="true">
                     <ion-label>{{ tile.tag }}</ion-label>
                   </ion-chip>
-                  <ion-badge [color]="tileStatus(tile.progress).color">
-                    <ion-icon *ngIf="tileStatus(tile.progress).label === 'Abgeschlossen'" name="checkmark-circle-outline"></ion-icon>
-                    {{ tileStatus(tile.progress).label }}
+                  <ion-badge [color]="tileStatus((tile.progress || 0)).color">
+                    <ion-icon *ngIf="tileStatus((tile.progress || 0)).label === 'Abgeschlossen'" name="checkmark-circle-outline"></ion-icon>
+                    {{ tileStatus((tile.progress || 0)).label }}
                   </ion-badge>
                 </div>
                 <ion-card-title>{{ tile.title }}</ion-card-title>
@@ -141,8 +141,8 @@
               </ion-card-header>
               <ion-card-content>
                 <div class="progress-row">
-                  <ion-progress-bar [value]="tile.progress" [color]="tileStatus(tile.progress).color"></ion-progress-bar>
-                  <span class="progress-value">{{ (tile.progress * 100) | number:'1.0-0' }}%</span>
+                  <ion-progress-bar [value]="(tile.progress || 0)" [color]="tileStatus((tile.progress || 0)).color"></ion-progress-bar>
+                  <span class="progress-value">{{ ((tile.progress || 0) * 100) | number:'1.0-0' }}%</span>
                 </div>
                 <p class="tile-description">Fehlversuche: {{ tile.mistakes }}</p>
               </ion-card-content>

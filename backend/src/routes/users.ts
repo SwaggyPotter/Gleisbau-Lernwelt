@@ -12,6 +12,64 @@ const progressSchema = z.object({
 
 export const usersRouter = Router();
 
+usersRouter.get('/', asyncHandler(async (_req, res) => {
+  const { rows } = await pool.query(
+    'SELECT id, full_name, email, role, year, key_used, created_at FROM users ORDER BY created_at DESC',
+  );
+  res.json({ users: rows });
+}));
+
+usersRouter.get('/snapshots', asyncHandler(async (_req, res) => {
+  const { rows: users } = await pool.query(
+    'SELECT id, full_name, email, role, year, key_used FROM users WHERE role <> \'admin\' ORDER BY created_at DESC',
+  );
+
+  const { rows: fields } = await pool.query(
+    'SELECT id, title, year FROM learning_fields ORDER BY year, id',
+  );
+  const { rows: progressRows } = await pool.query(
+    'SELECT user_id, field_id, progress, mistakes FROM user_progress',
+  );
+
+  const progressByUser = new Map<string, Array<{ field_id: string; progress: number; mistakes: number }>>();
+  progressRows.forEach(row => {
+    const arr = progressByUser.get(row.user_id) ?? [];
+    arr.push({ field_id: row.field_id, progress: Number(row.progress), mistakes: Number(row.mistakes) });
+    progressByUser.set(row.user_id, arr);
+  });
+
+  const snapshots = users.map(user => {
+    const tileView = fields.map(field => {
+      const stats = (progressByUser.get(user.id) || []).find(p => p.field_id === field.id) ?? { progress: 0, mistakes: 0 };
+      return { ...field, progress: stats.progress, mistakes: stats.mistakes };
+    });
+
+    const completed = tileView.filter(t => t.progress >= 1).length;
+    const inProgress = tileView.filter(t => t.progress > 0 && t.progress < 1).length;
+    const planned = tileView.filter(t => t.progress === 0).length;
+    const mistakesTotal = tileView.reduce((sum, t) => sum + t.mistakes, 0);
+    const completionRate = tileView.length ? completed / tileView.length : 0;
+
+    return {
+      userId: user.id,
+      fullName: user.full_name,
+      year: user.year,
+      completionRate,
+      completed,
+      inProgress,
+      planned,
+      mistakesTotal,
+      mistakesByField: tileView.map(t => ({
+        fieldId: t.id,
+        fieldTitle: t.title,
+        mistakes: t.mistakes,
+      })),
+    };
+  });
+
+  res.json({ snapshots });
+}));
+
 usersRouter.get('/:id/snapshot', asyncHandler(async (req, res) => {
   const userId = req.params.id;
   const { rows: userRows } = await pool.query(
@@ -63,6 +121,7 @@ usersRouter.get('/:id/snapshot', asyncHandler(async (req, res) => {
         fieldTitle: t.title,
         mistakes: t.mistakes,
       })),
+      fields: tileView,
     },
   });
 }));

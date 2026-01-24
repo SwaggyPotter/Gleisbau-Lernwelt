@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { LearningDataService } from '../services/learning-data.service';
 
 @Component({
   selector: 'app-register',
@@ -13,11 +12,11 @@ export class RegisterPage {
   fullName = '';
   email = '';
   key = '';
+  password = '';
   error = '';
 
   constructor(
     private readonly authService: AuthService,
-    private readonly learningData: LearningDataService,
     private readonly router: Router,
   ) {}
 
@@ -40,14 +39,15 @@ export class RegisterPage {
       this.error = 'Bitte gueltige E-Mail angeben.';
       return;
     }
-    const record = this.learningData.registerUser(name, email, this.key.trim());
-    if (!record) {
-      this.error = 'Key ist ungueltig oder nicht hinterlegt.';
+    if (this.password.length < 8) {
+      this.error = 'Passwort muss mindestens 8 Zeichen haben.';
       return;
     }
     this.error = '';
-    this.authService.loginWithRecord(record);
-    this.router.navigate(['/home']);
+    this.authService.register(name, email, this.password, this.key.trim()).subscribe({
+      next: () => this.router.navigate(['/home']),
+      error: () => this.error = 'Registrierung fehlgeschlagen. Bitte Key und Daten pruefen.',
+    });
   }
 
   private isValidEmail(email: string): boolean {

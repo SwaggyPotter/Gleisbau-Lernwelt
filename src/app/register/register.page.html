@@ -12,21 +12,13 @@
     <div class="auth-card">
       <p class="eyebrow">Account anlegen</p>
       <h1>Starte in der Gleisbau Lernwelt</h1>
-      <p class="lede">Registriere dich mit Vor- und Nachname, E-Mail und deinem Lern-Key. Die Zuordnung zum Lehrjahr erfolgt automatisch.</p>
+      <p class="lede">Registriere dich mit E-Mail und deinem persoenlichen Lern-Key. Dein Name und Lehrjahr kommen aus dem Key.</p>
 
       <form novalidate>
         <ion-list lines="none">
           <ion-item>
-            <ion-label position="stacked">Vor- und Nachname</ion-label>
-            <ion-input required type="text" name="fullName" [(ngModel)]="fullName" placeholder="Max Beispiel"></ion-input>
-          </ion-item>
-          <ion-item>
             <ion-label position="stacked">E-Mail</ion-label>
             <ion-input required type="email" name="email" [(ngModel)]="email" placeholder="du@example.de"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">Passwort</ion-label>
-            <ion-input required type="password" name="password" [(ngModel)]="password" placeholder="mind. 8 Zeichen"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="stacked">Lern-Key</ion-label>
@@ -39,6 +31,7 @@
         </ion-button>
 
         <p class="error" *ngIf="error">{{ error }}</p>
+        <p class="success" *ngIf="success">{{ success }}</p>
 
         <div class="auth-footer">
           <span>Schon registriert?</span>

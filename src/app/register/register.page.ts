@@ -9,11 +9,10 @@ import { AuthService } from '../services/auth.service';
   standalone: false,
 })
 export class RegisterPage {
-  fullName = '';
   email = '';
   key = '';
-  password = '';
   error = '';
+  success = '';
 
   constructor(
     private readonly authService: AuthService,
@@ -21,14 +20,9 @@ export class RegisterPage {
   ) {}
 
   handleRegister(): void {
-    const name = this.fullName.trim() || 'Admin';
     const email = this.email.trim();
     if (!this.key.trim()) {
       this.error = 'Bitte fuege deinen Lern-Key ein.';
-      return;
-    }
-    if (!name.includes(' ')) {
-      this.error = 'Bitte Vor- und Nachname angeben.';
       return;
     }
     if (!email) {
@@ -39,13 +33,12 @@ export class RegisterPage {
       this.error = 'Bitte gueltige E-Mail angeben.';
       return;
     }
-    if (this.password.length < 8) {
-      this.error = 'Passwort muss mindestens 8 Zeichen haben.';
-      return;
-    }
     this.error = '';
-    this.authService.register(name, email, this.password, this.key.trim()).subscribe({
-      next: () => this.router.navigate(['/home']),
+    this.authService.register(email, this.key.trim()).subscribe({
+      next: () => {
+        this.success = 'Registrierung erfolgreich. Bitte setze dein Passwort im Login-Bereich mit deinem Lern-Key.';
+        this.router.navigate(['/login'], { queryParams: { email } });
+      },
       error: () => this.error = 'Registrierung fehlgeschlagen. Bitte Key und Daten pruefen.',
     });
   }

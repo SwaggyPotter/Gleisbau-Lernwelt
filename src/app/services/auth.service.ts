@@ -26,8 +26,14 @@ export class AuthService {
     );
   }
 
-  register(fullName: string, email: string, password: string, key: string) {
-    return this.api.register(fullName, email, password, key).pipe(
+  loginWithKey(email: string, key: string, newPassword: string) {
+    return this.api.loginWithKey(email, key, newPassword).pipe(
+      tap(res => this.userSubject.next(this.toProfile(res.user))),
+    );
+  }
+
+  register(email: string, key: string) {
+    return this.api.register(email, key).pipe(
       tap(res => this.userSubject.next(this.toProfile(res.user))),
     );
   }

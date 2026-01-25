@@ -15,6 +15,7 @@ export interface ApiUser {
 export interface RegistrationKeyDto {
   key: string;
   year: number;
+  full_name: string;
   created_at: string;
   uses: number;
   max_uses: number;
@@ -54,8 +55,12 @@ export class ApiService {
     return this.http.post<{ user: ApiUser }>(`${this.base}/auth/login`, { email, password });
   }
 
-  register(fullName: string, email: string, password: string, key: string) {
-    return this.http.post<{ user: ApiUser }>(`${this.base}/register`, { fullName, email, password, key });
+  loginWithKey(email: string, key: string, newPassword: string) {
+    return this.http.post<{ user: ApiUser }>(`${this.base}/auth/login-key`, { email, key, newPassword });
+  }
+
+  register(email: string, key: string) {
+    return this.http.post<{ user: ApiUser }>(`${this.base}/register`, { email, key });
   }
 
   getFields() {
@@ -74,8 +79,8 @@ export class ApiService {
     return this.http.get<{ keys: RegistrationKeyDto[] }>(`${this.base}/keys`);
   }
 
-  createKey(year: number | string) {
-    return this.http.post<{ key: RegistrationKeyDto }>(`${this.base}/keys`, { year: Number(year) });
+  createKey(year: number | string, fullName: string) {
+    return this.http.post<{ key: RegistrationKeyDto }>(`${this.base}/keys`, { year: Number(year), fullName });
   }
 
   deleteKey(key: string) {

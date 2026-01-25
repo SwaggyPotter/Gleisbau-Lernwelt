@@ -17,6 +17,8 @@ export class AdminPage implements OnDestroy {
   sub = new Subscription();
   keys: RegistrationKeyDto[] = [];
   users: ApiUser[] = [];
+  firstName = '';
+  lastName = '';
 
   constructor(
     private readonly api: ApiService,
@@ -33,10 +35,16 @@ export class AdminPage implements OnDestroy {
   generateKey(): void {
     // ion-segment returns the value as a string; convert to number for the API
     const year = parseInt(this.selectedYear, 10);
+    const fullName = `${this.firstName.trim()} ${this.lastName.trim()}`.trim();
+    if (fullName.trim().length < 3 || !this.firstName.trim() || !this.lastName.trim()) {
+      return;
+    }
 
-    this.api.createKey(year).subscribe({
+    this.api.createKey(year, fullName).subscribe({
       next: res => {
         this.lastKey = res.key;
+        this.firstName = '';
+        this.lastName = '';
         this.loadKeys();
       },
     });

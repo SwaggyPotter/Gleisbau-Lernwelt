@@ -3,6 +3,7 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 CREATE TABLE IF NOT EXISTS registration_keys (
     key text PRIMARY KEY,
     year smallint NOT NULL CHECK (year BETWEEN 1 AND 3),
+    full_name text NOT NULL,
     created_at timestamptz NOT NULL DEFAULT now(),
     uses integer NOT NULL DEFAULT 0 CHECK (uses >= 0),
     max_uses integer NOT NULL DEFAULT 1 CHECK (max_uses >= 1),
@@ -13,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     full_name text NOT NULL,
     email text NOT NULL UNIQUE,
-    password_hash text NOT NULL,
+    password_hash text,
     role text NOT NULL DEFAULT 'user' CHECK (role IN ('user', 'admin')),
     year smallint CHECK (year BETWEEN 1 AND 3),
     key_used text REFERENCES registration_keys(key),

@@ -12,7 +12,11 @@ import { catchError, of } from 'rxjs';
 export class LoginPage {
   email = '';
   password = '';
+  key = '';
+  newPassword = '';
+  newPasswordRepeat = '';
   error = '';
+  success = '';
 
   constructor(
     private readonly authService: AuthService,
@@ -21,6 +25,7 @@ export class LoginPage {
 
   handleLogin(): void {
     this.error = '';
+    this.success = '';
     const email = this.email.trim();
     const password = this.password;
     if (!email || !password) {
@@ -34,6 +39,32 @@ export class LoginPage {
       }),
     ).subscribe(res => {
       if (res) {
+        this.router.navigate(['/home']);
+      }
+    });
+  }
+
+  handleLoginWithKey(): void {
+    this.error = '';
+    this.success = '';
+    const email = this.email.trim();
+    const key = this.key.trim();
+    if (!email || !key) {
+      this.error = 'Bitte E-Mail und Lern-Key eingeben.';
+      return;
+    }
+    if (this.newPassword.length < 8 || this.newPassword !== this.newPasswordRepeat) {
+      this.error = 'Neues Passwort mindestens 8 Zeichen und beide Eingaben muessen uebereinstimmen.';
+      return;
+    }
+    this.authService.loginWithKey(email, key, this.newPassword).pipe(
+      catchError(() => {
+        this.error = 'Key-Login fehlgeschlagen. Bitte pruefe E-Mail, Key und neues Passwort.';
+        return of(null);
+      }),
+    ).subscribe(res => {
+      if (res) {
+        this.success = 'Passwort gesetzt. Du bist eingeloggt.';
         this.router.navigate(['/home']);
       }
     });

@@ -90,4 +90,8 @@ export class ApiService {
   getUsers() {
     return this.http.get<{ users: ApiUser[] }>(`${this.base}/users`);
   }
+
+  deleteUser(userId: string) {
+    return this.http.delete<void>(`${this.base}/users/${encodeURIComponent(userId)}`);
+  }
 }

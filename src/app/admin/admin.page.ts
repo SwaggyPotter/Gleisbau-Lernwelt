@@ -53,9 +53,7 @@ export class AdminPage implements OnDestroy {
   refresh(): void {
     this.loadKeys();
     this.loadUsers();
-    this.api.getSnapshots().subscribe(res => {
-      this.snapshots = res.snapshots;
-    });
+    this.refreshSnapshots();
   }
 
   gotoDashboard(): void {
@@ -77,6 +75,21 @@ export class AdminPage implements OnDestroy {
   private loadUsers(): void {
     this.api.getUsers().subscribe(res => {
       this.users = res.users;
+    });
+  }
+
+  deleteUser(userId: string): void {
+    this.api.deleteUser(userId).subscribe({
+      next: () => {
+        this.loadUsers();
+        this.refreshSnapshots();
+      },
+    });
+  }
+
+  private refreshSnapshots(): void {
+    this.api.getSnapshots().subscribe(res => {
+      this.snapshots = res.snapshots;
     });
   }
 }

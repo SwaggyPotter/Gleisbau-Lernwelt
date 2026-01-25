@@ -150,3 +150,23 @@ usersRouter.post('/:id/progress', asyncHandler(async (req, res) => {
 
   res.status(204).send();
 }));
+
+usersRouter.delete('/:id', asyncHandler(async (req, res) => {
+  const userId = z.string().min(1).parse(req.params.id);
+
+  // Prevent accidental admin deletion
+  const { rows } = await pool.query('SELECT role FROM users WHERE id = $1', [userId]);
+  if (!rows.length) {
+    throw httpError(404, 'User not found');
+  }
+  if (rows[0].role === 'admin') {
+    throw httpError(403, 'Admin accounts koennen nicht geloescht werden');
+  }
+
+  const { rowCount } = await pool.query('DELETE FROM users WHERE id = $1', [userId]);
+  if (!rowCount) {
+    throw httpError(404, 'User not found');
+  }
+
+  res.status(204).send();
+}));

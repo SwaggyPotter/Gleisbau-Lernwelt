@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { pool } from '../db/pool';
 import { asyncHandler } from '../middleware/async-handler';
@@ -7,12 +8,15 @@ import { httpError } from '../middleware/error-handler';
 const registrationSchema = z.object({
   email: z.string().email(),
   key: z.string().min(6),
+  password: z.string().min(8, 'Passwort muss mindestens 8 Zeichen haben'),
+  // optional fallback to stay backward compatible with older clients
+  fullName: z.string().min(3).max(120).optional(),
 });
 
 export const registrationRouter = Router();
 
 registrationRouter.post('/', asyncHandler(async (req, res) => {
-  const { email, key } = registrationSchema.parse(req.body);
+  const { email, key, password } = registrationSchema.parse(req.body);
 
   const client = await pool.connect();
   try {
@@ -32,11 +36,13 @@ registrationRouter.post('/', asyncHandler(async (req, res) => {
       throw httpError(409, 'Registration key has no remaining uses');
     }
 
+    const passwordHash = await bcrypt.hash(password, 10);
+
     const { rows: userRows } = await client.query(
       `INSERT INTO users (full_name, email, password_hash, role, year, key_used)
-       VALUES ($1, $2, NULL, 'user', $3, $4)
+       VALUES ($1, $2, $3, 'user', $4, $5)
        RETURNING id, full_name, email, role, year, key_used, created_at`,
-      [registrationKey.full_name, email, registrationKey.year, registrationKey.key],
+      [registrationKey.full_name, email, passwordHash, registrationKey.year, registrationKey.key],
     );
 
     await client.query('UPDATE registration_keys SET uses = uses + 1 WHERE key = $1', [registrationKey.key]);

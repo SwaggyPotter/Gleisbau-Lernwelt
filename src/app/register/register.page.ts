@@ -11,6 +11,8 @@ import { AuthService } from '../services/auth.service';
 export class RegisterPage {
   email = '';
   key = '';
+  password = '';
+  passwordRepeat = '';
   error = '';
   success = '';
 
@@ -33,8 +35,16 @@ export class RegisterPage {
       this.error = 'Bitte gueltige E-Mail angeben.';
       return;
     }
+    if (this.password.length < 8) {
+      this.error = 'Passwort muss mindestens 8 Zeichen haben.';
+      return;
+    }
+    if (this.password !== this.passwordRepeat) {
+      this.error = 'Passwoerter stimmen nicht ueberein.';
+      return;
+    }
     this.error = '';
-    this.authService.register(email, this.key.trim()).subscribe({
+    this.authService.register(email, this.key.trim(), this.password).subscribe({
       next: () => {
         this.success = 'Registrierung erfolgreich. Bitte setze dein Passwort im Login-Bereich mit deinem Lern-Key.';
         this.router.navigate(['/login'], { queryParams: { email } });

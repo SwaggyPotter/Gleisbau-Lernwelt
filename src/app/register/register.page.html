@@ -12,13 +12,21 @@
     <div class="auth-card">
       <p class="eyebrow">Account anlegen</p>
       <h1>Starte in der Gleisbau Lernwelt</h1>
-      <p class="lede">Registriere dich mit E-Mail und deinem persoenlichen Lern-Key. Dein Name und Lehrjahr kommen aus dem Key.</p>
+      <p class="lede">Registriere dich mit E-Mail und deinem persoenlichen Lern-Key. Dein Name und Lehrjahr kommen aus dem Key. Lege hier direkt dein Passwort fest.</p>
 
       <form novalidate>
         <ion-list lines="none">
           <ion-item>
             <ion-label position="stacked">E-Mail</ion-label>
             <ion-input required type="email" name="email" [(ngModel)]="email" placeholder="du@example.de"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Passwort</ion-label>
+            <ion-input required type="password" name="password" [(ngModel)]="password" placeholder="mind. 8 Zeichen"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Passwort bestaetigen</ion-label>
+            <ion-input required type="password" name="passwordRepeat" [(ngModel)]="passwordRepeat" placeholder="nochmal eingeben"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="stacked">Lern-Key</ion-label>

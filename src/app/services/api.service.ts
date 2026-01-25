@@ -59,8 +59,8 @@ export class ApiService {
     return this.http.post<{ user: ApiUser }>(`${this.base}/auth/login-key`, { email, key, newPassword });
   }
 
-  register(email: string, key: string) {
-    return this.http.post<{ user: ApiUser }>(`${this.base}/register`, { email, key });
+  register(email: string, key: string, password: string) {
+    return this.http.post<{ user: ApiUser }>(`${this.base}/register`, { email, key, password });
   }
 
   getFields() {

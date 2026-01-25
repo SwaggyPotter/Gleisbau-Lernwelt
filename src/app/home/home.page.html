@@ -5,6 +5,9 @@
       <span class="brand-sub">Lernwelt</span>
     </ion-title>
     <ion-buttons slot="end" class="toolbar-actions" *ngIf="user; else guestButtons">
+      <ion-button fill="clear" (click)="toggleTheme()" aria-label="Theme umschalten">
+        <ion-icon slot="icon-only" [name]="darkMode ? 'sunny-outline' : 'moon-outline'"></ion-icon>
+      </ion-button>
       <ion-chip color="light" outline="true">
         <ion-icon name="person-circle-outline"></ion-icon>
         <ion-label>{{ user.name || 'Angemeldet' }}</ion-label>
@@ -14,12 +17,31 @@
     </ion-buttons>
     <ng-template #guestButtons>
       <ion-buttons slot="end" class="toolbar-actions">
+        <ion-button fill="clear" (click)="toggleTheme()" aria-label="Theme umschalten">
+          <ion-icon slot="icon-only" [name]="darkMode ? 'sunny-outline' : 'moon-outline'"></ion-icon>
+        </ion-button>
         <ion-button fill="clear" routerLink="/login">Login</ion-button>
         <ion-button color="primary" routerLink="/register">Registrieren</ion-button>
       </ion-buttons>
     </ng-template>
   </ion-toolbar>
 </ion-header>
+
+<ion-modal [isOpen]="showDisclaimer" backdropDismiss="false" class="disclaimer-modal">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Hinweis</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <p><strong>Beta-Version</strong>: Diese Anwendung ist noch im Aufbau. Funktionen können unvollständig sein.</p>
+      <p><strong>Daten</strong>: Eingaben werden auf einem privaten Heimserver gespeichert. Nutzung auf eigenes Risiko; gib keine sensiblen Daten ein.</p>
+      <p><strong>Sicherheit</strong>: Prüfe die Richtigkeit deiner Eingaben und verwende starke Passwörter.</p>
+      <ion-button expand="block" color="primary" (click)="acceptDisclaimer()">Verstanden</ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>
 
 <ion-content class="home-content" [fullscreen]="true">
   <div class="page-shell">
@@ -32,20 +54,14 @@
         So wird jeder Baustellentag sicherer und effizienter.
       </p>
       <div class="hero-actions" *ngIf="user; else guestHeroActions">
-        <ion-button size="large" fill="outline" color="light" (click)="toggleTheme()">
-          {{ darkMode ? 'Day Mode' : 'Night Mode' }}
-        </ion-button>
-        <ion-button size="large" (click)="scrollToLearning()">Lernfelder anzeigen</ion-button>
+        <ion-button size="large" class="cta-strong" routerLink="/dashboard">Weiter lernen</ion-button>
         <ion-button *ngIf="isAdmin()" size="large" fill="outline" color="light" (click)="goToAdmin()">Admin Panel</ion-button>
         <ion-button size="large" fill="outline" color="medium" (click)="handleLogout()">Logout</ion-button>
       </div>
       <ng-template #guestHeroActions>
         <div class="hero-actions">
-          <ion-button size="large" fill="outline" color="light" (click)="toggleTheme()">
-            {{ darkMode ? 'Day Mode' : 'Night Mode' }}
-          </ion-button>
-          <ion-button size="large" routerLink="/register">Jetzt starten</ion-button>
-          <ion-button size="large" fill="outline" color="light" routerLink="/login">Ich habe bereits Zugang</ion-button>
+          <ion-button size="large" class="cta-strong" routerLink="/register">Jetzt starten</ion-button>
+          <ion-button size="large" fill="outline" color="light" routerLink="/login">Login</ion-button>
         </div>
       </ng-template>
       <div class="hero-tags">
@@ -103,142 +119,5 @@
     </div>
   </div>
 
-  <section id="learning-section" class="learning-section" *ngIf="user; else guestPrompt">
-    <div class="section-head">
-      <p class="eyebrow">Deine Lehrjahre</p>
-      <h2>Lernfelder mit Fortschritt</h2>
-      <p class="section-lead">Direkt hier auf der Startseite weiterlernen und sehen, wie weit du bist.</p>
-      <div class="pill-row">
-        <div class="pill">
-          <span>Abgeschlossen</span>
-          <strong>{{ summary.completed }}</strong>
-        </div>
-        <div class="pill">
-          <span>In Arbeit</span>
-          <strong>{{ summary.inProgress }}</strong>
-        </div>
-        <div class="pill">
-          <span>Geplant</span>
-          <strong>{{ summary.planned }}</strong>
-        </div>
-      </div>
-    </div>
-
-    <ng-container *ngFor="let group of groupedTiles">
-      <div class="learning-head">
-        <p class="eyebrow">Lehrjahr {{ group.year }}</p>
-        <h3>Module & Aufgaben</h3>
-      </div>
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of group.fields">
-            <ion-card class="tile-card" [class.completed]="tileStatus((tile.progress || 0)).label === 'Abgeschlossen'">
-              <ion-card-header>
-                <div class="tile-top">
-                  <ion-chip color="primary" outline="true">
-                    <ion-label>{{ tile.tag }}</ion-label>
-                  </ion-chip>
-                  <ion-badge [color]="tileStatus((tile.progress || 0)).color">
-                    <ion-icon *ngIf="tileStatus((tile.progress || 0)).label === 'Abgeschlossen'" name="checkmark-circle-outline"></ion-icon>
-                    {{ tileStatus((tile.progress || 0)).label }}
-                  </ion-badge>
-                </div>
-                <ion-card-title>{{ tile.title }}</ion-card-title>
-                <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
-              </ion-card-header>
-              <ion-card-content>
-                <div class="progress-row">
-                  <ion-progress-bar [value]="(tile.progress || 0)" [color]="tileStatus((tile.progress || 0)).color"></ion-progress-bar>
-                  <span class="progress-value">{{ ((tile.progress || 0) * 100) | number:'1.0-0' }}%</span>
-                </div>
-                <p class="tile-description">Fehlversuche: {{ tile.mistakes }}</p>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ng-container>
-    <div class="admin-link" *ngIf="isAdmin()">
-      <ion-button size="small" fill="outline" color="light" (click)="goToAdmin()">Admin Panel oeffnen</ion-button>
-    </div>
-  </section>
-
-  <ng-template #guestPrompt>
-    <section class="learning-section placeholder">
-      <div class="section-head">
-        <p class="eyebrow">Lernfelder</p>
-        <h2>Melde dich an, um dein Lehrjahr freizuschalten</h2>
-        <p class="section-lead">Nach der Registrierung siehst du hier deine Lehrjahr-Kacheln mit Fortschritt und Fehlversuchen.</p>
-        <div class="hero-actions">
-          <ion-button routerLink="/register">Registrieren</ion-button>
-          <ion-button fill="outline" color="light" routerLink="/login">Login</ion-button>
-        </div>
-      </div>
-    </section>
-  </ng-template>
-
-  <section class="highlights">
-    <div class="section-header">
-      <p class="eyebrow">Dein Vorteil</p>
-      <h2>Alles fuer sichere Gleisbaustellen an einem Ort</h2>
-      <p class="section-lead">
-        Kurze Lernhappen, klare Uebungen und sofort nutzbare Vorlagen fuer Teams draussen auf der Strecke.
-      </p>
-    </div>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" sizeMd="4">
-          <ion-card class="highlight-card">
-            <ion-card-header>
-              <ion-card-title>Gefuehrte Lernpfade</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              <p>Starte mit Einsteigerkursen und arbeite dich zu spezialisierten Szenarien vor.</p>
-              <ion-chip color="tertiary" outline="true">
-                <ion-label>Step by step</ion-label>
-              </ion-chip>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-        <ion-col size="12" sizeMd="4">
-          <ion-card class="highlight-card">
-            <ion-card-header>
-              <ion-card-title>Praxisaufgaben</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              <p>Checklisten, Fotoaufgaben und kurze Quizze sorgen fuer echtes Koennen.</p>
-              <ion-chip color="success" outline="true">
-                <ion-label>Hands-on</ion-label>
-              </ion-chip>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-        <ion-col size="12" sizeMd="4">
-          <ion-card class="highlight-card">
-            <ion-card-header>
-              <ion-card-title>Teambereit</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              <p>Ideal fuer Einweisungen, Wiederholungen und Nachweise im Team.</p>
-              <ion-chip color="warning" outline="true">
-                <ion-label>Vor Ort</ion-label>
-              </ion-chip>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </section>
-
-  <section class="cta-strip">
-    <div class="cta-text">
-      <p class="eyebrow">Bereit zum Start?</p>
-      <h3>Erstelle deinen Account oder logge dich ein und fuehre dein Team sicher ans Ziel.</h3>
-    </div>
-    <div class="cta-actions">
-      <ion-button color="light" fill="outline" routerLink="/login">Zum Login</ion-button>
-      <ion-button color="dark" routerLink="/register">Account anlegen</ion-button>
-    </div>
-  </section>
   </div>
 </ion-content>

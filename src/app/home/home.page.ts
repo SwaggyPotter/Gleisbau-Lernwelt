@@ -16,6 +16,8 @@ export class HomePage implements OnInit, OnDestroy {
   summary = { completed: 0, inProgress: 0, planned: 0 };
   private sub = new Subscription();
   darkMode = true;
+  showDisclaimer = false;
+  private readonly disclaimerKey = 'gleisbau_disclaimer_ack';
 
   constructor(
     private readonly authService: AuthService,
@@ -45,6 +47,7 @@ export class HomePage implements OnInit, OnDestroy {
   ngOnInit(): void {
     document.body.classList.add('ion-palette-dark');
     this.darkMode = true;
+    this.showDisclaimer = !localStorage.getItem(this.disclaimerKey);
   }
 
   ngOnDestroy(): void {
@@ -79,6 +82,11 @@ export class HomePage implements OnInit, OnDestroy {
   toggleTheme(): void {
     const enabled = document.body.classList.toggle('ion-palette-dark');
     this.darkMode = enabled;
+  }
+
+  acceptDisclaimer(): void {
+    localStorage.setItem(this.disclaimerKey, '1');
+    this.showDisclaimer = false;
   }
 
   private refreshTiles(): void {

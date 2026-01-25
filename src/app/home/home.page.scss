@@ -36,6 +36,11 @@
   backdrop-filter: blur(12px);
 }
 
+.disclaimer-modal ion-content {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
 .brand {
   display: flex;
   align-items: baseline;
@@ -137,6 +142,22 @@
   --padding-start: 18px;
   --padding-end: 18px;
   letter-spacing: 0.01em;
+}
+
+.cta-strong {
+  --background: var(--rail-amber);
+  --color: #0b1626;
+  --border-color: transparent;
+}
+
+.cta-outline {
+  --border-color: rgba(255, 255, 255, 0.75);
+  --color: #fff;
+}
+
+:host-context(body:not(.ion-palette-dark)) .cta-outline {
+  --border-color: rgba(15, 23, 42, 0.4);
+  --color: var(--text-strong);
 }
 
 .hero-tags {
@@ -278,6 +299,18 @@
 
 .cta-actions ion-button {
   margin-left: 6px;
+}
+:host-context(body:not(.ion-palette-dark)) .cta-actions ion-button {
+  --color: var(--text-strong);
+}
+
+/* Learning section login/register buttons */
+.learning-section ion-button {
+  --color: #fff;
+  --border-color: rgba(255, 255, 255, 0.65);
+}
+:host-context(body:not(.ion-palette-dark)) .learning-section ion-button {
+  --border-color: rgba(15, 23, 42, 0.35);
 }
 
 .learning-section {

@@ -9,6 +9,7 @@ export interface ApiUser {
   role: 'admin' | 'user';
   year?: number;
   key_used?: string;
+  created_at?: string;
 }
 
 export interface RegistrationKeyDto {
@@ -73,7 +74,15 @@ export class ApiService {
     return this.http.get<{ keys: RegistrationKeyDto[] }>(`${this.base}/keys`);
   }
 
-  createKey(year: number) {
-    return this.http.post<{ key: RegistrationKeyDto }>(`${this.base}/keys`, { year });
+  createKey(year: number | string) {
+    return this.http.post<{ key: RegistrationKeyDto }>(`${this.base}/keys`, { year: Number(year) });
+  }
+
+  deleteKey(key: string) {
+    return this.http.delete<void>(`${this.base}/keys/${encodeURIComponent(key)}`);
+  }
+
+  getUsers() {
+    return this.http.get<{ users: ApiUser[] }>(`${this.base}/users`);
   }
 }

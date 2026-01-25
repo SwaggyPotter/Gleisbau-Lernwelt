@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { ApiService, RegistrationKeyDto, SnapshotDto } from '../services/api.service';
+import { ApiService, ApiUser, RegistrationKeyDto, SnapshotDto } from '../services/api.service';
 
 @Component({
   selector: 'app-admin',
@@ -11,11 +11,12 @@ import { ApiService, RegistrationKeyDto, SnapshotDto } from '../services/api.ser
   standalone: false,
 })
 export class AdminPage implements OnDestroy {
-  selectedYear: 1 | 2 | 3 = 1;
+  selectedYear: '1' | '2' | '3' = '1';
   lastKey?: RegistrationKeyDto;
   snapshots: SnapshotDto[] = [];
   sub = new Subscription();
   keys: RegistrationKeyDto[] = [];
+  users: ApiUser[] = [];
 
   constructor(
     private readonly api: ApiService,
@@ -30,7 +31,10 @@ export class AdminPage implements OnDestroy {
   }
 
   generateKey(): void {
-    this.api.createKey(this.selectedYear).subscribe({
+    // ion-segment returns the value as a string; convert to number for the API
+    const year = parseInt(this.selectedYear, 10);
+
+    this.api.createKey(year).subscribe({
       next: res => {
         this.lastKey = res.key;
         this.loadKeys();
@@ -40,6 +44,7 @@ export class AdminPage implements OnDestroy {
 
   refresh(): void {
     this.loadKeys();
+    this.loadUsers();
     this.api.getSnapshots().subscribe(res => {
       this.snapshots = res.snapshots;
     });
@@ -52,6 +57,18 @@ export class AdminPage implements OnDestroy {
   private loadKeys(): void {
     this.api.getKeys().subscribe(res => {
       this.keys = res.keys;
+    });
+  }
+
+  deleteKey(key: string): void {
+    this.api.deleteKey(key).subscribe({
+      next: () => this.loadKeys(),
+    });
+  }
+
+  private loadUsers(): void {
+    this.api.getUsers().subscribe(res => {
+      this.users = res.users;
     });
   }
 }

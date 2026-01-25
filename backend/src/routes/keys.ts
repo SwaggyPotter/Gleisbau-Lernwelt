@@ -6,7 +6,6 @@ import { httpError } from '../middleware/error-handler';
 
 const keySchema = z.object({
   year: z.number().int().min(1).max(3),
-  maxUses: z.number().int().min(1).max(1000).optional().default(1),
   issuedBy: z.string().min(1).optional(),
 });
 
@@ -20,7 +19,8 @@ keysRouter.get('/', asyncHandler(async (_req, res) => {
 }));
 
 keysRouter.post('/', asyncHandler(async (req, res) => {
-  const { year, maxUses, issuedBy } = keySchema.parse(req.body);
+  const { year, issuedBy } = keySchema.parse(req.body);
+  const maxUses = 1; // single-use keys only
   const rand = Math.random().toString(36).substring(2, 6).toUpperCase();
   const key = `J${year}-${rand}`;
 
@@ -35,4 +35,16 @@ keysRouter.post('/', asyncHandler(async (req, res) => {
   } catch (err) {
     throw httpError(500, 'Key konnte nicht erstellt werden');
   }
+}));
+
+keysRouter.delete('/:key', asyncHandler(async (req, res) => {
+  const keyParam = z.string().min(1).parse(req.params.key);
+
+  const { rowCount } = await pool.query('DELETE FROM registration_keys WHERE key = $1', [keyParam]);
+
+  if (!rowCount) {
+    throw httpError(404, 'Key nicht gefunden');
+  }
+
+  res.status(204).send();
 }));

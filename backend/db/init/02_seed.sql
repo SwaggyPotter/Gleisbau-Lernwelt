@@ -1,11 +1,3 @@
--- Basic seeds for development and first run
-INSERT INTO registration_keys (key, year, max_uses, issued_by)
-VALUES
-    ('J1-DEMO-001', 1, 100, 'Admin'),
-    ('J2-DEMO-002', 2, 100, 'Admin'),
-    ('J3-DEMO-003', 3, 100, 'Admin')
-ON CONFLICT (key) DO NOTHING;
-
 -- Seed admin user with fixed credentials
 INSERT INTO users (full_name, email, password_hash, role, key_used)
 VALUES

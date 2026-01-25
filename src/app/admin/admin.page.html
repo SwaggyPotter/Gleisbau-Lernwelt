@@ -1,4 +1,4 @@
-<ion-header [translucent]="true" class="admin-header">
+﻿<ion-header [translucent]="true" class="admin-header">
   <ion-toolbar>
     <ion-title class="brand">
       <span class="brand-mark">Gleisbau</span>
@@ -36,9 +36,35 @@
         <ion-icon slot="start" name="key-outline"></ion-icon>
         <ion-label>
           <h3>{{ key.key }}</h3>
-          <p>Lehrjahr {{ key.year }} � erstellt {{ key.created_at | date:'dd.MM.yyyy' }} � Aussteller: {{ key.issued_by }}</p>
+          <p>Lehrjahr {{ key.year }} · erstellt {{ key.created_at | date:'dd.MM.yyyy' }} · Aussteller: {{ key.issued_by }}</p>
         </ion-label>
-        <ion-badge color="primary">Verwendet: {{ key.uses }}</ion-badge>
+        <ion-badge color="primary">Verwendet: {{ key.uses }} / {{ key.max_uses }}</ion-badge>
+        <ion-button slot="end" fill="clear" color="danger" (click)="deleteKey(key.key)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <p class="eyebrow">Accounts</p>
+      <h1>Registrierte Nutzer</h1>
+      <p class="lede">Alle angelegten Accounts, inkl. Rolle, Lehrjahr und verwendeter Key.</p>
+    </div>
+
+    <ion-list lines="full" class="user-list">
+      <ion-item *ngFor="let user of users">
+        <ion-avatar slot="start">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h3>{{ user.full_name }}</h3>
+          <p>{{ user.email }}</p>
+          <p>Rolle: {{ user.role }} · Lehrjahr: {{ user.year || '-' }} · Key: {{ user.key_used || '-' }}</p>
+          <p *ngIf="user.created_at">Erstellt: {{ user.created_at | date:'dd.MM.yyyy' }}</p>
+        </ion-label>
+        <ion-badge [color]="user.role === 'admin' ? 'tertiary' : 'primary'">{{ user.role }}</ion-badge>
       </ion-item>
     </ion-list>
   </section>
@@ -94,3 +120,4 @@
     </ion-grid>
   </section>
 </ion-content>
+

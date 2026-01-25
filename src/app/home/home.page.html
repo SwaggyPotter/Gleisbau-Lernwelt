@@ -27,21 +27,6 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-modal [isOpen]="showDisclaimer" backdropDismiss="false" class="disclaimer-modal">
-  <ng-template>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Hinweis</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="ion-padding">
-      <p><strong>Beta-Version</strong>: Diese Anwendung ist noch im Aufbau. Funktionen können unvollständig sein.</p>
-      <p><strong>Daten</strong>: Eingaben werden auf einem privaten Heimserver gespeichert. Nutzung auf eigenes Risiko; gib keine sensiblen Daten ein.</p>
-      <p><strong>Sicherheit</strong>: Prüfe die Richtigkeit deiner Eingaben und verwende starke Passwörter.</p>
-      <ion-button expand="block" color="primary" (click)="acceptDisclaimer()">Verstanden</ion-button>
-    </ion-content>
-  </ng-template>
-</ion-modal>
 
 <ion-content class="home-content" [fullscreen]="true">
   <div class="page-shell">
@@ -49,10 +34,6 @@
     <div class="hero-copy">
       <p class="eyebrow">Digitale Trainingsstrecke</p>
       <h1>Willkommen in der Gleisbau Lernwelt</h1>
-      <p class="lede">
-        Praxisnahes Lernen mit klaren Modulen, Checklisten und schnellen Wiederholungen direkt auf deinem Geraet.
-        So wird jeder Baustellentag sicherer und effizienter.
-      </p>
       <div class="hero-actions" *ngIf="user; else guestHeroActions">
         <ion-button size="large" class="cta-strong" routerLink="/dashboard">Weiter lernen</ion-button>
         <ion-button *ngIf="isAdmin()" size="large" fill="outline" color="light" (click)="goToAdmin()">Admin Panel</ion-button>
@@ -60,64 +41,13 @@
       </div>
       <ng-template #guestHeroActions>
         <div class="hero-actions">
-          <ion-button size="large" class="cta-strong" routerLink="/register">Jetzt starten</ion-button>
-          <ion-button size="large" fill="outline" color="light" routerLink="/login">Login</ion-button>
+          <ion-button size="large" class="cta-strong" routerLink="/register">Registrieren</ion-button>
+          <ion-button size="large" class="cta-outline" fill="outline" routerLink="/login">Login</ion-button>
         </div>
       </ng-template>
-      <div class="hero-tags">
-        <div class="pill">
-          <span class="pill-label">Lernpfade</span>
-          <strong>3 Tracks</strong>
-        </div>
-        <div class="pill">
-          <span class="pill-label">Praxischecks</span>
-          <strong>20+ Aufgaben</strong>
-        </div>
-        <div class="pill">
-          <span class="pill-label">Zugang</span>
-          <strong>Desktop & Mobile</strong>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-panel">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-subtitle>Dein Fahrplan</ion-card-subtitle>
-          <ion-card-title>Erste Etappe</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-list lines="none" class="module-list">
-            <ion-item>
-              <ion-label>
-                <h3>Grundlagen der Strecke</h3>
-                <p>Video und kurze Uebung</p>
-              </ion-label>
-              <ion-badge color="success">Startklar</ion-badge>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                <h3>Werkzeuge & Sicherheit</h3>
-                <p>Checkliste zum Abhaken</p>
-              </ion-label>
-              <ion-badge color="warning">in Arbeit</ion-badge>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                <h3>Qualitaet & Dokumentation</h3>
-                <p>Quiz und Fotobeweis</p>
-              </ion-label>
-              <ion-badge color="medium">demnaechst</ion-badge>
-            </ion-item>
-          </ion-list>
-          <div class="panel-footer">
-            <ion-button fill="clear" size="small" routerLink="/register">Plan freischalten</ion-button>
-            <ion-button size="small" routerLink="/login">Letzten Stand laden</ion-button>
-          </div>
-        </ion-card-content>
-      </ion-card>
     </div>
   </div>
 
   </div>
 </ion-content>
+

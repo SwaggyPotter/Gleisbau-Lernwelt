@@ -6,7 +6,7 @@ import { asyncHandler } from '../middleware/async-handler';
 import { httpError } from '../middleware/error-handler';
 
 const loginSchema = z.object({
-  email: z.string().email(),
+  email: z.string().min(1), // accept admin username without @
   password: z.string().min(1),
 });
 

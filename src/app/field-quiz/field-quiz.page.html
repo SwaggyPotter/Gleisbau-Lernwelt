@@ -1,0 +1,82 @@
+<ion-header [translucent]="true" class="quiz-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="router.navigate(['/field', fieldId])">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        Lernfeld
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Quiz {{ fieldId | uppercase }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="quiz-content" [fullscreen]="true">
+  <section *ngIf="loading" class="center">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Quiz wird geladen...</p>
+  </section>
+
+  <section *ngIf="error && !loading" class="center">
+    <ion-text color="danger">{{ error }}</ion-text>
+    <ion-button fill="clear" (click)="startQuiz()">Erneut versuchen</ion-button>
+  </section>
+
+  <ng-container *ngIf="!loading && !error && session && !results">
+    <div class="question-shell">
+      <div class="question-head">
+        <div class="question-number">Frage {{ currentIndex + 1 }} / {{ questions.length }}</div>
+        <ion-button size="small" fill="outline" (click)="finish()" [disabled]="questions.length === 0">Ergebnis anzeigen</ion-button>
+      </div>
+
+      <h2>{{ questions[currentIndex]?.prompt }}</h2>
+
+      <ion-list lines="full">
+        <ion-item
+          button
+          detail="false"
+          *ngFor="let choice of questions[currentIndex]?.choices; let idx = index"
+          (click)="selectChoice(idx)"
+          [class.selected]="session.answers[questions[currentIndex].id] === idx">
+          <ion-label>{{ choice }}</ion-label>
+          <ion-icon slot="end" name="checkmark-circle" *ngIf="session.answers[questions[currentIndex].id] === idx"></ion-icon>
+        </ion-item>
+      </ion-list>
+
+      <div class="nav-row">
+        <ion-button fill="clear" (click)="goPrev()" [disabled]="currentIndex === 0">Zurück</ion-button>
+        <ion-button fill="solid" color="primary" (click)="goNext()" [disabled]="currentIndex >= questions.length - 1">Weiter</ion-button>
+      </div>
+
+      <ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+      <div class="question-map">
+        <ion-chip *ngFor="let q of questions; let i = index"
+                  [color]="session.answers[q.id] !== undefined ? 'success' : 'medium'"
+                  outline="true"
+                  (click)="selectQuestion(i)">
+          {{ i + 1 }}
+        </ion-chip>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="results">
+    <section class="results">
+      <h2>Ergebnis</h2>
+      <p>{{ results.correct }} / {{ results.total }} richtig</p>
+
+      <ion-list lines="full">
+        <ion-item *ngFor="let q of results.questions">
+          <ion-label>
+            <h3>{{ q.prompt }}</h3>
+            <p>Deine Antwort: {{ q.selectedIndex !== null ? q.choices[q.selectedIndex] : 'Keine' }}</p>
+            <p>Korrekt: {{ q.choices[q.correctIndex] }}</p>
+          </ion-label>
+          <ion-badge [color]="q.isCorrect ? 'success' : 'danger'">{{ q.isCorrect ? 'Richtig' : 'Falsch' }}</ion-badge>
+        </ion-item>
+      </ion-list>
+
+      <ion-button expand="block" (click)="restart()">Neu starten</ion-button>
+    </section>
+  </ng-container>
+</ion-content>

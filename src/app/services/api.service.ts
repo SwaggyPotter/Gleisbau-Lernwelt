@@ -45,6 +45,21 @@ export interface SnapshotDto {
   fields?: Array<FieldDto>;
 }
 
+export interface QuizQuestion {
+  id: string;
+  prompt: string;
+  choices: string[];
+}
+
+export interface QuizSession {
+  id: string;
+  fieldId: string;
+  currentIndex: number;
+  isComplete: boolean;
+  questions: QuizQuestion[];
+  answers: Record<string, number>;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private readonly base = environment.apiBaseUrl + '/api';
@@ -93,5 +108,26 @@ export class ApiService {
 
   deleteUser(userId: string) {
     return this.http.delete<void>(`${this.base}/users/${encodeURIComponent(userId)}`);
+  }
+
+  startQuiz(fieldId: string, userId?: string, forceNew?: boolean) {
+    return this.http.post<{ session: QuizSession }>(`${this.base}/quizzes/start`, { fieldId, userId, forceNew });
+  }
+
+  submitQuizAnswer(sessionId: string, questionId: string, choiceIndex: number) {
+    return this.http.post<{ progress: { answered: number; total: number; currentIndex: number } }>(
+      `${this.base}/quizzes/${sessionId}/answer`,
+      { questionId, choiceIndex },
+    );
+  }
+
+  completeQuiz(sessionId: string) {
+    return this.http.post<void>(`${this.base}/quizzes/${sessionId}/complete`, {});
+  }
+
+  getQuizResults(sessionId: string) {
+    return this.http.get<{ results: { total: number; correct: number; questions: Array<QuizQuestion & { correctIndex: number; selectedIndex: number | null; isCorrect: boolean }> } }>(
+      `${this.base}/quizzes/${sessionId}/results`,
+    );
   }
 }

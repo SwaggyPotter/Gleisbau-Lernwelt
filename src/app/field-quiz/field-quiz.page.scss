@@ -1,0 +1,39 @@
+.quiz-header {
+  --background: var(--ion-color-primary);
+  --color: #fff;
+}
+
+.question-shell {
+  padding: 16px;
+}
+
+.question-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.nav-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+
+.question-map {
+  margin-top: 12px;
+}
+
+.question-map ion-chip {
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+.results {
+  padding: 16px;
+}
+
+.center {
+  text-align: center;
+  padding: 32px;
+}

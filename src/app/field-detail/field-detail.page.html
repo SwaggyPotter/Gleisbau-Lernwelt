@@ -13,7 +13,7 @@
 <ion-content class="detail-content" [fullscreen]="true">
   <section class="hero" *ngIf="field">
     <div class="hero-text">
-      <p class="eyebrow">Lernfeld {{ meta?.lernfeld || field.id }}</p>
+      <p class="eyebrow">{{ meta?.lernfeld || field.id }}</p>
       <h1>{{ meta?.titel || field.title }}</h1>
       <p class="lede">{{ field.description }}</p>
       <div class="chips">
@@ -21,6 +21,11 @@
         <ion-chip color="secondary" outline="true">{{ meta?.schwerpunkt || field.tag }}</ion-chip>
         <ion-chip color="medium" outline="true">{{ meta?.niveau || 'Lernfeld' }}</ion-chip>
       </div>
+    </div>
+    <div class="hero-actions">
+      <ion-button color="light" fill="solid" [routerLink]="['/field', field.id, 'quiz']">
+        Quiz starten / fortsetzen
+      </ion-button>
     </div>
   </section>
 

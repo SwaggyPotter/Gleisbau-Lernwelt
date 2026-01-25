@@ -51,11 +51,11 @@ export class HomePage implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  tileStatus(progress?: number): { label: 'Abgeschlossen' | 'In Arbeit' | 'Geplant'; color: string } {
+  tileStatus(progress?: number): { label: 'Abgeschlossen' | 'In Arbeit' | 'Offen'; color: string } {
     const value = progress ?? 0;
     if (value >= 1) return { label: 'Abgeschlossen', color: 'success' };
     if (value > 0) return { label: 'In Arbeit', color: 'warning' };
-    return { label: 'Geplant', color: 'medium' };
+    return { label: 'Offen', color: 'medium' };
   }
 
   goToAdmin(): void {

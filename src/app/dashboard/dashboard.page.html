@@ -35,36 +35,11 @@
           <strong>{{ summary.inProgress }}</strong>
         </div>
         <div class="pill">
-          <span>Geplant</span>
+          <span>Offen</span>
           <strong>{{ summary.planned }}</strong>
         </div>
       </div>
     </div>
-    <ion-card class="snapshot">
-      <ion-card-header>
-        <ion-card-subtitle>Schnellstart</ion-card-subtitle>
-        <ion-card-title>Deine naechsten Schritte</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list lines="none">
-          <ion-item>
-            <ion-icon slot="start" name="shield-checkmark-outline" color="success"></ion-icon>
-            <ion-label>Sicherheit & PSA abschliessen</ion-label>
-            <ion-badge color="warning">78%</ion-badge>
-          </ion-item>
-          <ion-item>
-            <ion-icon slot="start" name="git-branch-outline" color="primary"></ion-icon>
-            <ion-label>Weichen & Kreuzungen weiterfuehren</ion-label>
-            <ion-badge color="primary">35%</ion-badge>
-          </ion-item>
-          <ion-item>
-            <ion-icon slot="start" name="build-outline" color="medium"></ion-icon>
-            <ion-label>Schotter & Unterbau vorbereiten</ion-label>
-            <ion-badge color="medium">0%</ion-badge>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
   </section>
 
   <section class="grid-section" *ngFor="let group of groupedTiles">
@@ -86,7 +61,7 @@
                   {{ tileStatus((tile.progress || 0)).label }}
                 </ion-badge>
               </div>
-              <ion-card-title>{{ tile.title }}</ion-card-title>
+              <ion-card-title>{{ lfNumber(tile.id) }} – {{ tile.title }}</ion-card-title>
               <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>

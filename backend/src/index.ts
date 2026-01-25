@@ -20,6 +20,25 @@ const runStartupMigrations = async () => {
     await pool.query("DELETE FROM registration_keys WHERE key IN ('J1-DEMO-001', 'J2-DEMO-002', 'J3-DEMO-003')");
     await pool.query('UPDATE registration_keys SET max_uses = 1 WHERE max_uses > 1');
 
+    // Quiz tables
+    await pool.query(`CREATE TABLE IF NOT EXISTS quiz_sessions (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      user_id uuid REFERENCES users(id),
+      field_id text NOT NULL,
+      current_index integer NOT NULL DEFAULT 0,
+      is_complete boolean NOT NULL DEFAULT false,
+      created_at timestamptz NOT NULL DEFAULT now(),
+      updated_at timestamptz NOT NULL DEFAULT now()
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS quiz_answers (
+      session_id uuid REFERENCES quiz_sessions(id) ON DELETE CASCADE,
+      question_id text NOT NULL,
+      choice_index integer NOT NULL,
+      is_correct boolean NOT NULL,
+      answered_at timestamptz NOT NULL DEFAULT now(),
+      PRIMARY KEY (session_id, question_id)
+    )`);
+
     // Sync learning fields with canonical list
     const fields = [
       { id: 'lf-01', title: 'Baustellen einrichten', description: 'Sicherheit, Organisation, Baustelleneinrichtung', year: 1, tag: 'Sicherheit & Organisation' },

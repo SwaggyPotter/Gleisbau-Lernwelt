@@ -23,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import('./field-detail/field-detail.module').then(m => m.FieldDetailPageModule)
   },
   {
+    path: 'field/:id/quiz',
+    loadChildren: () => import('./field-quiz/field-quiz.module').then(m => m.FieldQuizPageModule)
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminPageModule)
   },

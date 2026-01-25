@@ -1,0 +1,86 @@
+<ion-header [translucent]="true" class="detail-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        Zurück
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ field?.title || 'Lernfeld' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="detail-content" [fullscreen]="true">
+  <section class="hero" *ngIf="field">
+    <div class="hero-text">
+      <p class="eyebrow">Lernfeld {{ meta?.lernfeld || field.id }}</p>
+      <h1>{{ meta?.titel || field.title }}</h1>
+      <p class="lede">{{ field.description }}</p>
+      <div class="chips">
+        <ion-chip color="primary" outline="true">Lehrjahr {{ field.year }}</ion-chip>
+        <ion-chip color="secondary" outline="true">{{ meta?.schwerpunkt || field.tag }}</ion-chip>
+        <ion-chip color="medium" outline="true">{{ meta?.niveau || 'Lernfeld' }}</ion-chip>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-grid" *ngIf="meta">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="6">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>Rahmen</ion-card-subtitle>
+              <ion-card-title>Vorinformationen</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list lines="full">
+                <ion-item>
+                  <ion-label>Lehrjahr</ion-label>
+                  <ion-note slot="end">{{ meta.lehrjahr }}</ion-note>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Lernfeld</ion-label>
+                  <ion-note slot="end">{{ meta.lernfeld }}</ion-note>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Geltung</ion-label>
+                  <ion-note slot="end">{{ meta.geltung }}</ion-note>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Schwerpunkt</ion-label>
+                  <ion-note slot="end">{{ meta.schwerpunkt }}</ion-note>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Niveau</ion-label>
+                  <ion-note slot="end">{{ meta.niveau }}</ion-note>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" sizeMd="6">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>Ziele</ion-card-subtitle>
+              <ion-card-title>Was du hier lernst</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p>Nutze dieses Modul, um Sicherheit, Organisation und Verhalten im Gleisbau grundlegend zu verstehen.</p>
+              <p>Im nächsten Schritt können hier Aufgaben, Materialien oder Praxischecks ergänzt werden.</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <section class="empty" *ngIf="!field && !error">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Lernfeld wird geladen...</p>
+  </section>
+
+  <section class="error" *ngIf="error">
+    <ion-text color="danger">{{ error }}</ion-text>
+  </section>
+</ion-content>

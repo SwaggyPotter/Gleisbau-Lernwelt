@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardPageModule)
   },
   {
+    path: 'field/:id',
+    loadChildren: () => import('./field-detail/field-detail.module').then(m => m.FieldDetailPageModule)
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminPageModule)
   },

@@ -6,20 +6,22 @@ ON CONFLICT (email) DO NOTHING;
 
 INSERT INTO learning_fields (id, title, description, year, tag)
 VALUES
-    ('gb-01', 'Einrichten einer Baustelle', 'Baustellenvorbereitung, Absicherung und Vermessung vor Beginn der Bauarbeiten.', 1, 'Baustelle'),
-    ('gb-02', 'Erschliessen und Gruenden eines Bauwerks', 'Aushub von Baugruben, Herstellen von Fundamenten und Grundlagen der Erdarbeiten.', 1, 'Erdarbeiten'),
-    ('gb-03', 'Mauern eines einschaligen Baukoerpers', 'Errichten einfacher Mauerwerke, z. B. eine gerade Wand aus Steinen.', 1, 'Mauerwerk'),
-    ('gb-04', 'Herstellen einer Holzkonstruktion', 'Grundlegende Zimmerer- und Schalungsarbeiten in Holz.', 1, 'Holzbau'),
-    ('gb-05', 'Herstellen eines Stahlbetonbauteiles', 'Bewehrungsstahl verarbeiten, Schalung bauen und Beton giessen fuer einfache Bauteile.', 1, 'Stahlbeton'),
-    ('gb-06', 'Beschichten und Bekleiden eines Bauteiles', 'Oberflaechenbehandlung, Daemmung oder Verkleidung als Schutz und Finish.', 1, 'Ausbau'),
-    ('vert-01', 'Herstellen eines Erdkorpers', 'Aufschuetten und Verdichten eines Gleisdamms oder Ausheben eines Einschnitts als Unterbau fuer das Gleisbett.', 2, 'Erdarbeiten'),
-    ('vert-02', 'Entwaessern von Verkehrsflaechen', 'Drainagen entlang des Gleiskoerpers anlegen und Oberflaechenwasser ableiten.', 2, 'Entwaesserung'),
-    ('vert-03', 'Herstellen einer Gleisanlage', 'Schwellen und Schienen verlegen, Gleis ausrichten, einschottern und Grundjustierung der Gleislage.', 2, 'Gleisbau'),
-    ('vert-04', 'Pflastern von Verkehrsflaechen', 'Pflaster- und Wegebauarbeiten wie Bahnsteigbelaege, Randwege oder Strassenanteile an Gleisanlagen.', 2, 'Pflaster'),
-    ('pro-01', 'Herstellen eines Gleisbogens', 'Gleisanlagen in Kurvenlage bauen und vermessen: Radius und Ueberhoehung festlegen, Schienen biegen und verlegen.', 3, 'Gleisbau'),
-    ('pro-02', 'Montieren einer Weiche', 'Weichenkomponenten montieren, Zungen und Herzstuecke justieren und in bestehende Gleise einpassen.', 3, 'Weichen'),
-    ('pro-03', 'Herstellen einer Festen Fahrbahn', 'Schotterlosen Oberbau erstellen, Gleise auf Betonplatten oder -troegen verlegen, z. B. in Tunneln oder Hochgeschwindigkeitsstrecken.', 3, 'Feste Fahrbahn'),
-    ('pro-04', 'Instandhalten von Gleisanlagen', 'Inspektion und Wartung von Gleisen und Weichen: Gleislage pruefen, nachstopfen, Verschleissteile tauschen, Sicherungen setzen.', 3, 'Instandhaltung'),
-    ('pro-05', 'Beheben eines Schienenbruchs', 'Defekte Schienenstuecke ausbauen und instandsetzen, z. B. per Thermitschweissen oder Schraubverbindung; Notfallbereitschaft sicherstellen.', 3, 'Notfall'),
-    ('pro-06', 'Herstellen eines Bahnuebergangs', 'Hoehengleichen Bahnuebergang bauen: Gleise im Strassenbereich einbauen, Gummimatten/Asphalt verlegen, Sicherungseinrichtungen anbringen.', 3, 'Bahnuebergang')
-ON CONFLICT (id) DO NOTHING;
+    ('lf-01', 'Baustellen einrichten', 'Sicherheit, Organisation, Baustelleneinrichtung', 1, 'Sicherheit & Organisation'),
+    ('lf-02', 'Bauwerke erschließen und gründen', 'Grundlagen Erschließung, Fundamente, Baugrund', 1, 'Erschließung & Gründung'),
+    ('lf-03', 'Einschalige Baukörper mauern', 'Mauerwerk, Steine, Verbände (Grundlagen Hoch-/Tiefbau)', 1, 'Mauerwerk'),
+    ('lf-04', 'Stahlbetonbauteile herstellen', 'Schalung, Bewehrung, Beton', 1, 'Stahlbeton'),
+    ('lf-05', 'Holzkonstruktionen herstellen', 'Holzbauteile, Verbindungen, Montage', 1, 'Holzbau'),
+    ('lf-06', 'Bauteile beschichten und bekleiden', 'Schutz, Abdichtung, Oberflächen', 1, 'Oberflächen'),
+    ('lf-07', 'Baugründe erkunden', 'Bodenarten, Tragfähigkeit, Baugrunduntersuchung', 2, 'Baugrund'),
+    ('lf-08', 'Erdbauwerke errichten', 'Aushub, Verbau, Planum, Verdichtung', 2, 'Erdbau'),
+    ('lf-09', 'Verkehrsflächen aus Pflaster- und Plattenbelägen herstellen', 'Wege, Flächen, Unterbau', 2, 'Pflaster'),
+    ('lf-10', 'Gleisanlagen neu bauen', 'Gleisaufbau, Schotter, Schwellen, Schienen', 2, 'Neubau Gleis'),
+    ('lf-11', 'Gleisbögen herstellen und einmessen', 'Vermessung, Gleislage, Radien', 3, 'Gleisbögen'),
+    ('lf-12', 'Weichen montieren und einmessen', 'Weichenarten, Einbau, Kontrolle', 3, 'Weichen'),
+    ('lf-13', 'Verkehrsflächen befestigen', 'Bahnübergänge, angrenzende Verkehrsflächen', 3, 'Verkehrsflächen'),
+    ('lf-14', 'Gleisanlagen instand halten', 'Wartung, Reparatur, Qualitätssicherung', 3, 'Instandhaltung')
+ON CONFLICT (id) DO UPDATE
+SET title = EXCLUDED.title,
+    description = EXCLUDED.description,
+    year = EXCLUDED.year,
+    tag = EXCLUDED.tag;

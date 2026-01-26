@@ -5,7 +5,7 @@
       <span class="brand-sub">Lernwelt</span>
     </ion-title>
     <ion-buttons slot="end" class="toolbar-actions">
-      <ion-chip color="light" outline="true">
+      <ion-chip class="profile-chip" color="light" outline="true" (click)="goToProfile()">
         <ion-icon name="person-circle-outline"></ion-icon>
         <ion-label>Angemeldet als {{ user?.name || 'Admin' }}</ion-label>
       </ion-chip>

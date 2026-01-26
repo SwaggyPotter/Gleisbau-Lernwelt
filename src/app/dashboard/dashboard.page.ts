@@ -57,6 +57,10 @@ export class DashboardPage implements OnDestroy {
     this.router.navigate(['/admin']);
   }
 
+  goToProfile(): void {
+    this.router.navigate(['/profile']);
+  }
+
   tileStatus(progress?: number): { label: 'Abgeschlossen' | 'In Arbeit' | 'Offen'; color: string } {
     const value = progress ?? 0;
     if (value >= 1) return { label: 'Abgeschlossen', color: 'success' };

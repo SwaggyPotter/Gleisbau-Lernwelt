@@ -39,6 +39,22 @@
   margin-right: 6px;
 }
 
+.profile-chip {
+  cursor: pointer;
+  --background: var(--chip-bg, rgba(255, 255, 255, 0.9));
+  --color: var(--chip-fg, #0b1626);
+}
+
+:host-context(body.ion-palette-dark) .profile-chip {
+  --chip-bg: #ffffff;
+  --chip-fg: #0b1626;
+}
+
+:host-context(body:not(.ion-palette-dark)) .profile-chip {
+  --chip-bg: #0b1626;
+  --chip-fg: #ffffff;
+}
+
 .dash-content {
   --background: linear-gradient(135deg, var(--rail-night) 0%, var(--rail-deep) 70%, #0c1824 100%);
   padding: 14px 16px 48px;

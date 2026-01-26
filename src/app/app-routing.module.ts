@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () => import('./field-quiz/field-quiz.module').then(m => m.FieldQuizPageModule)
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminPageModule)
   },

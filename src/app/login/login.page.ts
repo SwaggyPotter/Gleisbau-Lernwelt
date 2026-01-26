@@ -35,7 +35,7 @@ export class LoginPage {
       }),
     ).subscribe(res => {
       if (res) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/dashboard']);
       }
     });
   }

@@ -81,6 +81,14 @@ export class HomePage implements OnInit, OnDestroy {
     this.darkMode = enabled;
   }
 
+  get chipColor(): string {
+    return this.darkMode ? 'light' : 'dark';
+  }
+
+  goToProfile(): void {
+    this.router.navigate(['/profile']);
+  }
+
   private refreshTiles(): void {
     // no-op: snapshot subscription updates data
   }

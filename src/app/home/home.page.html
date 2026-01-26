@@ -8,7 +8,7 @@
       <ion-button fill="clear" (click)="toggleTheme()" aria-label="Theme umschalten">
         <ion-icon slot="icon-only" [name]="darkMode ? 'sunny-outline' : 'moon-outline'"></ion-icon>
       </ion-button>
-      <ion-chip color="light" outline="true">
+      <ion-chip [color]="chipColor" outline="true" (click)="goToProfile()" class="profile-chip">
         <ion-icon name="person-circle-outline"></ion-icon>
         <ion-label>{{ user.name || 'Angemeldet' }}</ion-label>
       </ion-chip>

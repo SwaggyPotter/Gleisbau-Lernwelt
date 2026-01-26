@@ -56,6 +56,22 @@
   margin-left: 6px;
 }
 
+.profile-chip {
+  cursor: pointer;
+  --background: var(--chip-bg, rgba(255, 255, 255, 0.9));
+  --color: var(--chip-fg, #0f172a);
+}
+
+:host-context(body.ion-palette-dark) .profile-chip {
+  --chip-bg: #ffffff;
+  --chip-fg: #0b1626;
+}
+
+:host-context(body:not(.ion-palette-dark)) .profile-chip {
+  --chip-bg: #0b1626;
+  --chip-fg: #ffffff;
+}
+
 .home-content {
   --background: radial-gradient(70% 110% at 5% 0%, rgba(26, 163, 122, 0.2), transparent),
     linear-gradient(135deg, var(--rail-night) 0%, var(--rail-deep) 60%, #0c1824 100%);

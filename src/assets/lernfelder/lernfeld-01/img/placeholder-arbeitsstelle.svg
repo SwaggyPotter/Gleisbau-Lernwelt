@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d2f52"/>
+      <stop offset="100%" stop-color="#2f6c9c"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)"/>
+  <rect x="40" y="70" width="720" height="260" rx="12" fill="#ffffff22" stroke="#ffffff55" stroke-width="4"/>
+  <rect x="60" y="120" width="200" height="130" rx="10" fill="#ffb703cc"/>
+  <rect x="300" y="120" width="420" height="30" rx="8" fill="#219ebccc"/>
+  <rect x="300" y="170" width="420" height="30" rx="8" fill="#8ecae6cc"/>
+  <rect x="300" y="220" width="320" height="30" rx="8" fill="#219ebccc"/>
+  <text x="60" y="320" fill="#ffffff" font-size="28" font-family="Arial" font-weight="700">Baustellen-Uebersicht</text>
+  <text x="60" y="355" fill="#ffffffcc" font-size="18" font-family="Arial">Flächen · Wege · Lager · Sicherung · Info</text>
+</svg>

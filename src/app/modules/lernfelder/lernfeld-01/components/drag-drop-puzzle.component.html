@@ -1,0 +1,42 @@
+<div class="puzzle-shell" *ngIf="level">
+  <div class="puzzle-head">
+    <h3>{{ level.title }}</h3>
+    <div class="actions">
+      <ion-button size="small" fill="outline" (click)="resetLevel()">Zurücksetzen</ion-button>
+      <ion-button size="small" color="primary" (click)="check()">Prüfen</ion-button>
+    </div>
+  </div>
+  <div class="puzzle-layout">
+    <div class="canvas" [style.background-image]="'url(' + level.canvas.background + ')'">
+      <div
+        class="slot"
+        *ngFor="let slot of level.canvas.slots"
+        (drop)="drop(slot.slotId, $event)"
+        (dragover)="allowDrop($event)"
+      >
+        <span class="slot-label">{{ slot.label }}</span>
+        <div class="slot-value" [class.filled]="!!placedItem(slot.slotId)">
+          {{ placedItem(slot.slotId)?.name || 'Ablegen' }}
+        </div>
+      </div>
+    </div>
+
+    <div class="items">
+      <h4>Elemente</h4>
+      <div class="item-card" *ngFor="let item of level.items" draggable="true" (dragstart)="drag(item, $event)">
+        <div class="item-icon">{{ item.type | uppercase }}</div>
+        <div class="item-body">
+          <strong>{{ item.name }}</strong>
+          <small *ngIf="item.note">{{ item.note }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="message" *ngIf="message">
+    <p>{{ message }}</p>
+    <ul *ngIf="errorHints?.length">
+      <li *ngFor="let hint of errorHints">{{ hint }}</li>
+    </ul>
+  </div>
+</div>
+

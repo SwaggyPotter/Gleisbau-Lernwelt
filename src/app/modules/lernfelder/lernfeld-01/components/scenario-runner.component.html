@@ -1,0 +1,26 @@
+<ion-card *ngIf="current">
+  <ion-card-header>
+    <ion-card-subtitle>Story-Szenario</ion-card-subtitle>
+    <ion-card-title>{{ current.title }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <p class="situation">{{ current.situation }}</p>
+    <ion-list lines="none">
+      <ion-item
+        button
+        *ngFor="let choice of current.choices"
+        (click)="choose(choice.id)"
+        [class.selected]="selectedChoice === choice.id"
+      >
+        <ion-label>{{ choice.text }}</ion-label>
+      </ion-item>
+    </ion-list>
+    <div class="feedback" *ngIf="showFeedback && selectedChoice">
+      <p>{{ currentFeedback }}</p>
+      <p class="learning" *ngIf="current.learningPoints?.length">
+        Merke: {{ current.learningPoints.join(' • ') }}
+      </p>
+      <ion-button size="small" (click)="next()">Nächstes Szenario</ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>

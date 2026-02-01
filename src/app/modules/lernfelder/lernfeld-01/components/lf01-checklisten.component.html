@@ -1,0 +1,21 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>Checklisten</ion-card-subtitle>
+    <ion-card-title>Kurz prüfen</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <div class="checklist-group" *ngFor="let list of grouped">
+      <h4>{{ list.title }}</h4>
+      <ion-list lines="none">
+        <ion-item *ngFor="let item of list.items; let idx = index">
+          <ion-checkbox slot="start" [checked]="state[list.id + '-' + idx]" (ionChange)="toggle(list.id + '-' + idx)"></ion-checkbox>
+          <ion-label>
+            <div class="label-line">{{ item.label }}</div>
+            <small *ngIf="item.hint">{{ item.hint }}</small>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-card-content>
+</ion-card>
+

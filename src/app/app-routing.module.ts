@@ -35,6 +35,15 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminPageModule)
   },
   {
+    path: 'lernfelder/1',
+    loadChildren: () => import('./modules/lernfelder/lernfeld-01/lernfeld-01.module').then(m => m.Lernfeld01Module),
+  },
+  {
+    path: 'lernfeld/01',
+    redirectTo: 'lernfelder/1',
+    pathMatch: 'full',
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'

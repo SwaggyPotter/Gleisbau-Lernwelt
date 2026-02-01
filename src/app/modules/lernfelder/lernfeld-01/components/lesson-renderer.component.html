@@ -1,0 +1,47 @@
+<ng-container *ngIf="block">
+  <div class="goals">
+    <ion-chip color="primary" outline="true">Ziele</ion-chip>
+    <ul>
+      <li *ngFor="let goal of block.goals">{{ goal }}</li>
+    </ul>
+  </div>
+
+  <div class="entries">
+    <ng-container *ngFor="let entry of block.content">
+      <p *ngIf="entry.type === 'text'" class="paragraph">{{ entry.value }}</p>
+
+      <ul *ngIf="entry.type === 'list'" class="bullet">
+        <li *ngFor="let item of entry.items">{{ item }}</li>
+      </ul>
+
+      <ion-card *ngIf="entry.type === 'callout'" class="callout" [class.danger]="entry.variant === 'danger'" [class.tip]="entry.variant === 'tip'">
+        <ion-card-header>
+          <ion-card-subtitle>{{ entry.variant | uppercase }}</ion-card-subtitle>
+          <ion-card-title>{{ entry.title }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>{{ entry.value }}</ion-card-content>
+      </ion-card>
+
+      <div *ngIf="isChecklist(entry)" class="checklist">
+        <h4>Checkliste</h4>
+        <ion-list lines="none">
+          <ion-item *ngFor="let item of entry.items">
+            <ion-checkbox slot="start"></ion-checkbox>
+            <ion-label>
+              <div class="label-line">{{ item.label }}</div>
+              <small *ngIf="item.hint">{{ item.hint }}</small>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <figure *ngIf="entry.type === 'image'" class="image-block">
+        <div class="image-placeholder">
+          <img [src]="entry.src" [alt]="entry.caption || 'Illustration'" />
+        </div>
+        <figcaption>{{ entry.caption }}</figcaption>
+      </figure>
+    </ng-container>
+  </div>
+</ng-container>
+

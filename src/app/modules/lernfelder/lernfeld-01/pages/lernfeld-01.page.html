@@ -1,0 +1,118 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>Lernfeld 1: Baustellen einrichten (Gleisbau)</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">Zur Übersicht</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="page-shell" *ngIf="!loading && !error; else stateBlock">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Lernfeld 1</p>
+        <h1>Baustellen einrichten</h1>
+        <p class="lede">
+          Ziele: sicher aufbauen, Verkehrs- und Gleisbereich absichern, Abläufe klar machen.
+          Dauer: ca. 20 Stunden. Fokus: erst sichern, dann arbeiten.
+        </p>
+        <div class="badges">
+          <ion-chip color="primary" outline="true">Gleisbau-Spezifisch in Block 6</ion-chip>
+          <ion-chip color="success" outline="true">Interaktiv: Quiz, Szenarien, Puzzle</ion-chip>
+        </div>
+      </div>
+      <div class="progress">
+        <div class="stat">
+          <span>Abgeschlossene Blöcke</span>
+          <strong>{{ progress.completedBlocks.length }}/{{ blocks.length }}</strong>
+        </div>
+        <div class="stat">
+          <span>Scenario Score</span>
+          <strong>{{ progress.scenarioScore }}</strong>
+        </div>
+        <div class="stat">
+          <span>Quicktests</span>
+          <strong>{{ progress.quickTests.length }}</strong>
+        </div>
+      </div>
+    </section>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeLg="3">
+          <app-lf01-nav
+            [blocks]="blocks"
+            [completed]="progress.completedBlocks"
+            [activeId]="selectedBlock?.id"
+            (selectBlock)="selectBlock($event)"
+          ></app-lf01-nav>
+        </ion-col>
+
+        <ion-col size="12" sizeLg="9">
+          <section *ngFor="let block of blocks" class="block" [attr.id]="block.id">
+            <div class="block-head">
+              <div>
+                <p class="eyebrow">{{ block.id | uppercase }}</p>
+                <h2>
+                  {{ block.title }}
+                  <ion-badge color="warning" *ngIf="block.title.toLowerCase().includes('gleis')">Gleisbau</ion-badge>
+                </h2>
+                <p class="summary">{{ block.summary }}</p>
+              </div>
+              <ion-button
+                color="success"
+                fill="outline"
+                (click)="toggleCompleted(block)"
+                [fill]="progress.completedBlocks.includes(block.id) ? 'solid' : 'outline'"
+              >
+                {{ progress.completedBlocks.includes(block.id) ? 'Erledigt' : 'Markieren' }}
+              </ion-button>
+            </div>
+
+            <app-lesson-renderer [block]="block"></app-lesson-renderer>
+
+            <div class="block-actions" *ngIf="quiz">
+              <ion-button size="small" color="primary" fill="outline" (click)="selectBlock(block.id)">Zum Block</ion-button>
+              <ion-button size="small" color="tertiary" fill="solid" *ngIf="block.quizRef?.length">
+                Üben ({{ block.quizRef?.length }} Fragen)
+              </ion-button>
+            </div>
+
+            <app-quiz-engine
+              *ngIf="quiz"
+              [questions]="quiz.questions"
+              [questionIds]="block.quizRef"
+              [limit]="block.quizRef?.length || 4"
+              [title]="'Üben: ' + block.title"
+              (answered)="quizAnswered($event)"
+            ></app-quiz-engine>
+          </section>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <section class="extras" *ngIf="scenarios">
+      <h3>Story-Szenarien: Was würdest du tun?</h3>
+      <app-scenario-runner [scenarios]="scenarios.scenarios" (progress)="scenarioProgress($event)"></app-scenario-runner>
+    </section>
+
+    <section class="extras" *ngIf="puzzle">
+      <h3>Drag & Drop Puzzle</h3>
+      <app-lf01-sign-puzzle [puzzle]="puzzle"></app-lf01-sign-puzzle>
+    </section>
+
+    <section class="extras">
+      <app-lf01-checklisten [blocks]="blocks"></app-lf01-checklisten>
+    </section>
+
+    <section class="extras" *ngIf="quiz">
+      <app-lf01-quicktest [quiz]="quiz" [blocks]="blocks" (done)="quicktestDone($event)"></app-lf01-quicktest>
+    </section>
+  </div>
+
+  <ng-template #stateBlock>
+    <ion-spinner *ngIf="loading"></ion-spinner>
+    <p *ngIf="error">{{ error }}</p>
+  </ng-template>
+</ion-content>

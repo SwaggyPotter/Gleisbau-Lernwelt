@@ -1,0 +1,18 @@
+.checklist-group + .checklist-group {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e5e8ef;
+}
+
+h4 {
+  margin: 0 0 6px;
+}
+
+.label-line {
+  font-weight: 600;
+}
+
+small {
+  color: var(--ion-color-medium);
+}
+

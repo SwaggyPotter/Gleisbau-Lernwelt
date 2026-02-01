@@ -1,0 +1,21 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>Abschluss</ion-card-subtitle>
+    <ion-card-title>Quicktest (10 Zufallsfragen)</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <app-quiz-engine
+      *ngIf="quiz"
+      [questions]="quiz.questions"
+      [questionIds]="questionIds"
+      [limit]="10"
+      [title]="'Quicktest'"
+      (completed)="onCompleted($event)"
+    ></app-quiz-engine>
+    <div class="result" *ngIf="result">
+      <p>Ergebnis: {{ result.correct }} / {{ result.total }} richtig ({{ (result.correct / result.total) * 100 | number:'1.0-0' }}%)</p>
+      <p *ngIf="result.recommendation">Empfehlung: Wiederhole {{ result.recommendation }}.</p>
+      <ion-button size="small" (click)="retry()">Noch einmal</ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>

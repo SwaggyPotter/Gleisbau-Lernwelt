@@ -1,0 +1,253 @@
+{
+  "blocks": [
+    {
+      "id": "lf01-b1",
+      "title": "Was ist Baustelle einrichten & wer ist wofür verantwortlich?",
+      "goals": [
+        "Baustelleneinrichtung beschreiben: Flaechen, Wege, Lager, Sicherung, Info",
+        "Rollen und Verantwortungen unterscheiden"
+      ],
+      "summary": "Grundidee: erst sichern, dann arbeiten. Zuständigkeiten klar benennen.",
+      "content": [
+        { "type": "text", "value": "Baustelleneinrichtung umfasst alle Massnahmen, damit Arbeit sicher und koordiniert laeuft." },
+        {
+          "type": "list",
+          "items": [
+            "Bauleitung/Polier: Ablauf planen, koordinieren, einweisen",
+            "Sicherungsaufsicht/Sicherungsposten im Gleisbereich: warnen, absichern nach Vorgaben",
+            "Jede/r Mitarbeitende: PSA tragen, Regeln befolgen, Gefahren melden"
+          ]
+        },
+        { "type": "callout", "variant": "tip", "title": "Grundsatz", "value": "Erst sichern, dann arbeiten. Keine Abkuerzungen." },
+        {
+          "type": "checklist",
+          "items": [
+            { "label": "Sicherung geplant und kommuniziert", "hint": "Wer sperrt, wer warnt?" },
+            { "label": "Wege und Lagerorte festgelegt" },
+            { "label": "Alle Rollen geklärt" }
+          ]
+        },
+        { "type": "image", "src": "assets/lernfelder/lernfeld-01/img/placeholder-arbeitsstelle.svg", "caption": "Uebersicht einer eingerichteten Arbeitsstelle" }
+      ],
+      "quizRef": ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8"]
+    },
+    {
+      "id": "lf01-b2",
+      "title": "Gefaehrdungsbeurteilung & Unterweisung",
+      "goals": [
+        "Nutzen der Dokumentation verstehen",
+        "Unterweisung als Pflicht erkennen"
+      ],
+      "summary": "Gefahren erkennen, Massnahmen festlegen, Unterweisung dokumentieren.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Gefahren: Verkehr, Gleise, Strom, Maschinen, Stolpern, Wetter, Dunkelheit",
+            "Unterweisung kurz dokumentieren (Tageszettel/Toolbox Talk)",
+            "STOP-Regel: unsicher = stoppen, nachfragen, sichern"
+          ]
+        },
+        { "type": "callout", "variant": "danger", "title": "Keine Bauchgefuehle", "value": "Gefaehrdungsbeurteilung ist Pflicht, nicht nice-to-have." },
+        {
+          "type": "checklist",
+          "items": [
+            { "label": "Risiken erfasst und kommuniziert" },
+            { "label": "Unterweisung protokolliert", "hint": "Datum, Inhalte, Teilnehmer" },
+            { "label": "STOP-Regel bekannt" }
+          ]
+        }
+      ],
+      "quizRef": ["Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15"]
+    },
+    {
+      "id": "lf01-b3",
+      "title": "PSA & Warnkleidung",
+      "goals": [
+        "Welche PSA ist Pflicht und wann",
+        "Warnkleidung richtig einsetzen"
+      ],
+      "summary": "PSA rettet nicht vor Fehlern, aber vor Folgen. Warnkleidung = Sichtbarkeit.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Standard-PSA: Helm, Sicherheitsschuhe, Handschuhe",
+            "Augen- und Gehoerschutz je nach Taetigkeit (z. B. Flexen)",
+            "Warnkleidung als Lebensversicherung, besonders im Verkehrsraum und Gleisbereich"
+          ]
+        },
+        { "type": "callout", "variant": "tip", "title": "Merksatz", "value": "PSA schuetzt nicht vor Dummheit – aber vor dem Fehler." },
+        {
+          "type": "checklist",
+          "items": [
+            { "label": "Warnweste intakt und sauber" },
+            { "label": "Helm, Schuhe, Handschuhe vorhanden" },
+            { "label": "PSA pruefen und beschaedigte Teile tauschen" }
+          ]
+        }
+      ],
+      "quizRef": ["Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22"]
+    },
+    {
+      "id": "lf01-b4",
+      "title": "Baustelleneinrichtung im oeffentlichen Raum",
+      "goals": [
+        "Verkehrs- und Fussgaengerschutz verstehen",
+        "Wege sicher fuehren"
+      ],
+      "summary": "Warnen, fuehren, trennen, sichtbar bleiben – besonders nachts.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Fruehzeitig warnen",
+            "Eindeutig fuehren/umleiten",
+            "Arbeitsbereich und Verkehr trennen",
+            "Nachts beleuchten und reflektieren"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Typische Fehler",
+          "value": "Schilder zu spaet oder widerspruechlich, Schleichwege zulaesst."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            { "label": "Fussgaengerwege barrierearm", "hint": "Kinderwagen/Rollstuhl denken" },
+            { "label": "Kabel/Schlaeuche abgedeckt" },
+            { "label": "Schilder klar und frueh genug" }
+          ]
+        },
+        { "type": "image", "src": "assets/lernfelder/lernfeld-01/img/placeholder-fussgaengerfuehrung.svg", "caption": "Gefuehrte Fussgaengerfuehrung" }
+      ],
+      "quizRef": ["Q23", "Q24", "Q25", "Q26", "Q27", "Q28", "Q29"]
+    },
+    {
+      "id": "lf01-b5",
+      "title": "Verkehrszeichen & Baustellenbeschilderung",
+      "goals": [
+        "Haeufige Baustellenzeichen erkennen",
+        "Logik der Beschilderung verstehen"
+      ],
+      "summary": "Gefahr-, Vorschrift-, Richt- und Zusatzzeichen richtig platzieren.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Gefahrzeichen: warnen",
+            "Vorschriftzeichen: Gebote/Verbote",
+            "Richtzeichen: Hinweis/Umleitung",
+            "Zusatzzeichen: wer/wann/wie"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Beispiele",
+          "value": "Baustelle, Verbot fuer Fussgaenger, Umleitung, Geschwindigkeitsreduzierung, Leitbaken."
+        },
+        {
+          "type": "checklist",
+          "items": [
+            { "label": "Vorwarnung vor der Sperre" },
+            { "label": "Umleitung klar und logisch" },
+            { "label": "Keine widerspruechlichen Zeichen" }
+          ]
+        }
+      ],
+      "quizRef": ["Q30", "Q31", "Q32", "Q33", "Q34", "Q35", "Q36"]
+    },
+    {
+      "id": "lf01-b6",
+      "title": "Gleisbau-spezifisch: Arbeiten im/am Gleisbereich",
+      "goals": [
+        "Gleisbereich als Hochrisiko verstehen",
+        "Sicherungsprinzip kennen"
+      ],
+      "summary": "Annähernde Fahrten, Lichtraumprofil, sichere Fluchtwege und Kommunikation.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Kernrisiken: Fahrten, Lichtraum, unebener Untergrund",
+            "Gleisbereich nur mit organisierter Sicherung betreten",
+            "Sicherungsaufsicht/Sicherungsposten koordiniert und sichtbar"
+          ]
+        },
+        { "type": "callout", "variant": "danger", "title": "Warnsignal", "value": "Warnung = sofort Arbeit stoppen, Werkzeug sichern, in Sicherheitsraum." },
+        {
+          "type": "checklist",
+          "items": [
+            { "label": "Fluchtraum bekannt" },
+            { "label": "Keine Ablenkung (Handy/Kopfhoerer)" },
+            { "label": "Material nicht im Lichtraum lagern" }
+          ]
+        },
+        { "type": "image", "src": "assets/lernfelder/lernfeld-01/img/placeholder-gleisbereich.svg", "caption": "Sicherer Abstand im Gleisbereich" }
+      ],
+      "quizRef": ["Q37", "Q38", "Q39", "Q40", "Q41", "Q42", "Q43", "Q44"]
+    },
+    {
+      "id": "lf01-b7",
+      "title": "Bahnuebergaenge & Umfeld",
+      "goals": [
+        "Gefahr am Bahnuebergang verstehen",
+        "Dritte und Team schuetzen"
+      ],
+      "summary": "Sicht, Verkehrsfluss und klare Absperrung entscheiden ueber Sicherheit.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Risiken: Autos uebersehen Personen/Material, Fussgaenger huschen durch",
+            "Sicht oft eingeschraenkt (Kurve, Hecke, Wetter, Nacht)",
+            "Warnwirkung vor dem Uebergang sicherstellen"
+          ]
+        },
+        { "type": "callout", "variant": "tip", "title": "Merksatz", "value": "Am Bahnuebergang gibt es keine zweite Chance." },
+        {
+          "type": "checklist",
+          "items": [
+            { "label": "Arbeitsbereich abgesperrt" },
+            { "label": "Fuhrungen fuer Fussgaenger klar" },
+            { "label": "Material nicht in Sichtdreieck" }
+          ]
+        },
+        { "type": "image", "src": "assets/lernfelder/lernfeld-01/img/placeholder-bahnuebergang.svg", "caption": "Absicherung am Bahnuebergang" }
+      ],
+      "quizRef": ["Q45", "Q46", "Q47", "Q48", "Q49", "Q50", "Q51", "Q52"]
+    },
+    {
+      "id": "lf01-b8",
+      "title": "Ordnung, Umwelt, Materiallagerung & Tagesabschluss",
+      "goals": [
+        "Baustelle sicher hinterlassen",
+        "Umwelt und Material schuetzen"
+      ],
+      "summary": "Wege frei, Material gesichert, Beschilderung pruefen, Umwelt beachten.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Wege frei halten, Material sichern, keine losen Teile",
+            "Maschinen abstellen, Energiequellen sichern",
+            "Oel/Kraftstoff/Abfaelle auffangen und korrekt entsorgen"
+          ]
+        },
+        { "type": "callout", "variant": "info", "title": "Tagesabschluss-Check", "value": "Beschilderung korrekt? Beleuchtung ok? Gefahrenstellen gesichert?" },
+        {
+          "type": "checklist",
+          "items": [
+            { "label": "Absperrungen und Beleuchtung kontrolliert" },
+            { "label": "Material aus Gefahrenbereichen entfernt" },
+            { "label": "Umweltauflagen eingehalten" }
+          ]
+        }
+      ],
+      "quizRef": ["Q53", "Q54", "Q55", "Q56", "Q57", "Q58", "Q59", "Q60"]
+    }
+  ]
+}

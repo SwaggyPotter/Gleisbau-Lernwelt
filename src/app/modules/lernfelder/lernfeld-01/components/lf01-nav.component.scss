@@ -1,0 +1,19 @@
+.nav-card {
+  ion-item.active {
+    background: #0d2f52;
+    color: #fff;
+    --color: #fff;
+  }
+
+  h3 {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--ion-color-medium);
+  }
+}
+

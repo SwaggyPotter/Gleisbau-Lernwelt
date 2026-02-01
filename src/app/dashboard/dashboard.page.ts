@@ -14,6 +14,15 @@ export class DashboardPage implements OnDestroy {
   user: UserProfile | null = null;
   groupedTiles: Array<{ year: 1 | 2 | 3; fields: SnapshotDto['fields'] }> = [];
   summary = { completed: 0, inProgress: 0, planned: 0 };
+  customModules = [
+    {
+      id: 'lf01-custom',
+      title: 'Lernfeld 1: Baustellen einrichten (Gleisbau)',
+      description: 'Interaktives Modul mit Blocks, Quiz, Szenarien und Puzzle.',
+      tag: 'Gleisbau',
+      link: '/lernfelder/1',
+    },
+  ];
   private sub = new Subscription();
 
   constructor(

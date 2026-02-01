@@ -42,6 +42,34 @@
     </div>
   </section>
 
+  <section class="grid-section">
+    <div class="section-head">
+      <p class="eyebrow">Spezial</p>
+      <h2>Gleisbau Lernfeld 1</h2>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let module of customModules">
+          <ion-card class="tile-card highlight" [routerLink]="module.link">
+            <ion-card-header>
+              <div class="tile-top">
+                <ion-chip color="tertiary" outline="true">
+                  <ion-label>{{ module.tag }}</ion-label>
+                </ion-chip>
+                <ion-badge color="primary">Neu</ion-badge>
+              </div>
+              <ion-card-title>{{ module.title }}</ion-card-title>
+              <ion-card-subtitle>{{ module.description }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <p class="tile-description">Direkter Zugang: /lernfelder/1</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
   <section class="grid-section" *ngFor="let group of groupedTiles">
     <div class="section-head">
       <p class="eyebrow">Lehrjahr {{ group.year }}</p>
@@ -76,4 +104,5 @@
       </ion-row>
     </ion-grid>
   </section>
+
 </ion-content>

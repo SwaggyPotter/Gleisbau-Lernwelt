@@ -1,0 +1,149 @@
+{
+  "meta": { "lernfeld": "01", "version": "1.0" },
+  "scenarios": [
+    {
+      "id": "S1",
+      "title": "Bahnuebergang – Fussgaenger wollen durch",
+      "situation": "Du richtest eine Arbeitsstelle nahe eines Bahnuebergangs ein. Zwei Jugendliche wollen \"nur kurz\" durch die Absperrung.",
+      "choices": [
+        { "id": "A", "text": "Kurz durchwinken, geht schneller", "impact": { "score": -2 }, "feedback": "Falsch – du hebelst die Sicherung aus." },
+        { "id": "B", "text": "Konsequent zurueckweisen und auf sicheren Weg/Umleitung verweisen", "impact": { "score": 2 }, "feedback": "Richtig – Fuehrung/Trennung bleibt erhalten." },
+        { "id": "C", "text": "Ignorieren, werden schon aufpassen", "impact": { "score": -2 }, "feedback": "Falsch – Kontrollverlust." },
+        { "id": "D", "text": "Absperrung provisorisch oeffnen und danach wieder schliessen", "impact": { "score": -1 }, "feedback": "Riskant – erhoeht Nachahmung + Unklarheit." }
+      ],
+      "learningPoints": ["Führung sichern", "Dritte aufhalten", "Konsequent bleiben"]
+    },
+    {
+      "id": "S2",
+      "title": "\"Nur kurz\" ins Gleis",
+      "situation": "Kollege sagt: \"Ich geh nur kurz rüber die Kiste holen, dauert 10 Sekunden.\" Keine Sicherung aktiv.",
+      "choices": [
+        { "id": "A", "text": "Lassen, er ist schnell", "impact": { "score": -3 }, "feedback": "Falsch – ohne Sicherung tabu." },
+        { "id": "B", "text": "STOP sagen und Sicherung einfordern", "impact": { "score": 3 }, "feedback": "Richtig – erst Sicherung organisieren." },
+        { "id": "C", "text": "Selbst mitgehen als Blickschutz", "impact": { "score": -2 }, "feedback": "Unsicher – du verdoppelst Risiko." },
+        { "id": "D", "text": "Material rufen lassen", "impact": { "score": 1 }, "feedback": "Besser, aber Sicherung bleibt Pflicht." }
+      ],
+      "learningPoints": ["Sicherung vor Betreten", "Routinebremse", "Stop-Regel"]
+    },
+    {
+      "id": "S3",
+      "title": "Fehlende Warnweste",
+      "situation": "Neue Aushilfe kommt ohne Warnweste in den Verkehrsbereich.",
+      "choices": [
+        { "id": "A", "text": "Kurz arbeiten lassen, Weste spaeter holen", "impact": { "score": -2 }, "feedback": "Falsch – Sichtbarkeit sofort noetig." },
+        { "id": "B", "text": "Arbeit stoppen, Weste organisieren", "impact": { "score": 2 }, "feedback": "Richtig – erst PSA, dann Arbeit." },
+        { "id": "C", "text": "Eigene Weste abgeben und selbst ohne arbeiten", "impact": { "score": -1 }, "feedback": "Du darfst nicht ungeschuetzt weiterarbeiten." },
+        { "id": "D", "text": "Aushilfe wegschicken", "impact": { "score": 0 }, "feedback": "Neutral, aber Training fehlt." }
+      ],
+      "learningPoints": ["PSA-Pflicht", "Vorbild sein"]
+    },
+    {
+      "id": "S4",
+      "title": "Schilder stehen zu spaet",
+      "situation": "Beim Aufbau merkst du: Vorwarnschilder stehen sehr nah an der Sperre.",
+      "choices": [
+        { "id": "A", "text": "So lassen, niemand beschwert sich", "impact": { "score": -2 }, "feedback": "Vorwarnung fehlt – Gefahr fuer Verkehr." },
+        { "id": "B", "text": "Arbeit stoppen, Schilder weiter vorziehen", "impact": { "score": 2 }, "feedback": "Richtig, Reichweite erhoehen." },
+        { "id": "C", "text": "Nur ein Zusatzschild aufstellen", "impact": { "score": -1 }, "feedback": "Reicht nicht ohne Distanz." },
+        { "id": "D", "text": "Absperrung verkleinern", "impact": { "score": -2 }, "feedback": "Gefahr fuer Team." }
+      ],
+      "learningPoints": ["Vorwarnung", "Distanz beachten"]
+    },
+    {
+      "id": "S5",
+      "title": "Nacht – Beleuchtung faellt aus",
+      "situation": "Nach einem Stromausfall sind Teile der Baustelle dunkel.",
+      "choices": [
+        { "id": "A", "text": "Weiterarbeiten, Handylicht reicht", "impact": { "score": -3 }, "feedback": "Falsch – Sichtbarkeit fehlt." },
+        { "id": "B", "text": "Arbeit stoppen, Notbeleuchtung/Reflex nutzen", "impact": { "score": 3 }, "feedback": "Richtig – erst Sichtbarkeit wiederherstellen." },
+        { "id": "C", "text": "Nur Tempo senken", "impact": { "score": -1 }, "feedback": "Reicht nicht." },
+        { "id": "D", "text": "Team nach Hause schicken ohne Meldung", "impact": { "score": -2 }, "feedback": "Meldung und Sicherung fehlen." }
+      ],
+      "learningPoints": ["Beleuchtung", "Arbeitspause bei Unsicherheit"]
+    },
+    {
+      "id": "S6",
+      "title": "Fussgaengerfuehrung blockiert",
+      "situation": "Material steht ploetzlich auf dem provisorischen Gehweg.",
+      "choices": [
+        { "id": "A", "text": "Ignorieren, passt schon", "impact": { "score": -2 }, "feedback": "Falsch – Schleichwege entstehen." },
+        { "id": "B", "text": "Material sofort umstellen, Weg freimachen", "impact": { "score": 2 }, "feedback": "Richtig – Fuehrung sichern." },
+        { "id": "C", "text": "Hinweiszettel ankleben, aber nichts bewegen", "impact": { "score": -1 }, "feedback": "Gefahr bleibt." },
+        { "id": "D", "text": "Weg sperren ohne Umleitung", "impact": { "score": -2 }, "feedback": "Erzeugt Chaos." }
+      ],
+      "learningPoints": ["Wege frei", "Schleichwege vermeiden"]
+    },
+    {
+      "id": "S7",
+      "title": "Leitbake entfernt",
+      "situation": "Ein Autofahrer stellt eine Leitbake beiseite, um schneller vorbeizukommen.",
+      "choices": [
+        { "id": "A", "text": "Nichts tun", "impact": { "score": -2 }, "feedback": "Gefahr bleibt offen." },
+        { "id": "B", "text": "Bake sofort zurueckstellen, Fahrer ansprechen, ggf. melden", "impact": { "score": 2 }, "feedback": "Richtig – Sicherung wiederherstellen." },
+        { "id": "C", "text": "Bake stehen lassen, aber Warnweste anziehen", "impact": { "score": -1 }, "feedback": "Sicherung fehlt trotzdem." },
+        { "id": "D", "text": "Bake weit weg legen", "impact": { "score": -3 }, "feedback": "Sicherung aufgehoben." }
+      ],
+      "learningPoints": ["Sicherung halten", "Konsequent reagieren"]
+    },
+    {
+      "id": "S8",
+      "title": "Unklare Anweisung \"Mach mal schnell\"",
+      "situation": "Polier ruft hektisch: \"Mach mal schnell die Absperrung rueber!\" Ohne genaue Stelle.",
+      "choices": [
+        { "id": "A", "text": "Sofort irgendwas umstellen", "impact": { "score": -2 }, "feedback": "Gefahr durch falsche Platzierung." },
+        { "id": "B", "text": "Kurz nachfragen: Wo genau, welche Reihenfolge?", "impact": { "score": 2 }, "feedback": "Richtig – Klarheit vor Aktion." },
+        { "id": "C", "text": "Gar nichts tun", "impact": { "score": -1 }, "feedback": "Keine Loesung, aber sicherer als falsches Handeln." },
+        { "id": "D", "text": "Absperrung abbauen", "impact": { "score": -3 }, "feedback": "Gefaehrlich." }
+      ],
+      "learningPoints": ["Kommunikation", "Stop-Regel"]
+    },
+    {
+      "id": "S9",
+      "title": "Regen/Glätte – Stolperstelle erkannt",
+      "situation": "Nach Starkregen bildet sich eine Pfuetze auf dem Gehweg mit Kabeln.",
+      "choices": [
+        { "id": "A", "text": "Warten bis trocken", "impact": { "score": -1 }, "feedback": "Gefahr bleibt vorerst." },
+        { "id": "B", "text": "Abdecken, Weg umleiten oder Wasser abfuehren", "impact": { "score": 2 }, "feedback": "Richtig – Stolper-/Rutschgefahr beseitigen." },
+        { "id": "C", "text": "Warnweste aufstellen", "impact": { "score": -1 }, "feedback": "Keine echte Sicherung." },
+        { "id": "D", "text": "Nichts tun, schon sichtbar", "impact": { "score": -2 }, "feedback": "Falsch – Risiko hoch." }
+      ],
+      "learningPoints": ["Stolpern vermeiden", "Witterung beachten"]
+    },
+    {
+      "id": "S10",
+      "title": "Material im Lichtraum",
+      "situation": "Schwellenpaket liegt nahe am Gleis, Sicherungsposten meldet moegliche Lichtraumberuehrung.",
+      "choices": [
+        { "id": "A", "text": "Belassen, Zug kommt selten", "impact": { "score": -3 }, "feedback": "Gefaehrlich – Lichtraum frei halten." },
+        { "id": "B", "text": "Material sofort versetzen ausserhalb Lichtraum", "impact": { "score": 3 }, "feedback": "Richtig – sofort entfernen." },
+        { "id": "C", "text": "Nur warnen, nicht bewegen", "impact": { "score": -1 }, "feedback": "Risiko bleibt." },
+        { "id": "D", "text": "Auf Sicht fahren lassen", "impact": { "score": -2 }, "feedback": "Nicht erlaubt ohne Regelung." }
+      ],
+      "learningPoints": ["Lichtraum", "Sofortmassnahme"]
+    },
+    {
+      "id": "S11",
+      "title": "Auto faehrt in gesperrte Zufahrt",
+      "situation": "Ein Autofahrer ignoriert Absperrung und faehrt in die Baustelle.",
+      "choices": [
+        { "id": "A", "text": "Weitermachen, er findet schon raus", "impact": { "score": -2 }, "feedback": "Gefahr fuer alle." },
+        { "id": "B", "text": "Arbeit stoppen, Person sicher herauslotsen, Vorfall melden", "impact": { "score": 2 }, "feedback": "Richtig – Sicherheit zuerst." },
+        { "id": "C", "text": "Absperrung abbauen, damit er rauskommt", "impact": { "score": -2 }, "feedback": "Sicherung weiter geschwächt." },
+        { "id": "D", "text": "Anschreien", "impact": { "score": -1 }, "feedback": "Eskalation hilft nicht." }
+      ],
+      "learningPoints": ["Stopp bei Fremdgefahr", "Melden"]
+    },
+    {
+      "id": "S12",
+      "title": "Tagesabschluss unter Druck",
+      "situation": "Team ist muede, will schnell weg. Beschilderung und Beleuchtung vielleicht verrutscht.",
+      "choices": [
+        { "id": "A", "text": "Sofort gehen, morgen pruefen", "impact": { "score": -2 }, "feedback": "Gefahren bleiben ueber Nacht." },
+        { "id": "B", "text": "Kurzer Abschluss-Check mit Liste", "impact": { "score": 2 }, "feedback": "Richtig – Wege, Beleuchtung, Absperrung sichern." },
+        { "id": "C", "text": "Nur Blick in Richtung Strasse", "impact": { "score": -1 }, "feedback": "Teilpruefung reicht nicht." },
+        { "id": "D", "text": "Einen Azubi schicken, selbst gehen", "impact": { "score": -1 }, "feedback": "Alle tragen Verantwortung." }
+      ],
+      "learningPoints": ["Tagesabschluss", "Checkliste nutzen"]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f2f4d"/>
+      <stop offset="100%" stop-color="#234f7a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <rect x="60" y="110" width="680" height="220" rx="16" fill="#ffffff12" stroke="#ffffff55" stroke-width="3"/>
+  <rect x="90" y="160" width="180" height="60" rx="10" fill="#ffb703"/>
+  <rect x="300" y="160" width="220" height="60" rx="10" fill="#ef476f"/>
+  <rect x="550" y="160" width="160" height="60" rx="10" fill="#118ab2"/>
+  <text x="115" y="195" font-size="18" fill="#0d2f52" font-family="Arial" font-weight="700">Vorwarnung</text>
+  <text x="325" y="195" font-size="18" fill="#fff" font-family="Arial" font-weight="700">Absperrung</text>
+  <text x="570" y="195" font-size="18" fill="#fff" font-family="Arial" font-weight="700">Umleitung</text>
+  <text x="70" y="330" fill="#ffffff" font-size="26" font-family="Arial" font-weight="700">Bahnuebergang sichern</text>
+  <text x="70" y="360" fill="#ffffffcc" font-size="17" font-family="Arial">Warnung · Sperre vor dem Uebergang · Fussgaenger fuehren</text>
+</svg>

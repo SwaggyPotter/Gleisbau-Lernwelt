@@ -1,0 +1,10 @@
+<ion-card *ngIf="puzzle">
+  <ion-card-header>
+    <ion-card-subtitle>Drag & Drop</ion-card-subtitle>
+    <ion-card-title>Schilder und Absperrung platzieren</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <app-drag-drop-puzzle [levels]="puzzle.levels"></app-drag-drop-puzzle>
+  </ion-card-content>
+</ion-card>
+

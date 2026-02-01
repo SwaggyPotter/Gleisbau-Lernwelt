@@ -1,0 +1,171 @@
+{
+  "meta": { "lernfeld": "01", "version": "1.0" },
+  "levels": [
+    {
+      "id": "P1",
+      "title": "Gehweg gesperrt – sichere Umleitung",
+      "canvas": {
+        "background": "assets/lernfelder/lernfeld-01/img/placeholder-fussgaengerfuehrung.jpg",
+        "slots": [
+          { "slotId": "slot1", "label": "Vorwarnung", "accept": ["SIGN_WORK_AHEAD"] },
+          { "slotId": "slot2", "label": "Absperrung", "accept": ["BARRIER_PANEL"] },
+          { "slotId": "slot3", "label": "Umleitung", "accept": ["DETOUR_PEDESTRIAN"] }
+        ]
+      },
+      "items": [
+        { "id": "SIGN_WORK_AHEAD", "type": "sign", "name": "Warnschild: Baustelle/Arbeitsstelle" },
+        { "id": "BARRIER_PANEL", "type": "barrier", "name": "Absperrschranke/Schrankengitter" },
+        { "id": "DETOUR_PEDESTRIAN", "type": "sign", "name": "Fussgaenger-Umleitung" },
+        { "id": "WRONG_SPEED_80", "type": "sign", "name": "80 km/h (falsch hier)" }
+      ],
+      "successText": "Top – Fussgaenger werden frueh gewarnt, sicher getrennt und eindeutig umgeleitet.",
+      "failHints": [
+        "Warnung muss vor der Sperre kommen.",
+        "Absperrung ohne Umleitung erzeugt Schleichwege.",
+        "Falsche Zeichen verwirren."
+      ]
+    },
+    {
+      "id": "P2",
+      "title": "Strassenrand-Baustelle",
+      "canvas": {
+        "background": "assets/lernfelder/lernfeld-01/img/placeholder-arbeitsstelle.jpg",
+        "slots": [
+          { "slotId": "slot1", "label": "Vorwarnung Tempo", "accept": ["SIGN_SPEED_30"] },
+          { "slotId": "slot2", "label": "Leitbaken", "accept": ["GUIDE_CONE"] },
+          { "slotId": "slot3", "label": "Arbeitsbereich trennen", "accept": ["BARRIER_PANEL"] }
+        ]
+      },
+      "items": [
+        { "id": "SIGN_SPEED_30", "type": "sign", "name": "Geschwindigkeit 30" },
+        { "id": "GUIDE_CONE", "type": "barrier", "name": "Leitkegel/Leitbake" },
+        { "id": "BARRIER_PANEL", "type": "barrier", "name": "Absperrschranke" },
+        { "id": "WRONG_PEDESTRIAN_PROHIBIT", "type": "sign", "name": "Verbot fuer Fussgaenger (hier unpassend)" }
+      ],
+      "successText": "Gut – Warnen, fuehren, trennen am Fahrbahnrand sauber gesetzt.",
+      "failHints": [
+        "Tempo zuerst reduzieren.",
+        "Leitbaken fuehren den Fahrstreifen.",
+        "Arbeitsbereich braucht klare Trennung."
+      ]
+    },
+    {
+      "id": "P3",
+      "title": "Bahnuebergang Umfeld sichern",
+      "canvas": {
+        "background": "assets/lernfelder/lernfeld-01/img/placeholder-bahnuebergang.jpg",
+        "slots": [
+          { "slotId": "slot1", "label": "Vor Bahnuebergang warnen", "accept": ["SIGN_WORK_AHEAD"] },
+          { "slotId": "slot2", "label": "Sperrung Uebergang", "accept": ["CROSSING_BARRIER"] },
+          { "slotId": "slot3", "label": "Fussgaengerfuehrung", "accept": ["DETOUR_PEDESTRIAN"] }
+        ]
+      },
+      "items": [
+        { "id": "SIGN_WORK_AHEAD", "type": "sign", "name": "Baustellenwarnung" },
+        { "id": "CROSSING_BARRIER", "type": "barrier", "name": "Absperrzaun Bahnuebergang" },
+        { "id": "DETOUR_PEDESTRIAN", "type": "sign", "name": "Fussgaenger-Umleitung" },
+        { "id": "WRONG_SPEED_80", "type": "sign", "name": "Tempo 80 (falsch)" }
+      ],
+      "successText": "Sauber getrennt: Verkehr wird vor dem Uebergang gefuehrt, Fussgaenger haben klare Umleitung.",
+      "failHints": [
+        "Sperrung am Uebergang muss eindeutig sein.",
+        "Fussgaenger brauchen sicheren Weg.",
+        "Vorwarnung nicht vergessen."
+      ]
+    },
+    {
+      "id": "P4",
+      "title": "Nachtbaustelle – Sicht herstellen",
+      "canvas": {
+        "background": "assets/lernfelder/lernfeld-01/img/placeholder-arbeitsstelle.jpg",
+        "slots": [
+          { "slotId": "slot1", "label": "Beleuchtung", "accept": ["LIGHT_TOWER"] },
+          { "slotId": "slot2", "label": "Reflex/Markierung", "accept": ["GUIDE_CONE_REFLEX"] },
+          { "slotId": "slot3", "label": "Absperrung", "accept": ["BARRIER_PANEL_LIGHT"] }
+        ]
+      },
+      "items": [
+        { "id": "LIGHT_TOWER", "type": "light", "name": "Mobiler Lichtmast" },
+        { "id": "GUIDE_CONE_REFLEX", "type": "barrier", "name": "Leitkegel reflektierend" },
+        { "id": "BARRIER_PANEL_LIGHT", "type": "barrier", "name": "Absperrschranke mit Blinklicht" },
+        { "id": "WRONG_GENERATOR_ONLY", "type": "marker", "name": "Nur Generator (ohne Licht)" }
+      ],
+      "successText": "Gut – Licht zuerst, dann Reflex und Absperrung. Sichtbarkeit hergestellt.",
+      "failHints": [
+        "Ohne Licht keine Arbeit fortsetzen.",
+        "Reflektierende Elemente zur Fuehrung setzen.",
+        "Blinklichter kennzeichnen die Sperre."
+      ]
+    },
+    {
+      "id": "P5",
+      "title": "Materiallager ohne Lichtraumverletzung",
+      "canvas": {
+        "background": "assets/lernfelder/lernfeld-01/img/placeholder-gleisbereich.jpg",
+        "slots": [
+          { "slotId": "slot1", "label": "Lagerplatz (sicher)", "accept": ["STACK_TIES"] },
+          { "slotId": "slot2", "label": "Sicherheitsraum frei", "accept": ["KEEP_CLEAR"] },
+          { "slotId": "slot3", "label": "Fluchtweg offen", "accept": ["KEEP_CLEAR"] }
+        ]
+      },
+      "items": [
+        { "id": "STACK_TIES", "type": "sign", "name": "Schwellenstapel ausserhalb Lichtraum" },
+        { "id": "KEEP_CLEAR", "type": "marker", "name": "Bereich freihalten" },
+        { "id": "WRONG_STACK_INSIDE", "type": "sign", "name": "Material im Lichtraum (falsch)" },
+        { "id": "WRONG_TOOLBOX_PATH", "type": "sign", "name": "Werkzeug auf Fluchtweg" }
+      ],
+      "successText": "Lager ausserhalb Lichtraum, Fluchtweg bleibt frei – genau so.",
+      "failHints": [
+        "Nichts darf in den Lichtraum ragen.",
+        "Fluchtwege duerfen nicht blockiert werden."
+      ]
+    },
+    {
+      "id": "P6",
+      "title": "Engstelle Fussgaenger + Baustelle",
+      "canvas": {
+        "background": "assets/lernfelder/lernfeld-01/img/placeholder-fussgaengerfuehrung.jpg",
+        "slots": [
+          { "slotId": "slot1", "label": "Barrierearme Fuehrung", "accept": ["DETOUR_PEDESTRIAN"] },
+          { "slotId": "slot2", "label": "Absperrung Arbeitsbereich", "accept": ["BARRIER_PANEL"] },
+          { "slotId": "slot3", "label": "Warnung", "accept": ["SIGN_WORK_AHEAD"] }
+        ]
+      },
+      "items": [
+        { "id": "DETOUR_PEDESTRIAN", "type": "sign", "name": "Rampe/Umleitung Fussgaenger" },
+        { "id": "BARRIER_PANEL", "type": "barrier", "name": "Absperrschranke" },
+        { "id": "SIGN_WORK_AHEAD", "type": "sign", "name": "Baustelle vor dir" },
+        { "id": "WRONG_STAIRS_ONLY", "type": "sign", "name": "Nur Treppe (nicht barrierearm)" }
+      ],
+      "successText": "Gut geloest: Warnen, trennen, barrierearme Fuehrung in der Engstelle.",
+      "failHints": [
+        "Barrierefreiheit mitdenken.",
+        "Arbeitsbereich braucht physische Trennung.",
+        "Vorwarnung vor der Engstelle setzen."
+      ]
+    },
+    {
+      "id": "P7",
+      "title": "Fehler finden und korrigieren",
+      "canvas": {
+        "background": "assets/lernfelder/lernfeld-01/img/placeholder-arbeitsstelle.jpg",
+        "slots": [
+          { "slotId": "slot1", "label": "Falsches Schild ersetzen", "accept": ["SIGN_WORK_AHEAD"] },
+          { "slotId": "slot2", "label": "Absperrung schliessen", "accept": ["BARRIER_PANEL"] },
+          { "slotId": "slot3", "label": "Umleitung setzen", "accept": ["DETOUR_PEDESTRIAN"] }
+        ]
+      },
+      "items": [
+        { "id": "SIGN_WORK_AHEAD", "type": "sign", "name": "Baustellenwarnung" },
+        { "id": "BARRIER_PANEL", "type": "barrier", "name": "Absperrschranke" },
+        { "id": "DETOUR_PEDESTRIAN", "type": "sign", "name": "Umleitung Fussgaenger" },
+        { "id": "WRONG_PARKING", "type": "sign", "name": "Parken erlaubt (falsch)" }
+      ],
+      "successText": "Fehler behoben – richtige Warnung, Absperrung geschlossen, Umleitung sichtbar.",
+      "failHints": [
+        "Falsche Schilder ersetzen, nicht ergänzen.",
+        "Sperren nur mit passender Umleitung setzen."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+.page-shell {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(135deg, #0d2f52, #163f63);
+  color: #fff;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.eyebrow {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin: 0;
+}
+
+.lede {
+  margin: 8px 0;
+}
+
+.badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.progress {
+  display: grid;
+  gap: 8px;
+  min-width: 220px;
+  .stat {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 10px;
+    border-radius: 10px;
+    span {
+      display: block;
+      font-size: 12px;
+    }
+    strong {
+      font-size: 24px;
+    }
+  }
+}
+
+.block {
+  margin-bottom: 18px;
+  padding: 14px;
+  border: 1px solid #e7ecf3;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.block-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.summary {
+  margin: 4px 0 0;
+  color: var(--ion-color-medium);
+}
+
+.block-actions {
+  display: flex;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.extras {
+  margin-top: 12px;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+  }
+  .block-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+

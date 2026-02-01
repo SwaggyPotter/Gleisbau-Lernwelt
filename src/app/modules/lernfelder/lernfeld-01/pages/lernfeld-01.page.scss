@@ -80,6 +80,15 @@
   margin-top: 12px;
 }
 
+.sticky-nav {
+  position: sticky;
+  top: 80px;
+  z-index: 5;
+  max-height: calc(100vh - 100px);
+  overflow: auto;
+  padding-right: 4px;
+}
+
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;
@@ -89,5 +98,11 @@
     align-items: flex-start;
     gap: 8px;
   }
+  .sticky-nav {
+    position: static;
+    top: auto;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
 }
-

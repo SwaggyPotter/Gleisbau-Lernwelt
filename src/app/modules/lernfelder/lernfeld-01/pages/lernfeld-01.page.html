@@ -41,12 +41,14 @@
     <ion-grid>
       <ion-row>
         <ion-col size="12" sizeLg="3">
-          <app-lf01-nav
-            [blocks]="blocks"
-            [completed]="progress.completedBlocks"
-            [activeId]="selectedBlock?.id"
-            (selectBlock)="selectBlock($event)"
-          ></app-lf01-nav>
+          <div class="sticky-nav">
+            <app-lf01-nav
+              [blocks]="blocks"
+              [completed]="progress.completedBlocks"
+              [activeId]="selectedBlock?.id"
+              (selectBlock)="selectBlock($event)"
+            ></app-lf01-nav>
+          </div>
         </ion-col>
 
         <ion-col size="12" sizeLg="9">

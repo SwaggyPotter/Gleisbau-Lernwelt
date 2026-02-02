@@ -13,7 +13,7 @@
 .entries {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 18px;
 }
 
 .paragraph {
@@ -37,18 +37,7 @@
 }
 
 .checklist {
-  background: #f6f7fb;
-  border: 1px solid #e3e7ef;
-  border-radius: 12px;
-  padding: 8px;
-
-  h4 {
-    margin: 0 0 4px;
-  }
-
-  small {
-    color: var(--ion-color-medium);
-  }
+  display: none;
 }
 
 .image-block {
@@ -74,4 +63,3 @@
     color: var(--ion-color-medium);
   }
 }
-

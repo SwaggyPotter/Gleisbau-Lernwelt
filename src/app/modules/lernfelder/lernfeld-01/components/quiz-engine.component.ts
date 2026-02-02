@@ -21,6 +21,8 @@ export class QuizEngineComponent implements OnChanges {
   active: QuizQuestion[] = [];
   answers: Record<string, AnswerState> = {};
   showSolutions = false;
+  currentIndex = 0;
+  finishedSummary?: { correct: number; total: number };
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['questions'] || changes['questionIds'] || changes['limit']) {
@@ -36,6 +38,8 @@ export class QuizEngineComponent implements OnChanges {
     this.active = this.limit ? pool.slice(0, this.limit) : pool;
     this.answers = {};
     this.showSolutions = false;
+    this.currentIndex = 0;
+    this.finishedSummary = undefined;
   }
 
   select(question: QuizQuestion, choiceId: string): void {
@@ -48,7 +52,11 @@ export class QuizEngineComponent implements OnChanges {
       const wrongIds = Object.entries(this.answers)
         .filter(([, v]) => !v.correct)
         .map(([id]) => id);
+      this.finishedSummary = { correct: correctCount, total: this.active.length };
       this.completed.emit({ correct: correctCount, total: this.active.length, wrongIds, questionIds: this.active.map(q => q.id) });
+    }
+    if (this.currentIndex < this.active.length - 1) {
+      this.currentIndex += 1;
     }
   }
 
@@ -60,16 +68,37 @@ export class QuizEngineComponent implements OnChanges {
     this.showSolutions = !this.showSolutions;
   }
 
-  choiceState(question: QuizQuestion, choiceId: string): 'correct' | 'wrong' | 'neutral' {
+  choiceState(question: QuizQuestion, choiceId: string): 'correct' | 'wrong' | 'neutral' | 'selected' {
     const current = this.answers[question.id];
     if (!current?.choice) return 'neutral';
     if (choiceId === current.choice) {
-      return current.correct ? 'correct' : 'wrong';
+      if (this.finishedSummary) {
+        return current.correct ? 'correct' : 'wrong';
+      }
+      return 'selected';
     }
-    if (this.showSolutions && choiceId === question.answer) {
-      return 'correct';
-    }
+    if (this.showSolutions && choiceId === question.answer) return 'correct';
     return 'neutral';
+  }
+
+  currentQuestion(): QuizQuestion | undefined {
+    return this.active[this.currentIndex];
+  }
+
+  progressLabel(): string {
+    return `Frage ${Math.min(this.currentIndex + 1, this.active.length)} von ${this.active.length}`;
+  }
+
+  answeredCount(): number {
+    return Object.keys(this.answers).length;
+  }
+
+  next(): void {
+    if (this.currentIndex < this.active.length - 1) this.currentIndex += 1;
+  }
+
+  prev(): void {
+    if (this.currentIndex > 0) this.currentIndex -= 1;
   }
 
   private shuffleArray<T>(arr: T[]): T[] {

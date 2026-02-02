@@ -10,7 +10,6 @@ import { LessonRendererComponent } from './components/lesson-renderer.component'
 import { QuizEngineComponent } from './components/quiz-engine.component';
 import { ScenarioRunnerComponent } from './components/scenario-runner.component';
 import { DragDropPuzzleComponent } from './components/drag-drop-puzzle.component';
-import { Lf01ChecklistenComponent } from './components/lf01-checklisten.component';
 import { Lf01SignPuzzleComponent } from './components/lf01-sign-puzzle.component';
 import { Lf01QuicktestComponent } from './components/lf01-quicktest.component';
 
@@ -22,7 +21,6 @@ import { Lf01QuicktestComponent } from './components/lf01-quicktest.component';
     QuizEngineComponent,
     ScenarioRunnerComponent,
     DragDropPuzzleComponent,
-    Lf01ChecklistenComponent,
     Lf01SignPuzzleComponent,
     Lf01QuicktestComponent,
   ],
@@ -34,4 +32,3 @@ import { Lf01QuicktestComponent } from './components/lf01-quicktest.component';
   ],
 })
 export class Lernfeld01Module {}
-

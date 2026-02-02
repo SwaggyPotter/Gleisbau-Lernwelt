@@ -1,45 +1,36 @@
-<ion-card class="quiz-card">
+<ion-card class="quiz-card" *ngIf="currentQuestion() as q">
   <ion-card-header>
     <ion-card-title>{{ title }}</ion-card-title>
-    <ion-card-subtitle *ngIf="limit">Zufällig {{ limit }} Fragen</ion-card-subtitle>
+    <ion-card-subtitle>{{ progressLabel() }}</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
-    <div class="quiz-list">
-      <div class="quiz-item" *ngFor="let q of active; let idx = index">
-        <div class="quiz-head">
-          <span class="pill">Frage {{ idx + 1 }}</span>
-          <span class="pill light">{{ q.difficulty }}</span>
-        </div>
-        <p class="question">{{ q.question }}</p>
-        <ion-list lines="none">
-          <ion-item
-            *ngFor="let c of q.choices"
-            (click)="select(q, c.id)"
-            [class.correct]="choiceState(q, c.id) === 'correct'"
-            [class.wrong]="choiceState(q, c.id) === 'wrong'"
-            button
-          >
-            <ion-label>{{ c.text }}</ion-label>
-            <ion-icon
-              *ngIf="choiceState(q, c.id) === 'correct'"
-              slot="end"
-              color="success"
-              name="checkmark-circle-outline"
-            ></ion-icon>
-            <ion-icon
-              *ngIf="choiceState(q, c.id) === 'wrong'"
-              slot="end"
-              color="danger"
-              name="close-circle-outline"
-            ></ion-icon>
-          </ion-item>
-        </ion-list>
-        <p class="explain" *ngIf="answers[q.id]?.choice">
-          {{ answers[q.id]?.correct ? 'Richtig:' : 'Hinweis:' }} {{ q.explain }}
-        </p>
+    <div class="quiz-item">
+      <div class="quiz-head">
+        <span class="pill light">{{ q.difficulty }}</span>
       </div>
+      <p class="question">{{ q.question }}</p>
+      <ion-list lines="none">
+        <ion-item
+          *ngFor="let c of q.choices"
+          (click)="select(q, c.id)"
+          [class.correct]="choiceState(q, c.id) === 'correct'"
+          [class.wrong]="choiceState(q, c.id) === 'wrong'"
+          [class.selected]="choiceState(q, c.id) === 'selected'"
+          button
+        >
+          <ion-label>{{ c.text }}</ion-label>
+        </ion-item>
+      </ion-list>
     </div>
-    <div class="quiz-actions">
+    <div class="nav-row">
+      <ion-button size="small" fill="outline" (click)="prev()" [disabled]="currentIndex === 0">Zurück</ion-button>
+      <ion-button size="small" fill="outline" (click)="next()" [disabled]="currentIndex >= active.length - 1">Weiter</ion-button>
+      <div class="spacer"></div>
+      <ion-chip color="primary" outline="true">{{ answeredCount() }}/{{ active.length }} beantwortet</ion-chip>
+    </div>
+
+    <div class="result" *ngIf="finishedSummary">
+      <p>Ergebnis: {{ finishedSummary.correct }} / {{ finishedSummary.total }} richtig</p>
       <ion-button size="small" fill="outline" color="medium" (click)="reset()">Neue Runde</ion-button>
       <ion-button size="small" fill="clear" (click)="toggleSolutions()">
         {{ showSolutions ? 'Lösungen ausblenden' : 'Lösungen zeigen' }}
@@ -47,4 +38,3 @@
     </div>
   </ion-card-content>
 </ion-card>
-

@@ -1,0 +1,165 @@
+{
+  "meta": { "lernfeld": "02", "title": "Nivellieren im Gleisbau", "version": "1.0" },
+  "questions": [
+    {
+      "id": "Q1",
+      "block": "lf02-b1",
+      "type": "mcq_single",
+      "question": "Was ist der Rueckblick (RB)?",
+      "choices": [
+        { "id": "A", "text": "Ablesung auf dem Zielpunkt" },
+        { "id": "B", "text": "Ablesung auf einem Punkt mit bekannter Hoehe" },
+        { "id": "C", "text": "Die Instrumentenhoehe" },
+        { "id": "D", "text": "Der Abstand zwischen zwei Punkten" }
+      ],
+      "answer": "B",
+      "explain": "RB wird auf den bekannten Ausgangspunkt gemessen, um IH zu bilden.",
+      "difficulty": "easy",
+      "tags": ["grundlagen", "rbvb"]
+    },
+    {
+      "id": "Q2",
+      "block": "lf02-b1",
+      "type": "mcq_single",
+      "question": "Welche Gleichung ist fuer das differenzielle Nivellement korrekt?",
+      "choices": [
+        { "id": "A", "text": "H_neu = H_alt + VB - RB" },
+        { "id": "B", "text": "H_neu = H_alt + RB - VB" },
+        { "id": "C", "text": "IH = H_alt - RB" },
+        { "id": "D", "text": "IH = H_alt + VB" }
+      ],
+      "answer": "B",
+      "explain": "Standard: Hoehe neu = Hoehe alt + Rueckblick - Vorblick.",
+      "difficulty": "easy",
+      "tags": ["formel", "grundlagen"]
+    },
+    {
+      "id": "Q3",
+      "block": "lf02-b4",
+      "type": "mcq_single",
+      "question": "Warum pendelst du die Latte leicht hin und her?",
+      "choices": [
+        { "id": "A", "text": "Um sie zu reinigen" },
+        { "id": "B", "text": "Damit der Kompensator schneller arbeitet" },
+        { "id": "C", "text": "Um den kleinsten Wert und damit senkrechten Stand zu treffen" },
+        { "id": "D", "text": "Um den groessten Wert zu finden" }
+      ],
+      "answer": "C",
+      "explain": "Pendeln hilft, den senkrechten Stand zu finden; der kleinste Wert ist korrekt.",
+      "difficulty": "easy",
+      "tags": ["latte", "praxis"]
+    },
+    {
+      "id": "Q4",
+      "block": "lf02-b3",
+      "type": "mcq_single",
+      "question": "Wozu dient ein Schleifennivellement (Messzug mit Rueckschluss)?",
+      "choices": [
+        { "id": "A", "text": "Nur um schneller zu messen" },
+        { "id": "B", "text": "Zur Kontrolle des Schlussfehlers, weil Start = Ziel" },
+        { "id": "C", "text": "Zum Messen von Winkeln" },
+        { "id": "D", "text": "Zum Abstecken von Radien" }
+      ],
+      "answer": "B",
+      "explain": "Der Rueckschluss erlaubt, den Schlussfehler zu bestimmen und die Qualitaet zu pruefen.",
+      "difficulty": "medium",
+      "tags": ["verfahren", "kontrolle"]
+    },
+    {
+      "id": "Q5",
+      "block": "lf02-b7",
+      "type": "mcq_single",
+      "question": "Was pruefst du mit dem Zwei-Punkt-Test?",
+      "choices": [
+        { "id": "A", "text": "Ob die Latte geeicht ist" },
+        { "id": "B", "text": "Ob die Ziellinie des Geraets wirklich horizontal ist" },
+        { "id": "C", "text": "Ob die Batterie voll ist" },
+        { "id": "D", "text": "Ob RB und VB gleich lang sind" }
+      ],
+      "answer": "B",
+      "explain": "Zwei-Punkt-Test prueft die Kollimation (horizontale Ziellinie) des Nivelliers.",
+      "difficulty": "medium",
+      "tags": ["qualitaet", "test"]
+    },
+    {
+      "id": "Q6",
+      "block": "lf02-b2",
+      "type": "mcq_single",
+      "question": "Welcher Vorteil spricht fuer ein Digitalnivellier?",
+      "choices": [
+        { "id": "A", "text": "Keine Stromversorgung noetig" },
+        { "id": "B", "text": "Weniger Ablesefehler durch Barcode-Latte und Datenexport" },
+        { "id": "C", "text": "Es ist immer genauer als jedes optische Geraet" },
+        { "id": "D", "text": "Man braucht keine Latte" }
+      ],
+      "answer": "B",
+      "explain": "Digitalnivelliere reduzieren Ablesefehler und koennen Daten speichern/exportieren.",
+      "difficulty": "medium",
+      "tags": ["geraet", "digital"]
+    },
+    {
+      "id": "Q7",
+      "block": "lf02-b7",
+      "type": "mcq_single",
+      "question": "Was beschreibt der Schlussfehler e in einem Messzug?",
+      "choices": [
+        { "id": "A", "text": "Summe aller RB" },
+        { "id": "B", "text": "Differenz zwischen berechneter und bekannter Endhoehe" },
+        { "id": "C", "text": "Hoehe des Stativs" },
+        { "id": "D", "text": "Anzahl der Umsetzungen" }
+      ],
+      "answer": "B",
+      "explain": "Schlussfehler = berechnete Endhoehe minus bekannte Endhoehe; zeigt Messqualitaet.",
+      "difficulty": "medium",
+      "tags": ["qualitaet", "schlussfehler"]
+    },
+    {
+      "id": "Q8",
+      "block": "lf02-b4",
+      "type": "mcq_single",
+      "question": "Was ist ein guter erster Schritt nach dem Aufsetzen des Geraets?",
+      "choices": [
+        { "id": "A", "text": "Sofort RB ablesen" },
+        { "id": "B", "text": "Libelle zentrieren und Geraet fest verschrauben" },
+        { "id": "C", "text": "Latte auf den Boden legen" },
+        { "id": "D", "text": "Akkus entnehmen" }
+      ],
+      "answer": "B",
+      "explain": "Standsicherheit und Waage sind Basis, bevor du abliest.",
+      "difficulty": "easy",
+      "tags": ["aufbau", "praxis"]
+    },
+    {
+      "id": "Q9",
+      "block": "lf02-b6",
+      "type": "mcq_single",
+      "question": "Wozu nutzt du die Beziehung Summe(RB) - Summe(VB)?",
+      "choices": [
+        { "id": "A", "text": "Um die Instrumentenhoehe zu finden" },
+        { "id": "B", "text": "Zur Plausibilitaet: sie ergibt die Hoehenaenderung zwischen Start und Ende" },
+        { "id": "C", "text": "Um den Abstand zweier Punkte zu berechnen" },
+        { "id": "D", "text": "Um den Kompensator zu pruefen" }
+      ],
+      "answer": "B",
+      "explain": "Die Differenz der Summen ist die Hoehenaenderung; in einer Schleife sollte sie nahe 0 sein.",
+      "difficulty": "medium",
+      "tags": ["rechnen", "plausibilitaet"]
+    },
+    {
+      "id": "Q10",
+      "block": "lf02-b8",
+      "type": "mcq_single",
+      "question": "Welche Fehlerquelle ist in der Praxis besonders haeufig?",
+      "choices": [
+        { "id": "A", "text": "Zu kurze Latte" },
+        { "id": "B", "text": "Latte nicht senkrecht gehalten" },
+        { "id": "C", "text": "Zu viel Licht" },
+        { "id": "D", "text": "Keine Notizen machen" }
+      ],
+      "answer": "B",
+      "explain": "Schief gehaltene Latte fuehrt zu zu grossen Ablesungen und ist ein typischer Fehler.",
+      "difficulty": "easy",
+      "tags": ["fehler", "latte"]
+    }
+  ]
+}

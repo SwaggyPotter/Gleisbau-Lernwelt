@@ -22,6 +22,13 @@ export class DashboardPage implements OnDestroy {
       tag: 'Gleisbau',
       link: '/lernfelder/1',
     },
+    {
+      id: 'lf02-nivellieren',
+      title: 'Nivellieren im Gleisbau',
+      description: 'Leitfaden aus PDF inkl. Quiz und Checklisten.',
+      tag: 'Gleisbau',
+      link: '/lernfelder/2',
+    },
   ];
   private sub = new Subscription();
 

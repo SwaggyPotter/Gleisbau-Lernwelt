@@ -39,8 +39,17 @@ const routes: Routes = [
     loadChildren: () => import('./modules/lernfelder/lernfeld-01/lernfeld-01.module').then(m => m.Lernfeld01Module),
   },
   {
+    path: 'lernfelder/2',
+    loadChildren: () => import('./modules/lernfelder/lernfeld-02/lernfeld-02.module').then(m => m.Lernfeld02Module),
+  },
+  {
     path: 'lernfeld/01',
     redirectTo: 'lernfelder/1',
+    pathMatch: 'full',
+  },
+  {
+    path: 'lernfeld/02',
+    redirectTo: 'lernfelder/2',
     pathMatch: 'full',
   },
   {

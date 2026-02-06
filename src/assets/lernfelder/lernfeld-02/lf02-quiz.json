@@ -1,165 +1,485 @@
 {
-  "meta": { "lernfeld": "02", "title": "Nivellieren im Gleisbau", "version": "1.0" },
+  "meta": { "lernfeld": "02", "title": "Bauwerke erschliessen und gruenden", "version": "1.0" },
   "questions": [
     {
       "id": "Q1",
       "block": "lf02-b1",
       "type": "mcq_single",
-      "question": "Was ist der Rueckblick (RB)?",
+      "question": "Was ist zuerst zu klaeren, bevor du eine Baugrube planst?",
       "choices": [
-        { "id": "A", "text": "Ablesung auf dem Zielpunkt" },
-        { "id": "B", "text": "Ablesung auf einem Punkt mit bekannter Hoehe" },
-        { "id": "C", "text": "Die Instrumentenhoehe" },
-        { "id": "D", "text": "Der Abstand zwischen zwei Punkten" }
+        { "id": "A", "text": "Leitungsplan/Leitungsbestand" },
+        { "id": "B", "text": "Pflasterfarbe" },
+        { "id": "C", "text": "Betonrezept" },
+        { "id": "D", "text": "Schalungsart" }
       ],
-      "answer": "B",
-      "explain": "RB wird auf den bekannten Ausgangspunkt gemessen, um IH zu bilden.",
+      "answer": "A",
+      "explain": "Der Leitungsbestand bestimmt Aushub, Arbeitsraum und Sicherung und kommt vor allen Detailfragen.",
       "difficulty": "easy",
-      "tags": ["grundlagen", "rbvb"]
+      "tags": ["analyse", "leitungen"]
     },
     {
       "id": "Q2",
       "block": "lf02-b1",
       "type": "mcq_single",
-      "question": "Welche Gleichung ist fuer das differenzielle Nivellement korrekt?",
+      "question": "\"Oertliche Gegebenheiten\" im LF2 meint vor allem ...",
       "choices": [
-        { "id": "A", "text": "H_neu = H_alt + VB - RB" },
-        { "id": "B", "text": "H_neu = H_alt + RB - VB" },
-        { "id": "C", "text": "IH = H_alt - RB" },
-        { "id": "D", "text": "IH = H_alt + VB" }
+        { "id": "A", "text": "Boden/Wasser/Platz/Leitungen" },
+        { "id": "B", "text": "Nur Wetter" },
+        { "id": "C", "text": "Nur Personal" },
+        { "id": "D", "text": "Nur Maschinen" }
       ],
-      "answer": "B",
-      "explain": "Standard: Hoehe neu = Hoehe alt + Rueckblick - Vorblick.",
+      "answer": "A",
+      "explain": "Boden, Wasser, Platz und Leitungsbestand bestimmen Bauweise und Sicherheit.",
       "difficulty": "easy",
-      "tags": ["formel", "grundlagen"]
+      "tags": ["analyse", "grundlagen"]
     },
     {
       "id": "Q3",
-      "block": "lf02-b4",
+      "block": "lf02-b2",
       "type": "mcq_single",
-      "question": "Warum pendelst du die Latte leicht hin und her?",
+      "question": "Warum ist \"Wassereinfluss\" beim Baugruben-/Grabenbau kritisch?",
       "choices": [
-        { "id": "A", "text": "Um sie zu reinigen" },
-        { "id": "B", "text": "Damit der Kompensator schneller arbeitet" },
-        { "id": "C", "text": "Um den kleinsten Wert und damit senkrechten Stand zu treffen" },
-        { "id": "D", "text": "Um den groessten Wert zu finden" }
+        { "id": "A", "text": "Beeinflusst Standsicherheit und Wasserhaltung" },
+        { "id": "B", "text": "Macht Beton schneller hart" },
+        { "id": "C", "text": "Spart Vermessung" },
+        { "id": "D", "text": "Ersetzt Verbau" }
       ],
-      "answer": "C",
-      "explain": "Pendeln hilft, den senkrechten Stand zu finden; der kleinste Wert ist korrekt.",
+      "answer": "A",
+      "explain": "Wasser kann Boeschungen aufweichen und bestimmt, ob du Wasserhaltung/Verbau anpassen musst.",
       "difficulty": "easy",
-      "tags": ["latte", "praxis"]
+      "tags": ["boden", "wasser"]
     },
     {
       "id": "Q4",
-      "block": "lf02-b3",
+      "block": "lf02-b2",
       "type": "mcq_single",
-      "question": "Wozu dient ein Schleifennivellement (Messzug mit Rueckschluss)?",
+      "question": "Was gehoert zur \"Ressource Boden\" im Sinne Nachhaltigkeit im LF2?",
       "choices": [
-        { "id": "A", "text": "Nur um schneller zu messen" },
-        { "id": "B", "text": "Zur Kontrolle des Schlussfehlers, weil Start = Ziel" },
-        { "id": "C", "text": "Zum Messen von Winkeln" },
-        { "id": "D", "text": "Zum Abstecken von Radien" }
+        { "id": "A", "text": "Aushub sinnvoll wiederverwenden/Flaechenverbrauch bewerten" },
+        { "id": "B", "text": "Nur Diesel sparen" },
+        { "id": "C", "text": "Nur Laerm reduzieren" },
+        { "id": "D", "text": "Nur Tempo erhoehen" }
       ],
-      "answer": "B",
-      "explain": "Der Rueckschluss erlaubt, den Schlussfehler zu bestimmen und die Qualitaet zu pruefen.",
+      "answer": "A",
+      "explain": "Getrennter Aushub, Wiederverwendung und geringer Flaechenverbrauch schuetzen die Ressource Boden.",
       "difficulty": "medium",
-      "tags": ["verfahren", "kontrolle"]
+      "tags": ["nachhaltigkeit", "boden"]
     },
     {
       "id": "Q5",
-      "block": "lf02-b7",
+      "block": "lf02-b3",
       "type": "mcq_single",
-      "question": "Was pruefst du mit dem Zwei-Punkt-Test?",
+      "question": "Wofuer ist DIN 4124 im Tiefbau besonders relevant?",
       "choices": [
-        { "id": "A", "text": "Ob die Latte geeicht ist" },
-        { "id": "B", "text": "Ob die Ziellinie des Geraets wirklich horizontal ist" },
-        { "id": "C", "text": "Ob die Batterie voll ist" },
-        { "id": "D", "text": "Ob RB und VB gleich lang sind" }
+        { "id": "A", "text": "Boeschungen/Verbau/Arbeitsraumbreiten in Baugruben und Graeben" },
+        { "id": "B", "text": "Schweissnaehte" },
+        { "id": "C", "text": "Gleisbogenueberhoehung" },
+        { "id": "D", "text": "Asphaltmischgut" }
       ],
-      "answer": "B",
-      "explain": "Zwei-Punkt-Test prueft die Kollimation (horizontale Ziellinie) des Nivelliers.",
+      "answer": "A",
+      "explain": "DIN 4124 regelt Boeschungen, Verbau und Arbeitsraumbreiten fuer sichere Graeben und Baugruben.",
       "difficulty": "medium",
-      "tags": ["qualitaet", "test"]
+      "tags": ["din4124", "sicherheit"]
     },
     {
       "id": "Q6",
-      "block": "lf02-b2",
+      "block": "lf02-b3",
       "type": "mcq_single",
-      "question": "Welcher Vorteil spricht fuer ein Digitalnivellier?",
+      "question": "Welche Aussage stimmt?",
       "choices": [
-        { "id": "A", "text": "Keine Stromversorgung noetig" },
-        { "id": "B", "text": "Weniger Ablesefehler durch Barcode-Latte und Datenexport" },
-        { "id": "C", "text": "Es ist immer genauer als jedes optische Geraet" },
-        { "id": "D", "text": "Man braucht keine Latte" }
+        { "id": "A", "text": "Verbau muss in Bau- und Rueckbauzustaenden standsicher sein" },
+        { "id": "B", "text": "Verbau ist nur beim Aushub wichtig" },
+        { "id": "C", "text": "Verbau ist freiwillig" },
+        { "id": "D", "text": "Verbau ersetzt PSA" }
       ],
-      "answer": "B",
-      "explain": "Digitalnivelliere reduzieren Ablesefehler und koennen Daten speichern/exportieren.",
-      "difficulty": "medium",
-      "tags": ["geraet", "digital"]
+      "answer": "A",
+      "explain": "Der Verbau muss waehrend Montage, Nutzung und Rueckbau sicher tragen.",
+      "difficulty": "easy",
+      "tags": ["verbau", "sicherheit"]
     },
     {
       "id": "Q7",
-      "block": "lf02-b7",
+      "block": "lf02-b4",
       "type": "mcq_single",
-      "question": "Was beschreibt der Schlussfehler e in einem Messzug?",
+      "question": "Wann wird Wasserhaltung ueberhaupt Thema?",
       "choices": [
-        { "id": "A", "text": "Summe aller RB" },
-        { "id": "B", "text": "Differenz zwischen berechneter und bekannter Endhoehe" },
-        { "id": "C", "text": "Hoehe des Stativs" },
-        { "id": "D", "text": "Anzahl der Umsetzungen" }
+        { "id": "A", "text": "Wenn Wasserandrang/Grundwasser die Arbeiten stoert oder Standsicherheit beeinflusst" },
+        { "id": "B", "text": "Immer bei Sonne" },
+        { "id": "C", "text": "Nur bei Betonieren" },
+        { "id": "D", "text": "Nie bei Graeben" }
       ],
-      "answer": "B",
-      "explain": "Schlussfehler = berechnete Endhoehe minus bekannte Endhoehe; zeigt Messqualitaet.",
-      "difficulty": "medium",
-      "tags": ["qualitaet", "schlussfehler"]
+      "answer": "A",
+      "explain": "Wasserhaltung ist nur noetig, wenn Wasser den Bauablauf oder die Standsicherheit gefaehrdet.",
+      "difficulty": "easy",
+      "tags": ["wasserhaltung"]
     },
     {
       "id": "Q8",
       "block": "lf02-b4",
       "type": "mcq_single",
-      "question": "Was ist ein guter erster Schritt nach dem Aufsetzen des Geraets?",
+      "question": "Offene Wasserhaltung kann problematisch sein, weil ...",
       "choices": [
-        { "id": "A", "text": "Sofort RB ablesen" },
-        { "id": "B", "text": "Libelle zentrieren und Geraet fest verschrauben" },
-        { "id": "C", "text": "Latte auf den Boden legen" },
-        { "id": "D", "text": "Akkus entnehmen" }
+        { "id": "A", "text": "der Boden aufgeweicht/instabil werden kann" },
+        { "id": "B", "text": "sie nie funktioniert" },
+        { "id": "C", "text": "sie Strom erzeugt" },
+        { "id": "D", "text": "sie automatisch abdichtet" }
       ],
-      "answer": "B",
-      "explain": "Standsicherheit und Waage sind Basis, bevor du abliest.",
-      "difficulty": "easy",
-      "tags": ["aufbau", "praxis"]
+      "answer": "A",
+      "explain": "Offenes Abpumpen kann den Boden auswaschen oder aufweichen und so die Standsicherheit senken.",
+      "difficulty": "medium",
+      "tags": ["wasserhaltung", "risiko"]
     },
     {
       "id": "Q9",
-      "block": "lf02-b6",
+      "block": "lf02-b5",
       "type": "mcq_single",
-      "question": "Wozu nutzt du die Beziehung Summe(RB) - Summe(VB)?",
+      "question": "Welches Fundament ist typisch fuer tragende Waende?",
       "choices": [
-        { "id": "A", "text": "Um die Instrumentenhoehe zu finden" },
-        { "id": "B", "text": "Zur Plausibilitaet: sie ergibt die Hoehenaenderung zwischen Start und Ende" },
-        { "id": "C", "text": "Um den Abstand zweier Punkte zu berechnen" },
-        { "id": "D", "text": "Um den Kompensator zu pruefen" }
+        { "id": "A", "text": "Streifenfundament" },
+        { "id": "B", "text": "Einzelfundament" },
+        { "id": "C", "text": "Pfahlkopfplatte" },
+        { "id": "D", "text": "Ankerplatte" }
       ],
-      "answer": "B",
-      "explain": "Die Differenz der Summen ist die Hoehenaenderung; in einer Schleife sollte sie nahe 0 sein.",
-      "difficulty": "medium",
-      "tags": ["rechnen", "plausibilitaet"]
+      "answer": "A",
+      "explain": "Streifenfundamente nehmen lineare Lasten aus Waenden auf.",
+      "difficulty": "easy",
+      "tags": ["fundament", "rlp"]
     },
     {
       "id": "Q10",
+      "block": "lf02-b5",
+      "type": "mcq_single",
+      "question": "Was musst du aus dem Fundamentplan sicher entnehmen koennen?",
+      "choices": [
+        { "id": "A", "text": "Lage und Abmessungen der Fundamente" },
+        { "id": "B", "text": "Farbe der Steine" },
+        { "id": "C", "text": "Fahrzeugkennzeichen" },
+        { "id": "D", "text": "Pausenzeit" }
+      ],
+      "answer": "A",
+      "explain": "Lage und Masse sind Grundlage fuer Aushub, Schalung und Bewehrung.",
+      "difficulty": "easy",
+      "tags": ["planlesen", "fundament"]
+    },
+    {
+      "id": "Q11",
+      "block": "lf02-b6",
+      "type": "mcq_single",
+      "question": "Wofuer ist ein Schnurgeruest da?",
+      "choices": [
+        { "id": "A", "text": "Achsen/Fluchten/Hoehen sicher abstecken, auch wenn im Arbeitsbereich gebaggert wird" },
+        { "id": "B", "text": "Nur Deko" },
+        { "id": "C", "text": "Fuer Betonmischer" },
+        { "id": "D", "text": "Als Verbauersatz" }
+      ],
+      "answer": "A",
+      "explain": "Das Schnurgeruest haelt Achsen und Hoehen ausserhalb des Aushubs, damit sie beim Baggern bestehen bleiben.",
+      "difficulty": "easy",
+      "tags": ["vermessung"]
+    },
+    {
+      "id": "Q12",
+      "block": "lf02-b6",
+      "type": "mcq_single",
+      "question": "Was gehoert zu \"Vermessungsarbeiten\" im LF2?",
+      "choices": [
+        { "id": "A", "text": "Fluchten + Hoehen + Schnurgeruest" },
+        { "id": "B", "text": "Nur Fotos machen" },
+        { "id": "C", "text": "Nur Material bestellen" },
+        { "id": "D", "text": "Nur Pausen planen" }
+      ],
+      "answer": "A",
+      "explain": "Vermessung umfasst Achsen, Hoehenuebertragung und das Schnurgeruest.",
+      "difficulty": "easy",
+      "tags": ["vermessung", "rlp"]
+    },
+    {
+      "id": "Q13",
+      "block": "lf02-b7",
+      "type": "mcq_single",
+      "question": "Verdichten wird in der Regel ...",
+      "choices": [
+        { "id": "A", "text": "lagenweise durchgefuehrt" },
+        { "id": "B", "text": "nur am Ende einmal" },
+        { "id": "C", "text": "gar nicht gebraucht" },
+        { "id": "D", "text": "nur bei Sand verboten" }
+      ],
+      "answer": "A",
+      "explain": "Nur lagenweise Verdichtung stellt eine gleichmaessige Tragfaehigkeit sicher.",
+      "difficulty": "easy",
+      "tags": ["erdarbeiten", "verdichtung"]
+    },
+    {
+      "id": "Q14",
+      "block": "lf02-b7",
+      "type": "mcq_single",
+      "question": "Was wird bei der Kontrolle u. a. geprueft?",
+      "choices": [
+        { "id": "A", "text": "Einhaltung UV-Massnahmen + Groesse Arbeitsraum" },
+        { "id": "B", "text": "Musiklautstaerke" },
+        { "id": "C", "text": "Handyempfang" },
+        { "id": "D", "text": "Helmfarbe" }
+      ],
+      "answer": "A",
+      "explain": "Arbeitsschutz und Arbeitsraum sind Pflichtpruefpunkte laut RLP.",
+      "difficulty": "medium",
+      "tags": ["uvv", "kontrolle"]
+    },
+    {
+      "id": "Q15",
       "block": "lf02-b8",
       "type": "mcq_single",
-      "question": "Welche Fehlerquelle ist in der Praxis besonders haeufig?",
+      "question": "Was gehoert zu Infrastrukturleitungen im Sinne des LF2?",
       "choices": [
-        { "id": "A", "text": "Zu kurze Latte" },
-        { "id": "B", "text": "Latte nicht senkrecht gehalten" },
-        { "id": "C", "text": "Zu viel Licht" },
-        { "id": "D", "text": "Keine Notizen machen" }
+        { "id": "A", "text": "Entwaesserung, Strom, Kommunikation, gas-/fluessige Medien" },
+        { "id": "B", "text": "Nur Gleise" },
+        { "id": "C", "text": "Nur Dachrinnen" },
+        { "id": "D", "text": "Nur Holz" }
       ],
-      "answer": "B",
-      "explain": "Schief gehaltene Latte fuehrt zu zu grossen Ablesungen und ist ein typischer Fehler.",
+      "answer": "A",
+      "explain": "LF2 betrachtet alle typischen Ver- und Entsorgungsleitungen auf der Baustelle.",
       "difficulty": "easy",
-      "tags": ["fehler", "latte"]
+      "tags": ["erschliessung"]
+    },
+    {
+      "id": "Q16",
+      "block": "lf02-b8",
+      "type": "mcq_single",
+      "question": "Was ist ein typischer Qualitaetscheck bei Entwaesserungsleitungen?",
+      "choices": [
+        { "id": "A", "text": "Gefalle pruefen" },
+        { "id": "B", "text": "Farbe pruefen" },
+        { "id": "C", "text": "Gewicht schaetzen" },
+        { "id": "D", "text": "Temperatur messen" }
+      ],
+      "answer": "A",
+      "explain": "Korrektes Gefaelle sichert Funktion und ist zentraler Kontrollpunkt.",
+      "difficulty": "easy",
+      "tags": ["entwaesserung", "qualitaet"]
+    },
+    {
+      "id": "Q17",
+      "block": "lf02-b9",
+      "type": "mcq_single",
+      "question": "Warum sind Einfassungen bei Pflasterflaechen wichtig?",
+      "choices": [
+        { "id": "A", "text": "Sie sichern den Rand und halten die Flaeche formstabil" },
+        { "id": "B", "text": "Sie machen es nur huebsch" },
+        { "id": "C", "text": "Sie ersetzen Verdichtung" },
+        { "id": "D", "text": "Sie erhoehen Gefaelle automatisch" }
+      ],
+      "answer": "A",
+      "explain": "Randsteine/Borde verhindern Verschiebungen und stabilisieren den Belag.",
+      "difficulty": "easy",
+      "tags": ["pflaster", "einfassung"]
+    },
+    {
+      "id": "Q18",
+      "block": "lf02-b9",
+      "type": "mcq_single",
+      "question": "Was ist im LF2 ausdruecklich enthalten?",
+      "choices": [
+        { "id": "A", "text": "Schichtenaufbau von Zufahrten + Belaege + Einfassungen" },
+        { "id": "B", "text": "Weichenherzstuecke" },
+        { "id": "C", "text": "Schienenschweissen" },
+        { "id": "D", "text": "Fahrleitung" }
+      ],
+      "answer": "A",
+      "explain": "RLP fordert Kenntnisse zu Aufbau, Belag und Einfassungen von Verkehrsflächen.",
+      "difficulty": "easy",
+      "tags": ["pflaster", "rlp"]
+    },
+    {
+      "id": "Q19",
+      "block": "lf02-b10",
+      "type": "mcq_single",
+      "question": "\"Bauwerke erschliessen\" bedeutet vor allem ...",
+      "choices": [
+        { "id": "A", "text": "Anschluesse/Leitungen/Zufahrt/Entwaesserung herstellen" },
+        { "id": "B", "text": "Waende streichen" },
+        { "id": "C", "text": "Schweissen" },
+        { "id": "D", "text": "Stopfen" }
+      ],
+      "answer": "A",
+      "explain": "Erschliessung stellt Zugaenge und Medienanschluesse fuer das Bauwerk her.",
+      "difficulty": "easy",
+      "tags": ["erschliessung", "grundlagen"]
+    },
+    {
+      "id": "Q20",
+      "block": "lf02-b10",
+      "type": "mcq_single",
+      "question": "Welche Gruendungsarten nennt der RLP explizit?",
+      "choices": [
+        { "id": "A", "text": "Einzel-, Streifen-, Plattenfundament" },
+        { "id": "B", "text": "Pfahl-, Haenge-, Schwimmfundament" },
+        { "id": "C", "text": "Nur Streifen" },
+        { "id": "D", "text": "Keine" }
+      ],
+      "answer": "A",
+      "explain": "Der Rahmenlehrplan fordert die drei Grundformen der Flachgruendung.",
+      "difficulty": "medium",
+      "tags": ["fundament", "rlp"]
+    },
+    {
+      "id": "Q21",
+      "block": "lf02-b10",
+      "type": "mcq_single",
+      "question": "Was wird beim Planen von Baugruben im RLP genannt?",
+      "choices": [
+        { "id": "A", "text": "Baugrubensicherung und Boeschungswinkel" },
+        { "id": "B", "text": "Schweissverfahren" },
+        { "id": "C", "text": "Gleislagefehler" },
+        { "id": "D", "text": "Signalfarben" }
+      ],
+      "answer": "A",
+      "explain": "Sicherung und Boeschung sind explizite RLP-Inhalte fuer Baugruben.",
+      "difficulty": "easy",
+      "tags": ["baugrube", "rlp"]
+    },
+    {
+      "id": "Q22",
+      "block": "lf02-b10",
+      "type": "mcq_single",
+      "question": "Womit wird die Leitungsfuehrung laut RLP ermittelt?",
+      "choices": [
+        { "id": "A", "text": "Aus dem Entwaesserungsplan" },
+        { "id": "B", "text": "Aus dem Wetterbericht" },
+        { "id": "C", "text": "Aus dem Dienstplan" },
+        { "id": "D", "text": "Aus dem Kassenbon" }
+      ],
+      "answer": "A",
+      "explain": "Der Entwaesserungsplan gibt Verlauf, Werkstoffe und Schaechte vor.",
+      "difficulty": "easy",
+      "tags": ["entwaesserung", "rlp"]
+    },
+    {
+      "id": "Q23",
+      "block": "lf02-b10",
+      "type": "mcq_single",
+      "question": "Welche Aussage passt zur DGUV-FAQ?",
+      "choices": [
+        { "id": "A", "text": "Standsicherheit gilt bei Einhaltung DIN 4124 als erfuellt" },
+        { "id": "B", "text": "DIN 4124 ist freiwillig und egal" },
+        { "id": "C", "text": "Graeben duerfen immer senkrecht ohne Verbau sein" },
+        { "id": "D", "text": "Arbeitsraum ist unwichtig" }
+      ],
+      "answer": "A",
+      "explain": "DIN 4124 zu Boeschungen/Verbau wird als Stand der Technik anerkannt.",
+      "difficulty": "medium",
+      "tags": ["din4124", "sicherheit"]
+    },
+    {
+      "id": "Q24",
+      "block": "lf02-b10",
+      "type": "mcq_single",
+      "question": "Welche Verbaumöglichkeiten nennt das Bauportal-Dokument (Beispiele)?",
+      "choices": [
+        { "id": "A", "text": "Traegerbohlwand, Spundwand, Schlitzwand, Pfahlwand" },
+        { "id": "B", "text": "Gipskartonwand, Trockenbauwand" },
+        { "id": "C", "text": "Nur Laermschutzwand" },
+        { "id": "D", "text": "Gar keine" }
+      ],
+      "answer": "A",
+      "explain": "Diese Verbauarten werden als typische Beispiele aufgefuehrt.",
+      "difficulty": "medium",
+      "tags": ["verbau", "bauportal"]
+    },
+    {
+      "id": "Q25",
+      "block": "lf02-b10",
+      "type": "mcq_single",
+      "question": "Was gehoert im LF2 zu Vermessung?",
+      "choices": [
+        { "id": "A", "text": "Fluchten, Hoehen, Schnurgeruest" },
+        { "id": "B", "text": "Nur GPS im Handy" },
+        { "id": "C", "text": "Nur Fotos" },
+        { "id": "D", "text": "Nur Schotterprobe" }
+      ],
+      "answer": "A",
+      "explain": "RLP listet Achsen, Hoehenuebertragung und Schnurgeruest als Aufgaben.",
+      "difficulty": "easy",
+      "tags": ["vermessung", "rlp"]
+    },
+    {
+      "id": "Q26",
+      "block": "lf02-b10",
+      "type": "mcq_single",
+      "question": "Was ist \"Planum\" am ehesten?",
+      "choices": [
+        { "id": "A", "text": "hergestellte, tragfaehige und hoehen-gerechte Oberflaeche als Unterlage" },
+        { "id": "B", "text": "Schutzhelm" },
+        { "id": "C", "text": "Schalung" },
+        { "id": "D", "text": "Randstein" }
+      ],
+      "answer": "A",
+      "explain": "Planum ist die fertige, tragfaehige Ebene fuer weitere Schichten/Fundamente.",
+      "difficulty": "easy",
+      "tags": ["planum", "erdarbeiten"]
+    },
+    {
+      "id": "Q27",
+      "block": "lf02-b10",
+      "type": "mcq_single",
+      "question": "Was wird am Ende kontrolliert (RLP)?",
+      "choices": [
+        { "id": "A", "text": "Arbeitsraum/UV-Massnahmen, Leitungsgefaelle, Fundamentlage" },
+        { "id": "B", "text": "Pausenzeit, Musik, Handy" },
+        { "id": "C", "text": "Farbe" },
+        { "id": "D", "text": "Nichts" }
+      ],
+      "answer": "A",
+      "explain": "RLP fordert Kontrollen von Arbeitssicherheit, Gefaellen und Lagen der Bauteile.",
+      "difficulty": "medium",
+      "tags": ["qualitaet", "rlp"]
+    },
+    {
+      "id": "Q28",
+      "block": "lf02-b10",
+      "type": "mcq_single",
+      "question": "Warum wird belasteter Aushub gesondert behandelt?",
+      "choices": [
+        { "id": "A", "text": "umweltgerechte Entsorgung/Schutz von Boden und Gewaesser" },
+        { "id": "B", "text": "weil er leichter ist" },
+        { "id": "C", "text": "weil er schneller trocknet" },
+        { "id": "D", "text": "nur wegen Optik" }
+      ],
+      "answer": "A",
+      "explain": "Belastetes Material muss getrennt erfasst und entsorgt werden, um Umwelt zu schuetzen.",
+      "difficulty": "medium",
+      "tags": ["umwelt", "boden"]
+    },
+    {
+      "id": "Q29",
+      "block": "lf02-b10",
+      "type": "mcq_single",
+      "question": "\"Mischsystem\"/\"Trennsystem\" gehoeren zu ...",
+      "choices": [
+        { "id": "A", "text": "Entwaesserung" },
+        { "id": "B", "text": "Stromversorgung" },
+        { "id": "C", "text": "Vermessung" },
+        { "id": "D", "text": "Betonherstellung" }
+      ],
+      "answer": "A",
+      "explain": "Es beschreibt, ob Schmutz- und Regenwasser gemeinsam oder getrennt gefuehrt werden.",
+      "difficulty": "easy",
+      "tags": ["entwaesserung", "grundlagen"]
+    },
+    {
+      "id": "Q30",
+      "block": "lf02-b10",
+      "type": "mcq_single",
+      "question": "Was beeinflusst die Entscheidung \"offen/geschlossen Wasserhaltung\" laut RLP?",
+      "choices": [
+        { "id": "A", "text": "Bodenverhaeltnisse und Wasserandrang" },
+        { "id": "B", "text": "Schuhgroesse" },
+        { "id": "C", "text": "Jahreszeit allein" },
+        { "id": "D", "text": "Farbe des Verbaus" }
+      ],
+      "answer": "A",
+      "explain": "Grundwasserstand, Boden und Wasserandrang bestimmen, ob offen oder geschlossen abgehalten wird.",
+      "difficulty": "medium",
+      "tags": ["wasserhaltung", "rlp"]
     }
   ]
 }

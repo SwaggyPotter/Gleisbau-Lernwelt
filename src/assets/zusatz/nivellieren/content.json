@@ -1,0 +1,219 @@
+{
+  "blocks": [
+    {
+      "id": "lf02-b1",
+      "title": "Grundlagen & Begriffe",
+      "goals": [
+        "RB, VB und Instrumentenhoehe sicher unterscheiden",
+        "Formel fuer Hoehe neu anwenden koennen"
+      ],
+      "summary": "Zentrale Begriffe und die Standardformel fuer das differenzielle Nivellement.",
+      "content": [
+        { "type": "text", "value": "Nivellieren = Hoehenunterschiede bestimmen. Im Gleisbau brauchst du genaue Hoehen fuer Lage und Ueberhoehe." },
+        {
+          "type": "list",
+          "items": [
+            "Hoehe (H): absolute oder relative Hoehe eines Punktes",
+            "Delta H: Differenz zwischen zwei Hoehen",
+            "Rueckblick (RB): Ablesung auf bekannter Hoehe/Referenz",
+            "Vorblick (VB): Ablesung auf Zielpunkt",
+            "Instrumentenhoehe (IH): H + RB"
+          ]
+        },
+        { "type": "callout", "variant": "tip", "title": "Merksatz", "value": "Hoehe neu = Hoehe alt + RB - VB" }
+      ],
+      "quizRef": ["Q1", "Q2"]
+    },
+    {
+      "id": "lf02-b2",
+      "title": "Geraete & Zubehoer",
+      "goals": [
+        "Geraetetypen fuer das Nivellement zuordnen",
+        "Standardzubehoer griffbereit planen"
+      ],
+      "summary": "Optisch/automatisch, digital oder Laser: Vor- und Nachteile kennen.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Optisches/automatisches Nivellier: robust, genau, Ablesefehler moeglich",
+            "Digitalnivellier: liest Barcode-Latte, schneller, weniger Ablesefehler, braucht Akku",
+            "Rotationslaser: horizontale Ebene, schnell fuer Uebertragen, begrenzte Genauigkeit"
+          ]
+        },
+        { "type": "callout", "variant": "info", "title": "Zubehoer", "value": "Stativ, Latte (mm/Barcode), Lattenlibelle, Feldbuch/Protokoll, Marker, ggf. Ersatzakku." }
+      ],
+      "quizRef": ["Q6"]
+    },
+    {
+      "id": "lf02-b3",
+      "title": "Verfahren des Nivellements",
+      "goals": [
+        "Passendes Verfahren fuer die Aufgabe waehlen",
+        "Schleifen/Profil/Querschnitt unterscheiden"
+      ],
+      "summary": "Vom Standard-RB/VB bis zum Schleifennivellement zur Kontrolle.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Differenzielles Nivellement: Standard RB/VB zwischen zwei Punkten",
+            "Profilnivellement: Hoehen entlang einer Achse (Laengsprofil)",
+            "Querschnitts- und Flaechennivellement: Raster fuer Planum/Entwaesserung",
+            "Schleifennivellement (Zug): Start = Ziel zur Kontrolle des Schlussfehlers",
+            "Gegenseitiges Nivellement: bei grosser Distanz/Refraktion",
+            "Laser-Nivellement: schnelle Hoehenuebertragung mit Empfaenger"
+          ]
+        }
+      ],
+      "quizRef": ["Q4"]
+    },
+    {
+      "id": "lf02-b4",
+      "title": "Aufstellen & Einstellen",
+      "goals": [
+        "Stativ standsicher und Geraet grob in Waage bringen",
+        "Parallaxe vermeiden, Latte senkrecht halten"
+      ],
+      "summary": "Sauberes Aufbauen verhindert Messfehler, bevor du ueberhaupt abliest.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Stativ fest in den Boden, Kopf moeglichst waagerecht, Geraet fest verschrauben",
+            "Libelle zentrieren, Kompensator arbeiten lassen (bei automatischem Nivellier)",
+            "Okular zuerst schaerfen (Fadenkreuz), dann auf Latte fokussieren",
+            "Parallaxe-Test: Kopf leicht bewegen; wenn Fadenkreuz wandert -> erneut fokussieren",
+            "Latte senkrecht: pendeln und kleinsten Wert nehmen, Lattenlibelle nutzen"
+          ]
+        },
+        { "type": "callout", "variant": "danger", "title": "Praxisfehler", "value": "Latte nicht senkrecht ist einer der groessten Fehlerquellen." }
+      ],
+      "quizRef": ["Q3", "Q8"]
+    },
+    {
+      "id": "lf02-b5",
+      "title": "Messablauf RB/VB",
+      "goals": [
+        "Standardablauf Rueckblick/Vorblick sicher wiederholen",
+        "Dokumentation direkt im Feldbuch verankern"
+      ],
+      "summary": "RB auf bekannten Punkt, VB auf Ziel, dann umsetzen und fortsetzen.",
+      "content": [
+        { "type": "text", "value": "Abfolge: RB am Ausgangspunkt -> VB am Ziel -> ggf. umsetzen -> naechster RB/VB." },
+        { "type": "list", "items": ["RB und VB laut wiederholen (Vier-Augen-Prinzip)", "Nach Umsetzen neue IH bilden", "Keine Werte nur merken, immer sofort notieren"] },
+        { "type": "callout", "variant": "info", "title": "Dokumentation", "value": "Klarer Punktname, Datum, Team, Geraet/Lattennummer im Feldbuch festhalten." }
+      ],
+      "quizRef": []
+    },
+    {
+      "id": "lf02-b6",
+      "title": "Rechnen & Feldbuch",
+      "goals": [
+        "Instrumentenhoehen-Methode anwenden",
+        "Plausibilitaet mit Summe(RB)-Summe(VB) pruefen"
+      ],
+      "summary": "IH = H(BM) + RB, dann Hoehe neu = IH - VB; Plausibilitaetscheck nicht vergessen.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "IH bilden: bekannte Hoehe + RB",
+            "Neue Hoehe: IH - VB",
+            "Summe(RB) - Summe(VB) = Hoehenaenderung zwischen Start und Ende"
+          ]
+        },
+        { "type": "callout", "variant": "tip", "title": "Feldbuch-Tipp", "value": "RB/VB sauber untereinander schreiben, Umsetzungen kennzeichnen." }
+      ],
+      "quizRef": ["Q9"]
+    },
+    {
+      "id": "lf02-b7",
+      "title": "Qualitaetskontrolle",
+      "goals": [
+        "Zwei-Punkt-Test durchfuehren koennen",
+        "Schlussfehler erkennen und bewerten"
+      ],
+      "summary": "Geraet pruefen, Schlussfehler dokumentieren und bei Abweichung handeln.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Zwei-Punkt-Test: zweimal messen (mittig, dann nah an A) und Delta H vergleichen",
+            "Abweichung? Geraet kennzeichnen und zur Pruefung/Service geben",
+            "Schlussfehler e = berechnete Endhoehe - bekannte Endhoehe; Grenze projektabhaengig"
+          ]
+        },
+        { "type": "callout", "variant": "danger", "title": "Wenn Werte nicht passen", "value": "Arbeit stoppen, Messung nachvollziehen, ggf. neu messen oder Geraet tauschen." }
+      ],
+      "quizRef": ["Q5", "Q7"]
+    },
+    {
+      "id": "lf02-b8",
+      "title": "Fehlerquellen & Tipps",
+      "goals": [
+        "Typische Messfehler erkennen",
+        "Massnahmen gegen Parallaxe, Refraktion, Kompensator-Stoerung nennen"
+      ],
+      "summary": "Fehler vermeiden = weniger Nacharbeit: Latte senkrecht, Parallaxe raus, Punkt klar definieren.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Latte nicht senkrecht: pendeln, Lattenlibelle",
+            "Parallaxe: Okular + Fokus sauber einstellen",
+            "Kompensator blockiert: Standort anpassen, Geraet pruefen",
+            "Hitze/Refraktion: kuerzere Visuren, Schatten, Messzeit anpassen",
+            "Dokufehlerm vermeiden: RB/VB nicht vertauschen, Komma pruefen"
+          ]
+        },
+        { "type": "callout", "variant": "info", "title": "Sicherheit im Gleisbereich", "value": "Sicherungsposten, Sperrung/Freigabe beachten; nie mit Ablenkung im Gleis messen." }
+      ],
+      "quizRef": ["Q10"]
+    },
+    {
+      "id": "lf02-b9",
+      "title": "Gleisbau-Anwendungen",
+      "goals": [
+        "Typische Einsatzfaelle nennen",
+        "Dokumentationsanforderungen im Gleisbau kennen"
+      ],
+      "summary": "Von Planum bis Bahnuebergang: wo Nivellement konkret gebraucht wird.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Planum/Frostschutz: Flaechennivellement im Raster",
+            "Stopfarbeiten: Soll/Ist-Hoehen kontrollieren und dokumentieren",
+            "Weichenbau: kritische Punkte (Herzstueck, Zunge) pruefen",
+            "Bahnsteig/Entwaesserung: Laengs- und Querneigungen pruefen",
+            "Uebergaenge/Setzungen: Monitoring mit klaren Referenzpunkten"
+          ]
+        },
+        { "type": "callout", "variant": "tip", "title": "Dokumentation", "value": "Datum, Wetter, Geraet, Lattennummer, Team, Referenzpunkte und Toleranzen festhalten." }
+      ],
+      "quizRef": []
+    },
+    {
+      "id": "lf02-b10",
+      "title": "Checklisten kompakt",
+      "goals": [
+        "Vor, waehrend und nach der Messung strukturieren",
+        "Schnell pruefen koennen, ob alles vorbereitet ist"
+      ],
+      "summary": "Kurzlisten aus dem Leitfaden zum direkten Abhaken.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Vorher: Geraet vollstaendig, Kompensator pruefen, Bezugspunkte finden, Sicherung klaeren",
+            "Waerend: Latte senkrecht, Werte sofort notieren, nach jedem Umsetzen neue IH, Plausibilitaet prufen",
+            "Nachher: Schlussfehler/Anschluss pruefen, Protokoll unterschreiben, Daten sichern, Geraet trocknen"
+          ]
+        },
+        { "type": "callout", "variant": "tip", "title": "Uebungen nutzen", "value": "Rechenaufgaben + MC-Quiz aus dem Leitfaden im Feldbuch oder in dieser App nachspielen." }
+      ],
+      "quizRef": []
+    }
+  ]
+}

@@ -3,15 +3,15 @@ import { ViewportScroller } from '@angular/common';
 import { IonContent } from '@ionic/angular';
 import { combineLatest, Subscription } from 'rxjs';
 import { BlockProgress, ContentBlock, QuizFile } from '../models/lf02.models';
-import { Lf02DataService } from '../services/lf02-data.service';
+import { NivellierenDataService } from '../services/lf02-data.service';
 
 @Component({
-  selector: 'app-lernfeld-02',
+  selector: 'app-nivellieren',
   templateUrl: './lernfeld-02.page.html',
   styleUrls: ['./lernfeld-02.page.scss'],
   standalone: false,
 })
-export class Lernfeld02Page implements OnInit, OnDestroy {
+export class NivellierenPage implements OnInit, OnDestroy {
   @ViewChild(IonContent) content?: IonContent;
   blocks: ContentBlock[] = [];
   quiz?: QuizFile;
@@ -22,7 +22,7 @@ export class Lernfeld02Page implements OnInit, OnDestroy {
   private sub = new Subscription();
 
   constructor(
-    private readonly data: Lf02DataService,
+    private readonly data: NivellierenDataService,
     private readonly scroller: ViewportScroller,
   ) {}
 
@@ -84,6 +84,6 @@ export class Lernfeld02Page implements OnInit, OnDestroy {
   }
 
   get overallQuizTitle(): string {
-    return `Gesamtquiz: ${this.quiz?.meta.title ?? 'Lernfeld 2'}`;
+    return `Gesamtquiz: ${this.quiz?.meta.title ?? 'Nivellieren'}`;
   }
 }

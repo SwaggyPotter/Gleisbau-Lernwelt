@@ -43,6 +43,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/lernfelder/lernfeld-02/lernfeld-02.module').then(m => m.Lernfeld02Module),
   },
   {
+    path: 'zusatz/nivellieren',
+    loadChildren: () => import('./modules/zusatz/nivellieren/lernfeld-02.module').then(m => m.NivellierenModule),
+  },
+  {
     path: 'lernfeld/01',
     redirectTo: 'lernfelder/1',
     pathMatch: 'full',

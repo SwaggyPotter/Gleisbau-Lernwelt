@@ -2,218 +2,224 @@
   "blocks": [
     {
       "id": "lf02-b1",
-      "title": "Grundlagen & Begriffe",
+      "title": "Auftrag & oertliche Gegebenheiten (Analyse)",
       "goals": [
-        "RB, VB und Instrumentenhoehe sicher unterscheiden",
-        "Formel fuer Hoehe neu anwenden koennen"
+        "Vor dem ersten Aushub alle Rahmenbedingungen kennen",
+        "Risiken und Logistik auf der Flaeche einschätzen"
       ],
-      "summary": "Zentrale Begriffe und die Standardformel fuer das differenzielle Nivellement.",
+      "summary": "Welche Infos du vor dem Start brauchst: Boden, Wasser, Leitungen, Platz, Zufahrt.",
       "content": [
-        { "type": "text", "value": "Nivellieren = Hoehenunterschiede bestimmen. Im Gleisbau brauchst du genaue Hoehen fuer Lage und Ueberhoehe." },
+        { "type": "text", "value": "Erst analysieren, dann baggern: Baugrund, Leitungen, Platzverhaeltnisse und Zufahrt klaeren, bevor der Aushub beginnt." },
         {
           "type": "list",
           "items": [
-            "Hoehe (H): absolute oder relative Hoehe eines Punktes",
-            "Delta H: Differenz zwischen zwei Hoehen",
-            "Rueckblick (RB): Ablesung auf bekannter Hoehe/Referenz",
-            "Vorblick (VB): Ablesung auf Zielpunkt",
-            "Instrumentenhoehe (IH): H + RB"
+            "Was wird gebaut? Gebaeude/Anbau, Schacht, Leitung, Zufahrt/Pflasterflaeche",
+            "Wo ist Arbeitsraum, wo stehen Geraete, wo liegt Material?",
+            "Welche Risiken? Verkehr, Kran-/Baggerbereich, Absturz, Einbruchgefahr in Graeben",
+            "Leitungen/Kabel? Bestandsplaene, Ortung, Suchschlitze nach Regel",
+            "Welche Boden- und Wasserverhaeltnisse werden erwartet?"
           ]
         },
-        { "type": "callout", "variant": "tip", "title": "Merksatz", "value": "Hoehe neu = Hoehe alt + RB - VB" }
+        { "type": "callout", "variant": "info", "title": "Praxis-Check", "value": "Logistik und Leitungsbestand frueh pruefen = weniger Stillstand und Nacharbeit." }
       ],
       "quizRef": ["Q1", "Q2"]
     },
     {
       "id": "lf02-b2",
-      "title": "Geraete & Zubehoer",
+      "title": "Baugrunderkundung & Boden (Grundwissen)",
       "goals": [
-        "Geraetetypen fuer das Nivellement zuordnen",
-        "Standardzubehoer griffbereit planen"
+        "Bodenarten, Tragfaehigkeit und Wassereinfluss einordnen",
+        "Aushubmengen und Wiederverwendung planen"
       ],
-      "summary": "Optisch/automatisch, digital oder Laser: Vor- und Nachteile kennen.",
+      "summary": "Baugrund entscheidet ueber Verbau, Wasserhaltung und Wiederverwertung.",
       "content": [
         {
           "type": "list",
           "items": [
-            "Optisches/automatisches Nivellier: robust, genau, Ablesefehler moeglich",
-            "Digitalnivellier: liest Barcode-Latte, schneller, weniger Ablesefehler, braucht Akku",
-            "Rotationslaser: horizontale Ebene, schnell fuer Uebertragen, begrenzte Genauigkeit"
+            "Bodenarten: bindig/nicht bindig, Verdichtbarkeit, Tragfaehigkeit",
+            "Wasser: Grundwasser, Sickerwasser, Wasserandrang beeinflussen Verbau/Wasserhaltung",
+            "Tragfaehigkeit beurteilen: nimmt der Untergrund Fundamentlasten auf?"
           ]
         },
-        { "type": "callout", "variant": "info", "title": "Zubehoer", "value": "Stativ, Latte (mm/Barcode), Lattenlibelle, Feldbuch/Protokoll, Marker, ggf. Ersatzakku." }
-      ],
-      "quizRef": ["Q6"]
-    },
-    {
-      "id": "lf02-b3",
-      "title": "Verfahren des Nivellements",
-      "goals": [
-        "Passendes Verfahren fuer die Aufgabe waehlen",
-        "Schleifen/Profil/Querschnitt unterscheiden"
-      ],
-      "summary": "Vom Standard-RB/VB bis zum Schleifennivellement zur Kontrolle.",
-      "content": [
+        { "type": "callout", "variant": "tip", "title": "Nachhaltigkeit", "value": "Aushub getrennt halten (z. B. Oberboden), sinnvoll lagern und wiederverwenden, Flaechenverbrauch bewerten." },
         {
           "type": "list",
           "items": [
-            "Differenzielles Nivellement: Standard RB/VB zwischen zwei Punkten",
-            "Profilnivellement: Hoehen entlang einer Achse (Laengsprofil)",
-            "Querschnitts- und Flaechennivellement: Raster fuer Planum/Entwaesserung",
-            "Schleifennivellement (Zug): Start = Ziel zur Kontrolle des Schlussfehlers",
-            "Gegenseitiges Nivellement: bei grosser Distanz/Refraktion",
-            "Laser-Nivellement: schnelle Hoehenuebertragung mit Empfaenger"
+            "Praxis: Aushub grob berechnen mit Laenge x Breite x Tiefe",
+            "Auflockerung beachten: ausgehobener Boden hat mehr Volumen",
+            "Oberboden (Humus) separat abtragen und lagern, wenn vorgesehen"
           ]
         }
       ],
-      "quizRef": ["Q4"]
+      "quizRef": ["Q3", "Q4"]
+    },
+    {
+      "id": "lf02-b3",
+      "title": "Baugruben & Graeben planen (Sicherung/Arbeitsraum)",
+      "goals": [
+        "Arbeitsraum, Boeschung oder Verbau normgerecht planen",
+        "Standsicherheit und sichere Breiten herstellen"
+      ],
+      "summary": "Baugruben/Graben so planen, dass niemand durch Einbruch gefaehrdet wird.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Baugrubensicherung und Boeschungswinkel nach Boden/Wasser festlegen",
+            "Graeben: Grabenformen waehlen, Grabenverbaugeraete einplanen",
+            "Zeichnungen: Draufsicht + Schnitt erstellen"
+          ]
+        },
+        { "type": "callout", "variant": "danger", "title": "Arbeitssicherheit", "value": "DIN 4124 + DGUV Vorschrift 38 setzen harte Leitplanken; Standsicherheit muss im Bau- und Rueckbauzustand gelten." },
+        {
+          "type": "list",
+          "items": [
+            "Verbauarten: Traegerbohlwand, Spundwand, Schlitzwand, Pfahlwand",
+            "Statische Nachweise noetig; Ausnahmen nur bei Regelausfuehrungen nach DIN 4124/Verbaugeraet"
+          ]
+        }
+      ],
+      "quizRef": ["Q5", "Q6"]
     },
     {
       "id": "lf02-b4",
-      "title": "Aufstellen & Einstellen",
+      "title": "Wasserhaltung (offen vs. geschlossen)",
       "goals": [
-        "Stativ standsicher und Geraet grob in Waage bringen",
-        "Parallaxe vermeiden, Latte senkrecht halten"
+        "Offene und geschlossene Verfahren unterscheiden",
+        "Risiken durch Wasser fuer Standsicherheit einschaetzen"
       ],
-      "summary": "Sauberes Aufbauen verhindert Messfehler, bevor du ueberhaupt abliest.",
+      "summary": "Entscheidung nach Boden und Wasserandrang: Pumpensumpf oder Grundwasserabsenkung?",
       "content": [
         {
           "type": "list",
           "items": [
-            "Stativ fest in den Boden, Kopf moeglichst waagerecht, Geraet fest verschrauben",
-            "Libelle zentrieren, Kompensator arbeiten lassen (bei automatischem Nivellier)",
-            "Okular zuerst schaerfen (Fadenkreuz), dann auf Latte fokussieren",
-            "Parallaxe-Test: Kopf leicht bewegen; wenn Fadenkreuz wandert -> erneut fokussieren",
-            "Latte senkrecht: pendeln und kleinsten Wert nehmen, Lattenlibelle nutzen"
+            "Offene Wasserhaltung: Wasser sammelt sich in Sumpf/Graben und wird abgepumpt; einfach, kann Boden aufweichen",
+            "Geschlossene Wasserhaltung: Brunnen/Filter, Grundwasserabsenkung; aufwaendiger, kontrollierter, oft Fachplanung"
           ]
         },
-        { "type": "callout", "variant": "danger", "title": "Praxisfehler", "value": "Latte nicht senkrecht ist einer der groessten Fehlerquellen." }
+        { "type": "callout", "variant": "danger", "title": "Risiken", "value": "Unterspuelung, Auskolkung, Einfluss auf Nachbarbebauung mitdenken." }
       ],
-      "quizRef": ["Q3", "Q8"]
+      "quizRef": ["Q7", "Q8"]
     },
     {
       "id": "lf02-b5",
-      "title": "Messablauf RB/VB",
+      "title": "Gruendungsarten + Fundamentplan lesen",
       "goals": [
-        "Standardablauf Rueckblick/Vorblick sicher wiederholen",
-        "Dokumentation direkt im Feldbuch verankern"
+        "Einzel-, Streifen- und Plattenfundament sicher unterscheiden",
+        "Lage und Abmessungen aus dem Plan entnehmen"
       ],
-      "summary": "RB auf bekannten Punkt, VB auf Ziel, dann umsetzen und fortsetzen.",
+      "summary": "Fundamente lesen und auswaehlen je nach Last und Baugrund.",
       "content": [
-        { "type": "text", "value": "Abfolge: RB am Ausgangspunkt -> VB am Ziel -> ggf. umsetzen -> naechster RB/VB." },
-        { "type": "list", "items": ["RB und VB laut wiederholen (Vier-Augen-Prinzip)", "Nach Umsetzen neue IH bilden", "Keine Werte nur merken, immer sofort notieren"] },
-        { "type": "callout", "variant": "info", "title": "Dokumentation", "value": "Klarer Punktname, Datum, Team, Geraet/Lattennummer im Feldbuch festhalten." }
+        {
+          "type": "list",
+          "items": [
+            "Einzelfundament: punktuelle Lasten (Stuetzen)",
+            "Streifenfundament: tragende Waende/lineare Lasten",
+            "Plattenfundament: verteilt Lasten grossflaechig bei schwacherem Baugrund"
+          ]
+        },
+        { "type": "callout", "variant": "info", "title": "Planlesen", "value": "Fundamentsohle, Sohldruck, Lastverteilung (Druckzwiebel) verstehen; Abmessungen und Lage exakt aus dem Fundamentplan uebernehmen." }
       ],
-      "quizRef": []
+      "quizRef": ["Q9", "Q10"]
     },
     {
       "id": "lf02-b6",
-      "title": "Rechnen & Feldbuch",
+      "title": "Vermessung & Schnurgeruest (Abstecken)",
       "goals": [
-        "Instrumentenhoehen-Methode anwenden",
-        "Plausibilitaet mit Summe(RB)-Summe(VB) pruefen"
+        "Fluchten und Hoehen sicher uebertragen",
+        "Schnurgeruest stabil und fehlerarm bauen"
       ],
-      "summary": "IH = H(BM) + RB, dann Hoehe neu = IH - VB; Plausibilitaetscheck nicht vergessen.",
+      "summary": "Vermessungsarbeiten liefern die Basis fuer Aushub und Fundamente.",
       "content": [
         {
           "type": "list",
           "items": [
-            "IH bilden: bekannte Hoehe + RB",
-            "Neue Hoehe: IH - VB",
-            "Summe(RB) - Summe(VB) = Hoehenaenderung zwischen Start und Ende"
+            "Flucht absetzen: Gerade Linien/Achsen uebertragen",
+            "Hoehen uebertragen: Bezugshoehe (NHN/ort) nutzen, Hoehenpunkte setzen",
+            "Schnurgeruest: Achsen/Fluchten + Hoehenmarken ausserhalb des Aushubs"
           ]
         },
-        { "type": "callout", "variant": "tip", "title": "Feldbuch-Tipp", "value": "RB/VB sauber untereinander schreiben, Umsetzungen kennzeichnen." }
+        { "type": "callout", "variant": "tip", "title": "Fehlerbilder", "value": "Schnur haengt durch, falscher Achsschnitt, Bezugspunkt verwechselt." }
       ],
-      "quizRef": ["Q9"]
+      "quizRef": ["Q11", "Q12"]
     },
     {
       "id": "lf02-b7",
-      "title": "Qualitaetskontrolle",
+      "title": "Erdarbeiten: Aushub, Tragschichten, Planum, Verdichtung",
       "goals": [
-        "Zwei-Punkt-Test durchfuehren koennen",
-        "Schlussfehler erkennen und bewerten"
+        "Arbeitsfolge fuer Erdarbeiten beherrschen",
+        "Verdichtung und Arbeitsraum kontrollieren"
       ],
-      "summary": "Geraet pruefen, Schlussfehler dokumentieren und bei Abweichung handeln.",
+      "summary": "Von Oberboden bis Verdichtung, immer mit Unfallverhuetung im Blick.",
       "content": [
         {
           "type": "list",
           "items": [
-            "Zwei-Punkt-Test: zweimal messen (mittig, dann nah an A) und Delta H vergleichen",
-            "Abweichung? Geraet kennzeichnen und zur Pruefung/Service geben",
-            "Schlussfehler e = berechnete Endhoehe - bekannte Endhoehe; Grenze projektabhaengig"
+            "Oberboden abtragen/lagern (wenn vorgesehen)",
+            "Aushub bis Planum/Sohle, Planum eben und tragfaehig herstellen",
+            "Tragschichten lagenweise einbauen",
+            "Verdichten: ebenfalls lagenweise, geeignetes Geraet waehlen"
           ]
         },
-        { "type": "callout", "variant": "danger", "title": "Wenn Werte nicht passen", "value": "Arbeit stoppen, Messung nachvollziehen, ggf. neu messen oder Geraet tauschen." }
+        { "type": "callout", "variant": "info", "title": "Qualitaetscheck", "value": "Arbeitsraum und UV-Massnahmen pruefen, Verdichtungsnachweise und Ebenheit kontrollieren." }
       ],
-      "quizRef": ["Q5", "Q7"]
+      "quizRef": ["Q13", "Q14"]
     },
     {
       "id": "lf02-b8",
-      "title": "Fehlerquellen & Tipps",
+      "title": "Erschliessung: Leitungen, Schaechte, Entwaesserung, Durchfuehrungen",
       "goals": [
-        "Typische Messfehler erkennen",
-        "Massnahmen gegen Parallaxe, Refraktion, Kompensator-Stoerung nennen"
+        "Infrastrukturleitungen lesen und verorten",
+        "Gefalle und Durchfuehrungen pruefen"
       ],
-      "summary": "Fehler vermeiden = weniger Nacharbeit: Latte senkrecht, Parallaxe raus, Punkt klar definieren.",
+      "summary": "Leitungsbau vom Plan ins Feld bringen und Qualitaet sichern.",
       "content": [
         {
           "type": "list",
           "items": [
-            "Latte nicht senkrecht: pendeln, Lattenlibelle",
-            "Parallaxe: Okular + Fokus sauber einstellen",
-            "Kompensator blockiert: Standort anpassen, Geraet pruefen",
-            "Hitze/Refraktion: kuerzere Visuren, Schatten, Messzeit anpassen",
-            "Dokufehlerm vermeiden: RB/VB nicht vertauschen, Komma pruefen"
+            "Entwaesserungsplan lesen: Misch-/Trennsystem, Rohrwerkstoffe, Schaechte",
+            "Durchfuehrungen/Bohrungen verorten, Anschluesse planen",
+            "Gefalle pruefen und dokumentieren"
           ]
         },
-        { "type": "callout", "variant": "info", "title": "Sicherheit im Gleisbereich", "value": "Sicherungsposten, Sperrung/Freigabe beachten; nie mit Ablenkung im Gleis messen." }
+        { "type": "callout", "variant": "tip", "title": "Umfang", "value": "Infrastrukturleitungen umfassen Entwaesserung, Strom, Kommunikation sowie fluessige/gasfoermige Medien." }
       ],
-      "quizRef": ["Q10"]
+      "quizRef": ["Q15", "Q16"]
     },
     {
       "id": "lf02-b9",
-      "title": "Gleisbau-Anwendungen",
+      "title": "Verkehrsflaechen: Zufahrten & Pflaster (Ueberblick)",
       "goals": [
-        "Typische Einsatzfaelle nennen",
-        "Dokumentationsanforderungen im Gleisbau kennen"
+        "Schichtenaufbau und Einfassungen benennen",
+        "Materialbedarf abschaetzen"
       ],
-      "summary": "Von Planum bis Bahnuebergang: wo Nivellement konkret gebraucht wird.",
+      "summary": "Zufahrten planen: Untergrund, Tragschicht, Bettung, Belag und Randhaltung.",
       "content": [
         {
           "type": "list",
           "items": [
-            "Planum/Frostschutz: Flaechennivellement im Raster",
-            "Stopfarbeiten: Soll/Ist-Hoehen kontrollieren und dokumentieren",
-            "Weichenbau: kritische Punkte (Herzstueck, Zunge) pruefen",
-            "Bahnsteig/Entwaesserung: Laengs- und Querneigungen pruefen",
-            "Uebergaenge/Setzungen: Monitoring mit klaren Referenzpunkten"
+            "Schichtenaufbau: Untergrund/Tragschicht/Bettung/Belag/Einfassung",
+            "Einfassungen (Borde/Randsteine) halten die Flaeche formstabil",
+            "Materialbedarf: Flaeche, Verschnitt, Paletten/Einheiten kalkulieren"
           ]
         },
-        { "type": "callout", "variant": "tip", "title": "Dokumentation", "value": "Datum, Wetter, Geraet, Lattennummer, Team, Referenzpunkte und Toleranzen festhalten." }
+        { "type": "callout", "variant": "tip", "title": "Praxis", "value": "Einfassungen zuerst setzen, damit Belag und Verdichtung sauber gefuehrt werden." }
       ],
-      "quizRef": []
+      "quizRef": ["Q17", "Q18"]
     },
     {
       "id": "lf02-b10",
-      "title": "Checklisten kompakt",
+      "title": "Grosse Quiz-Bank LF2",
       "goals": [
-        "Vor, waehrend und nach der Messung strukturieren",
-        "Schnell pruefen koennen, ob alles vorbereitet ist"
+        "Alle Kernthemen im Frage-Modus wiederholen",
+        "RLP-Begriffe und Normen festigen"
       ],
-      "summary": "Kurzlisten aus dem Leitfaden zum direkten Abhaken.",
+      "summary": "12 zusaetzliche MC-Fragen im Fahrschul-App-Stil.",
       "content": [
-        {
-          "type": "list",
-          "items": [
-            "Vorher: Geraet vollstaendig, Kompensator pruefen, Bezugspunkte finden, Sicherung klaeren",
-            "Waerend: Latte senkrecht, Werte sofort notieren, nach jedem Umsetzen neue IH, Plausibilitaet prufen",
-            "Nachher: Schlussfehler/Anschluss pruefen, Protokoll unterschreiben, Daten sichern, Geraet trocknen"
-          ]
-        },
-        { "type": "callout", "variant": "tip", "title": "Uebungen nutzen", "value": "Rechenaufgaben + MC-Quiz aus dem Leitfaden im Feldbuch oder in dieser App nachspielen." }
+        { "type": "text", "value": "Nutze diese Sammlung fuer schnelle Wiederholungen quer durch alle Bloecke." },
+        { "type": "callout", "variant": "info", "title": "Hinweis", "value": "Fragen decken Erschliessung, Baugruben, Gruendung, Vermessung und Wasserhaltung ab." }
       ],
-      "quizRef": []
+      "quizRef": ["Q19", "Q20", "Q21", "Q22", "Q23", "Q24", "Q25", "Q26", "Q27", "Q28", "Q29", "Q30"]
     }
   ]
 }

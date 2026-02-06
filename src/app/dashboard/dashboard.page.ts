@@ -23,11 +23,18 @@ export class DashboardPage implements OnDestroy {
       link: '/lernfelder/1',
     },
     {
-      id: 'lf02-nivellieren',
-      title: 'Nivellieren im Gleisbau',
-      description: 'Leitfaden aus PDF inkl. Quiz und Checklisten.',
-      tag: 'Gleisbau',
+      id: 'lf02-bau',
+      title: 'Lernfeld 2: Bauwerke erschliessen & gruenden',
+      description: 'Baugrund, Baugruben, Wasserhaltung, Fundamente, Vermessung, Leitungen.',
+      tag: 'Tiefbau',
       link: '/lernfelder/2',
+    },
+    {
+      id: 'zusatz-nivellieren',
+      title: 'Zusatzmodul: Nivellieren im Gleisbau',
+      description: 'Leitfaden inkl. Quiz und Checklisten aus dem Nivellement-PDF.',
+      tag: 'Bonus',
+      link: '/zusatz/nivellieren',
     },
   ];
   private sub = new Subscription();

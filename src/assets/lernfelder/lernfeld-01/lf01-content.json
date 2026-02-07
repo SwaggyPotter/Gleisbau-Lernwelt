@@ -1,33 +1,52 @@
-{
+﻿{
   "blocks": [
     {
       "id": "lf01-b1",
-      "title": "Was ist Baustelle einrichten & wer ist wofür verantwortlich?",
+      "title": "Was ist Baustelle einrichten - und wer ist wofuer verantwortlich?",
       "goals": [
-        "Baustelleneinrichtung beschreiben: Flaechen, Wege, Lager, Sicherung, Info",
-        "Rollen und Verantwortungen unterscheiden"
+        "Baustelle einrichten als Gesamtaufgabe verstehen (sicher, geordnet, rechtssicher, stoerungsarm)",
+        "Verantwortlichkeiten der zentralen Rollen klar unterscheiden"
       ],
-      "summary": "Grundidee: erst sichern, dann arbeiten. Zuständigkeiten klar benennen.",
+      "summary": "Baustelle einrichten bedeutet: planen, sichern, koordinieren, versorgen, kommunizieren und kontrollieren.",
       "content": [
-        { "type": "text", "value": "Baustelleneinrichtung umfasst alle Massnahmen, damit Arbeit sicher und koordiniert laeuft." },
+        {
+          "type": "text",
+          "value": "Baustelle einrichten heisst: Alle Voraussetzungen schaffen, damit Arbeiten sicher, geordnet, rechtssicher und stoerungsarm starten und laufen koennen. Dazu gehoeren Planung, Organisation, Absicherung, Verkehrsfuehrung, Logistik, Kommunikation, Notfallorganisation und laufende Kontrolle."
+        },
+        {
+          "type": "text",
+          "value": "Die Verantwortung liegt nicht bei einer Person allein. Sie verteilt sich auf mehrere Ebenen: rechtlich-organisatorisch, operativ auf der Baustelle, Sicherheit und Koordination, Sicherung im Gefahrenbereich, Logistik und Betrieb sowie Notfallorganisation."
+        },
         {
           "type": "list",
           "items": [
-            "Bauleitung/Polier: Ablauf planen, koordinieren, einweisen",
-            "Sicherungsaufsicht/Sicherungsposten im Gleisbereich: warnen, absichern nach Vorgaben",
-            "Jede/r Mitarbeitende: PSA tragen, Regeln befolgen, Gefahren melden"
+            "Bauherr/Auftraggeber: legt Rahmenbedingungen fest (Zeitfenster, Flaechen, Auflagen) und organisiert die Zusammenarbeit der Beteiligten.",
+            "Planung/Arbeitsvorbereitung/Bauueberwachung: erstellt Einrichtungs- und Ablaufplanung (Wege, Lager, Container, Beleuchtung, Fluchtwege, Sperrpausen) und prueft die Umsetzbarkeit vor Ort.",
+            "SiGeKo: koordiniert Sicherheits- und Gesundheitsschutz zwischen Firmen und Arbeitsphasen, besonders bei Schnittstellen und gleichzeitigen Taetigkeiten.",
+            "Bauleitung/Bauleiter: setzt die Einrichtung praktisch um, disponiert Personal, Geraete und Material, organisiert Einweisungen und kontrolliert taeglich den Zustand.",
+            "Polier/Vorarbeiter/Truppfuehrer: fuehrt das Team direkt, weist in Wege und Gefahrenbereiche ein, kontrolliert Ordnung und meldet Abweichungen sofort."
           ]
         },
-        { "type": "callout", "variant": "tip", "title": "Grundsatz", "value": "Erst sichern, dann arbeiten. Keine Abkuerzungen." },
         {
-          "type": "checklist",
+          "type": "list",
           "items": [
-            { "label": "Sicherung geplant und kommuniziert", "hint": "Wer sperrt, wer warnt?" },
-            { "label": "Wege und Lagerorte festgelegt" },
-            { "label": "Alle Rollen geklärt" }
+            "Sicherung im Gleisbereich: Sicherungsaufsicht und Sicherungsposten setzen Warn- und Sicherungsmassnahmen um; bei Gefahr wird die Arbeit gestoppt.",
+            "Verkehrssicherung (oeffentlicher Bereich): Umsetzung und Unterhalt des Verkehrszeichenplans nach verkehrsrechtlichen Vorgaben.",
+            "Maschinen-, Hebe- und Lastenverantwortung: Kran-/Maschinenfuehrer, Anschlaeger und Einweiser sorgen fuer sicheren Einsatz von Arbeitsmitteln.",
+            "Logistik, Lager, Umwelt und Entsorgung: Materialfluss, Lagerordnung, Diebstahlschutz, Abfalltrennung und Abtransport vorbereiten.",
+            "Notfallorganisation: Ersthelfer, Brandschutz, Sammelpunkte, Rettungswege und Sofortmassnahmen sind vorab klar geregelt."
           ]
         },
-        { "type": "image", "src": "assets/lernfelder/lernfeld-01/img/placeholder-arbeitsstelle.svg", "caption": "Uebersicht einer eingerichteten Arbeitsstelle" }
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Sicherung ist ein eigener Job, nicht nebenbei. Klare Rollen verhindern Unfaelle und Chaos."
+        },
+        {
+          "type": "text",
+          "value": "Typische Zusatzrollen auf Baustellen sind z. B. Sicherheitsbeauftragte, Fachbauleiter, Anlagen- oder Schaltberechtigte sowie Qualitaetssicherung und Dokumentation. Die genaue Bezeichnung kann je nach Betrieb variieren - die Aufgabenlogik bleibt gleich."
+        }
       ],
       "quizRef": ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8"]
     },
@@ -35,27 +54,120 @@
       "id": "lf01-b2",
       "title": "Gefaehrdungsbeurteilung & Unterweisung",
       "goals": [
-        "Nutzen der Dokumentation verstehen",
-        "Unterweisung als Pflicht erkennen"
+        "Zusammenhang von Gefaehrdungsbeurteilung und Unterweisung verstehen",
+        "Verantwortlichkeiten klar zuordnen (Arbeitgeber, Fuehrung, SiFa, Team)",
+        "Zeitpunkte, Durchfuehrung und Dokumentation rechtssicher anwenden"
       ],
-      "summary": "Gefahren erkennen, Massnahmen festlegen, Unterweisung dokumentieren.",
+      "summary": "Erst Gefahren systematisch bewerten, dann passgenau unterweisen und die Wirksamkeit kontrollieren.",
       "content": [
+        {
+          "type": "text",
+          "value": "Gefaehrdungsbeurteilung (GBU) bedeutet: Gefahren systematisch erkennen, Massnahmen festlegen, Wirksamkeit pruefen und dokumentieren. Unterweisung bedeutet: Beschaeftigte so befaehigen, dass sie die konkreten Gefahren ihrer Taetigkeit verstehen und sicher handeln."
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Grundsatz",
+          "value": "Unterweisung baut auf der GBU auf. Ohne GBU bleibt Unterweisung oft zu allgemein und nicht rechtssicher."
+        },
         {
           "type": "list",
           "items": [
-            "Gefahren: Verkehr, Gleise, Strom, Maschinen, Stolpern, Wetter, Dunkelheit",
-            "Unterweisung kurz dokumentieren (Tageszettel/Toolbox Talk)",
-            "STOP-Regel: unsicher = stoppen, nachfragen, sichern"
+            "Rechtsbasis GBU: ArbSchG, Paragraf 5",
+            "Rechtsbasis Unterweisung: ArbSchG, Paragraf 12",
+            "Mindestens jaehrlich und dokumentiert: DGUV Vorschrift 1"
           ]
         },
-        { "type": "callout", "variant": "danger", "title": "Keine Bauchgefuehle", "value": "Gefaehrdungsbeurteilung ist Pflicht, nicht nice-to-have." },
         {
-          "type": "checklist",
+          "type": "text",
+          "value": "Hauptverantwortlich fuer die Gefaehrdungsbeurteilung ist der Arbeitgeber/Unternehmer. Aufgaben koennen delegiert werden, die Gesamtverantwortung bleibt beim Arbeitgeber."
+        },
+        {
+          "type": "list",
           "items": [
-            { "label": "Risiken erfasst und kommuniziert" },
-            { "label": "Unterweisung protokolliert", "hint": "Datum, Inhalte, Teilnehmer" },
-            { "label": "STOP-Regel bekannt" }
+            "SiFa/FaSi unterstuetzt mit Methodik, Bewertung und Massnahmenvorschlaegen.",
+            "Betriebsarzt bringt arbeitsmedizinische Aspekte und Vorsorge ein.",
+            "Bauleitung, Polier und Vorarbeiter liefern praxisnahe Informationen zu realen Ablaeufen.",
+            "Beschaeftigte melden Beinahe-Unfaelle, Stolperstellen und Routinefehler aus dem Alltag."
           ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Der Arbeitgeber ist verantwortlich, aber eine gute GBU ist Teamarbeit aus Fachwissen und Praxiserfahrung."
+        },
+        {
+          "type": "text",
+          "value": "Bei Baustellen mit mehreren Firmen ist zusaetzlich Koordination nach Baustellenverordnung wichtig (z. B. SiGeKo durch den Bauherrn). Diese Koordination ersetzt nicht die eigene GBU jedes einzelnen Arbeitgebers."
+        },
+        {
+          "type": "text",
+          "value": "Unterweisungspflicht liegt grundsaetzlich beim Arbeitgeber. In der Praxis wird die Durchfuehrung haeufig an Fuehrungskraefte delegiert, weil sie Arbeit anweisen und kontrollieren."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Arbeitgeber -> Beschaeftigte: Pflichtunterweisung organisieren und nachweisen.",
+            "Bauleitung/Polier -> Team und Azubis: taetigkeits- und baustellenbezogen unterweisen.",
+            "Sicherungsaufsicht -> Sicherungsposten und Mitarbeitende im Gleisbereich: Sicherungsregeln und Abbruchkriterien einweisen.",
+            "Maschinenverantwortliche -> Einweiser/Anschlaeger/Team: Geraete- und Gefaehrdungseinweisung durchfuehren.",
+            "Fremdfirmen unterweisen ihre eigenen Beschaeftigten selbst; gemeinsame Baustellenregeln kommen zusaetzlich durch Koordination."
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Wichtig fuer Azubis",
+          "value": "Wer dich anweist, muss sicherstellen, dass du die Aufgabe sicher ausfuehren kannst. Wenn unklar: Stopp und nachfragen."
+        },
+        {
+          "type": "text",
+          "value": "Unterweisungen muessen bei Einstellung, bei Arbeitsbeginn, bei Aenderungen (Taetigkeit, Geraet, Stoff, Baustelle, Gefahr), bei Bedarf und mindestens einmal pro Jahr erfolgen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Baustellenpraxis: taegliche Kurzunterweisung (Toolbox-Talk, ca. 5-10 Minuten).",
+            "Nach Beinahe-Unfaellen oder Regelverstoessen erneut unterweisen.",
+            "Bei Schicht- oder Teamwechsel neue Risiken sofort ansprechen."
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Unterweisung muss ausreichend und angemessen waehrend der Arbeitszeit stattfinden. Wirksam ist sie vor allem arbeitsplatznah, konkret fuer heute/jetzt/hier, mit Rueckfragen und Verstaendnischeck."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Auf der Baustelle zeigen lassen: Sammelpunkt, Fluchtweg, passende PSA, sichere Arbeitsweise.",
+            "Kurze Kontrollfragen nutzen, statt nur Vortrag.",
+            "Sprach- und Verstaendnisniveau der Teilnehmenden beruecksichtigen.",
+            "Lieber kurz und haeufig als selten und zu lang."
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Eine gute Baustellen-GBU betrachtet Taetigkeiten und Bereiche (Einrichten, Raeumen, Transport, Heben, Trennen, Arbeiten nahe Verkehr und Gleis), typische Gefaehrdungsarten und passende Schutzmassnahmen nach TOP-Prinzip."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gefaehrdungsarten: mechanisch, Verkehr/Bewegung, elektrisch, Laerm/Vibration, Staub/Emissionen, Witterung, Organisation, Notfall.",
+            "TOP-Prinzip technisch: Absperrung, Beleuchtung, Maschinenschutz.",
+            "TOP-Prinzip organisatorisch: Ablaufregeln, Sperrungen, Einweiser, klare Zustaendigkeiten.",
+            "TOP-Prinzip persoenlich: PSA, Qualifikation, Unterweisung."
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Dokumentation muss nachweisbar sein: Bei Unterweisung mindestens Thema, Datum, Dauer, Teilnehmende, unterweisende Person und Besonderheiten. Bei GBU mindestens Taetigkeit/Ort, Gefaehrdungen, Massnahmen mit Verantwortlichen und Termin sowie Wirksamkeitskontrolle."
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Typische Fehler",
+          "value": "Nur jaehrlich im Buero unterweisen, SiFa als alleinverantwortlich ansehen, GBU als reines Papier behandeln oder bei Aenderungen nicht neu unterweisen."
         }
       ],
       "quizRef": ["Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15"]
@@ -64,27 +176,84 @@
       "id": "lf01-b3",
       "title": "PSA & Warnkleidung",
       "goals": [
-        "Welche PSA ist Pflicht und wann",
-        "Warnkleidung richtig einsetzen"
+        "Grundprinzip der PSA als letzte Schutzstufe im TOP-Prinzip verstehen",
+        "Verantwortungen von Arbeitgeber, Fuehrungskraeften und Beschaeftigten klar zuordnen",
+        "Die passende PSA je nach Taetigkeit und Gefaehrdung auswaehlen",
+        "Warnkleidung korrekt einsetzen und typische Fehler vermeiden"
       ],
-      "summary": "PSA rettet nicht vor Fehlern, aber vor Folgen. Warnkleidung = Sichtbarkeit.",
+      "summary": "PSA ist Pflicht, wenn Gefaehrdungen nicht ausreichend technisch oder organisatorisch ausgeschlossen sind. Warnkleidung sichert Sichtbarkeit und rettet Leben.",
       "content": [
+        {
+          "type": "text",
+          "value": "PSA bedeutet Persoenliche Schutzausruestung. Sie schuetzt Beschaeftigte vor Gefaehrdungen bei der Arbeit, wenn technische und organisatorische Massnahmen allein nicht ausreichen."
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Grundsatz",
+          "value": "PSA ist die letzte Schutzstufe im TOP-Prinzip (Technisch, Organisatorisch, Persoenlich) und keine freiwillige Option."
+        },
         {
           "type": "list",
           "items": [
-            "Standard-PSA: Helm, Sicherheitsschuhe, Handschuhe",
-            "Augen- und Gehoerschutz je nach Taetigkeit (z. B. Flexen)",
-            "Warnkleidung als Lebensversicherung, besonders im Verkehrsraum und Gleisbereich"
+            "Arbeitgeber/Unternehmer: stellt geeignete PSA kostenlos bereit, organisiert Auswahl, Ersatz und Unterweisung und kontrolliert die Nutzung.",
+            "Bauleitung/Polier/Vorarbeiter: setzen die PSA-Pflicht auf der Baustelle durch, pruefen Zustand und Trageweise und greifen bei Verstoessen ein.",
+            "Mitarbeitende/Azubis: muessen PSA tragen, pfleglich behandeln und Schaeden sofort melden; ohne vorgeschriebene PSA darf nicht gearbeitet werden."
           ]
         },
-        { "type": "callout", "variant": "tip", "title": "Merksatz", "value": "PSA schuetzt nicht vor Dummheit – aber vor dem Fehler." },
         {
-          "type": "checklist",
+          "type": "text",
+          "value": "Arten von PSA im Baustellen- und Gleisbau: Kopf-, Fuss-, Hand-, Augen-, Gehoer- und Atemschutz sowie weitere taetigkeitsspezifische Ausruestung."
+        },
+        {
+          "type": "list",
           "items": [
-            { "label": "Warnweste intakt und sauber" },
-            { "label": "Helm, Schuhe, Handschuhe vorhanden" },
-            { "label": "PSA pruefen und beschaedigte Teile tauschen" }
+            "Kopfschutz (Helm): Pflicht auf Baustellen, besonders unter Lasten, bei Maschinenbetrieb, im Gleisbereich sowie bei Montage und Demontage.",
+            "Sicherheitsschuhe: S3 ist im Gleisbau in der Regel Standard (Durchtrittschutz und Profilsohle).",
+            "Schutzhandschuhe: passend zur Taetigkeit waehlen, z. B. Montage, Schnittschutz, Chemikalienschutz oder Kaelteschutz.",
+            "Augen-/Gesichtsschutz: Pflicht bei Trennen, Schleifen, Staub, Splitterflug und Chemikalien.",
+            "Gehoerschutz: noetig bei hohem Laerm, z. B. Stopfmaschine, Trennschleifer, Verdichter, Presslufthammer.",
+            "Atemschutz: bei Staub, Rauch und Daempfen nur unterwiesen anwenden (z. B. FFP2/FFP3, Filtermasken)."
           ]
+        },
+        {
+          "type": "text",
+          "value": "Warnkleidung ist ein eigener Schwerpunkt: Sie muss fruehzeitige Sichtbarkeit im Verkehr, bei Maschinenbetrieb, im Gleisbereich und bei schlechter Sicht sicherstellen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Warnschutzklasse 1: geringe Sichtbarkeit, fuer Baustellen kaum relevant.",
+            "Warnschutzklasse 2: Standard auf vielen Baustellen.",
+            "Warnschutzklasse 3: hoechste Sichtbarkeit, besonders bei Gleisbau, Strassenverkehr, Dunkelheit und hohem Tempo erforderlich."
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Warnkleidung",
+          "value": "Verschmutzte, beschaedigte oder verblasste Warnkleidung verliert Schutzwirkung. Im Gleisbereich ist in der Praxis fast immer Klasse 3 erforderlich."
+        },
+        {
+          "type": "text",
+          "value": "Welche PSA getragen wird, ergibt sich aus Gefaehrdungsbeurteilung und konkreter Taetigkeit. Beispiele: Beim Einrichten der Baustelle meist Helm, Sicherheitsschuhe, Warnkleidung, Handschuhe; bei Trennen/Schleifen zusaetzlich Schutzbrille, Gehoerschutz und ggf. Atemschutz."
+        },
+        {
+          "type": "text",
+          "value": "PSA ist Teil jeder Unterweisung und muss regelmaessig kontrolliert werden: Zustand, Trageweise und korrekte Auswahl."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Typische Fehler: Warnweste offen, Helm falsch eingestellt, kurz ohne Helm arbeiten, falsche Handschuhe, beschaedigte PSA weiter nutzen.",
+            "Gefaehrlich ist auch ungenutzte PSA: Ausruestung im Spind schuetzt nicht am Arbeitsplatz."
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksaetze",
+          "value": "PSA schuetzt nur, wenn sie getragen wird. Warnkleidung schuetzt nur, wenn man gesehen wird. Ohne vorgeschriebene PSA keine Arbeit."
         }
       ],
       "quizRef": ["Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22"]
@@ -93,35 +262,88 @@
       "id": "lf01-b4",
       "title": "Baustelleneinrichtung im oeffentlichen Raum",
       "goals": [
-        "Verkehrs- und Fussgaengerschutz verstehen",
-        "Wege sicher fuehren"
+        "Besonderheiten von Baustellen im oeffentlichen Raum erkennen",
+        "Massnahmen zur sicheren Trennung und Fuehrung von Verkehr anwenden",
+        "Verantwortlichkeiten und Kontrollpflichten im laufenden Betrieb verstehen"
       ],
-      "summary": "Warnen, fuehren, trennen, sichtbar bleiben – besonders nachts.",
+      "summary": "Im oeffentlichen Raum muessen Beschaeftigte und unbeteiligte Dritte gleichzeitig geschuetzt werden: klar absperren, sicher fuehren, sichtbar informieren und konsequent kontrollieren.",
       "content": [
+        {
+          "type": "text",
+          "value": "Oeffentlicher Raum umfasst alle frei zugaenglichen Bereiche wie Strassen, Fahrbahnen, Geh- und Radwege, Plaetze, Haltestellen, Bahnsteige, Gruenflaechen sowie Verkehrsbereiche von OePNV und Bahn."
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Besonderheit",
+          "value": "Im oeffentlichen Raum wird nicht isoliert gearbeitet, sondern zwischen unbeteiligten Personen mit unvorhersehbarem Verhalten."
+        },
         {
           "type": "list",
           "items": [
-            "Fruehzeitig warnen",
-            "Eindeutig fuehren/umleiten",
-            "Arbeitsbereich und Verkehr trennen",
-            "Nachts beleuchten und reflektieren"
+            "Ziel der Einrichtung: Beschaeftigte und Dritte gleichzeitig schuetzen.",
+            "Gefaehrdungen fuer Fussgaenger, Fahrgaeste, Radfahrer und Autofahrer ausschliessen.",
+            "Verkehr aktiv fuehren oder regeln statt unkontrolliert laufen lassen.",
+            "Orientierung, Rechtssicherheit und stoerungsarmen Ablauf sicherstellen."
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Im Vergleich zur abgeschlossenen Baustelle gelten zusaetzliche Anforderungen: wechselnde Personengruppen, Kinder, aeltere Menschen, Menschen mit Einschraenkungen, Dunkelheit, Wetter, Laerm und laufender Verkehr direkt an der Arbeitsstelle."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Leitlinie",
+          "value": "Absperren, sichern, leiten und informieren - klar, sichtbar und eindeutig."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Absperrungen: Bauzaeune, Absperrschranken, Leitbaken, Gitter, mobile Schutzwaende; Absperrband nur ergaenzend.",
+            "Anforderung: lueckenlos, standsicher und bei Tag sowie Nacht gut sichtbar.",
+            "Fussgaengerverkehr: ausreichend breite, beleuchtete und stolperfreie Wege ohne Sackgassen.",
+            "Radverkehr: klare Umleitungen und konfliktarme Fuehrung getrennt von Fussgaengern.",
+            "Fahrzeugverkehr: Verengungen, Umleitungen, Temporeduzierung und Schutz vor Anfahrunfaellen."
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Warn- und Leiteinrichtungen umfassen Verkehrszeichen, Warnleuchten, Leitbaken, Blinklichter, Hinweistafeln und beleuchtete Absperrschranken. Defekte oder falsch platzierte Elemente sind selbst ein Sicherheitsrisiko."
+        },
+        {
+          "type": "text",
+          "value": "Warnkleidung ist im oeffentlichen Raum Pflicht. Je nach Lage gilt meist Klasse 2 oder 3, bei Verkehr, Dunkelheit und OePNV-nahem Bereich regelmaessig Klasse 3."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Informationspflicht: Was passiert hier, wie komme ich sicher vorbei, welche Umleitung gilt, wie lange dauert es?",
+            "Mittel: Hinweisschilder, Informationstafeln, Aushaenge und bei Bedarf Durchsagen.",
+            "Information reduziert Fehlverhalten und erhoeht Akzeptanz der Absperrung."
+          ]
+        },
+        {
+          "type": "list",
+          "items": [
+            "Auftraggeber/Kommune/Betreiber: Genehmigungen, Auflagen und verkehrsrechtliche Anordnungen.",
+            "Bauleitung: Vorgaben umsetzen, Einrichtung kontrollieren und bei Aenderungen anpassen.",
+            "Verantwortliche fuer Verkehrssicherung: Aufstellen, Unterhalten und Kontrollen bei Tag und Nacht.",
+            "Mitarbeitende: Absperrungen nicht entfernen, Aenderungen sofort melden, Ordnung halten und auf Oeffentlichkeit achten."
           ]
         },
         {
           "type": "callout",
           "variant": "danger",
           "title": "Typische Fehler",
-          "value": "Schilder zu spaet oder widerspruechlich, Schleichwege zulaesst."
+          "value": "Offene Absperrungen nur fuer kurz, zu schmale Gehwege, schlechte Beleuchtung, Stolperstellen, Absperrband statt fester Sicherung und fehlende Kontrolle nach Feierabend."
         },
         {
-          "type": "checklist",
-          "items": [
-            { "label": "Fussgaengerwege barrierearm", "hint": "Kinderwagen/Rollstuhl denken" },
-            { "label": "Kabel/Schlaeuche abgedeckt" },
-            { "label": "Schilder klar und frueh genug" }
-          ]
-        },
-        { "type": "image", "src": "assets/lernfelder/lernfeld-01/img/placeholder-fussgaengerfuehrung.svg", "caption": "Gefuehrte Fussgaengerfuehrung" }
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksaetze",
+          "value": "Oeffentlicher Raum bedeutet besondere Verantwortung: Unbeteiligte schuetzen, Verkehr fuehren, Absperrung verstaendlich halten, Ordnung und Sichtbarkeit konsequent sichern."
+        }
       ],
       "quizRef": ["Q23", "Q24", "Q25", "Q26", "Q27", "Q28", "Q29"]
     },
@@ -129,33 +351,77 @@
       "id": "lf01-b5",
       "title": "Verkehrszeichen & Baustellenbeschilderung",
       "goals": [
-        "Haeufige Baustellenzeichen erkennen",
-        "Logik der Beschilderung verstehen"
+        "Arten und Zweck von Verkehrszeichen auf Baustellen sicher unterscheiden",
+        "Verantwortlichkeiten von Behoerde, Bauleitung und Mitarbeitenden korrekt zuordnen",
+        "Baustellenbeschilderung planmaessig, sichtbar und rechtssicher umsetzen"
       ],
-      "summary": "Gefahr-, Vorschrift-, Richt- und Zusatzzeichen richtig platzieren.",
+      "summary": "Baustellenbeschilderung ist verbindlich: rechtzeitig ankuendigen, klar warnen, eindeutig regeln, sicher leiten und die Regelung nachvollziehbar aufheben.",
       "content": [
         {
-          "type": "list",
-          "items": [
-            "Gefahrzeichen: warnen",
-            "Vorschriftzeichen: Gebote/Verbote",
-            "Richtzeichen: Hinweis/Umleitung",
-            "Zusatzzeichen: wer/wann/wie"
-          ]
+          "type": "text",
+          "value": "Verkehrszeichen und Baustellenbeschilderung warnen fruehzeitig, machen Gefahrenstellen erkennbar, lenken Verkehrsstroeme und verhindern Unfaelle. Im oeffentlichen Raum sind sie verbindlich und keine Empfehlung."
         },
         {
           "type": "callout",
           "variant": "info",
-          "title": "Beispiele",
-          "value": "Baustelle, Verbot fuer Fussgaenger, Umleitung, Geschwindigkeitsreduzierung, Leitbaken."
+          "title": "Grundprinzip",
+          "value": "Baustellenbeschilderung folgt einer festen Logik: ankuendigen, warnen, regeln, leiten, aufheben. Fehlt eine Stufe, steigt das Risiko."
         },
         {
-          "type": "checklist",
+          "type": "list",
           "items": [
-            { "label": "Vorwarnung vor der Sperre" },
-            { "label": "Umleitung klar und logisch" },
-            { "label": "Keine widerspruechlichen Zeichen" }
+            "Verkehrsrechtliche Anordnung durch die zustaendige Behoerde legt fest: welche Zeichen, welcher Standort, welche Dauer und welche Temporegeln.",
+            "Ohne verkehrsrechtliche Anordnung werden keine Verkehrszeichen aufgestellt.",
+            "Bauleitung/Auftragnehmer setzen den Plan korrekt um und kontrollieren Standfestigkeit, Sichtbarkeit und Vollstaendigkeit regelmaessig.",
+            "Aenderungen erfolgen nur mit Freigabe, nicht eigenmaechtig.",
+            "Mitarbeitende veraendern Schilder nicht selbst, melden Maengel sofort und halten die Beschilderung frei."
           ]
+        },
+        {
+          "type": "text",
+          "value": "Arten von Verkehrszeichen auf Baustellen: Gefahrzeichen warnen vor der Gefahrenstelle, Vorschriftzeichen schreiben Verhalten verbindlich vor, Richtzeichen leiten den Verkehr sicher vorbei oder um."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gefahrzeichen (Dreieck, rot): z. B. Baustelle, verengte Fahrbahn, Gegenverkehr, Fussgaenger oder Radverkehr.",
+            "Vorschriftzeichen (rund, rot/blau): z. B. Tempolimit, Ueberholverbot, Einfahrt verboten, benutzungspflichtige Wege.",
+            "Richtzeichen (rechteckig, blau/weiss): z. B. Umleitungen, Fahrstreifenfuehrung, Fussgaengerfuehrung, Ersatzwege."
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Zur Baustellenbeschilderung gehoeren auch Leitelemente wie Leitbaken, Absperrschranken, Warnleuchten, Blinklichter, Leitkegel und mobile Schutzwaende. Sie sichern Sichtbarkeit und Trennung auch bei Dunkelheit."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verkehrszeichen muessen rechtzeitig erkennbar, frei sichtbar, standsicher und korrekt ausgerichtet sein.",
+            "Bei Dunkelheit sind Beleuchtung oder Reflexion erforderlich.",
+            "Umgefallene, verdrehte oder verdeckte Zeichen sind akute Gefahren und sofort zu beheben."
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Verkehrszeichenplan",
+          "value": "Das Herzstueck jeder groesseren Baustelle im oeffentlichen Raum: Schilder, Standorte, Abstaende, Fahrstreifen, Umleitungen und Sicherungsbereiche werden exakt nach Plan umgesetzt."
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Typische Fehler",
+          "value": "Fehlende oder zu spaete Schilder, falsche Reihenfolge, umgefallene Baken, fehlende Nachtbeleuchtung, alte Restbeschilderung oder widerspruechliche Zeichen."
+        },
+        {
+          "type": "text",
+          "value": "Verknuepfung mit anderen Bloecken: Block 2 definiert aus der Gefaehrdungsbeurteilung den Beschilderungsbedarf, Block 3 ergaenzt mit PSA/Warnkleidung, Block 4 beschreibt die Besonderheiten im oeffentlichen Raum, Block 6 vertieft Verkehrsfuehrung und Umleitungen."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksaetze",
+          "value": "Verkehrszeichen sind verbindlich. Aufstellen nur mit Anordnung. Aenderungen nur mit Freigabe. Kontrolle ist Pflicht und muss taeglich erfolgen."
         }
       ],
       "quizRef": ["Q30", "Q31", "Q32", "Q33", "Q34", "Q35", "Q36"]
@@ -164,29 +430,95 @@
       "id": "lf01-b6",
       "title": "Gleisbau-spezifisch: Arbeiten im/am Gleisbereich",
       "goals": [
-        "Gleisbereich als Hochrisiko verstehen",
-        "Sicherungsprinzip kennen"
+        "Gleisbereich als Hochrisikobereich mit typischen Gefaehrdungen verstehen",
+        "Sicherungsarten, Rollen und Verantwortlichkeiten im Gleisbau korrekt zuordnen",
+        "Verhaltensregeln im und am Gleis konsequent anwenden"
       ],
-      "summary": "Annähernde Fahrten, Lichtraumprofil, sichere Fluchtwege und Kommunikation.",
+      "summary": "Arbeiten im und am Gleis sind nur mit wirksamer Sicherung zulaessig: Lichtraumprofil freihalten, Warnungen sofort befolgen, Zustaendigkeiten klar einhalten.",
       "content": [
+        {
+          "type": "text",
+          "value": "Arbeiten im oder am Gleisbereich umfassen alle Taetigkeiten, bei denen Personen, Geraete oder Material im Gleis, neben dem Gleis, im Lichtraumprofil oder im Wirkbereich von Zuegen und Bahnanlagen liegen."
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Grundsatz",
+          "value": "Der Gleisbereich ist ein Hochrisikobereich. Ohne Sicherung keine Arbeit, Sicherung hat Vorrang vor Produktivitaet."
+        },
         {
           "type": "list",
           "items": [
-            "Kernrisiken: Fahrten, Lichtraum, unebener Untergrund",
-            "Gleisbereich nur mit organisierter Sicherung betreten",
-            "Sicherungsaufsicht/Sicherungsposten koordiniert und sichtbar"
+            "Typische Gefahren: schnelle Zugfahrten, leise Annaeherung, Luftdruck/Sog, unuebersichtliche Gleislagen, Dunkelheit, Kurven, Tunnel.",
+            "Zusaetzliche Belastungen: Laerm mit eingeschraenktem Hoeren sowie Zeitdruck durch Sperrpausen.",
+            "Ein einzelner Fehler kann schwere Folgen haben; es gibt keine Knautschzone."
           ]
         },
-        { "type": "callout", "variant": "danger", "title": "Warnsignal", "value": "Warnung = sofort Arbeit stoppen, Werkzeug sichern, in Sicherheitsraum." },
         {
-          "type": "checklist",
+          "type": "text",
+          "value": "Arbeiten duerfen nur stattfinden, wenn eine zugelassene Sicherungsmassnahme aktiv ist, alle Beteiligten unterwiesen wurden und die Sicherung laufend ueberwacht wird."
+        },
+        {
+          "type": "list",
           "items": [
-            { "label": "Fluchtraum bekannt" },
-            { "label": "Keine Ablenkung (Handy/Kopfhoerer)" },
-            { "label": "Material nicht im Lichtraum lagern" }
+            "Gefahrenbereich Gleis: jederzeit moegliche Zug- und Rangierbewegungen.",
+            "Lichtraumprofil: durch Fahrzeuge benoetigter Raum inklusive Sicherheitsabstand; dort duerfen keine Personen, Materialien oder Geraete stehen.",
+            "Wirkbereich von Maschinen/Fahrzeugen: z. B. Stopfmaschinen, Zweiwegebagger, Arbeitszuege, Krane - Abstand, Blickkontakt und klare Kommunikation sind Pflicht."
           ]
         },
-        { "type": "image", "src": "assets/lernfelder/lernfeld-01/img/placeholder-gleisbereich.svg", "caption": "Sicherer Abstand im Gleisbereich" }
+        {
+          "type": "text",
+          "value": "Sicherungsarten im Grundverstaendnis: technische Sicherung, Sperrung/Freigabe, personelle Sicherung mit Sicherungsaufsicht und Warnposten sowie organisatorische Massnahmen wie Sperrpausen und Arbeitsfenster."
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Wichtig",
+          "value": "Welche Sicherungsart angewendet wird, entscheiden Planung und Sicherungsorganisation - nicht einzelne Mitarbeitende."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sicherungsaufsicht: verantwortet Sicherungsmassnahmen, ueberwacht Einhaltung, hat Weisungsrecht und kann Arbeiten stoppen.",
+            "Sicherungsposten/Warnposten: beobachten, warnen rechtzeitig, halten Position und melden Abweichungen sofort.",
+            "Bauleitung/Polier: organisieren Sicherung, verhindern Arbeit ohne Freigabe, kontrollieren Einhaltung und stimmen Aenderungen ab.",
+            "Mitarbeitende/Azubis: befolgen Anweisungen strikt, verlassen bei Warnung sofort den Bereich und melden Unsicherheiten."
+          ]
+        },
+        {
+          "type": "text",
+          "value": "PSA im Gleisbereich: mindestens Warnkleidung Klasse 3, Schutzhelm und Sicherheitsschuhe; je nach Taetigkeit zusaetzlich Gehoer- und Augenschutz. Keine Ablenkung durch Handy oder andere Stoerquellen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gleise nur an freigegebenen Stellen betreten.",
+            "Nie mit dem Ruecken zum Gleis arbeiten.",
+            "Fluchtweg jederzeit kennen.",
+            "Warnsignale sofort befolgen und den Gefahrenbereich unverzueglich verlassen.",
+            "Keine Abkuerzungen oder improvisierten Eigenwege."
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Bei Zugverkehr in Nachbargleisen bestehen Zusatzgefahren durch Sogwirkung, erfasste Teile und Schreckreaktionen. Erforderlich sind klare Abstaende, feste Standorte, zusaetzliche Sicherung und gesicherte Werkzeuge."
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Typische Fehler",
+          "value": "Arbeiten ohne Freigabe, abgelenkter Warnposten, Material im Lichtraumprofil, kurzzeitiges Betreten ohne Sicherung, fehlende Warnkleidung und unklare Zustaendigkeiten."
+        },
+        {
+          "type": "text",
+          "value": "Zusammenhang: Block 1 schafft die Grundlage der Baustelleneinrichtung, Block 2 steuert die Sicherungswahl ueber die Gefaehrdungsbeurteilung, Block 3 ergaenzt PSA, Block 4 oeffentlicher Raum und Block 5 Beschilderung."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksaetze",
+          "value": "Gleisbereich ist Hochrisiko. Ohne Sicherung keine Arbeit. Warnung bedeutet sofort raus. Lichtraumprofil ist tabu. Sicherheit schlaegt Zeitdruck."
+        }
       ],
       "quizRef": ["Q37", "Q38", "Q39", "Q40", "Q41", "Q42", "Q43", "Q44"]
     },
@@ -194,29 +526,82 @@
       "id": "lf01-b7",
       "title": "Bahnuebergaenge & Umfeld",
       "goals": [
-        "Gefahr am Bahnuebergang verstehen",
-        "Dritte und Team schuetzen"
+        "Bahnuebergaenge als Doppelgefahrenbereich aus Gleis- und Strassenverkehr verstehen",
+        "Sicherungsaufgaben und Verantwortlichkeiten am Bahnuebergang korrekt zuordnen",
+        "Sicheres Verhalten bei Arbeiten am Bahnuebergang im Alltag anwenden"
       ],
-      "summary": "Sicht, Verkehrsfluss und klare Absperrung entscheiden ueber Sicherheit.",
+      "summary": "Bahnuebergaenge sind Hochrisikobereiche: Zugverkehr und oeffentlicher Verkehr treffen direkt aufeinander. Sicherung muss immer fuer Gleis und Strasse gemeinsam gedacht werden.",
       "content": [
+        {
+          "type": "text",
+          "value": "Ein Bahnuebergang ist die niveaugleiche Kreuzung von Schienenverkehr mit Strassen-, Fussgaenger- oder Radverkehr. Dadurch entstehen gleichzeitig Risiken fuer Beschaeftigte, Verkehrsteilnehmende und unbeteiligte Dritte."
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Besonderes Risiko",
+          "value": "Zuege koennen nicht ausweichen und nur mit langem Bremsweg anhalten. Fehler an Bahnuebergaengen haben oft schwere Folgen."
+        },
         {
           "type": "list",
           "items": [
-            "Risiken: Autos uebersehen Personen/Material, Fussgaenger huschen durch",
-            "Sicht oft eingeschraenkt (Kurve, Hecke, Wetter, Nacht)",
-            "Warnwirkung vor dem Uebergang sicherstellen"
+            "Typische Gefahren: hohe Zuggeschwindigkeit, unuebersichtliche Situationen, Ablenkung, Zeitdruck im Strassenverkehr.",
+            "Baustellenbedingte Aenderungen der Verkehrsführung erhoehen das Fehlverhaltensrisiko.",
+            "Technik hilft, ersetzt aber keine Aufmerksamkeit von Personal und Verkehrsteilnehmenden."
           ]
         },
-        { "type": "callout", "variant": "tip", "title": "Merksatz", "value": "Am Bahnuebergang gibt es keine zweite Chance." },
         {
-          "type": "checklist",
+          "type": "text",
+          "value": "Grundverstaendnis der Uebergangsarten: ungesicherte Bahnuebergaenge (z. B. Andreaskreuz ohne aktive Technik) sind besonders kritisch; technisch gesicherte Uebergaenge mit Lichtzeichen, Schranken oder Akustik bleiben trotzdem gefaehrlich."
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Grundregel bei Bauarbeiten",
+          "value": "Arbeiten am Bahnuebergang sind Arbeiten im Gleisbereich und im oeffentlichen Raum gleichzeitig: doppelte Sicherung, doppelte Verantwortung, enge Abstimmung."
+        },
+        {
+          "type": "list",
           "items": [
-            { "label": "Arbeitsbereich abgesperrt" },
-            { "label": "Fuhrungen fuer Fussgaenger klar" },
-            { "label": "Material nicht in Sichtdreieck" }
+            "Infrastrukturbetreiber/Auftraggeber: genehmigt Arbeiten, legt Sicherungsmassnahmen fest, stimmt Bahn- und Strassenverkehr ab.",
+            "Bauleitung/Bauueberwachung: plant Ablauf, koordiniert Sicherung, sorgt fuer Umsetzung und laufende Kontrolle.",
+            "Sicherungsaufsicht: verantwortet Gleissicherung und stoppt Arbeiten bei Gefahr.",
+            "Verkehrssicherungspersonal: sichert Strassenverkehr, richtet Umleitungen ein und haelt die Fuehrung klar.",
+            "Mitarbeitende/Azubis: handeln strikt nach Freigabe und melden Auffaelligkeiten sofort."
           ]
         },
-        { "type": "image", "src": "assets/lernfelder/lernfeld-01/img/placeholder-bahnuebergang.svg", "caption": "Absicherung am Bahnuebergang" }
+        {
+          "type": "text",
+          "value": "Sicherung bei Bauarbeiten umfasst je nach Lage Gleissicherung (z. B. Sperrung, Warnposten, Arbeitsfenster), Strassensicherung (Zeichen, Absperrung, Umleitung, ggf. manuelle Regelung) und sichere Fuehrung fuer Fuss- und Radverkehr."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Umfeld sichern: Anfahrtsbereiche, Sichtdreiecke, Geh- und Radwege, Haltestellen, Zufahrten und angrenzende Bereiche mitdenken.",
+            "Sichtbehinderungen durch parkende Fahrzeuge, Material oder ungesicherte Kabel/Gruben vermeiden.",
+            "Auch ausserhalb des eigentlichen Uebergangs kann ein akuter Gefahrenbereich entstehen."
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Verhaltensregeln im Alltag: Bahnuebergang nur mit Freigabe betreten, nie zwischen Schranken aufhalten, Warnsignale sofort befolgen, in beide Richtungen pruefen und Fluchtwege vor Arbeitsbeginn klaeren."
+        },
+        {
+          "type": "text",
+          "value": "PSA und Sichtbarkeit: mindestens Warnkleidung Klasse 3, Schutzhelm und Sicherheitsschuhe. Warnkleidung muss sauber und klar erkennbar sein; Ablenkung durch Handy oder Kopfhoerer ist zu vermeiden."
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Typische Fehler",
+          "value": "Arbeiten ohne vollstaendige Sicherung, fehlende Abstimmung zwischen Gleis- und Strassensicherung, mangelhafte Beleuchtung, Material im Sichtfeld oder Verlassen des gesicherten Bereichs."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksaetze",
+          "value": "Bahnuebergang bedeutet Doppelgefahr. Sicherung immer zweifach denken. Technik ersetzt kein Denken. Sicherheit geht vor Verkehrsdruck."
+        }
       ],
       "quizRef": ["Q45", "Q46", "Q47", "Q48", "Q49", "Q50", "Q51", "Q52"]
     },
@@ -224,27 +609,93 @@
       "id": "lf01-b8",
       "title": "Ordnung, Umwelt, Materiallagerung & Tagesabschluss",
       "goals": [
-        "Baustelle sicher hinterlassen",
-        "Umwelt und Material schuetzen"
+        "Ordnung als aktive Sicherheitsmassnahme verstehen",
+        "Materiallagerung sowie Umwelt- und Entsorgungsregeln sicher anwenden",
+        "Einen vollstaendigen Tagesabschluss fuer sichere Baustellen durchfuehren"
       ],
-      "summary": "Wege frei, Material gesichert, Beschilderung pruefen, Umwelt beachten.",
+      "summary": "Ordnung, Umwelt- und Materialmanagement sind Arbeitsschutz: Eine sichere Baustelle muss auch nach Feierabend und nachts sicher bleiben.",
       "content": [
+        {
+          "type": "text",
+          "value": "Ordnung auf der Baustelle bedeutet Unfallverhuetung, Betriebssicherheit, Umweltschutz und Rechtssicherheit. Unordnung ist im Gleisbau und im oeffentlichen Raum eine Gefaehrdung, kein Schoenheitsfehler."
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Praxisrisiko",
+          "value": "Viele schwere Unfaelle passieren nach Feierabend oder bei Dunkelheit durch ungesicherte Bereiche, herumliegendes Material und fehlende Kontrollen."
+        },
         {
           "type": "list",
           "items": [
-            "Wege frei halten, Material sichern, keine losen Teile",
-            "Maschinen abstellen, Energiequellen sichern",
-            "Oel/Kraftstoff/Abfaelle auffangen und korrekt entsorgen"
+            "Arbeitsbereiche sauber halten: keine losen Werkzeuge, keine Stolperstellen, freie Wege.",
+            "Maschinen abstellen und sichern, Kabel und Schlaeuche geordnet fuehren.",
+            "Verkehrs- und Fluchtwege jederzeit freihalten, ausreichend breit und gut erkennbar beleuchten.",
+            "Fluchtwege duerfen niemals zugestellt werden."
           ]
         },
-        { "type": "callout", "variant": "info", "title": "Tagesabschluss-Check", "value": "Beschilderung korrekt? Beleuchtung ok? Gefahrenstellen gesichert?" },
         {
-          "type": "checklist",
+          "type": "text",
+          "value": "Materiallagerung muss standsicher, uebersichtlich und getrennt nach Materialart erfolgen. Lagerorte duerfen nicht in Verkehrs-, Flucht- oder Gefahrenbereichen liegen."
+        },
+        {
+          "type": "list",
           "items": [
-            { "label": "Absperrungen und Beleuchtung kontrolliert" },
-            { "label": "Material aus Gefahrenbereichen entfernt" },
-            { "label": "Umweltauflagen eingehalten" }
+            "Typische Materialien im Gleisbau: Schienen, Schwellen, Schotter, Kleinmaterial, Werkzeuge, Ersatzteile.",
+            "Schwere Bauteile nie ungesichert lagern, nicht im Lichtraumprofil und nicht auf Geh- oder Fluchtwegen.",
+            "Diebstahl- und Zugriffsschutz: Container verschliessen, Maschinen sichern, unbefugten Zutritt verhindern."
           ]
+        },
+        {
+          "type": "text",
+          "value": "Umwelt- und Gewaesserschutz ist Pflicht. Baustellen koennen empfindliche Bereiche belasten; Schaeden sind teuer und koennen meldepflichtig oder strafbar sein."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Typische Umweltgefahren: Oel, Kraftstoffe, Hydraulikfluessigkeiten, Schmierstoffe, Abfaelle, Staub und Laerm.",
+            "Massnahmen: Auffangwannen nutzen, sauber betanken, Leckagen sofort beseitigen, nichts in Boden oder Kanalisation einleiten.",
+            "Oel im Boden ist ein meldepflichtiger Umweltschaden."
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Abfallentsorgung ist Teil der Arbeit: Abfallarten trennen, geeignete Behaelter verwenden, keine wilden Ablagerungen und nichts liegen lassen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Abfallarten: Bauschutt, Metall, Holz, Verpackungen, Gefahrstoffe (z. B. oelverschmutzte Lappen).",
+            "Entsorgung ist keine Zusatzaufgabe, sondern Pflichtprozess der Baustellensicherheit."
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Tagesabschluss",
+          "value": "Am Tagesende: aufraeumen, Material sichern, Werkzeuge verstauen, Maschinen abschalten, Gruben sichern, Absperrung/Beleuchtung/Verkehrsfuehrung kontrollieren."
+        },
+        {
+          "type": "text",
+          "value": "Besonders bei oeffentlichen und Gleisbaustellen muss die Baustelle auch ohne Personal sicher sein, da Passanten, Verkehr und unbefugte Personen nachts weiterhin auftreten."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verantwortung Bauleitung/Polier: Tagesabschluss organisieren, Umsetzung pruefen, Zusatzsicherung anordnen.",
+            "Verantwortung Mitarbeitende/Azubis: eigenen Bereich sichern, Maengel melden, Material und Geraete ordnen.",
+            "Typische Fehler: Material liegen lassen, offene Absperrungen, ungesicherte Maschinen, Oelreste, schlechte Beleuchtung, fehlender Abschlusscheck."
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksaetze",
+          "value": "Ordnung ist Arbeitsschutz. Umwelt geht alle an. Materiallagerung ist Sicherheit. Tagesabschluss schuetzt Unbeteiligte. Eine sichere Baustelle bleibt auch nachts sicher."
+        },
+        {
+          "type": "text",
+          "value": "Verknuepfung zu den vorherigen Bloecken: Einrichtung, GBU, PSA, oeffentlicher Raum, Beschilderung, Gleisbereich und Bahnuebergaenge greifen im Tagesabschluss zusammen."
         }
       ],
       "quizRef": ["Q53", "Q54", "Q55", "Q56", "Q57", "Q58", "Q59", "Q60"]

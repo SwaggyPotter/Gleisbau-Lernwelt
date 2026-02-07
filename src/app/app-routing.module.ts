@@ -67,6 +67,26 @@ const routes: Routes = [
     loadChildren: () => import('./modules/lernfelder/lernfeld-08/lernfeld-08.module').then(m => m.Lernfeld08Module),
   },
   {
+    path: 'lernfelder/9',
+    loadChildren: () => import('./modules/lernfelder/lernfeld-09/lernfeld-09.module').then(m => m.Lernfeld09Module),
+  },
+  {
+    path: 'lernfelder/10',
+    loadChildren: () => import('./modules/lernfelder/lernfeld-10/lernfeld-10.module').then(m => m.Lernfeld10Module),
+  },
+  {
+    path: 'lernfelder/11',
+    loadChildren: () => import('./modules/lernfelder/lernfeld-11/lernfeld-11.module').then(m => m.Lernfeld11Module),
+  },
+  {
+    path: 'lernfelder/12',
+    loadChildren: () => import('./modules/lernfelder/lernfeld-12/lernfeld-12.module').then(m => m.Lernfeld12Module),
+  },
+  {
+    path: 'lernfelder/13',
+    loadChildren: () => import('./modules/lernfelder/lernfeld-13/lernfeld-13.module').then(m => m.Lernfeld13Module),
+  },
+  {
     path: 'zusatz/nivellieren',
     loadChildren: () => import('./modules/zusatz/nivellieren/lernfeld-02.module').then(m => m.NivellierenModule),
   },
@@ -108,6 +128,31 @@ const routes: Routes = [
   {
     path: 'lernfeld/08',
     redirectTo: 'lernfelder/8',
+    pathMatch: 'full',
+  },
+  {
+    path: 'lernfeld/09',
+    redirectTo: 'lernfelder/9',
+    pathMatch: 'full',
+  },
+  {
+    path: 'lernfeld/10',
+    redirectTo: 'lernfelder/10',
+    pathMatch: 'full',
+  },
+  {
+    path: 'lernfeld/11',
+    redirectTo: 'lernfelder/11',
+    pathMatch: 'full',
+  },
+  {
+    path: 'lernfeld/12',
+    redirectTo: 'lernfelder/12',
+    pathMatch: 'full',
+  },
+  {
+    path: 'lernfeld/13',
+    redirectTo: 'lernfelder/13',
     pathMatch: 'full',
   },
   {

@@ -1,0 +1,256 @@
+{
+  "blocks": [
+    {
+      "id": "lf10-b1",
+      "title": "Was heisst Instand setzen?",
+      "goals": [
+        "Instandhaltung, Instandsetzung und Erneuerung sicher unterscheiden",
+        "Typische Praxisbeispiele der Bestandsarbeit zuordnen"
+      ],
+      "summary": "Instandsetzung behebt vorhandene Schaeden, Erneuerung ersetzt Bauteile vollstaendig.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Instandhaltung: Schaeden vermeiden durch Pflege und Kontrolle",
+            "Instandsetzung: vorhandene Schaeden gezielt beseitigen",
+            "Erneuerung: Bauteile komplett austauschen",
+            "Beispiele: Verkehrsflachen reparieren, Betonabplatzungen sanieren, Schaechte und Leitungen erneuern"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Praxis",
+          "value": "Bestandsarbeit verlaengert die Nutzungsdauer, wenn Schaden, Ursache und Verfahren zusammenpassen."
+        }
+      ],
+      "quizRef": ["Q1"]
+    },
+    {
+      "id": "lf10-b2",
+      "title": "Schaeden erkennen und beurteilen",
+      "goals": [
+        "Typische Schadensbilder an Bauwerken erkennen",
+        "Haeufige Ursachen richtig einordnen"
+      ],
+      "summary": "Risse, Abplatzungen und Setzungen muessen frueh erkannt und bewertet werden.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Typische Schadensbilder: Risse, Abplatzungen, Setzungen, Ausspuelungen, Undichtigkeiten, Korrosion",
+            "Hauptursachen: Wasser, Frost, Verkehrslasten, Alterung und Ausfuehrungsfehler",
+            "Eine sachliche Schadenserfassung ist Grundlage fuer die richtige Massnahme"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Wichtig",
+          "value": "Ohne Ursachenanalyse fuehrt auch eine saubere Reparatur oft nur kurzfristig zum Erfolg."
+        }
+      ],
+      "quizRef": ["Q2"]
+    },
+    {
+      "id": "lf10-b3",
+      "title": "Arbeiten im Bestand: Gefahren und Besonderheiten",
+      "goals": [
+        "Besonderheiten gegenueber Neubau benennen",
+        "Risiken im Bestand realistisch einschaetzen"
+      ],
+      "summary": "Bestand hat unbekannte Risiken und darf nie wie Neubau behandelt werden.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Typische Besonderheiten: unbekannter Untergrund, alte Leitungen und Kabel, geschwaechte Bauteile, wenig Platz",
+            "Gefahren: Einsturz, Strom/Gas/Wasser, Staub, Laerm, Gefahrstoffe und laufender Verkehr",
+            "Arbeitsablaeufe brauchen mehr Erkundung, Absicherung und Kontrolle als im Neubau"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksatz",
+          "value": "Bestand nie wie Neubau behandeln."
+        }
+      ],
+      "quizRef": ["Q3"]
+    },
+    {
+      "id": "lf10-b4",
+      "title": "Rueckbau und Abbruch (kontrolliert)",
+      "goals": [
+        "Rueckbau und Abbruch klar unterscheiden",
+        "Kontrolliertes Vorgehen mit Sicherung und Materialtrennung umsetzen"
+      ],
+      "summary": "Rueckbau entfernt gezielt, Abbruch beseitigt vollstaendig.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Rueckbau: gezieltes Entfernen einzelner Bauteile",
+            "Abbruch: vollstaendige Beseitigung eines Bauwerks",
+            "Beides nur mit Planung, Sicherung, Staubschutz und Umgebungsabsicherung",
+            "Tragende Bauteile duerfen nicht unkontrolliert entfernt werden"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Umwelt",
+          "value": "Materialtrennung beim Rueckbau erleichtert Wiederverwertung und sichere Entsorgung."
+        }
+      ],
+      "quizRef": ["Q4"]
+    },
+    {
+      "id": "lf10-b5",
+      "title": "Reparatur und Erneuerung von Verkehrsflaechen",
+      "goals": [
+        "Typische Instandsetzungsarbeiten an Verkehrsflaechen anwenden",
+        "Dauerhaftigkeit ueber Untergrund, Anschluss und Verdichtung sichern"
+      ],
+      "summary": "Ohne tragfaehigen Untergrund haelt auch eine saubere Reparatur nicht dauerhaft.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Typische Arbeiten: Schlaglochreparatur, Austausch von Pflastersteinen, Asphalt- oder Betonflicken, Randbefestigungen erneuern",
+            "Untergrund vor Reparatur pruefen und vorbereiten",
+            "Anschluesse sauber herstellen und ausreichend verdichten"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Qualitaet",
+          "value": "Die Haltbarkeit entscheidet sich meist unterhalb der sichtbaren Oberflaeche."
+        }
+      ],
+      "quizRef": ["Q5"]
+    },
+    {
+      "id": "lf10-b6",
+      "title": "Beton instand setzen (Grundverstaendnis)",
+      "goals": [
+        "Kritische Betonschaeden erkennen",
+        "Vereinfachten Ablauf einer Betoninstandsetzung sicher anwenden"
+      ],
+      "summary": "Freiliegende Bewehrung ist kritisch wegen Korrosion und Tragfaehigkeitsverlust.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Typische Schaeden: Abplatzungen, freiliegende Bewehrung und Risse",
+            "Grundablauf: Schadstelle freilegen, lose Teile entfernen, Bewehrung reinigen, Reparaturmoertel aufbringen",
+            "Sorgfaeltige Vorbehandlung ist entscheidend fuer Verbund und Dauerhaftigkeit"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Achtung",
+          "value": "Korrodierende Bewehrung kann den Querschnitt und damit die Tragwirkung schwaechen."
+        }
+      ],
+      "quizRef": ["Q6"]
+    },
+    {
+      "id": "lf10-b7",
+      "title": "Leitungen und Schaechte erneuern",
+      "goals": [
+        "Erneuerung von Leitungen und Schaechten im Bestand fachgerecht planen",
+        "Dichtheit, Gefaelle und Einbindung ins Bestandssystem sicherstellen"
+      ],
+      "summary": "Nach Erneuerung sind Dichtheit und Gefaelle zwingend zu pruefen.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Typische Arbeiten: alte Rohre austauschen, Schaechte sanieren, Anschluesse erneuern",
+            "Besonderheiten: dichte Verbindungen, korrektes Gefaelle und sichere Systemeinbindung",
+            "Bestandsanschluesse muessen lage- und hoehengerecht uebernommen werden"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Pruefung",
+          "value": "Funktionspruefung direkt nach Einbau spart spaetere Aufgrabungen."
+        }
+      ],
+      "quizRef": ["Q7"]
+    },
+    {
+      "id": "lf10-b8",
+      "title": "Arbeitssicherheit und Umweltschutz",
+      "goals": [
+        "Sicherheitsmassnahmen bei Sanierung und Rueckbau konsequent anwenden",
+        "Umweltanforderungen bei Stoffen und Abfaellen umsetzen"
+      ],
+      "summary": "Staubschutz, Verkehrsabsicherung und getrennte Entsorgung sind Pflicht.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Sicherheitsmassnahmen: Verkehrsabsicherung, PSA, Staubschutz, Laerm- und Erschuetterungsschutz",
+            "Umwelt: Abfaelle trennen, belastete Stoffe separat entsorgen, Gewaesser schuetzen",
+            "Sicherheit und Umweltschutz laufen parallel und muessen in den Ablauf integriert sein"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Gesundheit",
+          "value": "Staub bei Sanierungen ist eine reale Belastung fuer Atemwege und Umgebung."
+        }
+      ],
+      "quizRef": ["Q8"]
+    },
+    {
+      "id": "lf10-b9",
+      "title": "Kontrolle, Dokumentation und Uebergabe",
+      "goals": [
+        "Abschlusskontrollen strukturiert durchfuehren",
+        "Dokumentation als Nachweis fuer Qualitaet und Sicherheit nutzen"
+      ],
+      "summary": "Ohne Dokumentation fehlt der belastbare Nachweis ueber fachgerechte Ausfuehrung.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Kontrolle: Masshaltigkeit, Funktion (z. B. Entwaesserung) und Sicherheit",
+            "Dokumentation: Fotos, Checklisten, Abweichungen und Nachweise",
+            "Uebergabe an den Auftraggeber mit nachvollziehbarer Leistungsdokumentation"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Nachweis",
+          "value": "Dokumentation schuetzt Betrieb und Mitarbeitende bei Rueckfragen oder Spaetschaeden."
+        }
+      ],
+      "quizRef": ["Q9"]
+    },
+    {
+      "id": "lf10-b10",
+      "title": "Grosse Quiz-Bank LF10",
+      "goals": [
+        "Zentrale Sanierungsregeln im Schnellmodus festigen",
+        "Risiken in Bestandsarbeit und Rueckbau sicher erkennen"
+      ],
+      "summary": "15 Zusatzfragen im App-Stil zu Schadenserkennung, Instandsetzung, Sicherheit und Dokumentation.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Nutze die Zusatzfragen fuer Wiederholung zu Bestandssicherheit, Reparaturqualitaet, Entwaesserung, Umwelt und Uebergabe."
+        }
+      ],
+      "quizRef": ["Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23", "Q24"]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+<ion-card class="nav-card">
+  <ion-card-header>
+    <ion-card-subtitle>Lernbloecke</ion-card-subtitle>
+    <ion-card-title>Leitfaden Gleisanlagen instand halten LF12</ion-card-title>
+  </ion-card-header>
+  <ion-list lines="none">
+    <ion-item
+      button
+      *ngFor="let block of blocks; trackBy: trackById"
+      (click)="selectBlock.emit(block.id)"
+      [class.active]="activeId === block.id"
+    >
+      <ion-label>
+        <h3>{{ block.title }}</h3>
+        <p>{{ block.summary }}</p>
+      </ion-label>
+      <ion-badge slot="end" color="success" *ngIf="isCompleted(block.id)">Fertig</ion-badge>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-card>
+
+

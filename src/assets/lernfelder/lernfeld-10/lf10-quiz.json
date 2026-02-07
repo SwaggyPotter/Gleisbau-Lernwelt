@@ -1,0 +1,393 @@
+{
+  "meta": {
+    "lernfeld": "10",
+    "title": "Bauwerke instand setzen und erneuern",
+    "version": "1.0"
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "block": "lf10-b1",
+      "type": "mcq_single",
+      "question": "Instandsetzung bedeutet ...",
+      "choices": [
+        { "id": "A", "text": "vorhandene Schaeden beheben" },
+        { "id": "B", "text": "Neubau" },
+        { "id": "C", "text": "nur reinigen" },
+        { "id": "D", "text": "nur dokumentieren" }
+      ],
+      "answer": "A",
+      "explain": "Instandsetzung beseitigt bestehende Schaeden an Bauwerken oder Bauteilen.",
+      "difficulty": "easy",
+      "tags": ["grundlagen", "instandsetzung"]
+    },
+    {
+      "id": "Q2",
+      "block": "lf10-b2",
+      "type": "mcq_single",
+      "question": "Was ist eine haeufige Ursache fuer Schaeden?",
+      "choices": [
+        { "id": "A", "text": "Wasser und Frost" },
+        { "id": "B", "text": "Farbe" },
+        { "id": "C", "text": "Sonnenschein" },
+        { "id": "D", "text": "Markierungen" }
+      ],
+      "answer": "A",
+      "explain": "Wasser- und Frosteinwirkung gehoeren zu den haeufigsten Schadensausloesern.",
+      "difficulty": "easy",
+      "tags": ["schaeden", "ursachen"]
+    },
+    {
+      "id": "Q3",
+      "block": "lf10-b3",
+      "type": "mcq_single",
+      "question": "Warum sind Arbeiten im Bestand gefaehrlicher?",
+      "choices": [
+        { "id": "A", "text": "unbekannte Risiken und geschwaechte Bauteile" },
+        { "id": "B", "text": "nur wegen weniger Platz" },
+        { "id": "C", "text": "wegen mehr Werkzeug" },
+        { "id": "D", "text": "weil es alt ist" }
+      ],
+      "answer": "A",
+      "explain": "Im Bestand sind Bauzustand, Leitungen und Lastreserven oft nicht voll bekannt.",
+      "difficulty": "easy",
+      "tags": ["bestand", "gefahren"]
+    },
+    {
+      "id": "Q4",
+      "block": "lf10-b4",
+      "type": "mcq_single",
+      "question": "Was ist der Unterschied zwischen Rueckbau und Abbruch?",
+      "choices": [
+        { "id": "A", "text": "Rueckbau gezielt, Abbruch vollstaendig" },
+        { "id": "B", "text": "Rueckbau schneller" },
+        { "id": "C", "text": "Abbruch nur per Hand" },
+        { "id": "D", "text": "kein Unterschied" }
+      ],
+      "answer": "A",
+      "explain": "Rueckbau entfernt gezielt Teile, Abbruch beseitigt das Bauwerk insgesamt.",
+      "difficulty": "easy",
+      "tags": ["rueckbau", "abbruch"]
+    },
+    {
+      "id": "Q5",
+      "block": "lf10-b5",
+      "type": "mcq_single",
+      "question": "Warum muss der Untergrund vor Reparaturen geprueft werden?",
+      "choices": [
+        { "id": "A", "text": "sonst haelt die Reparatur nicht dauerhaft" },
+        { "id": "B", "text": "nur fuer Optik" },
+        { "id": "C", "text": "spart Zeit" },
+        { "id": "D", "text": "egal" }
+      ],
+      "answer": "A",
+      "explain": "Die Tragfaehigkeit der Reparatur haengt von der Untergrundqualitaet ab.",
+      "difficulty": "easy",
+      "tags": ["verkehrsflaechen", "reparatur"]
+    },
+    {
+      "id": "Q6",
+      "block": "lf10-b6",
+      "type": "mcq_single",
+      "question": "Warum ist freiliegende Bewehrung kritisch?",
+      "choices": [
+        { "id": "A", "text": "Korrosionsgefahr und Tragfaehigkeitsverlust" },
+        { "id": "B", "text": "nur optisch" },
+        { "id": "C", "text": "ungefaehrlich" },
+        { "id": "D", "text": "normal" }
+      ],
+      "answer": "A",
+      "explain": "Korrosion reduziert den wirksamen Stahlquerschnitt und kann Tragwirkung mindern.",
+      "difficulty": "easy",
+      "tags": ["beton", "bewehrung"]
+    },
+    {
+      "id": "Q7",
+      "block": "lf10-b7",
+      "type": "mcq_single",
+      "question": "Was muss nach Erneuerung von Leitungen geprueft werden?",
+      "choices": [
+        { "id": "A", "text": "Dichtheit und Gefaelle" },
+        { "id": "B", "text": "Farbe" },
+        { "id": "C", "text": "Gewicht" },
+        { "id": "D", "text": "Laenge der Baustelle" }
+      ],
+      "answer": "A",
+      "explain": "Nur mit Dichtheit und korrektem Gefaelle ist die Entwaesserungsfunktion gesichert.",
+      "difficulty": "easy",
+      "tags": ["leitungen", "pruefung"]
+    },
+    {
+      "id": "Q8",
+      "block": "lf10-b8",
+      "type": "mcq_single",
+      "question": "Warum ist Staubschutz bei Sanierungen wichtig?",
+      "choices": [
+        { "id": "A", "text": "Gesundheits- und Umweltschutz" },
+        { "id": "B", "text": "wegen Optik" },
+        { "id": "C", "text": "spart Geld" },
+        { "id": "D", "text": "egal" }
+      ],
+      "answer": "A",
+      "explain": "Staub belastet Atemwege und Umgebung und muss aktiv reduziert werden.",
+      "difficulty": "easy",
+      "tags": ["sicherheit", "umwelt"]
+    },
+    {
+      "id": "Q9",
+      "block": "lf10-b9",
+      "type": "mcq_single",
+      "question": "Warum ist Dokumentation wichtig?",
+      "choices": [
+        { "id": "A", "text": "Nachweis, Qualitaet und Sicherheit" },
+        { "id": "B", "text": "nur Bueroarbeit" },
+        { "id": "C", "text": "unwichtig" },
+        { "id": "D", "text": "optional" }
+      ],
+      "answer": "A",
+      "explain": "Dokumentation macht Leistung, Pruefung und Verantwortung nachvollziehbar.",
+      "difficulty": "easy",
+      "tags": ["dokumentation", "uebergabe"]
+    },
+    {
+      "id": "Q10",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Instandsetzung bedeutet ...",
+      "choices": [
+        { "id": "A", "text": "Schaeden beheben" },
+        { "id": "B", "text": "nur kontrollieren" },
+        { "id": "C", "text": "komplett neu bauen" },
+        { "id": "D", "text": "nur streichen" }
+      ],
+      "answer": "A",
+      "explain": "Der Kern der Instandsetzung ist die gezielte Schadensbeseitigung.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "grundlagen"]
+    },
+    {
+      "id": "Q11",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Eine Hauptschadensursache ist oft ...",
+      "choices": [
+        { "id": "A", "text": "Wasser" },
+        { "id": "B", "text": "Farbe" },
+        { "id": "C", "text": "Beschilderung" },
+        { "id": "D", "text": "Beleuchtung" }
+      ],
+      "answer": "A",
+      "explain": "Feuchte und Wasser greifen viele Baustoffe direkt oder indirekt an.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "schaeden"]
+    },
+    {
+      "id": "Q12",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Arbeiten im Bestand sind risikoreicher, weil ...",
+      "choices": [
+        { "id": "A", "text": "Randbedingungen oft unbekannt sind" },
+        { "id": "B", "text": "immer weniger Personal da ist" },
+        { "id": "C", "text": "nur alte Maschinen genutzt werden" },
+        { "id": "D", "text": "mehr Beton vorhanden ist" }
+      ],
+      "answer": "A",
+      "explain": "Unbekannte Leitungen, Bauteilzustand und Lastreserven erhoehen das Risiko.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "bestand"]
+    },
+    {
+      "id": "Q13",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Welche Aussage stimmt?",
+      "choices": [
+        { "id": "A", "text": "Rueckbau ist gezielt, Abbruch ist vollstaendig" },
+        { "id": "B", "text": "Rueckbau und Abbruch sind identisch" },
+        { "id": "C", "text": "Abbruch ist immer ohne Planung" },
+        { "id": "D", "text": "Rueckbau braucht keine Sicherung" }
+      ],
+      "answer": "A",
+      "explain": "Die Zielsetzung beider Verfahren ist grundlegend unterschiedlich.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "rueckbau"]
+    },
+    {
+      "id": "Q14",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Reparaturen halten dauerhaft nur mit ...",
+      "choices": [
+        { "id": "A", "text": "tragfaehigem Untergrund" },
+        { "id": "B", "text": "mehr Farbe" },
+        { "id": "C", "text": "kurzer Bauzeit" },
+        { "id": "D", "text": "grossen Maschinen" }
+      ],
+      "answer": "A",
+      "explain": "Tragfaehigkeit im Bestand ist die Basis jeder dauerhaften Instandsetzung.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "reparatur"]
+    },
+    {
+      "id": "Q15",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Betonabplatzungen mit freier Bewehrung sind kritisch wegen ...",
+      "choices": [
+        { "id": "A", "text": "Korrosion und Tragverlust" },
+        { "id": "B", "text": "nur Optik" },
+        { "id": "C", "text": "Geruch" },
+        { "id": "D", "text": "Markierungen" }
+      ],
+      "answer": "A",
+      "explain": "Korrosion kann die Tragreserven des Bauteils deutlich reduzieren.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "beton"]
+    },
+    {
+      "id": "Q16",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Leitungen muessen nach Erneuerung vor allem ...",
+      "choices": [
+        { "id": "A", "text": "dicht sein" },
+        { "id": "B", "text": "frisch gestrichen sein" },
+        { "id": "C", "text": "moeglichst leicht sein" },
+        { "id": "D", "text": "ohne Pruefung bleiben" }
+      ],
+      "answer": "A",
+      "explain": "Dichtheit ist Kernanforderung an jedes Entwaesserungssystem.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "leitungen"]
+    },
+    {
+      "id": "Q17",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Auch bei Sanierung bleibt wichtig ...",
+      "choices": [
+        { "id": "A", "text": "korrektes Gefaelle" },
+        { "id": "B", "text": "nur Oberflaechenoptik" },
+        { "id": "C", "text": "keine Verdichtung" },
+        { "id": "D", "text": "nur Markierung" }
+      ],
+      "answer": "A",
+      "explain": "Funktion entsteht nur bei korrekter Lage und Hoehenfuehrung.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "gefaelle"]
+    },
+    {
+      "id": "Q18",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Staub bei Sanierungen ist ...",
+      "choices": [
+        { "id": "A", "text": "eine Gesundheitsgefahr" },
+        { "id": "B", "text": "ohne Relevanz" },
+        { "id": "C", "text": "nur kosmetisch" },
+        { "id": "D", "text": "nur im Winter gefaehrlich" }
+      ],
+      "answer": "A",
+      "explain": "Staubschutz gehoert zu den zentralen Schutzmassnahmen im Bestand.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "schutz"]
+    },
+    {
+      "id": "Q19",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Verkehrsabsicherung auf Sanierungsbaustellen ist ...",
+      "choices": [
+        { "id": "A", "text": "Pflicht" },
+        { "id": "B", "text": "optional" },
+        { "id": "C", "text": "nur bei Nacht" },
+        { "id": "D", "text": "nur bei Grossbaustellen" }
+      ],
+      "answer": "A",
+      "explain": "Verkehrsteilnehmer und Personal muessen jederzeit gesichert gefuehrt werden.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "verkehrssicherung"]
+    },
+    {
+      "id": "Q20",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Abfaelle aus Sanierung und Rueckbau muessen ...",
+      "choices": [
+        { "id": "A", "text": "getrennt entsorgt werden" },
+        { "id": "B", "text": "gemischt bleiben" },
+        { "id": "C", "text": "offen gelagert werden" },
+        { "id": "D", "text": "in den Graben" }
+      ],
+      "answer": "A",
+      "explain": "Getrennte Entsorgung ist Grundlage fuer Umwelt- und Rechtskonformitaet.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "umwelt"]
+    },
+    {
+      "id": "Q21",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Kontrolle nach den Arbeiten ist ...",
+      "choices": [
+        { "id": "A", "text": "notwendig" },
+        { "id": "B", "text": "unwichtig" },
+        { "id": "C", "text": "nur bei Beton" },
+        { "id": "D", "text": "nur fuer Fotos" }
+      ],
+      "answer": "A",
+      "explain": "Ohne Abschlusskontrolle sind Funktion und Sicherheit nicht abgesichert.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "kontrolle"]
+    },
+    {
+      "id": "Q22",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Dokumentation schuetzt vor allem ...",
+      "choices": [
+        { "id": "A", "text": "Betrieb und Arbeitende durch Nachweis" },
+        { "id": "B", "text": "nur den Drucker" },
+        { "id": "C", "text": "nur den Terminplan" },
+        { "id": "D", "text": "nur die Optik" }
+      ],
+      "answer": "A",
+      "explain": "Sie belegt fachgerechte Arbeit und unterstuetzt Spaetnachweise.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "dokumentation"]
+    },
+    {
+      "id": "Q23",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Sanierung hat das Ziel, ...",
+      "choices": [
+        { "id": "A", "text": "die Lebensdauer von Bauwerken zu verlaengern" },
+        { "id": "B", "text": "nur Kosten zu erzeugen" },
+        { "id": "C", "text": "immer komplett neu zu bauen" },
+        { "id": "D", "text": "nur kurzfristig zu flicken" }
+      ],
+      "answer": "A",
+      "explain": "Fachgerechte Instandsetzung sichert Funktion und verlaengert die Nutzungszeit.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "sanierung"]
+    },
+    {
+      "id": "Q24",
+      "block": "lf10-b10",
+      "type": "mcq_single",
+      "question": "Welcher Grundsatz gilt immer?",
+      "choices": [
+        { "id": "A", "text": "Sicherheit geht vor Geschwindigkeit" },
+        { "id": "B", "text": "Geschwindigkeit geht vor Sicherheit" },
+        { "id": "C", "text": "Kontrolle kostet nur Zeit" },
+        { "id": "D", "text": "Dokumentation ist optional" }
+      ],
+      "answer": "A",
+      "explain": "Gerade im Bestand hat sichere Ausfuehrung immer Prioritaet.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "sicherheitsprinzip"]
+    }
+  ]
+}

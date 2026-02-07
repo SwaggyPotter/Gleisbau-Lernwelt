@@ -1,0 +1,230 @@
+{
+  "blocks": [
+    {
+      "id": "lf09-b1",
+      "title": "Grundlagen der Entwaesserung",
+      "goals": [
+        "Bedeutung von Entwaesserungssystemen im Tiefbau erklaeren",
+        "Regenwasser und Schmutzwasser unterscheiden"
+      ],
+      "summary": "Entwaesserung leitet Wasser kontrolliert ab und schuetzt Bauwerke und Verkehrswege.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Entwaesserung dient der Ableitung von Regen- und Schmutzwasser",
+            "Sie schuetzt Bauwerke, Verkehrsflaechen und Gleisanlagen vor Naesse- und Frostschaeden",
+            "Staunaesse muss vermieden werden, um Funktions- und Substanzschaeden zu verhindern"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Praxisfolge",
+          "value": "Fehler in der Entwaesserung zeigen sich oft spaeter als grosse und teure Schaeden."
+        }
+      ],
+      "quizRef": ["Q1"]
+    },
+    {
+      "id": "lf09-b2",
+      "title": "Entwaesserungssysteme: Misch- und Trennsystem",
+      "goals": [
+        "Mischsystem und Trennsystem fachlich unterscheiden",
+        "Vorteile des Trennsystems einordnen"
+      ],
+      "summary": "Beim Trennsystem laufen Regen- und Schmutzwasser in getrennten Leitungen.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Mischsystem fuehrt Regen- und Schmutzwasser gemeinsam, haeufig in aelteren Gebieten",
+            "Trennsystem nutzt getrennte Leitungen und ist bei Neubauten meist Standard",
+            "Die Trennung reduziert Anlagenbelastung und verbessert die Betriebskontrolle"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merke",
+          "value": "Getrennte Erfassung macht Betrieb, Wartung und Stoerungssuche deutlich einfacher."
+        }
+      ],
+      "quizRef": ["Q2"]
+    },
+    {
+      "id": "lf09-b3",
+      "title": "Rohrmaterialien und Bauteile",
+      "goals": [
+        "Typische Rohrmaterialien benennen",
+        "Funktion zentraler Bauteile wie Muffe und Dichtung erklaeren"
+      ],
+      "summary": "Dichte Verbindungen sind entscheidend fuer ein funktionsfaehiges Netz.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Typische Materialien: Kunststoff (PVC, PP, PE), Beton oder Stahlbeton, Steinzeug",
+            "Wichtige Bauteile: Rohre, Boegen, Abzweige, Muffen und Dichtungen",
+            "Dichtungen in Muffen stellen die wasserdichte Verbindung sicher"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Fehlerquelle",
+          "value": "Beschaedigte oder falsch sitzende Dichtungen verursachen Undichtigkeiten."
+        }
+      ],
+      "quizRef": ["Q3"]
+    },
+    {
+      "id": "lf09-b4",
+      "title": "Rohrgraben und Rohrbettung",
+      "goals": [
+        "Anforderungen an einen sicheren Rohrgraben umsetzen",
+        "Rohrbettung fachgerecht herstellen"
+      ],
+      "summary": "Ohne saubere Bettung kein dauerhaft funktionierendes Rohr.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Rohrgraben braucht ausreichenden Arbeitsraum und muss gesichert sein (Boeschung oder Verbau)",
+            "Rohrbettung besteht meist aus Sand oder feinkoernigem Material",
+            "Gleichmaessige Bettung mit kontrollierter Verdichtung schuetzt vor Punktlasten und Schaeden"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "LF-Bezug",
+          "value": "Grabensicherung folgt den Grundsaetzen aus LF7 zu Boeschung und Verbau."
+        }
+      ],
+      "quizRef": ["Q4"]
+    },
+    {
+      "id": "lf09-b5",
+      "title": "Gefaelle herstellen und kontrollieren",
+      "goals": [
+        "Rohrgefaelle als Funktionsvoraussetzung verstehen",
+        "Gefaelle mit geeigneten Messmitteln kontrollieren"
+      ],
+      "summary": "Zu wenig Gefaelle fuehrt zu Ablagerungen, zu viel kann Ausspuelung verursachen.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Wasser fliesst in Leitungen nur mit ausreichendem Gefaelle",
+            "Zu geringes Gefaelle beguenstigt Ablagerungen und Verstopfungen",
+            "Zu grosses Gefaelle kann Ausspuelungen ausloesen",
+            "Kontrolle z. B. mit Wasserwaage, Richtlatte und Nivelliergeraet"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Praxis",
+          "value": "Gefaellepruefung muss waehrend der Verlegung und vor Verfuellung erfolgen."
+        }
+      ],
+      "quizRef": ["Q5"]
+    },
+    {
+      "id": "lf09-b6",
+      "title": "Schaechte und Anschluesse",
+      "goals": [
+        "Funktionen von Schaechten im Leitungsnetz erklaeren",
+        "Anschluesse dicht, hoehengerecht und fluchtend herstellen"
+      ],
+      "summary": "Schaechte ermoeglichen Kontrolle, Reinigung und Richtungs- oder Hoehenaenderungen.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Schaechte werden fuer Richtungs- und Hoehenaenderungen sowie Kontrolle und Reinigung eingesetzt",
+            "Typische Anschluesse: Hausanschluesse, Strassenablaeufe und Rinnen",
+            "Anschluesse muessen dicht, hoehengerecht und fluchtend ausgefuehrt werden"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Achtung",
+          "value": "Fehlerhafte Anschlusslagen verursachen Rueckstau, Undichtigkeiten und Betriebsstoerungen."
+        }
+      ],
+      "quizRef": ["Q6"]
+    },
+    {
+      "id": "lf09-b7",
+      "title": "Verfuellen und Verdichten",
+      "goals": [
+        "Verfuellfolge um die Rohrleitung fachgerecht ausfuehren",
+        "Rohrlage waehrend Verdichtung sichern"
+      ],
+      "summary": "Seitliche Verfuellung sichert die Rohrlage, Verdichtung erfolgt lagenweise.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Vor dem Verfuellen Rohrlage und Gefaelle kontrollieren",
+            "Zuerst seitlich verfuellen, dann lagenweise verdichten",
+            "Das Rohr darf sich waehrend der Verfuellung nicht verschieben",
+            "Falsche Verdichtung kann zu Rohrbruch und Setzungen fuehren"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Stabile Rohrlage zuerst sichern, dann kontrolliert aufbauen und verdichten."
+        }
+      ],
+      "quizRef": ["Q7"]
+    },
+    {
+      "id": "lf09-b8",
+      "title": "Pruefung, Kontrolle und typische Fehler",
+      "goals": [
+        "Wichtige Pruefpunkte vor Abschluss sicher anwenden",
+        "Typische Einbaufehler zuverlaessig erkennen"
+      ],
+      "summary": "Kontrolle von Lage, Gefaelle, Dichtheit und Anschluessen ist Pflicht.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Kontrollen: Lage und Gefaelle, Dichtheit, korrekte Anschluesse, keine Beschaedigungen",
+            "Typische Fehler: falsches Gefaelle, verdrehte Rohre, beschaedigte Dichtung, fehlende Bettung",
+            "Kontrolle vor Verfuellung ist entscheidend, weil Korrekturen danach aufwendig sind"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Qualitaetsprinzip",
+          "value": "Kontrolle vor dem Schliessen spart Nacharbeit und vermeidet spaetere Schaeden."
+        }
+      ],
+      "quizRef": ["Q8"]
+    },
+    {
+      "id": "lf09-b9",
+      "title": "Grosse Quiz-Bank LF9",
+      "goals": [
+        "Kernregeln zur Entwaesserung im Schnellmodus festigen",
+        "Funktions- und Sicherheitsfehler frueh erkennen"
+      ],
+      "summary": "15 Zusatzfragen im Fahrschul-App-Stil zu Leitungen, Gefaelle, Schaechten und Dichtheit.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Nutze die Zusatzfragen fuer Wiederholung zu Systemwahl, Rohrverlegung, Bettung, Gefaelle, Verfuellung und Pruefung."
+        }
+      ],
+      "quizRef": ["Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23"]
+    }
+  ]
+}

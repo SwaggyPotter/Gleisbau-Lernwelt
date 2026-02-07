@@ -1,0 +1,229 @@
+{
+  "blocks": [
+    {
+      "id": "lf12-b1",
+      "title": "Was bedeutet Instandhaltung im Gleisbau?",
+      "goals": [
+        "Instandhaltung als Sicherung von Betrieb und Sicherheit einordnen",
+        "Inspektion, Wartung und Instandsetzung unterscheiden"
+      ],
+      "summary": "Instandhaltung erhaelt Betriebssicherheit, Fahrkomfort und Verfuegbarkeit.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Instandhaltung begrenzt Verschleiss und erkennt Schaeden frueh",
+            "Inspektion: pruefen und messen des Zustands",
+            "Wartung: regelmaessige Arbeiten zur Funktionserhaltung",
+            "Instandsetzung: festgestellte Fehler gezielt beseitigen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Praxis",
+          "value": "LF12 ist der Alltag im Gleisbau: Betriebssicherheit erhalten statt Neubau herstellen."
+        }
+      ],
+      "quizRef": ["Q1"]
+    },
+    {
+      "id": "lf12-b2",
+      "title": "Typische Gleisfehler und Schaeden",
+      "goals": [
+        "Schaeden an Schiene, Schwelle und Schotter erkennen",
+        "Typische Fehlerbilder sicher benennen"
+      ],
+      "summary": "Setzungen, Verschleiss und ungleichmaessiger Schotter sind haeufige Schadensbilder.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "An Schienen: Verschleiss, Riffel, Schienenstossfehler, Risse",
+            "An Schwellen: Risse, Brueche und Lageveraenderungen",
+            "Im Schotter: Verschmutzung, Setzungen, ungleichmaessige Verteilung"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Folge",
+          "value": "Unentdeckte Gleisfehler fuehren zu mehr Verschleiss und koennen den sicheren Betrieb gefaehrden."
+        }
+      ],
+      "quizRef": ["Q2"]
+    },
+    {
+      "id": "lf12-b3",
+      "title": "Gleislagefehler erkennen",
+      "goals": [
+        "Lagefehlerarten unterscheiden",
+        "Auswirkungen auf Betriebssicherheit und Verschleiss beurteilen"
+      ],
+      "summary": "Gleislagefehler verschlechtern Fahrkomfort, erhoehen Verschleiss und sind sicherheitskritisch.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Fehlerarten: Hoehenfehler, Seitenlagefehler, Spurweitenfehler und Ueberhoehungsfehler",
+            "Auswirkungen: schlechter Fahrkomfort, erhoehte dynamische Lasten, mehr Verschleiss",
+            "Abweichungen muessen bewertet und priorisiert instand gesetzt werden"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Sicherheit",
+          "value": "Spurweiten- und Lagefehler koennen direkt in sicherheitsrelevante Zustandsabweichungen fuehren."
+        }
+      ],
+      "quizRef": ["Q3"]
+    },
+    {
+      "id": "lf12-b4",
+      "title": "Messen und Pruefen im Bestand",
+      "goals": [
+        "Geeignete Messmittel im Bestand einsetzen",
+        "Pruefumfang fuer Lage und Geometrie vollstaendig erfassen"
+      ],
+      "summary": "Messung von Spurweite, Hoehenlage, Seitenlage und Ueberhoehung ist Grundlage jeder Massnahme.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Messmittel: Gleismessgeraete, Richtlatte, Messschnur, Nivelliergeraet",
+            "Pruefumfang: Spurweite, Hoehenlage, Seitenlage und Ueberhoehung",
+            "Messwerte dienen als Basis fuer Entscheidung, Ausfuehrung und Nachweis"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Grundsatz",
+          "value": "Ohne belastbare Messwerte keine zielgerichtete Instandhaltung."
+        }
+      ],
+      "quizRef": ["Q4"]
+    },
+    {
+      "id": "lf12-b5",
+      "title": "Instandhaltungsmassnahmen",
+      "goals": [
+        "Typische Massnahmen der Gleisinstandhaltung zuordnen",
+        "Gezielte Instandsetzung statt Neubau bewerten"
+      ],
+      "summary": "Nachstopfen, Nachschottern und Nachrichten sind zentrale Erhaltungsmassnahmen.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Typische Arbeiten: Nachstopfen, Nachschottern, Nachrichten der Gleislage",
+            "Ergaenzend: Austausch einzelner Schwellen und Nachziehen von Befestigungen",
+            "Nicht jeder Fehler erfordert Neubau, oft reicht gezielte Instandsetzung"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Nicht jeder Fehler braucht Neubau - oft reicht gezielte Instandsetzung."
+        }
+      ],
+      "quizRef": ["Q5"]
+    },
+    {
+      "id": "lf12-b6",
+      "title": "Stopfarbeiten im Bestand",
+      "goals": [
+        "Ziel und Ablauf von Stopfarbeiten im Bestand anwenden",
+        "Besonderheiten gegenueber Neubau beruecksichtigen"
+      ],
+      "summary": "Im Bestand sind geringere Hebung und hohe Praezision unter Zeitfenstern entscheidend.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Ziel: Wiederherstellung der richtigen Gleislage",
+            "Ablauf: Gleis anheben, Schotter unter Schwelle verdichten, Lage einstellen, Kontrolle",
+            "Im Bestand: geringere Hebung, praeziseres Arbeiten, oft Zeitdruck durch Sperrpausen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Betrieb",
+          "value": "Praezision und sichere Koordination sind wichtiger als reine Geschwindigkeit."
+        }
+      ],
+      "quizRef": ["Q6"]
+    },
+    {
+      "id": "lf12-b7",
+      "title": "Arbeiten unter Betrieb und Sicherung",
+      "goals": [
+        "Besonderheiten unter Zugbetrieb sicher einordnen",
+        "Sicherungsmassnahmen verbindlich anwenden"
+      ],
+      "summary": "Kurze Sperrpausen verlangen klare Sicherung, Kommunikation und Disziplin.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Besonderheiten: laufender Zugverkehr, kurze Sperrpausen und enge Zeitfenster",
+            "Sicherung: Sicherungsposten, Warnsysteme, klare Kommunikation im Team",
+            "Arbeiten im Bestand nur unter wirksamer Sicherung gegen Zugverkehr"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksatz",
+          "value": "Im Bestand zaehlt jede Minute - aber Sicherheit zaehlt mehr."
+        }
+      ],
+      "quizRef": ["Q7"]
+    },
+    {
+      "id": "lf12-b8",
+      "title": "Qualitaetssicherung und Dokumentation",
+      "goals": [
+        "Kontrollpunkte nach Instandhaltungsarbeiten anwenden",
+        "Dokumentation als Sicherheits- und Qualitaetsnachweis nutzen"
+      ],
+      "summary": "Messwerte, Fotos und Protokolle sichern Nachweis und Nachvollziehbarkeit.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Kontrolle: Gleislage nach Arbeiten, Befestigungen und Schotterzustand",
+            "Dokumentation: Messwerte, Fotos und Protokolle",
+            "Die Dokumentation dient als Nachweis fuer Sicherheit, Qualitaet und geregelte Uebergabe"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Nachweis",
+          "value": "Dokumentation schuetzt Betrieb und Personal bei Rueckfragen oder Spaetschaeden."
+        }
+      ],
+      "quizRef": ["Q8"]
+    },
+    {
+      "id": "lf12-b9",
+      "title": "Grosse Quiz-Bank LF12",
+      "goals": [
+        "Kernregeln der Gleisinstandhaltung im Schnellmodus festigen",
+        "Sicherheitsrelevante Fehler im Bestand sicher erkennen"
+      ],
+      "summary": "15 Zusatzfragen im App-Stil zu Gleisfehlern, Stopfen, Sicherung und Dokumentation.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Nutze die Zusatzfragen fuer Wiederholung zu Lagefehlern, Messung, Instandsetzung und Arbeiten unter Betrieb."
+        }
+      ],
+      "quizRef": ["Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23"]
+    }
+  ]
+}

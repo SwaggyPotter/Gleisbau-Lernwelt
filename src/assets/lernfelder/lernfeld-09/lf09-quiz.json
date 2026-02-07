@@ -1,0 +1,377 @@
+{
+  "meta": {
+    "lernfeld": "09",
+    "title": "Entwaesserungssysteme herstellen",
+    "version": "1.0"
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "block": "lf09-b1",
+      "type": "mcq_single",
+      "question": "Warum sind Entwaesserungssysteme notwendig?",
+      "choices": [
+        { "id": "A", "text": "um Wasser kontrolliert abzuleiten und Schaeden zu vermeiden" },
+        { "id": "B", "text": "nur wegen Vorschriften" },
+        { "id": "C", "text": "nur wegen Optik" },
+        { "id": "D", "text": "wegen Laerm" }
+      ],
+      "answer": "A",
+      "explain": "Entwaesserung schuetzt Bauwerke und Flaechen vor Wasser- und Frostschaeden.",
+      "difficulty": "easy",
+      "tags": ["grundlagen", "entwaesserung"]
+    },
+    {
+      "id": "Q2",
+      "block": "lf09-b2",
+      "type": "mcq_single",
+      "question": "Was ist der Vorteil des Trennsystems?",
+      "choices": [
+        { "id": "A", "text": "geringere Belastung der Klaeranlagen und bessere Kontrolle" },
+        { "id": "B", "text": "weniger Rohre" },
+        { "id": "C", "text": "kein Gefaelle noetig" },
+        { "id": "D", "text": "billiger Beton" }
+      ],
+      "answer": "A",
+      "explain": "Getrennte Leitungen verbessern Betrieb und Behandlung der Wasserarten.",
+      "difficulty": "easy",
+      "tags": ["systeme", "trennsystem"]
+    },
+    {
+      "id": "Q3",
+      "block": "lf09-b3",
+      "type": "mcq_single",
+      "question": "Wozu dienen Dichtungen in Muffen?",
+      "choices": [
+        { "id": "A", "text": "um Rohrverbindungen wasserdicht zu machen" },
+        { "id": "B", "text": "nur zur Fixierung" },
+        { "id": "C", "text": "zur Geraeuschdaemmung" },
+        { "id": "D", "text": "als Abstandhalter" }
+      ],
+      "answer": "A",
+      "explain": "Dichtungen verhindern das Austreten oder Eindringen von Wasser.",
+      "difficulty": "easy",
+      "tags": ["bauteile", "dichtheit"]
+    },
+    {
+      "id": "Q4",
+      "block": "lf09-b4",
+      "type": "mcq_single",
+      "question": "Warum ist eine Rohrbettung notwendig?",
+      "choices": [
+        { "id": "A", "text": "Schutz vor Beschaedigung und gleichmaessige Lastverteilung" },
+        { "id": "B", "text": "nur zur Optik" },
+        { "id": "C", "text": "spart Gefaelle" },
+        { "id": "D", "text": "ersetzt Verdichtung" }
+      ],
+      "answer": "A",
+      "explain": "Die Bettung stuetzt das Rohr und reduziert schaedliche Punktlasten.",
+      "difficulty": "easy",
+      "tags": ["rohrgraben", "bettung"]
+    },
+    {
+      "id": "Q5",
+      "block": "lf09-b5",
+      "type": "mcq_single",
+      "question": "Was passiert bei zu geringem Gefaelle?",
+      "choices": [
+        { "id": "A", "text": "Ablagerungen und Verstopfungen" },
+        { "id": "B", "text": "schneller Abfluss" },
+        { "id": "C", "text": "hoehere Tragfaehigkeit" },
+        { "id": "D", "text": "nichts" }
+      ],
+      "answer": "A",
+      "explain": "Bei zu wenig Gefaelle sinkt die Fliessgeschwindigkeit und Material lagert sich ab.",
+      "difficulty": "easy",
+      "tags": ["gefaelle", "funktion"]
+    },
+    {
+      "id": "Q6",
+      "block": "lf09-b6",
+      "type": "mcq_single",
+      "question": "Wozu dienen Schaechte im Entwaesserungssystem?",
+      "choices": [
+        { "id": "A", "text": "Kontrolle sowie Richtungs- und Hoehenaenderung" },
+        { "id": "B", "text": "nur zur Belueftung" },
+        { "id": "C", "text": "nur zur Optik" },
+        { "id": "D", "text": "als Fundament" }
+      ],
+      "answer": "A",
+      "explain": "Schaechte sind zentrale Punkte fuer Betrieb, Reinigung und Leitungsfuehrung.",
+      "difficulty": "easy",
+      "tags": ["schaechte", "anschluesse"]
+    },
+    {
+      "id": "Q7",
+      "block": "lf09-b7",
+      "type": "mcq_single",
+      "question": "Warum wird seitlich zuerst verfuellt?",
+      "choices": [
+        { "id": "A", "text": "um das Rohr lagegerecht zu sichern" },
+        { "id": "B", "text": "spart Zeit" },
+        { "id": "C", "text": "wegen Optik" },
+        { "id": "D", "text": "wegen Frost" }
+      ],
+      "answer": "A",
+      "explain": "Seitliche Sicherung stabilisiert die Rohrlage vor weiterer Verdichtung.",
+      "difficulty": "easy",
+      "tags": ["verfuellung", "verdichtung"]
+    },
+    {
+      "id": "Q8",
+      "block": "lf09-b8",
+      "type": "mcq_single",
+      "question": "Was ist ein typischer Entwaesserungsfehler?",
+      "choices": [
+        { "id": "A", "text": "falsches Gefaelle oder beschaedigte Dichtung" },
+        { "id": "B", "text": "saubere Muffe" },
+        { "id": "C", "text": "korrekte Bettung" },
+        { "id": "D", "text": "Gefaelle eingehalten" }
+      ],
+      "answer": "A",
+      "explain": "Gefaelle- und Dichtheitsfehler gehoeren zu den haeufigsten Ausfallursachen.",
+      "difficulty": "easy",
+      "tags": ["kontrolle", "typische-fehler"]
+    },
+    {
+      "id": "Q9",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Entwaesserung schuetzt Bauwerke vor ...",
+      "choices": [
+        { "id": "A", "text": "Wasserschaeden" },
+        { "id": "B", "text": "Licht" },
+        { "id": "C", "text": "Laerm" },
+        { "id": "D", "text": "Staub" }
+      ],
+      "answer": "A",
+      "explain": "Kontrollierte Ableitung verhindert Feuchte- und Frostschaeden.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "grundlagen"]
+    },
+    {
+      "id": "Q10",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Das Trennsystem trennt ...",
+      "choices": [
+        { "id": "A", "text": "Regen- und Schmutzwasser" },
+        { "id": "B", "text": "nur Schmutzarten" },
+        { "id": "C", "text": "Wasser und Luft" },
+        { "id": "D", "text": "nichts" }
+      ],
+      "answer": "A",
+      "explain": "Beim Trennsystem laufen beide Wasserarten in getrennten Leitungen.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "systeme"]
+    },
+    {
+      "id": "Q11",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Rohre brauchen Gefaelle, damit ...",
+      "choices": [
+        { "id": "A", "text": "Wasser abfliessen kann" },
+        { "id": "B", "text": "sie dichter werden" },
+        { "id": "C", "text": "weniger Rohre noetig sind" },
+        { "id": "D", "text": "keine Schaechte noetig sind" }
+      ],
+      "answer": "A",
+      "explain": "Ohne Gefaelle ist der sichere Abfluss nicht gewaehrleistet.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "gefaelle"]
+    },
+    {
+      "id": "Q12",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Rohrbettung schuetzt vor ...",
+      "choices": [
+        { "id": "A", "text": "Punktlasten" },
+        { "id": "B", "text": "nur Farbe" },
+        { "id": "C", "text": "nur Geraeusch" },
+        { "id": "D", "text": "Belueftung" }
+      ],
+      "answer": "A",
+      "explain": "Die Bettung verteilt Lasten und verhindert lokale Ueberbeanspruchung.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "bettung"]
+    },
+    {
+      "id": "Q13",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Muffen benoetigen ...",
+      "choices": [
+        { "id": "A", "text": "Dichtungen" },
+        { "id": "B", "text": "Farbanstrich" },
+        { "id": "C", "text": "Betonfuellung" },
+        { "id": "D", "text": "nur Schrauben" }
+      ],
+      "answer": "A",
+      "explain": "Dichtungen sorgen fuer dichte und funktionssichere Rohrverbindungen.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "dichtheit"]
+    },
+    {
+      "id": "Q14",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Schaechte dienen vor allem ...",
+      "choices": [
+        { "id": "A", "text": "Kontrolle sowie Richtungs- und Hoehenaenderung" },
+        { "id": "B", "text": "nur der Optik" },
+        { "id": "C", "text": "nur der Belueftung" },
+        { "id": "D", "text": "nur als Lager" }
+      ],
+      "answer": "A",
+      "explain": "Schaechte sind Betriebs- und Wartungspunkte im Netz.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "schaechte"]
+    },
+    {
+      "id": "Q15",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Rohrgraeben muessen ...",
+      "choices": [
+        { "id": "A", "text": "gesichert sein" },
+        { "id": "B", "text": "nur tief sein" },
+        { "id": "C", "text": "immer unverbaut bleiben" },
+        { "id": "D", "text": "nur breit sein" }
+      ],
+      "answer": "A",
+      "explain": "Grabensicherung ist Voraussetzung fuer sicheres Arbeiten.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "sicherheit"]
+    },
+    {
+      "id": "Q16",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Zu wenig Gefaelle fuehrt haeufig zu ...",
+      "choices": [
+        { "id": "A", "text": "Ablagerungen" },
+        { "id": "B", "text": "besserem Abfluss" },
+        { "id": "C", "text": "mehr Tragfaehigkeit" },
+        { "id": "D", "text": "weniger Wartung" }
+      ],
+      "answer": "A",
+      "explain": "Geringe Fliessgeschwindigkeit beguenstigt Ablagerungen und Verstopfung.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "gefaelle"]
+    },
+    {
+      "id": "Q17",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Zu viel Gefaelle kann ...",
+      "choices": [
+        { "id": "A", "text": "Ausspuelung beguenstigen" },
+        { "id": "B", "text": "Undichtigkeiten verhindern" },
+        { "id": "C", "text": "Dichtungen ersetzen" },
+        { "id": "D", "text": "Bettung unnoetig machen" }
+      ],
+      "answer": "A",
+      "explain": "Ueberhoehte Fliessgeschwindigkeiten koennen Material ausspuelen.",
+      "difficulty": "medium",
+      "tags": ["quizbank", "gefaelle"]
+    },
+    {
+      "id": "Q18",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Verfuellung erfolgt fachgerecht ...",
+      "choices": [
+        { "id": "A", "text": "lagenweise" },
+        { "id": "B", "text": "in einem Schritt" },
+        { "id": "C", "text": "nur oben" },
+        { "id": "D", "text": "nur bei Trockenheit" }
+      ],
+      "answer": "A",
+      "explain": "Lagenweiser Aufbau begrenzt Verformungen und sichert die Rohrlage.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "verdichtung"]
+    },
+    {
+      "id": "Q19",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Seitliche Verfuellung hat die Hauptaufgabe ...",
+      "choices": [
+        { "id": "A", "text": "die Rohrlage zu sichern" },
+        { "id": "B", "text": "Zeit zu sparen" },
+        { "id": "C", "text": "die Bettung zu ersetzen" },
+        { "id": "D", "text": "Gefaelle zu erzeugen" }
+      ],
+      "answer": "A",
+      "explain": "Der seitliche Einbau fixiert das Rohr gegen Verschiebung.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "verfuellung"]
+    },
+    {
+      "id": "Q20",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Verdichtung verhindert vor allem ...",
+      "choices": [
+        { "id": "A", "text": "Setzungen" },
+        { "id": "B", "text": "Rohrmaterial" },
+        { "id": "C", "text": "Gefaelle" },
+        { "id": "D", "text": "Wartung" }
+      ],
+      "answer": "A",
+      "explain": "Unzureichend verdichtete Bereiche setzen sich spaeter unter Last.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "verdichtung"]
+    },
+    {
+      "id": "Q21",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Beschaedigte Dichtungen fuehren zu ...",
+      "choices": [
+        { "id": "A", "text": "Undichtigkeiten" },
+        { "id": "B", "text": "mehr Tragfaehigkeit" },
+        { "id": "C", "text": "besserem Gefaelle" },
+        { "id": "D", "text": "geringerem Wartungsbedarf" }
+      ],
+      "answer": "A",
+      "explain": "Defekte Dichtungen verlieren ihre Abdichtfunktion.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "dichtheit"]
+    },
+    {
+      "id": "Q22",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Kontrolle vor Verfuellung ist ...",
+      "choices": [
+        { "id": "A", "text": "Pflicht" },
+        { "id": "B", "text": "optional" },
+        { "id": "C", "text": "nur bei Betonrohren" },
+        { "id": "D", "text": "nur bei Regen" }
+      ],
+      "answer": "A",
+      "explain": "Nach dem Verfuellen sind Korrekturen deutlich aufwendiger.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "kontrolle"]
+    },
+    {
+      "id": "Q23",
+      "block": "lf09-b9",
+      "type": "mcq_single",
+      "question": "Entwaesserung ist fuer Baustellen vor allem ...",
+      "choices": [
+        { "id": "A", "text": "funktions- und sicherheitsrelevant" },
+        { "id": "B", "text": "hauptsaechlich dekorativ" },
+        { "id": "C", "text": "nur Dokumentation" },
+        { "id": "D", "text": "nur Nebensache" }
+      ],
+      "answer": "A",
+      "explain": "Fehler in der Entwaesserung beeintraechtigen dauerhaft Funktion und Sicherheit.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "praxis"]
+    }
+  ]
+}

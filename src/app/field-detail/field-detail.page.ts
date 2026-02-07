@@ -93,42 +93,42 @@ export class FieldDetailPage implements OnInit, OnDestroy {
     'lf-09': {
       lehrjahr: '2. Lehrjahr',
       lernfeld: 'LF 9',
-      titel: 'Verkehrsflächen aus Pflaster- und Plattenbelägen herstellen',
+      titel: 'Entwaesserungssysteme herstellen',
       geltung: 'bundesweit',
-      schwerpunkt: 'Wege, Flächen, Unterbau',
+      schwerpunkt: 'Leitungen, Gefaelle, Schaechte, Dichtheit und Verfuellung',
       niveau: 'Aufbau',
     },
     'lf-10': {
       lehrjahr: '2. Lehrjahr',
       lernfeld: 'LF 10',
-      titel: 'Gleisanlagen neu bauen',
+      titel: 'Bauwerke instand setzen und erneuern',
       geltung: 'bundesweit',
-      schwerpunkt: 'Gleisaufbau, Schotter, Schwellen, Schienen',
-      niveau: 'Aufbau / Einstieg Gleisbau',
+      schwerpunkt: 'Schadenserkennung, Sanierung, Rueckbau, Bestandssicherheit und Dokumentation',
+      niveau: 'Aufbau / Bestand',
     },
     'lf-11': {
       lehrjahr: '3. Lehrjahr',
       lernfeld: 'LF 11',
-      titel: 'Gleisbögen herstellen und einmessen',
+      titel: 'Gleisanlage herstellen und sichern',
       geltung: 'bundesweit',
-      schwerpunkt: 'Vermessung, Gleislage, Radien',
-      niveau: 'Fortgeschritten',
+      schwerpunkt: 'Oberbau, Gleislage, Stopfen, Vermessung und Gleissicherheit',
+      niveau: 'Fortgeschritten / Kern Gleisbau',
     },
     'lf-12': {
       lehrjahr: '3. Lehrjahr',
       lernfeld: 'LF 12',
-      titel: 'Weichen montieren und einmessen',
+      titel: 'Gleisanlagen instand halten',
       geltung: 'bundesweit',
-      schwerpunkt: 'Weichenarten, Einbau, Kontrolle',
-      niveau: 'Fortgeschritten',
+      schwerpunkt: 'Gleisfehler, Stopfen, Messung, Sicherung unter Betrieb und Dokumentation',
+      niveau: 'Fortgeschritten / Instandhaltung',
     },
     'lf-13': {
       lehrjahr: '3. Lehrjahr',
       lernfeld: 'LF 13',
-      titel: 'Verkehrsflächen befestigen',
+      titel: 'Weichen bauen und instand halten',
       geltung: 'bundesweit',
-      schwerpunkt: 'Bahnübergänge, angrenzende Verkehrsflächen',
-      niveau: 'Fortgeschritten',
+      schwerpunkt: 'Weichenaufbau, Einbau, Instandhaltung, Pruefung und Sicherheit',
+      niveau: 'Fortgeschritten / Weichentechnik',
     },
     'lf-14': {
       lehrjahr: '3. Lehrjahr',
@@ -182,5 +182,3 @@ export class FieldDetailPage implements OnInit, OnDestroy {
     });
   }
 }
-
-

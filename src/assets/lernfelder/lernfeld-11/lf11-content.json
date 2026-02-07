@@ -1,0 +1,230 @@
+{
+  "blocks": [
+    {
+      "id": "lf11-b1",
+      "title": "Aufbau einer Gleisanlage (Grundverstaendnis)",
+      "goals": [
+        "Oberbau und Unterbau einer Gleisanlage unterscheiden",
+        "Bestandteile des Oberbaus fachlich korrekt benennen"
+      ],
+      "summary": "Der Oberbau traegt den Zug, der Unterbau traegt den Oberbau.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Bestandteile des Oberbaus: Schienen, Schwellen, Schotterbett und Kleineisen",
+            "Schwellen koennen aus Beton, Holz oder Stahl bestehen",
+            "Unterbau (vereinfacht): Planum sowie Frostschutz- und Tragschicht",
+            "Nur das Zusammenspiel von Unterbau und Oberbau ergibt ein tragfaehiges Gleis"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Der Oberbau traegt den Zug, der Unterbau traegt den Oberbau."
+        }
+      ],
+      "quizRef": ["Q1"]
+    },
+    {
+      "id": "lf11-b2",
+      "title": "Schienenarten und Schienenlage",
+      "goals": [
+        "Grundlegende Schienenarten einordnen",
+        "Spurweite, Hoehenlage und Seitenlage als Lageparameter anwenden"
+      ],
+      "summary": "Die Spurweite beschreibt den Abstand der Schieneninnenkanten.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Vignolschiene ist der Standard im Eisenbahnbereich",
+            "Schienenprofile unterscheiden sich nach Gewicht und Einsatzbereich",
+            "Schienenlage wird u. a. ueber Spurweite, Hoehenlage und Seitenlage beschrieben"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Sicherheit",
+          "value": "Abweichungen in der Spurweite sind unmittelbar sicherheitsrelevant."
+        }
+      ],
+      "quizRef": ["Q2"]
+    },
+    {
+      "id": "lf11-b3",
+      "title": "Schwellen und Kleineisen",
+      "goals": [
+        "Schwellenarten mit ihren Einsatzbereichen unterscheiden",
+        "Funktion von Kleineisen fuer Spurhaltung und Befestigung verstehen"
+      ],
+      "summary": "Kleineisen befestigen die Schiene auf der Schwelle und sichern die Lage.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Betonschwellen sind heute Standard, Holzschwellen vor allem in Sonderbereichen",
+            "Stahlschwellen kommen vergleichsweise selten vor",
+            "Kleineisen (z. B. Klemmen, Schrauben, Platten) fixieren die Schiene auf der Schwelle"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Kontrolle",
+          "value": "Lose oder beschaedigte Kleineisen muessen sofort erkannt und behoben werden."
+        }
+      ],
+      "quizRef": ["Q3"]
+    },
+    {
+      "id": "lf11-b4",
+      "title": "Schotterbett und Stopfarbeiten",
+      "goals": [
+        "Aufgaben des Schotterbetts sicher benennen",
+        "Stopfen als zentrale Massnahme zur Lagekorrektur verstehen"
+      ],
+      "summary": "Stopfen verdichtet den Schotter unter der Schwelle und stellt die Gleislage ein.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Schotter verteilt Lasten, entwassert und stabilisiert die Gleislage",
+            "Beim Stopfen wird Schotter unter die Schwelle verdichtet",
+            "So werden Hoehen- und Seitenlage eingestellt",
+            "Stopfen kann von Hand oder maschinell erfolgen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Praxis",
+          "value": "Ungleichmaessige Stopfung fuehrt zu Lagefehlern und Fahrqualitaetsproblemen."
+        }
+      ],
+      "quizRef": ["Q4"]
+    },
+    {
+      "id": "lf11-b5",
+      "title": "Gleisvermessung und Gleislage",
+      "goals": [
+        "Wichtige Messgroessen im Gleisbau anwenden",
+        "Messmittel fuer Lagekontrolle sicher einsetzen"
+      ],
+      "summary": "Vermessung sichert Fahrqualitaet und Betriebssicherheit.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Wesentliche Messgroessen: Spurweite, Ueberhoehung, Hoehenlage und Seitenlage",
+            "Typische Werkzeuge: Messlatte, Richtlatte, Nivelliergeraet",
+            "Vermessung ist Bestandteil von Einbau, Nacharbeit und Endkontrolle"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Qualitaet",
+          "value": "Ohne Messung keine belastbare Aussage zur sicheren Gleislage."
+        }
+      ],
+      "quizRef": ["Q5"]
+    },
+    {
+      "id": "lf11-b6",
+      "title": "Einbauablauf eines Gleises (vereinfacht)",
+      "goals": [
+        "Typischen Einbauablauf in der richtigen Reihenfolge anwenden",
+        "Nach dem Stopfen notwendige Kontrollschritte sicher durchfuehren"
+      ],
+      "summary": "Nach dem Stopfen folgen Vermessung und Nachrichten.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Ablauf: Planum pruefen, Schotter einbauen, Schwellen verlegen, Schienen auflegen",
+            "Danach Befestigung, Stopfen sowie Vermessen und Nachrichten",
+            "Jeder Schritt baut auf dem vorherigen auf und beeinflusst die Endlage"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Ablaufprinzip",
+          "value": "Lagekorrekturen werden erst nach ausreichender Verdichtung verlässlich bewertet."
+        }
+      ],
+      "quizRef": ["Q6"]
+    },
+    {
+      "id": "lf11-b7",
+      "title": "Sicherheit im Gleisbau",
+      "goals": [
+        "Hauptgefahren im Gleisbereich klar benennen",
+        "Lebenswichtige Schutzmassnahmen konsequent umsetzen"
+      ],
+      "summary": "Im Gleis gibt es keine zweite Chance.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Hauptgefahren: Zugverkehr, schwere Bauteile, Maschinen und elektrische Anlagen",
+            "Sicherheitsmassnahmen: Sicherungsposten, Sperrpausen, Warnkleidung, klare Kommunikation",
+            "Arbeiten duerfen nur unter wirksamer Sicherung gegen Zugverkehr stattfinden"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksatz",
+          "value": "Im Gleis gibt es keine zweite Chance."
+        }
+      ],
+      "quizRef": ["Q7"]
+    },
+    {
+      "id": "lf11-b8",
+      "title": "Qualitaetskontrolle und typische Fehler",
+      "goals": [
+        "Wesentliche Kontrollpunkte bei Gleisarbeiten anwenden",
+        "Sicherheitsrelevante Fehler frueh erkennen"
+      ],
+      "summary": "Falsche Spurweite und lose Befestigungen sind kritische Fehler.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Kontrollen: Gleislage, Befestigungen, Schotterverteilung und Sicherheitseinrichtungen",
+            "Typische Fehler: falsche Spurweite, ungleichmaessige Stopfung, lose Kleineisen, fehlende Vermessung",
+            "Abweichungen muessen vor Freigabe des Gleises beseitigt werden"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Sicherheitsbezug",
+          "value": "Lage- und Befestigungsfehler wirken direkt auf Betriebssicherheit und Fahrqualitaet."
+        }
+      ],
+      "quizRef": ["Q8"]
+    },
+    {
+      "id": "lf11-b9",
+      "title": "Grosse Quiz-Bank LF11",
+      "goals": [
+        "Kernregeln des Gleisaufbaus im Schnellmodus festigen",
+        "Sicherheitskritische Punkte im Gleisbereich sicher erkennen"
+      ],
+      "summary": "15 Zusatzfragen im App-Stil zu Oberbau, Stopfen, Vermessung und Sicherung.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Nutze die Zusatzfragen fuer Wiederholung zu Schiene, Schwelle, Schotter, Gleislage und Arbeitssicherheit im Gleis."
+        }
+      ],
+      "quizRef": ["Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23"]
+    }
+  ]
+}

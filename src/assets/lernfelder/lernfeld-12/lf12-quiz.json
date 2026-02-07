@@ -1,0 +1,377 @@
+{
+  "meta": {
+    "lernfeld": "12",
+    "title": "Gleisanlagen instand halten",
+    "version": "1.0"
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "block": "lf12-b1",
+      "type": "mcq_single",
+      "question": "Instandhaltung dient vor allem ...",
+      "choices": [
+        { "id": "A", "text": "der Sicherung von Betrieb und Sicherheit" },
+        { "id": "B", "text": "nur der Optik" },
+        { "id": "C", "text": "Neubau" },
+        { "id": "D", "text": "Zeitgewinn" }
+      ],
+      "answer": "A",
+      "explain": "Instandhaltung soll den sicheren und verfuegbaren Bahnbetrieb sichern.",
+      "difficulty": "easy",
+      "tags": ["grundlagen", "instandhaltung"]
+    },
+    {
+      "id": "Q2",
+      "block": "lf12-b2",
+      "type": "mcq_single",
+      "question": "Was ist ein typischer Gleisfehler?",
+      "choices": [
+        { "id": "A", "text": "Setzungen oder Schienenverschleiss" },
+        { "id": "B", "text": "saubere Schwellen" },
+        { "id": "C", "text": "neue Schienen" },
+        { "id": "D", "text": "korrektes Stopfen" }
+      ],
+      "answer": "A",
+      "explain": "Setzungen und Verschleiss sind haeufige Schadensbilder im Bestand.",
+      "difficulty": "easy",
+      "tags": ["gleisfehler", "schaeden"]
+    },
+    {
+      "id": "Q3",
+      "block": "lf12-b3",
+      "type": "mcq_single",
+      "question": "Warum sind Gleislagefehler kritisch?",
+      "choices": [
+        { "id": "A", "text": "sie gefaehrden Sicherheit und erhoehen Verschleiss" },
+        { "id": "B", "text": "nur Komfort" },
+        { "id": "C", "text": "nur Laerm" },
+        { "id": "D", "text": "nur Optik" }
+      ],
+      "answer": "A",
+      "explain": "Lagefehler wirken direkt auf Fahrdynamik, Bauteilbelastung und Betriebssicherheit.",
+      "difficulty": "easy",
+      "tags": ["gleislage", "sicherheit"]
+    },
+    {
+      "id": "Q4",
+      "block": "lf12-b4",
+      "type": "mcq_single",
+      "question": "Was wird bei der Gleispruefung gemessen?",
+      "choices": [
+        { "id": "A", "text": "Spurweite, Hoehe, Seite, Ueberhoehung" },
+        { "id": "B", "text": "nur Schotterfarbe" },
+        { "id": "C", "text": "Schwellenanzahl" },
+        { "id": "D", "text": "Wetter" }
+      ],
+      "answer": "A",
+      "explain": "Diese Messgroessen beschreiben die wesentliche Gleisgeometrie.",
+      "difficulty": "easy",
+      "tags": ["messung", "pruefung"]
+    },
+    {
+      "id": "Q5",
+      "block": "lf12-b5",
+      "type": "mcq_single",
+      "question": "Was ist eine typische Instandhaltungsmassnahme?",
+      "choices": [
+        { "id": "A", "text": "Nachstopfen des Schotters" },
+        { "id": "B", "text": "Schienenneubau immer" },
+        { "id": "C", "text": "Abriss" },
+        { "id": "D", "text": "Asphaltieren" }
+      ],
+      "answer": "A",
+      "explain": "Nachstopfen ist eine klassische Massnahme zur Wiederherstellung der Gleislage.",
+      "difficulty": "easy",
+      "tags": ["massnahmen", "stopfen"]
+    },
+    {
+      "id": "Q6",
+      "block": "lf12-b6",
+      "type": "mcq_single",
+      "question": "Was ist beim Stopfen im Bestand besonders wichtig?",
+      "choices": [
+        { "id": "A", "text": "Genauigkeit und Sicherheit unter Betrieb" },
+        { "id": "B", "text": "Geschwindigkeit allein" },
+        { "id": "C", "text": "Optik" },
+        { "id": "D", "text": "neue Schwellen" }
+      ],
+      "answer": "A",
+      "explain": "Im Bestand sind praezise Korrektur und sichere Ausfuehrung entscheidend.",
+      "difficulty": "easy",
+      "tags": ["stopfarbeiten", "bestand"]
+    },
+    {
+      "id": "Q7",
+      "block": "lf12-b7",
+      "type": "mcq_single",
+      "question": "Was ist bei Arbeiten unter Betrieb zwingend?",
+      "choices": [
+        { "id": "A", "text": "Sicherung gegen Zugverkehr" },
+        { "id": "B", "text": "schnelleres Arbeiten" },
+        { "id": "C", "text": "weniger Personal" },
+        { "id": "D", "text": "Improvisation" }
+      ],
+      "answer": "A",
+      "explain": "Sicherung gegen Zugverkehr ist nicht verhandelbar.",
+      "difficulty": "easy",
+      "tags": ["betrieb", "sicherung"]
+    },
+    {
+      "id": "Q8",
+      "block": "lf12-b8",
+      "type": "mcq_single",
+      "question": "Warum wird dokumentiert?",
+      "choices": [
+        { "id": "A", "text": "Nachweis von Sicherheit und Qualitaet" },
+        { "id": "B", "text": "nur Bueroarbeit" },
+        { "id": "C", "text": "freiwillig" },
+        { "id": "D", "text": "Zeitvertreib" }
+      ],
+      "answer": "A",
+      "explain": "Dokumentation belegt Zustand, Massnahmen und Ergebnis nachvollziehbar.",
+      "difficulty": "easy",
+      "tags": ["dokumentation", "qualitaet"]
+    },
+    {
+      "id": "Q9",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Instandhaltung erhaelt vor allem ...",
+      "choices": [
+        { "id": "A", "text": "Betriebssicherheit" },
+        { "id": "B", "text": "nur Optik" },
+        { "id": "C", "text": "nur Materiallager" },
+        { "id": "D", "text": "nur Geschwindigkeit" }
+      ],
+      "answer": "A",
+      "explain": "Der sichere Betrieb ist das Hauptziel der Gleisinstandhaltung.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "grundlagen"]
+    },
+    {
+      "id": "Q10",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Gleisfehler entstehen haeufig durch ...",
+      "choices": [
+        { "id": "A", "text": "Belastung und Zeit" },
+        { "id": "B", "text": "nur Farbe" },
+        { "id": "C", "text": "nur Schilder" },
+        { "id": "D", "text": "nur Wetterbericht" }
+      ],
+      "answer": "A",
+      "explain": "Verkehrslast und Alterung wirken kontinuierlich auf das Gleis ein.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "gleisfehler"]
+    },
+    {
+      "id": "Q11",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Setzungen fuehren oft zu ...",
+      "choices": [
+        { "id": "A", "text": "Hoehenfehlern" },
+        { "id": "B", "text": "besserer Lage" },
+        { "id": "C", "text": "weniger Verschleiss" },
+        { "id": "D", "text": "korrekter Spurweite" }
+      ],
+      "answer": "A",
+      "explain": "Setzungen veraendern die vertikale Lage des Gleises.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "gleislage"]
+    },
+    {
+      "id": "Q12",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Gleislagefehler erhoehen ...",
+      "choices": [
+        { "id": "A", "text": "den Verschleiss" },
+        { "id": "B", "text": "nur die Farbe" },
+        { "id": "C", "text": "nur den Papierverbrauch" },
+        { "id": "D", "text": "nichts" }
+      ],
+      "answer": "A",
+      "explain": "Fehlgeometrie erzeugt unguenstige dynamische Belastungen.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "verschleiss"]
+    },
+    {
+      "id": "Q13",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Welche Groesse ist sicherheitsrelevant?",
+      "choices": [
+        { "id": "A", "text": "Spurweite" },
+        { "id": "B", "text": "Schotterfarbe" },
+        { "id": "C", "text": "Wetterlage" },
+        { "id": "D", "text": "Baustellenname" }
+      ],
+      "answer": "A",
+      "explain": "Spurweite ist eine zentrale Sicherheitsgroesse im Gleis.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "spurweite"]
+    },
+    {
+      "id": "Q14",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Nachstopfen ist ...",
+      "choices": [
+        { "id": "A", "text": "eine typische Instandhaltungsmassnahme" },
+        { "id": "B", "text": "nur Neubau" },
+        { "id": "C", "text": "nur Optik" },
+        { "id": "D", "text": "nicht notwendig" }
+      ],
+      "answer": "A",
+      "explain": "Damit wird die Gleisgeometrie im Bestand korrigiert.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "massnahmen"]
+    },
+    {
+      "id": "Q15",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Welche Aussage stimmt?",
+      "choices": [
+        { "id": "A", "text": "Neubau ist nicht immer noetig" },
+        { "id": "B", "text": "jede Abweichung braucht Neubau" },
+        { "id": "C", "text": "nur Abriss hilft" },
+        { "id": "D", "text": "Instandsetzung ist unzulaessig" }
+      ],
+      "answer": "A",
+      "explain": "Viele Fehler lassen sich durch gezielte Instandsetzung beheben.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "instandsetzung"]
+    },
+    {
+      "id": "Q16",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Messung ist Grundlage fuer ...",
+      "choices": [
+        { "id": "A", "text": "jede Massnahme" },
+        { "id": "B", "text": "nur den Bericht" },
+        { "id": "C", "text": "nur Fotos" },
+        { "id": "D", "text": "keine Entscheidungen" }
+      ],
+      "answer": "A",
+      "explain": "Ohne Messwerte fehlt die fachliche Basis fuer Korrekturen.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "messung"]
+    },
+    {
+      "id": "Q17",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Stopfen stellt vor allem ... wieder her",
+      "choices": [
+        { "id": "A", "text": "die Gleislage" },
+        { "id": "B", "text": "die Schienenfarbe" },
+        { "id": "C", "text": "die Beschilderung" },
+        { "id": "D", "text": "die Vegetation" }
+      ],
+      "answer": "A",
+      "explain": "Stopfen korrigiert Hoehe und Lage des Gleises.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "stopfen"]
+    },
+    {
+      "id": "Q18",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Arbeiten im Bestand sind oft ...",
+      "choices": [
+        { "id": "A", "text": "risikoreicher" },
+        { "id": "B", "text": "immer einfacher" },
+        { "id": "C", "text": "immer ohne Sicherung" },
+        { "id": "D", "text": "nur theoretisch" }
+      ],
+      "answer": "A",
+      "explain": "Betrieb, Zeitfenster und Bestandseinfluss erhoehen das Risiko.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "bestand"]
+    },
+    {
+      "id": "Q19",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Sicherungsposten sind ...",
+      "choices": [
+        { "id": "A", "text": "Pflicht" },
+        { "id": "B", "text": "optional" },
+        { "id": "C", "text": "nur bei Neubau" },
+        { "id": "D", "text": "nur bei Regen" }
+      ],
+      "answer": "A",
+      "explain": "Sie sind elementarer Bestandteil der Sicherung gegen Zugverkehr.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "sicherung"]
+    },
+    {
+      "id": "Q20",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Dokumentation schuetzt ...",
+      "choices": [
+        { "id": "A", "text": "Betrieb und Personal" },
+        { "id": "B", "text": "nur Aktenordner" },
+        { "id": "C", "text": "nur Termine" },
+        { "id": "D", "text": "nur den Einkauf" }
+      ],
+      "answer": "A",
+      "explain": "Sie liefert Nachweis und Nachvollziehbarkeit bei Betrieb und Abnahme.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "dokumentation"]
+    },
+    {
+      "id": "Q21",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Lose Befestigungen sind ...",
+      "choices": [
+        { "id": "A", "text": "gefaehrlich" },
+        { "id": "B", "text": "unproblematisch" },
+        { "id": "C", "text": "nur optisch" },
+        { "id": "D", "text": "gewollt" }
+      ],
+      "answer": "A",
+      "explain": "Sie beeintraechtigen Spur- und Lagehaltung direkt.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "befestigungen"]
+    },
+    {
+      "id": "Q22",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Schotterverschmutzung verschlechtert vor allem ...",
+      "choices": [
+        { "id": "A", "text": "die Drainage" },
+        { "id": "B", "text": "nur die Farbe" },
+        { "id": "C", "text": "die Schienenlaenge" },
+        { "id": "D", "text": "den Betonanteil" }
+      ],
+      "answer": "A",
+      "explain": "Verschmutzter Schotter verliert Entwaesserungs- und Tragfunktion.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "schotter"]
+    },
+    {
+      "id": "Q23",
+      "block": "lf12-b9",
+      "type": "mcq_single",
+      "question": "Welcher Grundsatz gilt immer?",
+      "choices": [
+        { "id": "A", "text": "Sicherheit geht vor Zeitdruck" },
+        { "id": "B", "text": "Zeitdruck geht vor Sicherheit" },
+        { "id": "C", "text": "Improvisation spart Risiko" },
+        { "id": "D", "text": "Dokumentation ist entbehrlich" }
+      ],
+      "answer": "A",
+      "explain": "Auch bei engen Sperrpausen bleibt Sicherheit das oberste Prinzip.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "sicherheitsprinzip"]
+    }
+  ]
+}

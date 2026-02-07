@@ -1,0 +1,393 @@
+{
+  "meta": {
+    "lernfeld": "13",
+    "title": "Weichen bauen und instand halten",
+    "version": "1.0"
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "block": "lf13-b1",
+      "type": "mcq_single",
+      "question": "Wozu dient eine Weiche?",
+      "choices": [
+        { "id": "A", "text": "Zum Wechseln der Fahrtrichtung zwischen Gleisen" },
+        { "id": "B", "text": "Zur Entwaesserung" },
+        { "id": "C", "text": "Zur Bremsung" },
+        { "id": "D", "text": "Zur Stromversorgung" }
+      ],
+      "answer": "A",
+      "explain": "Weichen verbinden Gleise und ermoeglichen das sichere Abzweigen von Fahrzeugen.",
+      "difficulty": "easy",
+      "tags": ["grundlagen", "funktion"]
+    },
+    {
+      "id": "Q2",
+      "block": "lf13-b2",
+      "type": "mcq_single",
+      "question": "Wodurch unterscheiden sich Weichenarten hauptsaechlich?",
+      "choices": [
+        { "id": "A", "text": "Bauform und Abzweigwinkel" },
+        { "id": "B", "text": "Farbe" },
+        { "id": "C", "text": "Schienenlaenge" },
+        { "id": "D", "text": "Schotterart" }
+      ],
+      "answer": "A",
+      "explain": "Bauform und Geometrie bestimmen Funktion und Einsatzbereich der Weiche.",
+      "difficulty": "easy",
+      "tags": ["weichenarten", "geometrie"]
+    },
+    {
+      "id": "Q3",
+      "block": "lf13-b3",
+      "type": "mcq_single",
+      "question": "Welche Teile einer Weiche sind beweglich?",
+      "choices": [
+        { "id": "A", "text": "Zungen" },
+        { "id": "B", "text": "Herzstueck" },
+        { "id": "C", "text": "Backenschienen" },
+        { "id": "D", "text": "Schwellen" }
+      ],
+      "answer": "A",
+      "explain": "Die Zungen sind beweglich und legen den Fahrweg fest.",
+      "difficulty": "easy",
+      "tags": ["bauteile", "zungen"]
+    },
+    {
+      "id": "Q4",
+      "block": "lf13-b4",
+      "type": "mcq_single",
+      "question": "Warum muessen Zungen vollstaendig anliegen?",
+      "choices": [
+        { "id": "A", "text": "Sonst besteht Entgleisungsgefahr" },
+        { "id": "B", "text": "Nur wegen Geraeusch" },
+        { "id": "C", "text": "Nur wegen Optik" },
+        { "id": "D", "text": "Das ist egal" }
+      ],
+      "answer": "A",
+      "explain": "Fehlende Zungenanlage fuehrt zu einer sicherheitskritischen Fehlleitung des Radsatzes.",
+      "difficulty": "easy",
+      "tags": ["antrieb", "sicherheit"]
+    },
+    {
+      "id": "Q5",
+      "block": "lf13-b5",
+      "type": "mcq_single",
+      "question": "Was erfolgt nach dem Stopfen einer Weiche?",
+      "choices": [
+        { "id": "A", "text": "Vermessen und Einstellen" },
+        { "id": "B", "text": "Ausbau" },
+        { "id": "C", "text": "Asphaltieren" },
+        { "id": "D", "text": "Lackieren" }
+      ],
+      "answer": "A",
+      "explain": "Nach dem Stopfen folgt die geometrische Kontrolle und die korrekte Einstellung.",
+      "difficulty": "easy",
+      "tags": ["einbau", "ablauf"]
+    },
+    {
+      "id": "Q6",
+      "block": "lf13-b6",
+      "type": "mcq_single",
+      "question": "Warum sind Weichen wartungsintensiver als Regelgleise?",
+      "choices": [
+        { "id": "A", "text": "Viele bewegliche und stark belastete Teile" },
+        { "id": "B", "text": "Wegen ihrer Laenge" },
+        { "id": "C", "text": "Wegen der Schotterfarbe" },
+        { "id": "D", "text": "Wegen ihrer Lage" }
+      ],
+      "answer": "A",
+      "explain": "Mechanik und konzentrierte Lasten erzeugen mehr Verschleiss und mehr Einstellbedarf.",
+      "difficulty": "easy",
+      "tags": ["instandhaltung", "verschleiss"]
+    },
+    {
+      "id": "Q7",
+      "block": "lf13-b7",
+      "type": "mcq_single",
+      "question": "Was ist ein besonders gefaehrlicher Weichenfehler?",
+      "choices": [
+        { "id": "A", "text": "Nicht anliegende Zunge" },
+        { "id": "B", "text": "Saubere Schwellen" },
+        { "id": "C", "text": "Neue Schrauben" },
+        { "id": "D", "text": "Korrekte Lage" }
+      ],
+      "answer": "A",
+      "explain": "Eine nicht anliegende Zunge kann unmittelbar zur Entgleisung fuehren.",
+      "difficulty": "easy",
+      "tags": ["fehler", "risiko"]
+    },
+    {
+      "id": "Q8",
+      "block": "lf13-b8",
+      "type": "mcq_single",
+      "question": "Warum sind Weichenarbeiten besonders gefaehrlich?",
+      "choices": [
+        { "id": "A", "text": "Bewegliche Teile und hohe Sicherheitsrelevanz" },
+        { "id": "B", "text": "Wegen der Farbe" },
+        { "id": "C", "text": "Wegen der Laenge" },
+        { "id": "D", "text": "Wegen des Schotters" }
+      ],
+      "answer": "A",
+      "explain": "Stellbewegungen, Quetschstellen und betriebliche Wirkung machen Weichenarbeiten besonders kritisch.",
+      "difficulty": "easy",
+      "tags": ["arbeitsschutz", "weiche"]
+    },
+    {
+      "id": "Q9",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Was wird bei der Weichenpruefung kontrolliert?",
+      "choices": [
+        { "id": "A", "text": "Zungenlage, Spurweite und Herzstueckbereich" },
+        { "id": "B", "text": "Nur Farbe" },
+        { "id": "C", "text": "Nur Schotter" },
+        { "id": "D", "text": "Nur Schwellen" }
+      ],
+      "answer": "A",
+      "explain": "Diese Pruefpunkte gehoeren zu den zentralen sicherheitsrelevanten Kontrollen.",
+      "difficulty": "easy",
+      "tags": ["pruefung", "dokumentation"]
+    },
+    {
+      "id": "Q10",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Welche Aussage ueber Weichen ist korrekt?",
+      "choices": [
+        { "id": "A", "text": "Weichen ermoeglichen Richtungswechsel" },
+        { "id": "B", "text": "Weichen dienen nur der Entwaesserung" },
+        { "id": "C", "text": "Weichen bremsen Zuege" },
+        { "id": "D", "text": "Weichen ersetzen Signale" }
+      ],
+      "answer": "A",
+      "explain": "Die Hauptfunktion ist das sichere Fuehren in unterschiedliche Fahrwege.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "funktion"]
+    },
+    {
+      "id": "Q11",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Welche Aussage zu Zungen stimmt?",
+      "choices": [
+        { "id": "A", "text": "Zungen sind bewegliche Teile" },
+        { "id": "B", "text": "Zungen sind fest verschweisst" },
+        { "id": "C", "text": "Zungen ersetzen das Herzstueck" },
+        { "id": "D", "text": "Zungen sind nur Deko" }
+      ],
+      "answer": "A",
+      "explain": "Zungen bewegen sich in Endlagen und bestimmen den gewaehlten Fahrweg.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "zungen"]
+    },
+    {
+      "id": "Q12",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Warum sind Herzstuecke ein Fokus der Instandhaltung?",
+      "choices": [
+        { "id": "A", "text": "Sie sind stark verschleissbelastet" },
+        { "id": "B", "text": "Sie sind immer unbenutzt" },
+        { "id": "C", "text": "Sie tragen keine Last" },
+        { "id": "D", "text": "Sie haben nur optische Funktion" }
+      ],
+      "answer": "A",
+      "explain": "Im Herzstueckbereich wirken hohe dynamische Lasten und Kontaktbeanspruchungen.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "herzstueck"]
+    },
+    {
+      "id": "Q13",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Welche Abweichung ist akut gefaehrlich?",
+      "choices": [
+        { "id": "A", "text": "Nicht anliegende Zungen" },
+        { "id": "B", "text": "Neue Kleineisen" },
+        { "id": "C", "text": "Saubere Schienen" },
+        { "id": "D", "text": "Frischer Schotter" }
+      ],
+      "answer": "A",
+      "explain": "Nicht anliegende Zungen sind ein klassischer Entgleisungsgrund.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "fehler"]
+    },
+    {
+      "id": "Q14",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Welche Aussage zur Weichenwartung trifft zu?",
+      "choices": [
+        { "id": "A", "text": "Weichen haben hoeheren Wartungsaufwand" },
+        { "id": "B", "text": "Weichen sind wartungsfrei" },
+        { "id": "C", "text": "Nur Schotter wird gewartet" },
+        { "id": "D", "text": "Wartung ist nur bei Neubau noetig" }
+      ],
+      "answer": "A",
+      "explain": "Bewegliche Teile und Lastwechsel erfordern engmaschige Pflege.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "wartung"]
+    },
+    {
+      "id": "Q15",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Welche Aufgabe hat die Stellvorrichtung?",
+      "choices": [
+        { "id": "A", "text": "Sie bewegt die Zungen" },
+        { "id": "B", "text": "Sie ersetzt das Herzstueck" },
+        { "id": "C", "text": "Sie misst nur die Spurweite" },
+        { "id": "D", "text": "Sie dient nur der Beleuchtung" }
+      ],
+      "answer": "A",
+      "explain": "Die Stellvorrichtung stellt die Endlage her und fixiert den Fahrweg.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "antrieb"]
+    },
+    {
+      "id": "Q16",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Was bewirkt Stopfen im Weichenbereich?",
+      "choices": [
+        { "id": "A", "text": "Die Weichenlage wird eingestellt" },
+        { "id": "B", "text": "Nur die Farbe wird verbessert" },
+        { "id": "C", "text": "Die Zungen werden ersetzt" },
+        { "id": "D", "text": "Der Betrieb wird beschleunigt" }
+      ],
+      "answer": "A",
+      "explain": "Stopfarbeiten stabilisieren Tragverhalten und Geometrie der Weiche.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "stopfen"]
+    },
+    {
+      "id": "Q17",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Welche Folge koennen Weichenfehler haben?",
+      "choices": [
+        { "id": "A", "text": "Sie gefaehrden den Betrieb" },
+        { "id": "B", "text": "Sie verbessern den Fahrkomfort" },
+        { "id": "C", "text": "Sie reduzieren immer Wartung" },
+        { "id": "D", "text": "Sie sind rein optisch" }
+      ],
+      "answer": "A",
+      "explain": "Fehler an Weichen haben direkte Auswirkung auf Betriebssicherheit und Verfuegbarkeit.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "betrieb"]
+    },
+    {
+      "id": "Q18",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Welche Aussage zu Sicherungsmassnahmen ist richtig?",
+      "choices": [
+        { "id": "A", "text": "Sicherung gegen Zugverkehr ist Pflicht" },
+        { "id": "B", "text": "Sicherung ist optional" },
+        { "id": "C", "text": "Nur nachts sichern" },
+        { "id": "D", "text": "Nur bei Regen sichern" }
+      ],
+      "answer": "A",
+      "explain": "Arbeiten an Weichen duerfen nur mit wirksamer Sicherung ausgefuehrt werden.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "sicherung"]
+    },
+    {
+      "id": "Q19",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Welche Rolle hat die Dokumentation?",
+      "choices": [
+        { "id": "A", "text": "Sie ist sicherheitsrelevant" },
+        { "id": "B", "text": "Sie ist nur freiwillig" },
+        { "id": "C", "text": "Sie ersetzt die Pruefung" },
+        { "id": "D", "text": "Sie hat keine Wirkung" }
+      ],
+      "answer": "A",
+      "explain": "Messwerte und Protokolle sichern Nachweis, Rueckverfolgbarkeit und Abnahme.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "dokumentation"]
+    },
+    {
+      "id": "Q20",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Wozu dienen Radlenker?",
+      "choices": [
+        { "id": "A", "text": "Sie sichern den Radsatzlauf" },
+        { "id": "B", "text": "Sie bremsen den Zug" },
+        { "id": "C", "text": "Sie ersetzen Schotter" },
+        { "id": "D", "text": "Sie bewegen die Zungen" }
+      ],
+      "answer": "A",
+      "explain": "Radlenker fuehren die Radsatzlage im kritischen Bereich der Weiche.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "radlenker"]
+    },
+    {
+      "id": "Q21",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Warum sind lose Kleineisen kritisch?",
+      "choices": [
+        { "id": "A", "text": "Sie beeintraechtigen die sichere Spurhaltung" },
+        { "id": "B", "text": "Sie verbessern die Lage" },
+        { "id": "C", "text": "Sie haben keinen Einfluss" },
+        { "id": "D", "text": "Sie sind gewollt" }
+      ],
+      "answer": "A",
+      "explain": "Lockere Befestigungen koennen Lagefehler und weitere Schaeden verursachen.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "kleineisen"]
+    },
+    {
+      "id": "Q22",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Was ist nach dem Einbau einer Weiche erforderlich?",
+      "choices": [
+        { "id": "A", "text": "Vermessen und pruefen" },
+        { "id": "B", "text": "Nur reinigen" },
+        { "id": "C", "text": "Ohne Kontrolle freigeben" },
+        { "id": "D", "text": "Nur fotografieren" }
+      ],
+      "answer": "A",
+      "explain": "Ohne geometrische und funktionale Pruefung ist keine sichere Inbetriebnahme moeglich.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "einbaukontrolle"]
+    },
+    {
+      "id": "Q23",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Wie sind Arbeiten unter Betrieb im Weichenbereich einzuordnen?",
+      "choices": [
+        { "id": "A", "text": "Sie sind risikoreich" },
+        { "id": "B", "text": "Sie sind immer ungefaehrlich" },
+        { "id": "C", "text": "Sie brauchen keine Abstimmung" },
+        { "id": "D", "text": "Sie sind nur Theorie" }
+      ],
+      "answer": "A",
+      "explain": "Betrieb, Zeitdruck und Bewegungen der Weiche erhoehen das Risiko deutlich.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "betrieb"]
+    },
+    {
+      "id": "Q24",
+      "block": "lf13-b9",
+      "type": "mcq_single",
+      "question": "Welcher Grundsatz gilt immer bei Weichenarbeiten?",
+      "choices": [
+        { "id": "A", "text": "Sicherheit geht vor Geschwindigkeit" },
+        { "id": "B", "text": "Geschwindigkeit geht vor Sicherheit" },
+        { "id": "C", "text": "Hauptsache schnell fertig" },
+        { "id": "D", "text": "Dokumentation ist verzichtbar" }
+      ],
+      "answer": "A",
+      "explain": "Sicherheitsregeln haben Vorrang vor Zeitdruck und Produktionszielen.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "grundsatz"]
+    }
+  ]
+}

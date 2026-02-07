@@ -14,16 +14,14 @@ VALUES
     ('lf-06', 'Bauteile beschichten und bekleiden', 'Schutz, Abdichtung, Oberflächen', 1, 'Oberflächen'),
     ('lf-07', 'Baugruben und Graeben herstellen und sichern', 'Boeschung, Verbau, Wasserhaltung, Arbeitssicherheit', 2, 'Tiefbau / Gleisbau'),
     ('lf-08', 'Verkehrsflaechen herstellen', 'Planum, Schichtenaufbau, Pflaster, Asphalt, Entwaesserung', 2, 'Tiefbau / Gleisbau'),
-    ('lf-09', 'Verkehrsflächen aus Pflaster- und Plattenbelägen herstellen', 'Wege, Flächen, Unterbau', 2, 'Pflaster'),
-    ('lf-10', 'Gleisanlagen neu bauen', 'Gleisaufbau, Schotter, Schwellen, Schienen', 2, 'Neubau Gleis'),
-    ('lf-11', 'Gleisbögen herstellen und einmessen', 'Vermessung, Gleislage, Radien', 3, 'Gleisbögen'),
-    ('lf-12', 'Weichen montieren und einmessen', 'Weichenarten, Einbau, Kontrolle', 3, 'Weichen'),
-    ('lf-13', 'Verkehrsflächen befestigen', 'Bahnübergänge, angrenzende Verkehrsflächen', 3, 'Verkehrsflächen'),
+    ('lf-09', 'Entwaesserungssysteme herstellen', 'Leitungen, Gefaelle, Schaechte, Dichtheit und Verfuellung', 2, 'Tiefbau / Gleisbau'),
+    ('lf-10', 'Bauwerke instand setzen und erneuern', 'Schadenserkennung, Sanierung, Rueckbau, Bestandssicherheit und Dokumentation', 2, 'Tiefbau / Gleisbau'),
+    ('lf-11', 'Gleisanlage herstellen und sichern', 'Oberbau, Gleislage, Stopfen, Vermessung und Gleissicherheit', 3, 'Gleisbau'),
+    ('lf-12', 'Gleisanlagen instand halten', 'Gleisfehler, Stopfen, Messung, Sicherung unter Betrieb und Dokumentation', 3, 'Gleisbau'),
+    ('lf-13', 'Weichen bauen und instand halten', 'Weichenaufbau, Einbau, Instandhaltung und sichere Weichenarbeit', 3, 'Weichentechnik'),
     ('lf-14', 'Gleisanlagen instand halten', 'Wartung, Reparatur, Qualitätssicherung', 3, 'Instandhaltung')
 ON CONFLICT (id) DO UPDATE
 SET title = EXCLUDED.title,
     description = EXCLUDED.description,
     year = EXCLUDED.year,
     tag = EXCLUDED.tag;
-
-

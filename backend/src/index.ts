@@ -53,7 +53,7 @@ const runStartupMigrations = async () => {
       { id: 'lf-10', title: 'Gleisanlagen neu bauen', description: 'Gleisaufbau, Schotter, Schwellen, Schienen', year: 2, tag: 'Neubau Gleis' },
       { id: 'lf-11', title: 'Gleisbögen herstellen und einmessen', description: 'Vermessung, Gleislage, Radien', year: 3, tag: 'Gleisbögen' },
       { id: 'lf-12', title: 'Weichen montieren und einmessen', description: 'Weichenarten, Einbau, Kontrolle', year: 3, tag: 'Weichen' },
-      { id: 'lf-13', title: 'Verkehrsflächen befestigen', description: 'Bahnübergänge, angrenzende Verkehrsflächen', year: 3, tag: 'Verkehrsflächen' },
+      { id: 'lf-13', title: 'Weichen bauen und instand halten', description: 'Weichenaufbau, Einbau, Instandhaltung und sichere Weichenarbeit', year: 3, tag: 'Weichentechnik' },
       { id: 'lf-14', title: 'Gleisanlagen instand halten', description: 'Wartung, Reparatur, Qualitätssicherung', year: 3, tag: 'Instandhaltung' },
     ];
 

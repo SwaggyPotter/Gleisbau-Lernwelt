@@ -43,6 +43,14 @@ const routes: Routes = [
     loadChildren: () => import('./modules/lernfelder/lernfeld-02/lernfeld-02.module').then(m => m.Lernfeld02Module),
   },
   {
+    path: 'lernfelder/3',
+    loadChildren: () => import('./modules/lernfelder/lernfeld-03/lernfeld-03.module').then(m => m.Lernfeld03Module),
+  },
+  {
+    path: 'lernfelder/4',
+    loadChildren: () => import('./modules/lernfelder/lernfeld-04/lernfeld-04.module').then(m => m.Lernfeld04Module),
+  },
+  {
     path: 'zusatz/nivellieren',
     loadChildren: () => import('./modules/zusatz/nivellieren/lernfeld-02.module').then(m => m.NivellierenModule),
   },
@@ -54,6 +62,16 @@ const routes: Routes = [
   {
     path: 'lernfeld/02',
     redirectTo: 'lernfelder/2',
+    pathMatch: 'full',
+  },
+  {
+    path: 'lernfeld/03',
+    redirectTo: 'lernfelder/3',
+    pathMatch: 'full',
+  },
+  {
+    path: 'lernfeld/04',
+    redirectTo: 'lernfelder/4',
     pathMatch: 'full',
   },
   {

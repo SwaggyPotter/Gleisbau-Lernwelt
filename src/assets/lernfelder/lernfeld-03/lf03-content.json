@@ -1,0 +1,235 @@
+{
+  "blocks": [
+    {
+      "id": "lf03-b1",
+      "title": "Was ist einschalig und wo wird es eingesetzt?",
+      "goals": [
+        "Begriff einschalige Wand sicher erklaeren",
+        "Einsatzbereiche im Hochbau richtig zuordnen"
+      ],
+      "summary": "Einschalig bedeutet: eine Wand als System ohne zweite Vormauerschale.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Eine einschalige Wand ist als ein Wand-System aufgebaut. Sie kann mehrere Schichten enthalten, zum Beispiel Mauerwerk mit Putz, hat aber keine zweite Vormauerschale wie beim zweischaligen Aufbau."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Typische Einsatzorte: Innenwaende, tragende Waende, monolithische Aussenwaende",
+            "Wichtige Begriffe: Schale, monolithisch, tragend/nicht tragend",
+            "Wanddicke ergibt sich aus Statik und Waermeschutz"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merke",
+          "value": "Einschalig beschreibt den Wandaufbau, nicht automatisch den Baustoff."
+        }
+      ],
+      "quizRef": ["Q1", "Q2"]
+    },
+    {
+      "id": "lf03-b2",
+      "title": "Baustoffe im Mauerwerk",
+      "goals": [
+        "Steinarten und Formate benennen",
+        "Fugen und Moertelsysteme funktional verstehen"
+      ],
+      "summary": "Steinwahl, Format und Moertel beeinflussen Tragverhalten und Ausfuehrung.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Typische Steinarten: Ziegel/Hochlochziegel, Kalksandstein, Porenbeton, Leichtbetonstein",
+            "Formate (z. B. DF, NF) sind wichtig fuer Verband und Massordnung",
+            "Moertelarten: Normalmoertel oder Duennbettmoertel je nach Steinsystem",
+            "Stossfuge senkrecht, Lagerfuge waagerecht"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Praxis",
+          "value": "Duennbettmoertel funktioniert nur mit passgenauen Steinsystemen und sauberer Verarbeitung."
+        }
+      ],
+      "quizRef": ["Q3", "Q4"]
+    },
+    {
+      "id": "lf03-b3",
+      "title": "Verbaende, Verzahnung und Grundregeln",
+      "goals": [
+        "Sinn von Mauerwerksverbaenden erklaeren",
+        "Fugenversatz und Verzahnung praktisch anwenden"
+      ],
+      "summary": "Verband sorgt fuer Lastverteilung, Stabilitaet und ein sauberes Fugenbild.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Grundprinzip: Laeufer und Binder beschreiben die Orientierung der Steine",
+            "Haefige Verbandsarten: Blockverband, Kreuzverband",
+            "Fugenversatz einhalten und ausreichend ueberdecken",
+            "Ecken und Anschluesse immer verzahnen, nicht durchfugen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Fehlerbild",
+          "value": "Durchgefugte Ecken ohne Verzahnung sind statisch und bautechnisch kritisch."
+        }
+      ],
+      "quizRef": ["Q5", "Q6"]
+    },
+    {
+      "id": "lf03-b4",
+      "title": "Abstecken, Massordnung, Schnur und Lot",
+      "goals": [
+        "Wandachsen und Oeffnungen sicher uebertragen",
+        "Flucht und Senkrechte vor dem Mauern korrekt einstellen"
+      ],
+      "summary": "Vorbereitung entscheidet ueber den gesamten Wandlauf.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Zeichnung lesen: Wandlaengen, Wanddicken, Achsen, Oeffnungen",
+            "Wandflucht markieren und Ecken exakt setzen",
+            "Richtschnur spannen und mit Lot kontrollieren",
+            "Erste Lage besonders sauber ausrichten"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Typische Fehler",
+          "value": "Wand laeuft weg ohne Schnur; Wand kippt ohne Lot; Masse passen nicht bei falsch uebernommenen Oeffnungen."
+        }
+      ],
+      "quizRef": ["Q7", "Q8"]
+    },
+    {
+      "id": "lf03-b5",
+      "title": "Mauern Schritt fuer Schritt",
+      "goals": [
+        "Standardablauf auf der Baustelle strukturiert umsetzen",
+        "Qualitaetskriterien waehrend der Ausfuehrung laufend pruefen"
+      ],
+      "summary": "Vom Einrichten bis zur Kontrolle: systematisch und messbar arbeiten.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Arbeitsplatz einrichten und Material pruefen",
+            "Moertel anmischen: Konsistenz und Verarbeitungszeit beachten",
+            "Ecksteine setzen, Richtschnur spannen, Zwischensteine setzen",
+            "Fugenbild, Ueberdeckung, Flucht, Hoehe, Lot und Mass kontinuierlich kontrollieren",
+            "Anschluesse und Verzahnung fachgerecht herstellen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Qualitaet",
+          "value": "Steine muessen satt im Moertelbett liegen, die Wand muss fluchten, lotrecht sein und Oeffnungen masshaltig aufnehmen."
+        }
+      ],
+      "quizRef": ["Q9", "Q10"]
+    },
+    {
+      "id": "lf03-b6",
+      "title": "Oeffnungen und Sturz-Grundprinzip",
+      "goals": [
+        "Oeffnungsmasse aus dem Plan richtig uebernehmen",
+        "Lastabtragung ueber dem Sturz grundlegend verstehen"
+      ],
+      "summary": "Fenster- und Tueroeffnungen brauchen saubere Laibungen und ausreichendes Auflager.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Oeffnungsmasse exakt aus dem Plan uebernehmen",
+            "Laibungen sauber ausbilden und Anschlaege beruecksichtigen",
+            "Sturz mit ausreichendem Auflager links/rechts fuer Lastabtragung herstellen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Hinweis",
+          "value": "Das genaue Sturzdetail ist systemspezifisch, das Grundprinzip Auflager plus Lastabtragung gilt immer."
+        }
+      ],
+      "quizRef": ["Q11"]
+    },
+    {
+      "id": "lf03-b7",
+      "title": "Abdichtung gegen Bodenfeuchtigkeit",
+      "goals": [
+        "Feuchteprobleme im Sockelbereich einordnen",
+        "Funktion der horizontalen Sperrschicht erklaeren"
+      ],
+      "summary": "Sockelabdichtung verhindert Feuchteaufstieg und Folgeschaeden.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Bodenfeuchte kann in Mauerwerk aufsteigen und zu Putzschaeden, Frostproblemen und Salzbelastung fuehren."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Typische Loesungsebene: horizontale Sperrschicht im Sockelbereich",
+            "Sperrschicht fachgerecht einlegen und an Plan/System orientieren",
+            "Anschlussdetails entscheiden ueber die Wirksamkeit"
+          ]
+        }
+      ],
+      "quizRef": ["Q12"]
+    },
+    {
+      "id": "lf03-b8",
+      "title": "Arbeitssicherheit und Gesundheit",
+      "goals": [
+        "Staubrisiken richtig bewerten",
+        "Staubarme und ergonomische Arbeitsweise anwenden"
+      ],
+      "summary": "Staub, Lasten und scharfe Kanten erfordern konsequente Schutzmassnahmen.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Quarzstaub kann Atemwege schaedigen, Silikose und Lungenkrebs ausloesen",
+            "Staub minimieren: absaugen, nass bearbeiten, nicht trocken wegblasen",
+            "Beim Heben und Tragen Hilfsmittel nutzen und Arbeitsplatz ergonomisch organisieren"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Sicherheitsregel",
+          "value": "Druckluft zum Reinigen von Staub ist zu vermeiden, weil sie Feinstaub verteilt."
+        }
+      ],
+      "quizRef": ["Q13", "Q14"]
+    },
+    {
+      "id": "lf03-b9",
+      "title": "Grosse Quiz-Bank LF3",
+      "goals": [
+        "Alle Kerninhalte in kurzen MC-Fragen wiederholen",
+        "Pruefungstypische Begriffe schnell festigen"
+      ],
+      "summary": "20 Zusatzfragen im Fahrschul-App-Stil quer durch alle LF03-Themen.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Nutze diese Fragebank fuer schnelle Wiederholungen zu Wandaufbau, Verband, Ausfuehrung, Oeffnungen, Abdichtung und Sicherheit."
+        }
+      ],
+      "quizRef": ["Q15", "Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23", "Q24", "Q25", "Q26", "Q27", "Q28", "Q29", "Q30", "Q31", "Q32", "Q33", "Q34"]
+    }
+  ]
+}

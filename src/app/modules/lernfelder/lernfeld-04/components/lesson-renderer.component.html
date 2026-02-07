@@ -1,0 +1,25 @@
+<ng-container *ngIf="block">
+  <div class="goals">
+    <ion-chip color="primary" outline="true">Ziele</ion-chip>
+    <ul>
+      <li *ngFor="let goal of block.goals">{{ goal }}</li>
+    </ul>
+  </div>
+
+  <div class="entries">
+    <ng-container *ngFor="let entry of block.content">
+      <p *ngIf="entry.type === 'text'" class="paragraph">{{ entry.value }}</p>
+
+      <ul *ngIf="entry.type === 'list'" class="bullet">
+        <li *ngFor="let item of entry.items">{{ item }}</li>
+      </ul>
+
+      <ion-card *ngIf="entry.type === 'callout'" class="callout" [class.danger]="entry.variant === 'danger'" [class.tip]="entry.variant === 'tip'">
+        <ion-card-header>
+          <ion-card-title>{{ entry.title }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>{{ entry.value }}</ion-card-content>
+      </ion-card>
+    </ng-container>
+  </div>
+</ng-container>

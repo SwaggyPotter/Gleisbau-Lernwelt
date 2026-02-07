@@ -1,0 +1,8 @@
+.nav-card {
+  position: relative;
+  overflow: hidden;
+}
+
+ion-item.active {
+  border-left: 4px solid var(--ion-color-primary);
+}

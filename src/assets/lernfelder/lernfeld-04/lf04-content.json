@@ -1,0 +1,234 @@
+{
+  "blocks": [
+    {
+      "id": "lf04-b1",
+      "title": "Auftrag verstehen und Plaene lesen",
+      "goals": [
+        "Bauteilfunktion und Lastabtragung im Plankontext erkennen",
+        "Schalplan, Bewehrungsplan und Detailangaben sicher auswerten"
+      ],
+      "summary": "Startpunkt jeder Betonage: Bauteil, Plaene, Masse, Hoehen und Vorgaben richtig verstehen.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Bauteile erkennen: Fundament, Bodenplatte, Wand, Decke, Stuetzen",
+            "Lastabtragung grob verstehen: Beton nimmt Druck auf, Bewehrung uebernimmt Zuganteile",
+            "Unterlagen lesen: Schalplan, Bewehrungsplan, Anschluss- und Uebergreifungsdetails, Oeffnungen",
+            "Planwerte pruefen: Masse, Hoehen, Achsen, Betonklasse, Expositionsklasse, Betondeckung"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merke",
+          "value": "Fehler im Planverstaendnis fuehren spaeter zu falschen Massen, falscher Bewehrung und Nacharbeit."
+        }
+      ],
+      "quizRef": ["Q1", "Q2"]
+    },
+    {
+      "id": "lf04-b2",
+      "title": "Beton-Grundlagen",
+      "goals": [
+        "Bestandteile und Kernbegriffe des Frisch- und Festbetons benennen",
+        "Einfluss von Wasserzugabe auf Festigkeit und Dauerhaftigkeit einordnen"
+      ],
+      "summary": "Beton funktioniert nur im richtigen Mischungsverhaeltnis und fuer die passende Umweltbeanspruchung.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Bestandteile: Zement, Wasser, Gesteinskoernung, ggf. Zusatzmittel und Zusatzstoffe",
+            "Wichtige Begriffe: Konsistenz, Wasser-Zement-Wert, Festigkeitsklasse, Expositionsklasse",
+            "Praxisfehler: unkontrolliertes Wasser nachkippen verbessert Verarbeitbarkeit, verschlechtert aber oft Festigkeit und Dauerhaftigkeit"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Baustellenfehler",
+          "value": "Wasserzugabe ohne Freigabe veraendert den Beton und kann zur Ablehnung der Leistung fuehren."
+        }
+      ],
+      "quizRef": ["Q3", "Q4"]
+    },
+    {
+      "id": "lf04-b3",
+      "title": "Schalung und Traggeruest",
+      "goals": [
+        "Grundprinzipien gaengiger Schalungsarten unterscheiden",
+        "Sicherheits- und Systemvorgaben beim Aufbau anwenden"
+      ],
+      "summary": "Schalung gibt Form, Traggeruest traegt Lasten waehrend der Betonage.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Typen: Rahmenschalung, Traegerschalung, Deckenschalung",
+            "Anforderungen: masshaltig, dicht und standsicher",
+            "Traggerueste und Abstuetzungen strikt nach Systemvorgaben und Aufbau-/Verwendungsanleitung",
+            "Trennmittel sparsam und richtig auftragen, nicht auf die Bewehrung"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Praxis",
+          "value": "Systemtreue bei Schalung und Traggeruest ist ein zentraler Sicherheitsfaktor."
+        }
+      ],
+      "quizRef": ["Q5", "Q6"]
+    },
+    {
+      "id": "lf04-b4",
+      "title": "Bewehrung herstellen und einbauen",
+      "goals": [
+        "Funktion der Bewehrung im Stahlbeton erklaeren",
+        "Betondeckung und Lagegenauigkeit beim Einbau sicherstellen"
+      ],
+      "summary": "Bewehrung uebernimmt Zugkraefte und muss exakt positioniert sein.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Grundidee: Beton ist druckfest, Bewehrungsstahl ergaenzt die Zugtragfaehigkeit",
+            "Bauteile: Staebe, Matten, Buegel sowie Anschluss- und Uebergreifungsbereiche",
+            "Abstandhalter sichern Betondeckung fuer Korrosionsschutz und Dauerhaftigkeit",
+            "Typische Fehler: Bewehrung auf Schalhaut, zu geringe Deckung, Lageverschiebung bei Betonage"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Fehlerbild",
+          "value": "Fehlende Betondeckung verkuerzt die Lebensdauer und erhoeht das Korrosionsrisiko deutlich."
+        }
+      ],
+      "quizRef": ["Q7", "Q8"]
+    },
+    {
+      "id": "lf04-b5",
+      "title": "Beton einbauen: Einbringen, Verdichten, Oberflaeche",
+      "goals": [
+        "Betonannahme und Einbauabfolge bauteilbezogen umsetzen",
+        "Verdichtung fachgerecht ausfuehren und typische Einbaufehler vermeiden"
+      ],
+      "summary": "Sauberer Einbau und richtige Verdichtung entscheiden ueber Dichte und Bauteilqualitaet.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Vor Einbau: Lieferschein und Betonsorte mit Bauteilanforderung abgleichen",
+            "Beton lagenweise und gleichmaessig einbringen",
+            "Je nach Bauteil mit Innenruettler oder Flaechenruettler verdichten",
+            "Einbauteile und Anker waehrend der Betonage kontrollieren, Oberflaeche abziehen oder glaetten"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Richtig ruetteln",
+          "value": "Zu kurz verursacht Lunker, zu lang kann Entmischung verursachen."
+        }
+      ],
+      "quizRef": ["Q9", "Q10"]
+    },
+    {
+      "id": "lf04-b6",
+      "title": "Nachbehandlung und Ausschalen",
+      "goals": [
+        "Bedeutung der Nachbehandlung fuer Erhaertung und Dauerhaftigkeit einordnen",
+        "Ausschalzeitpunkt nach Festigkeit und Vorgaben beurteilen"
+      ],
+      "summary": "Beton braucht Zeit, Feuchte und Temperaturkontrolle nach dem Einbau.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Hydratation braucht guenstige Temperatur- und Feuchtebedingungen",
+            "Nachbehandlung: abdecken, feucht halten, Verdunstungsschutz anpassen",
+            "Nicht zu frueh ausschalen, Festigkeit und Anweisung beachten",
+            "Kanten schuetzen und Nacharbeiten minimieren"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Wetterbezug",
+          "value": "Wind, Sonne und tiefe Temperaturen beeinflussen die Nachbehandlung direkt."
+        }
+      ],
+      "quizRef": ["Q11", "Q12"]
+    },
+    {
+      "id": "lf04-b7",
+      "title": "Qualitaetssicherung und typische Maengel",
+      "goals": [
+        "QS-Pruefpunkte vor und nach Betonage systematisch anwenden",
+        "Haeufige Maengel erkennen und dokumentieren"
+      ],
+      "summary": "QS verbindet technische Kontrolle mit dokumentierter Abnahme.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "QS-Schritte: Masse, Fluchten, Betondeckung, Lage von Einbauteilen, Sichtpruefung Oberflaeche",
+            "Typische Maengel: Kiesnester, Lunker, Risse, Ausbrueche, falsche Bauteilmasse",
+            "Dokumentation mit Checkliste, Fotos und Abnahmevermerk"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Digitaler Bezug",
+          "value": "Pruefpunkte und Abweichungen sollten nachvollziehbar und zeitnah digital dokumentiert werden."
+        }
+      ],
+      "quizRef": ["Q13", "Q14"]
+    },
+    {
+      "id": "lf04-b8",
+      "title": "Arbeitssicherheit bei Schalung, Bewehrung und Beton",
+      "goals": [
+        "Hauptgefahren auf der Stahlbetonbaustelle benennen",
+        "Wirksame Schutzmassnahmen fuer typische Taetigkeiten umsetzen"
+      ],
+      "summary": "Sicherheitsregeln sind bei Schalung, Traggeruest und Frischbeton unverzichtbar.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Hauptgefahren: Absturz, Umsturz oder Versagen von Schalung/Traggeruest, Quetschen, Stolpern an Bewehrung",
+            "Frischbeton kann Haut und Augen reizen oder veraezten",
+            "PSA je Taetigkeit: Helm, Handschuhe, Schutzbrille, Hautschutz",
+            "Schalungs- und Traggeruestsysteme nur nach Herstellerangaben und A+V betreiben"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Achtung",
+          "value": "Improvisation an tragenden Systemen ist ein hohes Risiko und nicht zulaessig."
+        }
+      ],
+      "quizRef": ["Q15", "Q16"]
+    },
+    {
+      "id": "lf04-b9",
+      "title": "Grosse Quiz-Bank LF4",
+      "goals": [
+        "LF4-Kerninhalte schnell wiederholen",
+        "Pruefungsnahe Begriffe in Kurzfragen festigen"
+      ],
+      "summary": "15 Zusatzfragen im Fahrschul-App-Stil zu Stahlbeton, QS und Sicherheit.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Nutze diese Fragebank fuer die Wiederholung quer durch Planung, Schalung, Bewehrung, Betonage, Nachbehandlung und QS."
+        }
+      ],
+      "quizRef": ["Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23", "Q24", "Q25", "Q26", "Q27", "Q28", "Q29", "Q30", "Q31"]
+    }
+  ]
+}

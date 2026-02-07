@@ -1,0 +1,553 @@
+{
+  "meta": {
+    "lernfeld": "03",
+    "title": "Mauern eines einschaligen Baukoerpers",
+    "version": "1.0"
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "block": "lf03-b1",
+      "type": "mcq_single",
+      "question": "Einschalig bedeutet vor allem ...",
+      "choices": [
+        { "id": "A", "text": "eine tragende Wand ohne zweite Vormauerschale" },
+        { "id": "B", "text": "immer zwei Waende" },
+        { "id": "C", "text": "nur Trockenbau" },
+        { "id": "D", "text": "nur Beton" }
+      ],
+      "answer": "A",
+      "explain": "Kernmerkmal ist der einschalige Aufbau ohne zweite Vormauerschale.",
+      "difficulty": "easy",
+      "tags": ["einschalig", "grundlagen"]
+    },
+    {
+      "id": "Q2",
+      "block": "lf03-b1",
+      "type": "mcq_single",
+      "question": "Einschalige Aussenwaende koennen je nach Konzept ...",
+      "choices": [
+        { "id": "A", "text": "deutlich dicker sein wegen Waermeschutz" },
+        { "id": "B", "text": "immer 5 cm sein" },
+        { "id": "C", "text": "nie gedaemmt werden" },
+        { "id": "D", "text": "nur aus Holz bestehen" }
+      ],
+      "answer": "A",
+      "explain": "Bei monolithischen Loesungen wird die Wanddicke oft fuer den Waermeschutz vergroessert.",
+      "difficulty": "easy",
+      "tags": ["einschalig", "waermeschutz"]
+    },
+    {
+      "id": "Q3",
+      "block": "lf03-b2",
+      "type": "mcq_single",
+      "question": "Stossfugen sind ...",
+      "choices": [
+        { "id": "A", "text": "senkrechte Fugen zwischen Steinen" },
+        { "id": "B", "text": "nur Putzschichten" },
+        { "id": "C", "text": "nur Deckenfugen" },
+        { "id": "D", "text": "irrelevant" }
+      ],
+      "answer": "A",
+      "explain": "Die Stossfuge liegt zwischen den Stirnseiten benachbarter Steine und ist senkrecht.",
+      "difficulty": "easy",
+      "tags": ["fugen", "baustoffe"]
+    },
+    {
+      "id": "Q4",
+      "block": "lf03-b2",
+      "type": "mcq_single",
+      "question": "Duennbettmoertel wird typischerweise genutzt, wenn ...",
+      "choices": [
+        { "id": "A", "text": "das Steinsystem dafuer vorgesehen ist (passgenau)" },
+        { "id": "B", "text": "Steine krumm sind" },
+        { "id": "C", "text": "kein Werkzeug da ist" },
+        { "id": "D", "text": "nur im Winter" }
+      ],
+      "answer": "A",
+      "explain": "Duennbettmoertel braucht passgenaue Steine und systemgerechte Verarbeitung.",
+      "difficulty": "medium",
+      "tags": ["moertel", "system"]
+    },
+    {
+      "id": "Q5",
+      "block": "lf03-b3",
+      "type": "mcq_single",
+      "question": "Was ist der Sinn eines Mauerwerksverbandes?",
+      "choices": [
+        { "id": "A", "text": "Verzahnung und Ueberdeckung fuer Tragfaehigkeit und Stabilitaet" },
+        { "id": "B", "text": "nur Optik" },
+        { "id": "C", "text": "schneller putzen" },
+        { "id": "D", "text": "weniger Steine" }
+      ],
+      "answer": "A",
+      "explain": "Der Verband steuert Lastverteilung, Fugenbild und Stabilitaet.",
+      "difficulty": "easy",
+      "tags": ["verband", "statik"]
+    },
+    {
+      "id": "Q6",
+      "block": "lf03-b3",
+      "type": "mcq_single",
+      "question": "Welche Aussage passt?",
+      "choices": [
+        { "id": "A", "text": "Laeufer-/Binderprinzip beschreibt die Orientierung der Steine" },
+        { "id": "B", "text": "Binder liegen immer laengs" },
+        { "id": "C", "text": "Laeufer sind quer" },
+        { "id": "D", "text": "Verband ist egal" }
+      ],
+      "answer": "A",
+      "explain": "Laeufer liegen laengs zur Wandrichtung, Binder quer dazu.",
+      "difficulty": "easy",
+      "tags": ["verband", "laeufer", "binder"]
+    },
+    {
+      "id": "Q7",
+      "block": "lf03-b4",
+      "type": "mcq_single",
+      "question": "Warum ist die erste Steinlage so wichtig?",
+      "choices": [
+        { "id": "A", "text": "Sie bestimmt Ebenheit und Flucht fuer den gesamten Wandaufbau" },
+        { "id": "B", "text": "ist egal" },
+        { "id": "C", "text": "nur fuers Foto" },
+        { "id": "D", "text": "nur fuer Putz" }
+      ],
+      "answer": "A",
+      "explain": "Fehler in der ersten Lage setzen sich ueber alle weiteren Lagen fort.",
+      "difficulty": "easy",
+      "tags": ["abstecken", "ausfuehrung"]
+    },
+    {
+      "id": "Q8",
+      "block": "lf03-b4",
+      "type": "mcq_single",
+      "question": "Womit kontrollierst du senkrecht?",
+      "choices": [
+        { "id": "A", "text": "Lot" },
+        { "id": "B", "text": "Massband" },
+        { "id": "C", "text": "Wasserkocher" },
+        { "id": "D", "text": "Gehoerschutz" }
+      ],
+      "answer": "A",
+      "explain": "Das Lot prueft die Senkrechte, die Richtschnur die Flucht.",
+      "difficulty": "easy",
+      "tags": ["messmittel", "abstecken"]
+    },
+    {
+      "id": "Q9",
+      "block": "lf03-b5",
+      "type": "mcq_single",
+      "question": "Was pruefst du laufend beim Mauern?",
+      "choices": [
+        { "id": "A", "text": "Flucht, Lot, Hoehe und Mass" },
+        { "id": "B", "text": "nur Farbe" },
+        { "id": "C", "text": "nur Wetter" },
+        { "id": "D", "text": "nur Handschuhe" }
+      ],
+      "answer": "A",
+      "explain": "Kontinuierliche Maß- und Lagekontrolle sichert die Qualitaet.",
+      "difficulty": "easy",
+      "tags": ["qualitaet", "ausfuehrung"]
+    },
+    {
+      "id": "Q10",
+      "block": "lf03-b5",
+      "type": "mcq_single",
+      "question": "Ecken setzt man zuerst, weil ...",
+      "choices": [
+        { "id": "A", "text": "sie die Referenz fuer Schnur und Flucht sind" },
+        { "id": "B", "text": "es schneller aussieht" },
+        { "id": "C", "text": "Moertel sonst hart wird" },
+        { "id": "D", "text": "Steine sonst reissen" }
+      ],
+      "answer": "A",
+      "explain": "Die Ecksteine bilden die Bezugspunkte fuer den Wandlauf.",
+      "difficulty": "easy",
+      "tags": ["ausfuehrung", "wandlauf"]
+    },
+    {
+      "id": "Q11",
+      "block": "lf03-b6",
+      "type": "mcq_single",
+      "question": "Was ist beim Sturz grundsaetzlich wichtig?",
+      "choices": [
+        { "id": "A", "text": "ausreichendes Auflager zur Lastabtragung" },
+        { "id": "B", "text": "nur Deko" },
+        { "id": "C", "text": "ersetzt Moertel" },
+        { "id": "D", "text": "immer aus Holz" }
+      ],
+      "answer": "A",
+      "explain": "Nur mit ausreichendem Auflager kann der Sturz Lasten sicher in die Wand abtragen.",
+      "difficulty": "easy",
+      "tags": ["oeffnungen", "sturz"]
+    },
+    {
+      "id": "Q12",
+      "block": "lf03-b7",
+      "type": "mcq_single",
+      "question": "Wozu dient eine horizontale Sperrschicht im Sockelbereich?",
+      "choices": [
+        { "id": "A", "text": "Feuchteaufstieg begrenzen" },
+        { "id": "B", "text": "Wand gerader machen" },
+        { "id": "C", "text": "mehr Tragfaehigkeit" },
+        { "id": "D", "text": "Waermedaemmung ersetzen" }
+      ],
+      "answer": "A",
+      "explain": "Die Sperrschicht unterbindet kapillaren Feuchteaufstieg aus dem Boden.",
+      "difficulty": "easy",
+      "tags": ["abdichtung", "sockel"]
+    },
+    {
+      "id": "Q13",
+      "block": "lf03-b8",
+      "type": "mcq_single",
+      "question": "Was ist bei Staub besonders kritisch?",
+      "choices": [
+        { "id": "A", "text": "Quarzstaub (Silikose/Lungenkrebs-Risiko)" },
+        { "id": "B", "text": "Putzfarbe" },
+        { "id": "C", "text": "Wasser" },
+        { "id": "D", "text": "Schnur" }
+      ],
+      "answer": "A",
+      "explain": "Quarzfeinstaub ist gesundheitlich besonders gefaehrlich und muss minimiert werden.",
+      "difficulty": "medium",
+      "tags": ["arbeitssicherheit", "staub"]
+    },
+    {
+      "id": "Q14",
+      "block": "lf03-b8",
+      "type": "mcq_single",
+      "question": "Staub sollte man ...",
+      "choices": [
+        { "id": "A", "text": "absaugen/nass bearbeiten und nicht mit Druckluft wegblasen" },
+        { "id": "B", "text": "mit Druckluft verteilen" },
+        { "id": "C", "text": "ignorieren" },
+        { "id": "D", "text": "nur im Buero messen" }
+      ],
+      "answer": "A",
+      "explain": "Staubarmes Arbeiten reduziert die Exposition fuer alle auf der Baustelle.",
+      "difficulty": "easy",
+      "tags": ["arbeitssicherheit", "staub"]
+    },
+    {
+      "id": "Q15",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Einschalig vs. zweischalig: der Hauptunterschied ist ...",
+      "choices": [
+        { "id": "A", "text": "zweite Vormauerschale/Luftschicht beim zweischaligen Aufbau" },
+        { "id": "B", "text": "Farbe" },
+        { "id": "C", "text": "Gewicht" },
+        { "id": "D", "text": "nur Putz" }
+      ],
+      "answer": "A",
+      "explain": "Zweischaliges Mauerwerk hat eine zweite Schale, einschaliges nicht.",
+      "difficulty": "easy",
+      "tags": ["einschalig", "zweischalig"]
+    },
+    {
+      "id": "Q16",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Laeuferverband: Steine liegen ueberwiegend ...",
+      "choices": [
+        { "id": "A", "text": "laengs in Wandrichtung" },
+        { "id": "B", "text": "quer" },
+        { "id": "C", "text": "senkrecht" },
+        { "id": "D", "text": "ohne Moertel" }
+      ],
+      "answer": "A",
+      "explain": "Beim Laeuferverband zeigen die Laengsseiten in Wandrichtung.",
+      "difficulty": "easy",
+      "tags": ["verband", "laeuferverband"]
+    },
+    {
+      "id": "Q17",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Verband regelt vor allem ...",
+      "choices": [
+        { "id": "A", "text": "Fugenversatz, Ueberdeckung und Verzahnung" },
+        { "id": "B", "text": "Pausenzeiten" },
+        { "id": "C", "text": "Werkzeugfarben" },
+        { "id": "D", "text": "Baustellenmusik" }
+      ],
+      "answer": "A",
+      "explain": "Diese Punkte sind fuer Tragverhalten und Rissvermeidung entscheidend.",
+      "difficulty": "easy",
+      "tags": ["verband", "grundlagen"]
+    },
+    {
+      "id": "Q18",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Lot prueft ...",
+      "choices": [
+        { "id": "A", "text": "Senkrechte" },
+        { "id": "B", "text": "Wanddicke" },
+        { "id": "C", "text": "Mauerwerksfarbe" },
+        { "id": "D", "text": "Fugentiefe" }
+      ],
+      "answer": "A",
+      "explain": "Das Lot ist das klassische Werkzeug zur Kontrolle der Vertikalen.",
+      "difficulty": "easy",
+      "tags": ["messmittel", "lot"]
+    },
+    {
+      "id": "Q19",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Richtschnur hilft bei ...",
+      "choices": [
+        { "id": "A", "text": "gerader Flucht" },
+        { "id": "B", "text": "Hautschutz" },
+        { "id": "C", "text": "Schneiden von Steinen" },
+        { "id": "D", "text": "Moertelmischung" }
+      ],
+      "answer": "A",
+      "explain": "Die Richtschnur gibt den geraden Wandverlauf vor.",
+      "difficulty": "easy",
+      "tags": ["abstecken", "richtschnur"]
+    },
+    {
+      "id": "Q20",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Bei Oeffnungen ist wichtig ...",
+      "choices": [
+        { "id": "A", "text": "Masshaltigkeit und Lastabtragung ueber Sturz/Auflager" },
+        { "id": "B", "text": "nur Fensterfarbe" },
+        { "id": "C", "text": "nur Putzstaerke" },
+        { "id": "D", "text": "nur Dekoration" }
+      ],
+      "answer": "A",
+      "explain": "Masse und tragendes Detail entscheiden ueber Funktion und Sicherheit.",
+      "difficulty": "easy",
+      "tags": ["oeffnungen", "sturz"]
+    },
+    {
+      "id": "Q21",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Horizontale Sperrschicht schuetzt vor ...",
+      "choices": [
+        { "id": "A", "text": "aufsteigender Feuchte" },
+        { "id": "B", "text": "Windlast" },
+        { "id": "C", "text": "Sonneneinstrahlung" },
+        { "id": "D", "text": "Laerm" }
+      ],
+      "answer": "A",
+      "explain": "Sie wirkt als Barriere gegen kapillaren Feuchtetransport.",
+      "difficulty": "easy",
+      "tags": ["abdichtung", "feuchte"]
+    },
+    {
+      "id": "Q22",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Stossfuge ist ...",
+      "choices": [
+        { "id": "A", "text": "senkrecht" },
+        { "id": "B", "text": "waagerecht" },
+        { "id": "C", "text": "kreisfoermig" },
+        { "id": "D", "text": "immer offen" }
+      ],
+      "answer": "A",
+      "explain": "Stossfugen liegen vertikal zwischen benachbarten Steinen.",
+      "difficulty": "easy",
+      "tags": ["fugen", "grundlagen"]
+    },
+    {
+      "id": "Q23",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Lagerfuge ist ...",
+      "choices": [
+        { "id": "A", "text": "waagerecht" },
+        { "id": "B", "text": "senkrecht" },
+        { "id": "C", "text": "nur bei Putz" },
+        { "id": "D", "text": "unwichtig" }
+      ],
+      "answer": "A",
+      "explain": "Die Lagerfuge liegt horizontal zwischen zwei Steinlagen.",
+      "difficulty": "easy",
+      "tags": ["fugen", "grundlagen"]
+    },
+    {
+      "id": "Q24",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Typischer Qualitaetscheck beim Mauern ist ...",
+      "choices": [
+        { "id": "A", "text": "Flucht, Lot und Hoehe regelmaessig pruefen" },
+        { "id": "B", "text": "nur Werkzeug zaehlen" },
+        { "id": "C", "text": "nur Foto machen" },
+        { "id": "D", "text": "nur am Ende messen" }
+      ],
+      "answer": "A",
+      "explain": "Laufende Kontrolle vermeidet Fehlerfortschreibung ueber mehrere Lagen.",
+      "difficulty": "easy",
+      "tags": ["qualitaet", "kontrolle"]
+    },
+    {
+      "id": "Q25",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Warum Ecksteine zuerst?",
+      "choices": [
+        { "id": "A", "text": "Sie definieren die Referenz fuer Schnur und Wandlauf" },
+        { "id": "B", "text": "nur wegen Optik" },
+        { "id": "C", "text": "damit weniger Moertel noetig ist" },
+        { "id": "D", "text": "weil Zwischensteine spaeter geliefert werden" }
+      ],
+      "answer": "A",
+      "explain": "Ecken dienen als feste Bezugspunkte fuer die komplette Lage.",
+      "difficulty": "easy",
+      "tags": ["ausfuehrung", "ecken"]
+    },
+    {
+      "id": "Q26",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Was ist ein haeufiges Fehlerbild?",
+      "choices": [
+        { "id": "A", "text": "durchgefugte Ecke ohne Verzahnung" },
+        { "id": "B", "text": "sauberer Fugenversatz" },
+        { "id": "C", "text": "Lotrechte Wand" },
+        { "id": "D", "text": "masshaltige Oeffnung" }
+      ],
+      "answer": "A",
+      "explain": "Fehlende Verzahnung schwaecht den Wandanschluss.",
+      "difficulty": "medium",
+      "tags": ["fehlerbild", "verband"]
+    },
+    {
+      "id": "Q27",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Staubige Arbeiten moeglichst ...",
+      "choices": [
+        { "id": "A", "text": "staubarm ausfuehren, absaugen und Schutz beachten" },
+        { "id": "B", "text": "mit Druckluft ausblasen" },
+        { "id": "C", "text": "ohne PSA" },
+        { "id": "D", "text": "nur bei Wind ausfuehren" }
+      ],
+      "answer": "A",
+      "explain": "Staubarme Verfahren und Schutzmassnahmen reduzieren Gesundheitsrisiken.",
+      "difficulty": "easy",
+      "tags": ["arbeitssicherheit", "staub"]
+    },
+    {
+      "id": "Q28",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Druckluft zum Reinigen von Staub ist ...",
+      "choices": [
+        { "id": "A", "text": "unguenstig und zu vermeiden" },
+        { "id": "B", "text": "immer vorgeschrieben" },
+        { "id": "C", "text": "harmlos" },
+        { "id": "D", "text": "die beste Loesung" }
+      ],
+      "answer": "A",
+      "explain": "Druckluft wirbelt Feinstaub auf und erhoeht die Belastung.",
+      "difficulty": "easy",
+      "tags": ["staub", "arbeitssicherheit"]
+    },
+    {
+      "id": "Q29",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Mauerwerksverbaende: Beispiele sind ...",
+      "choices": [
+        { "id": "A", "text": "Blockverband, Kreuzverband" },
+        { "id": "B", "text": "nur Trockenbauverband" },
+        { "id": "C", "text": "nur Blechfalz" },
+        { "id": "D", "text": "keine Beispiele" }
+      ],
+      "answer": "A",
+      "explain": "Beide Verbandsarten sind klassische Mauerwerksverbaende.",
+      "difficulty": "easy",
+      "tags": ["verband", "beispiele"]
+    },
+    {
+      "id": "Q30",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Einschalige Aussenwanddicken sind oft groesser, weil ...",
+      "choices": [
+        { "id": "A", "text": "Waermeschutz bei monolithischer Bauweise mitberuecksichtigt wird" },
+        { "id": "B", "text": "nur dickere Steine verkauft werden" },
+        { "id": "C", "text": "Putz dicker sein muss" },
+        { "id": "D", "text": "Fenster sonst nicht passen" }
+      ],
+      "answer": "A",
+      "explain": "Monolithische Aussenwaende kombinieren Tragfunktion und Waermeschutz.",
+      "difficulty": "medium",
+      "tags": ["einschalig", "waermeschutz"]
+    },
+    {
+      "id": "Q31",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Verzahnung bedeutet ...",
+      "choices": [
+        { "id": "A", "text": "Steine greifen ueberbindend ineinander" },
+        { "id": "B", "text": "alle Fugen liegen uebereinander" },
+        { "id": "C", "text": "Steine werden nur geklebt" },
+        { "id": "D", "text": "nur Eckschutz montieren" }
+      ],
+      "answer": "A",
+      "explain": "Ueberbindendes Ineinandergreifen verbessert Lastabtrag und Stabilitaet.",
+      "difficulty": "easy",
+      "tags": ["verzahnung", "verband"]
+    },
+    {
+      "id": "Q32",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Ueberdeckung meint ...",
+      "choices": [
+        { "id": "A", "text": "ausreichenden Fugenversatz ueber der darunterliegenden Stossfuge" },
+        { "id": "B", "text": "dicken Putz" },
+        { "id": "C", "text": "Abdeckung mit Folie" },
+        { "id": "D", "text": "nur den Wandabschluss" }
+      ],
+      "answer": "A",
+      "explain": "Fugenversatz verhindert durchlaufende Schwachstellen im Mauerwerk.",
+      "difficulty": "medium",
+      "tags": ["ueberdeckung", "fugenversatz"]
+    },
+    {
+      "id": "Q33",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Bei Moertel ist wichtig ...",
+      "choices": [
+        { "id": "A", "text": "Konsistenz und Verarbeitungszeit passend zum System" },
+        { "id": "B", "text": "nur die Farbe" },
+        { "id": "C", "text": "nur hoher Wasseranteil" },
+        { "id": "D", "text": "nur die Temperatur des Eimers" }
+      ],
+      "answer": "A",
+      "explain": "Falsche Konsistenz oder Topfzeit fuehrt zu Verarbeitungs- und Festigkeitsproblemen.",
+      "difficulty": "easy",
+      "tags": ["moertel", "ausfuehrung"]
+    },
+    {
+      "id": "Q34",
+      "block": "lf03-b9",
+      "type": "mcq_single",
+      "question": "Was gehoert in LF3 laut Zielfokus eindeutig rein?",
+      "choices": [
+        { "id": "A", "text": "Oeffnungen, Baustoff/Verband entscheiden, Abdichtung gegen Bodenfeuchte" },
+        { "id": "B", "text": "Gleisbogen einmessen" },
+        { "id": "C", "text": "Weichenmontage" },
+        { "id": "D", "text": "Schienenschweissen" }
+      ],
+      "answer": "A",
+      "explain": "Diese Themen bilden den Kern des Lernfelds 3 fuer einschaliges Mauerwerk.",
+      "difficulty": "medium",
+      "tags": ["lf3", "zielfokus"]
+    }
+  ]
+}

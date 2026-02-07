@@ -12,8 +12,8 @@ VALUES
     ('lf-04', 'Stahlbetonbauteile herstellen', 'Schalung, Bewehrung, Beton', 1, 'Stahlbeton'),
     ('lf-05', 'Holzkonstruktionen herstellen', 'Holzbauteile, Verbindungen, Montage', 1, 'Holzbau'),
     ('lf-06', 'Bauteile beschichten und bekleiden', 'Schutz, Abdichtung, Oberflächen', 1, 'Oberflächen'),
-    ('lf-07', 'Baugründe erkunden', 'Bodenarten, Tragfähigkeit, Baugrunduntersuchung', 2, 'Baugrund'),
-    ('lf-08', 'Erdbauwerke errichten', 'Aushub, Verbau, Planum, Verdichtung', 2, 'Erdbau'),
+    ('lf-07', 'Baugruben und Graeben herstellen und sichern', 'Boeschung, Verbau, Wasserhaltung, Arbeitssicherheit', 2, 'Tiefbau / Gleisbau'),
+    ('lf-08', 'Verkehrsflaechen herstellen', 'Planum, Schichtenaufbau, Pflaster, Asphalt, Entwaesserung', 2, 'Tiefbau / Gleisbau'),
     ('lf-09', 'Verkehrsflächen aus Pflaster- und Plattenbelägen herstellen', 'Wege, Flächen, Unterbau', 2, 'Pflaster'),
     ('lf-10', 'Gleisanlagen neu bauen', 'Gleisaufbau, Schotter, Schwellen, Schienen', 2, 'Neubau Gleis'),
     ('lf-11', 'Gleisbögen herstellen und einmessen', 'Vermessung, Gleislage, Radien', 3, 'Gleisbögen'),
@@ -25,3 +25,5 @@ SET title = EXCLUDED.title,
     description = EXCLUDED.description,
     year = EXCLUDED.year,
     tag = EXCLUDED.tag;
+
+

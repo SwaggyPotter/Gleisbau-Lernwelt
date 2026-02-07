@@ -1,0 +1,409 @@
+{
+  "meta": {
+    "lernfeld": "07",
+    "title": "Baugruben und Graeben herstellen und sichern",
+    "version": "1.0"
+  },
+  "questions": [
+    {
+      "id": "Q1",
+      "block": "lf07-b1",
+      "type": "mcq_single",
+      "question": "Ein Graben ist in der Regel ...",
+      "choices": [
+        { "id": "A", "text": "laenglich und schmal" },
+        { "id": "B", "text": "immer rund" },
+        { "id": "C", "text": "ueberdacht" },
+        { "id": "D", "text": "hoeher als breit" }
+      ],
+      "answer": "A",
+      "explain": "Graeben werden typischerweise als laengliche Aushuebe ausgefuehrt.",
+      "difficulty": "easy",
+      "tags": ["grundlagen", "graben"]
+    },
+    {
+      "id": "Q2",
+      "block": "lf07-b1",
+      "type": "mcq_single",
+      "question": "Baugruben werden meist benoetigt fuer ...",
+      "choices": [
+        { "id": "A", "text": "Fundamente, Bauwerke oder Schaechte" },
+        { "id": "B", "text": "Anstriche" },
+        { "id": "C", "text": "nur Pflaster" },
+        { "id": "D", "text": "Daecher" }
+      ],
+      "answer": "A",
+      "explain": "Baugruben dienen vor allem der Herstellung von Bauwerken und deren Gruendung.",
+      "difficulty": "easy",
+      "tags": ["grundlagen", "baugrube"]
+    },
+    {
+      "id": "Q3",
+      "block": "lf07-b2",
+      "type": "mcq_single",
+      "question": "Was ist die groesste Gefahr bei ungesicherten Graeben?",
+      "choices": [
+        { "id": "A", "text": "Einsturz und Verschuetten" },
+        { "id": "B", "text": "Staub" },
+        { "id": "C", "text": "Laerm" },
+        { "id": "D", "text": "Hitze" }
+      ],
+      "answer": "A",
+      "explain": "Die akute Lebensgefahr entsteht durch nachrutschenden Boden und Einsturz.",
+      "difficulty": "easy",
+      "tags": ["gefahren", "sicherheit"]
+    },
+    {
+      "id": "Q4",
+      "block": "lf07-b3",
+      "type": "mcq_single",
+      "question": "Wann ist eine Boeschung besonders kritisch?",
+      "choices": [
+        { "id": "A", "text": "bei lockerem oder nassem Boden" },
+        { "id": "B", "text": "bei Sonne" },
+        { "id": "C", "text": "bei Beton" },
+        { "id": "D", "text": "bei Asphalt" }
+      ],
+      "answer": "A",
+      "explain": "Lockerer oder nasser Boden verliert Stabilitaet und braucht flachere Boeschungen.",
+      "difficulty": "easy",
+      "tags": ["boeschung", "boden"]
+    },
+    {
+      "id": "Q5",
+      "block": "lf07-b4",
+      "type": "mcq_single",
+      "question": "Wann ist Verbau zwingend?",
+      "choices": [
+        { "id": "A", "text": "wenn Boeschung nicht sicher oder nicht moeglich ist" },
+        { "id": "B", "text": "nur im Winter" },
+        { "id": "C", "text": "nur nachts" },
+        { "id": "D", "text": "freiwillig" }
+      ],
+      "answer": "A",
+      "explain": "Kann die Boeschung die Sicherheit nicht gewaehrleisten, muss verbaut werden.",
+      "difficulty": "easy",
+      "tags": ["verbau", "sicherheit"]
+    },
+    {
+      "id": "Q6",
+      "block": "lf07-b4",
+      "type": "mcq_single",
+      "question": "Verbau wird zurueckgebaut ...",
+      "choices": [
+        { "id": "A", "text": "erst nach dem Verfuellen" },
+        { "id": "B", "text": "vor dem Betonieren" },
+        { "id": "C", "text": "sofort" },
+        { "id": "D", "text": "nie" }
+      ],
+      "answer": "A",
+      "explain": "Der Rueckbau erfolgt erst, wenn die Standsicherheit durch Verfuellung gesichert ist.",
+      "difficulty": "easy",
+      "tags": ["verbau", "ablauf"]
+    },
+    {
+      "id": "Q7",
+      "block": "lf07-b5",
+      "type": "mcq_single",
+      "question": "Warum ist Wasser in der Baugrube gefaehrlich?",
+      "choices": [
+        { "id": "A", "text": "Unterspuelung und Instabilitaet" },
+        { "id": "B", "text": "nur wegen Schmutz" },
+        { "id": "C", "text": "wegen Farbe" },
+        { "id": "D", "text": "ist egal" }
+      ],
+      "answer": "A",
+      "explain": "Wasser schwemmt Boden aus und kann die Baugrubenwaende destabilisieren.",
+      "difficulty": "easy",
+      "tags": ["wasserhaltung", "gefahren"]
+    },
+    {
+      "id": "Q8",
+      "block": "lf07-b6",
+      "type": "mcq_single",
+      "question": "Randlasten an der Kante sind gefaehrlich, weil ...",
+      "choices": [
+        { "id": "A", "text": "sie Einsturz ausloesen koennen" },
+        { "id": "B", "text": "sie stauben" },
+        { "id": "C", "text": "sie teuer sind" },
+        { "id": "D", "text": "sie laut sind" }
+      ],
+      "answer": "A",
+      "explain": "Zusatzlasten an der Kante erhoehen den Bodendruck und damit das Einsturzrisiko.",
+      "difficulty": "easy",
+      "tags": ["randlasten", "arbeitsraum"]
+    },
+    {
+      "id": "Q9",
+      "block": "lf07-b7",
+      "type": "mcq_single",
+      "question": "Wie darf man eine Baugrube betreten?",
+      "choices": [
+        { "id": "A", "text": "nur ueber sichere Zugaenge" },
+        { "id": "B", "text": "springend" },
+        { "id": "C", "text": "mit improvisierter Leiter" },
+        { "id": "D", "text": "ueber den Rand klettern" }
+      ],
+      "answer": "A",
+      "explain": "Sichere Zugaenge sind Pflicht, Improvisation ist unzulaessig.",
+      "difficulty": "easy",
+      "tags": ["zugang", "arbeitsschutz"]
+    },
+    {
+      "id": "Q10",
+      "block": "lf07-b8",
+      "type": "mcq_single",
+      "question": "Was ist ein schwerer Fehler?",
+      "choices": [
+        { "id": "A", "text": "Arbeiten unter ungesichertem Grubenrand" },
+        { "id": "B", "text": "Pause machen" },
+        { "id": "C", "text": "Helm tragen" },
+        { "id": "D", "text": "messen" }
+      ],
+      "answer": "A",
+      "explain": "Ungelesicherte Randbereiche duerfen nicht betreten oder unterarbeitet werden.",
+      "difficulty": "easy",
+      "tags": ["kontrolle", "fehler"]
+    },
+    {
+      "id": "Q11",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Welche Aussage ist richtig?",
+      "choices": [
+        { "id": "A", "text": "Ungesicherte Graeben sind lebensgefaehrlich" },
+        { "id": "B", "text": "Ungesicherte Graeben sind unkritisch" },
+        { "id": "C", "text": "Nur tiefe Graeben sind gefaehrlich" },
+        { "id": "D", "text": "Gefahr besteht nur bei Regen" }
+      ],
+      "answer": "A",
+      "explain": "Bereits bei geringeren Tiefen besteht akute Einsturz- und Verschuettungsgefahr.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "sicherheit"]
+    },
+    {
+      "id": "Q12",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Wovon haengt die Boeschung wesentlich ab?",
+      "choices": [
+        { "id": "A", "text": "Von Boden und Wasser" },
+        { "id": "B", "text": "Nur von der Uhrzeit" },
+        { "id": "C", "text": "Nur von der Farbe des Bodens" },
+        { "id": "D", "text": "Nur vom Werkzeug" }
+      ],
+      "answer": "A",
+      "explain": "Bodenart und Wasserverhaeltnisse beeinflussen die Stabilitaet direkt.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "boeschung"]
+    },
+    {
+      "id": "Q13",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Welche Aussage zu Verbau und Boeschung ist korrekt?",
+      "choices": [
+        { "id": "A", "text": "Verbau ersetzt Boeschung, wenn Platz fehlt" },
+        { "id": "B", "text": "Verbau und Boeschung schliessen sich immer aus" },
+        { "id": "C", "text": "Verbau ist nur bei Frost erlaubt" },
+        { "id": "D", "text": "Boeschung ist immer Pflicht" }
+      ],
+      "answer": "A",
+      "explain": "Wenn eine sichere Boeschung nicht moeglich ist, wird mit Verbau gesichert.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "verbau"]
+    },
+    {
+      "id": "Q14",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Welche Wirkung hat Wasser auf den Boden in Baugruben?",
+      "choices": [
+        { "id": "A", "text": "Es reduziert die Standfestigkeit" },
+        { "id": "B", "text": "Es erhoeht immer die Tragfaehigkeit" },
+        { "id": "C", "text": "Es hat keinen Einfluss" },
+        { "id": "D", "text": "Es verhindert Randabbrueche" }
+      ],
+      "answer": "A",
+      "explain": "Durch Wasser kann der Boden aufgeweicht oder ausgespuelt werden.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "wasserhaltung"]
+    },
+    {
+      "id": "Q15",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Wo duerfen Randlasten gelagert werden?",
+      "choices": [
+        { "id": "A", "text": "Nicht direkt an der Kante" },
+        { "id": "B", "text": "Moeglichst nah an der Kante" },
+        { "id": "C", "text": "Immer auf dem Verbau" },
+        { "id": "D", "text": "Nur bei trockenem Wetter an der Kante" }
+      ],
+      "answer": "A",
+      "explain": "Abstand zur Kante reduziert zusaetzliche Lasten am kritischen Randbereich.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "randlasten"]
+    },
+    {
+      "id": "Q16",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Wann soll Verbau eingebaut werden?",
+      "choices": [
+        { "id": "A", "text": "Mit dem Aushub" },
+        { "id": "B", "text": "Erst nach kompletter Fertigstellung" },
+        { "id": "C", "text": "Nur bei Nacht" },
+        { "id": "D", "text": "Nach Rueckbau der Boeschung" }
+      ],
+      "answer": "A",
+      "explain": "Der Verbau muss den Aushubschritt begleiten, um Sicherheit zu gewaehrleisten.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "verbau"]
+    },
+    {
+      "id": "Q17",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Rueckbau von Verbau erfolgt ...",
+      "choices": [
+        { "id": "A", "text": "erst nach Verfuellung" },
+        { "id": "B", "text": "direkt nach Einbau" },
+        { "id": "C", "text": "vor der Sicherung" },
+        { "id": "D", "text": "nur bei Maschinenstillstand" }
+      ],
+      "answer": "A",
+      "explain": "Der Verbau bleibt bis zur gesicherten Verfuellung wirksam.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "verbau"]
+    },
+    {
+      "id": "Q18",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Welche Aussage zu Baugrube und Graben stimmt?",
+      "choices": [
+        { "id": "A", "text": "Sie unterscheiden sich in Form und Zweck" },
+        { "id": "B", "text": "Es sind immer dieselben Bauwerke" },
+        { "id": "C", "text": "Nur der Name ist anders" },
+        { "id": "D", "text": "Graben ist immer breiter als Baugrube" }
+      ],
+      "answer": "A",
+      "explain": "Baugrube und Graben haben unterschiedliche Geometrie und Einsatzbereiche.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "grundlagen"]
+    },
+    {
+      "id": "Q19",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Wie erfolgt der Zugang in die Baugrube korrekt?",
+      "choices": [
+        { "id": "A", "text": "Ueber sichere Leiter oder Rampe" },
+        { "id": "B", "text": "Durch Springen" },
+        { "id": "C", "text": "Ueber lose Kanten" },
+        { "id": "D", "text": "Mit improvisierten Brettern" }
+      ],
+      "answer": "A",
+      "explain": "Sichere Zugaenge sind verbindliche Schutzmassnahmen.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "zugang"]
+    },
+    {
+      "id": "Q20",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Wie oft sollte die Sichtpruefung mindestens erfolgen?",
+      "choices": [
+        { "id": "A", "text": "Taeglich" },
+        { "id": "B", "text": "Nur montags" },
+        { "id": "C", "text": "Nur nach Beschwerden" },
+        { "id": "D", "text": "Einmal pro Monat" }
+      ],
+      "answer": "A",
+      "explain": "Taegliche Kontrolle ist notwendig, weil sich Bedingungen schnell aendern.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "kontrolle"]
+    },
+    {
+      "id": "Q21",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Pumpensumpf gehoert zu welcher Wasserhaltung?",
+      "choices": [
+        { "id": "A", "text": "Offene Wasserhaltung" },
+        { "id": "B", "text": "Geschlossene Wasserhaltung" },
+        { "id": "C", "text": "Nur Notentwaesserung" },
+        { "id": "D", "text": "Keine Wasserhaltung" }
+      ],
+      "answer": "A",
+      "explain": "Beim Pumpensumpf wird Wasser offen gesammelt und abgepumpt.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "wasserhaltung"]
+    },
+    {
+      "id": "Q22",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Wann sind Spundwaende besonders sinnvoll?",
+      "choices": [
+        { "id": "A", "text": "Bei tiefen oder wasserfuehrenden Baugruben" },
+        { "id": "B", "text": "Nur bei trockenem Sand" },
+        { "id": "C", "text": "Nur fuer Pflasterarbeiten" },
+        { "id": "D", "text": "Ausschliesslich bei kleinen Graeben" }
+      ],
+      "answer": "A",
+      "explain": "Spundwaende sind fuer hohe Tiefen und Wasserandrang geeignet.",
+      "difficulty": "medium",
+      "tags": ["quizbank", "verbau"]
+    },
+    {
+      "id": "Q23",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Was zaehlt als Randlast?",
+      "choices": [
+        { "id": "A", "text": "Maschinenlasten" },
+        { "id": "B", "text": "Nur Personen" },
+        { "id": "C", "text": "Nur Regenwasser" },
+        { "id": "D", "text": "Nur Werkzeuge in der Tasche" }
+      ],
+      "answer": "A",
+      "explain": "Maschinen, Material, Aushub und Fahrzeuge sind typische Randlasten.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "randlasten"]
+    },
+    {
+      "id": "Q24",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Welche PSA ist im Baugrubenbereich Pflicht?",
+      "choices": [
+        { "id": "A", "text": "Helm" },
+        { "id": "B", "text": "Nur Sonnenbrille" },
+        { "id": "C", "text": "Nur Handschuhe" },
+        { "id": "D", "text": "Keine PSA bei kurzer Arbeit" }
+      ],
+      "answer": "A",
+      "explain": "Mindestens Helm, Warnkleidung und Sicherheitsschuhe gehoeren zur Grundausstattung.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "psa"]
+    },
+    {
+      "id": "Q25",
+      "block": "lf07-b9",
+      "type": "mcq_single",
+      "question": "Welcher Grundsatz gilt in LF7 immer?",
+      "choices": [
+        { "id": "A", "text": "Sicherheit geht vor Tempo" },
+        { "id": "B", "text": "Tempo geht vor Sicherheit" },
+        { "id": "C", "text": "Zeitdruck ersetzt Kontrolle" },
+        { "id": "D", "text": "Verbau ist optional" }
+      ],
+      "answer": "A",
+      "explain": "Arbeitssicherheit hat bei Baugruben und Graeben immer Prioritaet.",
+      "difficulty": "easy",
+      "tags": ["quizbank", "sicherheitsprinzip"]
+    }
+  ]
+}

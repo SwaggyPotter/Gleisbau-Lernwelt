@@ -1,0 +1,229 @@
+{
+  "blocks": [
+    {
+      "id": "lf08-b1",
+      "title": "Was sind Verkehrsflaechen?",
+      "goals": [
+        "Verkehrsflaechen im Baustellenkontext sicher definieren",
+        "Typische Anwendungsfaelle im Tiefbau und Gleisbau erkennen"
+      ],
+      "summary": "Verkehrsflaechen dienen der sicheren Nutzung durch Fussgaenger und Fahrzeuge.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Verkehrsflaechen sind Flaechen fuer Fussgaenger, Fahrzeuge, Baustellenverkehr und Einsatzfahrzeuge",
+            "Beispiele: Gehwege, Strassen, Zufahrten, Bahnsteige, Arbeits-, Hof- und Lagerflaechen",
+            "Ziel ist sichere, dauerhafte und funktionale Nutzung unter Last"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Praxisbezug",
+          "value": "Verkehrsflaechen sind im Tiefbau Alltag und muessen Last, Wetter und Wasser dauerhaft standhalten."
+        }
+      ],
+      "quizRef": ["Q1"]
+    },
+    {
+      "id": "lf08-b2",
+      "title": "Untergrund und Planum",
+      "goals": [
+        "Planum als tragende Grundlage einordnen",
+        "Anforderungen an Ebenheit, Tragfaehigkeit, Gefaelle und Verdichtung anwenden"
+      ],
+      "summary": "Fehler im Planum wirken sich auf alle darueberliegenden Schichten aus.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Planum ist die oberste hergestellte Schicht des Untergrunds",
+            "Anforderungen: eben, tragfaehig, richtiges Gefaelle und ausreichende Verdichtung",
+            "Planumfehler fuehren spaeter zu Setzungen, Unebenheiten und Schaeden in der Deckschicht"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Wichtig",
+          "value": "Ein schlechtes Planum kann durch gute obere Schichten nicht vollstaendig kompensiert werden."
+        }
+      ],
+      "quizRef": ["Q2"]
+    },
+    {
+      "id": "lf08-b3",
+      "title": "Schichtenaufbau von Verkehrsflaechen",
+      "goals": [
+        "Schichtenfolge von unten nach oben sicher benennen",
+        "Funktionen der einzelnen Schichten verstehen"
+      ],
+      "summary": "Untergrund, Tragschicht, Bettung und Deckschicht bilden gemeinsam die Tragstruktur.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Typischer Aufbau: Untergrund, Frostschutz- oder Tragschicht, Bettung (bei Pflaster), Deckschicht",
+            "Schichten verteilen Lasten, schuetzen vor Frost und sichern Ebenheit sowie Haltbarkeit",
+            "Die Qualitaet jeder Einzelschicht entscheidet ueber die Dauerhaftigkeit der Gesamtflaeche"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Systemdenken",
+          "value": "Verkehrsflaechen funktionieren nur als abgestimmtes Schichtsystem."
+        }
+      ],
+      "quizRef": ["Q3"]
+    },
+    {
+      "id": "lf08-b4",
+      "title": "Tragschichten und Verdichtung",
+      "goals": [
+        "Typische Tragschichtmaterialien benennen",
+        "Lagenweise Verdichtung fachgerecht durchfuehren"
+      ],
+      "summary": "Ohne Verdichtung keine Tragfaehigkeit.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Typische Materialien: Schotter, Mineralgemisch, Kies-Sand-Gemische",
+            "Verdichtung erfolgt lagenweise mit passendem Geraet wie Ruettelplatte oder Walze",
+            "In der Ausbildung wird die Wirkung zunaechst ueber Sicht, Verhalten und gleichmaessige Flaeche kontrolliert"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Ohne Verdichtung keine Tragfaehigkeit."
+        }
+      ],
+      "quizRef": ["Q4"]
+    },
+    {
+      "id": "lf08-b5",
+      "title": "Pflasterflaechen herstellen",
+      "goals": [
+        "Ablauf von Planum bis Fugenverfuellung sicher anwenden",
+        "Randbefestigungen und Fugenbild als Qualitaetskriterien umsetzen"
+      ],
+      "summary": "Pflaster braucht tragfaehigen Unterbau, korrektes Gefaelle und stabile Randbefestigungen.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Ablauf: Planum herstellen, Tragschicht einbauen und verdichten, Bettung abziehen, Pflaster verlegen, abruetteln, Fugen verfuellen",
+            "Wichtig sind gleichmaessiges Fugenbild und sicheres Oberflaechengefaelle",
+            "Randbefestigungen wie Borde verhindern seitliches Wandern der Steine"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Qualitaet",
+          "value": "Ein sauberes Fugenbild verbessert Funktion und Dauerhaftigkeit, nicht nur die Optik."
+        }
+      ],
+      "quizRef": ["Q5"]
+    },
+    {
+      "id": "lf08-b6",
+      "title": "Asphaltflaechen (Grundverstaendnis)",
+      "goals": [
+        "Asphaltaufbau und Einbaugrundlagen einordnen",
+        "Typische Fehler beim Asphalteinbau erkennen"
+      ],
+      "summary": "Asphalt wird heiss eingebaut und mit Walze verdichtet.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Asphalt besteht aus Gesteinskoernung und Bitumen",
+            "Einbau erfolgt heiss, damit Material verformbar und verdichtbar bleibt",
+            "Typische Schichten sind Binder- und Deckschicht",
+            "Typische Fehler: zu kalter Einbau, ungleichmaessige Verdichtung, falsches Gefaelle"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Fehlerfolge",
+          "value": "Zu kalter Asphalt fuehrt haeufig zu mangelhafter Verdichtung und fruehem Schaden."
+        }
+      ],
+      "quizRef": ["Q6"]
+    },
+    {
+      "id": "lf08-b7",
+      "title": "Entwaesserung und Gefaelle",
+      "goals": [
+        "Gefaellearten unterscheiden",
+        "Wasserableitung als Pflichtfunktion von Verkehrsflaechen planen"
+      ],
+      "summary": "Stehendes Wasser verursacht Schaeden und muss durch Gefaelle sicher abgefuehrt werden.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Gefaelle sorgt fuer sicheren Wasserablauf und verhindert Schaeden",
+            "Unterschieden werden Laengsgefaelle und Quergefaelle",
+            "Wasser darf nicht stehen bleiben, Anschluesse an Rinnen und Gullys sind mitzuplanen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Praxis",
+          "value": "Entwaesserung muss in der Flaechenplanung von Anfang an mitgedacht werden."
+        }
+      ],
+      "quizRef": ["Q7"]
+    },
+    {
+      "id": "lf08-b8",
+      "title": "Qualitaetssicherung und typische Fehler",
+      "goals": [
+        "Pruefpunkte in der Eigenkontrolle anwenden",
+        "Haeufige Fehler und Schadensbilder frueh erkennen"
+      ],
+      "summary": "Kontrolle von Ebenheit, Gefaelle, Verdichtung und Randbereichen ist Pflicht.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Kontrollen: Ebenheit, Gefaelle, Verdichtung, Fugenbild und Randbefestigungen",
+            "Typische Fehler: fehlende Verdichtung, kein Gefaelle, kippendes Pflaster, Spurrinnen im Asphalt",
+            "Mangelhafte Ausfuehrung unten zeigt sich oft erst spaeter an der Oberflaeche"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merke",
+          "value": "Qualitaetssicherung ist Pflicht und kein optionaler Zusatz."
+        }
+      ],
+      "quizRef": ["Q8"]
+    },
+    {
+      "id": "lf08-b9",
+      "title": "Grosse Quiz-Bank LF8",
+      "goals": [
+        "Kernregeln zum Schichtenaufbau im Schnellmodus festigen",
+        "Typische Praxisfehler sicher erkennen"
+      ],
+      "summary": "15 Zusatzfragen im Fahrschul-App-Stil zu Planum, Verdichtung, Pflaster, Asphalt und Entwaesserung.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Nutze die Zusatzfragen fuer Wiederholung zu Schichtenaufbau, Tragfaehigkeit, Wasserableitung und Qualitaetssicherung."
+        }
+      ],
+      "quizRef": ["Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23"]
+    }
+  ]
+}

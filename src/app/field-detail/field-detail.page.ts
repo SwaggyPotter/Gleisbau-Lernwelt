@@ -77,17 +77,17 @@ export class FieldDetailPage implements OnInit, OnDestroy {
     'lf-07': {
       lehrjahr: '2. Lehrjahr',
       lernfeld: 'LF 7',
-      titel: 'Baugründe erkunden',
+      titel: 'Baugruben und Graeben herstellen und sichern',
       geltung: 'bundesweit',
-      schwerpunkt: 'Bodenarten, Tragfähigkeit, Baugrunduntersuchung',
+      schwerpunkt: 'Boeschung, Verbau, Wasserhaltung, Arbeitssicherheit',
       niveau: 'Aufbau',
     },
     'lf-08': {
       lehrjahr: '2. Lehrjahr',
       lernfeld: 'LF 8',
-      titel: 'Erdbauwerke errichten',
+      titel: 'Verkehrsflaechen herstellen',
       geltung: 'bundesweit',
-      schwerpunkt: 'Aushub, Verbau, Planum, Verdichtung',
+      schwerpunkt: 'Planum, Schichtenaufbau, Pflaster, Asphalt, Entwaesserung',
       niveau: 'Aufbau',
     },
     'lf-09': {
@@ -182,3 +182,5 @@ export class FieldDetailPage implements OnInit, OnDestroy {
     });
   }
 }
+
+

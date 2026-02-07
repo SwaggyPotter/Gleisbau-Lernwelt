@@ -1,0 +1,222 @@
+{
+  "blocks": [
+    {
+      "id": "lf07-b1",
+      "title": "Grundlagen: Baugrube vs. Graben",
+      "goals": [
+        "Baugrube und Graben fachlich sicher unterscheiden",
+        "Typische Einsatzfaelle im Tiefbau und Gleisbau zuordnen"
+      ],
+      "summary": "Baugrube ist flaechiger Aushub, Graben ist laenglich und schmal.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Baugrube: groesserer, flaechiger Aushub fuer Fundamente, Schaechte oder Bauwerke",
+            "Graben: laenglicher Aushub fuer Leitungen, Kabel oder Entwaesserung",
+            "Typische Einsaetze im Gleisbau: Kabeltrassen, Entwaesserung, Fundamente und Schaechte"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merke",
+          "value": "Graben und Baugrube unterscheiden sich vor allem in Form und Zweck."
+        }
+      ],
+      "quizRef": ["Q1", "Q2"]
+    },
+    {
+      "id": "lf07-b2",
+      "title": "Gefaehrdungen und Sicherungspflicht",
+      "goals": [
+        "Hauptgefahren in Baugruben und Graeben erkennen",
+        "Sicherung als zwingende Pflicht begruenden"
+      ],
+      "summary": "Ungesicherte Baugruben und Graeben sind lebensgefaehrlich.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Hauptgefahren: Erdrutsch, Einsturz, Absturz, Verschuetten, Wasserzulauf und Unterspuelung",
+            "Maschinenlasten und Material an der Kante erhoehen die Einsturzgefahr",
+            "Sicherungen muessen vor dem Betreten und waehrend der Arbeiten wirksam sein"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Warnung",
+          "value": "Arbeiten unter ungesichertem Rand ist lebensgefaehrlich und unzulaessig."
+        }
+      ],
+      "quizRef": ["Q3"]
+    },
+    {
+      "id": "lf07-b3",
+      "title": "Boeschung: Wann reicht sie aus?",
+      "goals": [
+        "Boeschung als Sicherungsmassnahme einordnen",
+        "Einflussfaktoren Boden, Tiefe, Wasser und Platz bewerten"
+      ],
+      "summary": "Je lockerer oder nasser der Boden, desto flacher muss die Boeschung werden.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Boeschung ist ein geneigter Grubenrand zur Sicherung gegen Einsturz",
+            "Massgebend sind Bodenart, Tiefe, Wasserverhaeltnisse und verfuegbarer Platz",
+            "Faustregel: fester Boden steiler moeglich, lockerer oder nasser Boden deutlich flacher"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Praxisregel",
+          "value": "In der Praxis immer nach Planung, Vorgaben und gueltigem Regelwerk arbeiten."
+        }
+      ],
+      "quizRef": ["Q4"]
+    },
+    {
+      "id": "lf07-b4",
+      "title": "Verbauarten (Herzstueck LF7)",
+      "goals": [
+        "Situationen fuer Verbau sicher erkennen",
+        "Typische Verbauarten und Grundregeln anwenden"
+      ],
+      "summary": "Verbau ist zwingend, wenn Boeschung nicht moeglich oder nicht sicher ist.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Typische Verbauarten: Grabenverbau mit Boxen oder Gleitschienen, Traegerbohlwand, Spundwand",
+            "Spundwaende eignen sich besonders bei tiefen oder wasserfuehrenden Baugruben",
+            "Verbau wird mit dem Aushub eingebaut, standsicher gehalten und erst nach Verfuellung zurueckgebaut"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Ablauf",
+          "value": "Einbau und Rueckbau von Verbau folgen einem klaren Sicherheitsablauf."
+        }
+      ],
+      "quizRef": ["Q5", "Q6"]
+    },
+    {
+      "id": "lf07-b5",
+      "title": "Wasserhaltung",
+      "goals": [
+        "Gefahr durch Wasser in Baugruben beurteilen",
+        "Offene und geschlossene Wasserhaltung unterscheiden"
+      ],
+      "summary": "Wasser reduziert Standfestigkeit und steigert die Einsturzgefahr.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Wasser kann Boden ausspuelen und die Standfestigkeit stark verringern",
+            "Offene Wasserhaltung: Pumpensumpf mit laufender Ableitung",
+            "Geschlossene Wasserhaltung: Brunnen oder Filter, meist nach Planung"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Achtung",
+          "value": "Wasseranstau in der Baugrube darf nicht ignoriert werden."
+        }
+      ],
+      "quizRef": ["Q7"]
+    },
+    {
+      "id": "lf07-b6",
+      "title": "Arbeitsraum und Randlasten",
+      "goals": [
+        "Ausreichenden Arbeitsraum sicherstellen",
+        "Gefaehrliche Randlasten vermeiden"
+      ],
+      "summary": "Randlasten direkt an der Kante koennen Einstuerze ausloesen.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Arbeitsraum muss breit genug fuer Arbeiten, Bewegen und Einbauen sein",
+            "Randlasten sind z. B. Aushub, Fahrzeuge, Maschinen und Material",
+            "Randlasten niemals direkt an der Gruben- oder Grabenkante lagern"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Organisation",
+          "value": "Materialflaechen und Fahrwege frueh festlegen, damit Kanten frei bleiben."
+        }
+      ],
+      "quizRef": ["Q8"]
+    },
+    {
+      "id": "lf07-b7",
+      "title": "Sicherer Zugang und Arbeiten",
+      "goals": [
+        "Sichere Zugaenge in die Baugrube anwenden",
+        "PSA und Ordnung im Arbeitsbereich konsequent nutzen"
+      ],
+      "summary": "Betreten nur ueber sichere Zugaenge wie Leiter oder Rampe.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Pflicht: sichere Zugaenge, saubere Wege und keine losen Kanten",
+            "PSA: Helm, Warnkleidung und Sicherheitsschuhe sind Standard",
+            "Improvisierte Zugaenge oder Klettern ueber den Rand sind unzulaessig"
+          ]
+        }
+      ],
+      "quizRef": ["Q9"]
+    },
+    {
+      "id": "lf07-b8",
+      "title": "Kontrolle und typische Fehler",
+      "goals": [
+        "Taegliche Sichtpruefungen strukturiert durchfuehren",
+        "Typische Fehlerbilder frueh erkennen und vermeiden"
+      ],
+      "summary": "Sichtpruefung taeglich: Verbau, Wasser, Hohlraeume und Randlasten.",
+      "content": [
+        {
+          "type": "list",
+          "items": [
+            "Kontrollen: Verbau sitzt korrekt, keine Hohlraeume, kein Wasseranstau, keine Randlasten",
+            "Typische Fehler: Verbau zu spaet eingebaut, Aushub zu nah an der Kante, Wasser ignoriert",
+            "Schwerer Fehler: Arbeiten unter ungesichertem Grubenrand"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Sicherheitsprinzip",
+          "value": "Sicherheit geht vor Tempo."
+        }
+      ],
+      "quizRef": ["Q10"]
+    },
+    {
+      "id": "lf07-b9",
+      "title": "Grosse Quiz-Bank LF7",
+      "goals": [
+        "Kernregeln aus LF7 im Schnellmodus wiederholen",
+        "Sicherheitsrelevante Entscheidungen festigen"
+      ],
+      "summary": "15 Zusatzfragen im Fahrschul-App-Stil fuer Baugruben, Graeben, Verbau und Wasserhaltung.",
+      "content": [
+        {
+          "type": "text",
+          "value": "Nutze die Zusatzfragen fuer Wiederholung zu Gefahren, Boeschung, Verbau, Wasserhaltung, Randlasten und taeglicher Kontrolle."
+        }
+      ],
+      "quizRef": ["Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23", "Q24", "Q25"]
+    }
+  ]
+}

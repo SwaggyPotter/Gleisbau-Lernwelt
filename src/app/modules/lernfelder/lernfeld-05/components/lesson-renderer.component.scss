@@ -1,0 +1,29 @@
+.goals {
+  margin-bottom: 12px;
+}
+
+.entries {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.paragraph {
+  line-height: 1.5;
+}
+
+.bullet {
+  padding-left: 18px;
+}
+
+.callout {
+  border-left: 4px solid var(--ion-color-primary);
+}
+
+.callout.danger {
+  border-color: var(--ion-color-danger);
+}
+
+.callout.tip {
+  border-color: var(--ion-color-success);
+}

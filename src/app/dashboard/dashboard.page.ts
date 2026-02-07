@@ -8,7 +8,7 @@ type GleisbauModule = {
   description: string;
   tag: string;
   link: string;
-  year: 1 | 2 | 3;
+  year?: 1 | 2 | 3;
   lf: string;
 };
 
@@ -21,6 +21,7 @@ type GleisbauModule = {
 export class DashboardPage {
   user: UserProfile | null = null;
   summary = { completed: 0, inProgress: 0, planned: 0 };
+  searchTerm = '';
   gleisbauModules: GleisbauModule[] = [
     {
       id: 'lf01-custom',
@@ -82,7 +83,6 @@ export class DashboardPage {
       description: 'Leitfaden inkl. Quiz und Checklisten aus dem Nivellement-PDF.',
       tag: 'Bonus',
       link: '/zusatz/nivellieren',
-      year: 1,
       lf: 'Zusatz',
     },
     {
@@ -186,14 +186,54 @@ export class DashboardPage {
     this.router.navigate(['/profile']);
   }
 
-  gleisbauGroups(): Array<{ year: 1 | 2 | 3; modules: GleisbauModule[] }> {
-    const grouped: Record<number, GleisbauModule[]> = {};
-    this.gleisbauModules.forEach(m => {
-      if (!grouped[m.year]) grouped[m.year] = [];
-      grouped[m.year].push(m);
+  onSearchInput(event: Event): void {
+    const custom = event as CustomEvent<{ value?: string }>;
+    this.searchTerm = custom.detail?.value ?? '';
+  }
+
+  get filteredModules(): GleisbauModule[] {
+    const query = this.normalizeText(this.searchTerm);
+    if (!query) return this.gleisbauModules;
+
+    const terms = query.split(/\s+/).filter(Boolean);
+    return this.gleisbauModules.filter(module => {
+      const haystack = this.normalizeText([
+        module.title,
+        module.description,
+        module.tag,
+        module.lf,
+      ].join(' '));
+      return terms.every(term => haystack.includes(term));
     });
-    return Object.keys(grouped)
-      .map(y => ({ year: Number(y) as 1 | 2 | 3, modules: grouped[Number(y)] }))
-      .sort((a, b) => a.year - b.year);
+  }
+
+  get yearGroups(): Array<{ year: 1 | 2 | 3; modules: GleisbauModule[] }> {
+    const years: Array<1 | 2 | 3> = [1, 2, 3];
+    return years
+      .map(year => ({
+        year,
+        modules: this.filteredModules.filter(module => module.year === year),
+      }))
+      .filter(group => group.modules.length > 0);
+  }
+
+  get extraModules(): GleisbauModule[] {
+    return this.filteredModules.filter(module => module.year === undefined);
+  }
+
+  get totalVisibleModules(): number {
+    return this.filteredModules.length;
+  }
+
+  get hasActiveSearch(): boolean {
+    return this.searchTerm.trim().length > 0;
+  }
+
+  private normalizeText(value: string): string {
+    return value
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/ß/g, 'ss');
   }
 }

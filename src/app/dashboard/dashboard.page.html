@@ -22,8 +22,18 @@
       <p class="eyebrow">Uebersicht</p>
       <h1>Hallo {{ user?.name || 'Admin' }}, hier sind deine Lernfelder</h1>
       <p class="lede">
-        Gleisbau-Module nach Lehrjahr geordnet. Alte Standard-Lernfelder sind ausgeblendet.
+        Gleisbau-Module nach Lehrjahr mit zusaetzlichen Extras. Alte Standard-Lernfelder sind ausgeblendet.
       </p>
+      <div class="search-wrap">
+        <ion-searchbar
+          [value]="searchTerm"
+          (ionInput)="onSearchInput($event)"
+          placeholder="Themen suchen, z. B. Schalung"
+          [debounce]="0"
+          [showClearButton]="'focus'"
+        ></ion-searchbar>
+        <p class="search-hint" *ngIf="hasActiveSearch">Treffer: {{ totalVisibleModules }}</p>
+      </div>
       <div class="pill-row">
         <div class="pill">
           <span>Abgeschlossen</span>
@@ -41,7 +51,7 @@
     </div>
   </section>
 
-  <section class="grid-section" *ngFor="let group of gleisbauGroups()">
+  <section class="grid-section" *ngFor="let group of yearGroups">
     <div class="section-head">
       <p class="eyebrow">Lehrjahr {{ group.year }}</p>
       <h2>Gleisbau Lernfelder</h2>
@@ -67,6 +77,43 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+  </section>
+
+  <section class="grid-section" *ngIf="extraModules.length > 0">
+    <div class="section-head">
+      <p class="eyebrow">Extra</p>
+      <h2>Zusatzmodule</h2>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let module of extraModules">
+          <ion-card class="tile-card highlight" [routerLink]="module.link">
+            <ion-card-header>
+              <div class="tile-top">
+                <ion-chip color="tertiary" outline="true">
+                  <ion-label>{{ module.tag }}</ion-label>
+                </ion-chip>
+                <ion-badge color="primary">{{ module.lf }}</ion-badge>
+              </div>
+              <ion-card-title>{{ module.title }}</ion-card-title>
+              <ion-card-subtitle>{{ module.description }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <p class="tile-description">Direkter Zugang: {{ module.link }}</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <section class="no-results" *ngIf="hasActiveSearch && totalVisibleModules === 0">
+    <ion-card class="tile-card">
+      <ion-card-header>
+        <ion-card-title>Keine Treffer</ion-card-title>
+        <ion-card-subtitle>Fuer "{{ searchTerm }}" wurde kein Lernfeld gefunden.</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
   </section>
 
 </ion-content>

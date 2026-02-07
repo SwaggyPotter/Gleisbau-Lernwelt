@@ -85,6 +85,25 @@
   color: rgba(232, 238, 245, 0.8);
 }
 
+.search-wrap {
+  margin: 0 0 12px;
+}
+
+.search-wrap ion-searchbar {
+  --background: rgba(255, 255, 255, 0.96);
+  --color: #0b1626;
+  --placeholder-color: #4b5563;
+  --icon-color: #0f2438;
+  border-radius: 12px;
+  padding: 0;
+}
+
+.search-hint {
+  margin: 6px 2px 0;
+  font-size: 13px;
+  color: rgba(232, 238, 245, 0.82);
+}
+
 .pill-row {
   display: flex;
   flex-wrap: wrap;
@@ -122,6 +141,10 @@
 
 .grid-section {
   margin-top: 28px;
+}
+
+.no-results {
+  margin-top: 24px;
 }
 
 .section-head h2 {

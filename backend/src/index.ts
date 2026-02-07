@@ -54,7 +54,7 @@ const runStartupMigrations = async () => {
       { id: 'lf-11', title: 'Gleisbögen herstellen und einmessen', description: 'Vermessung, Gleislage, Radien', year: 3, tag: 'Gleisbögen' },
       { id: 'lf-12', title: 'Weichen montieren und einmessen', description: 'Weichenarten, Einbau, Kontrolle', year: 3, tag: 'Weichen' },
       { id: 'lf-13', title: 'Weichen bauen und instand halten', description: 'Weichenaufbau, Einbau, Instandhaltung und sichere Weichenarbeit', year: 3, tag: 'Weichentechnik' },
-      { id: 'lf-14', title: 'Gleisanlagen instand halten', description: 'Wartung, Reparatur, Qualitätssicherung', year: 3, tag: 'Instandhaltung' },
+      { id: 'lf-14', title: 'Sonderbauformen und besondere Gleisanlagen herstellen und instand halten', description: 'Sonderbauformen, Bahnuebergaenge, feste Fahrbahn und komplexe Gleisbereiche', year: 3, tag: 'Spezialthemen Gleisbau' },
     ];
 
     for (const f of fields) {

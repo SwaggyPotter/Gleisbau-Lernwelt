@@ -148,6 +148,15 @@ export class DashboardPage {
       year: 3,
       lf: 'LF 13',
     },
+    {
+      id: 'lf14-sonderbauformen',
+      title: 'Lernfeld 14: Sonderbauformen und besondere Gleisanlagen',
+      description: 'Bahnuebergaenge, feste Fahrbahn und komplexe Gleisbereiche sicher herstellen und instand halten.',
+      tag: 'Gleisbau',
+      link: '/lernfelder/14',
+      year: 3,
+      lf: 'LF 14',
+    },
   ];
 
   constructor(

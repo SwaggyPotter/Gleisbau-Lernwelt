@@ -19,7 +19,7 @@ VALUES
     ('lf-11', 'Gleisanlage herstellen und sichern', 'Oberbau, Gleislage, Stopfen, Vermessung und Gleissicherheit', 3, 'Gleisbau'),
     ('lf-12', 'Gleisanlagen instand halten', 'Gleisfehler, Stopfen, Messung, Sicherung unter Betrieb und Dokumentation', 3, 'Gleisbau'),
     ('lf-13', 'Weichen bauen und instand halten', 'Weichenaufbau, Einbau, Instandhaltung und sichere Weichenarbeit', 3, 'Weichentechnik'),
-    ('lf-14', 'Gleisanlagen instand halten', 'Wartung, Reparatur, Qualitätssicherung', 3, 'Instandhaltung')
+    ('lf-14', 'Sonderbauformen und besondere Gleisanlagen herstellen und instand halten', 'Sonderbauformen, Bahnuebergaenge, feste Fahrbahn und komplexe Gleisbereiche', 3, 'Spezialthemen Gleisbau')
 ON CONFLICT (id) DO UPDATE
 SET title = EXCLUDED.title,
     description = EXCLUDED.description,

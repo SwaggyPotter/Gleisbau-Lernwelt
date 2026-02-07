@@ -133,10 +133,10 @@ export class FieldDetailPage implements OnInit, OnDestroy {
     'lf-14': {
       lehrjahr: '3. Lehrjahr',
       lernfeld: 'LF 14',
-      titel: 'Gleisanlagen instand halten',
+      titel: 'Sonderbauformen und besondere Gleisanlagen herstellen und instand halten',
       geltung: 'bundesweit',
-      schwerpunkt: 'Wartung, Reparatur, Qualitätssicherung',
-      niveau: 'Fortgeschritten',
+      schwerpunkt: 'Sonderbauformen, Bahnuebergaenge, feste Fahrbahn und komplexe Gleisbereiche',
+      niveau: 'Fortgeschritten / Spezialthemen',
     },
   };
 

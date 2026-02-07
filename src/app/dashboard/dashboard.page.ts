@@ -1,8 +1,16 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription, switchMap, of } from 'rxjs';
 import { AuthService, UserProfile } from '../services/auth.service';
-import { ApiService, SnapshotDto } from '../services/api.service';
+
+type GleisbauModule = {
+  id: string;
+  title: string;
+  description: string;
+  tag: string;
+  link: string;
+  year: 1 | 2 | 3;
+  lf: string;
+};
 
 @Component({
   selector: 'app-dashboard',
@@ -10,17 +18,18 @@ import { ApiService, SnapshotDto } from '../services/api.service';
   styleUrls: ['./dashboard.page.scss'],
   standalone: false,
 })
-export class DashboardPage implements OnDestroy {
+export class DashboardPage {
   user: UserProfile | null = null;
-  groupedTiles: Array<{ year: 1 | 2 | 3; fields: SnapshotDto['fields'] }> = [];
   summary = { completed: 0, inProgress: 0, planned: 0 };
-  customModules = [
+  gleisbauModules: GleisbauModule[] = [
     {
       id: 'lf01-custom',
       title: 'Lernfeld 1: Baustellen einrichten (Gleisbau)',
       description: 'Interaktives Modul mit Blocks, Quiz, Szenarien und Puzzle.',
       tag: 'Gleisbau',
       link: '/lernfelder/1',
+      year: 1,
+      lf: 'LF 1',
     },
     {
       id: 'lf02-bau',
@@ -28,6 +37,8 @@ export class DashboardPage implements OnDestroy {
       description: 'Baugrund, Baugruben, Wasserhaltung, Fundamente, Vermessung, Leitungen.',
       tag: 'Tiefbau',
       link: '/lernfelder/2',
+      year: 1,
+      lf: 'LF 2',
     },
     {
       id: 'zusatz-nivellieren',
@@ -35,36 +46,19 @@ export class DashboardPage implements OnDestroy {
       description: 'Leitfaden inkl. Quiz und Checklisten aus dem Nivellement-PDF.',
       tag: 'Bonus',
       link: '/zusatz/nivellieren',
+      year: 1,
+      lf: 'Zusatz',
     },
   ];
-  private sub = new Subscription();
 
   constructor(
     private readonly authService: AuthService,
-    private readonly api: ApiService,
     private readonly router: Router,
   ) {
-    this.sub.add(
-      this.authService.user$.pipe(
-        switchMap(user => {
-          this.user = user;
-          if (!user) {
-            this.groupedTiles = [];
-            this.summary = { completed: 0, inProgress: 0, planned: 0 };
-            return of(null);
-          }
-          return this.api.getSnapshot(user.id);
-        }),
-      ).subscribe(res => {
-        if (res?.snapshot) {
-          this.applySnapshot(res.snapshot as SnapshotDto);
-        }
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+      this.summary = { completed: 0, inProgress: 0, planned: this.gleisbauModules.length };
+    });
   }
 
   handleLogout(): void {
@@ -84,39 +78,14 @@ export class DashboardPage implements OnDestroy {
     this.router.navigate(['/profile']);
   }
 
-  tileStatus(progress?: number): { label: 'Abgeschlossen' | 'In Arbeit' | 'Offen'; color: string } {
-    const value = progress ?? 0;
-    if (value >= 1) return { label: 'Abgeschlossen', color: 'success' };
-    if (value > 0) return { label: 'In Arbeit', color: 'warning' };
-    return { label: 'Offen', color: 'medium' };
-  }
-
-  lfNumber(id?: string): string {
-    if (!id) return '';
-    const num = id.replace(/\D+/g, '');
-    return num ? `LF ${parseInt(num, 10)}` : '';
-  }
-
-  private refreshTiles(): void {
-    // handled in subscription
-  }
-
-  private applySnapshot(snapshot: SnapshotDto): void {
-    const fields = snapshot.fields ?? [];
-    const grouped: Record<number, typeof fields> = {};
-    fields.forEach(field => {
-      const yr = field.year;
-      if (!grouped[yr]) grouped[yr] = [];
-      grouped[yr].push(field);
+  gleisbauGroups(): Array<{ year: 1 | 2 | 3; modules: GleisbauModule[] }> {
+    const grouped: Record<number, GleisbauModule[]> = {};
+    this.gleisbauModules.forEach(m => {
+      if (!grouped[m.year]) grouped[m.year] = [];
+      grouped[m.year].push(m);
     });
-    this.groupedTiles = Object.keys(grouped).map(y => ({
-      year: Number(y) as 1 | 2 | 3,
-      fields: grouped[Number(y)],
-    })).sort((a, b) => a.year - b.year);
-
-    const completed = fields.filter(f => (f.progress ?? 0) >= 1).length;
-    const inProgress = fields.filter(f => (f.progress ?? 0) > 0 && (f.progress ?? 0) < 1).length;
-    const planned = fields.filter(f => (f.progress ?? 0) === 0).length;
-    this.summary = { completed, inProgress, planned };
+    return Object.keys(grouped)
+      .map(y => ({ year: Number(y) as 1 | 2 | 3, modules: grouped[Number(y)] }))
+      .sort((a, b) => a.year - b.year);
   }
 }

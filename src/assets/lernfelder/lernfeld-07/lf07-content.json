@@ -4,24 +4,74 @@
       "id": "lf07-b1",
       "title": "Grundlagen: Baugrube vs. Graben",
       "goals": [
-        "Baugrube und Graben fachlich sicher unterscheiden",
-        "Typische Einsatzfaelle im Tiefbau und Gleisbau zuordnen"
+        "Baugrube und Graben nach Form, Funktion und Einsatzfall sicher unterscheiden",
+        "Typische Anwendungen im Tiefbau und Gleisbau mit den richtigen Grundpruefungen verknuepfen"
       ],
-      "summary": "Baugrube ist flaechiger Aushub, Graben ist laenglich und schmal.",
+      "summary": "Graben ist lang und schmal entlang einer Trasse, Baugrube ist flaechiger Aushub fuer Bauwerke und Schaechte.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Kernunterschied: so laesst es sich sofort merken."
+        },
         {
           "type": "list",
           "items": [
-            "Baugrube: groesserer, flaechiger Aushub fuer Fundamente, Schaechte oder Bauwerke",
-            "Graben: laenglicher Aushub fuer Leitungen, Kabel oder Entwaesserung",
-            "Typische Einsaetze im Gleisbau: Kabeltrassen, Entwaesserung, Fundamente und Schaechte"
+            "Baugrube ist ein flaechiger Aushub, um Platz fuer ein Bauwerk oder einen Schacht zu schaffen",
+            "Graben ist ein laenglicher, schmaler Aushub entlang einer Linie, z. B. fuer Leitungen",
+            "Merkhilfe: Graben bedeutet Linie, Baugrube bedeutet Flaeche"
           ]
         },
         {
           "type": "callout",
           "variant": "info",
-          "title": "Merke",
-          "value": "Graben und Baugrube unterscheiden sich vor allem in Form und Zweck."
+          "title": "Merksatz",
+          "value": "Graben ist lang und schmal, Baugrube ist grossflaechig."
+        },
+        {
+          "type": "text",
+          "value": "2. Typische Einsatzfaelle im Tiefbau."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Baugruben werden fuer Fundamente, Bodenplatten, Schaechte, Uebergabebauwerke und kleine Bauwerke genutzt",
+            "Dabei werden oft Arbeitsraum, Geraetezugang und Platz fuer Schalung oder Betonage benoetigt",
+            "Graeben werden fuer Kabel, Rohre, Entwaesserungsleitungen, Drainagen und Medientrassen genutzt",
+            "Typisch sind definierte Trasse, feste Tiefe und Breite sowie Bettung oder Schutzschicht"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Praxisbezug im Gleisbau."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Graeben im Gleisbau dienen haeufig Kabeltrassen entlang der Strecke, Entwaesserungsleitungen und Querungen",
+            "Baugruben im Gleisbau dienen Fundamente fuer Masten, Signale und Schaltschraenke sowie Kabel- und Entwaesserungsschaechte",
+            "Auch kleine Bauwerke und Anschlussstellen werden ueber Baugruben hergestellt"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Was bei beiden Aushubarten sofort geprueft werden muss."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Lage im Bestand und Trasse",
+            "Tiefe und Abmessungen",
+            "Bodenverhaeltnisse, z. B. standfest oder rutschig",
+            "Wasserzutritt oder Grundwasser",
+            "Umgebungslasten durch Gleis, Verkehr oder Maschinen",
+            "Bestehende Leitungen im Boden"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Achtung",
+          "value": "Bestandsleitungen muessen vor dem Aushub zwingend geklaert und gesichert sein."
         }
       ],
       "quizRef": ["Q1", "Q2"]
@@ -30,24 +80,96 @@
       "id": "lf07-b2",
       "title": "Gefaehrdungen und Sicherungspflicht",
       "goals": [
-        "Hauptgefahren in Baugruben und Graeben erkennen",
-        "Sicherung als zwingende Pflicht begruenden"
+        "Hauptgefahren in Baugruben und Graeben frueh erkennen und richtig bewerten",
+        "Sicherungsmaßnahmen vor Betreten und waehrend der Arbeiten konsequent umsetzen"
       ],
-      "summary": "Ungesicherte Baugruben und Graeben sind lebensgefaehrlich.",
+      "summary": "Ungesicherte Baugruben und Graeben sind lebensgefaehrlich, Sicherung ist daher Pflicht und keine Option.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum das lebenswichtig ist."
+        },
         {
           "type": "list",
           "items": [
-            "Hauptgefahren: Erdrutsch, Einsturz, Absturz, Verschuetten, Wasserzulauf und Unterspuelung",
-            "Maschinenlasten und Material an der Kante erhoehen die Einsturzgefahr",
-            "Sicherungen muessen vor dem Betreten und waehrend der Arbeiten wirksam sein"
+            "Ungesicherte Baugruben und Graeben gehoeren zu den gefaehrlichsten Baustellensituationen",
+            "Einsturz und Verschuettung koennen ohne Vorwarnung in Sekunden eintreten",
+            "Arbeiten unter ungesichertem Rand ist lebensgefaehrlich und unzulaessig"
           ]
         },
         {
           "type": "callout",
           "variant": "danger",
-          "title": "Warnung",
+          "title": "Warnsatz",
           "value": "Arbeiten unter ungesichertem Rand ist lebensgefaehrlich und unzulaessig."
+        },
+        {
+          "type": "text",
+          "value": "2. Hauptgefahren in Baugruben und Graeben."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Erdrutsch oder Einsturz durch feuchten Boden, Erschuetterungen oder falsche Boeschung",
+            "Absturz in Graben oder Baugrube bei fehlender Sicherung",
+            "Verschuettung bereits durch kleinere Nachrutscher",
+            "Wasserzulauf und Unterspuelung durch Regen, Rohrbruch oder Grundwasser",
+            "Zusatzlasten an der Kante durch Maschinen, Material, Aushub und Verkehr"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Last an der Kante macht aus steht schon sehr schnell faellt um."
+        },
+        {
+          "type": "text",
+          "value": "3. Sicherungspflicht in der Praxis."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sicherung muss vor dem Betreten wirksam sein",
+            "Sicherung muss waehrend der Arbeit wirksam bleiben und kontrolliert werden",
+            "Sicherung muss an Boden, Tiefe, Wasser und Lasten angepasst sein",
+            "Typische Sicherungen: Boeschung, Verbau, Absturzsicherung, Kantenmanagement und Wasserhaltung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Typische Baustellenfehler und warum sie gefaehrlich sind."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Nur kurz ohne Sicherung in den Aushub steigen",
+            "Aushub oder Material direkt an der Kante lagern",
+            "Bagger oder Fahrzeuge zu nah an der Kante einsetzen",
+            "Wasserzutritt ignorieren",
+            "Aufgebaute Sicherung teilweise entfernen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Mini-Check vor dem Betreten."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Ist die Wand durch Boeschung oder Verbau gesichert",
+            "Ist die Kante abgesperrt oder mit Absturzschutz versehen",
+            "Liegt Material oder Last an der Kante",
+            "Gibt es Wasserzutritt oder feuchten instabilen Boden",
+            "Gibt es sicheren Ein- und Ausstieg",
+            "Ist laufende Kontrolle der Sicherung organisiert"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Sicherheitsprinzip",
+          "value": "Erst sichern, dann betreten, dann kontrolliert arbeiten."
         }
       ],
       "quizRef": ["Q3"]
@@ -56,24 +178,87 @@
       "id": "lf07-b3",
       "title": "Boeschung: Wann reicht sie aus?",
       "goals": [
-        "Boeschung als Sicherungsmassnahme einordnen",
-        "Einflussfaktoren Boden, Tiefe, Wasser und Platz bewerten"
+        "Boeschung als Sicherungsmassnahme fachgerecht bewerten und richtig einsetzen",
+        "Einflussfaktoren Boden, Tiefe, Wasser, Platz und Randlasten sicher beurteilen"
       ],
-      "summary": "Je lockerer oder nasser der Boden, desto flacher muss die Boeschung werden.",
+      "summary": "Boeschung sichert nur dann, wenn Boden, Wasser, Tiefe und Platzverhaeltnisse wirklich passen.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Was eine Boeschung ist und warum sie eine Sicherung ist."
+        },
         {
           "type": "list",
           "items": [
-            "Boeschung ist ein geneigter Grubenrand zur Sicherung gegen Einsturz",
-            "Massgebend sind Bodenart, Tiefe, Wasserverhaeltnisse und verfuegbarer Platz",
-            "Faustregel: fester Boden steiler moeglich, lockerer oder nasser Boden deutlich flacher"
+            "Boeschung ist ein geneigter Gruben- oder Grabenrand zur Reduzierung seitlicher Erddruecke",
+            "Sie senkt Nachrutsch- und Einsturzrisiken, aber nur bei passenden Randbedingungen",
+            "Boeschung ist eine Sicherungsmassnahme und keine Standardsituation fuer jede Baustelle"
           ]
         },
         {
           "type": "callout",
           "variant": "info",
+          "title": "Merksatz",
+          "value": "Boeschung bedeutet Sicherheit durch Neigung, aber nur wenn Boden und Wasser mitspielen."
+        },
+        {
+          "type": "text",
+          "value": "2. Entscheidende Einflussfaktoren, die immer zu bewerten sind."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bodenart und Standfestigkeit: nichtbindige Boeden rieseln schneller, bindige Boeden reagieren kritisch bei Wasser",
+            "Tiefe: mit zunehmender Tiefe steigen Erddruecke und die Fehlerfolgen",
+            "Wasserverhaeltnisse: Regen, Zulauf oder Grundwasser koennen Boeschungen schnell instabil machen",
+            "Platz und Umgebung: Boeschung braucht Breite und ist in engen Baufeldern oft nicht moeglich"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Richtwerte fuer Boeschungswinkel nur als Orientierung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bis etwa 45 Grad bei nichtbindigen oder weichen bindigen Boeden",
+            "Bis etwa 60 Grad bei mindestens steifen bindigen Boeden",
+            "Bis etwa 80 Grad bei standfestem Fels ohne unguenstige Schichtung",
+            "Bei Wasser, Erschuetterung, Auflast oder Sonderlagen sind strengere Massnahmen oder Nachweise noetig"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Praxisregeln auf jeder Baustelle."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schutzstreifen an der Kante freihalten und nicht belasten",
+            "Wenn Raender betreten werden, mindestens 0,6 m Schutzstreifen beachten",
+            "Keine Maschinen, Fahrzeuge oder Materiallasten an der Kante",
+            "Bei Wasserzutritt sofort reagieren: Wasserhaltung, Nacharbeit der Boeschung oder Wechsel auf Verbau",
+            "Boeschung regelmaessig auf Risse, Nachrieseln, Auskolkungen und feuchte Zonen kontrollieren"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Typische Fehler und erkennbare Warnzeichen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zu steile Boeschung in lockerem Boden fuehrt zu Nachrieseln und Kantenabbruechen",
+            "Unveraenderte Boeschung bei Naesse kann ploetzlich nachrutschen",
+            "Aushub oder Material an der Kante erzeugt zusaetzliche Last und Sackungen",
+            "Ignorierter Schutzstreifen erhoeht Absturz- und Einsturzrisiko"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
           "title": "Praxisregel",
-          "value": "In der Praxis immer nach Planung, Vorgaben und gueltigem Regelwerk arbeiten."
+          "value": "Boeschungen immer nach Planung, Vorgaben und gueltigem Regelwerk herstellen und laufend kontrollieren."
         }
       ],
       "quizRef": ["Q4"]
@@ -82,24 +267,93 @@
       "id": "lf07-b4",
       "title": "Verbauarten (Herzstueck LF7)",
       "goals": [
-        "Situationen fuer Verbau sicher erkennen",
-        "Typische Verbauarten und Grundregeln anwenden"
+        "Verbaupflicht sicher erkennen und im Baustellenablauf richtig umsetzen",
+        "Typische Verbauarten, Einbauprinzipien und Sicherheitsregeln praxisgerecht anwenden"
       ],
-      "summary": "Verbau ist zwingend, wenn Boeschung nicht moeglich oder nicht sicher ist.",
+      "summary": "Verbau ist Pflicht, wenn Boeschung nicht moeglich oder nicht sicher ist, und muss vor Betreten wirksam sein.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Wann Verbau zwingend ist."
+        },
         {
           "type": "list",
           "items": [
-            "Typische Verbauarten: Grabenverbau mit Boxen oder Gleitschienen, Traegerbohlwand, Spundwand",
-            "Spundwaende eignen sich besonders bei tiefen oder wasserfuehrenden Baugruben",
-            "Verbau wird mit dem Aushub eingebaut, standsicher gehalten und erst nach Verfuellung zurueckgebaut"
+            "Wenn Boeschung wegen Platzmangel nicht moeglich ist, z. B. nahe Gleis, Strasse oder Gebaeude",
+            "Wenn Boeschung wegen Boden, Wasser, Tiefe oder Erschuetterung nicht sicher ist",
+            "Wenn Planung, Vorgaben oder Regelwerk Verbau fordern"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksatz",
+          "value": "Wenn Boeschung nicht sicher geht, ist Verbau Pflicht ohne Diskussion."
+        },
+        {
+          "type": "text",
+          "value": "2. Grundprinzip Verbau."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verbau stuetzt seitliche Waende, damit Boden nicht nachrutscht",
+            "Verbau wird im Ablauf mit dem Aushub hergestellt und nicht erst nachtraeglich eingesetzt",
+            "Sicherungen muessen vor dem Betreten wirksam sein und waehrend aller Bauzustaende standsicher bleiben"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Typische Verbauarten und ihre Schwerpunkte."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Grabenverbau oder Verbaukasten: haeufig im Leitungsbau, schnell und robust bei standardisierten Grabenbreiten",
+            "Gleitschienenverbau: geeignet bei beengten Verhaeltnissen und groesseren Tiefen, kontrollierter Einbau und Rueckbau",
+            "Traegerbohlwand: vertikale Traeger mit Bohlen dazwischen, flexibel anpassbar fuer Baugruben",
+            "Spundwand: nahezu geschlossene Stahlwand, besonders geeignet bei Tiefe, Wasser und Platzmangel"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Spundwand ist stark bei Tiefe, Wasser und engem Baufeld."
+        },
+        {
+          "type": "text",
+          "value": "4. Sicherheitsablauf fuer Einbau und Rueckbau."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Vorher Planung, Leitungen und Wasserverhaeltnisse pruefen",
+            "Verbau nach Systemanleitung ansetzen und fuehren",
+            "Aushub abschnittsweise herstellen und Verbau mitfuehren",
+            "Standsicherheit laufend auf Verformung, Nachrutschen und Wasser pruefen",
+            "Rueckbau erst abschnittsweise nach Verfuellung durchfuehren"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Typische Fehler, die sofort gestoppt werden muessen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verbau zu spaet eingebaut, waehrend bereits unter ungesichertem Rand gearbeitet wird",
+            "Systeme werden gemischt oder improvisiert",
+            "Material oder Maschinenlasten stehen an der Kante trotz Verbau",
+            "Rueckbau erfolgt vor Verfuellung",
+            "Wasser wird ignoriert und fuehrt zu Unterspuelung oder Verformung"
           ]
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Ablauf",
-          "value": "Einbau und Rueckbau von Verbau folgen einem klaren Sicherheitsablauf."
+          "title": "Merkkasten",
+          "value": "Einbau mit Aushub, Rueckbau mit Verfuellung ist der sichere Grundablauf fuer Verbau."
         }
       ],
       "quizRef": ["Q5", "Q6"]
@@ -108,17 +362,43 @@
       "id": "lf07-b5",
       "title": "Wasserhaltung",
       "goals": [
-        "Gefahr durch Wasser in Baugruben beurteilen",
-        "Offene und geschlossene Wasserhaltung unterscheiden"
+        "Gefahrwirkungen von Wasser auf Boden und Standsicherheit sicher bewerten",
+        "Offene und geschlossene Wasserhaltung passend zur Situation auswaehlen und anwenden"
       ],
-      "summary": "Wasser reduziert Standfestigkeit und steigert die Einsturzgefahr.",
+      "summary": "Wasser beeinflusst die Statik direkt und kann in Baugruben oder Graeben schnell zu Einsturzgefahr fuehren.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Wasser in Baugruben und Graeben so gefaehrlich ist."
+        },
         {
           "type": "list",
           "items": [
-            "Wasser kann Boden ausspuelen und die Standfestigkeit stark verringern",
-            "Offene Wasserhaltung: Pumpensumpf mit laufender Ableitung",
-            "Geschlossene Wasserhaltung: Brunnen oder Filter, meist nach Planung"
+            "Wasser senkt die Standfestigkeit des Bodens",
+            "Nasser Boden erhoeht Erddruck und Rutschrisiko",
+            "Unterspuelung kann Feinteile auswaschen und Hohlraeume erzeugen",
+            "Nachrutschen und Einsturz werden wahrscheinlicher",
+            "Zusaetzlich steigt Rutschgefahr fuer Personen und Maschinen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Wasser ist nicht nur nass, Wasser ist Statik."
+        },
+        {
+          "type": "text",
+          "value": "2. Was Wasser ausloesen kann."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Boeschungen rutschen ploetzlich oder schleichend ab",
+            "Verbau kann wandern oder sich verformen",
+            "Sohle weicht auf und Personen oder Geraete sinken ein",
+            "Ausspuelungen erzeugen Hohlraeume und spaetere Setzungen",
+            "Kleine Pfuetzen koennen Vorzeichen fuer kritische Entwicklung sein"
           ]
         },
         {
@@ -126,6 +406,61 @@
           "variant": "danger",
           "title": "Achtung",
           "value": "Wasseranstau in der Baugrube darf nicht ignoriert werden."
+        },
+        {
+          "type": "text",
+          "value": "3. Offene und geschlossene Wasserhaltung klar unterscheiden."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Offene Wasserhaltung: Wasser wird im Pumpensumpf gesammelt und abgepumpt",
+            "Offene Wasserhaltung ist sinnvoll bei geringen Wassermengen und ohne starken Grundwasserandrang",
+            "Risiken offen: Wasser fliesst durch Baugrube, kann Boden ausspuelen oder Pumpensumpf nachbrechen lassen",
+            "Geschlossene Wasserhaltung: Wasser wird ueber Brunnen oder Filter ausserhalb der Grube abgesenkt",
+            "Geschlossene Wasserhaltung ist sinnvoll bei hohem Grundwasserandrang, tieferen Baugruben, empfindlichen Boeden und laengerer Bauzeit",
+            "Geschlossene Systeme laufen in der Regel nach Planung"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Offen heisst Wasser aus der Grube, geschlossen heisst Wasser gar nicht erst hinein."
+        },
+        {
+          "type": "text",
+          "value": "4. Sofortmassnahmen bei Wasser auf der Baustelle."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Arbeit stoppen und Lage bewerten: Zulauf, Regen oder Grundwasser",
+            "Rand und Boeschung auf Risse, Nachrieseln und Auskolkung pruefen",
+            "Wasser kontrolliert ableiten oder pumpen",
+            "Sicherung anpassen: Boeschung nacharbeiten, Verbau nachfuehren oder wechseln",
+            "Arbeitswege sichern und Schlaeuche oder Kabel geordnet fuehren"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Typische Fehler bei der Wasserhaltung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wasser wird unterschaetzt nach dem Motto wird schon wegziehen",
+            "Pumpen laufen, aber der Ansatzpunkt verursacht weiter Unterspuelung",
+            "Abpumpen ohne Kontrolle fuehrt zu Ausspuelung",
+            "Schlauch- und Kabelchaos erzeugt Stolper- und Absturzgefahr",
+            "Fehlende Planung fuehrt zu dauerhaftem Notbetrieb"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Praxisregel",
+          "value": "Pumpensumpf so anordnen, dass Arbeitsbereiche nicht unterspuelt werden."
         }
       ],
       "quizRef": ["Q7"]
@@ -134,24 +469,90 @@
       "id": "lf07-b6",
       "title": "Arbeitsraum und Randlasten",
       "goals": [
-        "Ausreichenden Arbeitsraum sicherstellen",
-        "Gefaehrliche Randlasten vermeiden"
+        "Arbeitsraum als Sicherheits- und Ausfuehrungsfaktor fachgerecht planen",
+        "Randlasten erkennen, vermeiden und organisatorisch beherrschen"
       ],
-      "summary": "Randlasten direkt an der Kante koennen Einstuerze ausloesen.",
+      "summary": "Zu kleiner Arbeitsraum und Lasten an der Kante erhoehen Einsturz- und Unfallrisiken erheblich.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Arbeitsraum mehr ist als Platz zum Stehen."
+        },
         {
           "type": "list",
           "items": [
-            "Arbeitsraum muss breit genug fuer Arbeiten, Bewegen und Einbauen sein",
-            "Randlasten sind z. B. Aushub, Fahrzeuge, Maschinen und Material",
+            "Arbeitsraum muss Platz fuer Personen, Werkzeuge und sichere Bewegung bieten",
+            "Arbeitsraum wird fuer Einbau von Verbau, Rohren, Kabeln und Schaechten benoetigt",
+            "Arbeitsraum muss Rettungsweg und sicheren Ein- sowie Ausstieg ermoeglichen",
+            "Zu kleiner Arbeitsraum fuehrt zu Improvisation und deutlich hoeherer Unfallgefahr"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Zu wenig Arbeitsraum erzeugt Improvisation und Improvisation erzeugt Unfaelle."
+        },
+        {
+          "type": "text",
+          "value": "2. Randlasten als direkter Einsturzausloeser."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Randlasten sind Aushub, Material, Rohre, Paletten, Fahrzeuge, Maschinen oder Container an der Kante",
+            "Randlasten erhoehen Erddruck und Scherkraefte in Boeschung oder Wand",
+            "Auch bei vorhandenem Verbau koennen zusaetzliche Lasten kritisch werden",
             "Randlasten niemals direkt an der Gruben- oder Grabenkante lagern"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Praktische Regeln fuer sichere Organisation."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kanten freihalten und feste Materialflaechen abseits der Kante festlegen",
+            "Aushub nicht am Rand lagern und Fahrwege ohne Kantenrangieren planen",
+            "Maschinen mit Abstand zur Kante fuehren und Schwenkbereich beachten",
+            "Vibrationen durch Geraete als zusaetzliche Belastung beruecksichtigen",
+            "Arbeitsraum so planen, dass Einbau, Verfuellung und sichere Bewegung moeglich sind"
           ]
         },
         {
           "type": "callout",
           "variant": "tip",
           "title": "Organisation",
-          "value": "Materialflaechen und Fahrwege frueh festlegen, damit Kanten frei bleiben."
+          "value": "Erst Materialflaechen und Fahrwege festlegen, dann bleibt die Kante sicherer."
+        },
+        {
+          "type": "text",
+          "value": "4. Typische Fehlerbilder bei Randlasten."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kante reisst oben ein als fruehes Warnsignal",
+            "Boeschung sackt ab",
+            "Verbau verformt sich oder drueckt nach innen",
+            "Nach Regen fuehrt Last an der Kante zu ploetzlichem Abrutsch"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Mini-Check vor Arbeitsbeginn fuer Wasserhaltung und Randlasten."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gibt es Wasser, Zulauf oder Anstau",
+            "Ist Wasserhaltung eingerichtet und wirksam",
+            "Sind Arbeitsraum und Zugaenge ausreichend",
+            "Liegt Material oder Aushub an der Kante",
+            "Stehen Maschinen oder Fahrzeuge zu nah an der Kante",
+            "Ist Sicherung durch Boeschung oder Verbau noch wirksam"
+          ]
         }
       ],
       "quizRef": ["Q8"]
@@ -160,17 +561,98 @@
       "id": "lf07-b7",
       "title": "Sicherer Zugang und Arbeiten",
       "goals": [
-        "Sichere Zugaenge in die Baugrube anwenden",
-        "PSA und Ordnung im Arbeitsbereich konsequent nutzen"
+        "Sichere Zugaenge in Baugruben und Graeben fachgerecht bereitstellen und nutzen",
+        "Arbeitsorganisation, PSA und Verhaltensregeln zur Unfallvermeidung konsequent umsetzen"
       ],
-      "summary": "Betreten nur ueber sichere Zugaenge wie Leiter oder Rampe.",
+      "summary": "Sicherer Zugang ist Kern der Arbeitssicherheit in Baugruben und Graeben und Voraussetzung fuer jede Taetigkeit.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Zugang ein Sicherheitskern ist."
+        },
         {
           "type": "list",
           "items": [
-            "Pflicht: sichere Zugaenge, saubere Wege und keine losen Kanten",
-            "PSA: Helm, Warnkleidung und Sicherheitsschuhe sind Standard",
-            "Improvisierte Zugaenge oder Klettern ueber den Rand sind unzulaessig"
+            "Schwere Unfaelle entstehen nicht nur durch Einsturz, sondern auch beim Ein- und Aussteigen",
+            "Provisorische Wege, lose Kanten und fehlende Sicherung fuehren zu Stolpern und Absturz",
+            "Ohne schnellen Ausstieg wird auch Rettung im Notfall verzoegert"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Ohne sicheren Zugang gibt es keine sichere Arbeit, auch bei gutem Verbau nicht."
+        },
+        {
+          "type": "text",
+          "value": "2. Pflicht: Betreten nur ueber sichere Zugaenge."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zulaessig sind gesicherte Leiter, Rampe, Treppe oder systemkonforme Zugaenge",
+            "Nicht zulaessig sind Klettern ueber den Rand, Rutschen an Boeschungen oder improvisierte Behelfe",
+            "Improvisation am Zugang ist ein hohes Risiko und unzulaessig"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Anforderungen an sichere Zugaenge in der Praxis."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Leiter auf standsicherem Untergrund aufstellen und gegen Wegrutschen sichern",
+            "Leiter richtig anstellen und ausreichend lang waehlen, damit oben sicher auf- und abgestiegen wird",
+            "Einstiegsbereich oben gegen lose Kanten sichern",
+            "Rampen oder Treppen tragfaehig, rutschfest und ausreichend breit ausfuehren",
+            "Bei Absturzgefahr seitliche Sicherung vorsehen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Ordnung im Arbeitsbereich bedeutet sichere Wege."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zugaenge und Laufwege sauber und frei halten",
+            "Keine losen Kanten im Bewegungsbereich",
+            "Schlaeuche und Kabel nicht quer ueber Laufwege fuehren",
+            "Material so lagern, dass Fluchtwege frei bleiben"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Ordnung ist eine Schutzmassnahme und kein Schoenheitswunsch."
+        },
+        {
+          "type": "text",
+          "value": "5. PSA im Tiefbau: Standard und situationsabhaengig."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Standard-PSA: Helm, Warnkleidung, Sicherheitsschuhe",
+            "Je nach Taetigkeit zusaetzlich Handschuhe, Schutzbrille, Gehoerschutz oder Atemschutz",
+            "PSA ersetzt keine Sicherung, reduziert aber unvermeidbare Restrisiken"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Verhaltensregeln beim Arbeiten in Gruben und Graeben."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Nicht allein arbeiten, wenn Auftrag oder Gefaehrdung das ausschliesst",
+            "Fluchtweg und Zugang immer frei halten",
+            "Bei Wasserzulauf Arbeit sofort stoppen und Lage neu bewerten",
+            "Rand nicht untergraben und keine ungesicherten Nischen herstellen",
+            "Klare Kommunikation: wer arbeitet in der Grube und wer sichert ausserhalb"
           ]
         }
       ],
@@ -180,17 +662,69 @@
       "id": "lf07-b8",
       "title": "Kontrolle und typische Fehler",
       "goals": [
-        "Taegliche Sichtpruefungen strukturiert durchfuehren",
-        "Typische Fehlerbilder frueh erkennen und vermeiden"
+        "Taegliche Sichtpruefungen als wiederkehrenden Sicherheitsprozess strukturiert anwenden",
+        "Typische Fehlerbilder, Stop-Kriterien und Sofortmassnahmen sicher umsetzen"
       ],
-      "summary": "Sichtpruefung taeglich: Verbau, Wasser, Hohlraeume und Randlasten.",
+      "summary": "Sicherung in Baugruben und Graeben muss taeglich kontrolliert werden, weil sich Randbedingungen staendig aendern.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum taegliche Sichtpruefung Pflicht ist."
+        },
         {
           "type": "list",
           "items": [
-            "Kontrollen: Verbau sitzt korrekt, keine Hohlraeume, kein Wasseranstau, keine Randlasten",
-            "Typische Fehler: Verbau zu spaet eingebaut, Aushub zu nah an der Kante, Wasser ignoriert",
-            "Schwerer Fehler: Arbeiten unter ungesichertem Grubenrand"
+            "Baugruben veraendern sich durch Wetter, Erschuetterung, Wasserzutritt und Lastwechsel laufend",
+            "Eine einmalige Pruefung reicht nicht fuer sichere Arbeitsbedingungen",
+            "Sicherung ist kein Zustand, sondern ein Prozess"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Sicherung ist kein Zustand, Sicherung ist ein Prozess."
+        },
+        {
+          "type": "text",
+          "value": "2. Taegliche Sichtpruefung als strukturierter Ablauf."
+        },
+        {
+          "type": "list",
+          "items": [
+            "A Verbau oder Boeschung: sitzt alles korrekt, gibt es Verformung, Risse, Nachrieseln oder Auskolkung",
+            "B Wasser: gibt es Anstau oder Zulauf, funktioniert die Wasserhaltung",
+            "C Hohlraeume oder Unterspuelung: sind Hohlstellen oder weiche Bereiche erkennbar",
+            "D Randlasten: liegt Aushub oder Material zu nah, stehen Maschinen zu dicht an der Kante",
+            "E Zugang und Ordnung: sind Leiter oder Rampe sicher, Wege frei und Absperrungen vorhanden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Typische Fehlerbilder und sofortige Reaktion."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verbau zu spaet eingebaut: Arbeit stoppen, zuerst sichern, dann betreten",
+            "Aushub zu nah an der Kante: sofort entfernen, Kante pruefen, Sicherung anpassen",
+            "Wasser ignoriert: Arbeit stoppen, Wasserhaltung einrichten, Sicherung neu bewerten",
+            "Arbeiten unter ungesichertem Rand: sofort raus, Bereich sperren, Sicherung herstellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Stop-Kriterien fuer Arbeitsunterbrechung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wasseranstau oder Zulauf ist nicht beherrscht",
+            "Risse an der Boeschungsoberkante",
+            "Verbau sichtbar verformt oder locker",
+            "Hohlraeume oder Unterspuelung erkennbar",
+            "Randlasten nicht entfernt",
+            "Kein sicherer Zugang vorhanden"
           ]
         },
         {
@@ -198,6 +732,20 @@
           "variant": "danger",
           "title": "Sicherheitsprinzip",
           "value": "Sicherheit geht vor Tempo."
+        },
+        {
+          "type": "text",
+          "value": "5. Mini-Dokumentation fuer nachvollziehbaren Sicherheitsnachweis."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Taegliche Sichtpruefung mit Datum und Uhrzeit dokumentieren",
+            "Abschnitt oder Bauwerk eindeutig benennen",
+            "Status als OK oder Abweichung festhalten",
+            "Massnahme dokumentieren, z. B. abgepumpt, Kante geraeumt, Verbau nachgefuehrt",
+            "Bei Abweichungen Fotos beifuegen"
+          ]
         }
       ],
       "quizRef": ["Q10"]

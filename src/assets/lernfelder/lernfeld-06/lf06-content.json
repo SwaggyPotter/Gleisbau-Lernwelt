@@ -820,24 +820,115 @@
       "id": "lf06-b9",
       "title": "Maengelbilder und Abnahmecheckliste",
       "goals": [
-        "Typische Fehlerbilder bei Putz, Anstrich und Fliesen erkennen",
-        "Abnahme mit klaren Pruefpunkten strukturiert durchfuehren"
+        "Maengelbilder bei Putz, Anstrich und Fliesen fachgerecht erkennen und bewerten",
+        "Abnahme mit strukturierter Checkliste durchfuehren und Abweichungen nachvollziehbar dokumentieren"
       ],
-      "summary": "Fehleranalyse plus Checkliste sichert Qualitaet vor Uebergabe.",
+      "summary": "Sichere Maengelerkennung und saubere Abnahmepruefung reduzieren Streit, Nacharbeit und Flaechenrueckbau.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum dieser Block wichtig ist."
+        },
         {
           "type": "list",
           "items": [
-            "Putzmaengel: Abplatzungen, Risse, Hohllagen, Flecken",
-            "Anstrichmaengel: Laeufer, Wolken, schlechte Deckung, Abblaettern",
-            "Fliesenmaengel: Hohllagen, Ueberzaehne, schiefes Fugenbild, fehlende Anschlussabdichtung",
-            "Abnahmecheck: Untergrund, Systemaufbau, Oberflaeche, Anschluesse, Fugen und Bewegungsfugen"
+            "Viele Streitpunkte entstehen erst bei der Abnahme und nicht waehrend der Ausfuehrung",
+            "Entscheidend ist die klare Trennung zwischen optischem Mangel und Funktionsmangel",
+            "Wer Maengelbilder sicher erkennt und dokumentiert, spart Nacharbeit und Rueckbau"
           ]
         },
         {
           "type": "callout",
           "variant": "info",
-          "title": "Checkliste",
+          "title": "Merksatz",
+          "value": "Wer Maengelbilder sicher erkennt und sauber dokumentiert, spart Rueckbau."
+        },
+        {
+          "type": "text",
+          "value": "2. Maengelbilder bei Putz: erkennen, Ursachen verstehen, schnell pruefen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Abplatzungen: oft durch nicht tragfaehigen oder verschmutzten Untergrund, fehlende Haftbruecke, falschen Schichtaufbau oder zu fruehe Belastung",
+            "Schnellpruefung bei Abplatzungen: Klopfprobe auf hohlen Klang und Kratzprobe am Rand",
+            "Risse: Haarrisse bis durchgehend, haeufig durch schnelles Austrocknen, fehlende Armierung, Untergrundbewegung oder falsche Standzeiten",
+            "Schnellpruefung bei Rissen: Rissverlauf in Ecken und Uebergaengen sowie Aktivitaet beobachten",
+            "Hohllagen: dumpfer Klang durch schlechte Untergrundvorbereitung oder nicht geregeltes Saugverhalten",
+            "Schnellpruefung bei Hohllagen: systematisch im Raster abklopfen und markieren",
+            "Flecken oder Wolken: ungleichmaessiges Saugverhalten, ungleiche Trocknung, Ansatzstellen oder Materialwechsel",
+            "Schnellpruefung bei Flecken: Benetzungsprobe und Sichtpruefung im Streiflicht"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Maengelbilder bei Anstrich und Lack: erkennen, Ursachen verstehen, schnell pruefen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Laeufer oder Nasen: meist durch zu hohen Auftrag, falsche Technik, zu starke Verduennung oder unpassenden Untergrund",
+            "Schnellpruefung bei Laeufern: Sichtpruefung im Streiflicht",
+            "Wolken, Streifen, Ansaetze: oft durch fehlendes nass-in-nass, ungleich saugenden Untergrund oder unguenstige Arbeitsfeldgroesse",
+            "Schnellpruefung bei Wolken: Sichtpruefung bei gleichmaessigem Licht und Streiflicht",
+            "Schlechte Deckung: zu duenn aufgetragen, falsche Deckkraftklasse oder fehlende Grundierung auf saugendem Untergrund",
+            "Schnellpruefung bei Deckung: Vergleich mit Referenzflaeche oder Probefeld",
+            "Abblaettern oder Abschuppen: oft durch kreidenden Untergrund, falsche Grundierung, Feuchte oder Unvertraeglichkeit alter und neuer Schichten",
+            "Schnellpruefung bei Abloesung: Klebebandtest und Kratzprobe"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Maengelbilder bei Fliesen und Platten: erkennen, Ursachen verstehen, schnell pruefen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Hohllagen: haeufig durch ueberschrittene offene Zeit, falsche Zahnung, unzureichendes Andruecken oder unebenen Untergrund",
+            "Schnellpruefung bei Hohllagen: Klopfprobe im Raster und Markierung",
+            "Ueberzaehne: Hoehenversatz durch unebenen Untergrund, falsche Verlegetechnik oder ungleiches Kleberbett",
+            "Schnellpruefung bei Ueberzaehnen: Richtscheit quer zur Flaeche",
+            "Schiefes Fugenbild: fehlende Fuehrung, fehlende Verbandskontrolle, zu spaete Korrektur",
+            "Schnellpruefung bei Fugenbild: Sichtpruefung entlang Fugenachsen plus Messpunkte",
+            "Fehlende Anschlussabdichtung: oft sichtbar an kritischen Details, spaeter Feuchtezeichen und Folgeschaeden",
+            "Schnellpruefung Detailzone: Sichtpruefung und Dokumentationsabgleich vor Belag",
+            "Starr ueberarbeitete Bewegungsfugen: Risse und Abplatzungen entlang Linien",
+            "Schnellpruefung Bewegungsfugen: Plan und Bestandsfugen mit Belagsausbildung abgleichen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Abnahmecheckliste als Praxis-Workflow."
+        },
+        {
+          "type": "list",
+          "items": [
+            "A Untergrund und Vorbereitung: tragfaehig, sauber, trocken genug, Risse und lose Stellen behandelt, Saugverhalten geregelt, Ebenheit passend",
+            "B Systemaufbau: Schichten passen, Herstellerangaben zu Trocknungszeit und Schichtdicke eingehalten, Nassbereichsdetails vollstaendig",
+            "C Oberflaeche: gleichmaessige Struktur und Optik, keine Laeufer, Grate oder Fehlstellen, keine Hohllagen oder Abplatzungen",
+            "D Anschluesse und Details: Wand-Boden-Uebergaenge, Durchdringungen, Sockel, Abschluesse und Schienen fachgerecht",
+            "E Fugen und Bewegungsfugen: gleichmaessiges Fugenbild, korrekte Anschlussfugen, Bewegungsfugen uebernommen und nicht starr ueberarbeitet",
+            "F Funktion und Sicherheit: Hohllagenpruefung dokumentiert, fehlende Abdichtung oder fehlende Bewegungsfugen als Funktionsmangel bewertet"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Dokumentation, damit Nacharbeit gezielt bleibt."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Checkliste mit Datum, Bereich, Bauteil und pruefender Person fuehren",
+            "Fotos als Uebersicht und Detail mit Massstab aufnehmen",
+            "Mangel im Plan oder in Skizze eindeutig verorten",
+            "Mangelart, Ausmass und vermutete Ursache kurz dokumentieren",
+            "Entscheidung festhalten: Nacharbeit, Beobachtung oder Ruecksprache"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
           "value": "Dokumentiere Abweichungen fruehzeitig, um gezielte Nacharbeit statt Flaechenrueckbau zu erreichen."
         }
       ],

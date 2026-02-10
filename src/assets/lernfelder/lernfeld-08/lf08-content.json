@@ -4,24 +4,129 @@
       "id": "lf08-b1",
       "title": "Was sind Verkehrsflaechen?",
       "goals": [
-        "Verkehrsflaechen im Baustellenkontext sicher definieren",
-        "Typische Anwendungsfaelle im Tiefbau und Gleisbau erkennen"
+        "Verkehrsflaechen im Baustellen- und Tiefbaukontext sicher definieren",
+        "Typische Verkehrsflaechen im Tiefbau und Gleisbau erkennen",
+        "Verstehen, warum Aufbau, Untergrund und Material entscheidend sind"
       ],
-      "summary": "Verkehrsflaechen dienen der sicheren Nutzung durch Fussgaenger und Fahrzeuge.",
+      "summary": "Verkehrsflaechen muessen sicher, tragfaehig und dauerhaft ausgefuehrt werden.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grunddefinition"
+        },
+        {
+          "type": "text",
+          "value": "Verkehrsflaechen sind alle Flaechen, die dem sicheren Bewegen von Menschen, Fahrzeugen und Maschinen dienen. Im Tief- und Gleisbau gehoeren sie zu den wichtigsten Bauaufgaben, weil sie taeglich genutzt und stark belastet werden."
+        },
+        {
+          "type": "text",
+          "value": "Sie muessen so hergestellt sein, dass sie:"
+        },
         {
           "type": "list",
           "items": [
-            "Verkehrsflaechen sind Flaechen fuer Fussgaenger, Fahrzeuge, Baustellenverkehr und Einsatzfahrzeuge",
-            "Beispiele: Gehwege, Strassen, Zufahrten, Bahnsteige, Arbeits-, Hof- und Lagerflaechen",
-            "Ziel ist sichere, dauerhafte und funktionale Nutzung unter Last"
+            "sicher begeh- und befahrbar sind",
+            "dauerhaft Lasten aufnehmen",
+            "Witterungseinfluesse aushalten",
+            "Wasser kontrolliert ableiten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Was zaehlt alles zu Verkehrsflaechen?"
+        },
+        {
+          "type": "text",
+          "value": "Verkehrsflaechen sind nicht nur Strassen. Im Baualltag gehoeren dazu unter anderem:"
+        },
+        {
+          "type": "text",
+          "value": "Fuer Fussgaenger"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gehwege",
+            "Bahnsteige",
+            "Uebergaenge (z. B. provisorische Wege auf Baustellen)"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fuer Fahrzeuge"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Strassen (Asphalt, Beton, Pflaster)",
+            "Zufahrten und Baustrassen",
+            "Hof- und Betriebsflaechen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Im Baustellenbetrieb"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Arbeitsflaechen",
+            "Lagerflaechen",
+            "Flaechen fuer Baugeraete und Maschinen",
+            "Flucht- und Rettungswege"
           ]
         },
         {
           "type": "callout",
           "variant": "info",
-          "title": "Praxisbezug",
-          "value": "Verkehrsflaechen sind im Tiefbau Alltag und muessen Last, Wetter und Wasser dauerhaft standhalten."
+          "title": "Wichtig",
+          "value": "Auch temporaere Verkehrsflaechen (z. B. Baustrassen) muessen sicher und tragfaehig sein."
+        },
+        {
+          "type": "text",
+          "value": "Anforderungen an Verkehrsflaechen"
+        },
+        {
+          "type": "text",
+          "value": "Damit Verkehrsflaechen ihre Funktion erfuellen, muessen sie:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Lasten aufnehmen (Fussgaenger, Pkw, Lkw, Baufahrzeuge, Gleisbaumaschinen)",
+            "standsicher sein (keine Setzungen, keine losen Schichten)",
+            "rutschfest und eben sein",
+            "Wasser ableiten (Gefaelle, Entwaesserung, keine Pfuetzen)",
+            "dauerhaft sein (frost-, wetter- und verschleissbestaendig)"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Praxisbezug Tiefbau und Gleisbau"
+        },
+        {
+          "type": "text",
+          "value": "Im Tief- und Gleisbau sind Verkehrsflaechen staendiger Bestandteil jeder Baustelle:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zufahrten fuer Material und Maschinen",
+            "Bahnsteige mit hoher Nutzungsfrequenz",
+            "Uebergangsflaechen waehrend Bauphasen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Fehlerfolgen",
+          "value": "Fehlerhafte Verkehrsflaechen fuehren zu Stolper- und Unfallgefahr, Setzungen und Rissen, schneller Zerstoerung der Oberflaeche und teuren Nacharbeiten."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Verkehrsflaechen sind nur so gut wie ihr Untergrund und ihr Aufbau."
         }
       ],
       "quizRef": ["Q1"]
@@ -30,24 +135,169 @@
       "id": "lf08-b2",
       "title": "Untergrund und Planum",
       "goals": [
-        "Planum als tragende Grundlage einordnen",
-        "Anforderungen an Ebenheit, Tragfaehigkeit, Gefaelle und Verdichtung anwenden"
+        "Planum als tragende Grundlage verstehen",
+        "Anforderungen an Ebenheit, Tragfaehigkeit, Gefaelle und Verdichtung anwenden",
+        "Erkennen, warum Planumfehler spaeter nicht mehr korrigierbar sind"
       ],
-      "summary": "Fehler im Planum wirken sich auf alle darueberliegenden Schichten aus.",
+      "summary": "Das Planum ist die tragende Basis und bestimmt die Qualitaet aller darueberliegenden Schichten.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grunddefinition"
+        },
+        {
+          "type": "text",
+          "value": "Das Planum ist die oberste hergestellte Schicht des Untergrundes, auf der der gesamte weitere Aufbau einer Verkehrsflaeche aufliegt."
+        },
+        {
+          "type": "text",
+          "value": "Es ist die tragende Basis fuer:"
+        },
         {
           "type": "list",
           "items": [
-            "Planum ist die oberste hergestellte Schicht des Untergrunds",
-            "Anforderungen: eben, tragfaehig, richtiges Gefaelle und ausreichende Verdichtung",
-            "Planumfehler fuehren spaeter zu Setzungen, Unebenheiten und Schaeden in der Deckschicht"
+            "Tragschichten",
+            "Bettung",
+            "Pflaster- oder Asphaltdeckschichten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Was ist der Untergrund?"
+        },
+        {
+          "type": "text",
+          "value": "Der Untergrund ist der natuerliche Boden, der nach dem Aushub verbleibt. Je nach Bodenart (Sand, Kies, Lehm, Ton) besitzt er unterschiedliche Tragfaehigkeit."
+        },
+        {
+          "type": "text",
+          "value": "Deshalb wird der Untergrund:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "geprueft",
+            "gegebenenfalls verbessert",
+            "und zum Planum hergestellt"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Was genau ist das Planum?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "die exakt hergestellte Oberflaeche des Untergrundes",
+            "hoehen- und gefaellegenau",
+            "verdichtet",
+            "tragfaehig"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Auf dem Planum wird nicht mehr korrigiert, sondern aufgebaut."
+        },
+        {
+          "type": "text",
+          "value": "Anforderungen an ein korrektes Planum"
+        },
+        {
+          "type": "text",
+          "value": "1. Ebenheit"
+        },
+        {
+          "type": "list",
+          "items": [
+            "keine Wellen",
+            "keine Mulden",
+            "gleichmaessige Oberflaeche"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2. Tragfaehigkeit"
+        },
+        {
+          "type": "list",
+          "items": [
+            "der Boden darf unter Last nicht nachgeben",
+            "muss fuer spaetere Verkehrsbelastung ausgelegt sein"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Gefaelle"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wasser muss kontrolliert ablaufen",
+            "kein stehendes Wasser",
+            "Gefaelle nach Planvorgabe (Laengs-/Quergefaelle)"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Verdichtung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "ausreichend verdichtet",
+            "gleichmaessig ueber die gesamte Flaeche",
+            "kontrolliert (z. B. Sicht, Erfahrung, Messung)"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Warum ist das Planum so wichtig?"
+        },
+        {
+          "type": "text",
+          "value": "Fehler im Planum wirken sich immer nach oben durch:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Setzungen",
+            "Unebenheiten",
+            "Risse in Asphalt oder Pflaster",
+            "abgesackte Flaechen",
+            "Wasseransammlungen"
           ]
         },
         {
           "type": "callout",
           "variant": "danger",
-          "title": "Wichtig",
-          "value": "Ein schlechtes Planum kann durch gute obere Schichten nicht vollstaendig kompensiert werden."
+          "title": "Ganz entscheidend",
+          "value": "Fehler im Planum lassen sich durch gute obere Schichten nicht vollstaendig ausgleichen."
+        },
+        {
+          "type": "text",
+          "value": "Praxisbezug"
+        },
+        {
+          "type": "text",
+          "value": "Im Baustellenalltag heisst das:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Planum sauber herstellen, nicht Pi mal Daumen",
+            "Hoehen und Gefaelle kontrollieren",
+            "lieber einmal nacharbeiten, als spaeter neu bauen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Gerade im Gleisbau (Bahnsteige, Uebergaenge, Zufahrten) ist ein korrektes Planum sicherheitsrelevant."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Was im Planum falsch ist, bleibt im Bauwerk sichtbar."
         }
       ],
       "quizRef": ["Q2"]
@@ -57,23 +307,159 @@
       "title": "Schichtenaufbau von Verkehrsflaechen",
       "goals": [
         "Schichtenfolge von unten nach oben sicher benennen",
-        "Funktionen der einzelnen Schichten verstehen"
+        "Funktionen der einzelnen Schichten verstehen",
+        "erkennen, warum jede Schicht gleich wichtig ist"
       ],
-      "summary": "Untergrund, Tragschicht, Bettung und Deckschicht bilden gemeinsam die Tragstruktur.",
+      "summary": "Verkehrsflaechen bestehen aus einem abgestimmten Schichtsystem und funktionieren nur als Tragstruktur.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee"
+        },
+        {
+          "type": "text",
+          "value": "Verkehrsflaechen bestehen nicht aus einer einzigen Schicht, sondern aus einem aufeinander abgestimmten Schichtsystem. Jede Schicht uebernimmt eine eigene Aufgabe. Nur zusammen entsteht eine tragfaehige, dauerhafte und sichere Verkehrsflaeche."
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Tragstruktur",
+          "value": "Man spricht von der Tragstruktur einer Verkehrsflaeche."
+        },
+        {
+          "type": "text",
+          "value": "Typischer Schichtenaufbau (von unten nach oben)"
+        },
+        {
+          "type": "text",
+          "value": "1. Untergrund / Planum"
+        },
         {
           "type": "list",
           "items": [
-            "Typischer Aufbau: Untergrund, Frostschutz- oder Tragschicht, Bettung (bei Pflaster), Deckschicht",
-            "Schichten verteilen Lasten, schuetzen vor Frost und sichern Ebenheit sowie Haltbarkeit",
-            "Die Qualitaet jeder Einzelschicht entscheidet ueber die Dauerhaftigkeit der Gesamtflaeche"
+            "natuerlicher Boden, fachgerecht hergestellt",
+            "bildet die Basis fuer alle weiteren Schichten",
+            "muss eben, tragfaehig, verdichtet und im Gefaelle korrekt sein"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Wichtig",
+          "value": "Fehler hier wirken sich auf alle Schichten darueber aus."
+        },
+        {
+          "type": "text",
+          "value": "2. Frostschutzschicht / Tragschicht"
+        },
+        {
+          "type": "list",
+          "items": [
+            "meist aus Schotter oder Mineralgemisch",
+            "verteilt die Lasten gleichmaessig",
+            "schuetzt vor Frosthebungen",
+            "sorgt fuer Standsicherheit"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Belastung",
+          "value": "Je hoeher die Belastung, desto wichtiger diese Schicht."
+        },
+        {
+          "type": "text",
+          "value": "3. Bettung (nur bei Pflaster- und Plattenbelaegen)"
+        },
+        {
+          "type": "list",
+          "items": [
+            "meist Splitt oder Sand-Splitt-Gemisch",
+            "dient zum exakten Ausrichten von Pflaster oder Platten",
+            "gleicht kleine Unebenheiten aus"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Achtung",
+          "value": "Die Bettung ist keine Tragschicht, sondern eine Ausgleichsschicht."
+        },
+        {
+          "type": "text",
+          "value": "4. Deckschicht"
+        },
+        {
+          "type": "text",
+          "value": "Die Deckschicht ist die sichtbare und nutzbare Oberflaeche, z. B.:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Pflaster",
+            "Platten",
+            "Asphalt",
+            "Beton"
+          ]
+        },
+        {
+          "type": "list",
+          "items": [
+            "nimmt direkte Lasten auf",
+            "sorgt fuer Rutschfestigkeit, Ebenheit und Nutzungskomfort"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Funktionen des Schichtsystems"
+        },
+        {
+          "type": "text",
+          "value": "Alle Schichten zusammen sorgen dafuer, dass:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Lasten von oben nach unten verteilt werden",
+            "Frost, Wasser und Witterung keine Schaeden verursachen",
+            "die Oberflaeche eben und dauerhaft nutzbar bleibt"
           ]
         },
         {
           "type": "callout",
           "variant": "info",
           "title": "Systemdenken",
-          "value": "Verkehrsflaechen funktionieren nur als abgestimmtes Schichtsystem."
+          "value": "Keine Schicht kann eine andere vollstaendig ersetzen."
+        },
+        {
+          "type": "text",
+          "value": "Qualitaet entscheidet"
+        },
+        {
+          "type": "text",
+          "value": "Die Dauerhaftigkeit einer Verkehrsflaeche haengt davon ab, dass:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "jede einzelne Schicht fachgerecht hergestellt wird",
+            "Material, Dicke und Verdichtung zur Belastung passen",
+            "keine Schicht halbherzig ausgefuehrt wird"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Verkehrsflaechen funktionieren nur als Gesamtsystem."
+        },
+        {
+          "type": "text",
+          "value": "Eine gute Deckschicht auf schlechtem Unterbau haelt nicht. Ein perfekter Unterbau mit mangelhafter Deckschicht auch nicht."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Verkehrsflaechen sind nur so stark wie ihre schwaechste Schicht."
         }
       ],
       "quizRef": ["Q3"]
@@ -82,18 +468,139 @@
       "id": "lf08-b4",
       "title": "Tragschichten und Verdichtung",
       "goals": [
-        "Typische Tragschichtmaterialien benennen",
-        "Lagenweise Verdichtung fachgerecht durchfuehren"
+        "typische Tragschichtmaterialien benennen",
+        "verstehen, warum Verdichtung lagenweise erfolgt",
+        "Verdichtung fachgerecht durchfuehren und kontrollieren"
       ],
-      "summary": "Ohne Verdichtung keine Tragfaehigkeit.",
+      "summary": "Die Tragschicht uebernimmt die Hauptlast und braucht zwingend eine fachgerechte Verdichtung.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee"
+        },
+        {
+          "type": "text",
+          "value": "Die Tragschicht uebernimmt die Hauptlast der Verkehrsflaeche. Damit sie diese Aufgabe erfuellen kann, ist Verdichtung zwingend erforderlich."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merke",
+          "value": "Ohne Verdichtung keine Tragfaehigkeit."
+        },
+        {
+          "type": "text",
+          "value": "Typische Materialien fuer Tragschichten"
+        },
+        {
+          "type": "text",
+          "value": "Je nach Bauaufgabe und Belastung werden eingesetzt:"
+        },
         {
           "type": "list",
           "items": [
-            "Typische Materialien: Schotter, Mineralgemisch, Kies-Sand-Gemische",
-            "Verdichtung erfolgt lagenweise mit passendem Geraet wie Ruettelplatte oder Walze",
-            "In der Ausbildung wird die Wirkung zunaechst ueber Sicht, Verhalten und gleichmaessige Flaeche kontrolliert"
+            "Schotter",
+            "Mineralgemisch",
+            "Kies-Sand-Gemische"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Diese Materialien sind:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "gut verdichtbar",
+            "wasserdurchlaessig",
+            "frostbestaendig",
+            "belastbar"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Warum ist Verdichtung so wichtig?",
+          "value": "Verdichtung verringert Hohlraeume, erhoeht die Tragfaehigkeit, reduziert spaetere Setzungen und verbessert die gleichmaessige Lastverteilung."
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Fehlerfolge",
+          "value": "Unverdichtete Tragschichten fuehren fast immer zu Absackungen, Rissen und Schaeden an der Deckschicht."
+        },
+        {
+          "type": "text",
+          "value": "Verdichtung - wie wird sie durchgefuehrt?"
+        },
+        {
+          "type": "text",
+          "value": "Lagenweise"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Tragschicht wird in mehreren Lagen eingebaut",
+            "jede Lage wird separat verdichtet",
+            "Schichtdicke je Lage abhaengig von Material und Geraet"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Wichtig",
+          "value": "Eine zu dicke Lage laesst sich nicht vollstaendig verdichten."
+        },
+        {
+          "type": "text",
+          "value": "Geraete zur Verdichtung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Ruettelplatte (kleine bis mittlere Flaechen)",
+            "Stampfer (enge Bereiche, Graeben)",
+            "Walze (grosse Flaechen, Strassenbau)"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Das Geraet wird passend gewaehlt nach Material, Flaechengroesse und Einbauort."
+        },
+        {
+          "type": "text",
+          "value": "Kontrolle der Verdichtung (Ausbildung und Praxis)"
+        },
+        {
+          "type": "text",
+          "value": "In der Ausbildung erfolgt die Kontrolle zunaechst ueber:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sicht (gleichmaessige Oberflaeche)",
+            "Verhalten (keine Spurrillen, kein Nachgeben)",
+            "Erfahrung des Ausbilders oder Facharbeiters"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Spaeter im Berufsalltag zusaetzlich:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Messungen",
+            "Verdichtungsnachweise"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Praxisbezug"
+        },
+        {
+          "type": "text",
+          "value": "Gerade bei Bahnsteigen, Zufahrten, Baustrassen und Gleisbaubereichen ist eine sauber verdichtete Tragschicht entscheidend fuer Sicherheit und Lebensdauer."
         },
         {
           "type": "callout",

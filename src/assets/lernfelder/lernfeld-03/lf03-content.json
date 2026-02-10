@@ -2,30 +2,121 @@
   "blocks": [
     {
       "id": "lf03-b1",
-      "title": "Was ist einschalig und wo wird es eingesetzt?",
+      "title": "Was ist \"einschalig\" und wo wird es eingesetzt?",
       "goals": [
-        "Begriff einschalige Wand sicher erklaeren",
-        "Einsatzbereiche im Hochbau richtig zuordnen"
+        "Begriff \"einschalig\" im Bauwesen sicher erklaeren",
+        "Einschalig, zweischalig und \"eingeschalt\" korrekt abgrenzen",
+        "Einsatzorte im Tief- und Bahnbau praxisnah zuordnen"
       ],
-      "summary": "Einschalig bedeutet: eine Wand als System ohne zweite Vormauerschale.",
+      "summary": "Einschalig bedeutet eine einzige tragende Wand- bzw. Mauerschicht; diese eine Schale muss Funktion, Lastabtragung und Dauerhaftigkeit zugleich leisten.",
       "content": [
         {
           "type": "text",
-          "value": "Eine einschalige Wand ist als ein Wand-System aufgebaut. Sie kann mehrere Schichten enthalten, zum Beispiel Mauerwerk mit Putz, hat aber keine zweite Vormauerschale wie beim zweischaligen Aufbau."
+          "value": "1) Begriffserklaerung: \"einschalig\" bedeutet im Bauwesen, dass ein Bauteil (z. B. Wand, Schacht, kleine Mauer) aus genau einer einzigen Schale besteht. Wichtig: \"Schale\" meint hier Wandschicht bzw. Mauerschicht, nicht Schalung beim Beton."
         },
         {
           "type": "list",
           "items": [
-            "Typische Einsatzorte: Innenwaende, tragende Waende, monolithische Aussenwaende",
-            "Wichtige Begriffe: Schale, monolithisch, tragend/nicht tragend",
-            "Wanddicke ergibt sich aus Statik und Waermeschutz"
+            "Was die eine Schale leisten muss: Tragen und Lastabtragung (Eigengewicht, Auflasten, Erd- und Verkehrslasten)",
+            "Raumabschluss und Formgebung (z. B. Schachtwaende, Einfassungen)",
+            "Widerstand gegen Beanspruchungen (Stoss, Abrieb, Frost, Feuchte, Erd- und Wasserdruck)",
+            "Dauerhaftigkeit, besonders bei erdberuehrten Bauteilen"
           ]
         },
         {
           "type": "callout",
           "variant": "info",
-          "title": "Merke",
-          "value": "Einschalig beschreibt den Wandaufbau, nicht automatisch den Baustoff."
+          "title": "Merksatz fuer Azubis",
+          "value": "Einschalig = eine Wandlage, ein Bauteil, alles muss ueber diese eine Schicht funktionieren."
+        },
+        {
+          "type": "text",
+          "value": "2) Abgrenzung, damit nichts durcheinander geht:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Einschalig: eine Wand- bzw. Mauerschicht (mit Putz oder Abdichtung als Oberflaeche moeglich, aber ohne zweite Wand)",
+            "Zweischalig: tragende Schale plus Vormauerschale mit Luft- oder Daemmzone und Verankerung; typisch eher Hochbau/Fassade",
+            "Hauefige Verwechslung in der Ausbildung: \"einschalig\" (Wandaufbau) vs. \"eingeschalt\" (Betonbau mit Schalung)"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Didaktischer Punkt",
+          "value": "Die Verwechslung \"einschalig\" und \"eingeschalt\" eignet sich sehr gut als Fangfrage im Quiz."
+        },
+        {
+          "type": "text",
+          "value": "3) Wo wird einschalig eingesetzt? Im Tiefbau und im Umfeld von Gleisanlagen sehr haeufig:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schaechte und Bauwerke im Erdreich: Kabelschaechte, Kabelzug- und Kontrollschaechte, Entwaesserungs- und Sickerschaechte, kleine Schachtaufbauten und Einfassungen",
+            "Kabelwege und technische Infrastruktur: Kabeltrassen bzw. Kabelkanalbau (je nach System), Schutz- und Trennwaende in Technikbereichen",
+            "Rand- und Einfassungsmauerwerk: Einfassungen, Bord- und Randbegrenzungen, kleine Stuetz- bzw. Begrenzungselemente"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Warum wird im Tief- und Bahnbau oft einschalig gebaut?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Platz und Geometrie: Bei Schaechten, Trassen und Randbereichen ist wenig Platz; zweischalige Aufbauten waeren unnoetig dick und komplex",
+            "Funktion vor Optik: Im Tiefbau zaehlen Dichtheit, Robustheit und Masshaltigkeit, nicht Sichtoptik",
+            "Schneller und wirtschaftlicher: Eine Schicht ist schneller herzustellen, leichter zu planen und weniger fehleranfaellig",
+            "Dauerhaftigkeit bei harter Beanspruchung: Feuchte, Frost-Tau-Wechsel, Erd- und Verkehrslasten sowie mechanische Einwirkungen sprechen oft fuer einen einfachen, massiven Aufbau"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5) Was zaehlt in der Praxis als einschaliger Baukoerper im Lernfeld?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Beispiele: gemauerte Schachtwaende (eine Wandlage), kleine gemauerte Einfassungen und Aufkantungen",
+            "Prinzipbeispiel: Keller- oder Untergeschosswaende als einschaliges Mauerwerk mit aussenliegender Abdichtung",
+            "Abdichtung oder Putz als zusaetzliche Schicht macht den Wandaufbau nicht zweischalig, solange keine zweite tragende Mauerschale vorhanden ist"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Hauefiger Denkfehler",
+          "value": "Mehrere Funktionsschichten (z. B. Mauerwerk plus Abdichtung) bedeuten nicht automatisch zweischalig. Entscheidend ist, ob es eine zweite tragende Mauerschale gibt."
+        },
+        {
+          "type": "text",
+          "value": "6) Mini-Praxisbeispiel: Kabelschacht im Erdreich. Die Schachtwand ist der Baukoerper und damit die eine Schale."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Die Wand muss Form und Zugang dauerhaft sichern",
+            "Sie nimmt Lasten auf (u. a. Erd- und je nach Lage Auflasten)",
+            "Sie muss gegen Feuchte und Frost dauerhaft widerstandsfaehig sein",
+            "Je nach System kommt aussen eine Abdichtung hinzu; der Aufbau bleibt dennoch einschalig"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "7) Begriffe, die nach Block 1 sicher sitzen sollen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schale (im Wandaufbau)",
+            "einschalig und zweischalig",
+            "Tragschale",
+            "Vormauerschale (zur Abgrenzung)",
+            "erdberuehrtes Bauteil",
+            "Erdruck und Auflast (Grundverstaendnis ohne Statik)"
+          ]
         }
       ],
       "quizRef": ["Q1", "Q2"]
@@ -34,25 +125,142 @@
       "id": "lf03-b2",
       "title": "Baustoffe im Mauerwerk",
       "goals": [
-        "Steinarten und Formate benennen",
-        "Fugen und Moertelsysteme funktional verstehen"
+        "Bedeutung geeigneter Baustoffe im einschaligen Mauerwerk erklaeren",
+        "Mauersteine und Moertel fachlich korrekt unterscheiden und zuordnen",
+        "typische Materialfehler aus der Praxis erkennen und vermeiden"
       ],
-      "summary": "Steinwahl, Format und Moertel beeinflussen Tragverhalten und Ausfuehrung.",
+      "summary": "Im einschaligen Mauerwerk muessen Stein und Moertel gemeinsam Tragfaehigkeit, Dauerhaftigkeit und Widerstand gegen Feuchte sowie Frost sicherstellen.",
       "content": [
+        {
+          "type": "text",
+          "value": "1) Warum sind Baustoffe im Mauerwerk so wichtig? Im einschaligen Mauerwerk uebernimmt ein einziges Bauteil alle Aufgaben. Deshalb muessen die verwendeten Baustoffe tragfaehig und dauerhaft sein sowie zur Belastung und zur Umgebung (Erdreich, Feuchtigkeit, Frost) passen."
+        },
         {
           "type": "list",
           "items": [
-            "Typische Steinarten: Ziegel/Hochlochziegel, Kalksandstein, Porenbeton, Leichtbetonstein",
-            "Formate (z. B. DF, NF) sind wichtig fuer Verband und Massordnung",
-            "Moertelarten: Normalmoertel oder Duennbettmoertel je nach Steinsystem",
-            "Stossfuge senkrecht, Lagerfuge waagerecht"
+            "Falscher Baustoff fuehrt spaeter oft zu Schaeden wie Rissen, Durchfeuchtung, Abplatzungen und verminderter Tragfaehigkeit",
+            "Baustoffwahl ist keine Optikfrage, sondern eine Funktions- und Dauerhaftigkeitsfrage"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Grundaufbau von Mauerwerk: Ein Mauerwerk besteht immer aus zwei Hauptbestandteilen, naemlich Mauersteinen und Moertel. Beide muessen aufeinander abgestimmt sein."
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Stein und Moertel arbeiten zusammen, keiner funktioniert allein."
+        },
+        {
+          "type": "text",
+          "value": "3) Mauersteine - welche gibt es?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Betonsteine (sehr wichtig im Tief- und Gleisbau): hohe Druckfestigkeit, formstabil, feuchtebestaendig, gut fuer Erdberuehrung; Einsatz z. B. bei Kabelschaechten, Entwaesserungsschaechten, Einfassungen und Aufkantungen",
+            "Kalksandsteine: hohe Druckfestigkeit, sehr masshaltig, glatte Oberflaechen, gute Lastabtragung; Einsatz z. B. bei tragenden Waenden und Technikraeumen, teilweise auch bei Schaechten",
+            "Ziegel (Mauerziegel): gut verarbeitbar, im Hochbau bewaehrt, gute Waermeeigenschaften; im Tiefbau eher selten und meist in trockenen Bereichen"
           ]
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Praxis",
-          "value": "Duennbettmoertel funktioniert nur mit passgenauen Steinsystemen und sauberer Verarbeitung."
+          "title": "Praxis im Bahnbau",
+          "value": "Betonstein ist haeufig der Standard. Ziegel sind im Gleisbau nicht Standard, aber pruefungsrelevant."
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Achtung bei Kalksandstein",
+          "value": "Bei dauerhafter Feuchte ohne geeigneten Schutz ist Kalksandstein nur eingeschraenkt geeignet."
+        },
+        {
+          "type": "text",
+          "value": "4) Moertel - der \"Kleber\" im Mauerwerk"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Aufgaben des Moertels: Verbindung der Steine, Lastuebertragung, Ausgleich von Unebenheiten, Kraftschluss im Verband",
+            "Ohne passenden Moertel drohen fehlende Tragfaehigkeit, Rissbildung und geringe Dauerhaftigkeit",
+            "Moertelarten fuer Azubis vereinfacht: Normalmoertel und Werktrockenmoertel (auf Baustellen sehr haeufig)",
+            "Vorteile Werktrockenmoertel: konstante Qualitaet, einfache Verarbeitung, weniger Mischfehler"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Ganz wichtiger Lernpunkt",
+          "value": "Moertel muss zum Stein passen: Zu harter Moertel bei weichem Stein kann den Stein schaedigen, zu weicher Moertel bei hartem Stein kann Fugenversagen beguenstigen."
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Der Moertel darf nie haerter sein als der Stein."
+        },
+        {
+          "type": "text",
+          "value": "5) Weitere Baustoffe im Mauerwerksbau ergaenzen haeufig die Funktion:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bewehrungseisen bei bestimmten Konstruktionen",
+            "Abdichtungen (z. B. Bitumen, Dichtschlaemme)",
+            "Beton, zum Beispiel fuer Sohlen oder Auflager",
+            "Abdeckungen, zum Beispiel Betonplatten auf Mauerkronen",
+            "Diese Bauteile zaehlen nicht als zweite Schale, sondern als Funktionsergaenzung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6) Auswahl der Baustoffe - wovon haengt sie ab?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Belastung: Eigengewicht, Erdlasten und Verkehrslasten",
+            "Feuchtigkeit: Erdkontakt und Sickerwasser",
+            "Einsatzort: Schacht, Kanal, Einfassung",
+            "geforderte Dauerhaftigkeit",
+            "Vorgaben aus Planung und Bauherrnanforderungen",
+            "im Bahnbau zusaetzlich: Normen, technische Regelwerke und betriebliche Standards"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "7) Typische Fehler aus der Praxis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "falscher Stein fuer Erdberuehrung",
+            "ungeeigneter Moertel",
+            "zu trockene oder zu nasse Steine",
+            "schlecht gefuellte Fugen",
+            "Materialmix ohne Planung"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Folge",
+          "value": "Diese Fehler fuehren in der Praxis oft zu fruehen Schaeden."
+        },
+        {
+          "type": "text",
+          "value": "8) Merksaetze fuer Azubis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Der Stein traegt, der Moertel verbindet.",
+            "Stein und Moertel muessen zusammenpassen.",
+            "Im Tiefbau zaehlt Widerstand, nicht Optik."
+          ]
         }
       ],
       "quizRef": ["Q3", "Q4"]
@@ -61,25 +269,126 @@
       "id": "lf03-b3",
       "title": "Verbaende, Verzahnung und Grundregeln",
       "goals": [
-        "Sinn von Mauerwerksverbaenden erklaeren",
-        "Fugenversatz und Verzahnung praktisch anwenden"
+        "Bedeutung von Verband und Verzahnung fuer die Standsicherheit erklaeren",
+        "wichtige Verbandsarten im LF03-Kontext sicher unterscheiden",
+        "pruefungsrelevante Grundregeln beim Mauern korrekt anwenden"
       ],
-      "summary": "Verband sorgt fuer Lastverteilung, Stabilitaet und ein sauberes Fugenbild.",
+      "summary": "Ein Mauerwerk ist nur mit regelmaessigem Verband, kraftschluessiger Verzahnung und sauber eingehaltenen Grundregeln tragfaehig und dauerhaft.",
       "content": [
+        {
+          "type": "text",
+          "value": "1) Warum sind Verbaende und Verzahnung so wichtig? Mauerwerk funktioniert nicht wie gestapelte Kloetze. Standsicherheit entsteht durch richtige Steinanordnung (Verband), kraftschluessige Verzahnung und die Einhaltung der Mauergrundregeln."
+        },
         {
           "type": "list",
           "items": [
-            "Grundprinzip: Laeufer und Binder beschreiben die Orientierung der Steine",
-            "Haefige Verbandsarten: Blockverband, Kreuzverband",
-            "Fugenversatz einhalten und ausreichend ueberdecken",
-            "Ecken und Anschluesse immer verzahnen, nicht durchfugen"
+            "Ohne Verband drohen schlechte Lastverteilung, Rissbildung und geringe Tragfaehigkeit",
+            "Im Extremfall kann der Baukoerper versagen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Ein Mauerwerk haelt nicht durch Gewicht, sondern durch Ordnung."
+        },
+        {
+          "type": "text",
+          "value": "2) Was ist ein Mauerwerksverband? Ein Verband ist die regelmaessige Anordnung der Steine, damit Stossfugen nicht uebereinander liegen, Lasten gleichmaessig verteilt werden und die Wand als Einheit wirkt."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Ziel des Verbandes",
+          "value": "Kraftfluss von oben nach unten ohne Schwachstellen."
+        },
+        {
+          "type": "text",
+          "value": "3) Wichtige Verbandsarten (LF03-relevant):"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Laeuferverband (Standard im Tiefbau): lange Steinseite in Wandrichtung, jede Stossfuge versetzt, einfach und stabil; Einsatz z. B. bei Kabelschaechten, Entwaesserungsschaechten und Einfassungen",
+            "Blockverband: Wechsel von Laeufer- und Binderlagen, sehr gute Lastverteilung; im Tiefbau seltener, aber pruefungsrelevant",
+            "Unzulaessig sind uebereinanderliegende Stossfugen, willkuerliche Steinanordnung und fehlender regelmaessiger Versatz"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Stossfugen duerfen niemals uebereinander liegen."
+        },
+        {
+          "type": "text",
+          "value": "4) Verzahnung bedeutet das Ineinandergreifen von Steinen, zum Beispiel an Ecken, Wandanschluessen und Mauerkreuzen. Ziel ist eine kraftschluessige Verbindung ohne Sollbruchstellen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verzahnung an Ecken: Steine muessen abwechselnd ueber Eck greifen, keine durchgehenden senkrechten Fugen",
+            "Verzahnung bei Wandanschluessen: neue Wand in bestehende Wand verzahnen oder zugelassene Verbindungselemente verwenden",
+            "Glatter Stoss ohne Verzahnung erhoeht die Rissgefahr"
           ]
         },
         {
           "type": "callout",
           "variant": "danger",
-          "title": "Fehlerbild",
-          "value": "Durchgefugte Ecken ohne Verzahnung sind statisch und bautechnisch kritisch."
+          "title": "Belasteter Bereich",
+          "value": "Ecken sind hoch belastet und deshalb besonders sorgfaeltig auszufuehren."
+        },
+        {
+          "type": "text",
+          "value": "5) Grundregeln beim Mauern (pruefungsrelevant):"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Erste Steinlage exakt waagerecht setzen; sie bestimmt Hoehe, Flucht und Lot des gesamten Bauwerks",
+            "Fugenregeln: Stoss- und Lagerfugen voll vermoerteln, Fugenstaerke gleichmaessig halten, Hohlstellen vermeiden",
+            "Versatzregel: Stossfugenversatz mindestens ein Viertel der Steinlaenge; groesserer Versatz verbessert die Kraftverteilung",
+            "Lot, Waage, Flucht laufend mit Wasserwaage, Lot und Richtschnur kontrollieren",
+            "Sauber arbeiten: Steine nicht trocken versetzen, keinen ueberalterten Moertel verwenden, Verschmutzungen entfernen, frisches Mauerwerk gegen Regen und Frost schuetzen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Fugen uebertragen Kraefte, nicht nur Steine."
+        },
+        {
+          "type": "text",
+          "value": "6) Typische Fehler aus der Praxis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Stossfugen ohne Versatz",
+            "fehlende Verzahnung an Ecken",
+            "ungleichmaessige Fugen",
+            "schiefe erste Lage",
+            "\"Zurechtklopfen\" statt korrektes Setzen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Pruefungsfalle",
+          "value": "Diese Fehler sind klassische Gruende fuer Punktabzug und fuehren auf der Baustelle oft zu fruehen Schaeden."
+        },
+        {
+          "type": "text",
+          "value": "7) Merksaetze fuer Azubis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verband haelt die Wand zusammen.",
+            "Verzahnung sichert Ecken und Anschluesse.",
+            "Die erste Lage entscheidet ueber alles."
+          ]
         }
       ],
       "quizRef": ["Q5", "Q6"]
@@ -88,25 +397,135 @@
       "id": "lf03-b4",
       "title": "Abstecken, Massordnung, Schnur und Lot",
       "goals": [
-        "Wandachsen und Oeffnungen sicher uebertragen",
-        "Flucht und Senkrechte vor dem Mauern korrekt einstellen"
+        "Bedeutung von Abstecken und Ausrichten fuer die Mauerwerksqualitaet erklaeren",
+        "Massordnung, Schnurfuehrung und Lotkontrolle sicher anwenden",
+        "typische Ausfuehrungsfehler beim Abstecken und Ausrichten vermeiden"
       ],
-      "summary": "Vorbereitung entscheidet ueber den gesamten Wandlauf.",
+      "summary": "Exaktes Abstecken, klare Massordnung, saubere Schnurfuehrung und konsequente Lotkontrolle sind die Grundlage fuer gerades und masshaltiges Mauerwerk.",
       "content": [
+        {
+          "type": "text",
+          "value": "1) Warum ist Abstecken und Ausrichten so wichtig? Bevor der erste Stein gesetzt wird, muss klar sein, wo gebaut wird, wie gross der Baukoerper wird und in welcher Lage er steht."
+        },
         {
           "type": "list",
           "items": [
-            "Zeichnung lesen: Wandlaengen, Wanddicken, Achsen, Oeffnungen",
-            "Wandflucht markieren und Ecken exakt setzen",
-            "Richtschnur spannen und mit Lot kontrollieren",
-            "Erste Lage besonders sauber ausrichten"
+            "Fehler beim Abstecken und Ausrichten lassen sich spaeter kaum korrigieren",
+            "Folgen sind schiefe Waende, falsche Masse, Nacharbeit oder Rueckbau"
           ]
         },
         {
           "type": "callout",
-          "variant": "tip",
-          "title": "Typische Fehler",
-          "value": "Wand laeuft weg ohne Schnur; Wand kippt ohne Lot; Masse passen nicht bei falsch uebernommenen Oeffnungen."
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Was falsch abgesteckt ist, wird nie gerade gemauert."
+        },
+        {
+          "type": "text",
+          "value": "2) Abstecken bedeutet, die geplanten Masse und die Lage eines Baukoerpers auf die Baustelle zu uebertragen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Dabei werden Laenge, Breite, Lage im Raum sowie Ecken und Kanten festgelegt",
+            "Typische Hilfsmittel: Massband oder Zollstock, Maurerschnur, Pfloecke, Naegel, Markierungen sowie bei Bedarf Farbe oder Kreide",
+            "Vorgehen vereinfacht: Ausgangspunkt festlegen, Masse nach Plan abtragen, Ecken markieren, Diagonalen pruefen",
+            "Grundregel: Sind die Diagonalen gleich, ist der Grundriss rechtwinklig"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Massordnung - warum Ordnung entscheidend ist: Alle Masse eines Baukoerpers muessen logisch aufgebaut sein und zueinander passen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Typische Massbezuege: Aussenmass, Innenmass, Achsmass",
+            "Im Mauerwerksbau Steinformat und Fugenbreiten von Anfang an mitdenken",
+            "Ziel ist, krumme Reststuecke und spaetere Anpassungsfehler zu vermeiden"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Wer ohne Massordnung mauert, mauert sich Probleme ein."
+        },
+        {
+          "type": "text",
+          "value": "4) Die Maurerschnur ist das wichtigste Fuehrungsmittel beim Mauern."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Aufgabe der Schnur: gerader Wandverlauf und exakte Hoehe der jeweiligen Steinlage anzeigen",
+            "Schnur richtig einsetzen: an Ecken befestigen, straff spannen, aussen an den Steinen fuehren, jede Lage neu ausrichten",
+            "Wichtige Regel: Steine an die Schnur setzen, nicht die Schnur an die Steine ziehen",
+            "Typische Schnurfehler: Durchhang, Verschieben, falscher Bezugspunkt, Mauern nach Gefuehl statt nach Schnur"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Fehlerfolge",
+          "value": "Wenn die Schnur nicht stimmt oder ignoriert wird, wird die Wand krumm."
+        },
+        {
+          "type": "text",
+          "value": "5) Lot - Kontrolle der Senkrechten: Das Lot prueft, ob Waende und Ecken lotrecht stehen und gerade nach oben laufen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Einsatzorte: Ecken, Wandenden, hoehere Mauern und Schachtwaende",
+            "Besonders wichtig bei einschaligen Baukoerpern und bei engen Schachtgeometrien",
+            "Unterschied: Lot prueft Senkrechte (hoch und runter), Wasserwaage prueft Waagerechte (links und rechts)"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6) Zusammenspiel von Abstecken, Schnur und Lot: Sauberes Mauerwerk entsteht nur durch das koordinierte Anwenden aller drei Elemente."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Abstecken liefert Lage und Masse",
+            "Schnur fuehrt Flucht und Hoehe",
+            "Lot und Wasserwaage sichern Senkrechte und Waagerechte",
+            "Arbeitsprinzip: Abstecken, Schnur spannen, Stein setzen, Lot und Waage pruefen, weiterarbeiten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "7) Typische Fehler aus der Praxis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "schief abgesteckt",
+            "Diagonalen nicht geprueft",
+            "Schnur nicht straff",
+            "Lot nur am Anfang benutzt",
+            "Augenmass statt Werkzeug"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Praxis und Pruefung",
+          "value": "Das sind klassische Fehler in Pruefungen und auf Baustellen."
+        },
+        {
+          "type": "text",
+          "value": "8) Merksaetze fuer Azubis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Ohne Abstecken kein Mass.",
+            "Ohne Schnur keine Gerade.",
+            "Ohne Lot keine Senkrechte."
+          ]
         }
       ],
       "quizRef": ["Q7", "Q8"]
@@ -115,52 +534,311 @@
       "id": "lf03-b5",
       "title": "Mauern Schritt fuer Schritt",
       "goals": [
-        "Standardablauf auf der Baustelle strukturiert umsetzen",
-        "Qualitaetskriterien waehrend der Ausfuehrung laufend pruefen"
+        "Mauerarbeiten vom Untergrund bis zum Abschluss systematisch ausfuehren",
+        "erste Lage, Verband und Fugen fachgerecht herstellen",
+        "typische Ausfuehrungsfehler frueh erkennen und vermeiden"
       ],
-      "summary": "Vom Einrichten bis zur Kontrolle: systematisch und messbar arbeiten.",
+      "summary": "Vom Vorbereiten ueber die erste Lage bis zur Mauerkrone gilt: sauber einmessen, lageweise kontrollieren und frisches Mauerwerk schuetzen.",
       "content": [
+        {
+          "type": "text",
+          "value": "1) Vorbereitung der Arbeitsstelle: Bevor ein Stein gesetzt wird, muss die Arbeitsstelle vollstaendig vorbereitet sein."
+        },
         {
           "type": "list",
           "items": [
-            "Arbeitsplatz einrichten und Material pruefen",
-            "Moertel anmischen: Konsistenz und Verarbeitungszeit beachten",
-            "Ecksteine setzen, Richtschnur spannen, Zwischensteine setzen",
-            "Fugenbild, Ueberdeckung, Flucht, Hoehe, Lot und Mass kontinuierlich kontrollieren",
-            "Anschluesse und Verzahnung fachgerecht herstellen"
+            "Untergrund pruefen: tragfaehig, sauber, eben und frostfrei",
+            "Typische Untergruende: Betonsohle, Fundament, Bodenplatte",
+            "Auf losem, verschmutztem oder unebenem Untergrund darf nicht gemauert werden",
+            "Material und Werkzeuge bereitlegen: Mauersteine, Mauermoertel, Maurerkelle, Wasserwaage, Lot, Maurerschnur, Massband"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Arbeitsprinzip",
+          "value": "Alles griffbereit halten, damit ohne Hektik sauber gearbeitet wird."
+        },
+        {
+          "type": "text",
+          "value": "2) Abstecken und Schnur spannen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Baukoerper nach Plan abstecken und Ecken festlegen",
+            "Schnur zwischen den Ecken spannen",
+            "Die Schnur definiert Wandverlauf und Hoehe der jeweiligen Lage",
+            "Schnur immer straff spannen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Erste Steinlage - die wichtigste Lage:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Moertelbett gleichmaessig auftragen, mit ausreichender Staerke und ohne trockene Stellen",
+            "Erste Steine vorsichtig ins Moertelbett setzen",
+            "Ausrichten mit Wasserwaage (waagerecht), Schnur (Flucht) und Lot (Senkrechte an Ecken)",
+            "Die erste Lage bestimmt Hoehe, Geradheit und Stand des gesamten Bauwerks"
           ]
         },
         {
           "type": "callout",
           "variant": "info",
-          "title": "Qualitaet",
-          "value": "Steine muessen satt im Moertelbett liegen, die Wand muss fluchten, lotrecht sein und Oeffnungen masshaltig aufnehmen."
+          "title": "Merksatz",
+          "value": "Fehler in der ersten Lage bleiben bis oben drin."
+        },
+        {
+          "type": "text",
+          "value": "4) Weiteres Mauern - Lage fuer Lage:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Moertel gleichmaessig auf die Lagerfuge auftragen und Stossfugen mit vermoerteln",
+            "Keine Hohlraeume in den Fugen zulassen",
+            "Steine im Verband setzen, zum Beispiel im Laeuferverband, und Stossfugen versetzen",
+            "Steine leicht einklopfen, nicht schlagen",
+            "Nach jedem Stein oder jeder Lage Waage, Schnur und Lot kontrollieren"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Wichtig",
+          "value": "Nicht erst am Ende pruefen, sondern waehrend des gesamten Mauerns."
+        },
+        {
+          "type": "text",
+          "value": "5) Fugen richtig ausbilden:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Lagerfugen gleichmaessig ausbilden",
+            "Stossfugen vollstaendig fuellen",
+            "ueberschuessigen Moertel entfernen",
+            "offene oder hohle Fugen vermeiden, weil sie das Mauerwerk schwaechen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6) Mauern bis zur Endhoehe: Lage fuer Lage sauber arbeiten, Schnur regelmaessig neu setzen und Lot an allen Ecken pruefen."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Prioritaet",
+          "value": "Tempo ist zweitrangig, Genauigkeit zaehlt."
+        },
+        {
+          "type": "text",
+          "value": "7) Abschluss der Mauer:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Mauerkrone herstellen: letzte Lage exakt ausrichten und Oberflaeche sauber abziehen",
+            "Je nach Bauwerk folgt Betonauflage, Abdeckplatte oder Vorbereitung fuer weitere Bauteile",
+            "Frisches Mauerwerk vor Regen und Frost schuetzen und nicht sofort belasten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "8) Typische Fehler beim Mauern (sehr pruefungsrelevant):"
+        },
+        {
+          "type": "list",
+          "items": [
+            "erste Lage nicht exakt",
+            "Schnur ignoriert",
+            "Stossfugen nicht gefuellt",
+            "kein Verband",
+            "Lot nicht benutzt",
+            "nach Gefuehl gearbeitet"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "9) Merksaetze fuer Azubis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Erst messen, dann mauern.",
+            "Die erste Lage entscheidet.",
+            "Jede Lage kontrollieren, nicht nur die letzte."
+          ]
         }
       ],
       "quizRef": ["Q9", "Q10"]
     },
     {
       "id": "lf03-b6",
-      "title": "Oeffnungen und Sturz-Grundprinzip",
+      "title": "Oeffnungen und Sturz: Grundprinzip",
       "goals": [
-        "Oeffnungsmasse aus dem Plan richtig uebernehmen",
-        "Lastabtragung ueber dem Sturz grundlegend verstehen"
+        "Oeffnungen im einschaligen Mauerwerk fachlich einordnen",
+        "Grundprinzip von Sturz und Lastabtragung sicher erklaeren",
+        "typische Fehler bei Oeffnungen und Sturzeinbau vermeiden"
       ],
-      "summary": "Fenster- und Tueroeffnungen brauchen saubere Laibungen und ausreichendes Auflager.",
+      "summary": "Jede Oeffnung schwaecht das Mauerwerk; ein korrekt gelagerter Sturz leitet Lasten seitlich ab und sichert die Tragwirkung ueber der Oeffnung.",
       "content": [
+        {
+          "type": "text",
+          "value": "1) Was sind Oeffnungen im Mauerwerk? Oeffnungen sind bewusst hergestellte Unterbrechungen im Mauerwerk, zum Beispiel fuer Tueren, Zugaenge, Kabeldurchfuehrungen, Wartungs- und Kontrolloeffnungen sowie Schachtoeffnungen."
+        },
         {
           "type": "list",
           "items": [
-            "Oeffnungsmasse exakt aus dem Plan uebernehmen",
-            "Laibungen sauber ausbilden und Anschlaege beruecksichtigen",
-            "Sturz mit ausreichendem Auflager links/rechts fuer Lastabtragung herstellen"
+            "Auch im einschaligen Mauerwerk sind Oeffnungen notwendig, etwa bei Kabelschaechten, Entwaesserungsschaechten und Technikzugaengen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Warum sind Oeffnungen kritisch? Mauerwerk traegt Lasten von oben nach unten. Durch eine Oeffnung fehlt unterhalb ein Teil des tragenden Querschnitts."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Ohne statische Sicherung drohen fehlende Lastabtragung, Risse, Absackungen und im Extremfall Einsturzgefahr"
           ]
         },
         {
           "type": "callout",
           "variant": "info",
-          "title": "Hinweis",
-          "value": "Das genaue Sturzdetail ist systemspezifisch, das Grundprinzip Auflager plus Lastabtragung gilt immer."
+          "title": "Merksatz",
+          "value": "Wo eine Oeffnung ist, fehlt Tragfaehigkeit."
+        },
+        {
+          "type": "text",
+          "value": "3) Aufgabe des Sturzes: Ein Sturz ist das Bauteil ueber der Oeffnung. Er leitet Lasten ueber die Oeffnung hinweg in die seitlichen Mauerbereiche ab und sichert die Oeffnung statisch."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Kernfunktion",
+          "value": "Der Sturz ist ein Lastueberbruecker."
+        },
+        {
+          "type": "text",
+          "value": "4) Grundprinzip der Lastabtragung:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Ohne Sturz wirkt die Last direkt in den Bereich der Oeffnung und verursacht Schaeden",
+            "Mit Sturz wird die Last vom Mauerwerk oberhalb aufgenommen, seitlich ueber den Sturz abgeleitet und in darunterliegendes Mauerwerk weitergefuehrt"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Der Sturz traegt nicht die Wand, er leitet die Last um."
+        },
+        {
+          "type": "text",
+          "value": "5) Arten von Stuerzen (Grundverstaendnis):"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Betonsturz (haeufig): als Fertigteil oder Ortbeton, hohe Tragfaehigkeit, robust, im Tiefbau oft Standard",
+            "Stahlsturz (seltener): Profile aus Stahl fuer besondere Konstruktionen, mit erforderlichem Korrosionsschutz",
+            "Im klassischen Gleis- und Tiefbau ist der Stahlsturz eher die Ausnahme"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6) Auflager - entscheidend fuer die Tragwirkung: Ein Sturz muss links und rechts ausreichend auf tragfaehigem Mauerwerk aufliegen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zu kurze Auflagerlaengen fuehren zu hohen Punktlasten, Rissbildung und moeglichem Sturzversagen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksatz",
+          "value": "Kein Auflager, keine Tragwirkung."
+        },
+        {
+          "type": "text",
+          "value": "7) Oeffnungen im einschaligen Mauerwerk in der Praxis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Typische Beispiele sind Einstieg in Kabelschaechte, Wartungsoeffnungen und geplante Kabeldurchfuehrungen",
+            "Oeffnungen niemals ungeplant herausbrechen, Lage und Groesse vorher festlegen",
+            "Ein Sturz ist vorzusehen, sobald Lasten ueber der Oeffnung liegen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "8) Reihenfolge bei der Herstellung (Grundprinzip):"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Oeffnung planen und abstecken",
+            "Sturz einbauen oder auflegen",
+            "Sturz korrekt ausrichten",
+            "darueber weiter mauern",
+            "Oeffnung sauber ausbilden",
+            "Nie erst tragend mauern und die Oeffnung spaeter einfach einschneiden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "9) Typische Fehler aus der Praxis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Oeffnung ohne Sturz",
+            "Sturz mit zu wenig Auflager",
+            "schief eingesetzter Sturz",
+            "Lasten zu frueh auf frischen Sturz bringen",
+            "Oeffnung nachtraeglich herausbrechen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Pruefungsfalle",
+          "value": "Diese Fehler sind klassische Ursachen fuer Maengel und haeufige Themen in Pruefungsfragen."
+        },
+        {
+          "type": "text",
+          "value": "10) Merksaetze fuer Azubis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Jede Oeffnung schwaecht das Mauerwerk.",
+            "Der Sturz leitet Lasten seitlich ab.",
+            "Ohne Auflager kein tragender Sturz."
+          ]
+        },
+        {
+          "type": "text",
+          "value": "11) Typische Pruefungs- und Quizfragen (LF03-B6):"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Warum benoetigt eine Oeffnung einen Sturz?",
+            "Welche Aufgabe hat ein Sturz im Mauerwerk?",
+            "Wohin leitet der Sturz die Lasten ab?",
+            "Warum ist die Auflagerlaenge wichtig?",
+            "Nenne einen typischen Fehler beim Einbau eines Sturzes."
+          ]
         }
       ],
       "quizRef": ["Q11"]
@@ -169,21 +847,137 @@
       "id": "lf03-b7",
       "title": "Abdichtung gegen Bodenfeuchtigkeit",
       "goals": [
-        "Feuchteprobleme im Sockelbereich einordnen",
-        "Funktion der horizontalen Sperrschicht erklaeren"
+        "Bodenfeuchtigkeit und ihre Wirkung auf Mauerwerk sicher einordnen",
+        "Horizontalsperre und Vertikalabdichtung fachlich korrekt unterscheiden",
+        "typische Abdichtungsfehler in der Praxis erkennen und vermeiden"
       ],
-      "summary": "Sockelabdichtung verhindert Feuchteaufstieg und Folgeschaeden.",
+      "summary": "Bei erdberuehrtem, einschaligem Mauerwerk verhindern Horizontalsperre und Vertikalabdichtung das Eindringen und Aufsteigen von Feuchtigkeit.",
       "content": [
         {
           "type": "text",
-          "value": "Bodenfeuchte kann in Mauerwerk aufsteigen und zu Putzschaeden, Frostproblemen und Salzbelastung fuehren."
+          "value": "1) Warum ist Abdichtung gegen Bodenfeuchtigkeit notwendig? Bauteile im Erdreich sind dauerhaft Feuchtigkeit ausgesetzt. Ohne Abdichtung kann Feuchtigkeit in Mauerwerk eindringen, Stein und Moertel schaedigen, Frostschaeden verursachen, Tragfaehigkeit mindern und zu Abplatzungen sowie Schimmel fuehren."
         },
         {
           "type": "list",
           "items": [
-            "Typische Loesungsebene: horizontale Sperrschicht im Sockelbereich",
-            "Sperrschicht fachgerecht einlegen und an Plan/System orientieren",
-            "Anschlussdetails entscheiden ueber die Wirksamkeit"
+            "Bei einschaligen Baukoerpern ist der Schutz besonders wichtig, weil nur eine Wand vorhanden ist und keine zweite Schale Feuchtebelastung abpuffert"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Erdreich ist immer feucht, auch wenn es trocken aussieht."
+        },
+        {
+          "type": "text",
+          "value": "2) Was ist Bodenfeuchtigkeit? Bodenfeuchtigkeit ist die natuerliche Feuchte im Erdreich, verursacht durch Niederschlaege, Grundwasserbewegungen und Kapillarwirkung im Boden."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Wichtig",
+          "value": "Bodenfeuchtigkeit ist nicht gleich drueckendes Wasser, kann unbehandeltes Mauerwerk aber trotzdem dauerhaft schaedigen."
+        },
+        {
+          "type": "text",
+          "value": "3) Wie gelangt Feuchtigkeit ins Mauerwerk?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kapillarwirkung: Feuchtigkeit steigt in den Poren von Stein und Moertel nach oben, besonders bei unbehandelten Lagerfugen und fehlender Horizontalsperre",
+            "Direkter Kontakt zum Erdreich: seitlicher Feuchteeintrag mit dauerhafter Durchfeuchtung der Wand"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Arten der Abdichtung gegen Bodenfeuchtigkeit:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Horizontalsperre (pruefungsrelevant): waagerechte Abdichtungsschicht im Mauerwerk, meist zwischen Fundament bzw. Sohle und erster Steinlage",
+            "Aufgabe der Horizontalsperre: kapillaren Feuchteaufstieg stoppen und Erdreich oder Beton vom Mauerwerk trennen",
+            "Typische Materialien fuer Horizontalsperren: Bitumenbahn, Kunststofffolie, spezielle Dichtbahnen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Keine Horizontalsperre, Feuchtigkeit steigt hoch."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Vertikalabdichtung: Abdichtung an der Aussenseite gegen seitliche Feuchte",
+            "Aufgabe der Vertikalabdichtung: Wandflaechen im Erdreich schuetzen und seitliches Eindringen verhindern",
+            "Typische Materialien: Bitumen-Dickbeschichtung, Dichtschlaemme, Abdichtungsbahnen",
+            "Besonders wichtig bei Schaechten und allen erdberuehrten Waenden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5) Abdichtung im einschaligen Mauerwerk (Praxis): Am Beispiel eines Kabelschachts im Erdreich sind unter der ersten Steinlage eine Horizontalsperre und an den Aussenflaechen eine Vertikalabdichtung erforderlich. Alle Anschluesse muessen lueckenlos ausgebildet sein."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Praxis",
+          "value": "Abdichtung ist Teil der Bauausfuehrung und keine Kosmetik."
+        },
+        {
+          "type": "text",
+          "value": "6) Reihenfolge der Abdichtungsarbeiten (Grundprinzip):"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Untergrund sauber und eben herstellen",
+            "Horizontalsperre einbauen",
+            "Mauerwerk herstellen",
+            "Aussenflaechen abdichten",
+            "Abdichtung schuetzen, zum Beispiel mit Schutzschicht",
+            "erst dann verfuellen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Reihenfolgefehler",
+          "value": "Abdichtung darf nie erst nach dem Verfuellen erfolgen."
+        },
+        {
+          "type": "text",
+          "value": "7) Typische Fehler aus der Praxis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "fehlende Horizontalsperre",
+            "beschaedigte Abdichtungsbahn",
+            "Untergrund nicht sauber",
+            "unterbrochene Abdichtung",
+            "zu fruehes Verfuellen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Folge",
+          "value": "Diese Fehler fuehren haeufig zu dauerhaften Bauschaeden."
+        },
+        {
+          "type": "text",
+          "value": "8) Merksaetze fuer Azubis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Feuchtigkeit kommt immer, Abdichtung haelt sie auf.",
+            "Horizontalsperre stoppt das Hochziehen.",
+            "Vertikalabdichtung schuetzt die Wandflaeche."
           ]
         }
       ],
@@ -193,24 +987,177 @@
       "id": "lf03-b8",
       "title": "Arbeitssicherheit und Gesundheit",
       "goals": [
-        "Staubrisiken richtig bewerten",
-        "Staubarme und ergonomische Arbeitsweise anwenden"
+        "typische Gefaehrdungen beim Mauern systematisch erkennen",
+        "PSA, ergonomische Arbeitsweise und sicheres Verhalten korrekt anwenden",
+        "Unfallrisiken bei Erdreich- und Schachtarbeiten wirksam reduzieren"
       ],
-      "summary": "Staub, Lasten und scharfe Kanten erfordern konsequente Schutzmassnahmen.",
+      "summary": "Sicheres Mauern kombiniert PSA, saubere Arbeitsorganisation, ergonomisches Arbeiten und konsequente Gefahrenkontrolle insbesondere bei Erdreich- und Schachtarbeiten.",
       "content": [
+        {
+          "type": "text",
+          "value": "1) Warum ist Arbeitssicherheit beim Mauern so wichtig? Beim Mauern treten mehrere Gefahren gleichzeitig auf, zum Beispiel schwere Lasten, Staub und Moertel, scharfe Kanten, unguenstige Koerperhaltungen sowie Arbeiten im Erdreich oder in Schaechten."
+        },
         {
           "type": "list",
           "items": [
-            "Quarzstaub kann Atemwege schaedigen, Silikose und Lungenkrebs ausloesen",
-            "Staub minimieren: absaugen, nass bearbeiten, nicht trocken wegblasen",
-            "Beim Heben und Tragen Hilfsmittel nutzen und Arbeitsplatz ergonomisch organisieren"
+            "Unfaelle und Gesundheitsschaeden entstehen oft durch Nachlaessigkeit, fehlende Schutzmittel oder falsche Arbeitsweise"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Sicher arbeiten heisst, gesund nach Hause kommen."
+        },
+        {
+          "type": "text",
+          "value": "2) Typische Gefaehrdungen beim Mauern:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Mechanische Gefahren: Quetschungen durch Steine, Stolpern ueber Material, herabfallende Bauteile",
+            "Gefahren durch Baustoffe: Moertel reizt Haut und Augen, Zement kann aetzend wirken, Staub belastet Atemwege",
+            "Besonders kritisch: trockener Zementstaub und Moertelspritzer ins Auge",
+            "Koerperliche Belastungen: schweres Heben und Tragen, gebueckte Haltung, monotone Bewegungen"
           ]
         },
         {
           "type": "callout",
           "variant": "danger",
-          "title": "Sicherheitsregel",
-          "value": "Druckluft zum Reinigen von Staub ist zu vermeiden, weil sie Feinstaub verteilt."
+          "title": "Langzeitfolge",
+          "value": "Dauerhafte Fehlbelastung fuehrt haeufig zu Rueckenproblemen, Gelenkverschleiss und Muskelbeschwerden."
+        },
+        {
+          "type": "text",
+          "value": "3) Persoenliche Schutzausruestung (PSA):"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Grundausstattung: Sicherheitsschuhe mit Zehen- und Durchtrittschutz, Arbeitshandschuhe, Schutzhelm je nach Gefaehrdung, Schutzbrille, geeignete Arbeitskleidung",
+            "Zusaetzliche PSA beim Mauern: Staubschutzmaske beim Anmischen von Moertel, Gehoerschutz bei Maschinen",
+            "PSA ist Pflicht und kein Vorschlag"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "PSA schuetzt dich, auch wenn du glaubst, sie nicht zu brauchen."
+        },
+        {
+          "type": "text",
+          "value": "4) Sicherer Umgang mit Werkzeugen und Material:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Nur intakte Werkzeuge benutzen, beschaedigte Kellen, Haemmer und Wasserwaagen aussortieren",
+            "Werkzeuge nicht herumliegen lassen",
+            "Steine standsicher lagern und Stapel nicht zu hoch ausfuehren",
+            "Moertel sachgerecht anmischen und Saecke staubarm oeffnen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5) Ergonomisches Arbeiten, Ruecken schuetzen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Richtig heben: aus den Beinen, Last nah am Koerper, keine ruckartigen Bewegungen",
+            "Arbeitsweise anpassen: sinnvolle Arbeitshoehe waehlen, Hilfsmittel nutzen, Haltung regelmaessig wechseln"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Wer heute falsch hebt, zahlt morgen mit dem Ruecken."
+        },
+        {
+          "type": "text",
+          "value": "6) Sicherheit bei Arbeiten im Erdreich und in Schaechten:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Absturzsicherung beachten und ungesicherte Schaechte vermeiden",
+            "ausreichende Belueftung sicherstellen",
+            "sichere Zu- und Abgaenge bereitstellen",
+            "Gefahren beachten: Sauerstoffmangel, Gase, Einsturz von Erdreich"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "7) Ordnung und Sauberkeit (SaSi-Regel):"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Arbeitsbereich sauber halten",
+            "Moertelreste entfernen",
+            "Stolperstellen beseitigen",
+            "Material geordnet lagern"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Grundsatz",
+          "value": "Ordnung bedeutet Sicherheit."
+        },
+        {
+          "type": "text",
+          "value": "8) Verantwortung auf der Baustelle:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Jede Person ist fuer die eigene Sicherheit mitverantwortlich",
+            "Gefahren sofort melden",
+            "unsichere Arbeiten abbrechen",
+            "Anweisungen konsequent befolgen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Sicherheit geht vor Tempo."
+        },
+        {
+          "type": "text",
+          "value": "9) Typische Fehler aus der Praxis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Arbeiten ohne PSA",
+            "mal schnell ohne Handschuhe",
+            "falsches Heben",
+            "ungesicherte Schaechte",
+            "Unordnung auf der Baustelle"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Praxis und Pruefung",
+          "value": "Diese Punkte sind typische Unfallursachen und haeufige Themen in Pruefungsfragen."
+        },
+        {
+          "type": "text",
+          "value": "10) Merksaetze fuer Azubis:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sicherheit ist kein Extra, sie gehoert zur Arbeit.",
+            "PSA schuetzt vor Verletzung und Langzeitschaeden.",
+            "Gesund arbeiten heisst dauerhaft arbeiten koennen."
+          ]
         }
       ],
       "quizRef": ["Q13", "Q14"]

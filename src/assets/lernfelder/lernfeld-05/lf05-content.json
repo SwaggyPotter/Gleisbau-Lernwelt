@@ -4,19 +4,109 @@
       "id": "lf05-b1",
       "title": "Holz als Baustoff: Eigenschaften und Auswahl",
       "goals": [
-        "Holzeigenschaften fuer die praktische Verarbeitung einordnen",
-        "Material vor Einsatz fachlich pruefen und richtig lagern"
+        "Holzeigenschaften, Faserrichtung und Holzfeuchte fachgerecht fuer die Verarbeitung bewerten",
+        "Holzauswahl, Sichtpruefung und Lagerung qualitaetsorientiert umsetzen"
       ],
-      "summary": "Faserrichtung, Holzfeuchte und Sichtpruefung entscheiden ueber Passgenauigkeit und Qualitaet.",
+      "summary": "Holz ist tragfaehig und gut bearbeitbar, reagiert aber stark auf Feuchte und Faserrichtung.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Bedeutung von Holz im Bauwesen."
+        },
         {
           "type": "list",
           "items": [
-            "Holz ist anisotrop: in Faserrichtung anders belastbar als quer zur Faser",
-            "Holzfeuchte beeinflusst Verzug, Schwinden, Quellen und Passgenauigkeit",
-            "Grobe Unterscheidung: Nadelholz als Bauholz, Laubholz haeufig haerter",
-            "Sichtpruefung vor Einbau: Risse, Aeste, Verformung, Beschaedigung",
-            "Lagerung trocken, belueftet und gegen Bodenfeuchte geschuetzt"
+            "Holz ist natuerlich, tragfaehig und leicht zu bearbeiten",
+            "Holz ist feuchteempfindlich, verformungsanfaellig und richtungsabhaengig belastbar",
+            "Falsche Auswahl oder Verarbeitung fuehrt spaeter zu Massabweichungen, Spannungen, schlechter Passgenauigkeit und Montageproblemen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Holz arbeitet immer."
+        },
+        {
+          "type": "text",
+          "value": "2. Holz ist anisotrop: Belastung haengt von der Faserrichtung ab."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Anisotrop bedeutet unterschiedliche Eigenschaften je nach Richtung",
+            "In Faserrichtung ist Holz zug- und druckfest sowie gut belastbar",
+            "Quer zur Faser ist die Festigkeit deutlich geringer, Holz ist druckempfindlicher und reisst leichter",
+            "Lasten sollen moeglichst in Faserrichtung eingeleitet werden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Holzfeuchte ist entscheidend fuer die Masshaltigkeit."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Holz nimmt Feuchtigkeit auf und gibt sie wieder ab",
+            "Feuchteaenderungen verursachen Schwinden, Quellen, Verzug und Verdrehung",
+            "Auch Laengen- und Querschnittsaenderungen sind moeglich",
+            "Je feuchter das Holz, desto hoeher die Verformungsgefahr"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Grobe Holzarten-Unterscheidung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Nadelholz, z. B. Fichte, Kiefer, Tanne: haeufigstes Bauholz, leicht, gut bearbeitbar, ausreichend tragfaehig",
+            "Laubholz, z. B. Eiche, Buche: meist haerter, schwerer und widerstandsfaehiger, eher fuer Spezialanwendungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Sichtpruefung vor dem Einbau."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Risse pruefen, insbesondere Laengs- und Querrisse",
+            "Aeste hinsichtlich Groesse und Lage bewerten",
+            "Verformungen wie Bogen, Kruemmung und Verdrehung erkennen",
+            "Beschaedigungen, Feuchtegefuehl und Geruch kontrollieren",
+            "Stark verformtes oder beschaedigtes Holz nicht verbauen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Richtige Lagerung von Bauholz."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Holz trocken, belueftet und vom Boden getrennt lagern",
+            "Holz vor Regen und Spritzwasser schuetzen",
+            "Fehlerhafte Lagerung fuehrt zu Feuchteaufnahme, Schimmel, Verzug und Qualitaetsverlust"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Praxis-Merksatz",
+          "value": "Schlecht gelagertes Holz bleibt schlecht, egal wie gut es spaeter verarbeitet wird."
+        },
+        {
+          "type": "text",
+          "value": "7. Praxisbezug LF05-B1."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Feuchtes oder verformtes Holz passt oft nicht mehr",
+            "Es erschwert die Montage und erzeugt Nacharbeit",
+            "Massabweichungen entstehen bereits vor dem Einbau",
+            "Holzauswahl ist Qualitaetsarbeit und kein Nebenschritt"
           ]
         },
         {
@@ -32,24 +122,111 @@
       "id": "lf05-b2",
       "title": "Holzschutz und Bauphysik",
       "goals": [
-        "Konstruktiven Holzschutz im Detail anwenden",
-        "Typische Feuchtefehler frueh erkennen und vermeiden"
+        "Konstruktiven Holzschutz bauphysikalisch richtig planen und ausfuehren",
+        "Feuchtequellen, Trennlagen und typische Holzschutzfehler sicher beurteilen"
       ],
-      "summary": "Erst Wasser fernhalten, dann nur bei Bedarf zusaetzliche Schutzmassnahmen vorsehen.",
+      "summary": "Wirksamer Holzschutz beginnt konstruktiv: Feuchte vermeiden, Wasser ableiten und Trocknung ermoeglichen.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundsatz des Holzschutzes."
+        },
         {
           "type": "list",
           "items": [
-            "Grundsatz: erst konstruktiver Holzschutz, dann ggf. chemischer Holzschutz",
-            "Feuchteschutz ueber Details: Tropfkanten, Abstand zum Boden, Abdeckung, Hinterlueftung",
-            "Trennung zu feuchten Bauteilen durch Abdichtung oder Trennlage sicherstellen"
+            "Erst konstruktiver Holzschutz, dann nur wenn noetig chemischer Holzschutz",
+            "Chemie ersetzt keine fehlerhafte Konstruktion",
+            "Feuchte ist der Hauptfeind von Holz"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2. Konstruktiver Holzschutz: was das bedeutet."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Holz so einbauen, dass es trocken bleibt",
+            "Feuchtigkeit gar nicht erst entstehen lassen",
+            "Ziele: Feuchte vermeiden, Wasser ableiten, Trocknung ermoeglichen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Massnahmen des konstruktiven Holzschutzes."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Abstand zum Boden halten und Spritzwasser vermeiden",
+            "Trennlagen einsetzen, z. B. Folie, Bitumenbahn oder Dichtband",
+            "Abdeckung gegen Regen, besonders waehrend der Bauphase",
+            "Tropfkanten ausbilden, damit Wasser gezielt ablaeuft",
+            "Hinterlueftung sicherstellen, damit Feuchtigkeit abtrocknen kann"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Bauphysikalischer Hintergrund."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Feuchtigkeit entsteht durch aufsteigende Feuchte, Spritzwasser, Kondensation und Undichtigkeiten",
+            "Bleibt Holz dauerhaft feucht und kann nicht abtrocknen, beginnt es zu quellen, zu schimmeln und zu faulen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Trennung zu feuchten Bauteilen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Holz stets von Beton, Mauerwerk, Estrich und Erdreich trennen",
+            "Geeignete Mittel sind Trennlage, Abdichtung und Abstandshalter"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Klassischer Fehler aus der Praxis."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Holz wird direkt auf feuchtem Beton ohne Trennlage eingebaut",
+            "Folgen sind Feuchteaufnahme, Schimmel, Faeulnis und Tragfaehigkeitsverlust"
           ]
         },
         {
           "type": "callout",
           "variant": "danger",
-          "title": "Klassischer Fehler",
-          "value": "Holz direkt auf feuchtem Beton ohne Trennlage fuehrt oft zu Feuchteschaeden."
+          "title": "Merksatz",
+          "value": "Holz verzeiht keine dauerhafte Feuchte."
+        },
+        {
+          "type": "text",
+          "value": "7. Praxisbezug LF05-B2."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Konstruktiver Holzschutz kostet wenig, Sanierung kostet viel",
+            "Fehler bleiben oft lange unsichtbar, bis der Schaden gross ist",
+            "Gute Details verhindern spaetere Bauschaeden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "8. Merksaetze fuer LF05-B1 und LF05-B2."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Holz arbeitet, plane es ein.",
+            "Feuchte ist der groesste Feind des Holzes.",
+            "Guter Holzschutz beginnt auf dem Plan und nicht mit Chemie."
+          ]
         }
       ],
       "quizRef": ["Q3", "Q4"]
@@ -58,25 +235,100 @@
       "id": "lf05-b3",
       "title": "Bauarten im Ueberblick",
       "goals": [
-        "Holzrahmenbau und Dachgrundformen begrifflich einordnen",
-        "Zentrale Bauteilbezeichnungen sicher verwenden"
+        "Bauteile und Grundprinzipien im Holzrahmenbau sicher benennen und einordnen",
+        "Dachgrundformen, Aussteifung und Fachbegriffe fehlerfrei in der Kolonne anwenden"
       ],
-      "summary": "Begriffe wie Schwelle, Staender, Raehm, Sparren und Pfette sind Basis fuer saubere Kommunikation.",
+      "summary": "Klare Fachbegriffe und Bauartenkenntnis sind entscheidend, damit Zuschnitt, Anschluss und Montage im Holzbau funktionieren.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum dieser Block so wichtig ist."
+        },
         {
           "type": "list",
           "items": [
-            "Holzrahmenbau: Schwelle, Staender, Raehm, Beplankung zur Aussteifung",
-            "Dachgrundformen im Grundprinzip: Sparren- und Pfettendach",
-            "Begriffe: Schwelle unten, Raehm oben, Staender vertikal",
-            "Aussteifung gegen Scheren z. B. ueber Beplankung oder Diagonalen"
+            "Im Holzbau ist Sprache ein Werkzeug und steuert direkt die Ausfuehrung",
+            "Wer Begriffe wie Raehm, Schwelle oder Pfette verwechselt, riskiert falsche Zuschnitte, falsche Bauteilpositionen und Montageprobleme",
+            "Unklare Begriffe fuehren schnell zu Missverstaendnissen in der Kolonne"
           ]
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Merkkasten",
+          "title": "Merksatz",
           "value": "Ohne klare Begriffe gibt es Montagefehler und Missverstaendnisse in der Kolonne."
+        },
+        {
+          "type": "text",
+          "value": "2. Holzrahmenbau: Grundprinzip und Bauteile."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Grundaufbau als Stabwerk aus Schwelle unten, Staendern vertikal und Raehm oben",
+            "Aussteifung erfolgt ueber Beplankung, z. B. Holzwerkstoffplatten, und je nach System ueber Diagonalen oder Windverbaende",
+            "Schwelle: unten liegend, verteilt Lasten auf Untergrund oder Decke und braucht haeufig Trennung gegen Feuchte",
+            "Staender: vertikal, tragen Lasten aus Decke und Dach, geben Hoehe und Tragfaehigkeit; Abstaende oft im Raster, z. B. 62,5 cm oder 60 cm",
+            "Raehm: oben liegend, verbindet Staender, verteilt Lasten weiter und dient als Anschluss fuer Decke oder Dach",
+            "Beplankung stabilisiert die Wand, verhindert Scheren und leitet Windkraefte ab"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Aussteifung",
+          "value": "Aussteifung bedeutet, dass ein Rechteck unter Last rechtwinklig bleibt und nicht zur Raute wird."
+        },
+        {
+          "type": "text",
+          "value": "3. Aussteifung: was gegen Scheren bedeutet."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Seitliche Belastung, z. B. Wind, kann eine nicht ausgesteifte Wand verformen",
+            "Gaengige Aussteifung: flaechige Beplankung, Diagonalen oder Windrispenbaender, Scheibenwirkung ueber Platten",
+            "Ohne Aussteifung wird aus einer tragenden Wand ein instabiles Gestell"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Dachgrundformen: Sparrendach und Pfettendach."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sparrendach: Dachlasten werden ueber Sparren abgetragen, die sich am First gegenseitig stuetzen; eher einfacher Aufbau fuer kleinere Spannweiten",
+            "Pfettendach: Sparren liegen auf Pfetten als tragenden Laengsbalken; Lasten gehen ueber Pfetten in Stuetzen oder Waende",
+            "Pfetten logisch benannt: Firstpfette oben, Mittelpfette mittig, Fusspfette unten",
+            "Pfettendach eignet sich meist fuer groessere Spannweiten und komplexere Tragstrukturen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Begriffe: Kurzmerkkasten fuer die Kolonne."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schwelle ist unten und horizontal",
+            "Raehm ist oben und horizontal",
+            "Staender ist vertikal",
+            "Sparren ist schraeg im Dach und traegt die Dachflaeche",
+            "Pfette ist horizontaler Traeger im Dach, auf dem Sparren aufliegen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Typische Kommunikationsfehler und Folgen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Raehm und Schwelle verwechselt fuehrt zu falschem Zuschnitt und falschem Anschluss",
+            "Sparren und Pfette verwechselt fuehrt zum falschen Tragprinzip",
+            "Aussteifung ignoriert fuehrt zu Verzug, Rissen, Montageproblemen und Instabilitaet"
+          ]
         }
       ],
       "quizRef": ["Q5", "Q6"]
@@ -85,26 +337,134 @@
       "id": "lf05-b4",
       "title": "Messen, Anreissen und Abbund",
       "goals": [
-        "Bauteile maehaltig vorbereiten und reproduzierbar anreissen",
-        "Abbundschritte strukturiert bis zur Passkontrolle ausfuehren"
+        "Abbundschritte von Planlesen bis Passkontrolle praezise und reproduzierbar ausfuehren",
+        "Mess-, Anriss- und Anschlussfehler systematisch vermeiden"
       ],
-      "summary": "Abbund ist praezises Handwerk aus Planlesen, Bezugskante, Zuschnitt und Passprobe.",
+      "summary": "Abbund ist praezises Vorbereiten von Holzbauteilen und entscheidet direkt ueber Passung und Montagequalitaet.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Was ist Abbund."
+        },
         {
           "type": "list",
           "items": [
-            "Plan lesen: Laengen, Winkel und Lage der Bauteile",
-            "Holz sortieren und Bezugskante festlegen",
-            "Messen und anreissen mit Bleistift, Winkel und Schmiege",
-            "Anschluesse herstellen z. B. Zapfen, Blatt oder Ueberblattung",
-            "Probelegen und Passkontrolle vor Montage"
+            "Abbund umfasst Masse uebertragen, Winkel herstellen, Anschluesse schneiden und Passkontrolle",
+            "Er verbindet Planlesen, Messen, Anreissen, Bearbeiten und Probelegen",
+            "Sauberer Abbund entscheidet, ob Montage reibungslos laeuft oder nachgearbeitet werden muss"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Ein sauberer Abbund entscheidet, ob die Montage laeuft oder kaempft."
+        },
+        {
+          "type": "text",
+          "value": "2. Plan lesen: was aus dem Plan geholt werden muss."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bauteillaengen, Winkel, Lage im Bauwerk und Anschlusspunkte erfassen",
+            "Bezugsebenen, Ueberstaende und Auflager beruecksichtigen",
+            "Nie nur ein Einzelmass lesen, sondern immer Bezugspunkt, Achse und Kante mitpruefen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Holz vorbereiten: sortieren und Bezugskante festlegen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Holz nach Querschnitten sortieren und stark krumme oder verdrehte Teile aussortieren oder gezielt einsetzen",
+            "Sichtpruefung durchfuehren, z. B. auf Risse, Aeste und Verzug",
+            "Bezugskante als Nullseite festlegen und alle Masse von derselben Kante nehmen",
+            "Eine feste Bezugskante macht Abbund reproduzierbar und verhindert Messfehler durch wechselnde Anlegekanten"
           ]
         },
         {
           "type": "callout",
           "variant": "info",
-          "title": "Qualitaetskriterien",
-          "value": "Rechtwinkligkeit, Masshaltigkeit, saubere Schnitte und plan aufliegende Anschluesse."
+          "title": "Merksatz",
+          "value": "Immer von derselben Kante messen, sonst entsteht jedes Mal ein anderes Bauteil."
+        },
+        {
+          "type": "text",
+          "value": "4. Messen und Anreissen: Werkzeuge und Grundregeln."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Typische Werkzeuge sind Bleistift oder Anreissstift, Winkel, Massband oder Zollstock, Schmiege und ggf. Schnurschlag",
+            "Masse exakt abgreifen und nicht schaetzen",
+            "Duenne, klare Anrisslinien erzeugen",
+            "Winkel korrekt und stabil anlegen",
+            "Markierungen eindeutig mit Pfeilen, Zeichen und Lagehinweisen setzen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Anschluesse herstellen: typische Grundarten."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zapfen als formschluessiger Anschluss braucht saubere Passung und korrekte Tiefe",
+            "Blatt als teilweise Ausklinkung ermoeglicht flaechiges Aufliegen, haeufig bei Rahmen- und Pfettenanschluessen",
+            "Ueberblattung nutzt beidseitige Ausklinkung mit Ueberlappung und braucht planen Sitz",
+            "Bei allen Anschlussarten gilt: sauberer Schnitt und plan aufliegende Flaechen sichern Tragfaehigkeit und Montagefreundlichkeit"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Probelegen und Passkontrolle."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Vor Endmontage Bauteile probelegen und Passung pruefen",
+            "Rechtwinkligkeit, Auflageflaechen, Winkel und Laengen kontrollieren",
+            "Pruefen, ob Anschluesse spielfrei sitzen ohne gepresst zu werden",
+            "Passprobe spart Montagezeit und verhindert Gewaltmontage"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "7. Qualitaetskriterien im Abbund."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rechtwinkligkeit",
+            "Masshaltigkeit",
+            "Saubere Schnitte",
+            "Plan aufliegende Anschluesse",
+            "Keine Ausrisse oder unnoetigen Kerben",
+            "Klare Kennzeichnung zur Bauteilzuordnung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "8. Typische Abbund-Fehler aus der Praxis."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Falscher Bezugspunkt und damit Massuebernahme von wechselnden Kanten",
+            "Winkel falsch uebertragen, z. B. durch falsch eingestellte Schmiege",
+            "Zu dicke Anrisslinie und dadurch Ungenauigkeit",
+            "Anschluss zu tief oder zu flach und damit unzureichende Auflage",
+            "Keine Passprobe und dadurch Ueberraschungen in der Montage"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksatz",
+          "value": "Ein Millimeter im Abbund wird schnell ein Zentimeter Problem in der Montage."
         }
       ],
       "quizRef": ["Q7", "Q8"]
@@ -113,25 +473,119 @@
       "id": "lf05-b5",
       "title": "Verbindungen im Holzbau",
       "goals": [
-        "Stiftfoermige Verbindungsmittel korrekt zuordnen",
-        "Abstandsregeln zur Vermeidung von Rissen anwenden"
+        "Stiftfoermige Verbindungsmittel passend zur Beanspruchung und Einbausituation auswaehlen",
+        "Rand- und Achsabstaende sowie Vorbohren zur Vermeidung von Spalten sicher anwenden"
       ],
-      "summary": "Naegel, Schrauben und Bolzen funktionieren nur mit richtigen Abstaenden und sauberem Setzen.",
+      "summary": "Die Tragfaehigkeit von Holzanschluessen haengt direkt von passendem Verbindungsmittel, korrekten Abstaenden und sauberer Ausfuehrung ab.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Verbindungen im Holzbau so kritisch sind."
+        },
         {
           "type": "list",
           "items": [
-            "Stiftfoermige Verbindungsmittel: Naegel, Schrauben, Bolzen/Gewindestangen",
-            "Passende Laenge und Durchmesser entsprechend Aufgabe waehlen",
-            "Randabstaende und Achsabstaende einhalten",
-            "Bei Bedarf vorbohren, um Rissbildung zu reduzieren"
+            "Holzbau steht und faellt mit den Anschluessen",
+            "Falsch gewaehlte Verbindungsmittel, unzureichende Abstaende oder unsaubere Krafteinleitung verursachen Risse und Tragfaehigkeitsverluste",
+            "Ein Anschluss ist nur so stark wie seine schwaechste Stelle, oft das Holz am Rand"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Ein Anschluss ist nur so stark wie seine schwaechste Stelle."
+        },
+        {
+          "type": "text",
+          "value": "2. Stiftfoermige Verbindungsmittel korrekt zuordnen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Naegel sind schnell und wirtschaftlich, gut fuer Scherbeanspruchung und haeufig bei Beplankungen",
+            "Schrauben haben hohe Haltekraft, eignen sich gut fuer Zugbeanspruchung und Ausziehwiderstand, z. B. als Holzschraube, Tellerkopf- oder Vollgewindeschraube",
+            "Bolzen und Gewindestangen uebertragen hohe Kraefte, brauchen Bohrloch, Unterlegscheiben und Muttern",
+            "Bei Bolzenanschluessen haengen Tragfaehigkeit und Sicherheit stark von Lochbild sowie Randabstaenden ab"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Auswahl von Laenge und Durchmesser."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Auswahl nach Bauteildicke, Kraftart, Einbausituation, Zugaenglichkeit und Planvorgaben treffen",
+            "Zu kurz bedeutet zu wenig Halt",
+            "Zu duenn bedeutet zu geringe Tragfaehigkeit",
+            "Zu dick oder zu randnah erhoeht die Rissgefahr",
+            "Ziel ist immer tragfaehig, rissfrei und reproduzierbar"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Abstandsregeln: warum Randabstaende so wichtig sind."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Holz spaltet leichter bei zu kleinen Randabstaenden oder zu dichten Verbindungsmitteln",
+            "Ohne Vorbohren steigt das Risiko bei kritischen Randbereichen zusaetzlich",
+            "Randabstaende zum Bauteilrand und Achsabstaende zwischen Mittelpunkten immer einhalten",
+            "So werden Spalten, Randabscheren und Schwaechungen der Anschlusszone reduziert"
           ]
         },
         {
           "type": "callout",
           "variant": "danger",
-          "title": "Fehlerfolge",
+          "title": "Merksatz",
+          "value": "Je naeher am Rand, desto groesser die Spaltgefahr, besonders quer zur Faser."
+        },
+        {
+          "type": "text",
+          "value": "5. Vorbohren: wann und warum."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Vorbohren ist sinnvoll bei trockenem oder sproedem Holz, grossen Schraubendurchmessern und kleinen Randabstaenden",
+            "Auch bei Laubholz ist Vorbohren haeufig erforderlich",
+            "Vorbohren reduziert Spalten, Ausreissen, Montagekraefte und Fehlpositionen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Typische Fehler und ihre Folgen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zu kleine Randabstaende",
+            "Naegel oder Schrauben zu dicht nebeneinander",
+            "Fehlende Unterlegscheiben bei Bolzen",
+            "Schiefes Setzen oder schraeges Anziehen",
+            "Falsche Laenge oder zu geringe Einbindetiefe",
+            "Folgen sind Risse, lockere Anschluesse, sinkende Tragfaehigkeit und spaetere Verformungen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Kernsatz",
           "value": "Zu kleine Randabstaende beguenstigen Spalten und schwachen den Anschluss."
+        },
+        {
+          "type": "text",
+          "value": "7. Praxisregel fuer die Kolonne."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bei Unsicherheit lieber mehr Randabstand einplanen",
+            "Bei Bedarf vorbohren",
+            "Verbindungsmittel gerade und ohne Verkanten setzen"
+          ]
         }
       ],
       "quizRef": ["Q9", "Q10"]
@@ -140,17 +594,66 @@
       "id": "lf05-b6",
       "title": "Montage und Aussteifung",
       "goals": [
-        "Montageschritte in sinnvoller Reihenfolge ausfuehren",
-        "Aussteifung und Ausrichtung mit Messpunkten kontrollieren"
+        "Montagefolge von Unterkonstruktion bis Endfixierung sicher und reproduzierbar ausfuehren",
+        "Temporare und dauerhafte Aussteifung sowie Kontrollpunkte fachgerecht anwenden"
       ],
-      "summary": "Tragfaehig wird die Konstruktion erst durch richtige Montagefolge und wirksame Aussteifung.",
+      "summary": "Montagefolge und Aussteifung entscheiden, ob aus beweglichen Einzelteilen eine sichere und tragfaehige Holzkonstruktion wird.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Montagefolge und Aussteifung entscheidend sind."
+        },
         {
           "type": "list",
           "items": [
-            "Montagefolge: Unterkonstruktion, Aufrichten, Ausrichten, Fixieren",
-            "Temporaere und dauerhafte Aussteifung gegen Kippen und Scheren",
-            "Kontrollpunkte: Lot, Flucht und Diagonalen zum Auswinkeln"
+            "Eine fruehe Konstruktion ist leicht, beweglich und kippgefaehrdet",
+            "Tragwirkung entsteht erst durch korrektes Montieren, Ausrichten, Fixieren und Aussteifen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Erst die Aussteifung macht aus Teilen ein tragfaehiges Bauwerk."
+        },
+        {
+          "type": "text",
+          "value": "2. Montagefolge als sinnvoller Ablauf."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Unterkonstruktion herstellen: Schwellen und Auflagerflaechen vorbereiten, Trennlagen pruefen, Bezugslinien und Achsen uebernehmen",
+            "Aufrichten: Waende oder Rahmen stellen, grob positionieren und gegen Umkippen sichern",
+            "Ausrichten: Lot, Flucht und Hoehenbezug kontrollieren",
+            "Fixieren: zuerst temporaer sichern, danach dauerhaft verbinden",
+            "Wichtig: erst ausrichten, dann endgueltig festziehen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Temporaere und dauerhafte Aussteifung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Temporaere Aussteifung stabilisiert waehrend der Montage, z. B. mit Streben, Schraegstuetzen oder Hilfslatten",
+            "Dauerhafte Aussteifung bleibt im Bauwerk und nimmt Wind- und Horizontalkraefte auf",
+            "Typische dauerhafte Mittel sind Beplankung, Diagonalverbaende und Scheibenwirkung",
+            "Beides ist erforderlich: temporaer fuer Sicherheit, dauerhaft fuer Tragwirkung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Kontrollpunkte fuer die Ausrichtung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Lot mit Lotgeraet, Wasserwaage oder Laser pruefen, mehrfach oben und unten kontrollieren",
+            "Flucht mit Schnur, Richtscheit oder Laser pruefen, besonders bei langen Waenden",
+            "Diagonalen messen zum Auswinkeln: bei Rechtecken bedeuten gleiche Diagonalen korrekte Winkligkeit",
+            "Ungleiche Diagonalen zeigen Schiefstand oder Verzug zur Raute"
           ]
         },
         {
@@ -158,6 +661,53 @@
           "variant": "tip",
           "title": "Praxischeck",
           "value": "Bei Rechtecken zeigen gleiche Diagonalen eine korrekte Winkligkeit."
+        },
+        {
+          "type": "text",
+          "value": "5. Typische Montagefehler."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Keine temporaere Aussteifung und dadurch Kippgefahr",
+            "Zu frueh endgueltig fixiert und dadurch dauerhafte Schiefstellung",
+            "Diagonalen nicht gemessen und dadurch Winkelfehler im gesamten Bau",
+            "Aussteifung unvollstaendig und dadurch Scheren oder Verzug",
+            "Kontrollpunkte nur einmal geprueft und Fehler werden weitergetragen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksatz",
+          "value": "Wenn die erste Wand schief steht, steht alles schief."
+        },
+        {
+          "type": "text",
+          "value": "6. Praxisroutine fuer saubere Montage."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Aufrichten",
+            "Temporaer sichern",
+            "Lot pruefen",
+            "Flucht pruefen",
+            "Diagonalen pruefen",
+            "Erst dann endgueltig fixieren und dauerhaft aussteifen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Merksaetze fuer LF05-B5 und LF05-B6."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verbindungsmittel brauchen Abstaende, sonst reisst das Holz.",
+            "Montage ist ein Ablauf und keine Improvisation.",
+            "Diagonalen gleich bedeutet Winkel stimmt."
+          ]
         }
       ],
       "quizRef": ["Q11", "Q12"]
@@ -166,18 +716,84 @@
       "id": "lf05-b7",
       "title": "Arbeitsmittel und Maschinen: sicher arbeiten",
       "goals": [
-        "Risiken bei Saegearbeiten erkennen und reduzieren",
-        "Maschinen nach Anleitung sicher in Betrieb nehmen"
+        "Unfallrisiken bei Saegearbeiten systematisch erkennen und wirksam reduzieren",
+        "Maschinen, Anschlaege und Arbeitsmittel sicher einrichten und anwenden"
       ],
-      "summary": "Saegearbeiten sind unfallkritisch und verlangen klare Sicherheitsablaeufe.",
+      "summary": "Saegearbeiten sind unfallkritisch: sichere Inbetriebnahme, richtige Standposition und korrekte Fuehrung entscheiden ueber Sicherheit.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Saegearbeiten unfallkritisch sind."
+        },
         {
           "type": "list",
           "items": [
-            "Maschine standsicher aufstellen und Betriebsanleitung beachten",
+            "Hohe Drehzahlen und geringe Reaktionszeiten machen Fehler sofort gefaehrlich",
+            "Werkstuecke koennen verkanten und Rueckschlag ausloesen",
+            "Haende arbeiten oft nah am Gefahrenbereich",
+            "Fehler passieren in Sekunden, die Folgen bleiben oft lange"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksatz",
+          "value": "Bei Saegen passiert der Fehler in Sekunden und die Folgen bleiben lange."
+        },
+        {
+          "type": "text",
+          "value": "2. Hauptgefahren bei Saegearbeiten."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rueckschlag oder Kickback mit Werkstueckauswurf Richtung Bediener",
+            "Kontaktverletzungen an Haenden und Fingern",
+            "Einklemmung und Verkanten des Werkstuecks",
+            "Splitter und Spaene mit Augenverletzungsrisiko",
+            "Staubbelastung fuer Atemwege",
+            "Laermbelastung fuer Gehoer"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Sichere Inbetriebnahme immer nach Anleitung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Maschine standsicher auf festem Untergrund aufstellen",
+            "Ausreichend Platz fuer Zu- und Ablauf des Holzes sicherstellen",
+            "Betriebsanleitung beachten, inklusive Schutzvorrichtungen und zulaessiger Werkstuecke",
+            "Anschlaege korrekt einstellen sowie Wartung und Schmierung gemaess Vorgabe durchfuehren",
+            "Schutzvorrichtungen nie entfernen, auch nicht fuer schnelleres Arbeiten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Saegeblatt: Zustand entscheidet ueber Sicherheit."
+        },
+        {
+          "type": "list",
+          "items": [
             "Nur scharfe und unbeschaedigte Saegeblaetter verwenden",
-            "Seitlich vom Gefahrenbereich stehen, nicht in Rueckschlaglinie",
-            "Parallelanschlag korrekt einstellen, Klemmen und Kickback vermeiden"
+            "Keine Blaetter mit Rissen oder fehlenden Zaehnen einsetzen",
+            "Passendes Blatt fuer Holzart und Schnittart waehlen",
+            "Stumpfe Blaetter erhoehen Vorschubkraft und Verkanten",
+            "Beschaedigte Blaetter koennen brechen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Standposition: nicht in der Rueckschlaglinie."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Seitlich stehen und nie direkt hinter Werkstueck oder Blatt",
+            "Stabilen, leicht versetzten Stand einnehmen",
+            "Haende ausserhalb der Gefahrenzone halten",
+            "Klare Sicht auf die Schnittlinie sicherstellen"
           ]
         },
         {
@@ -185,6 +801,54 @@
           "variant": "danger",
           "title": "Sicherheitskern",
           "value": "Fehler bei Standposition oder Anschlagfuehrung erhoehen das Rueckschlagrisiko stark."
+        },
+        {
+          "type": "text",
+          "value": "6. Anschlaege und Fuehrung: damit nichts klemmt."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Parallelanschlag gerade und fest einstellen",
+            "Werkstueck sauber entlangfuehren, ohne Verkanten",
+            "Kickback vermeiden, indem Klemmen zwischen Blatt und Anschlag ausgeschlossen wird",
+            "Ein Schnitt muss frei laufen, alles was klemmt wird gefaehrlich"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "7. Typische Fehlerquellen in der Baustellenpraxis."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Werkstueck nicht fixiert und dadurch rutschend oder kippend",
+            "Falsche Handfuehrung mit zu geringem Abstand zum Blatt",
+            "Schnitt ohne Anschlag oder ohne Fuehrung",
+            "Zu schneller Vorschub",
+            "Ablenkung durch Gesprache oder Nebenaktivitaeten",
+            "Unordnung am Arbeitsplatz mit Stolperrisiko"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "8. Ergaenzende Schutzmassnahmen kurz und praktisch."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schutzbrille gegen Splitter tragen",
+            "Gehoerschutz gegen Laerm einsetzen",
+            "Staubabsaugung oder geeigneten Atemschutz je nach Material nutzen",
+            "Schiebestock oder Schiebeschlitten verwenden, damit Haende vom Blatt fernbleiben",
+            "Werkstueckauflage sichern und nicht in der Luft schneiden"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Praxis",
+          "value": "Seitlich stehen, Anschlag sauber fuehren und Werkstueck frei laufen lassen reduziert das Kickback-Risiko deutlich."
         }
       ],
       "quizRef": ["Q13", "Q14"]
@@ -193,22 +857,99 @@
       "id": "lf05-b8",
       "title": "Kontrolle, Maengel und Nacharbeit",
       "goals": [
-        "Typische Maengel fachlich bewerten",
-        "Endkontrolle mit klaren Pruefpunkten dokumentieren"
+        "Typische Maengel in Geometrie, Anschluessen, Aussteifung und Holzschutz sicher bewerten",
+        "Endkontrolle und Nacharbeit strukturiert dokumentieren und zielgerichtet umsetzen"
       ],
-      "summary": "Qualitaet wird ueber Messpunkte, Verbindungen, Aussteifung und Holzschutz nachgewiesen.",
+      "summary": "Endkontrolle ist Sicherheits- und Qualitaetsnachweis: Maengel frueh erkennen, dokumentieren und ursachengerecht beheben.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Endkontrolle Pflicht ist."
+        },
         {
           "type": "list",
           "items": [
-            "Typische Maengel: aus dem Lot, Massfehler, Spalten, Risse, lockere Verbindungen, fehlende Aussteifung",
-            "Checkliste Endkontrolle: Masse, Lot/Flucht, Verbindungsmittel, Aussteifung, Holzschutz und Trennlagen",
-            "Abweichungen dokumentieren und Nacharbeit gezielt ausfuehren"
+            "Qualitaet wird ueber Messpunkte, Verbindungen, Aussteifung und Holzschutz nachgewiesen",
+            "Endkontrolle macht Fehler sichtbar, bevor Folgeschaeden und hohe Kosten entstehen"
           ]
         },
         {
           "type": "callout",
           "variant": "info",
+          "title": "Merksatz",
+          "value": "Endkontrolle macht Fehler sichtbar, bevor sie teuer werden."
+        },
+        {
+          "type": "text",
+          "value": "2. Typische Maengel erkennen und bewerten."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Geometriefehler: aus dem Lot, fehlerhafte Flucht, falsche Masse oder Achsen, ungleiche Diagonalen",
+            "Folgen von Geometriefehlern: Anschluss passt nicht, Montageprobleme, Folgegewerke scheitern",
+            "Holz- und Anschlussfehler: Spalten, Risse, zu kleine Randabstaende, lockere oder falsch gesetzte Verbindungsmittel, Bolzen ohne Scheiben",
+            "Folgen bei Anschluessen: sinkende Tragfaehigkeit, lockere oder knarzende Verbindungen, Setzungen und Verformung",
+            "Aussteifungsfehler: fehlende Beplankung oder Diagonalen, temporaere Aussteifung zu frueh entfernt, unvollstaendige Befestigung",
+            "Holzschutzfehler: fehlende Trennlage, zu geringer Bodenabstand, fehlende Hinterlueftung, ungeschuetzte Stirnseiten"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Wichtig",
+          "value": "Fehlende Aussteifung ist ein sicherheitsrelevanter Mangel und muss sofort behoben werden."
+        },
+        {
+          "type": "text",
+          "value": "3. Endkontrolle mit klaren Pruefpunkten nach Checkliste."
+        },
+        {
+          "type": "list",
+          "items": [
+            "A Masse: Laengen, Breiten, Hoehen, Achsmasse und Oeffnungen pruefen",
+            "B Lot, Flucht, Winkligkeit: Lot oben und unten pruefen, Flucht mit Schnur oder Laser kontrollieren, Diagonalen messen",
+            "C Verbindungsmittel: richtiger Typ, fester und gerader Sitz, Rand- und Achsabstaende, Vorbohren wenn noetig",
+            "D Aussteifung: temporaer bis Stabilitaet erreicht ist, dauerhaft vollstaendig mit korrektem Befestigungsbild",
+            "E Holzschutz und Trennlagen: Trennlagen zu Beton oder Mauerwerk, Bodenabstand, Abdeckung, Tropfkante, Hinterlueftung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Dokumentation und Nacharbeit."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Dokumentation mit Checkliste, Datum, Ort und Bauteilbezug",
+            "Fotos als Uebersicht und Detail aufnehmen",
+            "Abweichung klar beschreiben: wo, wie viel, womit gemessen",
+            "Nacharbeit zielgerichtet ausfuehren: nachstellen, ergaenzen, nachziehen, ersetzen oder Holzschutz nachruesten",
+            "Ursache immer mitbeheben, sonst tritt der Fehler erneut auf"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Nacharbeit ohne Ursachenbeseitigung bringt den Fehler wieder zurueck."
+        },
+        {
+          "type": "text",
+          "value": "Merksaetze fuer LF05-B7 und LF05-B8."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Seitlich stehen, nie in der Rueckschlaglinie.",
+            "Anschlag sauber einstellen und Klemmen vermeiden.",
+            "Endkontrolle ist Sicherheits- und Qualitaetsnachweis.",
+            "Fehlende Aussteifung bedeutet: sofort stoppen und beheben."
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
           "title": "Wichtig",
           "value": "Fehlende Aussteifung ist ein sicherheitsrelevanter Mangel und muss sofort behoben werden."
         }

@@ -4,17 +4,80 @@
       "id": "lf06-b1",
       "title": "Was ist Beschichten vs. Bekleiden?",
       "goals": [
-        "Beschichten und Bekleiden fachlich unterscheiden",
-        "Typische Ausfuehrungsbeispiele richtig zuordnen"
+        "Beschichten und Bekleiden sicher unterscheiden und praxisgerecht zuordnen",
+        "Systemwahl aus Untergrund, Vorbereitung und Beanspruchung korrekt ableiten"
       ],
-      "summary": "Beschichten ist Schichtauftrag, Bekleiden ist Belegen mit Elementen.",
+      "summary": "Beschichten bedeutet Schichtauftrag, Bekleiden bedeutet Belegen mit Elementen, jeweils mit unterschiedlicher Systemlogik.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grunddefinition: Beschichten versus Bekleiden."
+        },
         {
           "type": "list",
           "items": [
-            "Beschichten: Schicht auftragen, z. B. Putz, Spachtel, Farbe, Lack",
-            "Bekleiden: Bauteil mit Belag oder Platten versehen, z. B. Fliesen und Platten",
-            "LF6 im 1. Ausbildungsjahr umfasst die Grundlogik von Untergrund bis Endkontrolle"
+            "Beschichten bedeutet zusammenhaengende Schicht direkt auf den Untergrund auftragen",
+            "Typische Beschichtungen sind Putz, Spachtelmasse, Farbe, Lacke und je nach System Dichtschlaemmen oder Abdichtungen",
+            "Erkennbar am Arbeitsvorgang: streichen, spachteln, rollen, werfen, ziehen",
+            "Bekleiden bedeutet Untergrund mit vorgefertigten Elementen belegen",
+            "Typische Bekleidungen sind Fliesen, Platten, Trockenbauplatten und Paneele",
+            "Erkennbar am Arbeitsvorgang: setzen, kleben, duebeln, verschrauben, verlegen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2. Schnelle Zuordnung in der Praxis."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Putz, Farbe und Spachtel gehoeren zum Beschichten",
+            "Fliesen und Platten gehoeren zum Bekleiden",
+            "Bei Bekleidungen sind oft vorbereitende Beschichtungen noetig, z. B. Grundierung, Ausgleichsspachtel oder Abdichtung im Nassbereich"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Warum die Unterscheidung wichtig ist."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Die Zuordnung bestimmt das passende System aus Material, Grundierung und Kleber oder Moertel",
+            "Die Zuordnung legt fest, welche Untergrundanforderungen gelten",
+            "Die Zuordnung steuert, welche Pruefungen vor Ausfuehrung noetig sind",
+            "Die Zuordnung richtet sich nach der spaeteren Beanspruchung der Oberflaeche"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Die richtige Systemwahl beginnt immer mit dem Untergrund und der Beanspruchung."
+        },
+        {
+          "type": "text",
+          "value": "4. Beanspruchung und Einsatz mit Praxisbeispielen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Beschichten ist sinnvoll bei durchgehenden Oberflaechen, Ausgleich von Unebenheiten und Schutz- oder Gestaltungswirkung",
+            "Bekleiden ist sinnvoll bei robusten Nutzschichten, abriebfesten Oberflaechen und definierter Geometrie oder Optik mit Platten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Mini-Workflow LF06 im ersten Ausbildungsjahr."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Untergrund pruefen: Tragfaehigkeit, Sauberkeit, Trockenheit, Saugverhalten",
+            "Vorbehandeln: reinigen, grundieren, ausgleichen, ggf. abdichten",
+            "System waehlen: Beschichtung oder Bekleidung mit passendem Material",
+            "Ausfuehren: Schichtauftrag oder Verlegung beziehungsweise Montage",
+            "Endkontrolle: Haftung, Ebenheit, Optik, Fugen und Kanten"
           ]
         },
         {
@@ -30,24 +93,103 @@
       "id": "lf06-b2",
       "title": "Untergrund pruefen",
       "goals": [
-        "Untergrundkriterien vor Ausfuehrung sicher bewerten",
-        "Einfache Praxisproben richtig einsetzen"
+        "Untergrundkriterien systematisch beurteilen und freigeben",
+        "Risse, lose Stellen und Praxisproben fachgerecht auswerten"
       ],
-      "summary": "Tragfaehigkeit, Sauberkeit, Trockenheit und Saugverhalten entscheiden ueber Haftung.",
+      "summary": "Die Untergrundpruefung entscheidet ueber Haftung und Lebensdauer jeder Beschichtung oder Bekleidung.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Untergrundpruefung Pflicht ist."
+        },
         {
           "type": "list",
           "items": [
-            "Untergrund muss tragfaehig, sauber, trocken genug und gleichmaessig saugend sein",
-            "Risse und lose Stellen erkennen, entfernen und fachgerecht ausbessern",
-            "Benetzungsprobe fuer Saugverhalten und Kratzprobe fuer Oberflaechenfestigkeit"
+            "Der Untergrund entscheidet ueber Haftung und Lebensdauer",
+            "Bei ungeeignetem Untergrund hilft auch das beste Material nicht",
+            "Typische Fehlerfolgen sind Haftungsprobleme, Abplatzungen, Hohllagen, durchzeichnende Risse und Nacharbeit bis Rueckbau"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Der Untergrund ist das Fundament der Oberflaeche."
+        },
+        {
+          "type": "text",
+          "value": "2. Die vier Kernkriterien, die immer geprueft werden muessen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Tragfaehig: Untergrund muss fest sein und darf nicht absanden oder broeseln",
+            "Typische No-Gos bei Tragfaehigkeit: kreidende Altanstriche, lose Putzstellen, broeselige Spachtelreste, hohle Stellen",
+            "Sauber: Staub, Fett, Trennmittel, Schaloelreste oder Sinterschichten wirken als Trennfilm",
+            "Typische No-Gos bei Sauberkeit: Staubfilm, Oel oder Fett, Zementschlaemme oder Sinterhaut",
+            "Trocken genug: zu feuchte Untergruende verursachen Haftverlust, Blasenbildung und je nach Aufbau Schimmelrisiko",
+            "Praxislogik: nass plus dicht ist Risiko, weil Feuchte nicht entweichen kann",
+            "Gleichmaessig saugend: stark unterschiedliches Saugverhalten fuehrt zu Flecken, Ansaetzen, ungleichmaessiger Trocknung und Festigkeitsproblemen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Risse und lose Stellen richtig behandeln."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Risse erkennen und bewerten, z. B. Haarrisse, bewegungsaktive Risse, Setzrisse oder Bauteiltrennungen",
+            "Risse nicht einfach ueberstreichen, sondern Ursache klaeren und passendes System waehlen",
+            "Lose Stellen abklopfen, entfernen, tragfaehigen Rand herstellen und fachgerecht ausbessern"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Einfache Praxisproben fuer die Baustelle."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Benetzungsprobe fuer Saugverhalten: Wasser aufbringen und beobachten, ob es schnell einzieht, ungleich einzieht oder abperlt",
+            "Interpretation Benetzungsprobe: stark saugend braucht angepasste Grundierung oder Vornassen; fleckig saugend braucht Ausgleich oder Grundierung; abperlendes Wasser deutet auf dichte oder verschmutzte Oberflaeche hin",
+            "Kratzprobe fuer Oberflaechenfestigkeit: mit geeigneter Metallkante leicht kratzen und auf Stauben, Broeseln oder Abplatzen pruefen",
+            "Interpretation Kratzprobe: kreidende oder broeselnde Schichten sind nicht tragfaehig und muessen gereinigt, abgeschliffen oder verfestigt werden; schollenartig abplatzende Schichten bis zum tragfaehigen Untergrund entfernen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Typische Untergrundprobleme aus der Praxis."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kreidender Altanstrich, dadurch unzureichende Haftung",
+            "Sandender Putz, dadurch Risse oder Abplatzungen in Spachtelschichten",
+            "Beton mit Schaloelresten, dadurch schlechte Haftung von Kleber oder Farbe",
+            "Feuchte Ecken ohne passendes Abdichtungs- oder Systemkonzept",
+            "Unterschiedliche Saugfaehigkeit mit Flecken, Ansaetzen oder Schwindrissen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Untergrund freigeben nach Baustellenlogik."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Tragfaehig ja oder nein",
+            "Sauber ja oder nein",
+            "Trocken genug ja oder nein",
+            "Gleichmaessig saugend ja oder nein",
+            "Risse und lose Stellen bearbeitet ja oder nein"
           ]
         },
         {
           "type": "callout",
           "variant": "danger",
-          "title": "Fehlerfolge",
-          "value": "Ein ungeeigneter Untergrund fuehrt oft zu Haftungsproblemen, Abplatzungen und Nacharbeit."
+          "title": "Merksatz",
+          "value": "Erst pruefen, dann grundieren, dann beschichten oder bekleiden."
         }
       ],
       "quizRef": ["Q3", "Q4"]
@@ -56,17 +198,67 @@
       "id": "lf06-b3",
       "title": "Putze: Aufbau und Auswahl",
       "goals": [
-        "Putzsysteme in Schichten logisch aufbauen",
-        "Normbezug fuer Innen- und Aussenputz kennen"
+        "Putzsysteme als abgestimmten Schichtaufbau planen und ausfuehren",
+        "Schichtfunktionen, Einsatzgrenzen und Normorientierung fuer Innen- und Aussenputz sicher anwenden"
       ],
-      "summary": "Vom Haftverbund ueber Unterputz bis zum Oberputz: Schichtaufbau muss zusammenpassen.",
+      "summary": "Putz ist ein Schichtsystem, bei dem jede Lage eine klare Aufgabe hat und zur naechsten passen muss.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundlogik: Putz ist ein System aus aufeinander abgestimmten Schichten."
+        },
         {
           "type": "list",
           "items": [
-            "Typischer Aufbau: ggf. Vorspritz oder Haftbruecke, Unterputz, ggf. Armierung, Oberputz, ggf. Anstrich",
-            "Unterputz gleicht aus und bildet die tragende Grundlage fuer weitere Schichten",
-            "Planung und Ausfuehrung orientieren sich an DIN EN 13914 und DIN 18550"
+            "Typischer Aufbau je nach Untergrund und Beanspruchung: Vorspritz oder Haftbruecke, Unterputz, ggf. Armierungsschicht mit Gewebe, Oberputz, ggf. Anstrich",
+            "Jede Schicht hat eine eigene Aufgabe und muss zur Folge- oder Vorgaengerschicht passen",
+            "Wichtige Abstimmungspunkte sind Haftung, Festigkeit, Saugverhalten, Bewegung und Witterung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2. Wofuer die einzelnen Schichten da sind."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Vorspritz oder Haftbruecke verbessert Haftverbund und reguliert Saugverhalten, besonders bei glatten Betonflaechen oder kritischen Mischuntergruenden",
+            "Unterputz gleicht Unebenheiten aus und bildet die tragende Basisschicht fuer weitere Lagen",
+            "Armierungsschicht verteilt Spannungen und reduziert Rissrisiken, z. B. bei Untergrundwechseln, grossen Flaechen, Uebergaengen und WDVS",
+            "Gewebe wird in die Armierungsmasse eingebettet und nicht nur auf die Oberflaeche gelegt",
+            "Oberputz bildet die fertige Oberflaeche in Optik und Struktur und uebernimmt Schutzfunktionen, vor allem aussen",
+            "Anstrich oder Beschichtung kann zusaetzlichen Witterungs- und Verschmutzungsschutz sowie Farbgestaltung liefern"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Praxisfehler",
+          "value": "Fehlende Haftbruecke auf kritischem Untergrund fuehrt haeufig zu Hohllagen und Abplatzungen."
+        },
+        {
+          "type": "text",
+          "value": "3. Innenputz und Aussenputz im Grundprinzip."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Aussenputz ist staerker durch Witterung, Feuchtewechsel, Frost und UV beansprucht",
+            "Innenputz ist meist weniger witterungsbelastet, hier zaehlen oft Ebenheit und Oberflaechenqualitaet besonders",
+            "System muss immer zum Untergrund und zur realen Beanspruchung passen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Normbezug als Orientierung fuer Theorie und Praxis."
+        },
+        {
+          "type": "list",
+          "items": [
+            "DIN EN 13914-1 als Orientierung fuer Aussenputze",
+            "DIN EN 13914-2 als Orientierung fuer Innenputze",
+            "DIN 18550-1 als ergaenzende Festlegungen im Kontext der Putzarbeiten",
+            "Fuer die Lernwelt gilt: diese Normen sind zentrale Regelwerke fuer Innen- und Aussenputz"
           ]
         },
         {
@@ -74,6 +266,38 @@
           "variant": "info",
           "title": "Normenbox",
           "value": "DIN EN 13914 und DIN 18550 sind zentrale Regelwerke fuer Putzarbeiten innen und aussen."
+        },
+        {
+          "type": "text",
+          "value": "5. Schnelle Baustellen-Logik zur Systemauswahl."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Putz nach Untergrund waehlen, z. B. saugend, glatt, Mischmauerwerk, Beton",
+            "Beanspruchung beachten, z. B. innen oder aussen, Feuchte, mechanische Last",
+            "Zieloberflaeche festlegen, z. B. glatt, gefilzt oder strukturiert"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Systemwahl beginnt immer mit Untergrund und Beanspruchung."
+        },
+        {
+          "type": "text",
+          "value": "6. Typische Fehler, die spaeter als Maengel sichtbar werden."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Falscher Schichtaufbau, zum Beispiel zu harte auf zu weiche Lage",
+            "Fehlende Haftbruecke auf glattem oder dichtem Untergrund",
+            "Keine Armierung in risskritischen Bereichen",
+            "Falsche Standzeiten und zu fruehes Weiterarbeiten",
+            "Aussenputz bei unguenstiger Witterung ohne Schutzmassnahmen"
+          ]
         }
       ],
       "quizRef": ["Q5", "Q6"]
@@ -82,17 +306,86 @@
       "id": "lf06-b4",
       "title": "Spachteln und Schleifen",
       "goals": [
-        "Vorbereitungsablauf fuer Endbeschichtungen sicher anwenden",
-        "Oberflaechenqualitaet durch sauberes Arbeiten sichern"
+        "Spachtel- und Schleifarbeiten reproduzierbar fuer hochwertige Endbeschichtungen ausfuehren",
+        "Haftungs- und Oberflaechenfehler durch korrekten Ablauf vermeiden"
       ],
-      "summary": "Spachteln, trocknen, schleifen und entstauben sind die Basis fuer haltbare Endschichten.",
+      "summary": "Spachteln und Schleifen sind die entscheidende Vorbereitung fuer Haftung, Ebenheit und Optik der Endbeschichtung.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Spachteln und Schleifen die halbe Miete sind."
+        },
         {
           "type": "list",
           "items": [
-            "Fehlstellen fuellen und spachteln, danach ausreichend trocknen lassen",
-            "Schleifen, komplett entstauben und bei Bedarf grundieren",
-            "Qualitaetskriterien: ebene Flaeche, keine Grate, keine losen Stellen, gleichmaessige Struktur"
+            "Endbeschichtungen halten und wirken nur auf ebener, fester und staubfreier Oberflaeche",
+            "Beschichtungen verdecken Untergrundfehler nicht, sie machen sie sichtbar"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Beschichtungen kleben nicht an Fehlern, sie zeigen sie."
+        },
+        {
+          "type": "text",
+          "value": "2. Standard-Ablauf fuer reproduzierbare Qualitaet."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schritt 1 Spachteln: Fehlstellen, Riefen und Ausbrueche fuellen, Kanten nachziehen, Uebergaenge ausgleichen",
+            "Schichtdicke passend waehlen und nicht unnoetig aufbauen",
+            "Schritt 2 Trocknen: Spachtelmasse ausreichend trocknen lassen, zu fruehes Schleifen fuehrt zu Schmieren und Haftungsproblemen",
+            "Schritt 3 Schleifen: Ebenheit herstellen, Grate entfernen, Uebergaenge angleichen, gleichmaessige Struktur erzeugen",
+            "Beim Schleifen keine Mulden erzeugen und Kanten nicht wegschleifen",
+            "Schritt 4 Entstauben: abbuersten oder absaugen, ggf. systemabhaengig leicht feucht nachwischen",
+            "Schritt 5 Grundieren bei Bedarf: bei stark saugenden, sandenden oder kreidenden Flaechen sowie nach Herstellervorgabe"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Praxislogik",
+          "value": "Grundierung oder Farbe haelt sonst am Staub und nicht am tragfaehigen Untergrund."
+        },
+        {
+          "type": "text",
+          "value": "3. Qualitaetskriterien fuer spachtel- und schleiffertige Flaechen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Eben ohne Wellen oder Buckel",
+            "Gratfrei ohne Nasen oder scharfe Kanten",
+            "Fest ohne Kreiden oder lose Bereiche",
+            "Gleichmaessig in Struktur und Saugverhalten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Typische Fehler und ihre Folgen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Nicht vollstaendig getrocknet fuehrt zu Schleifschlieren und spaeteren Rissen",
+            "Nicht entstaubt fuehrt zu Haftungsproblemen und Abblaettern",
+            "Nur optisch bearbeitet bei losem Untergrund fuehrt zu Abplatzungen",
+            "Zu grob geschliffen fuehrt zu sichtbaren Kratzern im Anstrich"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Mini-Merkkasten fuer den Ablauf."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Spachteln, dann trocknen, dann schleifen, dann entstauben, dann ggf. grundieren, danach Endbeschichtung",
+            "Staub weg bedeutet Haftung da",
+            "Ohne Ebenheit keine hochwertige Oberflaeche"
           ]
         }
       ],
@@ -102,24 +395,84 @@
       "id": "lf06-b5",
       "title": "Anstriche und Lacke: Systemwahl und Arbeitsschutz",
       "goals": [
-        "Gefahrstoffrisiken bei Beschichtungsstoffen einordnen",
-        "Grundschutzmassnahmen aus Betriebsanweisung umsetzen"
+        "Beschichtungssysteme nach Untergrund, Beanspruchung und Gefahrstoffprofil sicher auswaehlen",
+        "Arbeitsschutz, Brandpraevention und Entsorgung nach Betriebsanweisung und SDB umsetzen"
       ],
-      "summary": "Bei loesemittelhaltigen Systemen sind Brand-, Explosions- und Gesundheitsrisiken mitzudenken.",
+      "summary": "Systemwahl bei Anstrichen und Lacken ist immer auch Arbeitsschutz, Brandpraevention und Gefahrstoffmanagement.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Gefahrstoffe bei Beschichtungen immer mitgedacht werden muessen."
+        },
         {
           "type": "list",
           "items": [
-            "Beschichtungsstoffe koennen Gefahrstoffe sein und teils entzuendlich wirken",
-            "Schutzmassnahmen: lueften, Zundquellen vermeiden, PSA nach Gefaehrdungsbeurteilung",
-            "Dokumentation und Entsorgung nach den Vorgaben fuer Gefahrstoffumgang ausfuehren"
+            "Beschichtungsstoffe koennen entzuendlich sein und Brand- oder Explosionsgefahren verursachen",
+            "Je nach Produkt bestehen Gesundheitsrisiken fuer Atemwege, Haut und Augen",
+            "Falsche Handhabung oder Entsorgung kann umweltgefaehrdend sein",
+            "Systemwahl ist daher nicht nur Optik, sondern immer auch Arbeitsschutz und Brandpraevention"
           ]
+        },
+        {
+          "type": "text",
+          "value": "2. Kurzlogik der Systemwahl vor dem Oeffnen der Dose."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Untergrund pruefen: tragfaehig, sauber, trocken und passend grundiert",
+            "Beanspruchung klaeren: innen oder aussen, Feuchte, Abrieb, Chemikalien, UV",
+            "Systemart festlegen: wasserbasiert, loesemittelhaltig oder ggf. Reaktionsharz",
+            "Etikett, SDB und Piktogramme vorab auswerten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Gefaehrdungen erkennen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Auf GHS-Piktogramme achten, z. B. Flamme, Ausrufezeichen, Gesundheitsgefahr",
+            "Warnhinweise wie entzuendlich, Daempfe nicht einatmen oder nur bei guter Lueftung beachten",
+            "Wenn Loesemittel riechbar sind, sind Daempfe vorhanden und Lueftung plus PSA sind Pflicht"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Grundschutzmassnahmen aus Betriebsanweisung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Lueften: Querluft herstellen, Daempfe nicht stehen lassen, ggf. technische Lueftung nutzen",
+            "Zuendquellen vermeiden: kein offenes Feuer, kein Funkenflug, nicht rauchen",
+            "PSA passend zur Taetigkeit waehlen: Handschuhe, Schutzbrille, Hautschutz und bei Bedarf Atemschutz",
+            "Massnahmen immer nach Gefaehrdungsbeurteilung und SDB umsetzen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Lagerung, Dokumentation und Entsorgung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Lagerung dicht verschlossen, standsicher und getrennt von Zuendquellen in geeigneten Bereichen",
+            "Betriebsanweisung beachten und Unterweisung beziehungsweise Freigaben je Betrieb dokumentieren",
+            "Reste, getraenkte Lappen und Gebinde nach Vorgaben entsorgen, nie in Ausguss oder Bodenablauf kippen",
+            "Fuer die Lagerung ortsbeweglicher Gefahrstoffbehaelter gilt TRGS 510 als zentrale Orientierung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Achtung-Kasten fuer die Praxis."
         },
         {
           "type": "callout",
           "variant": "danger",
           "title": "Achtung",
-          "value": "Loesemittel nie offen stehen lassen und nur in sicheren Arbeitsbereichen verarbeiten."
+          "value": "Loesemittel nie offen stehen lassen und nur in sicheren Arbeitsbereichen mit Lueftung, ohne Zuendquellen und mit passender PSA verarbeiten."
         }
       ],
       "quizRef": ["Q8", "Q9"]
@@ -128,17 +481,80 @@
       "id": "lf06-b6",
       "title": "Fliesen und Platten: Duennbetttechnik",
       "goals": [
-        "Grundprinzip der Duennbettverlegung beherrschen",
-        "Werkzeuge und Arbeitsschritte systemgerecht einsetzen"
+        "Duennbettverlegung im Floating-Prinzip fachgerecht ausfuehren",
+        "Kleberauftrag, Zahnung, Benetzung und Fugenbild qualitaetssicher kontrollieren"
       ],
-      "summary": "Untergrund, Kleberauftrag mit Zahnspachtel und sauberes Fugenbild sind Kernpunkte.",
+      "summary": "In der Duennbetttechnik entscheiden Untergrund, Kontaktschicht, Zahnung und Einbettung ueber Haftung und Dauerhaftigkeit.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip der Duennbettverlegung."
+        },
         {
           "type": "list",
           "items": [
-            "Geeigneten Untergrund herstellen und vorbereiten",
-            "Kleber mit Zahnspachtel in definierter Struktur und Schichtstaerke aufziehen",
-            "Fliesen einlegen, andruecken und gleichmaessiges Fugenbild halten"
+            "Kleber wird in definierter Schichtdicke aufgetragen und die Fliese darin eingebettet",
+            "Im Floating-Prinzip erst Kontaktschicht, danach aufkaemmen mit Zahnkelle",
+            "Ziel ist eine hohe Benetzung der Fliesenrueckseite statt punktueller Haftung"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Nicht nur kleben, sondern die Fliese sauber einbetten."
+        },
+        {
+          "type": "text",
+          "value": "2. Voraussetzungen am Untergrund."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Untergrund muss tragfaehig, sauber und ausreichend trocken sein",
+            "Groessere Unebenheiten vorher ausgleichen",
+            "Saugverhalten beurteilen und bei Bedarf grundieren",
+            "Im Nassbereich Abdichtungssystem beachten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Werkzeuge, die sicher beherrscht werden muessen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zahnspachtel mit passender Zahnung",
+            "Glaettkelle fuer Kontaktschicht",
+            "Ruehrwerk zum Anmischen",
+            "Fliesenkreuze oder Nivelliersystem",
+            "Gummihammer oder Andrueckbrett",
+            "Richtscheit oder Wasserwaage"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Kleberauftrag: Kontaktschicht und Zahnung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kontaktschicht duenn einreiben, damit der Kleber am Untergrund haftet",
+            "Danach mit Zahnspachtel gleichmaessig in eine Richtung aufkaemmen",
+            "Nicht kreuz und quer verstreichen",
+            "Nur so viel Flaeche einstreichen, wie in der offenen Zeit belegt werden kann"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Zahnung verstehen als Qualitaetsfaktor."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zahnung bestimmt Kleberbettgeometrie, Klebermenge und Benetzung",
+            "Sie beeinflusst Hohlraumfreiheit, Belastbarkeit und Dauerhaftigkeit",
+            "Zu kleine Zahnung fuehrt zu zu wenig Kleber und Hohlstellen"
           ]
         },
         {
@@ -146,6 +562,41 @@
           "variant": "tip",
           "title": "Praxis",
           "value": "Die Zahnung bestimmt die Kleberbettgeometrie und damit die Benetzung der Fliesenrueckseite."
+        },
+        {
+          "type": "text",
+          "value": "6. Fliesen einlegen, andruecken und Fugenbild halten."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Fliese ins Kleberbett einlegen und mit leichter Schiebebewegung andruecken",
+            "Fugenbreite gleich halten, z. B. mit Kreuzen oder Clips",
+            "Regelmaessig Flucht, Ebene und Hoehenversatz kontrollieren",
+            "Zwischendurch Fliese aufnehmen und Benetzungsflaeche pruefen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "7. Typische Fehler und Ursachen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Unvorbereiteter Untergrund fuehrt zu schlechter Haftung und Hohllagen",
+            "Kleber ausserhalb der offenen Zeit haelt nur punktuell",
+            "Falsche Zahnung reduziert Benetzung",
+            "Zu wenig Andruecken erzeugt Hohlraeume",
+            "Unkontrolliertes Fugenbild fuehrt zu optischen Maengeln und Nacharbeit"
+          ]
+        },
+        {
+          "type": "list",
+          "items": [
+            "Mini-Merkkasten: Untergrund passend machen, dann kleben",
+            "Kontaktschicht, Zahnkelle, einlegen, andruecken",
+            "Zahnung gleich Klebermenge gleich Benetzung gleich Qualitaet"
+          ]
         }
       ],
       "quizRef": ["Q10", "Q11"]
@@ -154,18 +605,99 @@
       "id": "lf06-b7",
       "title": "Abdichtung im Nassbereich",
       "goals": [
-        "Notwendigkeit von Abdichtung unter Fliesen verstehen",
-        "Anschlussbereiche als Schadensschwerpunkt erkennen"
+        "Notwendigkeit und Aufbau von Verbundabdichtungen im Nassbereich sicher erklaeren",
+        "Detailzonen wie Uebergaenge, Ecken und Durchdringungen systemgerecht und schadenssicher ausfuehren"
       ],
-      "summary": "Nassbereiche brauchen ein passendes Abdichtungssystem unter dem Belag.",
+      "summary": "Fliesen sind nicht wasserdicht genug fuer Nassbereiche, daher ist eine systemgerechte Abdichtung unter dem Belag erforderlich.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Abdichtung unter Fliesen notwendig ist."
+        },
         {
           "type": "list",
           "items": [
-            "Verbundabdichtung schuetzt Untergrund und Anschluesse vor Feuchteeintrag",
-            "Wand-Boden-Uebergaenge und Bewegungsbereiche als kritische Detailzonen ausfuehren",
-            "Systemabhaengige Komponenten nach Herstellerangaben kombinieren"
+            "Fliesen und Platten sind wasserabweisend, aber Fugen, Anschluesse, Durchdringungen und Bewegungen lassen Feuchte unter den Belag",
+            "Ohne passende Abdichtung drohen Durchfeuchtung, Schimmel, Geruch, Hohllagen und Schaeden an angrenzenden Bauteilen",
+            "Belag allein ist nicht die Abdichtung, die Abdichtung liegt darunter"
           ]
+        },
+        {
+          "type": "text",
+          "value": "2. Grundprinzip Verbundabdichtung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verbundabdichtung ist die Abdichtungsschicht direkt unter dem Fliesenbelag",
+            "Das System besteht aus Primer, Abdichtstoff, Dichtbaendern oder Ecken sowie Manschetten und passendem Kleber",
+            "Komponenten muessen als abgestimmtes Kit funktionieren und duerfen nicht beliebig gemischt werden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Norm- und Regelbezug als Orientierung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "DIN 18534 ist das zentrale Regelwerk fuer Abdichtungen in Innenraeumen",
+            "Wassereinwirkungsklassen helfen bei der Auswahl des passenden Systems",
+            "Fuer die Lernpraxis gilt: Systemwahl nach Beanspruchung und Regelwerk treffen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Schadensschwerpunkte in Detailzonen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wand-Boden-Uebergaenge sind kritische Bewegungs- und Belastungszonen",
+            "Innen- und Aussenecken brauchen sauber eingearbeitete Ecken oder Dichtbaender",
+            "Rohrdurchdringungen brauchen passende Dichtmanschetten",
+            "Bewegungsbereiche und Bauteilfugen muessen abdichtungstechnisch aufgenommen werden",
+            "Die Flaeche ist selten das Problem, die Uebergaenge sind es"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Die Flaeche ist selten das Problem, die Uebergaenge sind die Schadenshotspots."
+        },
+        {
+          "type": "text",
+          "value": "5. Systemabhaengige Komponenten korrekt kombinieren."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Komponenten nur nach Herstellerangaben kombinieren",
+            "Schichtdicken und Auftragsmengen einhalten",
+            "Trocknungszeiten beachten",
+            "Details mit Baendern und Manschetten zuerst sauber herstellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Typische Fehler und Folgen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Abdichtung wird weggelassen, weil Fliesen als ausreichend angesehen werden",
+            "Dichtband oder Manschetten sind unsauber oder fehlen",
+            "Systemteile werden gemischt und verlieren Vertraeglichkeit",
+            "Zu fruehes Fliesen auf nicht ausgeharteter Abdichtung",
+            "Folgen sind Leckagen, Durchfeuchtung und Haftungsprobleme"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Achtung",
+          "value": "Fliesen sind nicht die Abdichtung, die Abdichtung liegt darunter und muss als System ausgefuehrt werden."
         }
       ],
       "quizRef": ["Q12"]
@@ -174,17 +706,111 @@
       "id": "lf06-b8",
       "title": "Fugen, Anschluesse und Bewegungsfugen",
       "goals": [
-        "Fugenarten unterscheiden und korrekt umsetzen",
-        "Riss- und Abplatzungsrisiken durch richtige Fugenausbildung vermeiden"
+        "Fugenarten fachgerecht unterscheiden und dauerhaft funktionsgerecht ausfuehren",
+        "Bewegungen im Belag kontrolliert aufnehmen und Riss- oder Abplatzungsrisiken vermeiden"
       ],
-      "summary": "Fugen uebernehmen Bewegungen und sichern die Dauerhaftigkeit der Bekleidung.",
+      "summary": "Fugen sind Bewegungszonen, die Spannungen abbauen und die Dauerhaftigkeit von Bekleidungen sichern.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Fugen mehr sind als Optik."
+        },
         {
           "type": "list",
           "items": [
-            "Gleichmaessige Fugenbreiten und saubere Anschlussfugen herstellen",
-            "Bewegungsfugen aus dem Bestand oder Plan uebernehmen",
-            "Fugen nie starr ueberarbeiten, wenn Bewegung aufgenommen werden muss"
+            "Fugen nehmen Bewegungen aus Temperatur, Untergrund und Bauteilfugen auf",
+            "Fugen bauen Spannungen ab und sichern Dauerhaftigkeit",
+            "Fugen strukturieren zugleich das Erscheinungsbild",
+            "Ohne funktionsfaehige Fugen reisst das System an anderer Stelle"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "info",
+          "title": "Merksatz",
+          "value": "Fugen sind Bewegungszonen und keine reinen Optiklinien."
+        },
+        {
+          "type": "text",
+          "value": "2. Fugenarten im Grundprinzip."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Feldfugen liegen zwischen Fliesen oder Platten im Belagsfeld und werden haeufig zementaer ausgefuehrt",
+            "Anschlussfugen liegen an Uebergaengen zu anderen Bauteilen und muessen Bewegungen aufnehmen koennen",
+            "Bewegungs- oder Dehnfugen nehmen groessere Bewegungen auf und ergeben sich aus Bestand, Planung oder Materialbewegung",
+            "Bewegungsfugen aus Bestand oder Plan muessen im Belag uebernommen werden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Gleichmaessige Fugenbreiten praxisgerecht sichern."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Mit Abstandhaltern wie Kreuzen oder Clips setzen",
+            "Flucht regelmaessig mit Richtschnur oder Laser kontrollieren",
+            "Weglaufen frueh korrigieren statt spaeter nacharbeiten",
+            "Plattenformat, Toleranzen und Ebenheit des Untergrunds beruecksichtigen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Bewegungsfugen richtig behandeln."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bewegungsfugen nie starr mit Kleber oder Fugenmoertel ueberarbeiten",
+            "Bei starrer Ueberarbeitung entstehen oft Risse im Belag oder in Fugen sowie Abplatzungen",
+            "Vorhandene Fugen im Untergrund uebernehmen und im Belag funktionsgerecht ausbilden"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Kernpunkt",
+          "value": "Bewegungsfugen muessen bleiben, starre Ueberarbeitung erhoeht das Rissrisiko deutlich."
+        },
+        {
+          "type": "text",
+          "value": "5. Typische Fehlerbilder und Ursachen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Risse in Belag oder Fugen durch fehlende oder ueberarbeitete Bewegungsfugen",
+            "Abplatzungen an Kanten durch Spannungen ohne Bewegungsausgleich",
+            "Unsaubere Anschlussfugen durch falsches Material oder mangelhafte Ausfuehrung",
+            "Unruhiges Fugenbild durch fehlende Fuehrung und Kontrolle"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Mini-Check fuer die Endkontrolle."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sind Fugenbreiten gleichmaessig",
+            "Sind Anschlussfugen sauber und durchgehend",
+            "Sind Bewegungsfugen vorhanden und nicht zugeschmiert",
+            "Sind Wand-Boden-Uebergaenge korrekt ausgefuehrt",
+            "Gibt es offene Stellen, Fehlstellen oder Ausbrueche"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Merksaetze fuer LF06-B7 und LF06-B8."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Fliesen sind nicht die Abdichtung, die Abdichtung liegt darunter.",
+            "Uebergaenge, Ecken und Durchdringungen sind die Schadenshotspots.",
+            "Bewegungsfugen muessen erhalten bleiben, starre Ueberarbeitung fuehrt zu Rissrisiko."
           ]
         }
       ],

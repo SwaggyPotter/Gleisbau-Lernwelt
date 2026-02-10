@@ -4,23 +4,171 @@
       "id": "lf02-b1",
       "title": "Auftrag & oertliche Gegebenheiten (Analyse)",
       "goals": [
-        "Vor dem ersten Aushub alle Rahmenbedingungen kennen",
-        "Risiken und Logistik auf der Flaeche einschätzen"
+        "Alle Startinformationen fuer Erd- und Gruendungsarbeiten systematisch erfassen",
+        "Baugrund, Wasser, Leitungen, Platz, Logistik und Verantwortung sicher bewerten"
       ],
-      "summary": "Welche Infos du vor dem Start brauchst: Boden, Wasser, Leitungen, Platz, Zufahrt.",
+      "summary": "Welche Informationen brauchst du vor dem Start der Erd- und Gruendungsarbeiten?",
       "content": [
-        { "type": "text", "value": "Erst analysieren, dann baggern: Baugrund, Leitungen, Platzverhaeltnisse und Zufahrt klaeren, bevor der Aushub beginnt." },
+        { "type": "text", "value": "1) Warum ist die Analyse vor Arbeitsbeginn so entscheidend?" },
         {
           "type": "list",
           "items": [
-            "Was wird gebaut? Gebaeude/Anbau, Schacht, Leitung, Zufahrt/Pflasterflaeche",
-            "Wo ist Arbeitsraum, wo stehen Geraete, wo liegt Material?",
-            "Welche Risiken? Verkehr, Kran-/Baggerbereich, Absturz, Einbruchgefahr in Graeben",
-            "Leitungen/Kabel? Bestandsplaene, Ortung, Suchschlitze nach Regel",
-            "Welche Boden- und Wasserverhaeltnisse werden erwartet?"
+            "Bevor auch nur ein Bagger faehrt, muss klar sein: Was soll gebaut werden? Wo wird gebaut? Wie sind die Bedingungen vor Ort? Welche Gefahren bestehen?",
+            "Fehler in dieser Phase ziehen sich durch die ganze Baustelle und fuehren zu Verzoegerungen, Mehrkosten, Schaeden, Unfaellen und falscher Gruendung.",
+            "Merksatz fuer die Lernwelt: Was man vor dem Start nicht prueft, holt einen spaeter ein."
           ]
         },
-        { "type": "callout", "variant": "info", "title": "Praxis-Check", "value": "Logistik und Leitungsbestand frueh pruefen = weniger Stillstand und Nacharbeit." }
+        { "type": "text", "value": "2) Der Auftrag - was genau soll gemacht werden?" },
+        { "type": "text", "value": "2.1 Inhalte des Auftrags" },
+        {
+          "type": "list",
+          "items": [
+            "Der Auftrag beschreibt: Art des Bauwerks (z. B. Fundament, Schacht, Kabelgraben), Lage und Abmessungen, Bauweise, Termine/Bauzeiten und besondere Vorgaben (z. B. Arbeiten unter Verkehr).",
+            "Typische Unterlagen: Bauzeichnungen, Leistungsverzeichnis, Bauzeitenplan, Fundamentplaene, Vermessungsunterlagen.",
+            "Unklarer Auftrag = hohes Risiko. Unklarheiten muessen vor Arbeitsbeginn geklaert werden."
+          ]
+        },
+        { "type": "text", "value": "3) Oertliche Gegebenheiten - was muss analysiert werden?" },
+        {
+          "type": "list",
+          "items": [
+            "Die Analyse der oertlichen Gegebenheiten umfasst alle Bedingungen, die Einfluss auf Sicherheit, Bauablauf, Technik und Kosten haben."
+          ]
+        },
+        { "type": "text", "value": "4) Baugrund - Bodenverhaeltnisse beurteilen" },
+        { "type": "text", "value": "4.1 Warum ist der Boden so wichtig?" },
+        {
+          "type": "list",
+          "items": [
+            "Der Boden entscheidet, ob ein Bauwerk sicher gegruendet werden kann, wie tief gegraben werden darf, welche Sicherung noetig ist und wie Wasser reagiert."
+          ]
+        },
+        { "type": "text", "value": "4.2 Typische Bodenarten (vereinfacht)" },
+        {
+          "type": "list",
+          "items": [
+            "Sand, Kies, Lehm, Ton, Auffuellungen, Mischboeden.",
+            "Jeder Boden verhaelt sich anders: tragfaehig oder weich, standfest oder rutschig, wasserdurchlaessig oder dicht."
+          ]
+        },
+        { "type": "text", "value": "4.3 Informationen zum Baugrund" },
+        {
+          "type": "list",
+          "items": [
+            "Baugrundgutachten, Erfahrungswerte, sichtbare Hinweise vor Ort (Setzungen, Feuchtigkeit), Probeschuerfe.",
+            "Auffuellungen und unbekannte Boeden sind besonders kritisch."
+          ]
+        },
+        { "type": "text", "value": "5) Wasser - Grundwasser und Oberflaechenwasser" },
+        { "type": "text", "value": "5.1 Warum Wasser ein zentrales Thema ist" },
+        {
+          "type": "list",
+          "items": [
+            "Wasser beeinflusst Standfestigkeit der Baugrube, Sicherheit der Beschaeftigten, Bauablauf und Auswahl der Gruendung."
+          ]
+        },
+        { "type": "text", "value": "5.2 Arten von Wasser" },
+        {
+          "type": "list",
+          "items": [
+            "Grundwasser (dauerhaft im Boden), Schichtenwasser, Regenwasser, Oberflaechenwasser."
+          ]
+        },
+        { "type": "text", "value": "5.3 Wichtige Fragen vor dem Start" },
+        {
+          "type": "list",
+          "items": [
+            "Steht Grundwasser an? In welcher Tiefe? Muss Wasser abgefuehrt werden? Wohin darf das Wasser geleitet werden?",
+            "Wasserhaltung muss geplant sein - nicht improvisiert."
+          ]
+        },
+        { "type": "text", "value": "6) Leitungen und vorhandene Anlagen" },
+        { "type": "text", "value": "6.1 Warum Leitungen besonders gefaehrlich sind" },
+        {
+          "type": "list",
+          "items": [
+            "Strom -> Lebensgefahr, Gas -> Explosionsgefahr, Wasser -> Unterspuelung, Telekom -> hohe Kosten."
+          ]
+        },
+        { "type": "text", "value": "6.2 Typische Leitungen im Boden" },
+        {
+          "type": "list",
+          "items": [
+            "Strom, Gas, Wasser, Abwasser, Telekommunikation, Fernwaerme."
+          ]
+        },
+        { "type": "text", "value": "6.3 Was vor Arbeitsbeginn geklaert sein muss" },
+        {
+          "type": "list",
+          "items": [
+            "Leitungsauskuenfte einholen, Plaene pruefen, Leitungen markieren, Schutzmassnahmen festlegen.",
+            "Keine Erdarbeiten ohne Leitungspruefung."
+          ]
+        },
+        { "type": "text", "value": "7) Platzverhaeltnisse und Arbeitsraum" },
+        { "type": "text", "value": "7.1 Warum Platz entscheidend ist" },
+        {
+          "type": "list",
+          "items": [
+            "Bewegungsraum fuer Geraete, Lagerflaechen, Sicherung von Baugruben, Verkehrsfuehrung."
+          ]
+        },
+        { "type": "text", "value": "7.2 Typische Probleme" },
+        {
+          "type": "list",
+          "items": [
+            "Enge innerstaedtische Baustellen, angrenzende Gebaeude, Geh- und Radwege, laufender Verkehr.",
+            "Je enger der Raum, desto hoeher die Anforderungen an Planung und Sicherung."
+          ]
+        },
+        { "type": "text", "value": "8) Zufahrt und Logistik" },
+        { "type": "text", "value": "8.1 Zufahrt klaeren" },
+        {
+          "type": "list",
+          "items": [
+            "Erreichbarkeit der Baustelle, Tragfaehigkeit von Wegen, Durchfahrtsbreiten und -hoehen, Wendemoeglichkeiten."
+          ]
+        },
+        { "type": "text", "value": "8.2 Logistikfragen" },
+        {
+          "type": "list",
+          "items": [
+            "Wo kommen Maschinen rein? Wo wird Material abgeladen? Wo wird Aushub zwischengelagert? Wie erfolgt Abtransport?",
+            "Schlechte Logistik = Stillstand auf der Baustelle."
+          ]
+        },
+        { "type": "text", "value": "9) Sicherheit und Umfeld (erste Bewertung)" },
+        {
+          "type": "list",
+          "items": [
+            "Schon in Block 1 muessen Sicherheitsfragen gestellt werden: Naehe zu Gebaeuden, Naehe zu Verkehr, oeffentliche Bereiche, moegliche Absturzstellen, Gefaehrdung Dritter.",
+            "Diese Erkenntnisse fliessen spaeter in Gefaehrdungsbeurteilung, Baugrubensicherung sowie Verkehrs- und Personensicherung."
+          ]
+        },
+        { "type": "text", "value": "10) Verantwortlichkeiten in dieser Phase" },
+        {
+          "type": "list",
+          "items": [
+            "Auftraggeber/Planung: stellt Unterlagen bereit, definiert Rahmenbedingungen.",
+            "Bauleitung: wertet Auftrag und Gegebenheiten aus, erkennt Risiken, plant Massnahmen.",
+            "Mitarbeitende/Auszubildende: melden Auffaelligkeiten vor Ort, fragen bei Unklarheiten, arbeiten nicht auf Verdacht.",
+            "Analyse ist Teamarbeit."
+          ]
+        },
+        { "type": "text", "value": "11) Typische Fehler (sehr pruefungsrelevant)" },
+        {
+          "type": "list",
+          "items": [
+            "Boden falsch eingeschaetzt, Wasser nicht beruecksichtigt, Leitungen uebersehen, Platzbedarf unterschaetzt, Zufahrt nicht geprueft, Arbeiten begonnen obwohl Infos fehlen."
+          ]
+        },
+        { "type": "text", "value": "12) Merksaetze fuer die Lernwelt" },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksaetze",
+          "value": "Erst analysieren, dann baggern. Boden traegt nicht alles. Wasser ist immer ein Thema. Leitungen sind tabu. Platz und Zufahrt entscheiden den Ablauf."
+        }
       ],
       "quizRef": ["Q1", "Q2"]
     },
@@ -28,27 +176,133 @@
       "id": "lf02-b2",
       "title": "Baugrunderkundung & Boden (Grundwissen)",
       "goals": [
-        "Bodenarten, Tragfaehigkeit und Wassereinfluss einordnen",
-        "Aushubmengen und Wiederverwendung planen"
+        "Boden verstehen, richtig einschaetzen und Gefahren erkennen",
+        "Baugrunderkundung, Bodenarten und Bodeneigenschaften sicher einordnen"
       ],
-      "summary": "Baugrund entscheidet ueber Verbau, Wasserhaltung und Wiederverwertung.",
+      "summary": "Boden verstehen, richtig einschaetzen und Gefahren erkennen.",
       "content": [
+        { "type": "text", "value": "1) Warum ist Baugrunderkundung so wichtig?" },
         {
           "type": "list",
           "items": [
-            "Bodenarten: bindig/nicht bindig, Verdichtbarkeit, Tragfaehigkeit",
-            "Wasser: Grundwasser, Sickerwasser, Wasserandrang beeinflussen Verbau/Wasserhaltung",
-            "Tragfaehigkeit beurteilen: nimmt der Untergrund Fundamentlasten auf?"
+            "Der Boden ist das tragende Bauteil jedes Bauwerks - auch wenn man ihn spaeter nicht mehr sieht.",
+            "Fehler bei der Baugrunderkundung fuehren haeufig zu Setzungen, Rissen, Schiefstaenden, Einsturz von Baugruben, Wassereinbruch und hohen Nachbesserungskosten.",
+            "Merksatz: Der Boden verzeiht keine Annahmen - nur Wissen."
           ]
         },
-        { "type": "callout", "variant": "tip", "title": "Nachhaltigkeit", "value": "Aushub getrennt halten (z. B. Oberboden), sinnvoll lagern und wiederverwenden, Flaechenverbrauch bewerten." },
+        { "type": "text", "value": "2) Was bedeutet Baugrunderkundung?" },
         {
           "type": "list",
           "items": [
-            "Praxis: Aushub grob berechnen mit Laenge x Breite x Tiefe",
-            "Auflockerung beachten: ausgehobener Boden hat mehr Volumen",
-            "Oberboden (Humus) separat abtragen und lagern, wenn vorgesehen"
+            "Baugrunderkundung ist das systematische Untersuchen des Bodens, um festzustellen: welche Bodenarten vorhanden sind, wie tragfaehig der Boden ist, wie standfest er ist, ob Wasser vorhanden ist, wie tief gegruendet werden muss und welche Sicherung noetig ist.",
+            "Die Ergebnisse bilden die Grundlage fuer Gruendungsart, Baugrubensicherung, Wasserhaltung und Bauverfahren."
           ]
+        },
+        { "type": "text", "value": "3) Wer fuehrt Baugrunderkundungen durch?" },
+        {
+          "type": "list",
+          "items": [
+            "Planung/Auftraggeber: veranlasst Baugrunduntersuchung und beauftragt Fachfirmen/Gutachter.",
+            "Fachfirmen/Geotechniker: fuehren Bohrungen und Sondierungen durch, entnehmen Bodenproben, erstellen Baugrundgutachten.",
+            "Bauleitung und Ausfuehrende: muessen Ergebnisse lesen, verstehen und umsetzen; pruefen, ob Boden vor Ort zum Gutachten passt.",
+            "Weicht der Boden von der Beschreibung ab -> sofort melden."
+          ]
+        },
+        { "type": "text", "value": "4) Methoden der Baugrunderkundung (Grundwissen)" },
+        { "type": "text", "value": "4.1 Bohrungen" },
+        {
+          "type": "list",
+          "items": [
+            "Kernbohrungen, Rammkernsondierungen, Schneckenbohrungen.",
+            "Zeigen Bodenschichten, Tiefe und Abfolge sowie Wasserstand."
+          ]
+        },
+        { "type": "text", "value": "4.2 Sondierungen" },
+        {
+          "type": "list",
+          "items": [
+            "Rammsondierung, Drucksondierung.",
+            "Geben Hinweise auf Tragfaehigkeit, Verdichtung und Widerstand des Bodens."
+          ]
+        },
+        { "type": "text", "value": "4.3 Schuerfe / Probeschaechte" },
+        {
+          "type": "list",
+          "items": [
+            "Flache, offene Erkundung - besonders praxisnah.",
+            "Vorteil: Boden direkt sichtbar, Geruch, Feuchte und Struktur erkennbar."
+          ]
+        },
+        { "type": "text", "value": "5) Bodenarten - Grundwissen fuer die Ausbildung" },
+        { "type": "text", "value": "5.1 Grobe Einteilung der Boeden" },
+        {
+          "type": "list",
+          "items": [
+            "Nichtbindige Boeden: Sand, Kies. Eigenschaften: gut wasserdurchlaessig, rieselfaehig, geringe Standfestigkeit, Gefahr von Nachrutschen.",
+            "Bindige Boeden: Lehm, Ton. Eigenschaften: binden Wasser, quellen und schrumpfen, bei Naesse rutschig, oft standfester, aber truegerisch.",
+            "Auffuellungen: Mischmaterial, Bauschutt, unbekannte Zusammensetzung. Besonders gefaehrlich und unberechenbar."
+          ]
+        },
+        { "type": "text", "value": "6) Wichtige Bodeneigenschaften (praxisnah)" },
+        {
+          "type": "list",
+          "items": [
+            "Tragfaehigkeit: Wie viel Last kann der Boden aufnehmen? Wichtig fuer Fundamente und Bauwerke.",
+            "Standfestigkeit: Bleibt der Boden an der Boeschung stehen oder rutscht er nach?",
+            "Wasserverhalten: wasserdurchlaessig oder stauend, Gefahr von Aufweichung, Einfluss auf die Baugrube.",
+            "Frostempfindlichkeit: Auf- und Abfrieren, Volumenaenderung, Schaeden an Fundamenten."
+          ]
+        },
+        { "type": "text", "value": "7) Boden und Wasser - kritische Kombination" },
+        {
+          "type": "list",
+          "items": [
+            "Sobald Wasser hinzukommt, sinkt die Standfestigkeit, steigt die Einsturzgefahr und Bodeneigenschaften veraendern sich.",
+            "Typische Gefahren: Aufschwimmen von Baugruben, Unterspuelung, Nachbruch.",
+            "Boden nie ohne Wasser betrachten."
+          ]
+        },
+        { "type": "text", "value": "8) Baugrundgutachten - was steht drin?" },
+        {
+          "type": "list",
+          "items": [
+            "Beschreibung der Bodenschichten, Grundwasserstaende, Tragfaehigkeit, Empfehlungen zur Gruendung, Hinweise zur Baugrubensicherung, Hinweise zur Wasserhaltung.",
+            "Gutachten lesen heisst nicht ueberfliegen - sondern verstehen."
+          ]
+        },
+        { "type": "text", "value": "9) Was muessen Auszubildende wissen und koennen?" },
+        {
+          "type": "list",
+          "items": [
+            "Bodenarten unterscheiden (Grundlagen), Gefahren erkennen, Auffaelligkeiten melden, Anweisungen umsetzen, nicht eigenmaechtig graben.",
+            "Azubis graben nicht auf Verdacht."
+          ]
+        },
+        { "type": "text", "value": "10) Typische Fehler und Lernfallen" },
+        {
+          "type": "list",
+          "items": [
+            "Boden unterschaetzen, Auffuellungen ignorieren, Wasser nicht beachten, Gutachten nicht gelesen, Boden vor Ort passt nicht und wird ignoriert."
+          ]
+        },
+        { "type": "text", "value": "11) Verbindung zu den naechsten Bloecken" },
+        {
+          "type": "list",
+          "items": [
+            "Block 3: Erdarbeiten planen und ausfuehren.",
+            "Block 4: Baugruben und Graeben sichern.",
+            "Block 5: Wasserhaltung.",
+            "Block 6: Fundamente und Gruendung.",
+            "Block 7: Vermessung und Erschliessung.",
+            "Bodenwissen ist Grundlage fuer alles Weitere."
+          ]
+        },
+        { "type": "text", "value": "12) Merksaetze fuer die Lernwelt" },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksaetze",
+          "value": "Boden ist Baustoff. Wasser veraendert alles. Auffuellungen sind gefaehrlich. Gutachten ernst nehmen. Abweichungen sofort melden."
         }
       ],
       "quizRef": ["Q3", "Q4"]
@@ -57,26 +311,162 @@
       "id": "lf02-b3",
       "title": "Baugruben & Graeben planen (Sicherung/Arbeitsraum)",
       "goals": [
-        "Arbeitsraum, Boeschung oder Verbau normgerecht planen",
-        "Standsicherheit und sichere Breiten herstellen"
+        "Sicherung, Arbeitsraum und Standfestigkeit vor dem Aushub korrekt planen",
+        "Gefahren durch Boden, Wasser und Umfeld frueh erkennen und beherrschen"
       ],
-      "summary": "Baugruben/Graben so planen, dass niemand durch Einbruch gefaehrdet wird.",
+      "summary": "Sicherung, Arbeitsraum, Standfestigkeit - bevor gegraben wird.",
       "content": [
+        { "type": "text", "value": "1) Warum ist die Planung von Baugruben und Graeben so kritisch?" },
         {
           "type": "list",
           "items": [
-            "Baugrubensicherung und Boeschungswinkel nach Boden/Wasser festlegen",
-            "Graeben: Grabenformen waehlen, Grabenverbaugeraete einplanen",
-            "Zeichnungen: Draufsicht + Schnitt erstellen"
+            "Baugruben und Graeben sind temporaere Bauwerke - und trotzdem hochgefaehrlich.",
+            "Fehler fuehren zu Einsturz/Nachbruch, Verschuetten von Personen, Beschaedigung von Leitungen, Schaeden an Nachbargebaeuden, Stillstand und Unfaellen.",
+            "Was einmal nachrutscht, laesst sich nicht zurueckholen."
           ]
         },
-        { "type": "callout", "variant": "danger", "title": "Arbeitssicherheit", "value": "DIN 4124 + DGUV Vorschrift 38 setzen harte Leitplanken; Standsicherheit muss im Bau- und Rueckbauzustand gelten." },
+        { "type": "text", "value": "2) Unterschied: Baugrube vs. Graben" },
+        { "type": "text", "value": "2.1 Baugrube" },
         {
           "type": "list",
           "items": [
-            "Verbauarten: Traegerbohlwand, Spundwand, Schlitzwand, Pfahlwand",
-            "Statische Nachweise noetig; Ausnahmen nur bei Regelausfuehrungen nach DIN 4124/Verbaugeraet"
+            "Groesserer, meist flaechenhafter Aushub.",
+            "Zum Beispiel fuer Fundamente, Schaechte, Bauwerke.",
+            "Oft mit mehreren Arbeitsbereichen und laengerer Standzeit."
           ]
+        },
+        { "type": "text", "value": "2.2 Graben" },
+        {
+          "type": "list",
+          "items": [
+            "Schmaler, laenglicher Aushub.",
+            "Zum Beispiel fuer Leitungen, Kabel, Rohre.",
+            "Begrenzter Arbeitsraum, hohes Risiko durch Enge.",
+            "Beide brauchen Sicherung - unabhaengig von der Tiefe."
+          ]
+        },
+        { "type": "text", "value": "3) Zentrale Frage vor dem Aushub" },
+        {
+          "type": "list",
+          "items": [
+            "Wie bleibt der Boden standsicher, solange Menschen darin arbeiten?",
+            "Die Antwort ergibt sich aus Bodenart, Wasser, Tiefe, Platzverhaeltnissen, Dauer der Arbeiten und Umgebung (Gebaeude, Verkehr)."
+          ]
+        },
+        { "type": "text", "value": "4) Arbeitsraum - was bedeutet das?" },
+        { "type": "text", "value": "4.1 Definition Arbeitsraum" },
+        {
+          "type": "list",
+          "items": [
+            "Der Arbeitsraum ist der Platz fuer Personen, Werkzeuge, Geraete, Montagearbeiten und sichere Bewegung.",
+            "Arbeitsraum ist nicht gleich Lochgroesse.",
+            "Arbeitsraum muss zusaetzlich zur Bauwerksgroesse eingeplant werden."
+          ]
+        },
+        { "type": "text", "value": "4.2 Warum Arbeitsraum so wichtig ist" },
+        {
+          "type": "list",
+          "items": [
+            "Zu wenig Platz fuehrt zu unsicherem Arbeiten, eingeschraenkten Fluchtwegen, schlechter Sicht sowie Quetsch- und Stolpergefahr.",
+            "In zu engen Graeben steigt das Unfallrisiko massiv."
+          ]
+        },
+        { "type": "text", "value": "5) Sicherungsarten von Baugruben und Graeben" },
+        { "type": "text", "value": "5.1 Boeschung" },
+        {
+          "type": "list",
+          "items": [
+            "Schraeg ausgefuehrte Grubenwaende, abhaengig von der Bodenart, braucht viel Platz.",
+            "Vorteil: einfache Ausfuehrung.",
+            "Nachteil: hoher Flaechenbedarf, nicht ueberall moeglich."
+          ]
+        },
+        { "type": "text", "value": "5.2 Verbau (technische Sicherung)" },
+        {
+          "type": "list",
+          "items": [
+            "Stuetzsysteme aus Stahl, Holz oder Kombinationen, halten den Boden senkrecht.",
+            "Typische Systeme: Verbauplatten, Gleitschienenverbau, Grabenboxen, Spundwaende.",
+            "Standardloesung bei wenig Platz und groesseren Tiefen."
+          ]
+        },
+        { "type": "text", "value": "6) Wann ist Sicherung zwingend erforderlich?" },
+        {
+          "type": "list",
+          "items": [
+            "Sobald Personen eine Baugrube oder einen Graben betreten, muss gesichert sein.",
+            "Besonders zwingend bei groesseren Tiefen, bindigen Boeden bei Naesse, nichtbindigen Boeden, Wasserzutritt, laengerer Arbeitsdauer, Naehe zu Verkehr oder Gebaeuden.",
+            "Der Boden haelt schon ist keine Planung."
+          ]
+        },
+        { "type": "text", "value": "7) Einfluss von Wasser auf die Sicherung" },
+        {
+          "type": "list",
+          "items": [
+            "Wasser verringert Standfestigkeit, erhoeht Nachbruchgefahr und belastet Verbausysteme.",
+            "Typische Probleme: aufweichender Boden, Einspuelungen, Unterspuelung, Aufschwimmen von Baugruben.",
+            "Sicherung und Wasserhaltung muessen zusammen gedacht werden."
+          ]
+        },
+        { "type": "text", "value": "8) Umfeld und Zusatzbelastungen" },
+        {
+          "type": "list",
+          "items": [
+            "Zusaetzliche Belastungen entstehen durch Verkehr, Maschinen, Materiallager, nahe Gebaeude und Erschuetterungen.",
+            "Lasten duerfen nicht an den Rand gestellt werden, wenn dadurch der Boden nachgibt."
+          ]
+        },
+        { "type": "text", "value": "9) Zugang und Rettung" },
+        { "type": "text", "value": "9.1 Sicherer Zugang" },
+        {
+          "type": "list",
+          "items": [
+            "Leitern, Treppen, Rampen.",
+            "Springen oder Klettern ist verboten."
+          ]
+        },
+        { "type": "text", "value": "9.2 Flucht und Rettung" },
+        {
+          "type": "list",
+          "items": [
+            "Jederzeit moeglich, nicht verstellt, ausreichend breit, bekannt fuer alle Beschaeftigten."
+          ]
+        },
+        { "type": "text", "value": "10) Verantwortlichkeiten" },
+        {
+          "type": "list",
+          "items": [
+            "Planung/Bauleitung: entscheidet Sicherungsart, plant Arbeitsraum, beruecksichtigt Boden und Wasser, organisiert Umsetzung.",
+            "Polier/Vorarbeiter: kontrolliert Verbau und Boeschungen, prueft taeglich, meldet Veraenderungen.",
+            "Mitarbeitende/Auszubildende: betreten Baugruben nur mit Sicherung, veraendern keine Sicherung, melden Risse, Bewegungen und Wasser sofort.",
+            "Sicherung ist tabu fuer Eigenbastelei."
+          ]
+        },
+        { "type": "text", "value": "11) Typische Fehler (extrem pruefungsrelevant)" },
+        {
+          "type": "list",
+          "items": [
+            "Graben ohne Verbau betreten, Boeschung zu steil, Wasser ignoriert, Material am Rand gelagert, Sicherung veraendert oder entfernt, Zugang fehlt oder ist unsicher.",
+            "Viele toedliche Unfaelle passieren in flachen Graeben, bei kurzen Arbeiten, nur mal eben."
+          ]
+        },
+        { "type": "text", "value": "12) Verbindung zu anderen Bloecken" },
+        {
+          "type": "list",
+          "items": [
+            "Block 1: Auftrag und oertliche Gegebenheiten.",
+            "Block 2: Baugrund und Boden.",
+            "Block 4: Wasserhaltung.",
+            "Block 5: Fundamente und Gruendung.",
+            "Ohne Planung keine sichere Baugrube."
+          ]
+        },
+        { "type": "text", "value": "13) Merksaetze fuer die Lernwelt" },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksaetze",
+          "value": "Boden rutscht ohne Warnung. Arbeitsraum ist Sicherheit. Verbau schuetzt Leben. Wasser ist der groesste Feind. Keine Sicherung = kein Betreten."
         }
       ],
       "quizRef": ["Q5", "Q6"]
@@ -85,40 +475,376 @@
       "id": "lf02-b4",
       "title": "Wasserhaltung (offen vs. geschlossen)",
       "goals": [
-        "Offene und geschlossene Verfahren unterscheiden",
-        "Risiken durch Wasser fuer Standsicherheit einschaetzen"
+        "Offen vs. geschlossen sicher unterscheiden und passend auswaehlen",
+        "Wasserhaltung als Sicherheits-, Qualitaets- und Umweltaufgabe planen"
       ],
-      "summary": "Entscheidung nach Boden und Wasserandrang: Pumpensumpf oder Grundwasserabsenkung?",
+      "summary": "Offen vs. geschlossen - wann, warum, wie?",
       "content": [
+        { "type": "text", "value": "1) Warum ist Wasserhaltung so wichtig?" },
         {
           "type": "list",
           "items": [
-            "Offene Wasserhaltung: Wasser sammelt sich in Sumpf/Graben und wird abgepumpt; einfach, kann Boden aufweichen",
-            "Geschlossene Wasserhaltung: Brunnen/Filter, Grundwasserabsenkung; aufwaendiger, kontrollierter, oft Fachplanung"
+            "Wasser in Baugruben oder Graeben ist kein Nebenthema, sondern ein zentrales Sicherheits- und Qualitaetsproblem.",
+            "Ohne geplante Wasserhaltung drohen Einsturz von Baugruben und Graeben, Aufweichung des Bodens, Verlust der Tragfaehigkeit, Gefaehrdung von Personen, Schaeden an Bauwerken und Leitungen, Bauverzug und Mehrkosten.",
+            "Merksatz: Wasser entscheidet, ob gebaut werden kann - oder nicht."
           ]
         },
-        { "type": "callout", "variant": "danger", "title": "Risiken", "value": "Unterspuelung, Auskolkung, Einfluss auf Nachbarbebauung mitdenken." }
+        { "type": "text", "value": "2) Welche Arten von Wasser treten auf Baustellen auf?" },
+        { "type": "text", "value": "2.1 Grundwasser" },
+        {
+          "type": "list",
+          "items": [
+            "Dauerhaft im Boden vorhanden.",
+            "Steigt von unten in die Baugrube.",
+            "Abhaengig von Jahreszeit und Witterung."
+          ]
+        },
+        { "type": "text", "value": "2.2 Schichtenwasser" },
+        {
+          "type": "list",
+          "items": [
+            "Staut sich auf undurchlaessigen Bodenschichten.",
+            "Oft ueberraschend.",
+            "Schwer vorhersehbar."
+          ]
+        },
+        { "type": "text", "value": "2.3 Oberflaechen- und Regenwasser" },
+        {
+          "type": "list",
+          "items": [
+            "Niederschlaege.",
+            "Zufluss von angrenzenden Flaechen.",
+            "Wasser von Strassen und Gelaende.",
+            "Alle Wasserarten muessen beruecksichtigt werden."
+          ]
+        },
+        { "type": "text", "value": "3) Ziel der Wasserhaltung" },
+        {
+          "type": "list",
+          "items": [
+            "Baugrube trocken halten.",
+            "Standfestigkeit des Bodens sichern.",
+            "Sicheres Arbeiten ermoeglichen.",
+            "Baugrund nicht schaedigen.",
+            "Nicht Ziel: Wasser einfach loswerden - sondern kontrolliert ableiten."
+          ]
+        },
+        { "type": "text", "value": "4) Grundarten der Wasserhaltung" },
+        {
+          "type": "list",
+          "items": [
+            "Es gibt zwei grundlegende Systeme: offene Wasserhaltung und geschlossene Wasserhaltung (Grundwasserabsenkung).",
+            "Die Wahl haengt ab von Wassermenge, Bodenart, Baugrubentiefe, Dauer der Arbeiten und Umgebung (Gebaeude)."
+          ]
+        },
+        { "type": "text", "value": "5) Offene Wasserhaltung" },
+        { "type": "text", "value": "5.1 Was ist offene Wasserhaltung?" },
+        {
+          "type": "list",
+          "items": [
+            "Wasser wird in der Baugrube gesammelt und ueber Pumpen abgeleitet.",
+            "Typische Mittel: Pumpensuempfe, Graeben, Tauchpumpen."
+          ]
+        },
+        { "type": "text", "value": "5.2 Wann wird offene Wasserhaltung eingesetzt?" },
+        {
+          "type": "list",
+          "items": [
+            "Geringe Wassermengen, Regenwasser, zeitweise Wasserzufluesse, oberflaechennahe Arbeiten, kurze Bauzeit."
+          ]
+        },
+        { "type": "text", "value": "5.3 Vorteile" },
+        {
+          "type": "list",
+          "items": [
+            "Einfach, schnell einsetzbar, kostenguenstig, wenig Technik."
+          ]
+        },
+        { "type": "text", "value": "5.4 Nachteile und Gefahren" },
+        {
+          "type": "list",
+          "items": [
+            "Boden weicht auf, Standfestigkeit nimmt ab, Gefahr von Nachbruch, nicht geeignet bei starkem Grundwasser, Gefahr der Unterspuelung.",
+            "Offene Wasserhaltung ist keine Dauerloesung bei Grundwasser."
+          ]
+        },
+        { "type": "text", "value": "6) Geschlossene Wasserhaltung (Grundwasserabsenkung)" },
+        { "type": "text", "value": "6.1 Was bedeutet geschlossene Wasserhaltung?" },
+        {
+          "type": "list",
+          "items": [
+            "Der Grundwasserspiegel wird gezielt abgesenkt, bevor er in die Baugrube eindringt.",
+            "Methoden: Filterbrunnen, Wellpoint-Anlagen, Tiefbrunnen.",
+            "Wasser wird ausserhalb der Baugrube gefasst."
+          ]
+        },
+        { "type": "text", "value": "6.2 Wann ist geschlossene Wasserhaltung noetig?" },
+        {
+          "type": "list",
+          "items": [
+            "Anstehendes Grundwasser, groessere Tiefen, laengere Bauzeit, nichtbindige Boeden (Sand/Kies), hohe Anforderungen an Standfestigkeit."
+          ]
+        },
+        { "type": "text", "value": "6.3 Vorteile" },
+        {
+          "type": "list",
+          "items": [
+            "Trockene Baugrube, hohe Standsicherheit, kontrollierte Bedingungen, bessere Bauqualitaet."
+          ]
+        },
+        { "type": "text", "value": "6.4 Nachteile und Risiken" },
+        {
+          "type": "list",
+          "items": [
+            "Aufwendig, genehmigungspflichtig, hohe Kosten, moegliche Setzungen im Umfeld, Einfluss auf Nachbargebaeude.",
+            "Grundwasserabsenkung darf nicht unkontrolliert erfolgen."
+          ]
+        },
+        { "type": "text", "value": "7) Entscheidung: offen oder geschlossen?" },
+        {
+          "type": "list",
+          "items": [
+            "Entscheidungsfragen vor Beginn: Steht Grundwasser an? Wie tief ist die Baugrube? Welche Bodenart liegt vor? Wie lange dauert die Massnahme? Gibt es Nachbargebaeude? Welche Sicherung ist geplant?",
+            "Die Wasserhaltung wird geplant - nicht improvisiert."
+          ]
+        },
+        { "type": "text", "value": "8) Wasser und Boden - gefaehrliche Kombination" },
+        {
+          "type": "list",
+          "items": [
+            "Wasser reduziert Reibung, loest Bindungen im Boden, verursacht Nachrutschen und kann Boden wegspuelen.",
+            "Besonders kritisch bei Sand und Kies, Auffuellungen, Boeschungen und Verbaugrenzen."
+          ]
+        },
+        { "type": "text", "value": "9) Ableitung und Umwelt" },
+        { "type": "text", "value": "9.1 Wohin mit dem Wasser?" },
+        {
+          "type": "list",
+          "items": [
+            "Kanalisation (nur mit Erlaubnis), Oberflaechengewaesser, Versickerung, Sammelbehaelter.",
+            "Einleitung ohne Genehmigung ist verboten."
+          ]
+        },
+        { "type": "text", "value": "9.2 Umweltaspekte" },
+        {
+          "type": "list",
+          "items": [
+            "Keine Oel- oder Schmutzeintraege, Sedimentfilter, kontrollierte Ableitung, Schutz von Gewaessern und Boden.",
+            "Wasserhaltung ist auch Umweltschutz."
+          ]
+        },
+        { "type": "text", "value": "10) Kontrolle und Betrieb" },
+        {
+          "type": "list",
+          "items": [
+            "Wasserhaltung muss dauerhaft ueberwacht werden, auch nachts funktionieren, gegen Stromausfall gesichert sein und regelmaessig geprueft werden.",
+            "Ausfall der Wasserhaltung = akute Gefahr."
+          ]
+        },
+        { "type": "text", "value": "11) Verantwortlichkeiten" },
+        {
+          "type": "list",
+          "items": [
+            "Planung/Bauleitung: entscheidet Art der Wasserhaltung, organisiert Genehmigungen, plant Sicherung und Ableitung.",
+            "Polier/Vorarbeiter: kontrolliert Betrieb, prueft Pumpen und Leitungen, meldet Auffaelligkeiten.",
+            "Mitarbeitende/Auszubildende: beobachten Wasserstaende, melden Veraenderungen, greifen nicht eigenmaechtig ein."
+          ]
+        },
+        { "type": "text", "value": "12) Typische Fehler (sehr pruefungsrelevant)" },
+        {
+          "type": "list",
+          "items": [
+            "Offene Wasserhaltung bei Grundwasser, Pumpen zu spaet eingesetzt, keine Reservepumpen, Wasser einfach versickern lassen, fehlende Genehmigungen, Wasserhaltung nachts abgeschaltet.",
+            "Viele Einstuerze passieren nach Feierabend, bei Starkregen und nach Pumpenausfall."
+          ]
+        },
+        { "type": "text", "value": "13) Verbindung zu anderen Bloecken" },
+        {
+          "type": "list",
+          "items": [
+            "Block 2: Bodenarten und Baugrund.",
+            "Block 3: Baugruben und Graeben sichern.",
+            "Block 5: Fundamente und Gruendung.",
+            "Ohne Wasserhaltung keine sichere Baugrube."
+          ]
+        },
+        { "type": "text", "value": "14) Merksaetze fuer die Lernwelt" },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksaetze",
+          "value": "Wasser veraendert jeden Boden. Offene Wasserhaltung ist begrenzt. Grundwasser braucht Planung. Pumpenausfall ist Gefahr. Umwelt und Genehmigung beachten."
+        }
       ],
       "quizRef": ["Q7", "Q8"]
     },
     {
       "id": "lf02-b5",
-      "title": "Gruendungsarten + Fundamentplan lesen",
+      "title": "Gruendungsarten & Fundamentplan lesen",
       "goals": [
-        "Einzel-, Streifen- und Plattenfundament sicher unterscheiden",
-        "Lage und Abmessungen aus dem Plan entnehmen"
+        "Lastabtragung verstehen und passende Gruendungsarten sicher auswaehlen",
+        "Fundamentplaene korrekt lesen, deuten und in die Ausfuehrung uebertragen"
       ],
-      "summary": "Fundamente lesen und auswaehlen je nach Last und Baugrund.",
+      "summary": "Lastabtragung verstehen, Gruendung auswaehlen, Plaene richtig lesen.",
       "content": [
+        { "type": "text", "value": "1) Was bedeutet Gruenden?" },
         {
           "type": "list",
           "items": [
-            "Einzelfundament: punktuelle Lasten (Stuetzen)",
-            "Streifenfundament: tragende Waende/lineare Lasten",
-            "Plattenfundament: verteilt Lasten grossflaechig bei schwacherem Baugrund"
+            "Gruenden heisst: Die Lasten eines Bauwerks sicher und dauerhaft in den Baugrund abzuleiten.",
+            "Dabei geht es um Eigengewicht des Bauwerks, Nutzlasten, Verkehrslasten sowie Wind-, Schnee- oder Erddruck.",
+            "Die Gruendung verbindet Bauwerk und Boden. Wenn sie falsch ist, hilft das beste Bauwerk nichts."
           ]
         },
-        { "type": "callout", "variant": "info", "title": "Planlesen", "value": "Fundamentsohle, Sohldruck, Lastverteilung (Druckzwiebel) verstehen; Abmessungen und Lage exakt aus dem Fundamentplan uebernehmen." }
+        { "type": "text", "value": "2) Wovon haengt die Wahl der Gruendungsart ab?" },
+        {
+          "type": "list",
+          "items": [
+            "Die Gruendungsart wird nicht frei gewaehlt, sondern ergibt sich aus Baugrund (tragfaehig/weich/wasserfuehrend), Lasten des Bauwerks, Bauwerksart (Gebaeude, Mast, Schacht, Stuetzwand), Grundwasserstand, Frosttiefe, Platzverhaeltnissen und Wirtschaftlichkeit.",
+            "Der Baugrund bestimmt die Gruendung - nicht umgekehrt."
+          ]
+        },
+        { "type": "text", "value": "3) Flachgruendungen (Grundwissen)" },
+        { "type": "text", "value": "3.1 Streifenfundament" },
+        {
+          "type": "list",
+          "items": [
+            "Einsatz: unter tragenden Waenden und bei gleichmaessigen Lasten.",
+            "Merkmale: laengliche Betonfundamente, frostfrei gegruendet, einfache Bauweise.",
+            "Typisch im Tiefbau: kleine Bauwerke, Mauern, Einfassungen."
+          ]
+        },
+        { "type": "text", "value": "3.2 Einzelfundament" },
+        {
+          "type": "list",
+          "items": [
+            "Einsatz: punktuelle Lasten, Stuetzen, Masten, Pfeiler.",
+            "Merkmale: quadratisch oder rechteckig, oft groessere Tiefe, hohe Lastkonzentration."
+          ]
+        },
+        { "type": "text", "value": "3.3 Plattenfundament / Bodenplatte" },
+        {
+          "type": "list",
+          "items": [
+            "Einsatz: grosse Flaechen, schlechte Bodenverhaeltnisse, gleichmaessige Lastverteilung.",
+            "Merkmale: lastverteilende Betonplatte, geringer Bodendruck, oft bei weichen Boeden."
+          ]
+        },
+        { "type": "text", "value": "4) Tiefgruendungen (Grundverstaendnis)" },
+        { "type": "text", "value": "4.1 Wann braucht man eine Tiefgruendung?" },
+        {
+          "type": "list",
+          "items": [
+            "Wenn tragfaehiger Boden tief liegt, obere Bodenschichten ungeeignet sind, hohe Lasten auftreten oder das Umfeld sensibel ist."
+          ]
+        },
+        { "type": "text", "value": "4.2 Pfahlgruendung (Ueberblick)" },
+        {
+          "type": "list",
+          "items": [
+            "Lasten werden in tiefere, tragfaehige Schichten abgetragen.",
+            "Beispiele: Bohrpfaehle, Rammpfaehle.",
+            "Kommt eher im Spezialtiefbau vor - Grundverstaendnis reicht in der Ausbildung."
+          ]
+        },
+        { "type": "text", "value": "5) Frostsichere Gruendung" },
+        { "type": "text", "value": "5.1 Warum Frost wichtig ist" },
+        {
+          "type": "list",
+          "items": [
+            "Wasser im Boden friert, das Volumen vergroessert sich, das Fundament wird angehoben, beim Auftauen entstehen Setzungen.",
+            "Fundamente muessen unterhalb der Frosttiefe liegen."
+          ]
+        },
+        { "type": "text", "value": "6) Fundamentaufbau - was gehoert dazu?" },
+        {
+          "type": "list",
+          "items": [
+            "Typischer Aufbau von unten nach oben: tragfaehiger Baugrund, Sauberkeitsschicht, Fundamentbeton, gegebenenfalls Bewehrung, Anschluss an aufgehende Bauteile.",
+            "Jede Schicht hat eine Funktion."
+          ]
+        },
+        { "type": "text", "value": "7) Fundamentplan lesen - Grundwissen" },
+        { "type": "text", "value": "7.1 Was ist ein Fundamentplan?" },
+        {
+          "type": "list",
+          "items": [
+            "Ein Fundamentplan ist eine technische Zeichnung, die Art der Fundamente, Lage, Abmessungen, Hoehen, Bewehrung (Grundlagen) und Bezugspunkte zeigt."
+          ]
+        },
+        { "type": "text", "value": "8) Wichtige Inhalte im Fundamentplan" },
+        { "type": "text", "value": "8.1 Draufsicht (Grundriss)" },
+        {
+          "type": "list",
+          "items": [
+            "Lage der Fundamente, Abstaende, Achsen, Bezeichnungen (F1, F2, etc.)."
+          ]
+        },
+        { "type": "text", "value": "8.2 Schnitte" },
+        {
+          "type": "list",
+          "items": [
+            "Tiefe der Fundamente, Hoehenangaben, Bezug auf Gelaende, Frosttiefe."
+          ]
+        },
+        { "type": "text", "value": "8.3 Bemassung" },
+        {
+          "type": "list",
+          "items": [
+            "Laenge, Breite, Hoehe, Achsmasse.",
+            "Ohne Mass wird nichts gebaut."
+          ]
+        },
+        { "type": "text", "value": "9) Hoehen und Bezugspunkte verstehen" },
+        {
+          "type": "list",
+          "items": [
+            "Wichtige Angaben: plus/minus 0,00 (Bezugshoehe), OK Fundament (Oberkante), UK Fundament (Unterkante), Gelaendeoberkante.",
+            "Verwechslungen fuehren zu falscher Gruendungstiefe."
+          ]
+        },
+        { "type": "text", "value": "10) Typische Symbole und Abkuerzungen" },
+        {
+          "type": "list",
+          "items": [
+            "Beispiele: OK = Oberkante, UK = Unterkante, F = Fundament, B = Breite, H = Hoehe, L = Laenge.",
+            "Plaene lesen heisst: Zeichen verstehen."
+          ]
+        },
+        { "type": "text", "value": "11) Wer arbeitet mit dem Fundamentplan?" },
+        {
+          "type": "list",
+          "items": [
+            "Bauleitung, Polier/Vorarbeiter, Vermesser, Tiefbauer/Gleisbauer, Betonbauer.",
+            "Auch Auszubildende muessen Plaene lesen, Masse verstehen und Unklarheiten melden."
+          ]
+        },
+        { "type": "text", "value": "12) Typische Fehler (pruefungsrelevant)" },
+        {
+          "type": "list",
+          "items": [
+            "Falsche Fundamentart, Frosttiefe ignoriert, Masse falsch gelesen, Hoehen verwechselt, Boden passt nicht zum Plan und wird ignoriert, Plan nicht aktuell."
+          ]
+        },
+        { "type": "text", "value": "13) Verbindung zu anderen Bloecken" },
+        {
+          "type": "list",
+          "items": [
+            "Block 1: Auftrag und Analyse.",
+            "Block 2: Baugrund und Boden.",
+            "Block 3: Baugruben und Graeben.",
+            "Block 4: Wasserhaltung.",
+            "Block 6 (folgt): Vermessung und Absteckung.",
+            "Gruendung verbindet alles."
+          ]
+        },
+        { "type": "text", "value": "14) Merksaetze fuer die Lernwelt" },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksaetze",
+          "value": "Gruendung traegt das Bauwerk. Boden bestimmt Fundament. Frost hebt Fundamente. Plan lesen ist Sicherheit. Unklarheiten sofort klaeren."
+        }
       ],
       "quizRef": ["Q9", "Q10"]
     },
@@ -126,42 +852,309 @@
       "id": "lf02-b6",
       "title": "Vermessung & Schnurgeruest (Abstecken)",
       "goals": [
-        "Fluchten und Hoehen sicher uebertragen",
-        "Schnurgeruest stabil und fehlerarm bauen"
+        "Masse und Hoehen sicher vom Plan in die Baustelle uebertragen",
+        "Bauwerke mithilfe von Absteckung und Schnurgeruest korrekt positionieren"
       ],
-      "summary": "Vermessungsarbeiten liefern die Basis fuer Aushub und Fundamente.",
+      "summary": "Masse uebertragen, Hoehen sichern, Bauwerke richtig positionieren.",
       "content": [
+        { "type": "text", "value": "1) Warum ist Vermessung so wichtig?" },
         {
           "type": "list",
           "items": [
-            "Flucht absetzen: Gerade Linien/Achsen uebertragen",
-            "Hoehen uebertragen: Bezugshoehe (NHN/ort) nutzen, Hoehenpunkte setzen",
-            "Schnurgeruest: Achsen/Fluchten + Hoehenmarken ausserhalb des Aushubs"
+            "Vermessung sorgt dafuer, dass Bauwerke am richtigen Ort, in der richtigen Groesse, in der richtigen Hoehe und mit den richtigen Abstaenden gebaut werden.",
+            "Merksatz: Was falsch abgesteckt ist, kann nicht richtig gebaut werden.",
+            "Ein Fehler von wenigen Zentimetern kann bedeuten: Fundament passt nicht, Bauwerk kollidiert mit Leitungen, Grenzabstaende werden verletzt, Rueckbau oder Nacharbeit."
           ]
         },
-        { "type": "callout", "variant": "tip", "title": "Fehlerbilder", "value": "Schnur haengt durch, falscher Achsschnitt, Bezugspunkt verwechselt." }
+        { "type": "text", "value": "2) Was bedeutet Abstecken?" },
+        {
+          "type": "list",
+          "items": [
+            "Abstecken heisst: Masse und Hoehen aus dem Plan auf die Baustelle uebertragen.",
+            "Dabei werden Achsen, Kanten, Hoehen und Bauwerkslagen sichtbar und nachvollziehbar markiert."
+          ]
+        },
+        { "type": "text", "value": "3) Grundlagen der Vermessung auf Baustellen" },
+        { "type": "text", "value": "3.1 Bezugspunkte" },
+        {
+          "type": "list",
+          "items": [
+            "Ohne feste Bezugspunkte ist keine Vermessung moeglich.",
+            "Typische Bezugspunkte: amtliche Vermessungspunkte, Hoehenbolzen, Fixpunkte am Gebaeude, Grenzpunkte.",
+            "Bezugspunkte duerfen nicht veraendert werden."
+          ]
+        },
+        { "type": "text", "value": "3.2 Achsen" },
+        {
+          "type": "list",
+          "items": [
+            "Achsen sind gedachte Linien, die Lage von Bauwerken festlegen, Abstaende definieren und Orientierung geben.",
+            "Im Plan als Achsenkreuze, nummeriert oder beschriftet."
+          ]
+        },
+        { "type": "text", "value": "3.3 Hoehen" },
+        {
+          "type": "list",
+          "items": [
+            "Hoehenangaben beziehen sich auf plus/minus 0,00 (Bezugshoehe), Gelaende, Oberkante Fundament, Unterkante Fundament.",
+            "Hoehenfehler sind besonders kritisch, da sie oft spaet auffallen."
+          ]
+        },
+        { "type": "text", "value": "4) Schnurgeruest - Herzstueck der Absteckung" },
+        { "type": "text", "value": "4.1 Was ist ein Schnurgeruest?" },
+        {
+          "type": "list",
+          "items": [
+            "Ein Schnurgeruest ist eine Hilfskonstruktion aus Holz mit gespannten Schnueren, die Lage, Achsen, Aussenkanten und Hoehen eines Bauwerks markieren.",
+            "Das Bauwerk selbst wird nicht direkt markiert, sondern ueber Schnuere dargestellt."
+          ]
+        },
+        { "type": "text", "value": "4.2 Warum nutzt man ein Schnurgeruest?" },
+        {
+          "type": "list",
+          "items": [
+            "Markierungen bleiben trotz Aushub erhalten.",
+            "Achsen sind jederzeit nachvollziehbar.",
+            "Kontrolle waehrend des Bauens ist moeglich.",
+            "Hohe Genauigkeit."
+          ]
+        },
+        { "type": "text", "value": "5) Aufbau eines Schnurgeruests" },
+        {
+          "type": "list",
+          "items": [
+            "Bestandteile: Holzpfosten ausserhalb der Baugrube, Querbretter, gespannte Schnuere, Markierungen fuer Achsen und Kanten.",
+            "Schnurgeruest steht ausserhalb des Arbeitsraums, damit es nicht zerstoert wird."
+          ]
+        },
+        { "type": "text", "value": "6) Abstecken in der Praxis - Ablauf" },
+        {
+          "type": "list",
+          "items": [
+            "Schritt 1: Plan pruefen - aktueller Fundamentplan, Masse klar, Hoehen eindeutig.",
+            "Schritt 2: Bezugspunkte festlegen - Lage, Hoehe, Kontrolle der Punkte.",
+            "Schritt 3: Schnurgeruest herstellen - Pfosten setzen, Bretter befestigen, Schnuere spannen.",
+            "Schritt 4: Kontrolle - Achsabstaende pruefen, Diagonalen vergleichen, Hoehen ueberpruefen.",
+            "Abstecken ist erst fertig, wenn kontrolliert wurde."
+          ]
+        },
+        { "type": "text", "value": "7) Vermessungsgeraete (Grundverstaendnis)" },
+        {
+          "type": "list",
+          "items": [
+            "Typische Geraete: Massband, Bandmass, Wasserwaage, Nivelliergeraet, Rotationslaser, Tachymeter (durch Vermesser).",
+            "Auszubildende arbeiten meist unter Anleitung, muessen aber verstehen, was gemessen wird."
+          ]
+        },
+        { "type": "text", "value": "8) Hoehenuebertragung (sehr wichtig)" },
+        {
+          "type": "list",
+          "items": [
+            "Hoehen werden uebertragen ueber Nivelliergeraet, Laser und Hoehenbolzen.",
+            "Beispiele: UK Fundament festlegen, OK Fundament kontrollieren, Gelaende pruefen.",
+            "Hoehen nicht schaetzen - immer messen."
+          ]
+        },
+        { "type": "text", "value": "9) Wer ist wofuer verantwortlich?" },
+        {
+          "type": "list",
+          "items": [
+            "Vermesser/Planung: liefert Absteckdaten, definiert Achsen und Hoehen.",
+            "Bauleitung: organisiert Absteckung, prueft Plausibilitaet, gibt frei.",
+            "Polier/Vorarbeiter: setzt Schnurgeruest um, kontrolliert Masse, haelt Absteckung waehrend der Bauphase.",
+            "Mitarbeitende/Auszubildende: schuetzen Schnurgeruest, melden Verschiebungen, arbeiten nicht ohne Absteckung."
+          ]
+        },
+        { "type": "text", "value": "10) Schutz und Erhalt des Schnurgeruests" },
+        {
+          "type": "list",
+          "items": [
+            "Nicht entfernen, nicht verschieben, nicht als Ablage benutzen, bei Beschaedigung sofort melden.",
+            "Ein zerstoertes Schnurgeruest bedeutet Baustopp."
+          ]
+        },
+        { "type": "text", "value": "11) Typische Fehler (sehr pruefungsrelevant)" },
+        {
+          "type": "list",
+          "items": [
+            "Falscher Plan verwendet, Bezugspunkt verwechselt, Schnurgeruest zu nah an Baugrube, Hoehen falsch gelesen, keine Kontrolle der Diagonalen, Absteckung nicht gesichert."
+          ]
+        },
+        { "type": "text", "value": "12) Verbindung zu anderen Bloecken" },
+        {
+          "type": "list",
+          "items": [
+            "Block 1: Auftrag und Analyse.",
+            "Block 3: Baugruben und Graeben.",
+            "Block 5: Gruendungsarten und Fundamentplan.",
+            "Vermessung verbindet Planung und Ausfuehrung."
+          ]
+        },
+        { "type": "text", "value": "13) Merksaetze fuer die Lernwelt" },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksaetze",
+          "value": "Abstecken ist Praezisionsarbeit. Schnurgeruest ist Referenz. Hoehen sind entscheidend. Kontrolle verhindert Fehler. Ohne Absteckung kein Bau."
+        }
       ],
       "quizRef": ["Q11", "Q12"]
     },
     {
       "id": "lf02-b7",
-      "title": "Erdarbeiten: Aushub, Tragschichten, Planum, Verdichtung",
+      "title": "Erdarbeiten",
       "goals": [
-        "Arbeitsfolge fuer Erdarbeiten beherrschen",
-        "Verdichtung und Arbeitsraum kontrollieren"
+        "Aushub, Tragschichten, Planum und Verdichtung fachgerecht ausfuehren",
+        "Eine tragfaehige und masshaltige Grundlage fuer Bauwerke sicher herstellen"
       ],
-      "summary": "Von Oberboden bis Verdichtung, immer mit Unfallverhuetung im Blick.",
+      "summary": "Aushub, Tragschichten, Planum, Verdichtung - vom Boden zur tragfaehigen Flaeche.",
       "content": [
+        { "type": "text", "value": "1) Was sind Erdarbeiten?" },
         {
           "type": "list",
           "items": [
-            "Oberboden abtragen/lagern (wenn vorgesehen)",
-            "Aushub bis Planum/Sohle, Planum eben und tragfaehig herstellen",
-            "Tragschichten lagenweise einbauen",
-            "Verdichten: ebenfalls lagenweise, geeignetes Geraet waehlen"
+            "Erdarbeiten umfassen alle Arbeiten, bei denen Boden geloest, bewegt, eingebaut und verdichtet wird, um eine tragfaehige und masshaltige Grundlage fuer Bauwerke, Verkehrsflaechen oder Gleisanlagen zu schaffen.",
+            "Merksatz: Erdarbeiten entscheiden, ob alles darueber haelt - oder spaeter versagt."
           ]
         },
-        { "type": "callout", "variant": "info", "title": "Qualitaetscheck", "value": "Arbeitsraum und UV-Massnahmen pruefen, Verdichtungsnachweise und Ebenheit kontrollieren." }
+        { "type": "text", "value": "2) Aushub - Boden loesen und abtragen" },
+        { "type": "text", "value": "2.1 Was bedeutet Aushub?" },
+        {
+          "type": "list",
+          "items": [
+            "Aushub ist das Abtragen des Bodens bis zur geplanten Tiefe, zur richtigen Lage und gemaess Plan (Hoehen, Breiten, Neigungen).",
+            "Typische Geraete: Bagger, Radlader, gegebenenfalls Handarbeit im Leitungsbereich."
+          ]
+        },
+        { "type": "text", "value": "2.2 Wichtige Punkte beim Aushub" },
+        {
+          "type": "list",
+          "items": [
+            "Bodenart beachten (bindig oder nichtbindig), Wasser beobachten, Leitungen schuetzen, Boeschungen oder Verbau einhalten, Abtransport oder Zwischenlagerung klaeren.",
+            "Aushub ohne Sicherung ist lebensgefaehrlich."
+          ]
+        },
+        { "type": "text", "value": "2.3 Umgang mit Aushubmaterial" },
+        {
+          "type": "list",
+          "items": [
+            "Pruefen: wiederverwendbar, belastet oder kontaminiert, getrennte Lagerung, Abtransport und Entsorgung planen.",
+            "Nicht jeder Boden darf wieder eingebaut werden."
+          ]
+        },
+        { "type": "text", "value": "3) Planum - die entscheidende Flaeche" },
+        { "type": "text", "value": "3.1 Was ist das Planum?" },
+        {
+          "type": "list",
+          "items": [
+            "Das Planum ist die oberste bearbeitete Erdoberflaeche und die unterste Schicht des Bauaufbaus.",
+            "Es bildet die direkte Grundlage fuer Tragschichten, Fundamente sowie Gleis- oder Strassenaufbauten.",
+            "Alles baut auf dem Planum auf."
+          ]
+        },
+        { "type": "text", "value": "3.2 Anforderungen an ein gutes Planum" },
+        {
+          "type": "list",
+          "items": [
+            "Richtige Hoehe, gleichmaessig, tragfaehig, ausreichend verdichtet, trocken soweit moeglich.",
+            "Ein schlechtes Planum kann nicht durch gute Tragschichten ausgeglichen werden."
+          ]
+        },
+        { "type": "text", "value": "4) Tragschichten - Lasten verteilen" },
+        { "type": "text", "value": "4.1 Was ist eine Tragschicht?" },
+        {
+          "type": "list",
+          "items": [
+            "Eine Tragschicht ist eine Schicht aus geeignetem Material, die Lasten aufnimmt, Lasten verteilt und den Untergrund schuetzt.",
+            "Typische Materialien: Schotter, Kies, Mineralgemisch."
+          ]
+        },
+        { "type": "text", "value": "4.2 Arten von Tragschichten (Grundwissen)" },
+        {
+          "type": "list",
+          "items": [
+            "Frostschutzschicht, Schottertragschicht, ungebundene Tragschichten.",
+            "Aufbau und Dicke stehen im Plan oder Leistungsverzeichnis."
+          ]
+        },
+        { "type": "text", "value": "4.3 Einbau von Tragschichten" },
+        {
+          "type": "list",
+          "items": [
+            "Lagenweise einbauen, gleichmaessig verteilen, jede Lage separat verdichten, Hoehen und Ebenheit kontrollieren.",
+            "Zu dicke Lagen lassen sich nicht richtig verdichten."
+          ]
+        },
+        { "type": "text", "value": "5) Verdichtung - entscheidend fuer Tragfaehigkeit" },
+        { "type": "text", "value": "5.1 Warum ist Verdichtung so wichtig?" },
+        {
+          "type": "list",
+          "items": [
+            "Verdichtung erhoeht Tragfaehigkeit, reduziert Setzungen und verhindert spaetere Schaeden.",
+            "Unverdichteter Boden setzt sich - immer."
+          ]
+        },
+        { "type": "text", "value": "5.2 Verdichtungsgeraete" },
+        {
+          "type": "list",
+          "items": [
+            "Ruettelplatte, Vibrationsstampfer, Walzen, Spezialgeraete je nach Boden und Flaeche."
+          ]
+        },
+        { "type": "text", "value": "5.3 Einflussfaktoren auf die Verdichtung" },
+        {
+          "type": "list",
+          "items": [
+            "Bodenart, Wassergehalt, Schichtdicke, Geraetegroesse, Anzahl der Uebergaenge.",
+            "Zu nass oder zu trocken bedeutet schlechte Verdichtung."
+          ]
+        },
+        { "type": "text", "value": "6) Kontrolle der Erdarbeiten" },
+        {
+          "type": "list",
+          "items": [
+            "Kontrolliert werden Hoehen, Ebenheit, Schichtdicken, Verdichtungsgrad und Sauberkeit der Flaechen.",
+            "Methoden: Sichtkontrolle, Hoehenmessung, gegebenenfalls Verdichtungsnachweise.",
+            "Was nicht kontrolliert wird, ist nicht sicher."
+          ]
+        },
+        { "type": "text", "value": "7) Typische Fehler bei Erdarbeiten (sehr pruefungsrelevant)" },
+        {
+          "type": "list",
+          "items": [
+            "Aushub zu tief oder zu flach, schlechtes Planum, falsches Tragschichtmaterial, Lagen zu dick, unzureichende Verdichtung, Wasser ignoriert, Arbeiten bei ungeeignetem Wetter.",
+            "Viele spaetere Schaeden entstehen unter der Oberflaeche und lange nach der Bauphase."
+          ]
+        },
+        { "type": "text", "value": "8) Verantwortlichkeiten" },
+        {
+          "type": "list",
+          "items": [
+            "Bauleitung: plant Erdarbeiten, legt Schichtaufbau fest, kontrolliert Ergebnisse.",
+            "Polier/Vorarbeiter: organisiert Ablauf, prueft Hoehen und Verdichtung, weist Mitarbeitende ein.",
+            "Mitarbeitende/Auszubildende: arbeiten nach Anweisung, achten auf Boden und Wasser, melden Abweichungen.",
+            "Erdarbeiten sind Teamarbeit."
+          ]
+        },
+        { "type": "text", "value": "9) Verbindung zu anderen Bloecken" },
+        {
+          "type": "list",
+          "items": [
+            "Block 2: Baugrund und Boden.",
+            "Block 3: Baugruben und Graeben.",
+            "Block 4: Wasserhaltung.",
+            "Block 5: Gruendungsarten.",
+            "Block 6: Vermessung und Absteckung.",
+            "Erdarbeiten setzen alles um."
+          ]
+        },
+        { "type": "text", "value": "10) Merksaetze fuer die Lernwelt" },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksaetze",
+          "value": "Der Boden traegt alles. Planum ist die Basis. Tragschichten verteilen Lasten. Verdichtung verhindert Setzungen. Fehler sieht man oft erst spaeter."
+        }
       ],
       "quizRef": ["Q13", "Q14"]
     },
@@ -169,20 +1162,172 @@
       "id": "lf02-b8",
       "title": "Erschliessung: Leitungen, Schaechte, Entwaesserung, Durchfuehrungen",
       "goals": [
-        "Infrastrukturleitungen lesen und verorten",
-        "Gefalle und Durchfuehrungen pruefen"
+        "Bauwerke sicher an die technische Infrastruktur anschliessen",
+        "Leitungen, Schaechte, Entwaesserung und Durchfuehrungen fachgerecht planen und umsetzen"
       ],
-      "summary": "Leitungsbau vom Plan ins Feld bringen und Qualitaet sichern.",
+      "summary": "Wie Bauwerke an die technische Infrastruktur angeschlossen werden.",
       "content": [
+        { "type": "text", "value": "1) Was bedeutet Erschliessung?" },
         {
           "type": "list",
           "items": [
-            "Entwaesserungsplan lesen: Misch-/Trennsystem, Rohrwerkstoffe, Schaechte",
-            "Durchfuehrungen/Bohrungen verorten, Anschluesse planen",
-            "Gefalle pruefen und dokumentieren"
+            "Erschliessung umfasst alle Arbeiten, mit denen ein Bauwerk an die technische Infrastruktur angeschlossen wird, zum Beispiel Wasser, Abwasser, Strom, Gas, Telekommunikation und Entwaesserung.",
+            "Merksatz: Ein Bauwerk ohne Erschliessung ist nicht nutzbar.",
+            "Erschliessung beginnt unter der Erde und muss vor oder parallel zum Hoch- bzw. Gleisbau korrekt ausgefuehrt werden."
           ]
         },
-        { "type": "callout", "variant": "tip", "title": "Umfang", "value": "Infrastrukturleitungen umfassen Entwaesserung, Strom, Kommunikation sowie fluessige/gasfoermige Medien." }
+        { "type": "text", "value": "2) Leitungen - Grundverstaendnis" },
+        { "type": "text", "value": "2.1 Welche Leitungen gibt es?" },
+        {
+          "type": "list",
+          "items": [
+            "Typische Leitungssparten: Trinkwasser, Abwasser (Schmutz- und Regenwasser), Strom, Gas, Fernwaerme, Telekommunikation/Glasfaser.",
+            "Jede Sparte hat eigene Regeln, Materialien und Schutzmassnahmen."
+          ]
+        },
+        { "type": "text", "value": "2.2 Lage und Tiefe von Leitungen" },
+        {
+          "type": "list",
+          "items": [
+            "Leitungen liegen in definierten Tiefen, mit Abstaenden zueinander, oft in Schutzrohren oder Sandbettungen.",
+            "Falsche Tiefe bedeutet Frost-, Bruch- oder Beschaedigungsgefahr."
+          ]
+        },
+        { "type": "text", "value": "2.3 Schutz von Leitungen" },
+        {
+          "type": "list",
+          "items": [
+            "Sandbett, Schutzplatten, Kabelschutzrohre, Warnbaender.",
+            "Schutz verhindert Schaeden bei spaeteren Erdarbeiten."
+          ]
+        },
+        { "type": "text", "value": "3) Schaechte - Zugang und Kontrolle" },
+        { "type": "text", "value": "3.1 Wozu dienen Schaechte?" },
+        {
+          "type": "list",
+          "items": [
+            "Schaechte ermoeglichen Zugang zu Leitungen, Kontrolle, Wartung, Reinigung sowie Richtungs- oder Hoehenaenderungen."
+          ]
+        },
+        { "type": "text", "value": "3.2 Arten von Schaechten" },
+        {
+          "type": "list",
+          "items": [
+            "Kontroll- und Revisionsschaechte, Abwasserschaechte, Kabelschaechte, Drainageschaechte."
+          ]
+        },
+        { "type": "text", "value": "3.3 Anforderungen an Schaechte" },
+        {
+          "type": "list",
+          "items": [
+            "Standsicher gegruendet, dicht gegen Wasser, richtige Hoehenlage, sicher begehbar, Deckel passend zur Belastung (zum Beispiel Verkehr).",
+            "Schaechte sind Bauwerke - keine einfachen Loecher."
+          ]
+        },
+        { "type": "text", "value": "4) Entwaesserung - Wasser gezielt ableiten" },
+        { "type": "text", "value": "4.1 Warum Entwaesserung so wichtig ist" },
+        {
+          "type": "list",
+          "items": [
+            "Unkontrolliertes Wasser fuehrt zu Aufweichung des Bodens, Schaeden an Fundamenten, Setzungen und Frostschaeden.",
+            "Wasser muss geplant abgeleitet werden."
+          ]
+        },
+        { "type": "text", "value": "4.2 Arten der Entwaesserung" },
+        {
+          "type": "list",
+          "items": [
+            "Schmutzwasserentwaesserung, Regenwasserentwaesserung, Drainage."
+          ]
+        },
+        { "type": "text", "value": "4.3 Gefaelle - extrem wichtig" },
+        {
+          "type": "list",
+          "items": [
+            "Entwaesserungsleitungen brauchen gleichmaessiges Gefaelle, richtige Richtung und keine Gegengefaelle.",
+            "Falsches Gefaelle fuehrt zu Rueckstau oder Verstopfung."
+          ]
+        },
+        { "type": "text", "value": "5) Durchfuehrungen - durch Waende und Fundamente" },
+        { "type": "text", "value": "5.1 Was sind Durchfuehrungen?" },
+        {
+          "type": "list",
+          "items": [
+            "Durchfuehrungen sind Oeffnungen durch Fundamente, Waende oder Bodenplatten fuer Leitungen und Rohre."
+          ]
+        },
+        { "type": "text", "value": "5.2 Anforderungen an Durchfuehrungen" },
+        {
+          "type": "list",
+          "items": [
+            "Exakt an der geplanten Stelle, richtige Hoehe, dicht gegen Wasser und Boden, keine Schwaechung der Tragfaehigkeit.",
+            "Durchfuehrungen muessen vor dem Betonieren geplant sein."
+          ]
+        },
+        { "type": "text", "value": "5.3 Typische Fehler" },
+        {
+          "type": "list",
+          "items": [
+            "Durchfuehrung vergessen, falsche Lage, nachtraegliches Stemmen, undichte Durchfuehrung.",
+            "Nachtraegliche Durchbrueche gefaehrden Statik und Dichtheit."
+          ]
+        },
+        { "type": "text", "value": "6) Abstimmung und Reihenfolge der Arbeiten" },
+        {
+          "type": "list",
+          "items": [
+            "Erschliessung erfordert Koordination zwischen Tiefbau, Leitungsbau, Betonarbeiten, Vermessung und gegebenenfalls mehreren Gewerken.",
+            "Typische Reihenfolge: Leitungsgraeben herstellen, Leitungen verlegen, Schaechte setzen, Durchfuehrungen herstellen, pruefen und dokumentieren, verfuellen und verdichten.",
+            "Fehlende Abstimmung fuehrt zu Aufreissen und Nacharbeit."
+          ]
+        },
+        { "type": "text", "value": "7) Kontrolle und Qualitaetssicherung" },
+        {
+          "type": "list",
+          "items": [
+            "Zu kontrollieren sind Lage und Tiefe der Leitungen, Gefaelle, Dichtheit, richtige Materialien, Schutzmassnahmen und Dokumentation.",
+            "Was verfuellt ist, sieht man spaeter nicht mehr."
+          ]
+        },
+        { "type": "text", "value": "8) Verantwortlichkeiten" },
+        {
+          "type": "list",
+          "items": [
+            "Planung/Auftraggeber: legt Trassen und Systeme fest, gibt Vorgaben.",
+            "Bauleitung: koordiniert Gewerke, kontrolliert Umsetzung, stimmt Aenderungen ab.",
+            "Polier/Vorarbeiter: setzt Arbeiten um, prueft Lage und Ausfuehrung.",
+            "Mitarbeitende/Auszubildende: arbeiten nach Plan, schuetzen Leitungen, melden Abweichungen."
+          ]
+        },
+        { "type": "text", "value": "9) Typische Fehler (sehr pruefungsrelevant)" },
+        {
+          "type": "list",
+          "items": [
+            "Leitungen zu flach oder zu tief, falsches Gefaelle, fehlender Schutz, Schacht falsch gesetzt, Durchfuehrung vergessen, schlechte Verdichtung beim Verfuellen.",
+            "Viele Schaeden entstehen erst nach Inbetriebnahme."
+          ]
+        },
+        { "type": "text", "value": "10) Verbindung zu Lernfeld 2 insgesamt" },
+        {
+          "type": "list",
+          "items": [
+            "Block 1: Analyse und Auftrag.",
+            "Block 2: Baugrund und Boden.",
+            "Block 3: Baugruben und Graeben.",
+            "Block 4: Wasserhaltung.",
+            "Block 5: Gruendung und Fundament.",
+            "Block 6: Vermessung.",
+            "Block 7: Erdarbeiten.",
+            "Erschliessung verbindet alles unter der Erde."
+          ]
+        },
+        { "type": "text", "value": "11) Merksaetze fuer die Lernwelt" },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksaetze",
+          "value": "Erschliessung macht Bauwerke nutzbar. Leitungen brauchen Schutz. Gefaelle entscheidet ueber Funktion. Schaechte sind Bauwerke. Durchfuehrungen immer vorher planen."
+        }
       ],
       "quizRef": ["Q15", "Q16"]
     },
@@ -190,20 +1335,130 @@
       "id": "lf02-b9",
       "title": "Verkehrsflaechen: Zufahrten & Pflaster (Ueberblick)",
       "goals": [
-        "Schichtenaufbau und Einfassungen benennen",
-        "Materialbedarf abschaetzen"
+        "Grundlagen fuer sichere, tragfaehige und nutzbare Verkehrsflaechen anwenden",
+        "Zufahrten und Pflasterflaechen passend zur Nutzung planen und bewerten"
       ],
-      "summary": "Zufahrten planen: Untergrund, Tragschicht, Bettung, Belag und Randhaltung.",
+      "summary": "Grundlagen fuer sichere, tragfaehige und nutzbare Verkehrsflaechen.",
       "content": [
+        { "type": "text", "value": "1) Was sind Verkehrsflaechen?" },
         {
           "type": "list",
           "items": [
-            "Schichtenaufbau: Untergrund/Tragschicht/Bettung/Belag/Einfassung",
-            "Einfassungen (Borde/Randsteine) halten die Flaeche formstabil",
-            "Materialbedarf: Flaeche, Verschnitt, Paletten/Einheiten kalkulieren"
+            "Verkehrsflaechen sind alle Flaechen, die fuer Fahrzeuge, Fussgaenger, Radverkehr und Baustellenverkehr genutzt werden - temporaer oder dauerhaft.",
+            "Dazu zaehlen Zufahrten, Baustrassen, Gehwege, Hof- und Platzflaechen, gepflasterte Flaechen und befestigte Arbeitsflaechen.",
+            "Merksatz: Verkehrsflaechen muessen tragen, entwaessern und sicher begehbar oder befahrbar sein."
           ]
         },
-        { "type": "callout", "variant": "tip", "title": "Praxis", "value": "Einfassungen zuerst setzen, damit Belag und Verdichtung sauber gefuehrt werden." }
+        { "type": "text", "value": "2) Warum sind Verkehrsflaechen Teil von Lernfeld 2?" },
+        {
+          "type": "list",
+          "items": [
+            "Weil sie auf Erdarbeiten aufbauen, eine tragfaehige Gruendung brauchen, Entwaesserung benoetigen, oft vor dem Hochbau oder parallel entstehen und fuer Logistik und Sicherheit entscheidend sind.",
+            "Schlechte Verkehrsflaechen fuehren zu Einsinken von Fahrzeugen, Stolperstellen, Staunaesse, Unfaellen und Nacharbeiten."
+          ]
+        },
+        { "type": "text", "value": "3) Zufahrten - temporaer und dauerhaft" },
+        { "type": "text", "value": "3.1 Baustellenzufahrten (temporaer)" },
+        {
+          "type": "list",
+          "items": [
+            "Zweck: Anfahrt von Maschinen, Materiallieferung, Abtransport von Aushub.",
+            "Typische Ausfuehrung: Schottertragschicht, gegebenenfalls Geotextil, ausreichende Breite, tragfaehig fuer LKW.",
+            "Unbefestigte Zufahrten werden bei Naesse schnell unbrauchbar."
+          ]
+        },
+        { "type": "text", "value": "3.2 Dauerhafte Zufahrten" },
+        {
+          "type": "list",
+          "items": [
+            "Zufahrten zu Gebaeuden, Hofzufahrten, Betriebszufahrten.",
+            "Anforderungen: dauerhafte Tragfaehigkeit, Entwaesserung, Frostsicherheit, ebene Oberflaeche."
+          ]
+        },
+        { "type": "text", "value": "4) Aufbau von Verkehrsflaechen (Grundprinzip)" },
+        {
+          "type": "list",
+          "items": [
+            "Typischer Aufbau von unten nach oben: tragfaehiger Baugrund, Planum, Frostschutzschicht, Tragschicht, Bettung, Belag (z. B. Pflaster).",
+            "Jede Schicht hat eine Funktion."
+          ]
+        },
+        { "type": "text", "value": "5) Pflasterflaechen - Ueberblick" },
+        { "type": "text", "value": "5.1 Wozu Pflaster?" },
+        {
+          "type": "list",
+          "items": [
+            "Pflaster wird eingesetzt fuer Gehwege, Plaetze, Hof- und Verkehrsflaechen sowie Bereiche mit Gestaltung und Belastung."
+          ]
+        },
+        { "type": "text", "value": "5.2 Pflasterarten (Grundwissen)" },
+        {
+          "type": "list",
+          "items": [
+            "Betonpflaster, Natursteinpflaster, Platten.",
+            "Unterschiede bestehen bei Belastbarkeit, Optik, Verlegeart und Fugen."
+          ]
+        },
+        { "type": "text", "value": "6) Pflaster - Grundregeln der Ausfuehrung" },
+        {
+          "type": "list",
+          "items": [
+            "Wichtige Punkte: ebene Bettung, richtiges Gefaelle, gleichmaessige Fugen, passender Unterbau, keine Hohlstellen.",
+            "Pflaster gleicht keinen schlechten Unterbau aus."
+          ]
+        },
+        { "type": "text", "value": "7) Entwaesserung von Verkehrsflaechen" },
+        {
+          "type": "list",
+          "items": [
+            "Verkehrsflaechen muessen Wasser ableiten, nicht stauen und gezielt fuehren.",
+            "Massnahmen: Gefaelle (meist 2 bis 3 Prozent), Rinnen, Einlaeufe, Anschluss an Entwaesserung.",
+            "Stehendes Wasser zerstoert Verkehrsflaechen."
+          ]
+        },
+        { "type": "text", "value": "8) Belastung und Nutzung beruecksichtigen" },
+        {
+          "type": "list",
+          "items": [
+            "Vor der Planung muss klar sein: Fussgaenger oder Fahrzeuge, PKW oder LKW, Dauerbelastung oder temporaer, Rangierverkehr.",
+            "Belastung bestimmt Aufbau und Material."
+          ]
+        },
+        { "type": "text", "value": "9) Sicherheit und Nutzung" },
+        {
+          "type": "list",
+          "items": [
+            "Verkehrsflaechen muessen rutschfest und eben sein, keine Stolperkanten haben, ausreichend breit sein und gut entwaessern.",
+            "Im Baustellenbetrieb besonders wichtig: klare Trennung von Verkehrsarten, sichere Wegefuehrung, ausreichende Beleuchtung."
+          ]
+        },
+        { "type": "text", "value": "10) Typische Fehler (pruefungsrelevant)" },
+        {
+          "type": "list",
+          "items": [
+            "Unterbau zu schwach, fehlende Verdichtung, falsches Gefaelle, Pflaster direkt auf Boden, ungeeignete Materialien, keine Entwaesserung.",
+            "Viele Schaeden entstehen unter der Oberflaeche und erst nach Nutzung."
+          ]
+        },
+        { "type": "text", "value": "11) Verbindung zu Lernfeld 2" },
+        {
+          "type": "list",
+          "items": [
+            "Erdarbeiten -> Untergrund.",
+            "Planum und Verdichtung -> Tragfaehigkeit.",
+            "Entwaesserung -> Dauerhaftigkeit.",
+            "Erschliessung -> Anschluesse.",
+            "Verkehrsflaechen -> Nutzung.",
+            "Verkehrsflaechen sind das sichtbare Ergebnis guter Planung."
+          ]
+        },
+        { "type": "text", "value": "12) Merksaetze fuer die Lernwelt" },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Merksaetze",
+          "value": "Verkehrsflaechen muessen tragen. Unterbau entscheidet. Pflaster ist kein Ersatz fuer Verdichtung. Wasser ist der groesste Feind. Nutzung bestimmt den Aufbau."
+        }
       ],
       "quizRef": ["Q17", "Q18"]
     },

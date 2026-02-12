@@ -81,9 +81,14 @@
           <p>{{ user.email }}</p>
           <p>Rolle: {{ user.role }} · Lehrjahr: {{ user.year || '-' }} · Key: {{ user.key_used || '-' }}</p>
           <p *ngIf="user.created_at">Erstellt: {{ user.created_at | date:'dd.MM.yyyy' }}</p>
+          <p *ngIf="user.deletion_due_at" class="deletion-note">
+            Zur Loeschung vorgemerkt bis: {{ user.deletion_due_at | date:'dd.MM.yyyy' }}
+          </p>
         </ion-label>
-        <ion-badge [color]="user.role === 'admin' ? 'tertiary' : 'primary'">{{ user.role }}</ion-badge>
-        <ion-button *ngIf="user.role !== 'admin'" slot="end" fill="clear" color="danger" (click)="deleteUser(user.id)">
+        <ion-badge [color]="user.role === 'admin' ? 'tertiary' : (user.deletion_due_at ? 'warning' : 'primary')">
+          {{ user.role }}
+        </ion-badge>
+        <ion-button *ngIf="user.role !== 'admin'" slot="end" fill="clear" color="danger" (click)="confirmDeleteUser(user)">
           <ion-icon name="trash-outline"></ion-icon>
         </ion-button>
       </ion-item>

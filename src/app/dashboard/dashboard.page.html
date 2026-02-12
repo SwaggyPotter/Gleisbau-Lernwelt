@@ -9,7 +9,7 @@
         <ion-icon name="person-circle-outline"></ion-icon>
         <ion-label>Angemeldet als {{ user?.name || 'Admin' }}</ion-label>
       </ion-chip>
-      <ion-button *ngIf="isAdmin()" fill="clear" (click)="goToAdmin()">Admin Panel</ion-button>
+      <ion-button fill="clear" (click)="goToAdmin()">Admin Panel</ion-button>
       <ion-button fill="clear" routerLink="/home">Start</ion-button>
       <ion-button color="medium" (click)="handleLogout()">Logout</ion-button>
     </ion-buttons>

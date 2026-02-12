@@ -2,6 +2,7 @@ import { createServer } from './server';
 import { config } from './config';
 import { logger } from './logger';
 import { pool } from './db/pool';
+import { purgeDueDeletedUsers } from './user-deletion';
 
 const app = createServer();
 
@@ -15,6 +16,9 @@ const runStartupMigrations = async () => {
 
     // Allow users without password for key-based onboarding
     await pool.query('ALTER TABLE users ALTER COLUMN password_hash DROP NOT NULL');
+    await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS deletion_scheduled_at timestamptz');
+    await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS deletion_due_at timestamptz');
+    await pool.query('CREATE INDEX IF NOT EXISTS idx_users_deletion_due_at ON users(deletion_due_at)');
 
     // Delete known demo keys and normalise any legacy multi-use keys
     await pool.query("DELETE FROM registration_keys WHERE key IN ('J1-DEMO-001', 'J2-DEMO-002', 'J3-DEMO-003')");
@@ -68,13 +72,25 @@ const runStartupMigrations = async () => {
 
     const ids = fields.map(f => `'${f.id}'`).join(',');
     await pool.query(`DELETE FROM learning_fields WHERE id NOT IN (${ids})`);
+
+    await purgeDueDeletedUsers();
   } catch (err) {
     logger.warn({ err }, 'Startup migrations/cleanup failed');
   }
+};
+
+const startDeletionCleanupJob = () => {
+  const intervalMs = 6 * 60 * 60 * 1000;
+  setInterval(() => {
+    purgeDueDeletedUsers().catch(err => {
+      logger.warn({ err }, 'Scheduled account deletion cleanup failed');
+    });
+  }, intervalMs).unref();
 };
 
 runStartupMigrations().finally(() => {
   app.listen(config.port, () => {
     logger.info({ port: config.port, env: config.nodeEnv }, 'API listening');
   });
+  startDeletionCleanupJob();
 });

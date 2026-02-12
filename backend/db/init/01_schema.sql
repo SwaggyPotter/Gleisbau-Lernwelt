@@ -18,7 +18,9 @@ CREATE TABLE IF NOT EXISTS users (
     role text NOT NULL DEFAULT 'user' CHECK (role IN ('user', 'admin')),
     year smallint CHECK (year BETWEEN 1 AND 3),
     key_used text REFERENCES registration_keys(key),
-    created_at timestamptz NOT NULL DEFAULT now()
+    created_at timestamptz NOT NULL DEFAULT now(),
+    deletion_scheduled_at timestamptz,
+    deletion_due_at timestamptz
 );
 
 CREATE TABLE IF NOT EXISTS learning_fields (
@@ -39,4 +41,5 @@ CREATE TABLE IF NOT EXISTS user_progress (
 );
 
 CREATE INDEX IF NOT EXISTS idx_users_year ON users(year);
+CREATE INDEX IF NOT EXISTS idx_users_deletion_due_at ON users(deletion_due_at);
 CREATE INDEX IF NOT EXISTS idx_progress_field ON user_progress(field_id);

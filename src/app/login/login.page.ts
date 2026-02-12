@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { catchError, of } from 'rxjs';
@@ -29,8 +30,11 @@ export class LoginPage {
       return;
     }
     this.authService.login(email, password).pipe(
-      catchError(() => {
-        this.error = 'Login fehlgeschlagen. Bitte pruefe deine Eingaben.';
+      catchError((err: unknown) => {
+        const apiMessage = err instanceof HttpErrorResponse ? err.error?.error : null;
+        this.error = typeof apiMessage === 'string' && apiMessage.trim().length > 0
+          ? apiMessage
+          : 'Login fehlgeschlagen. Bitte pruefe deine Eingaben.';
         return of(null);
       }),
     ).subscribe(res => {

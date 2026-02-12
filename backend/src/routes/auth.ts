@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { pool } from '../db/pool';
 import { asyncHandler } from '../middleware/async-handler';
 import { httpError } from '../middleware/error-handler';
+import { deletionNoticeMessage, purgeDueDeletedUsers } from '../user-deletion';
 
 const loginSchema = z.object({
   email: z.string().min(1), // accept admin username without @
@@ -20,9 +21,10 @@ export const authRouter = Router();
 
 authRouter.post('/login', asyncHandler(async (req, res) => {
   const { email, password } = loginSchema.parse(req.body);
+  await purgeDueDeletedUsers();
 
   const { rows } = await pool.query(
-    'SELECT id, full_name, email, password_hash, role, year, key_used FROM users WHERE email = $1',
+    'SELECT id, full_name, email, password_hash, role, year, key_used, deletion_due_at FROM users WHERE email = $1',
     [email],
   );
 
@@ -31,6 +33,10 @@ authRouter.post('/login', asyncHandler(async (req, res) => {
   }
 
   const user = rows[0];
+  if (user.deletion_due_at) {
+    throw httpError(403, deletionNoticeMessage(user.deletion_due_at));
+  }
+
   if (!user.password_hash) {
     throw httpError(401, 'Passwort noch nicht gesetzt. Bitte Key-Login verwenden.');
   }
@@ -46,9 +52,10 @@ authRouter.post('/login', asyncHandler(async (req, res) => {
 
 authRouter.post('/login-key', asyncHandler(async (req, res) => {
   const { email, key, newPassword } = loginWithKeySchema.parse(req.body);
+  await purgeDueDeletedUsers();
 
   const { rows } = await pool.query(
-    'SELECT id, full_name, email, password_hash, role, year, key_used FROM users WHERE email = $1',
+    'SELECT id, full_name, email, password_hash, role, year, key_used, deletion_due_at FROM users WHERE email = $1',
     [email],
   );
 
@@ -57,6 +64,10 @@ authRouter.post('/login-key', asyncHandler(async (req, res) => {
   }
 
   const user = rows[0];
+  if (user.deletion_due_at) {
+    throw httpError(403, deletionNoticeMessage(user.deletion_due_at));
+  }
+
   if (user.key_used !== key) {
     throw httpError(401, 'Key stimmt nicht mit dem Account ueberein');
   }

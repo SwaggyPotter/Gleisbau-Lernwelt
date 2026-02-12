@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AlertController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { ApiService, ApiUser, RegistrationKeyDto, SnapshotDto } from '../services/api.service';
 
@@ -24,6 +25,7 @@ export class AdminPage implements OnDestroy {
     private readonly api: ApiService,
     private readonly auth: AuthService,
     private readonly router: Router,
+    private readonly alertController: AlertController,
   ) {
     this.refresh();
   }
@@ -78,8 +80,36 @@ export class AdminPage implements OnDestroy {
     });
   }
 
-  deleteUser(userId: string): void {
-    this.api.deleteUser(userId).subscribe({
+  async confirmDeleteUser(user: ApiUser): Promise<void> {
+    const dueDateHint = user.deletion_due_at
+      ? `\nAktuell vorgemerkt bis ${this.formatDate(user.deletion_due_at)}.`
+      : '';
+
+    const alert = await this.alertController.create({
+      header: 'Account loeschen',
+      message: `Was soll mit ${user.full_name} passieren?${dueDateHint}`,
+      buttons: [
+        {
+          text: 'Abbrechen',
+          role: 'cancel',
+        },
+        {
+          text: 'Nach 30 Tagen loeschen',
+          handler: () => this.deleteUser(user.id, 'grace'),
+        },
+        {
+          text: 'Sofort loeschen',
+          role: 'destructive',
+          handler: () => this.deleteUser(user.id, 'immediate'),
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  private deleteUser(userId: string, mode: 'grace' | 'immediate'): void {
+    this.api.deleteUser(userId, mode).subscribe({
       next: () => {
         this.loadUsers();
         this.refreshSnapshots();
@@ -90,6 +120,16 @@ export class AdminPage implements OnDestroy {
   private refreshSnapshots(): void {
     this.api.getSnapshots().subscribe(res => {
       this.snapshots = res.snapshots;
+    });
+  }
+
+  formatDate(value?: string | null): string {
+    if (!value) return '-';
+
+    return new Date(value).toLocaleDateString('de-DE', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
     });
   }
 }

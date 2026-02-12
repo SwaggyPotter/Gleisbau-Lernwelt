@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { pool } from '../db/pool';
 import { asyncHandler } from '../middleware/async-handler';
 import { httpError } from '../middleware/error-handler';
+import { ACCOUNT_DELETION_GRACE_DAYS, purgeDueDeletedUsers } from '../user-deletion';
 
 const progressSchema = z.object({
   fieldId: z.string().min(1),
@@ -10,16 +11,22 @@ const progressSchema = z.object({
   mistakes: z.number().int().min(0).optional(),
 });
 
+const deleteModeSchema = z.enum(['grace', 'immediate']);
+
 export const usersRouter = Router();
 
 usersRouter.get('/', asyncHandler(async (_req, res) => {
+  await purgeDueDeletedUsers();
   const { rows } = await pool.query(
-    'SELECT id, full_name, email, role, year, key_used, created_at FROM users ORDER BY created_at DESC',
+    `SELECT id, full_name, email, role, year, key_used, created_at, deletion_scheduled_at, deletion_due_at
+     FROM users
+     ORDER BY created_at DESC`,
   );
   res.json({ users: rows });
 }));
 
 usersRouter.get('/snapshots', asyncHandler(async (_req, res) => {
+  await purgeDueDeletedUsers();
   const { rows: users } = await pool.query(
     'SELECT id, full_name, email, role, year, key_used FROM users WHERE role <> \'admin\' ORDER BY created_at DESC',
   );
@@ -71,6 +78,7 @@ usersRouter.get('/snapshots', asyncHandler(async (_req, res) => {
 }));
 
 usersRouter.get('/:id/snapshot', asyncHandler(async (req, res) => {
+  await purgeDueDeletedUsers();
   const userId = req.params.id;
   const { rows: userRows } = await pool.query(
     'SELECT id, full_name, email, role, year, key_used FROM users WHERE id = $1',
@@ -127,6 +135,7 @@ usersRouter.get('/:id/snapshot', asyncHandler(async (req, res) => {
 }));
 
 usersRouter.post('/:id/progress', asyncHandler(async (req, res) => {
+  await purgeDueDeletedUsers();
   const userId = req.params.id;
   const { fieldId, progress, mistakes = 0 } = progressSchema.parse(req.body);
 
@@ -152,7 +161,9 @@ usersRouter.post('/:id/progress', asyncHandler(async (req, res) => {
 }));
 
 usersRouter.delete('/:id', asyncHandler(async (req, res) => {
+  await purgeDueDeletedUsers();
   const userId = z.string().min(1).parse(req.params.id);
+  const mode = deleteModeSchema.parse(Array.isArray(req.query.mode) ? req.query.mode[0] : req.query.mode ?? 'grace');
 
   // Prevent accidental admin deletion
   const { rows } = await pool.query('SELECT role FROM users WHERE id = $1', [userId]);
@@ -163,10 +174,23 @@ usersRouter.delete('/:id', asyncHandler(async (req, res) => {
     throw httpError(403, 'Admin accounts koennen nicht geloescht werden');
   }
 
-  const { rowCount } = await pool.query('DELETE FROM users WHERE id = $1', [userId]);
-  if (!rowCount) {
-    throw httpError(404, 'User not found');
+  if (mode === 'immediate') {
+    const { rowCount } = await pool.query('DELETE FROM users WHERE id = $1', [userId]);
+    if (!rowCount) {
+      throw httpError(404, 'User not found');
+    }
+
+    res.status(204).send();
+    return;
   }
+
+  await pool.query(
+    `UPDATE users
+     SET deletion_scheduled_at = COALESCE(deletion_scheduled_at, now()),
+         deletion_due_at = COALESCE(deletion_due_at, now() + INTERVAL '${ACCOUNT_DELETION_GRACE_DAYS} days')
+     WHERE id = $1`,
+    [userId],
+  );
 
   res.status(204).send();
 }));

@@ -18,4 +18,8 @@ export class ProfilePage {
   goBack(): void {
     this.router.navigate(['/dashboard']);
   }
+
+  goToAdmin(): void {
+    this.router.navigate(['/admin']);
+  }
 }

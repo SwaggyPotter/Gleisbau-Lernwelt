@@ -10,6 +10,8 @@ export interface ApiUser {
   year?: number;
   key_used?: string;
   created_at?: string;
+  deletion_scheduled_at?: string | null;
+  deletion_due_at?: string | null;
 }
 
 export interface RegistrationKeyDto {
@@ -106,8 +108,10 @@ export class ApiService {
     return this.http.get<{ users: ApiUser[] }>(`${this.base}/users`);
   }
 
-  deleteUser(userId: string) {
-    return this.http.delete<void>(`${this.base}/users/${encodeURIComponent(userId)}`);
+  deleteUser(userId: string, mode: 'grace' | 'immediate' = 'grace') {
+    return this.http.delete<void>(`${this.base}/users/${encodeURIComponent(userId)}`, {
+      params: { mode },
+    });
   }
 
   startQuiz(fieldId: string, userId?: string, forceNew?: boolean) {

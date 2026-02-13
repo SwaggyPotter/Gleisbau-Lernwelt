@@ -5,23 +5,152 @@
       "title": "Grundlagen der Entwaesserung",
       "goals": [
         "Bedeutung von Entwaesserungssystemen im Tiefbau erklaeren",
-        "Regenwasser und Schmutzwasser unterscheiden"
+        "Regenwasser und Schmutzwasser unterscheiden",
+        "Die Schutzfunktion von Entwaesserung verstehen"
       ],
-      "summary": "Entwaesserung leitet Wasser kontrolliert ab und schuetzt Bauwerke und Verkehrswege.",
+      "summary": "Entwaesserung bedeutet die kontrollierte Ableitung von Wasser aus Bauwerken, Verkehrsflaechen und Anlagen.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee"
+        },
+        {
+          "type": "text",
+          "value": "Wasser ist einer der groessten Schadensverursacher im Tiefbau. Unkontrollierte Naesse fuehrt zu:"
+        },
         {
           "type": "list",
           "items": [
-            "Entwaesserung dient der Ableitung von Regen- und Schmutzwasser",
-            "Sie schuetzt Bauwerke, Verkehrsflaechen und Gleisanlagen vor Naesse- und Frostschaeden",
-            "Staunaesse muss vermieden werden, um Funktions- und Substanzschaeden zu verhindern"
+            "Setzungen",
+            "Frostschaeden",
+            "Unterspuelungen",
+            "Korrosion",
+            "Substanzverlust"
           ]
         },
         {
+          "type": "text",
+          "value": "Entwaesserung schuetzt Bauwerke, Verkehrsflaechen und Gleisanlagen dauerhaft."
+        },
+        {
+          "type": "text",
+          "value": "Warum ist Entwaesserung so wichtig"
+        },
+        {
+          "type": "text",
+          "value": "Im Tiefbau und Gleisbau wirkt Wasser auf:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Untergrund und Planum",
+            "Tragschichten",
+            "Asphalt- und Pflasterflaechen",
+            "Bauwerke und Schaechte",
+            "Gleisbett und Bahndamm"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ohne geregelte Ableitung entstehen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Staunaesse",
+            "Durchfeuchtung",
+            "Tragfaehigkeitsverlust",
+            "Frosthebungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Regenwasser und Schmutzwasser"
+        },
+        {
+          "type": "text",
+          "value": "Regenwasser"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Niederschlagswasser von Daechern, Strassen und Bahnsteigen",
+            "Meist gering verschmutzt",
+            "Muss kontrolliert abgefuehrt werden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Schmutzwasser"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Abwasser aus Haushalten oder Betrieben",
+            "Enthaelt organische Stoffe",
+            "Muss gereinigt werden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Die Art des Wassers bestimmt das Entwaesserungssystem."
+        },
+        {
+          "type": "text",
+          "value": "Staunaesse vermeiden"
+        },
+        {
+          "type": "text",
+          "value": "Staunaesse fuehrt zu:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Aufweichen des Bodens",
+            "Tragfaehigkeitsverlust",
+            "Rissbildung",
+            "Frostschaeden im Winter"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Gerade im Gleisbau kann Staunaesse zu folgenden Problemen fuehren:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gleislagefehlern",
+            "Setzungen",
+            "Instabilitaet im Unterbau"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Praxisfolge"
+        },
+        {
+          "type": "text",
+          "value": "Fehler in der Entwaesserung zeigen sich oft erst nach Monaten oder Jahren, dann jedoch als:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Grossflaechige Setzungen",
+            "Risse",
+            "Abgesackte Flaechen",
+            "Unterspuelungen",
+            "Hohe Sanierungskosten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Entwaesserung ist unsichtbar, ihre Wirkung aber entscheidend."
+        },
+        {
           "type": "callout",
-          "variant": "info",
-          "title": "Praxisfolge",
-          "value": "Fehler in der Entwaesserung zeigen sich oft spaeter als grosse und teure Schaeden."
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Wasser muss gefuehrt werden, sonst sucht es sich seinen eigenen Weg."
         }
       ],
       "quizRef": ["Q1"]
@@ -31,22 +160,142 @@
       "title": "Entwaesserungssysteme: Misch- und Trennsystem",
       "goals": [
         "Mischsystem und Trennsystem fachlich unterscheiden",
-        "Vorteile des Trennsystems einordnen"
+        "Vorteile des Trennsystems einordnen",
+        "Bedeutung fuer Neubauten verstehen"
       ],
-      "summary": "Beim Trennsystem laufen Regen- und Schmutzwasser in getrennten Leitungen.",
+      "summary": "Im Tiefbau regeln Mischsystem und Trennsystem, wie Regenwasser und Schmutzwasser abgeleitet werden.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee"
+        },
+        {
+          "type": "text",
+          "value": "Im Tiefbau unterscheidet man zwei Hauptsysteme der Entwaesserung:"
+        },
         {
           "type": "list",
           "items": [
-            "Mischsystem fuehrt Regen- und Schmutzwasser gemeinsam, haeufig in aelteren Gebieten",
-            "Trennsystem nutzt getrennte Leitungen und ist bei Neubauten meist Standard",
-            "Die Trennung reduziert Anlagenbelastung und verbessert die Betriebskontrolle"
+            "Mischsystem",
+            "Trennsystem"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Diese Systeme regeln, wie Regenwasser und Schmutzwasser abgeleitet werden."
+        },
+        {
+          "type": "text",
+          "value": "Mischsystem"
+        },
+        {
+          "type": "text",
+          "value": "Beim Mischsystem werden Regenwasser und Schmutzwasser gemeinsam in einer Leitung abgefuehrt."
+        },
+        {
+          "type": "text",
+          "value": "Typisch fuer:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Aeltere Stadtgebiete",
+            "Historische Bebauung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Nachteile:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Hohe Belastung der Klaeranlagen",
+            "Ueberlastung bei Starkregen",
+            "Mischwasserueberlaeufe moeglich"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Trennsystem"
+        },
+        {
+          "type": "text",
+          "value": "Beim Trennsystem werden Regenwasser und Schmutzwasser in getrennten Leitungen abgefuehrt."
+        },
+        {
+          "type": "text",
+          "value": "Aufbau:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Eine Leitung fuer Schmutzwasser",
+            "Eine Leitung fuer Regenwasser"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Vorteile:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Entlastung der Klaeranlagen",
+            "Bessere Kontrolle",
+            "Geringeres Risiko bei Starkregen",
+            "Effizientere Wartung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Deshalb ist das Trennsystem bei Neubauten heute meist Standard."
+        },
+        {
+          "type": "text",
+          "value": "Warum ist das Trennsystem moderner"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Regenwasser muss nicht vollstaendig gereinigt werden",
+            "Geringere Betriebskosten",
+            "Bessere Umweltbilanz",
+            "Einfachere Stoerungssuche"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Bedeutung fuer Tief- und Gleisbau"
+        },
+        {
+          "type": "text",
+          "value": "Bei Bauarbeiten muessen folgende Punkte sichergestellt werden:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bestehende Systeme erkennen",
+            "Anschluesse korrekt herstellen",
+            "Leitungen schuetzen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ein falscher Anschluss kann verursachen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rueckstau",
+            "Ueberflutung",
+            "Erhebliche Schaeden"
           ]
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Merke",
+          "title": "Merksatz",
           "value": "Getrennte Erfassung macht Betrieb, Wartung und Stoerungssuche deutlich einfacher."
         }
       ],
@@ -57,23 +306,183 @@
       "title": "Rohrmaterialien und Bauteile",
       "goals": [
         "Typische Rohrmaterialien benennen",
-        "Funktion zentraler Bauteile wie Muffe und Dichtung erklaeren"
+        "Funktion zentraler Bauteile erklaeren",
+        "Bedeutung von Muffen und Dichtungen verstehen"
       ],
-      "summary": "Dichte Verbindungen sind entscheidend fuer ein funktionsfaehiges Netz.",
+      "summary": "Ein Entwaesserungsnetz funktioniert nur mit tragfaehigen Rohren, dichten Verbindungen und fachgerecht eingebauten Bauteilen.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee"
+        },
+        {
+          "type": "text",
+          "value": "Ein Entwaesserungsnetz funktioniert nur, wenn:"
+        },
         {
           "type": "list",
           "items": [
-            "Typische Materialien: Kunststoff (PVC, PP, PE), Beton oder Stahlbeton, Steinzeug",
-            "Wichtige Bauteile: Rohre, Boegen, Abzweige, Muffen und Dichtungen",
-            "Dichtungen in Muffen stellen die wasserdichte Verbindung sicher"
+            "Rohre tragfaehig sind",
+            "Verbindungen dicht sind",
+            "Bauteile fachgerecht eingebaut werden"
           ]
         },
         {
+          "type": "text",
+          "value": "Dichte Verbindungen sind entscheidend fuer ein funktionsfaehiges Netz."
+        },
+        {
+          "type": "text",
+          "value": "Undichtigkeiten fuehren zu:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Fremdwassereintritt",
+            "Bodenausspuelung",
+            "Setzungen",
+            "Umweltschaeden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Typische Rohrmaterialien"
+        },
+        {
+          "type": "text",
+          "value": "1. Kunststoffrohre"
+        },
+        {
+          "type": "list",
+          "items": [
+            "PVC",
+            "PP",
+            "PE"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Eigenschaften:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "leicht",
+            "korrosionsbestaendig",
+            "einfach zu verarbeiten",
+            "glatte Innenflaeche (gute Fliesseigenschaften)"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Haeufig im Neubau verwendet."
+        },
+        {
+          "type": "text",
+          "value": "2. Beton- und Stahlbetonrohre"
+        },
+        {
+          "type": "list",
+          "items": [
+            "hohe Tragfaehigkeit",
+            "geeignet fuer grosse Durchmesser",
+            "robust bei hoher Verkehrsbelastung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Einsatz z. B. unter Strassen oder stark belasteten Flaechen."
+        },
+        {
+          "type": "text",
+          "value": "3. Steinzeugrohre"
+        },
+        {
+          "type": "list",
+          "items": [
+            "sehr widerstandsfaehig gegen chemische Einfluesse",
+            "lange Lebensdauer",
+            "haeufig im Bestand vorhanden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Wichtige Bauteile im Entwaesserungssystem"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rohre: transportieren das Wasser und muessen im Gefaelle verlegt werden",
+            "Boegen: aendern die Fliessrichtung",
+            "Abzweige: verbinden Nebenleitungen mit Hauptleitungen",
+            "Muffen: Aufnahmebereich fuer Rohrverbindungen",
+            "Dichtungen: meist Gummiringe in der Muffe fuer wasserdichte Verbindung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Funktion der Muffe mit Dichtung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Die Muffe nimmt das Rohrende auf",
+            "Die Muffe fixiert die Verbindung",
+            "Muffe und Dichtung sorgen gemeinsam fuer Wasserdichtheit"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Die Dichtung verhindert:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Austritt von Abwasser",
+            "Eindringen von Grundwasser",
+            "Bodenausspuelung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Typische Fehlerquellen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "beschaedigte Dichtungen",
+            "verschmutzte Muffen",
+            "verkantetes Einschieben",
+            "fehlende Schmierung beim Zusammenstecken",
+            "nicht korrekt eingeschobenes Rohr"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fehlerfolge"
+        },
+        {
+          "type": "text",
+          "value": "Falsch sitzende oder beschaedigte Dichtungen fuehren zu:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Undichtigkeiten",
+            "Unterspuelung des Rohrbetts",
+            "spaeteren Setzungen",
+            "teuren Sanierungsarbeiten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Eine kleine Dichtung entscheidet ueber die Funktion des gesamten Systems."
+        },
+        {
           "type": "callout",
-          "variant": "danger",
-          "title": "Fehlerquelle",
-          "value": "Beschaedigte oder falsch sitzende Dichtungen verursachen Undichtigkeiten."
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Jede Rohrverbindung muss dauerhaft dicht sein - Kontrolle ist Pflicht."
         }
       ],
       "quizRef": ["Q3"]
@@ -83,23 +492,203 @@
       "title": "Rohrgraben und Rohrbettung",
       "goals": [
         "Anforderungen an einen sicheren Rohrgraben umsetzen",
-        "Rohrbettung fachgerecht herstellen"
+        "Rohrbettung fachgerecht herstellen",
+        "Zusammenhang mit Grabensicherung aus LF7 verstehen"
       ],
-      "summary": "Ohne saubere Bettung kein dauerhaft funktionierendes Rohr.",
+      "summary": "Ein Rohr funktioniert nur dauerhaft, wenn es korrekt gelagert, gleichmaessig gebettet und spannungsfrei eingebaut wird.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee"
+        },
+        {
+          "type": "text",
+          "value": "Ein Rohr funktioniert nur dauerhaft, wenn es:"
+        },
         {
           "type": "list",
           "items": [
-            "Rohrgraben braucht ausreichenden Arbeitsraum und muss gesichert sein (Boeschung oder Verbau)",
-            "Rohrbettung besteht meist aus Sand oder feinkoernigem Material",
-            "Gleichmaessige Bettung mit kontrollierter Verdichtung schuetzt vor Punktlasten und Schaeden"
+            "korrekt gelagert",
+            "gleichmaessig gebettet",
+            "spannungsfrei eingebaut"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ohne saubere Bettung kein dauerhaft funktionierendes Rohr."
+        },
+        {
+          "type": "text",
+          "value": "Anforderungen an den Rohrgraben"
+        },
+        {
+          "type": "list",
+          "items": [
+            "ausreichend Arbeitsraum bieten",
+            "sicher begehbar sein",
+            "standsicher ausgefuehrt werden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Sicherung des Grabens"
+        },
+        {
+          "type": "text",
+          "value": "Je nach Tiefe und Bodenart:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Boeschung",
+            "Verbau"
           ]
         },
         {
           "type": "callout",
           "variant": "info",
-          "title": "LF-Bezug",
-          "value": "Grabensicherung folgt den Grundsaetzen aus LF7 zu Boeschung und Verbau."
+          "title": "Bezug zu LF07",
+          "value": "Grabensicherung folgt den Grundsaetzen aus Boeschungswinkel, Verbauarten und Arbeitssicherheit."
+        },
+        {
+          "type": "text",
+          "value": "Rohrbettung - warum ist sie so wichtig?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "traegt das Rohr",
+            "verhindert Punktbelastungen",
+            "gleicht kleine Unebenheiten aus",
+            "schuetzt vor Beschaedigungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fehlerhafte Bettung fuehrt zu:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rohrverformung",
+            "Rissen",
+            "Undichtigkeiten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Material der Rohrbettung"
+        },
+        {
+          "type": "text",
+          "value": "Meist:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sand",
+            "feinkoerniges, steinfreies Material"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Material darf keine folgenden Bestandteile enthalten:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "groben Steine",
+            "scharfkantigen Bestandteile"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Herstellung der Rohrbettung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Untergrund eben herstellen",
+            "Bettungsmaterial einbringen",
+            "gleichmaessig verteilen",
+            "Rohr einlegen",
+            "seitlich lagenweise verfuellen",
+            "kontrolliert verdichten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Wichtig:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "keine Hohlraeume unter dem Rohr",
+            "gleichmaessige Auflageflaeche",
+            "keine Punktlasten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Verdichtung im Rohrbereich"
+        },
+        {
+          "type": "text",
+          "value": "Verdichtung erfolgt:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "seitlich lagenweise",
+            "vorsichtig im Nahbereich des Rohres",
+            "ohne direkte Belastung auf das Rohr"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ziel:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "gleichmaessige Lastverteilung",
+            "dauerhafte Stabilitaet"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Praxisbezug"
+        },
+        {
+          "type": "text",
+          "value": "Im Tief- und Gleisbau ist die Rohrverlegung haeufig unter:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verkehrsflaechen",
+            "Bahnsteigen",
+            "Betriebsflaechen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fehler in der Bettung zeigen sich spaeter als:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Setzungen",
+            "Risse",
+            "Spurrinnen",
+            "Schachtabsenkungen"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Ein Rohr ist nur so stabil wie seine Bettung."
         }
       ],
       "quizRef": ["Q4"]
@@ -109,24 +698,176 @@
       "title": "Gefaelle herstellen und kontrollieren",
       "goals": [
         "Rohrgefaelle als Funktionsvoraussetzung verstehen",
+        "Auswirkungen von zu geringem oder zu grossem Gefaelle kennen",
         "Gefaelle mit geeigneten Messmitteln kontrollieren"
       ],
-      "summary": "Zu wenig Gefaelle fuehrt zu Ablagerungen, zu viel kann Ausspuelung verursachen.",
+      "summary": "Abwasserleitungen funktionieren nur durch Schwerkraft, daher ist ein technisch abgestimmtes Rohrgefaelle die Grundvoraussetzung.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee"
+        },
+        {
+          "type": "text",
+          "value": "Abwasserleitungen funktionieren nur durch Schwerkraft."
+        },
+        {
+          "type": "text",
+          "value": "Das Wasser fliesst ausschliesslich durch ausreichendes Gefaelle."
+        },
+        {
+          "type": "text",
+          "value": "Rohrgefaelle ist die Grundvoraussetzung fuer ein funktionsfaehiges Entwaesserungssystem."
+        },
+        {
+          "type": "text",
+          "value": "Warum ist Gefaelle so wichtig?"
+        },
+        {
+          "type": "text",
+          "value": "Wasser kann nur fliessen, wenn die Leitung:"
+        },
         {
           "type": "list",
           "items": [
-            "Wasser fliesst in Leitungen nur mit ausreichendem Gefaelle",
-            "Zu geringes Gefaelle beguenstigt Ablagerungen und Verstopfungen",
-            "Zu grosses Gefaelle kann Ausspuelungen ausloesen",
-            "Kontrolle z. B. mit Wasserwaage, Richtlatte und Nivelliergeraet"
+            "kontinuierlich abwaerts verlaeuft",
+            "keine Gegengefaelle aufweist",
+            "gleichmaessig verlegt ist"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Fehlt Gefaelle, bleibt Wasser stehen - mit erheblichen Folgen."
+        },
+        {
+          "type": "text",
+          "value": "Zu geringes Gefaelle"
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wasser fliesst zu langsam",
+            "Feststoffe setzen sich ab",
+            "Ablagerungen entstehen",
+            "Verstopfungen nehmen zu",
+            "Wartungsaufwand steigt"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Langfristig drohen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rueckstau",
+            "Geruchsprobleme",
+            "Betriebsstoerungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Zu grosses Gefaelle"
+        },
+        {
+          "type": "text",
+          "value": "Auch zu starkes Gefaelle ist problematisch."
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wasser fliesst zu schnell",
+            "Feststoffe bleiben zurueck",
+            "Materialausspuelung im Rohrbett moeglich",
+            "erhoehte Belastung von Schaechten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Das Ziel ist immer ein technisch abgestimmtes Gefaelle gemaess Planung."
+        },
+        {
+          "type": "text",
+          "value": "Gefaelle herstellen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rohrgraben auf korrekte Tiefe herstellen",
+            "Rohrbettung exakt ausbilden",
+            "Rohre im richtigen Hoehenmass einsetzen",
+            "Hoehenpunkte regelmaessig pruefen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Gefaelle kontrollieren"
+        },
+        {
+          "type": "text",
+          "value": "Kontrolle erfolgt mit:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wasserwaage",
+            "Richtlatte",
+            "Schnur",
+            "Nivelliergeraet"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Im professionellen Bereich: optische oder digitale Vermessung."
+        },
+        {
+          "type": "text",
+          "value": "Wichtig:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kontrolle waehrend der Verlegung",
+            "erneute Kontrolle vor der Verfuellung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Praxis"
+        },
+        {
+          "type": "text",
+          "value": "Gefaellepruefung darf nicht am Ende erfolgen."
+        },
+        {
+          "type": "text",
+          "value": "Sie muss erfolgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "waehrend der Verlegung",
+            "bei jedem Rohrstueck",
+            "vor der endgueltigen Verfuellung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Nachtraegliche Korrekturen sind aufwendig und teuer."
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Praxis",
-          "value": "Gefaellepruefung muss waehrend der Verlegung und vor Verfuellung erfolgen."
+          "title": "Merksatz",
+          "value": "Gefaelle entscheidet ueber Funktion - nicht die Rohrgroesse."
         }
       ],
       "quizRef": ["Q5"]
@@ -136,23 +877,158 @@
       "title": "Schaechte und Anschluesse",
       "goals": [
         "Funktionen von Schaechten im Leitungsnetz erklaeren",
-        "Anschluesse dicht, hoehengerecht und fluchtend herstellen"
+        "Anschluesse fachgerecht ausfuehren",
+        "typische Fehler erkennen"
       ],
-      "summary": "Schaechte ermoeglichen Kontrolle, Reinigung und Richtungs- oder Hoehenaenderungen.",
+      "summary": "Schaechte sind die Zugangs- und Kontrollpunkte des Entwaesserungssystems und sichern Betrieb, Wartung und Instandhaltung.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee"
+        },
+        {
+          "type": "text",
+          "value": "Schaechte sind die Zugangs- und Kontrollpunkte eines Entwaesserungssystems."
+        },
+        {
+          "type": "text",
+          "value": "Ohne Schaechte waeren nicht moeglich:"
+        },
         {
           "type": "list",
           "items": [
-            "Schaechte werden fuer Richtungs- und Hoehenaenderungen sowie Kontrolle und Reinigung eingesetzt",
-            "Typische Anschluesse: Hausanschluesse, Strassenablaeufe und Rinnen",
-            "Anschluesse muessen dicht, hoehengerecht und fluchtend ausgefuehrt werden"
+            "Wartung",
+            "Reinigung",
+            "Kontrolle",
+            "Richtungsaenderung"
           ]
         },
         {
+          "type": "text",
+          "value": "Funktionen von Schaechten"
+        },
+        {
+          "type": "text",
+          "value": "Schaechte werden eingesetzt fuer:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Richtungsaenderungen",
+            "Hoehenaenderungen",
+            "Zusammenfuehrung mehrerer Leitungen",
+            "Kontrolle und Reinigung",
+            "Zugang bei Wartung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Sie bilden die Knotenpunkte des Kanalnetzes."
+        },
+        {
+          "type": "text",
+          "value": "Aufbau eines Schachtes"
+        },
+        {
+          "type": "text",
+          "value": "Ein Schacht besteht meist aus:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schachtunterteil (mit Gerinne)",
+            "Schachtringen",
+            "Konus oder Abdeckung",
+            "Schachtdeckel"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Das Gerinne im Schacht fuehrt das Wasser kontrolliert weiter."
+        },
+        {
+          "type": "text",
+          "value": "Typische Anschluesse"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Hausanschluesse",
+            "Strassenablaeufe (Gullys)",
+            "Rinnen",
+            "Nebenleitungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Anforderungen an Anschluesse"
+        },
+        {
+          "type": "text",
+          "value": "Anschluesse muessen ausgefuehrt werden als:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "dicht",
+            "hoehengerecht",
+            "fluchtend",
+            "spannungsfrei"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fehlerhafte Anschluesse fuehren zu:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rueckstau",
+            "Undichtigkeiten",
+            "Geruchsproblemen",
+            "Betriebsstoerungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Typische Fehler"
+        },
+        {
+          "type": "list",
+          "items": [
+            "falsche Hoehenlage",
+            "schraeger Anschluss",
+            "beschaedigte Dichtung",
+            "nicht korrekt angeschlossenes Gerinne",
+            "fehlende Abdichtung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Achtung - Praxisfolge"
+        },
+        {
+          "type": "text",
+          "value": "Fehlerhafte Anschlusslagen verursachen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rueckstau bei Starkregen",
+            "Wasseraustritt im Boden",
+            "Setzungen",
+            "spaetere Sanierungskosten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Gerade unter Verkehrsflaechen oder Gleisanlagen koennen solche Fehler gravierende Auswirkungen haben."
+        },
+        {
           "type": "callout",
-          "variant": "danger",
-          "title": "Achtung",
-          "value": "Fehlerhafte Anschlusslagen verursachen Rueckstau, Undichtigkeiten und Betriebsstoerungen."
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Schaechte sichern Kontrolle - Anschluesse sichern Funktion."
         }
       ],
       "quizRef": ["Q6"]
@@ -162,17 +1038,175 @@
       "title": "Verfuellen und Verdichten",
       "goals": [
         "Verfuellfolge um die Rohrleitung fachgerecht ausfuehren",
-        "Rohrlage waehrend Verdichtung sichern"
+        "Rohrlage waehrend Verdichtung sichern",
+        "typische Verdichtungsfehler vermeiden"
       ],
-      "summary": "Seitliche Verfuellung sichert die Rohrlage, Verdichtung erfolgt lagenweise.",
+      "summary": "Erst fachgerechte Verfuellung und kontrollierte Verdichtung sichern die Rohrlage dauerhaft.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee"
+        },
+        {
+          "type": "text",
+          "value": "Nach der Rohrverlegung ist das Rohr noch nicht dauerhaft gesichert."
+        },
+        {
+          "type": "text",
+          "value": "Erst durch fachgerechte Verfuellung und kontrollierte Verdichtung wird die Rohrlage dauerhaft stabilisiert."
+        },
+        {
+          "type": "text",
+          "value": "Seitliche Verfuellung sichert die Rohrlage - Verdichtung erfolgt lagenweise."
+        },
+        {
+          "type": "text",
+          "value": "Vor dem Verfuellen: Kontrolle ist Pflicht"
+        },
+        {
+          "type": "text",
+          "value": "Bevor verfuellt wird, muessen geprueft werden:"
+        },
         {
           "type": "list",
           "items": [
-            "Vor dem Verfuellen Rohrlage und Gefaelle kontrollieren",
-            "Zuerst seitlich verfuellen, dann lagenweise verdichten",
-            "Das Rohr darf sich waehrend der Verfuellung nicht verschieben",
-            "Falsche Verdichtung kann zu Rohrbruch und Setzungen fuehren"
+            "Rohrlage",
+            "Gefaelle",
+            "Muffenverbindungen",
+            "Dichtungen",
+            "Anschluesse"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Nach dem Verfuellen sind Korrekturen nur mit grossem Aufwand moeglich."
+        },
+        {
+          "type": "text",
+          "value": "Verfuellfolge - Schritt fuer Schritt"
+        },
+        {
+          "type": "text",
+          "value": "1. Seitliche Verfuellung (Zwickelbereich)"
+        },
+        {
+          "type": "list",
+          "items": [
+            "beidseitig gleichmaessig auffuellen",
+            "geeignetes Material (feinkoernig, steinfrei)",
+            "lagenweise einbauen",
+            "vorsichtig verdichten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Diese Phase ist entscheidend, um:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "das Rohr gegen seitliches Verschieben zu sichern",
+            "Hohlraeume zu vermeiden",
+            "Punktlasten auszuschliessen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2. Abdeckung ueber Rohrscheitel"
+        },
+        {
+          "type": "list",
+          "items": [
+            "mindestens vorgeschriebene Ueberdeckung",
+            "gleichmaessige Materialverteilung",
+            "vorsichtige Verdichtung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Das Rohr darf nicht direkt belastet werden."
+        },
+        {
+          "type": "text",
+          "value": "3. Weitere Verfuellung bis Gelaendeoberkante"
+        },
+        {
+          "type": "list",
+          "items": [
+            "lagenweise einbauen",
+            "jede Lage verdichten",
+            "geeignetes Geraet einsetzen",
+            "Verdichtungsgrad an Nutzung anpassen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Wichtig: Rohr darf sich nicht verschieben"
+        },
+        {
+          "type": "text",
+          "value": "Waehrend der Verfuellung darf:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "das Gefaelle nicht veraendert werden",
+            "das Rohr nicht kippen",
+            "die Muffe nicht belastet werden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Unkontrollierte Verdichtung kann verursachen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rohrbruch",
+            "Undichtigkeiten",
+            "spaetere Setzungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Typische Fehler"
+        },
+        {
+          "type": "list",
+          "items": [
+            "einseitiges Verfuellen",
+            "zu grobes Material im Rohrbereich",
+            "zu starke Verdichtung direkt auf dem Rohr",
+            "keine Zwischenkontrolle"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Praxisbezug"
+        },
+        {
+          "type": "text",
+          "value": "Gerade unter folgenden Bereichen fuehrt fehlerhafte Verdichtung spaeter zu Schaeden:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verkehrsflaechen",
+            "Gleisanlagen",
+            "Bahnsteigen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Typische Folgen sind:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Setzungen",
+            "Rissbildung",
+            "Spurrinnen",
+            "Schachtabsenkungen"
           ]
         },
         {
@@ -189,23 +1223,142 @@
       "title": "Pruefung, Kontrolle und typische Fehler",
       "goals": [
         "Wichtige Pruefpunkte vor Abschluss sicher anwenden",
-        "Typische Einbaufehler zuverlaessig erkennen"
+        "Typische Einbaufehler zuverlaessig erkennen",
+        "Qualitaetsbewusstsein entwickeln"
       ],
-      "summary": "Kontrolle von Lage, Gefaelle, Dichtheit und Anschluessen ist Pflicht.",
+      "summary": "Qualitaet im Kanalbau entsteht durch systematische Kontrolle vor dem Verschliessen.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee"
+        },
+        {
+          "type": "text",
+          "value": "Qualitaet im Kanalbau entsteht nicht zufaellig."
+        },
+        {
+          "type": "text",
+          "value": "Sie wird durch systematische Kontrolle vor dem Verschliessen sichergestellt."
+        },
+        {
+          "type": "text",
+          "value": "Kontrolle ist Pflicht - nicht optional."
+        },
+        {
+          "type": "text",
+          "value": "Wichtige Pruefpunkte"
+        },
+        {
+          "type": "text",
+          "value": "Vor dem endgueltigen Verfuellen muessen kontrolliert werden:"
+        },
         {
           "type": "list",
           "items": [
-            "Kontrollen: Lage und Gefaelle, Dichtheit, korrekte Anschluesse, keine Beschaedigungen",
-            "Typische Fehler: falsches Gefaelle, verdrehte Rohre, beschaedigte Dichtung, fehlende Bettung",
-            "Kontrolle vor Verfuellung ist entscheidend, weil Korrekturen danach aufwendig sind"
+            "Rohrlage",
+            "Gefaelle",
+            "Dichtheit der Verbindungen",
+            "korrekte Anschluesse",
+            "keine sichtbaren Beschaedigungen",
+            "saubere Bettung ohne Hohlraeume"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Kontrolle der Dichtheit"
+        },
+        {
+          "type": "text",
+          "value": "Je nach Bauvorhaben:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sichtkontrolle",
+            "Druckpruefung",
+            "Wasserdichtheitspruefung",
+            "Kamerabefahrung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ziel: Sicherstellen, dass kein Wasser ein- oder austreten kann."
+        },
+        {
+          "type": "text",
+          "value": "Typische Einbaufehler"
+        },
+        {
+          "type": "list",
+          "items": [
+            "falsches Gefaelle",
+            "Gegengefaelle",
+            "verdrehte Rohre",
+            "beschaedigte oder falsch sitzende Dichtungen",
+            "fehlende oder ungleichmaessige Bettung",
+            "unsachgemaesse Verdichtung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fehlerfolgen"
+        },
+        {
+          "type": "text",
+          "value": "Maengel zeigen sich haeufig erst spaeter als:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rueckstau",
+            "Undichtigkeiten",
+            "Setzungen",
+            "Geruchsprobleme",
+            "aufwendige Sanierungsmassnahmen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Warum Kontrolle vor dem Verfuellen entscheidend ist"
+        },
+        {
+          "type": "text",
+          "value": "Nach dem Verfuellen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "ist das Rohr nicht mehr sichtbar",
+            "sind Korrekturen aufwendig",
+            "entstehen hohe Zusatzkosten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Deshalb gilt: Kontrolle vor dem Schliessen spart Nacharbeit und vermeidet spaetere Schaeden."
+        },
+        {
+          "type": "text",
+          "value": "Qualitaetsprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Qualitaetssicherung bedeutet:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "nicht nur bauen",
+            "sondern pruefen",
+            "dokumentieren",
+            "und Verantwortung uebernehmen"
           ]
         },
         {
           "type": "callout",
-          "variant": "danger",
+          "variant": "tip",
           "title": "Qualitaetsprinzip",
-          "value": "Kontrolle vor dem Schliessen spart Nacharbeit und vermeidet spaetere Schaeden."
+          "value": "Kontrolle ist Pflicht - sie sichert Funktion, Wirtschaftlichkeit und Dauerhaftigkeit."
         }
       ],
       "quizRef": ["Q8"]

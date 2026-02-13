@@ -616,23 +616,157 @@
       "title": "Pflasterflaechen herstellen",
       "goals": [
         "Ablauf von Planum bis Fugenverfuellung sicher anwenden",
-        "Randbefestigungen und Fugenbild als Qualitaetskriterien umsetzen"
+        "Randbefestigungen fachgerecht einordnen und Fugenbild als Qualitaetsmerkmal verstehen"
       ],
-      "summary": "Pflaster braucht tragfaehigen Unterbau, korrektes Gefaelle und stabile Randbefestigungen.",
+      "summary": "Pflasterflaechen sind robuste Verkehrsflaechen, aber nur dauerhaft tragfaehig, wenn Unterbau, Bettung, Steine, Fugen und Rand als System stimmen.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee: Pflaster funktioniert nur als System aus Unterbau, Bettung, Stein, Fuge und Rand."
+        },
+        {
+          "type": "text",
+          "value": "1. Planum herstellen."
+        },
         {
           "type": "list",
           "items": [
-            "Ablauf: Planum herstellen, Tragschicht einbauen und verdichten, Bettung abziehen, Pflaster verlegen, abruetteln, Fugen verfuellen",
-            "Wichtig sind gleichmaessiges Fugenbild und sicheres Oberflaechengefaelle",
-            "Randbefestigungen wie Borde verhindern seitliches Wandern der Steine"
+            "Planum eben, tragfaehig und mit korrektem Gefaelle herstellen",
+            "Ausreichend verdichten",
+            "Keine weichen Stellen zulassen",
+            "Fehler im Planum wirken sich auf die gesamte Flaeche aus"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2. Tragschicht einbauen und verdichten."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Material je nach Vorgabe als Mineralgemisch oder Schotter einbauen",
+            "Lagenweise einbauen",
+            "Mit Ruettelplatte oder Walze verdichten",
+            "Ebenheit und Gefaelle pruefen",
+            "Die Tragschicht traegt die Hauptlast"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Randbefestigungen setzen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Borde oder Einfassungen aus Beton oder Stein setzen",
+            "Standsicher, hoehen- und fluchtgerecht ausrichten",
+            "Randbefestigungen verhindern seitliches Wandern der Pflastersteine",
+            "Sie nehmen Horizontalkraefte auf und sichern die Dauerhaftigkeit"
           ]
         },
         {
           "type": "callout",
-          "variant": "info",
-          "title": "Qualitaet",
-          "value": "Ein sauberes Fugenbild verbessert Funktion und Dauerhaftigkeit, nicht nur die Optik."
+          "variant": "danger",
+          "title": "Achtung",
+          "value": "Ohne stabile Randeinfassung verliert Pflaster seine Form."
+        },
+        {
+          "type": "text",
+          "value": "4. Bettung abziehen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bettung meist aus Splitt, zum Beispiel 2-5 mm",
+            "Gleichmaessig verteilen",
+            "Mit Richtlatte exakt auf Hoehe abziehen",
+            "Nicht vorverdichten",
+            "Die Bettung ist Ausgleichsschicht, keine Tragschicht"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Pflaster verlegen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Im festgelegten Verband verlegen, zum Beispiel Laeufer-, Fischgraet- oder Reihenverband",
+            "Gleichmaessiges Fugenbild einhalten",
+            "Schnurfuehrung beachten",
+            "Steine dicht, aber nicht gepresst verlegen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Abruetteln."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Nur mit Schutzmatte unter der Ruettelplatte arbeiten",
+            "Diagonal ueber die Flaeche arbeiten",
+            "Steine setzen sich in die Bettung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "7. Fugen verfuellen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Mit geeignetem Fugensand oder Splitt verfuellen",
+            "Mehrfach einkehren",
+            "Bei Bedarf nachverdichten",
+            "Fugen vollstaendig fuellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Qualitaetskriterien."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gleichmaessiges Fugenbild",
+            "Korrektes Oberflaechengefaelle",
+            "Keine Kipp- oder Wackelsteine",
+            "Stabile Randbefestigung",
+            "Keine Hohlstellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Warum das Fugenbild so wichtig ist."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Lasten werden gleichmaessig verteilt",
+            "Kantenabplatzungen werden vermindert",
+            "Dauerhaftigkeit steigt",
+            "Funktion und Optik werden verbessert"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Praxisbezug im Gleisbau."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Pflasterflaechen finden sich oft bei Bahnsteigzugaengen",
+            "Typisch sind auch Uebergangsbereiche",
+            "Ebenso Betriebsflaechen sowie Hof- und Lagerflaechen",
+            "Gerade dort ist eine dauerhafte und sichere Ausfuehrung entscheidend"
+          ]
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Pflaster haelt nur, wenn Unterbau, Rand und Fugen stimmen."
         }
       ],
       "quizRef": ["Q5"]
@@ -641,25 +775,112 @@
       "id": "lf08-b6",
       "title": "Asphaltflaechen (Grundverstaendnis)",
       "goals": [
-        "Asphaltaufbau und Einbaugrundlagen einordnen",
-        "Typische Fehler beim Asphalteinbau erkennen"
+        "Asphaltaufbau einordnen",
+        "Grundprinzip des Heiss-Einbaus verstehen und typische Fehler erkennen"
       ],
-      "summary": "Asphalt wird heiss eingebaut und mit Walze verdichtet.",
+      "summary": "Asphalt ist ein gebundenes Baustoffsystem, das heiss eingebaut und direkt im Anschluss verdichtet wird.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee: Asphalt wird bei Strassen, Zufahrten und stark belasteten Verkehrsflaechen eingesetzt, teilweise auch im Bahnbereich, zum Beispiel bei Uebergaengen."
+        },
+        {
+          "type": "text",
+          "value": "Was ist Asphalt."
+        },
         {
           "type": "list",
           "items": [
-            "Asphalt besteht aus Gesteinskoernung und Bitumen",
-            "Einbau erfolgt heiss, damit Material verformbar und verdichtbar bleibt",
-            "Typische Schichten sind Binder- und Deckschicht",
-            "Typische Fehler: zu kalter Einbau, ungleichmaessige Verdichtung, falsches Gefaelle"
+            "Asphalt besteht aus Gesteinskoernung wie Kies, Splitt und Sand",
+            "Bitumen ist das Bindemittel",
+            "Bitumen haelt die Koernung zusammen",
+            "Bitumen macht den Baustoff elastisch und wasserabweisend"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Typischer Asphaltaufbau von unten nach oben."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Tragschicht, ungebunden oder gebunden",
+            "Asphaltbinderschicht",
+            "Asphaltdeckschicht",
+            "Die Binderschicht traegt Hauptlast und verteilt Kraefte",
+            "Die Deckschicht ist sichtbare Nutzschicht, sorgt fuer Griffigkeit und schuetzt vor Witterung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Warum wird Asphalt heiss eingebaut."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Nur im heissen Zustand ist Asphalt verformbar",
+            "Verdichtung ist nur moeglich, solange das Material warm ist",
+            "Beim Abkuehlen wird Asphalt fest und belastbar",
+            "Das Zeitfenster fuer wirksame Verdichtung ist begrenzt"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Verdichtung."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verdichtung erfolgt direkt nach dem Einbau",
+            "Mit Walzen unterschiedlicher Bauart",
+            "Gleichmaessig und systematisch ausfuehren",
+            "Ziel ist die Reduzierung von Hohlraeumen",
+            "Hohe Tragfaehigkeit und lange Lebensdauer werden erreicht"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Typische Fehler beim Asphalteinbau."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zu kalter Einbau",
+            "Ungleichmaessige Verdichtung",
+            "Falsches oder fehlendes Gefaelle",
+            "Zu grosse Zeitverzoegerung zwischen Einbau und Walzen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fehlerfolge bei zu kaltem Asphalt."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Mangelhafte Verdichtung",
+            "Erhoehter Hohlraumanteil",
+            "Fruehe Rissbildung",
+            "Schnellere Zerstoerung der Oberflaeche"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Praxisbezug."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Im Tiefbau und bei schweren Verkehrsbelastungen ist Asphalt oft wirtschaftlicher als Pflaster",
+            "Im Gleisbau unter anderem bei Zufahrten",
+            "Zusaetzlich bei Bauflaechen und Uebergangsbereichen"
           ]
         },
         {
           "type": "callout",
-          "variant": "danger",
-          "title": "Fehlerfolge",
-          "value": "Zu kalter Asphalt fuehrt haeufig zu mangelhafter Verdichtung und fruehem Schaden."
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Asphalt muss heiss verdichtet werden, sonst haelt er nicht."
         }
       ],
       "quizRef": ["Q6"]
@@ -669,23 +890,87 @@
       "title": "Entwaesserung und Gefaelle",
       "goals": [
         "Gefaellearten unterscheiden",
-        "Wasserableitung als Pflichtfunktion von Verkehrsflaechen planen"
+        "Wasserableitung als Pflichtfunktion verstehen",
+        "Entwaesserung von Anfang an mitplanen"
       ],
       "summary": "Stehendes Wasser verursacht Schaeden und muss durch Gefaelle sicher abgefuehrt werden.",
       "content": [
         {
+          "type": "text",
+          "value": "Grundidee"
+        },
+        {
+          "type": "text",
+          "value": "Stehendes Wasser verursacht Schaeden. Verkehrsflaechen muessen daher so geplant werden, dass Wasser kontrolliert und sicher abgefuehrt wird."
+        },
+        {
+          "type": "text",
+          "value": "Gefaellearten"
+        },
+        {
+          "type": "text",
+          "value": "Laengsgefaelle"
+        },
+        {
           "type": "list",
           "items": [
-            "Gefaelle sorgt fuer sicheren Wasserablauf und verhindert Schaeden",
-            "Unterschieden werden Laengsgefaelle und Quergefaelle",
-            "Wasser darf nicht stehen bleiben, Anschluesse an Rinnen und Gullys sind mitzuplanen"
+            "Gefaelle in Bewegungsrichtung",
+            "Wichtig fuer Strassen und Wege"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Quergefaelle"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gefaelle quer zur Bewegungsrichtung",
+            "Leitet Wasser zur Seite ab"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Warum ist Gefaelle so wichtig"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Ohne ausreichendes Gefaelle entstehen Pfuetzen",
+            "Frostschaeden nehmen zu",
+            "Materialabplatzungen koennen auftreten",
+            "Der Unterbau kann durchfeuchten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Wasserableitung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Anschluss an Rinnen",
+            "Einbindung von Gullys",
+            "Gezielte Ableitung in Entwaesserungssysteme"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Wasser darf niemals unkontrolliert stehen bleiben."
+        },
+        {
+          "type": "text",
+          "value": "Praxis"
+        },
+        {
+          "type": "text",
+          "value": "Entwaesserung muss bereits in der Planung beruecksichtigt werden. Nachtraegliche Korrekturen sind aufwendig und teuer."
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Praxis",
-          "value": "Entwaesserung muss in der Flaechenplanung von Anfang an mitgedacht werden."
+          "title": "Merksatz",
+          "value": "Jede Verkehrsflaeche braucht ein funktionierendes Gefaelle."
         }
       ],
       "quizRef": ["Q7"]
@@ -695,23 +980,74 @@
       "title": "Qualitaetssicherung und typische Fehler",
       "goals": [
         "Pruefpunkte in der Eigenkontrolle anwenden",
-        "Haeufige Fehler und Schadensbilder frueh erkennen"
+        "Haeufige Fehler fruehzeitig erkennen",
+        "Schadensbilder sicher einordnen"
       ],
-      "summary": "Kontrolle von Ebenheit, Gefaelle, Verdichtung und Randbereichen ist Pflicht.",
+      "summary": "Qualitaet entsteht nicht zufaellig, sondern durch Planung, Kontrolle und Dokumentation.",
       "content": [
+        {
+          "type": "text",
+          "value": "Grundidee"
+        },
+        {
+          "type": "text",
+          "value": "Qualitaet entsteht nicht zufaellig. Sie wird geplant, kontrolliert und dokumentiert."
+        },
+        {
+          "type": "text",
+          "value": "Wichtige Pruefpunkte"
+        },
         {
           "type": "list",
           "items": [
-            "Kontrollen: Ebenheit, Gefaelle, Verdichtung, Fugenbild und Randbefestigungen",
-            "Typische Fehler: fehlende Verdichtung, kein Gefaelle, kippendes Pflaster, Spurrinnen im Asphalt",
-            "Mangelhafte Ausfuehrung unten zeigt sich oft erst spaeter an der Oberflaeche"
+            "Ebenheit",
+            "Gefaelle",
+            "Verdichtung",
+            "Fugenbild",
+            "Randbefestigung"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Typische Fehler"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Fehlende Verdichtung",
+            "Kein ausreichendes Gefaelle",
+            "Kippende Pflastersteine",
+            "Lose Fugen",
+            "Spurrinnen im Asphalt",
+            "Abgesackte Randbereiche"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Typische Schadensbilder"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Setzungen",
+            "Rissbildung",
+            "Pfuetzenbildung",
+            "Randabbrueche"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Wichtige Erkenntnis"
+        },
+        {
+          "type": "text",
+          "value": "Maengel im Unterbau zeigen sich oft erst spaeter an der Oberflaeche. Was unten falsch gemacht wurde, wird oben sichtbar."
         },
         {
           "type": "callout",
           "variant": "danger",
-          "title": "Merke",
-          "value": "Qualitaetssicherung ist Pflicht und kein optionaler Zusatz."
+          "title": "Merksatz",
+          "value": "Qualitaetssicherung ist Pflicht - kein optionaler Zusatz."
         }
       ],
       "quizRef": ["Q8"]

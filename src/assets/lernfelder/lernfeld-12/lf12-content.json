@@ -4,175 +4,1288 @@
       "id": "lf12-b1",
       "title": "Was bedeutet Instandhaltung im Gleisbau?",
       "goals": [
-        "Instandhaltung als Sicherung von Betrieb und Sicherheit einordnen",
-        "Inspektion, Wartung und Instandsetzung unterscheiden"
+        "Instandhaltung als Sicherung von Betriebssicherheit, Komfort und Verfuegbarkeit einordnen",
+        "Inspektion, Wartung und Instandsetzung fachlich unterscheiden",
+        "Bedeutung fruehzeitiger Massnahmen fuer Kosten und Sperrzeiten erklaeren"
       ],
-      "summary": "Instandhaltung erhaelt Betriebssicherheit, Fahrkomfort und Verfuegbarkeit.",
+      "summary": "Instandhaltung im Gleisbau ist ein systematisches Erkennen, Bewerten und Beheben von Verschleiss zur Sicherung von Betrieb, Komfort und Verfuegbarkeit.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Instandhaltung im Gleisbau bedeutet Betriebssicherheit erhalten, Fahrkomfort sichern und Verfuegbarkeit der Strecke gewaehrleisten."
+        },
+        {
+          "type": "text",
+          "value": "Sie ist kein Reparieren nach Schaden, sondern ein systematisches Erkennen, Bewerten und Beheben von Verschleiss."
+        },
+        {
+          "type": "text",
+          "value": "Instandhaltung sorgt dafuer, dass das Gleis trotz Belastung dauerhaft sicher bleibt."
+        },
+        {
+          "type": "text",
+          "value": "2. Ziele der Instandhaltung"
+        },
         {
           "type": "list",
           "items": [
-            "Instandhaltung begrenzt Verschleiss und erkennt Schaeden frueh",
-            "Inspektion: pruefen und messen des Zustands",
-            "Wartung: regelmaessige Arbeiten zur Funktionserhaltung",
-            "Instandsetzung: festgestellte Fehler gezielt beseitigen"
+            "Sicherheit des Zugverkehrs gewaehrleisten",
+            "Schaeden fruehzeitig erkennen",
+            "Verschleiss begrenzen",
+            "kostspielige Erneuerungen hinauszoegern",
+            "Streckensperrungen minimieren"
           ]
         },
         {
+          "type": "text",
+          "value": "3. Bestandteile der Instandhaltung"
+        },
+        {
+          "type": "text",
+          "value": "1) Inspektion"
+        },
+        {
+          "type": "text",
+          "value": "Inspektion bedeutet pruefen, beobachten, messen und dokumentieren."
+        },
+        {
+          "type": "text",
+          "value": "Typische Inspektionen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gleisbegehung",
+            "Spurweitenkontrolle",
+            "Sichtpruefung von Kleineisen",
+            "Kontrolle von Schotterlage",
+            "Ultraschallpruefung von Schienen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ziel: Zustand feststellen, bevor ein Schaden kritisch wird."
+        },
+        {
+          "type": "text",
+          "value": "2) Wartung"
+        },
+        {
+          "type": "text",
+          "value": "Wartung sind regelmaessige, planmaessige Arbeiten zur Funktionserhaltung."
+        },
+        {
+          "type": "text",
+          "value": "Beispiele:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Stopfarbeiten",
+            "Schotterprofil nachziehen",
+            "Kleineisen nachziehen",
+            "Reinigung von Entwaesserung",
+            "Schmieren beweglicher Teile, zum Beispiel Weichen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Wartung verhindert beschleunigten Verschleiss."
+        },
+        {
+          "type": "text",
+          "value": "3) Instandsetzung"
+        },
+        {
+          "type": "text",
+          "value": "Instandsetzung erfolgt, wenn ein Fehler festgestellt wurde, Bauteile beschaedigt sind oder Sicherheit gefaehrdet ist."
+        },
+        {
+          "type": "text",
+          "value": "Beispiele:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Austausch gebrochener Schwellen",
+            "Schienenaustausch bei Rissen",
+            "Schotterergaenzung bei Setzungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Warum Instandhaltung im Gleisbau besonders wichtig ist"
+        },
+        {
+          "type": "text",
+          "value": "Gleisbau unterscheidet sich von vielen Bauwerken durch hohe dynamische Belastung, wiederkehrende Radlasten, Temperatureinfluesse und staendige Materialermuedung."
+        },
+        {
+          "type": "text",
+          "value": "Ohne Instandhaltung verschlechtert sich die Gleislage schleichend."
+        },
+        {
+          "type": "text",
+          "value": "5. Praxisrealitaet"
+        },
+        {
+          "type": "text",
+          "value": "LF12 beschreibt den Alltag mit Nachtarbeit, Sperrpausen, kurzen Arbeitsfenstern und hoher Verantwortung."
+        },
+        {
+          "type": "text",
+          "value": "Hier geht es nicht um Neubau, sondern um Erhalt unter Betrieb."
+        },
+        {
+          "type": "text",
+          "value": "6. Zusammenhang von Sicherheit und Komfort"
+        },
+        {
+          "type": "text",
+          "value": "Schlechter Zustand fuehrt zu unruhigem Lauf, hoeheren dynamischen Kraeften, erhoehter Materialermuedung, Laermbelastung und Sicherheitsrisiken."
+        },
+        {
           "type": "callout",
-          "variant": "info",
-          "title": "Praxis",
-          "value": "LF12 ist der Alltag im Gleisbau: Betriebssicherheit erhalten statt Neubau herstellen."
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Instandhaltung sichert Sicherheit, Komfort und Verfuegbarkeit."
         }
       ],
-      "quizRef": ["Q1"]
+      "quizRef": [
+        "Q1"
+      ]
     },
     {
       "id": "lf12-b2",
       "title": "Typische Gleisfehler und Schaeden",
       "goals": [
-        "Schaeden an Schiene, Schwelle und Schotter erkennen",
-        "Typische Fehlerbilder sicher benennen"
+        "Typische Schadensbilder an Schiene, Schwelle und Schotterbett erkennen",
+        "Ursachen und Folgen von Gleisfehlern fachlich einordnen",
+        "Bedeutung der Frueherkennung fuer Betriebssicherheit und Verschleissbegrenzung erklaeren"
       ],
-      "summary": "Setzungen, Verschleiss und ungleichmaessiger Schotter sind haeufige Schadensbilder.",
+      "summary": "Gleisfehler entstehen durch Belastung, Witterung und Materialermuedung und muessen frueh erkannt werden, um Folgeschaeden zu begrenzen.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Gleisfehler entstehen durch mechanischen Verschleiss, dynamische Belastung, Witterung, Materialermuedung und ungleichmaessige Verdichtung."
+        },
+        {
+          "type": "text",
+          "value": "Frueherkennung ist entscheidend."
+        },
+        {
+          "type": "text",
+          "value": "2. Schaeden an der Schiene"
+        },
+        {
+          "type": "text",
+          "value": "1) Verschleiss"
+        },
         {
           "type": "list",
           "items": [
-            "An Schienen: Verschleiss, Riffel, Schienenstossfehler, Risse",
-            "An Schwellen: Risse, Brueche und Lageveraenderungen",
-            "Im Schotter: Verschmutzung, Setzungen, ungleichmaessige Verteilung"
+            "Materialabtrag am Schienenkopf",
+            "Profilveraenderung",
+            "einseitiger Verschleiss in Kurven"
           ]
         },
         {
+          "type": "text",
+          "value": "Folge: veraenderte Rad-Schiene-Kontaktflaeche, erhoehter Laerm und steigende Belastung."
+        },
+        {
+          "type": "text",
+          "value": "2) Riffelbildung"
+        },
+        {
+          "type": "text",
+          "value": "Wellenartige Struktur durch Schwingungen mit erhoehtem Geraeuschpegel."
+        },
+        {
+          "type": "text",
+          "value": "Folge: Komfortverlust und beschleunigter Verschleiss."
+        },
+        {
+          "type": "text",
+          "value": "3) Schienenstossfehler"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Hoehenversatz",
+            "Stossunebenheiten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folge: Stossbelastungen und Materialermuedung."
+        },
+        {
+          "type": "text",
+          "value": "4) Risse"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Quer- oder Laengsrisse",
+            "Materialermuedung",
+            "thermische Spannungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Gefahr: Schienenbruch und Entgleisungsrisiko."
+        },
+        {
+          "type": "text",
+          "value": "3. Schaeden an Schwellen"
+        },
+        {
+          "type": "text",
+          "value": "Risse"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Spannungsrisse bei Betonschwellen",
+            "Alterung bei Holzschwellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Brueche"
+        },
+        {
+          "type": "list",
+          "items": [
+            "durch Ueberlastung",
+            "durch falsche Stopfung",
+            "durch Materialermuedung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Lageveraenderungen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Setzungen",
+            "Schraegstellung",
+            "Kippbewegungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folge: Spurweitenfehler und ungleichmaessige Lastverteilung."
+        },
+        {
+          "type": "text",
+          "value": "4. Schaeden im Schotterbett"
+        },
+        {
+          "type": "text",
+          "value": "1) Verschmutzung (Schotterverunreinigung)"
+        },
+        {
+          "type": "text",
+          "value": "Feinmaterial lagert sich ein."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wasserabfluss verschlechtert",
+            "Elastizitaet nimmt ab",
+            "Tragfaehigkeit sinkt"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Setzungen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "ungleichmaessige Verdichtung",
+            "Untergrundbewegung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folge: Senken und Lagefehler."
+        },
+        {
+          "type": "text",
+          "value": "3) Ungleichmaessige Verteilung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Hohlraeume unter Schwellen",
+            "fehlende Schulterbreite"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folge: Instabilitaet und haeufige Nachstopfarbeiten."
+        },
+        {
+          "type": "text",
+          "value": "5. Gesamtwirkung von Gleisfehlern"
+        },
+        {
+          "type": "text",
+          "value": "Unentdeckte Schaeden fuehren zu beschleunigtem Verschleiss, hoeheren Instandhaltungskosten, sinkendem Fahrkomfort und steigender Sicherheitsgefaehrdung."
+        },
+        {
+          "type": "text",
+          "value": "Praxisprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Gleisfehler sind selten isoliert. Ein Fehler verstaerkt oft den naechsten."
+        },
+        {
+          "type": "text",
+          "value": "Beispiel: Schotter verschmutzt -> Stopfung schlechter -> Lagefehler -> Schienenverschleiss nimmt zu."
+        },
+        {
           "type": "callout",
-          "variant": "danger",
-          "title": "Folge",
-          "value": "Unentdeckte Gleisfehler fuehren zu mehr Verschleiss und koennen den sicheren Betrieb gefaehrden."
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Frueherkennung begrenzt Verschleiss und schuetzt die Betriebssicherheit."
         }
       ],
-      "quizRef": ["Q2"]
+      "quizRef": [
+        "Q2"
+      ]
     },
     {
       "id": "lf12-b3",
       "title": "Gleislagefehler erkennen",
       "goals": [
-        "Lagefehlerarten unterscheiden",
-        "Auswirkungen auf Betriebssicherheit und Verschleiss beurteilen"
+        "Hauptarten von Gleislagefehlern sicher unterscheiden",
+        "Ursachen und Auswirkungen auf Sicherheit, Komfort und Verschleiss fachlich beurteilen",
+        "Abweichungen nach Messwerten bewerten und priorisieren"
       ],
-      "summary": "Gleislagefehler verschlechtern Fahrkomfort, erhoehen Verschleiss und sind sicherheitskritisch.",
+      "summary": "Schon kleine Abweichungen in der Gleislage koennen grosse Auswirkungen auf Betriebssicherheit, Fahrkomfort und Verschleiss haben.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Die Gleislage bestimmt Betriebssicherheit, Fahrkomfort, Verschleissverhalten und dynamische Belastung."
+        },
+        {
+          "type": "text",
+          "value": "Schon kleine Abweichungen koennen grosse Auswirkungen haben."
+        },
+        {
+          "type": "text",
+          "value": "Gleislagefehler verschlechtern Fahrkomfort, erhoehen Verschleiss und sind sicherheitskritisch."
+        },
+        {
+          "type": "text",
+          "value": "2. Hauptarten von Gleislagefehlern"
+        },
+        {
+          "type": "text",
+          "value": "1) Hoehenlagefehler"
+        },
+        {
+          "type": "text",
+          "value": "Vertikale Abweichungen im Gleis."
+        },
+        {
+          "type": "text",
+          "value": "Typische Erscheinungsformen:"
+        },
         {
           "type": "list",
           "items": [
-            "Fehlerarten: Hoehenfehler, Seitenlagefehler, Spurweitenfehler und Ueberhoehungsfehler",
-            "Auswirkungen: schlechter Fahrkomfort, erhoehte dynamische Lasten, mehr Verschleiss",
-            "Abweichungen muessen bewertet und priorisiert instand gesetzt werden"
+            "Senken",
+            "Durchbiegungen",
+            "Wellen",
+            "Hoehenspruenge"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Ursachen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "ungleichmaessige Stopfung",
+            "Setzungen im Unterbau",
+            "Schotterverschmutzung",
+            "Materialermuedung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Stossbelastungen",
+            "erhoehte dynamische Kraefte",
+            "Komfortverlust",
+            "beschleunigter Verschleiss an Schiene und Rad"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Seitenlagefehler"
+        },
+        {
+          "type": "text",
+          "value": "Seitliche Verschiebung des Gleises."
+        },
+        {
+          "type": "text",
+          "value": "Erkennbar durch:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Knicke",
+            "Ausbuchtungen",
+            "Kurvenverlauf ausserhalb der Sollachse"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ursachen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "unzureichende Schotterschulter",
+            "fehlende Stabilitaet",
+            "starke Querkräfte",
+            "mangelnde Stopfung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "erhoehter Spurkranzkontakt",
+            "unruhiger Lauf",
+            "erhoehter Verschleiss"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Spurweitenfehler"
+        },
+        {
+          "type": "text",
+          "value": "Abweichung vom Sollmass, zum Beispiel 1435 mm bei Regelspur."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zu gross: Entgleisungsgefahr und instabiler Lauf",
+            "Zu klein: erhoehter Radverschleiss und Zwangskraefte"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ursachen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "lose Kleineisen",
+            "beschaedigte Schwellen",
+            "Materialermuedung",
+            "falsche Befestigung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Spurweitenfehler sind unmittelbar sicherheitsrelevant."
+        },
+        {
+          "type": "text",
+          "value": "4) Ueberhoehungsfehler"
+        },
+        {
+          "type": "text",
+          "value": "Fehlerhafte Hoehendifferenz zwischen Innen- und Aussenschiene in Kurven."
+        },
+        {
+          "type": "text",
+          "value": "Ursachen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "ungleichmaessige Stopfung",
+            "falsche Einstellung",
+            "Setzungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "falsche Lastverteilung",
+            "erhoehter Verschleiss",
+            "Komfortverlust",
+            "erhoehte Fliehkraefte"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Auswirkungen von Lagefehlern"
+        },
+        {
+          "type": "text",
+          "value": "Lagefehler fuehren zu erhoehter dynamischer Belastung, schnellerem Verschleiss von Schiene, Schwelle und Kleineisen, erhoehtem Instandhaltungsaufwand, Komforteinbussen und moeglichen Geschwindigkeitsbeschraenkungen."
+        },
+        {
+          "type": "text",
+          "value": "4. Bewertung und Priorisierung"
+        },
+        {
+          "type": "text",
+          "value": "Nicht jeder Fehler ist sofort kritisch."
+        },
+        {
+          "type": "text",
+          "value": "Deshalb muessen Abweichungen gemessen, mit Grenzwerten verglichen, bewertet und priorisiert instand gesetzt werden."
         },
         {
           "type": "callout",
           "variant": "danger",
-          "title": "Sicherheit",
+          "title": "Sicherheitsbezug",
           "value": "Spurweiten- und Lagefehler koennen direkt in sicherheitsrelevante Zustandsabweichungen fuehren."
         }
       ],
-      "quizRef": ["Q3"]
+      "quizRef": [
+        "Q3"
+      ]
     },
     {
       "id": "lf12-b4",
       "title": "Messen und Pruefen im Bestand",
       "goals": [
-        "Geeignete Messmittel im Bestand einsetzen",
-        "Pruefumfang fuer Lage und Geometrie vollstaendig erfassen"
+        "Messung als Startpunkt jeder Instandhaltung im Bestand anwenden",
+        "Geeignete Messmittel fuer Spurweite, Lage und Ueberhoehung sicher einsetzen",
+        "Messwerte als Entscheidungs- und Nachweisgrundlage dokumentieren"
       ],
-      "summary": "Messung von Spurweite, Hoehenlage, Seitenlage und Ueberhoehung ist Grundlage jeder Massnahme.",
+      "summary": "Instandhaltung im Bestand beginnt mit belastbaren Messwerten, die Bewertung, Massnahmenplanung und Erfolgskontrolle ermoeglichen.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Instandhaltung im Bestand beginnt nicht mit dem Stopfen, sondern mit der Messung."
+        },
+        {
+          "type": "text",
+          "value": "Ohne belastbare Messwerte keine zielgerichtete Instandhaltung."
+        },
+        {
+          "type": "text",
+          "value": "2. Ziele der Messung"
+        },
         {
           "type": "list",
           "items": [
-            "Messmittel: Gleismessgeraete, Richtlatte, Messschnur, Nivelliergeraet",
-            "Pruefumfang: Spurweite, Hoehenlage, Seitenlage und Ueberhoehung",
-            "Messwerte dienen als Basis fuer Entscheidung, Ausfuehrung und Nachweis"
+            "Ist-Zustand erfassen",
+            "Abweichungen erkennen",
+            "Massnahmen planen",
+            "Erfolg kontrollieren",
+            "Nachweis dokumentieren"
           ]
+        },
+        {
+          "type": "text",
+          "value": "3. Zu messende Parameter"
+        },
+        {
+          "type": "text",
+          "value": "1) Spurweite"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Abstand der Schieneninnenkanten",
+            "Kontrolle mit Spurweitenlehre oder Gleismessgeraet"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Hoehenlage"
+        },
+        {
+          "type": "list",
+          "items": [
+            "vertikale Abweichungen",
+            "Senken und Wellen",
+            "Messung mit Nivelliergeraet oder Richtlatte"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Seitenlage"
+        },
+        {
+          "type": "list",
+          "items": [
+            "seitliche Position des Gleises",
+            "Achsabweichungen",
+            "Messschnur oder elektronische Systeme"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Ueberhoehung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Hoehendifferenz in Kurven",
+            "Messung mit speziellen Gleismessgeraeten oder Nivelliergeraet"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Typische Messmittel im Bestand"
+        },
+        {
+          "type": "text",
+          "value": "Gleismessgeraete"
+        },
+        {
+          "type": "list",
+          "items": [
+            "kombinierte Messung von Spurweite, Ueberhoehung und Neigung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Richtlatte"
+        },
+        {
+          "type": "list",
+          "items": [
+            "lokale Hoehenkontrolle",
+            "schnelle Vor-Ort-Pruefung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Messschnur"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Seitenlagenkontrolle",
+            "Achsueberpruefung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Nivelliergeraet"
+        },
+        {
+          "type": "list",
+          "items": [
+            "praezise Hoehenbestimmung",
+            "Vergleich mit Sollwert"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Messwerte als Entscheidungsgrundlage"
+        },
+        {
+          "type": "text",
+          "value": "Messwerte bestimmen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "ob Stopfarbeiten notwendig sind",
+            "ob Schienen geschliffen werden muessen",
+            "ob Schwellen zu tauschen sind",
+            "ob Geschwindigkeit reduziert werden muss"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ohne Messung ist jede Massnahme ein Blindflug."
+        },
+        {
+          "type": "text",
+          "value": "6. Dokumentation"
+        },
+        {
+          "type": "text",
+          "value": "Messwerte muessen festgehalten, nachvollziehbar dokumentiert und mit Grenzwerten abgeglichen werden."
+        },
+        {
+          "type": "text",
+          "value": "Das dient der Qualitaetssicherung, dem Sicherheitsnachweis und der rechtlichen Absicherung."
         },
         {
           "type": "callout",
           "variant": "tip",
           "title": "Grundsatz",
-          "value": "Ohne belastbare Messwerte keine zielgerichtete Instandhaltung."
+          "value": "Messen -> Bewerten -> Massnahmen -> Nachmessen."
         }
       ],
-      "quizRef": ["Q4"]
+      "quizRef": [
+        "Q4"
+      ]
     },
     {
       "id": "lf12-b5",
       "title": "Instandhaltungsmassnahmen",
       "goals": [
-        "Typische Massnahmen der Gleisinstandhaltung zuordnen",
-        "Gezielte Instandsetzung statt Neubau bewerten"
+        "Zentrale Instandhaltungsmassnahmen fachlich zuordnen und anwenden",
+        "Instandsetzung gegenueber Neubau technisch und wirtschaftlich bewerten",
+        "Folgezusammenhaenge zwischen frueher Massnahme und Schadensentwicklung erklaeren"
       ],
-      "summary": "Nachstopfen, Nachschottern und Nachrichten sind zentrale Erhaltungsmassnahmen.",
+      "summary": "Nicht jeder Fehler erfordert Neubau: Gezielte Instandhaltung verlaengert die Lebensdauer und reduziert Sperrzeiten.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Instandhaltung bedeutet Schaeden frueh erkennen, gezielt beheben und die Lebensdauer verlaengern."
+        },
+        {
+          "type": "text",
+          "value": "Nicht jeder Fehler erfordert einen kompletten Austausch des Gleises."
+        },
+        {
+          "type": "text",
+          "value": "Nicht jeder Fehler braucht Neubau - oft reicht gezielte Instandsetzung."
+        },
+        {
+          "type": "text",
+          "value": "2. Zentrale Instandhaltungsmassnahmen"
+        },
+        {
+          "type": "text",
+          "value": "1) Nachstopfen"
+        },
+        {
+          "type": "text",
+          "value": "Ziel:"
+        },
         {
           "type": "list",
           "items": [
-            "Typische Arbeiten: Nachstopfen, Nachschottern, Nachrichten der Gleislage",
-            "Ergaenzend: Austausch einzelner Schwellen und Nachziehen von Befestigungen",
-            "Nicht jeder Fehler erfordert Neubau, oft reicht gezielte Instandsetzung"
+            "Hoehen- und Seitenlage korrigieren",
+            "Setzungen ausgleichen",
+            "gleichmaessige Lastverteilung wiederherstellen"
           ]
         },
         {
+          "type": "text",
+          "value": "Wann erforderlich:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Senken im Gleis",
+            "unruhiger Lauf",
+            "Setzungserscheinungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Nachstopfen ist eine der haeufigsten Erhaltungsmassnahmen."
+        },
+        {
+          "type": "text",
+          "value": "2) Nachschottern"
+        },
+        {
+          "type": "text",
+          "value": "Ziel:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "fehlendes Material ergaenzen",
+            "Schotterschulter stabilisieren",
+            "Bettungshoehe wiederherstellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Notwendig bei:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schotterverlust",
+            "unzureichender Schulterbreite",
+            "Materialausspuelung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Nachschottern ist oft Voraussetzung fuer erfolgreiches Stopfen."
+        },
+        {
+          "type": "text",
+          "value": "3) Nachrichten der Gleislage"
+        },
+        {
+          "type": "text",
+          "value": "Nachrichten bedeutet gezielte Feinjustierung und Korrektur kleiner Seiten- oder Hoehenabweichungen."
+        },
+        {
+          "type": "text",
+          "value": "Wird haeufig mit Stopfarbeiten kombiniert."
+        },
+        {
+          "type": "text",
+          "value": "4) Austausch einzelner Schwellen"
+        },
+        {
+          "type": "text",
+          "value": "Erforderlich bei:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rissen",
+            "Bruechen",
+            "Lageinstabilitaet",
+            "Befestigungsversagen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Einzelschwellentausch erhaelt das Gesamtsystem ohne Neubau."
+        },
+        {
+          "type": "text",
+          "value": "5) Nachziehen oder Erneuern von Befestigungen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Spannklemmen pruefen",
+            "Schrauben nachziehen",
+            "beschaedigte Teile ersetzen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Lose Befestigungen fuehren schnell zu Spurweitenfehlern."
+        },
+        {
+          "type": "text",
+          "value": "3. Bewertung: Instandsetzung statt Neubau"
+        },
+        {
+          "type": "text",
+          "value": "Neubau ist notwendig bei massiver Schotterverschmutzung, grossflaechigem Unterbauversagen oder starker Materialermuedung."
+        },
+        {
+          "type": "text",
+          "value": "In vielen Faellen reicht jedoch eine gezielte Massnahme, punktuelle Korrektur oder systematische Wartung."
+        },
+        {
+          "type": "text",
+          "value": "Gezielte Instandhaltung ist wirtschaftlicher und reduziert Sperrzeiten."
+        },
+        {
+          "type": "text",
+          "value": "4. Technischer Zusammenhang"
+        },
+        {
+          "type": "text",
+          "value": "Beispiel: Setzung -> Lagefehler -> erhoehter Verschleiss -> groessere Schaeden."
+        },
+        {
+          "type": "text",
+          "value": "Fruehzeitiges Nachstopfen verhindert Folgeschaeden."
+        },
+        {
           "type": "callout",
-          "variant": "info",
+          "variant": "tip",
           "title": "Merksatz",
-          "value": "Nicht jeder Fehler braucht Neubau - oft reicht gezielte Instandsetzung."
+          "value": "Frueh handeln verlaengert die Lebensdauer."
         }
       ],
-      "quizRef": ["Q5"]
+      "quizRef": [
+        "Q5"
+      ]
     },
     {
       "id": "lf12-b6",
       "title": "Stopfarbeiten im Bestand",
       "goals": [
-        "Ziel und Ablauf von Stopfarbeiten im Bestand anwenden",
-        "Besonderheiten gegenueber Neubau beruecksichtigen"
+        "Ziel und Ablauf von Stopfarbeiten im Bestand sicher anwenden",
+        "Besonderheiten gegenueber Neubau fachlich beruecksichtigen",
+        "Sicherheits- und Betriebsfolgen fehlerhafter Stopfarbeiten beurteilen"
       ],
-      "summary": "Im Bestand sind geringere Hebung und hohe Praezision unter Zeitfenstern entscheidend.",
+      "summary": "Stopfarbeiten im Bestand erfordern geringe Hebung, hohe Praezision und sichere Koordination unter engen Zeitfenstern.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Ziel von Stopfarbeiten im Bestand"
+        },
+        {
+          "type": "text",
+          "value": "Ziel ist die Wiederherstellung der richtigen Gleislage, die Beseitigung von Setzungen und die Sicherung der Betriebssicherheit."
+        },
+        {
+          "type": "text",
+          "value": "Stopfen im Bestand unterscheidet sich deutlich vom Neubau."
+        },
+        {
+          "type": "text",
+          "value": "2. Ablauf von Stopfarbeiten"
+        },
+        {
+          "type": "text",
+          "value": "1) Vermessen"
+        },
         {
           "type": "list",
           "items": [
-            "Ziel: Wiederherstellung der richtigen Gleislage",
-            "Ablauf: Gleis anheben, Schotter unter Schwelle verdichten, Lage einstellen, Kontrolle",
-            "Im Bestand: geringere Hebung, praeziseres Arbeiten, oft Zeitdruck durch Sperrpausen"
+            "Spurweite pruefen",
+            "Hoehenlage erfassen",
+            "Seitenlage bestimmen"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Messwerte bestimmen Hebung und Korrekturmass."
+        },
+        {
+          "type": "text",
+          "value": "2) Anheben des Gleises"
+        },
+        {
+          "type": "list",
+          "items": [
+            "kontrolliertes Heben",
+            "nur notwendige Hoehe",
+            "gleichmaessige Bewegung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Im Bestand wird meist nur minimal angehoben."
+        },
+        {
+          "type": "text",
+          "value": "3) Unterstopfen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Stopfpickel verdichten Schotter",
+            "Hohlraeume werden gefuellt",
+            "gleichmaessige Auflage herstellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Lage einstellen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Hoehenlage korrigieren",
+            "Seitenlage einstellen",
+            "Ueberhoehung pruefen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5) Kontrolle"
+        },
+        {
+          "type": "list",
+          "items": [
+            "erneute Messung",
+            "Vergleich mit Sollwert",
+            "gegebenenfalls Nachstopfen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Besonderheiten im Bestand"
+        },
+        {
+          "type": "text",
+          "value": "1) Geringere Hebung"
+        },
+        {
+          "type": "text",
+          "value": "Im Neubau sind groessere Hebungen moeglich. Im Bestand sind Hebungen begrenzt und muessen an vorhandene Bauwerke sowie Uebergaenge angepasst werden."
+        },
+        {
+          "type": "text",
+          "value": "2) Hohe Praezision"
+        },
+        {
+          "type": "text",
+          "value": "Bestandsgleis umfasst oft angrenzende Bauwerke, Weichen, Bahnuebergaenge und Bruecken."
+        },
+        {
+          "type": "text",
+          "value": "Kleine Fehler wirken sich sofort aus."
+        },
+        {
+          "type": "text",
+          "value": "3) Arbeiten unter Zeitdruck"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sperrpausen",
+            "Nachtarbeit",
+            "enger Zeitrahmen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Arbeiten muessen koordiniert, praezise und sicher durchgefuehrt werden."
+        },
+        {
+          "type": "text",
+          "value": "4. Unterschied Neubau vs. Bestand"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Neubau: groessere Toleranzen | Bestand: begrenzte Eingriffe",
+            "Neubau: freie Gestaltung | Bestand: Anpassung an vorhandene Lage",
+            "Neubau: lange Bauzeit | Bestand: kurze Sperrpausen",
+            "Neubau: Systemaufbau | Bestand: Systemerhalt"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Sicherheits- und Betriebsbezug"
+        },
+        {
+          "type": "text",
+          "value": "Fehlerhafte Stopfarbeiten fuehren zu erneuten Lagefehlern, erhoehter Dynamik, schnellerem Verschleiss und moeglicher Geschwindigkeitsreduzierung."
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Betrieb",
+          "title": "Betriebsgrundsatz",
           "value": "Praezision und sichere Koordination sind wichtiger als reine Geschwindigkeit."
         }
       ],
-      "quizRef": ["Q6"]
+      "quizRef": [
+        "Q6"
+      ]
     },
     {
       "id": "lf12-b7",
       "title": "Arbeiten unter Betrieb und Sicherung",
       "goals": [
-        "Besonderheiten unter Zugbetrieb sicher einordnen",
-        "Sicherungsmassnahmen verbindlich anwenden"
+        "Besonderheiten unter Zugbetrieb und Zeitdruck sicher einordnen",
+        "Sicherungsmassnahmen verbindlich anwenden",
+        "Verhaltensregeln im Gleisbereich diszipliniert umsetzen"
       ],
-      "summary": "Kurze Sperrpausen verlangen klare Sicherung, Kommunikation und Disziplin.",
+      "summary": "Arbeiten im Bestand erfolgen oft unter Betrieb und Zeitdruck, daher sind wirksame Sicherung und klare Kommunikation zwingend.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Arbeiten im Bestand erfolgen haeufig bei laufendem Zugverkehr, in kurzen Sperrpausen und unter hohem Zeitdruck."
+        },
+        {
+          "type": "text",
+          "value": "Dabei gilt immer: Im Bestand zaehlt jede Minute, aber Sicherheit zaehlt mehr."
+        },
+        {
+          "type": "text",
+          "value": "2. Besonderheiten unter Zugbetrieb"
+        },
+        {
+          "type": "text",
+          "value": "1) Laufender Zugverkehr"
+        },
+        {
+          "type": "text",
+          "value": "Gefahren:"
+        },
         {
           "type": "list",
           "items": [
-            "Besonderheiten: laufender Zugverkehr, kurze Sperrpausen und enge Zeitfenster",
-            "Sicherung: Sicherungsposten, Warnsysteme, klare Kommunikation im Team",
-            "Arbeiten im Bestand nur unter wirksamer Sicherung gegen Zugverkehr"
+            "hohe Geschwindigkeiten",
+            "lange Bremswege",
+            "Sogwirkung",
+            "geringe Reaktionszeit"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Ein Zug kann nicht ausweichen. Jede Bewegung im Gleisbereich muss geplant und abgesichert sein."
+        },
+        {
+          "type": "text",
+          "value": "2) Kurze Sperrpausen"
+        },
+        {
+          "type": "text",
+          "value": "Sperrpausen sind zeitlich exakt festgelegt, betrieblich geplant und oft sehr kurz."
+        },
+        {
+          "type": "text",
+          "value": "Das bedeutet:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "klare Arbeitsablaeufe",
+            "vorbereitete Materialien",
+            "abgestimmte Teamarbeit"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Unklare Organisation fuehrt zu Zeitverlust und Sicherheitsrisiko."
+        },
+        {
+          "type": "text",
+          "value": "3) Enge Zeitfenster"
+        },
+        {
+          "type": "text",
+          "value": "Unter Zeitdruck steigt die Fehlergefahr."
+        },
+        {
+          "type": "text",
+          "value": "Deshalb besonders wichtig:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "klare Aufgabenverteilung",
+            "ruhige Kommunikation",
+            "keine improvisierten Schnellloesungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Sicherungsmassnahmen"
+        },
+        {
+          "type": "text",
+          "value": "Arbeiten duerfen nur stattfinden unter:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "wirksamer Sicherung gegen Zugverkehr",
+            "klarer betrieblicher Freigabe",
+            "eindeutiger Verantwortlichkeit"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Typische Sicherungen"
+        },
+        {
+          "type": "text",
+          "value": "Sicherungsposten"
+        },
+        {
+          "type": "list",
+          "items": [
+            "beobachten den Streckenbereich",
+            "warnen rechtzeitig",
+            "stehen in staendigem Kontakt mit dem Team"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Technische Warnsysteme"
+        },
+        {
+          "type": "list",
+          "items": [
+            "automatische Warnsignale",
+            "akustische und optische Warnung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Klare Kommunikation"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Funkgeraete",
+            "feste Kommandos",
+            "eindeutige Zustaendigkeiten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Missverstaendnisse koennen lebensgefaehrlich sein."
+        },
+        {
+          "type": "text",
+          "value": "4. Verhaltensgrundsaetze im Gleis"
+        },
+        {
+          "type": "list",
+          "items": [
+            "nie ohne Sicherung arbeiten",
+            "Fluchtwege freihalten",
+            "Material geordnet lagern",
+            "Befehle klar und eindeutig geben",
+            "keine Eigenentscheidungen bei Sicherungsfragen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Betriebsrealitaet"
+        },
+        {
+          "type": "text",
+          "value": "Im Bestand wird gearbeitet unter Laerm, bei Nacht, unter Witterung und unter Zeitdruck."
+        },
+        {
+          "type": "text",
+          "value": "Disziplin schuetzt Leben."
         },
         {
           "type": "callout",
@@ -181,24 +1294,140 @@
           "value": "Im Bestand zaehlt jede Minute - aber Sicherheit zaehlt mehr."
         }
       ],
-      "quizRef": ["Q7"]
+      "quizRef": [
+        "Q7"
+      ]
     },
     {
       "id": "lf12-b8",
       "title": "Qualitaetssicherung und Dokumentation",
       "goals": [
-        "Kontrollpunkte nach Instandhaltungsarbeiten anwenden",
-        "Dokumentation als Sicherheits- und Qualitaetsnachweis nutzen"
+        "Kontrollpunkte nach Instandhaltungsarbeiten systematisch anwenden",
+        "Dokumentation als Sicherheits- und Qualitaetsnachweis nutzen",
+        "Freigabeentscheidungen anhand vollstaendiger Nachweise absichern"
       ],
-      "summary": "Messwerte, Fotos und Protokolle sichern Nachweis und Nachvollziehbarkeit.",
+      "summary": "Arbeiten im Gleisbau sind erst abgeschlossen, wenn sie kontrolliert, gemessen und vollstaendig dokumentiert wurden.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Arbeiten im Gleisbau gelten erst als abgeschlossen, wenn kontrolliert, gemessen und dokumentiert wurde."
+        },
+        {
+          "type": "text",
+          "value": "Dokumentation ist Sicherheitsnachweis."
+        },
+        {
+          "type": "text",
+          "value": "2. Kontrollpunkte nach Instandhaltungsarbeiten"
+        },
+        {
+          "type": "text",
+          "value": "1) Gleislage pruefen"
+        },
         {
           "type": "list",
           "items": [
-            "Kontrolle: Gleislage nach Arbeiten, Befestigungen und Schotterzustand",
-            "Dokumentation: Messwerte, Fotos und Protokolle",
-            "Die Dokumentation dient als Nachweis fuer Sicherheit, Qualitaet und geregelte Uebergabe"
+            "Spurweite",
+            "Hoehenlage",
+            "Seitenlage",
+            "Ueberhoehung"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Messwerte mit Sollwert vergleichen."
+        },
+        {
+          "type": "text",
+          "value": "2) Befestigungen pruefen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Spannklemmen korrekt gesetzt",
+            "Schrauben angezogen",
+            "keine beschaedigten Teile",
+            "keine fehlenden Elemente"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Schotterzustand pruefen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "vollstaendige Unterstopfung",
+            "ausreichende Schulterbreite",
+            "keine Hohlraeume",
+            "keine Verschmutzung sichtbar"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Dokumentation - was gehoert dazu?"
+        },
+        {
+          "type": "text",
+          "value": "1) Messwerte"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Vorher-Nachher-Vergleich",
+            "Datum und Uhrzeit",
+            "Streckenabschnitt",
+            "verantwortliche Person"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Fotodokumentation"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zustand vor Massnahme",
+            "Zustand nach Massnahme",
+            "Besonderheiten oder Abweichungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Protokolle"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Art der Massnahme",
+            "eingesetzte Maschinen",
+            "Besonderheiten",
+            "gegebenenfalls Restabweichungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Warum Dokumentation so wichtig ist"
+        },
+        {
+          "type": "text",
+          "value": "Dokumentation dient dem Sicherheitsnachweis, der Nachvollziehbarkeit, der Qualitaetssicherung, der rechtlichen Absicherung und der spaeteren Schadensanalyse."
+        },
+        {
+          "type": "text",
+          "value": "Bei Rueckfragen oder spaeteren Schaeden kann nur mit Dokumentation nachgewiesen werden, was gemacht wurde, wie gemessen wurde und wer verantwortlich war."
+        },
+        {
+          "type": "text",
+          "value": "5. Uebergabeprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Ein Gleis darf erst freigegeben werden, wenn alle Messwerte im Toleranzbereich liegen, keine offenen Maengel bestehen und die Dokumentation vollstaendig ist."
         },
         {
           "type": "callout",
@@ -207,7 +1436,9 @@
           "value": "Dokumentation schuetzt Betrieb und Personal bei Rueckfragen oder Spaetschaeden."
         }
       ],
-      "quizRef": ["Q8"]
+      "quizRef": [
+        "Q8"
+      ]
     },
     {
       "id": "lf12-b9",
@@ -223,7 +1454,23 @@
           "value": "Nutze die Zusatzfragen fuer Wiederholung zu Lagefehlern, Messung, Instandsetzung und Arbeiten unter Betrieb."
         }
       ],
-      "quizRef": ["Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23"]
+      "quizRef": [
+        "Q9",
+        "Q10",
+        "Q11",
+        "Q12",
+        "Q13",
+        "Q14",
+        "Q15",
+        "Q16",
+        "Q17",
+        "Q18",
+        "Q19",
+        "Q20",
+        "Q21",
+        "Q22",
+        "Q23"
+      ]
     }
   ]
 }

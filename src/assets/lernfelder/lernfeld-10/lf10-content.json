@@ -2,53 +2,448 @@
   "blocks": [
     {
       "id": "lf10-b1",
-      "title": "Was heisst Instand setzen?",
+      "title": "Was heisst Instand setzen? (Technisch und systematisch betrachtet)",
       "goals": [
         "Instandhaltung, Instandsetzung und Erneuerung sicher unterscheiden",
-        "Typische Praxisbeispiele der Bestandsarbeit zuordnen"
+        "Eingriffstiefe und Entscheidungslogik fachlich einordnen",
+        "Ursachenanalyse als Voraussetzung fuer dauerhafte Reparaturen anwenden"
       ],
-      "summary": "Instandsetzung behebt vorhandene Schaeden, Erneuerung ersetzt Bauteile vollstaendig.",
+      "summary": "Instand setzen beschreibt technische Massnahmen zur Wiederherstellung von Funktion, Tragfaehigkeit und Gebrauchstauglichkeit.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundverstaendnis: Was bedeutet Instand setzen technisch?"
+        },
+        {
+          "type": "text",
+          "value": "Instand setzen ist kein umgangssprachlicher Begriff, sondern eine technische Massnahme zur Wiederherstellung der Funktion, Tragfaehigkeit oder Gebrauchstauglichkeit eines Bauwerks oder Bauteils."
+        },
+        {
+          "type": "text",
+          "value": "Abgrenzung der Begriffe"
+        },
         {
           "type": "list",
           "items": [
-            "Instandhaltung: Schaeden vermeiden durch Pflege und Kontrolle",
-            "Instandsetzung: vorhandene Schaeden gezielt beseitigen",
-            "Erneuerung: Bauteile komplett austauschen",
-            "Beispiele: Verkehrsflachen reparieren, Betonabplatzungen sanieren, Schaechte und Leitungen erneuern"
+            "Instandhaltung: Ziel Schaden vermeiden, Eingriffstiefe gering, Beispiel reinigen, pruefen, abdichten",
+            "Instandsetzung: Ziel Schaden beheben, Eingriffstiefe mittel, Beispiel Riss verpressen, Beton reprofilieren",
+            "Erneuerung: Ziel Bauteil ersetzen, Eingriffstiefe hoch, Beispiel komplette Deckschicht neu"
           ]
         },
         {
+          "type": "text",
+          "value": "Diese Begriffe entscheiden ueber Kosten, Bauzeit, Sperrungen, Materialeinsatz und Restnutzungsdauer."
+        },
+        {
+          "type": "text",
+          "value": "2. Instandhaltung (praeventiv)"
+        },
+        {
+          "type": "text",
+          "value": "Ziel: Funktionsfaehigkeit erhalten und Schaeden verhindern."
+        },
+        {
+          "type": "text",
+          "value": "Technische Kennzeichen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "keine tiefgreifenden Eingriffe in die Tragstruktur",
+            "regelmaessige Kontrolle",
+            "vorbeugende Massnahmen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Typische Massnahmen im Tief- und Verkehrswegebau:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Entwaesserungsrinnen reinigen",
+            "Schaechte kontrollieren",
+            "Fugen nachverfuellen",
+            "Asphaltoberflaeche versiegeln",
+            "lose Pflastersteine richten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Wasser dringt oft zuerst ueber kleine Schaeden ein. Fruehe Instandhaltung verhindert Frostaufbrueche, Unterspuelungen, Korrosion und Tragfaehigkeitsverlust."
+        },
+        {
+          "type": "text",
+          "value": "3. Instandsetzung (reparierend)"
+        },
+        {
+          "type": "text",
+          "value": "Ziel: Bestehenden Schaden technisch korrekt beheben und die urspruengliche Funktion wiederherstellen."
+        },
+        {
+          "type": "text",
+          "value": "Kennzeichen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "gezielter Eingriff",
+            "Schadenstelle wird lokal geoeffnet",
+            "Ursache wird beruecksichtigt"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Beispiel 1: Asphalt-Schlagloch"
+        },
+        {
+          "type": "text",
+          "value": "Falsche Loesung: Loch mit Kaltasphalt fuellen -> haelt nur kurz."
+        },
+        {
+          "type": "text",
+          "value": "Richtige Instandsetzung:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schadstelle rechteckig ausschneiden",
+            "Rand sauber fraesen",
+            "Unterbau pruefen",
+            "Haftkleber einsetzen",
+            "Heissasphalt fachgerecht einbauen und verdichten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Beispiel 2: Betonabplatzung am Schacht"
+        },
+        {
+          "type": "text",
+          "value": "Ursache: Korrosion der Bewehrung."
+        },
+        {
+          "type": "text",
+          "value": "Fachgerechte Instandsetzung:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schadstelle freilegen",
+            "lose Teile entfernen",
+            "Bewehrung entrosten",
+            "Korrosionsschutz aufbringen",
+            "Reprofilierungsmoertel auftragen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ohne Bewehrungsbehandlung kommt der Schaden zurueck."
+        },
+        {
+          "type": "text",
+          "value": "4. Erneuerung (Austausch)"
+        },
+        {
+          "type": "text",
+          "value": "Ziel: Bauteil ist technisch verbraucht oder wirtschaftlich nicht mehr reparabel."
+        },
+        {
+          "type": "text",
+          "value": "Typische Faelle:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Asphalt zeigt flaechige Netzrisse",
+            "Pflasterflaeche sackt grossflaechig ab",
+            "Leitungsnetz ist mehrfach undicht",
+            "Schachtbauwerk ist strukturell geschaedigt"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Dann ist Erneuerung oft sinnvoller als Reparatur."
+        },
+        {
+          "type": "text",
+          "value": "5. Entscheidungslogik (Praxis-Denken)"
+        },
+        {
+          "type": "text",
+          "value": "Vor der Massnahme sind folgende Fragen zu klaeren:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wie gross ist der Schaden?",
+            "Ist er lokal oder systematisch?",
+            "Ist die Ursache klar?",
+            "Ist die Tragstruktur betroffen?",
+            "Ist Reparatur wirtschaftlich sinnvoll?"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Technische Wahrheit"
+        },
+        {
+          "type": "text",
+          "value": "Eine Reparatur ist nur dann dauerhaft, wenn Schaden, Ursache und Verfahren technisch zusammenpassen."
+        },
+        {
+          "type": "text",
+          "value": "Beispiel: Setzung wegen undichter Leitung. Nur neu pflastern ohne Leitungspruefung fuehrt dazu, dass der Schaden wiederkommt."
+        },
+        {
+          "type": "text",
+          "value": "7. Praxisbezug (Gleisbau / Verkehrsflaechen)"
+        },
+        {
+          "type": "text",
+          "value": "Bestandsarbeit ist Alltag an Bahnsteigkanten, Schachtkoepfen, Asphaltuebergaengen, Pflasterflaechen und Drainagesystemen."
+        },
+        {
+          "type": "text",
+          "value": "Die technische Leistung liegt nicht im Flicken, sondern im richtigen Entscheiden."
+        },
+        {
           "type": "callout",
-          "variant": "info",
-          "title": "Praxis",
-          "value": "Bestandsarbeit verlaengert die Nutzungsdauer, wenn Schaden, Ursache und Verfahren zusammenpassen."
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Nicht jeder Schaden braucht Erneuerung - aber jede Reparatur braucht Ursachenanalyse."
         }
       ],
       "quizRef": ["Q1"]
     },
     {
       "id": "lf10-b2",
-      "title": "Schaeden erkennen und beurteilen",
+      "title": "Schaeden erkennen und beurteilen (Analyse statt Bauchgefuehl)",
       "goals": [
         "Typische Schadensbilder an Bauwerken erkennen",
-        "Haeufige Ursachen richtig einordnen"
+        "Schaeden systematisch erfassen und bewerten",
+        "Ursachenanalyse als Pflichtschritt vor der Massnahmenwahl anwenden"
       ],
-      "summary": "Risse, Abplatzungen und Setzungen muessen frueh erkannt und bewertet werden.",
+      "summary": "Schaeden muessen systematisch analysiert werden, weil aehnliche Schadensbilder unterschiedliche Ursachen haben koennen.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Schadenserkennung systematisch erfolgen muss"
+        },
+        {
+          "type": "text",
+          "value": "Viele Schaeden sehen aehnlich aus, haben aber unterschiedliche Ursachen."
+        },
+        {
+          "type": "text",
+          "value": "Eine falsche Beurteilung fuehrt zu unnoetigen Kosten, wiederkehrenden Schaeden und Sicherheitsrisiken."
+        },
+        {
+          "type": "text",
+          "value": "Deshalb gilt: Erst bewerten, dann handeln."
+        },
+        {
+          "type": "text",
+          "value": "2. Typische Schadensbilder und ihre technische Bedeutung"
+        },
+        {
+          "type": "text",
+          "value": "A) Risse"
+        },
+        {
+          "type": "text",
+          "value": "Arten:"
+        },
         {
           "type": "list",
           "items": [
-            "Typische Schadensbilder: Risse, Abplatzungen, Setzungen, Ausspuelungen, Undichtigkeiten, Korrosion",
-            "Hauptursachen: Wasser, Frost, Verkehrslasten, Alterung und Ausfuehrungsfehler",
-            "Eine sachliche Schadenserfassung ist Grundlage fuer die richtige Massnahme"
+            "Laengsrisse",
+            "Querrisse",
+            "Netzrisse",
+            "Setzungsrisse"
           ]
         },
         {
+          "type": "text",
+          "value": "Ursachen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Temperaturwechsel",
+            "unzureichende Verdichtung",
+            "Untergrundbewegung",
+            "Ueberlastung",
+            "Materialalterung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Technisch kritisch wird es, wenn Risse wasserfuehrend, durchgehend oder verzweigt sind."
+        },
+        {
+          "type": "text",
+          "value": "B) Abplatzungen"
+        },
+        {
+          "type": "text",
+          "value": "Typisch bei Beton."
+        },
+        {
+          "type": "text",
+          "value": "Ursachen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Frost-Tausalz",
+            "Karbonatisierung",
+            "Korrosion der Bewehrung",
+            "zu geringe Betondeckung",
+            "Wasserzutritt"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Technische Folge: Tragquerschnitt wird reduziert, Dauerhaftigkeit sinkt, Korrosion beschleunigt sich."
+        },
+        {
+          "type": "text",
+          "value": "C) Setzungen"
+        },
+        {
+          "type": "text",
+          "value": "Erkennbar an:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "abgesenkten Pflasterflaechen",
+            "hoeher stehenden Schachtdeckeln",
+            "Muldenbildung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ursachen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Unterspuelung",
+            "mangelnde Verdichtung",
+            "Leitungsleckagen",
+            "organischer Boden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Setzungen sind fast immer ein Hinweis auf ein Unterbauproblem."
+        },
+        {
+          "type": "text",
+          "value": "D) Ausspuelungen"
+        },
+        {
+          "type": "text",
+          "value": "Erkennbar durch:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Hohlklang",
+            "ploetzliche Senken",
+            "Einbruchstellen",
+            "Sandspuren"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ursache meist: Wasser + Bewegung + Hohlraum."
+        },
+        {
+          "type": "text",
+          "value": "E) Undichtigkeiten"
+        },
+        {
+          "type": "list",
+          "items": [
+            "feuchter Boden",
+            "Geruch",
+            "Fremdwasser",
+            "weicher Untergrund"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Gefaehrlich, weil sie Bodenstabilitaet zerstoeren, Setzungen verursachen und die Umwelt schaedigen."
+        },
+        {
+          "type": "text",
+          "value": "F) Korrosion"
+        },
+        {
+          "type": "text",
+          "value": "Tritt auf bei Metallteilen, Bewehrung und Schachtabdeckungen. Beschleunigt durch Feuchtigkeit, Salz und Sauerstoff."
+        },
+        {
+          "type": "text",
+          "value": "3. Hauptursachen im Ueberblick"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wasser -> Durchfeuchtung, Frost, Korrosion",
+            "Frost -> Volumenvergroesserung und Sprengwirkung",
+            "Verkehrslasten -> Materialermuedung",
+            "Alterung -> Versproedung",
+            "Ausfuehrungsfehler -> Setzungen und Risse"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Die Schadenserfassung fachlich korrekt"
+        },
+        {
+          "type": "text",
+          "value": "Eine gute Schadenserfassung enthaelt:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Lage (Abschnitt, Stationierung)",
+            "Art des Schadens",
+            "Ausmass (Laenge, Tiefe, Flaeche)",
+            "moegliche Ursache",
+            "Gefaehrdungspotenzial",
+            "Dringlichkeit"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Warum Ursachenanalyse Pflicht ist"
+        },
+        {
+          "type": "text",
+          "value": "Beispiel: Ein Riss im Asphalt wird verschlossen, aber die Ursache ist Untergrundabsenkung. Ohne Ursachenbeseitigung kommt der Riss zurueck."
+        },
+        {
+          "type": "text",
+          "value": "Nur wenn die Ursache beseitigt wird, ist die Reparatur dauerhaft."
+        },
+        {
+          "type": "text",
+          "value": "6. Praxisprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Im Bestand gilt: Schaeden sind Symptome, nicht die Ursache."
+        },
+        {
           "type": "callout",
-          "variant": "danger",
-          "title": "Wichtig",
-          "value": "Ohne Ursachenanalyse fuehrt auch eine saubere Reparatur oft nur kurzfristig zum Erfolg."
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Erst Ursache verstehen - dann reparieren."
         }
       ],
       "quizRef": ["Q2"]
@@ -58,21 +453,224 @@
       "title": "Arbeiten im Bestand: Gefahren und Besonderheiten",
       "goals": [
         "Besonderheiten gegenueber Neubau benennen",
-        "Risiken im Bestand realistisch einschaetzen"
+        "Risiken im Bestand realistisch einschaetzen",
+        "Arbeitsablaeufe mit Erkundung, Sicherung und Kontrolle ableiten"
       ],
-      "summary": "Bestand hat unbekannte Risiken und darf nie wie Neubau behandelt werden.",
+      "summary": "Bestandsarbeit ist risikoreicher als Neubau, weil der Ist-Zustand oft unvollstaendig bekannt ist.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip: Warum Bestand gefaehrlicher ist als Neubau"
+        },
+        {
+          "type": "text",
+          "value": "Im Neubau sind Untergrund, Materialien und Ablaeufe in der Regel klar definiert."
+        },
+        {
+          "type": "text",
+          "value": "Im Bestand treffen Teams auf unbekannte Bauwerksqualitaet, alte Leitungen, Materialermuedung, engen Arbeitsraum und oft laufenden Betrieb."
+        },
+        {
+          "type": "text",
+          "value": "Bestand bedeutet Ungewissheit. Ungewissheit bedeutet erhoehtes Risiko."
+        },
+        {
+          "type": "text",
+          "value": "2. Wesentliche Unterschiede zum Neubau"
+        },
         {
           "type": "list",
           "items": [
-            "Typische Besonderheiten: unbekannter Untergrund, alte Leitungen und Kabel, geschwaechte Bauteile, wenig Platz",
-            "Gefahren: Einsturz, Strom/Gas/Wasser, Staub, Laerm, Gefahrstoffe und laufender Verkehr",
-            "Arbeitsablaeufe brauchen mehr Erkundung, Absicherung und Kontrolle als im Neubau"
+            "Neubau: definierte Ausgangssituation | Bestand: unbekannter Ist-Zustand",
+            "Neubau: neue Materialien | Bestand: gealterte, geschwaechte Materialien",
+            "Neubau: freie Flaechen | Bestand: enge Platzverhaeltnisse",
+            "Neubau: keine Altleitungen | Bestand: vorhandene, teils unbekannte Leitungen",
+            "Neubau: kein laufender Verkehr | Bestand: Verkehr oder Betrieb laeuft weiter"
           ]
         },
         {
+          "type": "text",
+          "value": "3. Typische Besonderheiten im Bestand"
+        },
+        {
+          "type": "text",
+          "value": "1) Unbekannter Untergrund"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Auffuellungen",
+            "alte Fundamentreste",
+            "Hohlraeume",
+            "nicht verdichtete Bereiche"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folgen: Setzungsgefahr und Abrutschgefahr im Graben."
+        },
+        {
+          "type": "text",
+          "value": "2) Alte Leitungen und Kabel"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Strom",
+            "Gas",
+            "Wasser",
+            "Telekommunikation",
+            "Entwaesserung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Problem: Lageplaene stimmen nicht immer, alte Leitungen sind haeufig unvollstaendig dokumentiert und koennen tiefer oder flacher liegen."
+        },
+        {
+          "type": "text",
+          "value": "Gefahr: Stromschlag, Gasexplosion, Wasserschaeden und Netzausfaelle."
+        },
+        {
+          "type": "text",
+          "value": "3) Geschwaechte Bauteile"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Beton mit Rissen",
+            "korrodierte Bewehrung",
+            "marode Schachtbauwerke",
+            "abgesackte Bauwerke"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Gefahr: ploetzlicher Teilabbruch, Einbruch, Nachbruch im Graben."
+        },
+        {
+          "type": "text",
+          "value": "4) Wenig Platz"
+        },
+        {
+          "type": "list",
+          "items": [
+            "schmale Gehwege",
+            "angrenzende Bebauung",
+            "enge Schaechte",
+            "Verkehr dicht am Arbeitsbereich"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folge: eingeschraenkte Bewegungsfreiheit und erhoehte Unfallgefahr."
+        },
+        {
+          "type": "text",
+          "value": "4. Typische Gefahren im Bestand"
+        },
+        {
+          "type": "text",
+          "value": "Einsturzgefahr"
+        },
+        {
+          "type": "list",
+          "items": [
+            "unterspuelter Boden",
+            "geschwaechte Bauwerke",
+            "ungesicherte Baugruben"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Leitungstreffer"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Strom = Lebensgefahr",
+            "Gas = Explosionsgefahr",
+            "Wasser = Unterspuelung",
+            "Telekom = Betriebsstoerung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Staub und Laerm"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Fraesen",
+            "Stemmarbeiten",
+            "Schneidarbeiten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folge: Gesundheitsrisiko und Anwohnerbelastung."
+        },
+        {
+          "type": "text",
+          "value": "Gefahrstoffe"
+        },
+        {
+          "type": "list",
+          "items": [
+            "alte bitumenhaltige Schichten",
+            "teerhaltiger Asphalt (Altbestand)",
+            "belastete Boeden",
+            "alte Beschichtungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Hier gelten besondere Schutzmassnahmen."
+        },
+        {
+          "type": "text",
+          "value": "Laufender Verkehr"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Fahrzeuge",
+            "Fussgaenger",
+            "gegebenenfalls Bahnbetrieb"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Erhoehtes Risiko durch Sichtbehinderung, Enge und Unaufmerksamkeit Dritter."
+        },
+        {
+          "type": "text",
+          "value": "5. Warum Arbeitsablaeufe im Bestand anders sind"
+        },
+        {
+          "type": "text",
+          "value": "Im Bestand braucht es:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Erkundung vor Baubeginn (Leitungsanfrage, Bestandsplaene, Ortung, Suchschlitze)",
+            "erhoehte Sicherung (Verkehrsabsicherung, Grabenverbau, Absperrungen)",
+            "kontinuierliche Kontrolle (Bauzustand beobachten, Setzungen pruefen, Leitungen sichern)",
+            "Flexibilitaet (auf Unbekanntes reagieren und Bauablauf anpassen)"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Praxisprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Bestandsarbeit bedeutet mehr Planung, mehr Absicherung, mehr Aufmerksamkeit und mehr Verantwortung."
+        },
+        {
           "type": "callout",
-          "variant": "danger",
+          "variant": "tip",
           "title": "Merksatz",
           "value": "Bestand nie wie Neubau behandeln."
         }
@@ -84,24 +682,171 @@
       "title": "Rueckbau und Abbruch (kontrolliert)",
       "goals": [
         "Rueckbau und Abbruch klar unterscheiden",
-        "Kontrolliertes Vorgehen mit Sicherung und Materialtrennung umsetzen"
+        "Kontrolliertes Vorgehen mit Sicherung und Materialtrennung umsetzen",
+        "Gefaehrdungen durch tragende Bauteile, Leitungen und Staubschutz beherrschen"
       ],
-      "summary": "Rueckbau entfernt gezielt, Abbruch beseitigt vollstaendig.",
+      "summary": "Rueckbau und Abbruch sind geplante technische Eingriffe, die nur gesichert und kontrolliert ausgefuehrt werden duerfen.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundverstaendnis: Rueckbau vs. Abbruch"
+        },
+        {
+          "type": "text",
+          "value": "Rueckbau und Abbruch sind nicht gleich."
+        },
+        {
+          "type": "text",
+          "value": "Rueckbau"
+        },
+        {
+          "type": "text",
+          "value": "Gezieltes Entfernen einzelner Bauteile, selektiv und geplant."
+        },
+        {
+          "type": "text",
+          "value": "Beispiele:"
+        },
         {
           "type": "list",
           "items": [
-            "Rueckbau: gezieltes Entfernen einzelner Bauteile",
-            "Abbruch: vollstaendige Beseitigung eines Bauwerks",
-            "Beides nur mit Planung, Sicherung, Staubschutz und Umgebungsabsicherung",
-            "Tragende Bauteile duerfen nicht unkontrolliert entfernt werden"
+            "Pflaster aufnehmen",
+            "Schachtkopf erneuern",
+            "Asphaltdeckschicht abfraesen"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Abbruch"
+        },
+        {
+          "type": "text",
+          "value": "Vollstaendige Beseitigung eines Bauwerks."
+        },
+        {
+          "type": "text",
+          "value": "Beispiele:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "komplette Stuetzmauer entfernen",
+            "gesamtes Bauwerk abtragen",
+            "komplette Verkehrsflaeche inklusive Unterbau entfernen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2. Warum kontrolliertes Vorgehen Pflicht ist"
+        },
+        {
+          "type": "text",
+          "value": "Unkontrollierter Abbruch kann zu Teileinsturz, Leitungsbeschaedigung, Verletzungen, Sachschaeden und Umweltbelastung fuehren."
+        },
+        {
+          "type": "text",
+          "value": "3. Planung vor Beginn"
+        },
+        {
+          "type": "text",
+          "value": "Vor jedem Rueckbau oder Abbruch ist zu klaeren:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Was ist tragend?",
+            "Was darf entfernt werden?",
+            "Welche Leitungen verlaufen im Bereich?",
+            "Wie wird abgesichert?",
+            "Wohin mit dem Material?"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Tragende Bauteile - groesste Gefahr"
+        },
+        {
+          "type": "text",
+          "value": "Tragende Bauteile duerfen niemals unkontrolliert angeschnitten, teilweise untergraben oder ohne Abstuetzung entfernt werden."
+        },
+        {
+          "type": "text",
+          "value": "Die Entfernung muss in definierter Reihenfolge, unter Sicherung und unter statischer Beurteilung erfolgen."
+        },
+        {
+          "type": "text",
+          "value": "5. Staub- und Umgebungsschutz"
+        },
+        {
+          "type": "text",
+          "value": "Massnahmen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Befeuchten bei Schneidarbeiten",
+            "Staubschutzwaende",
+            "Abdeckungen",
+            "Absaugung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Dies schuetzt Arbeiter, Anwohner, angrenzende Bauwerke und den Verkehr."
+        },
+        {
+          "type": "text",
+          "value": "6. Materialtrennung (Umweltaspekt)"
+        },
+        {
+          "type": "text",
+          "value": "Beim Rueckbau fallen unter anderem an:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Beton",
+            "Asphalt",
+            "Pflaster",
+            "Metall",
+            "Bodenmaterial"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Trennung erleichtert Wiederverwertung, Recycling, sichere Entsorgung und Kostensenkung."
+        },
+        {
+          "type": "text",
+          "value": "Ungetrennte Entsorgung ist teurer und umweltbelastend."
+        },
+        {
+          "type": "text",
+          "value": "7. Typische Fehler"
+        },
+        {
+          "type": "list",
+          "items": [
+            "tragende Wand ohne Sicherung entfernen",
+            "keine Leitungserkundung",
+            "fehlende Absperrung",
+            "Staub nicht kontrolliert",
+            "Material vermischt entsorgt"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "8. Praxisprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Rueckbau und Abbruch sind keine Zerstoerungsarbeiten, sondern technisch geplante Eingriffe in bestehende Strukturen."
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Umwelt",
-          "value": "Materialtrennung beim Rueckbau erleichtert Wiederverwertung und sichere Entsorgung."
+          "title": "Merksatz",
+          "value": "Rueckbau = gezielt entfernen. Abbruch = vollstaendig beseitigen. Beides nur geplant, gesichert und kontrolliert."
         }
       ],
       "quizRef": ["Q4"]
@@ -110,24 +855,167 @@
       "id": "lf10-b5",
       "title": "Reparatur und Erneuerung von Verkehrsflaechen",
       "goals": [
-        "Typische Instandsetzungsarbeiten an Verkehrsflaechen anwenden",
-        "Dauerhaftigkeit ueber Untergrund, Anschluss und Verdichtung sichern"
+        "Typische Instandsetzungsarbeiten an Verkehrsflaechen fachgerecht ausfuehren",
+        "Dauerhaftigkeit ueber Untergrund, Schichtenfolge, Verdichtung und Anschluesse sichern",
+        "Ursachen fuer fruehzeitiges Versagen erkennen und vermeiden"
       ],
-      "summary": "Ohne tragfaehigen Untergrund haelt auch eine saubere Reparatur nicht dauerhaft.",
+      "summary": "Verkehrsflaechen halten nur dauerhaft, wenn Untergrund, Schichtenaufbau, Verdichtung und Anschluesse technisch korrekt ausgefuehrt sind.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Eine Verkehrsflaechenreparatur ist nur dann dauerhaft, wenn der Untergrund tragfaehig ist, die Schichtenfolge stimmt, ausreichend verdichtet wird und Anschluesse sauber hergestellt sind."
+        },
+        {
+          "type": "text",
+          "value": "Die Haltbarkeit entscheidet sich meist unterhalb der sichtbaren Oberflaeche."
+        },
+        {
+          "type": "text",
+          "value": "2. Typische Instandsetzungsarbeiten"
+        },
+        {
+          "type": "text",
+          "value": "1) Schlaglochreparatur (Asphalt)"
+        },
+        {
+          "type": "text",
+          "value": "Ursache pruefen: nur Oberflaechenschaden oder Untergrund weich beziehungsweise durchfeuchtet."
+        },
+        {
+          "type": "text",
+          "value": "Fachgerechter Ablauf:"
+        },
         {
           "type": "list",
           "items": [
-            "Typische Arbeiten: Schlaglochreparatur, Austausch von Pflastersteinen, Asphalt- oder Betonflicken, Randbefestigungen erneuern",
-            "Untergrund vor Reparatur pruefen und vorbereiten",
-            "Anschluesse sauber herstellen und ausreichend verdichten"
+            "Schadstelle rechteckig ausschneiden",
+            "lose Raender entfernen",
+            "Unterbau pruefen und gegebenenfalls nachverdichten",
+            "Haftkleber auftragen",
+            "Heissasphalt einbauen",
+            "lagenweise verdichten",
+            "sauberen Randanschluss herstellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Typische Fehler:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "einfach auffuellen",
+            "keine Randbearbeitung",
+            "kein Haftkleber",
+            "unzureichende Verdichtung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Austausch von Pflastersteinen"
+        },
+        {
+          "type": "text",
+          "value": "Typische Ursachen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kippsteine durch Fugenverlust",
+            "Setzung durch Ausspuelung",
+            "fehlende Randbefestigung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fachgerechtes Vorgehen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "betroffenen Bereich aufnehmen",
+            "Bettung pruefen",
+            "Untergrund kontrollieren",
+            "gegebenenfalls Tragschicht ergaenzen und verdichten",
+            "neue Bettung exakt abziehen",
+            "Pflaster neu verlegen",
+            "abruetteln und Fugen verfuellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Nur Steine tauschen ohne Unterbaupruefung ist eine kurzfristige Loesung."
+        },
+        {
+          "type": "text",
+          "value": "3) Asphalt- oder Betonflicken"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schadstelle freilegen",
+            "tragfaehigen Untergrund herstellen",
+            "kraftschluessigen Anschluss herstellen",
+            "Material systemgerecht einbauen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Randbefestigungen erneuern"
+        },
+        {
+          "type": "text",
+          "value": "Randbefestigungen sichern seitliche Stabilitaet, Lastabtragung und Formstabilitaet."
+        },
+        {
+          "type": "text",
+          "value": "Typische Fehler:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bord nur reindruecken",
+            "kein Betonbett",
+            "keine Hinterfuellung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Technische Kernpunkte fuer Dauerhaftigkeit"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Untergrund trocken und tragfaehig",
+            "Anschlussflaechen sauber vorbereitet",
+            "keine Hohlraeume",
+            "lagenweise Verdichtung",
+            "korrektes Gefaelle"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Typische Ursachen fuer fruehzeitiges Versagen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wasser im Unterbau",
+            "fehlende Verdichtung",
+            "falsche Materialwahl",
+            "mangelnde Randfixierung",
+            "ungleichmaessige Lastverteilung"
           ]
         },
         {
           "type": "callout",
-          "variant": "info",
-          "title": "Qualitaet",
-          "value": "Die Haltbarkeit entscheidet sich meist unterhalb der sichtbaren Oberflaeche."
+          "variant": "tip",
+          "title": "Qualitaetsprinzip",
+          "value": "Eine Reparatur ist nur so dauerhaft wie ihr Untergrund."
         }
       ],
       "quizRef": ["Q5"]
@@ -136,24 +1024,131 @@
       "id": "lf10-b6",
       "title": "Beton instand setzen (Grundverstaendnis)",
       "goals": [
-        "Kritische Betonschaeden erkennen",
-        "Vereinfachten Ablauf einer Betoninstandsetzung sicher anwenden"
+        "Typische Betonschaeden erkennen und technisch einordnen",
+        "Vereinfachten Ablauf einer Betoninstandsetzung verstehen",
+        "Bedeutung von Vorbehandlung und Bewehrungsschutz erkennen"
       ],
-      "summary": "Freiliegende Bewehrung ist kritisch wegen Korrosion und Tragfaehigkeitsverlust.",
+      "summary": "Betoninstandsetzung ist nur dauerhaft, wenn Schadstelle, Bewehrung und Verbundflaeche fachgerecht vorbereitet werden.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Beton geschaedigt wird"
+        },
+        {
+          "type": "text",
+          "value": "Beton ist langlebig, aber nicht unverwundbar."
+        },
+        {
+          "type": "text",
+          "value": "Hauptprobleme:"
+        },
         {
           "type": "list",
           "items": [
-            "Typische Schaeden: Abplatzungen, freiliegende Bewehrung und Risse",
-            "Grundablauf: Schadstelle freilegen, lose Teile entfernen, Bewehrung reinigen, Reparaturmoertel aufbringen",
-            "Sorgfaeltige Vorbehandlung ist entscheidend fuer Verbund und Dauerhaftigkeit"
+            "Wasser",
+            "Frost",
+            "Tausalz",
+            "Korrosion der Bewehrung"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Sobald Bewehrung frei liegt, beginnt beschleunigte Korrosion."
+        },
+        {
+          "type": "text",
+          "value": "2. Typische Schadensbilder"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Abplatzungen",
+            "Risse",
+            "freiliegende Bewehrung",
+            "Hohllagen",
+            "Rostfahnen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Warum freiliegende Bewehrung kritisch ist"
+        },
+        {
+          "type": "text",
+          "value": "Korrosion fuehrt zu:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Volumenvergroesserung",
+            "Sprengwirkung im Beton",
+            "Querschnittsverlust",
+            "Tragfaehigkeitsminderung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Im Extremfall kann statisches Versagen eintreten."
+        },
+        {
+          "type": "text",
+          "value": "4. Vereinfachter Ablauf der Betoninstandsetzung"
+        },
+        {
+          "type": "text",
+          "value": "Schritt 1: Schadstelle freilegen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "lockeren Beton entfernen",
+            "tragfaehigen Rand herstellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Schritt 2: Bewehrung reinigen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rost mechanisch entfernen",
+            "gegebenenfalls Korrosionsschutz auftragen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Schritt 3: Haftbruecke herstellen"
+        },
+        {
+          "type": "text",
+          "value": "Verbund zwischen Altbeton und Reparaturmoertel sichern."
+        },
+        {
+          "type": "text",
+          "value": "Schritt 4: Reprofilieren"
+        },
+        {
+          "type": "list",
+          "items": [
+            "geeigneten Reparaturmoertel einbringen",
+            "lagenweise verdichten",
+            "Oberflaeche anpassen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Warum Vorbehandlung entscheidend ist"
+        },
+        {
+          "type": "text",
+          "value": "Ohne sauberen Untergrund, korrekte Haftbruecke und Rostentfernung kommt der Schaden zurueck."
         },
         {
           "type": "callout",
           "variant": "danger",
           "title": "Achtung",
-          "value": "Korrodierende Bewehrung kann den Querschnitt und damit die Tragwirkung schwaechen."
+          "value": "Korrodierende Bewehrung reduziert den Tragquerschnitt und schwaecht die Tragwirkung."
         }
       ],
       "quizRef": ["Q6"]
@@ -163,23 +1158,117 @@
       "title": "Leitungen und Schaechte erneuern",
       "goals": [
         "Erneuerung von Leitungen und Schaechten im Bestand fachgerecht planen",
-        "Dichtheit, Gefaelle und Einbindung ins Bestandssystem sicherstellen"
+        "Dichtheit, Gefaelle und Einbindung ins Bestandssystem sicherstellen",
+        "Einbaupruefungen direkt nach Herstellung systematisch durchfuehren"
       ],
-      "summary": "Nach Erneuerung sind Dichtheit und Gefaelle zwingend zu pruefen.",
+      "summary": "Die Erneuerung im Bestand ist komplex, weil neue Bauteile funktionssicher an das vorhandene Netz angeschlossen werden muessen.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Warum Erneuerung im Bestand komplex ist"
+        },
+        {
+          "type": "text",
+          "value": "Im Neubau gibt es ein freies System mit neuen Leitungen und klarer Planung."
+        },
+        {
+          "type": "text",
+          "value": "Im Bestand muessen Einbindung in das vorhandene Netz, Hoehenanschluesse und laufender Betrieb beruecksichtigt werden."
+        },
+        {
+          "type": "text",
+          "value": "2. Typische Arbeiten"
+        },
         {
           "type": "list",
           "items": [
-            "Typische Arbeiten: alte Rohre austauschen, Schaechte sanieren, Anschluesse erneuern",
-            "Besonderheiten: dichte Verbindungen, korrektes Gefaelle und sichere Systemeinbindung",
-            "Bestandsanschluesse muessen lage- und hoehengerecht uebernommen werden"
+            "alte Rohre ausbauen",
+            "neue Rohre verlegen",
+            "Schaechte sanieren oder erneuern",
+            "Anschluesse anpassen",
+            "Schachtkoepfe erneuern"
           ]
+        },
+        {
+          "type": "text",
+          "value": "3. Besondere Anforderungen"
+        },
+        {
+          "type": "text",
+          "value": "1) Dichtheit"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Muffen korrekt einsetzen",
+            "Dichtungen pruefen",
+            "keine Beschaedigungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Gefaelle"
+        },
+        {
+          "type": "list",
+          "items": [
+            "exakt nach Planung",
+            "kein Gegengefaelle",
+            "regelmaessig kontrollieren"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Einbindung ins Bestandssystem"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Lage und Hoehe uebernehmen",
+            "Anschluss fluchtend herstellen",
+            "hydraulische Funktion sicherstellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Typische Fehler"
+        },
+        {
+          "type": "list",
+          "items": [
+            "falsche Anschlusslage",
+            "Hoehenversatz",
+            "verdrehte Muffe",
+            "fehlende Dichtung",
+            "Gefaelle nicht geprueft"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Pruefung nach Einbau"
+        },
+        {
+          "type": "text",
+          "value": "Unbedingt pruefen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Dichtheit",
+            "Gefaelle",
+            "Lage",
+            "Anschluss"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Funktionspruefung direkt nach Einbau spart spaetere Aufgrabungen."
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Pruefung",
-          "value": "Funktionspruefung direkt nach Einbau spart spaetere Aufgrabungen."
+          "title": "Praxisprinzip",
+          "value": "Nach Erneuerung sind Dichtheit und Gefaelle zwingend zu pruefen."
         }
       ],
       "quizRef": ["Q7"]
@@ -189,23 +1278,267 @@
       "title": "Arbeitssicherheit und Umweltschutz",
       "goals": [
         "Sicherheitsmassnahmen bei Sanierung und Rueckbau konsequent anwenden",
-        "Umweltanforderungen bei Stoffen und Abfaellen umsetzen"
+        "Umweltanforderungen bei Stoffen und Abfaellen korrekt umsetzen",
+        "Gefaehrdungen erkennen und minimieren"
       ],
-      "summary": "Staubschutz, Verkehrsabsicherung und getrennte Entsorgung sind Pflicht.",
+      "summary": "Sicherheit und Umweltschutz muessen bei Sanierung, Rueckbau und Abbruch von Beginn an im Bauablauf integriert werden.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Sanierung, Rueckbau und Abbruch im Bestand sind sicherheitstechnisch anspruchsvoller als Neubau."
+        },
+        {
+          "type": "text",
+          "value": "Gruende sind unter anderem unbekannte Materialien, enge Arbeitsraeume, laufender Verkehr, Staubbelastung und moegliche Gefahrstoffe."
+        },
+        {
+          "type": "text",
+          "value": "Sicherheit und Umweltschutz sind keine Zusatzaufgabe, sondern Teil des Arbeitsablaufs von Anfang an."
+        },
+        {
+          "type": "text",
+          "value": "2. Ziele des Blocks"
+        },
         {
           "type": "list",
           "items": [
-            "Sicherheitsmassnahmen: Verkehrsabsicherung, PSA, Staubschutz, Laerm- und Erschuetterungsschutz",
-            "Umwelt: Abfaelle trennen, belastete Stoffe separat entsorgen, Gewaesser schuetzen",
-            "Sicherheit und Umweltschutz laufen parallel und muessen in den Ablauf integriert sein"
+            "Sicherheitsmassnahmen konsequent anwenden",
+            "Umweltanforderungen korrekt umsetzen",
+            "Gefaehrdungen erkennen und minimieren"
           ]
         },
         {
-          "type": "callout",
-          "variant": "danger",
-          "title": "Gesundheit",
+          "type": "text",
+          "value": "3. Arbeitssicherheit bei Sanierung und Rueckbau"
+        },
+        {
+          "type": "text",
+          "value": "A) Verkehrsabsicherung"
+        },
+        {
+          "type": "text",
+          "value": "Besonders wichtig bei Arbeiten an Strassen, Gehwegen, Bahnsteigen und Betriebsflaechen."
+        },
+        {
+          "type": "text",
+          "value": "Erforderlich:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Absperrungen",
+            "Beschilderung",
+            "sichere Fussgaengerfuehrung",
+            "Beleuchtung bei Dunkelheit",
+            "Schutz gegen einfahrende Fahrzeuge"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Typische Fehler:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "unklare Absperrung",
+            "fehlende Sichtbarkeit",
+            "improvisierte Sicherung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Gefahr: Anfahren, Quetschungen, schwere Unfaelle."
+        },
+        {
+          "type": "text",
+          "value": "B) Persoenliche Schutzausruestung (PSA)"
+        },
+        {
+          "type": "text",
+          "value": "Je nach Taetigkeit:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Helm",
+            "Sicherheitsschuhe",
+            "Warnkleidung",
+            "Handschuhe",
+            "Schutzbrille",
+            "Atemschutz bei Staub",
+            "Gehoerschutz bei Stemmarbeiten oder Fraesen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "PSA ist Pflicht, nicht optional."
+        },
+        {
+          "type": "text",
+          "value": "C) Staubschutz"
+        },
+        {
+          "type": "text",
+          "value": "Sanierungen erzeugen Betonstaub, Asphaltstaub und mineralische Feinstaeube."
+        },
+        {
+          "type": "text",
+          "value": "Gesundheitsrisiken:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Atemwegserkrankungen",
+            "Reizung der Augen",
+            "Langzeitbelastungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Massnahmen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Nassschneiden",
+            "Absaugung",
+            "Staubschutzwaende",
+            "Atemschutz"
+          ]
+        },
+        {
+          "type": "text",
           "value": "Staub bei Sanierungen ist eine reale Belastung fuer Atemwege und Umgebung."
+        },
+        {
+          "type": "text",
+          "value": "D) Laerm- und Erschuetterungsschutz"
+        },
+        {
+          "type": "text",
+          "value": "Typisch bei Abbrucharbeiten, Stemmarbeiten und Ruettelarbeiten."
+        },
+        {
+          "type": "text",
+          "value": "Risiken:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gehoerschaeden",
+            "Schaeden an angrenzenden Bauwerken",
+            "Beschwerden von Anwohnern"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Massnahmen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gehoerschutz",
+            "Arbeitszeiten beachten",
+            "schonende Verfahren waehlen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Umweltschutz im Bestand"
+        },
+        {
+          "type": "text",
+          "value": "A) Abfalltrennung"
+        },
+        {
+          "type": "text",
+          "value": "Typische Materialien:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Beton",
+            "Asphalt",
+            "Pflaster",
+            "Metall",
+            "Boden",
+            "belastete Materialien"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Warum trennen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Recycling moeglich",
+            "Entsorgung guenstiger",
+            "gesetzliche Vorgaben einhalten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ungetrennte Entsorgung verursacht hoehere Kosten und mehr Umweltbelastung."
+        },
+        {
+          "type": "text",
+          "value": "B) Belastete Stoffe"
+        },
+        {
+          "type": "text",
+          "value": "Im Bestand moeglich:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "teerhaltiger Asphalt",
+            "belastete Boeden",
+            "alte Beschichtungen",
+            "bituminoese Altmaterialien"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Diese muessen separat gelagert, gekennzeichnet und fachgerecht entsorgt werden."
+        },
+        {
+          "type": "text",
+          "value": "C) Gewaesserschutz"
+        },
+        {
+          "type": "text",
+          "value": "Besonders wichtig bei Arbeiten nahe Gullys, offenen Graeben und bei Regenereignissen."
+        },
+        {
+          "type": "text",
+          "value": "Massnahmen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "keine Verschmutzung in Kanalisation",
+            "Baustoffe nicht auswaschen lassen",
+            "Oel- und Kraftstoffverluste vermeiden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Praxisprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Sicherheit und Umweltschutz laufen parallel in Planung, Durchfuehrung und Kontrolle. Sie sind Teil des Bauablaufs."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Sicherheit schuetzt Menschen, Umweltschutz schuetzt Zukunft und Betrieb."
         }
       ],
       "quizRef": ["Q8"]
@@ -215,22 +1548,150 @@
       "title": "Kontrolle, Dokumentation und Uebergabe",
       "goals": [
         "Abschlusskontrollen strukturiert durchfuehren",
-        "Dokumentation als Nachweis fuer Qualitaet und Sicherheit nutzen"
+        "Dokumentation als Nachweis fuer Qualitaet und Sicherheit nutzen",
+        "Uebergabe professionell vorbereiten"
       ],
-      "summary": "Ohne Dokumentation fehlt der belastbare Nachweis ueber fachgerechte Ausfuehrung.",
+      "summary": "Technisch gute Arbeit muss geprueft, festgehalten und nachvollziehbar dokumentiert werden.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Ohne Dokumentation gibt es keinen belastbaren Nachweis."
+        },
+        {
+          "type": "text",
+          "value": "Technisch gute Arbeit muss ueberprueft, festgehalten und nachvollziehbar dokumentiert werden."
+        },
+        {
+          "type": "text",
+          "value": "2. Ziele des Blocks"
+        },
         {
           "type": "list",
           "items": [
-            "Kontrolle: Masshaltigkeit, Funktion (z. B. Entwaesserung) und Sicherheit",
-            "Dokumentation: Fotos, Checklisten, Abweichungen und Nachweise",
-            "Uebergabe an den Auftraggeber mit nachvollziehbarer Leistungsdokumentation"
+            "Abschlusskontrollen strukturiert durchfuehren",
+            "Dokumentation als Qualitaetsnachweis nutzen",
+            "Uebergabe professionell vorbereiten"
           ]
+        },
+        {
+          "type": "text",
+          "value": "3. Abschlusskontrollen"
+        },
+        {
+          "type": "text",
+          "value": "Vor Uebergabe pruefen:"
+        },
+        {
+          "type": "text",
+          "value": "A) Masshaltigkeit"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Hoehen stimmen?",
+            "Gefaelle korrekt?",
+            "Anschluesse buendig?",
+            "Ebenheit eingehalten?"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "B) Funktion"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Entwaesserung funktioniert?",
+            "kein stehendes Wasser?",
+            "Schaechte dicht?",
+            "Deckel hoehengerecht?"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "C) Sicherheit"
+        },
+        {
+          "type": "list",
+          "items": [
+            "keine Stolperkanten?",
+            "keine losen Steine?",
+            "keine offenen Gefahrenstellen?"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Dokumentation"
+        },
+        {
+          "type": "text",
+          "value": "Eine fachgerechte Dokumentation enthaelt:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Fotos vor und nach Ausfuehrung",
+            "Lagebeschreibung",
+            "durchgefuehrte Arbeiten",
+            "verwendete Materialien",
+            "besondere Vorkommnisse",
+            "Abweichungen vom Plan",
+            "Pruefergebnisse"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Bei Leitungen zusaetzlich:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gefaellepruefung",
+            "Dichtheitspruefung",
+            "Anschlusspruefung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Warum Dokumentation wichtig ist"
+        },
+        {
+          "type": "text",
+          "value": "Dokumentation schuetzt Betrieb, Bauleiter, Mitarbeitende und Auftragnehmer bei Rueckfragen, Reklamationen, Spaetschaeden und Gewaehrleistungsfaellen."
+        },
+        {
+          "type": "text",
+          "value": "Ohne Dokumentation ist keine belastbare Beweislage vorhanden."
+        },
+        {
+          "type": "text",
+          "value": "6. Uebergabe an den Auftraggeber"
+        },
+        {
+          "type": "text",
+          "value": "Eine ordentliche Uebergabe beinhaltet:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Erlaeuterung der ausgefuehrten Arbeiten",
+            "Uebergabe der Pruefprotokolle",
+            "Dokumentation der Abnahme",
+            "Klaerung offener Punkte"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Professionelle Uebergabe schafft Vertrauen und Rechtssicherheit."
         },
         {
           "type": "callout",
           "variant": "info",
-          "title": "Nachweis",
+          "title": "Nachweisprinzip",
           "value": "Dokumentation schuetzt Betrieb und Mitarbeitende bei Rueckfragen oder Spaetschaeden."
         }
       ],

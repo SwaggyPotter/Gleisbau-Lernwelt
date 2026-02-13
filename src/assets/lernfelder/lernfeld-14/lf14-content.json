@@ -4,43 +4,255 @@
       "id": "lf14-b1",
       "title": "Was sind Sonderbauformen?",
       "goals": [
-        "Sonderbauformen vom klassischen Schotteroberbau abgrenzen",
-        "Besondere Anforderungen in Bau, Betrieb und Instandhaltung benennen"
+        "Sonderbauformen vom klassischen Schotteroberbau fachlich abgrenzen",
+        "Besondere Anforderungen an Bauausfuehrung, Betrieb und Instandhaltung erklaeren",
+        "Sonderbauformen als technisch anspruchsvolle Einbausituationen im LF14 einordnen"
       ],
-      "summary": "Sonderbauformen weichen vom Standardoberbau ab und brauchen oft mehr Planung und Wartung.",
+      "summary": "Sonderbauformen weichen vom klassischen Schotteroberbau ab und erfordern mehr Planung, hoehere Praezision und intensivere Kontrolle.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Der klassische Oberbau besteht aus Schienen, Schwellen und Schotterbett."
+        },
+        {
+          "type": "text",
+          "value": "Sonderbauformen weichen davon ab. Sie ersetzen oder veraendern das Schotterbett, die Lagerung, die Bauweise oder die Einbindung ins Bauwerk."
+        },
+        {
+          "type": "text",
+          "value": "Sonderbauformen erfordern mehr Planung, genauere Ausfuehrung und haeufig intensivere Ueberwachung."
+        },
+        {
+          "type": "text",
+          "value": "2. Abgrenzung zum Schotteroberbau"
+        },
+        {
+          "type": "text",
+          "value": "Klassischer Schotteroberbau:"
+        },
         {
           "type": "list",
           "items": [
-            "Sonderbauformen weichen vom klassischen Schotteroberbau ab",
-            "Sie haben besondere Anforderungen an Bauausfuehrung und Betrieb",
-            "Hauefig sind Planung, Pruefung und Instandhaltung aufwendiger als im Regelgleis"
+            "elastisch",
+            "gut stopfbar",
+            "einfach instand zu halten"
           ]
         },
         {
+          "type": "text",
+          "value": "Sonderbauformen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "haeufig schotterlos",
+            "fester Untergrund",
+            "kaum nachstopfbar",
+            "hohe Praezision beim Einbau"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fehler lassen sich spaeter oft nur mit grossem Aufwand korrigieren."
+        },
+        {
+          "type": "text",
+          "value": "3. Typische Sonderbauformen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Feste Fahrbahn (Betontragplatte)",
+            "Gleise auf Bruecken",
+            "Gleise in Tunneln",
+            "Strassenbahngleise mit Rillenschienen",
+            "Gleise mit besonderer Erschuetterungsdaemmung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Besondere Anforderungen"
+        },
+        {
+          "type": "text",
+          "value": "1) Bauausfuehrung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "exakte Hoehenlage",
+            "sehr geringe Toleranzen",
+            "dauerhafte Fixierung",
+            "sorgfaeltige Vermessung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Nachtraegliche Lagekorrekturen sind meist schwierig."
+        },
+        {
+          "type": "text",
+          "value": "2) Betrieb"
+        },
+        {
+          "type": "list",
+          "items": [
+            "geringere Elastizitaet",
+            "andere Geraeuschentwicklung",
+            "besondere Belastungsverteilung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Instandhaltung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "kein klassisches Stopfen moeglich",
+            "Reparaturen oft aufwendiger",
+            "Bauteiltausch komplexer"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Einordnung im Lernfeld"
+        },
+        {
+          "type": "text",
+          "value": "LF14 vermittelt Spezialwissen fuer nicht standardisierte Bauformen, technisch anspruchsvolle Bereiche und komplexe Einbausituationen."
+        },
+        {
           "type": "callout",
-          "variant": "info",
-          "title": "Einordnung",
-          "value": "LF14 vermittelt Spezialwissen fuer Gleisanlagen ausserhalb des Standardoberbaus."
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Sonderbauformen brauchen mehr Planung, mehr Praezision und mehr Kontrolle."
         }
       ],
-      "quizRef": ["Q1"]
+      "quizRef": [
+        "Q1"
+      ]
     },
     {
       "id": "lf14-b2",
       "title": "Bahnuebergaenge",
       "goals": [
-        "Aufbau eines Bahnuebergangs erklaeren",
-        "Wartungsschwerpunkte und Belastungen richtig einschaetzen"
+        "Aufbau und Funktion eines Bahnuebergangs fachlich erklaeren",
+        "Besondere Belastungen und kritische Hoehenlagen einordnen",
+        "Wartungsschwerpunkte fuer einen sicheren Betrieb anwenden"
       ],
-      "summary": "Bahnuebergaenge verbinden Schiene und Strasse und sind durch hohe Verkehrsbelastung besonders verschleisskritisch.",
+      "summary": "Bahnuebergaenge verbinden Bahn- und Strassenverkehr und sind wegen kombinierter Lasten besonders verschleiss- und sicherheitskritisch.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Ein Bahnuebergang verbindet Eisenbahn, Strassenverkehr sowie Fussgaenger- und Radverkehr."
+        },
+        {
+          "type": "text",
+          "value": "Er ist technisch besonders anspruchsvoll, da hier zwei unterschiedliche Verkehrssysteme mit unterschiedlichen Belastungen aufeinandertreffen."
+        },
+        {
+          "type": "text",
+          "value": "2. Aufbau eines Bahnuebergangs"
+        },
+        {
+          "type": "text",
+          "value": "Ein Bahnuebergang besteht aus dem Gleis, dem Strassenoberbau und dem Uebergangsbereich Schiene-Strasse."
+        },
+        {
+          "type": "text",
+          "value": "Ziel:"
+        },
         {
           "type": "list",
           "items": [
-            "Aufbau: Gleis, Strassenoberbau und Uebergangsbereich Schiene zu Strasse",
-            "Einbauelemente koennen aus Beton, Asphalt oder Gummi bestehen",
-            "Besonderheiten: hohe Lasten, hoher Verschleiss, exakte Hoehenlage erforderlich"
+            "sichere Radfuehrung",
+            "sichere Befahrbarkeit",
+            "korrekte Hoehenlage"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Einbauelemente"
+        },
+        {
+          "type": "text",
+          "value": "Je nach Bauart kommen zum Einsatz:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Betonfertigteile",
+            "Asphaltkonstruktionen",
+            "Gummielemente",
+            "kombinierte Systeme"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Die Elemente muessen belastbar, rutschfest, hoehengleich und dauerhaft stabil sein."
+        },
+        {
+          "type": "text",
+          "value": "4. Besondere Belastungen"
+        },
+        {
+          "type": "text",
+          "value": "Bahnuebergaenge sind verschleisskritisch durch:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "schwere Strassenfahrzeuge",
+            "Brems- und Anfahrkraefte",
+            "unterschiedliche Belastungsrichtungen",
+            "Witterungseinfluesse"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Zusaetzlich wirken Zuglasten und dynamische Stosskraefte."
+        },
+        {
+          "type": "text",
+          "value": "5. Kritischer Punkt: Hoehenlage"
+        },
+        {
+          "type": "text",
+          "value": "Die Hoehenlage muss exakt stimmen und sowohl fuer Zug als auch Strassenverkehr korrekt sein."
+        },
+        {
+          "type": "text",
+          "value": "Fehler fuehren zu:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Stossbelastungen",
+            "Schaeden am Strassenbelag",
+            "Schaeden am Gleis",
+            "Gefahr fuer Fahrzeuge"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Wartungsschwerpunkte"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kontrolle der Hoehenlage",
+            "Pruefung der Befestigungen",
+            "Kontrolle der Uebergangselemente",
+            "Schotterzustand im Randbereich"
           ]
         },
         {
@@ -50,7 +262,9 @@
           "value": "Abweichungen in der Hoehenlage am Bahnuebergang fuehren schnell zu Schaeden und Verkehrsgefahren."
         }
       ],
-      "quizRef": ["Q2"]
+      "quizRef": [
+        "Q2"
+      ]
     },
     {
       "id": "lf14-b3",
@@ -76,7 +290,9 @@
           "value": "Je mehr Kreuzungspunkte, desto hoeher sind Pruef- und Instandhaltungsaufwand."
         }
       ],
-      "quizRef": ["Q3"]
+      "quizRef": [
+        "Q3"
+      ]
     },
     {
       "id": "lf14-b4",
@@ -102,7 +318,9 @@
           "value": "Feste Fahrbahn wird dort genutzt, wo hohe Stabilitaet und Dauerhaftigkeit im Fokus stehen."
         }
       ],
-      "quizRef": ["Q4"]
+      "quizRef": [
+        "Q4"
+      ]
     },
     {
       "id": "lf14-b5",
@@ -128,7 +346,9 @@
           "value": "Geringes Tempo bedeutet nicht geringe Beanspruchung - hohe Lasten bleiben entscheidend."
         }
       ],
-      "quizRef": ["Q5"]
+      "quizRef": [
+        "Q5"
+      ]
     },
     {
       "id": "lf14-b6",
@@ -154,7 +374,9 @@
           "value": "In engen oder kombinierten Verkehrsraeumen steigen Risiko und Abstimmungsbedarf deutlich."
         }
       ],
-      "quizRef": ["Q6"]
+      "quizRef": [
+        "Q6"
+      ]
     },
     {
       "id": "lf14-b7",
@@ -180,7 +402,9 @@
           "value": "Nicht jede Sonderbauform laesst sich mit den Verfahren des Standardoberbaus bearbeiten."
         }
       ],
-      "quizRef": ["Q7"]
+      "quizRef": [
+        "Q7"
+      ]
     },
     {
       "id": "lf14-b8",
@@ -206,7 +430,9 @@
           "value": "Je komplexer die Anlage, desto hoeher die Aufmerksamkeit."
         }
       ],
-      "quizRef": ["Q8"]
+      "quizRef": [
+        "Q8"
+      ]
     },
     {
       "id": "lf14-b9",
@@ -230,7 +456,24 @@
           "value": "Die grosse Quiz-Bank festigt das Abschlusswissen zu Sonderbauformen, Instandhaltung, Sicherung und Dokumentation."
         }
       ],
-      "quizRef": ["Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23", "Q24"]
+      "quizRef": [
+        "Q9",
+        "Q10",
+        "Q11",
+        "Q12",
+        "Q13",
+        "Q14",
+        "Q15",
+        "Q16",
+        "Q17",
+        "Q18",
+        "Q19",
+        "Q20",
+        "Q21",
+        "Q22",
+        "Q23",
+        "Q24"
+      ]
     }
   ]
 }

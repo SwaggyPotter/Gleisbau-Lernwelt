@@ -5,175 +5,1316 @@
       "title": "Aufbau einer Gleisanlage (Grundverstaendnis)",
       "goals": [
         "Oberbau und Unterbau einer Gleisanlage unterscheiden",
-        "Bestandteile des Oberbaus fachlich korrekt benennen"
+        "Bestandteile des Oberbaus fachlich korrekt benennen",
+        "Kraftuebertragung und Zusammenspiel von Oberbau und Unterbau erklaeren"
       ],
-      "summary": "Der Oberbau traegt den Zug, der Unterbau traegt den Oberbau.",
+      "summary": "Ein Gleis ist nur dauerhaft stabil, wenn Oberbau und Unterbau als Gesamtsystem technisch korrekt zusammenarbeiten.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip des Gleisaufbaus"
+        },
+        {
+          "type": "text",
+          "value": "Ein Eisenbahngleis besteht aus zwei Hauptbereichen: Oberbau und Unterbau."
+        },
         {
           "type": "list",
           "items": [
-            "Bestandteile des Oberbaus: Schienen, Schwellen, Schotterbett und Kleineisen",
-            "Schwellen koennen aus Beton, Holz oder Stahl bestehen",
-            "Unterbau (vereinfacht): Planum sowie Frostschutz- und Tragschicht",
-            "Nur das Zusammenspiel von Unterbau und Oberbau ergibt ein tragfaehiges Gleis"
+            "Oberbau traegt den Zug",
+            "Unterbau traegt den Oberbau"
           ]
         },
         {
+          "type": "text",
+          "value": "Nur wenn Unterbau und Oberbau korrekt aufeinander abgestimmt sind, bleibt das Gleis dauerhaft stabil."
+        },
+        {
+          "type": "text",
+          "value": "2. Der Oberbau - tragendes System fuer den Zug"
+        },
+        {
+          "type": "text",
+          "value": "Der Oberbau umfasst alle Bauteile oberhalb des Planums."
+        },
+        {
+          "type": "text",
+          "value": "Bestandteile des Oberbaus"
+        },
+        {
+          "type": "text",
+          "value": "1) Schienen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "fuehren die Raeder",
+            "nehmen Radlasten auf",
+            "leiten Kraefte in Schwellen weiter"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Schwellen"
+        },
+        {
+          "type": "text",
+          "value": "Funktion:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "halten die Spurweite",
+            "verteilen Lasten auf das Schotterbett",
+            "sichern die Lage der Schiene"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Materialarten:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Betonschwellen (heute Standard)",
+            "Holzschwellen (zum Beispiel bei Weichen und Sonderfaellen)",
+            "Stahlschwellen (Sonderbereiche)"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Schotterbett"
+        },
+        {
+          "type": "list",
+          "items": [
+            "nimmt Last auf",
+            "verteilt Druck",
+            "ermoeglicht Lagekorrekturen (Stopfen)",
+            "sorgt fuer Entwaesserung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Schotter ist kantig gebrochen, wasserdurchlaessig und verdichtbar."
+        },
+        {
+          "type": "text",
+          "value": "4) Kleineisen"
+        },
+        {
+          "type": "text",
+          "value": "Befestigungssysteme zwischen Schiene und Schwelle."
+        },
+        {
+          "type": "list",
+          "items": [
+            "sichern die Spurweite",
+            "ermoeglichen elastische Lagerung",
+            "nehmen horizontale Kraefte auf"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Der Unterbau - tragendes Fundament"
+        },
+        {
+          "type": "text",
+          "value": "Der Unterbau umfasst vereinfacht Planum, Frostschutzschicht und Tragschicht."
+        },
+        {
+          "type": "text",
+          "value": "Funktion:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "traegt Gesamtlast aus Zug und Oberbau",
+            "verhindert Setzungen",
+            "schuetzt vor Frostschaeden"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Wenn der Unterbau versagt, senkt sich das Gleis, es entstehen Lagefehler und die Instandhaltungskosten steigen."
+        },
+        {
+          "type": "text",
+          "value": "4. Kraftuebertragung im System"
+        },
+        {
+          "type": "text",
+          "value": "Rad -> Schiene -> Schwelle -> Schotter -> Unterbau -> Baugrund."
+        },
+        {
+          "type": "text",
+          "value": "Jede Schicht verteilt die Last weiter nach unten. Versagt eine Schicht, leidet das Gesamtsystem."
+        },
+        {
+          "type": "text",
+          "value": "5. Warum Zusammenspiel entscheidend ist"
+        },
+        {
+          "type": "text",
+          "value": "Beispiel: perfekter Oberbau, aber weicher Untergrund."
+        },
+        {
+          "type": "text",
+          "value": "Ergebnis: Gleislagefehler, haeufige Stopfarbeiten und langfristige Schaeden."
+        },
+        {
           "type": "callout",
-          "variant": "info",
+          "variant": "tip",
           "title": "Merksatz",
           "value": "Der Oberbau traegt den Zug, der Unterbau traegt den Oberbau."
         }
       ],
-      "quizRef": ["Q1"]
+      "quizRef": [
+        "Q1"
+      ]
     },
     {
       "id": "lf11-b2",
       "title": "Schienenarten und Schienenlage",
       "goals": [
-        "Grundlegende Schienenarten einordnen",
-        "Spurweite, Hoehenlage und Seitenlage als Lageparameter anwenden"
+        "Schienenarten und Schienenprofile fachlich einordnen",
+        "Spurweite, Hoehenlage und Seitenlage als Lageparameter verstehen",
+        "Sicherheitsrelevanz von Lageabweichungen erklaeren"
       ],
-      "summary": "Die Spurweite beschreibt den Abstand der Schieneninnenkanten.",
+      "summary": "Schienenart, Profil und exakte Schienenlage sind entscheidend fuer Fahrqualitaet, Verschleiss und Betriebssicherheit.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Schienenarten - Grundverstaendnis"
+        },
+        {
+          "type": "text",
+          "value": "Vignolschiene (Standard)"
+        },
+        {
+          "type": "text",
+          "value": "Die Vignolschiene ist heute Standard im Eisenbahnbereich."
+        },
+        {
+          "type": "text",
+          "value": "Sie besteht aus:"
+        },
         {
           "type": "list",
           "items": [
-            "Vignolschiene ist der Standard im Eisenbahnbereich",
-            "Schienenprofile unterscheiden sich nach Gewicht und Einsatzbereich",
-            "Schienenlage wird u. a. ueber Spurweite, Hoehenlage und Seitenlage beschrieben"
+            "Schienenkopf",
+            "Schienensteg",
+            "Schienenfuss"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Vorteile:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "hohe Tragfaehigkeit",
+            "gute Befestigungsmoeglichkeit",
+            "geeignet fuer hohe Achslasten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2. Unterschiedliche Schienenprofile"
+        },
+        {
+          "type": "text",
+          "value": "Schienen unterscheiden sich nach:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Gewicht pro Meter",
+            "Profilhoehe",
+            "Stegdicke",
+            "Einsatzbereich"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Schwere Profile:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Hauptstrecken",
+            "hohe Achslasten",
+            "hohe Geschwindigkeit"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Leichtere Profile:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Nebenbahnen",
+            "Industriegleise",
+            "geringere Belastung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Spurweite - sicherheitsrelevanter Kernparameter"
+        },
+        {
+          "type": "text",
+          "value": "Die Spurweite ist der Abstand zwischen den Innenkanten der beiden Schienen."
+        },
+        {
+          "type": "text",
+          "value": "Im Regelspurbereich: 1435 mm."
+        },
+        {
+          "type": "text",
+          "value": "Abweichungen sind sicherheitskritisch."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zu grosse Spurweite: Entgleisungsgefahr",
+            "Zu kleine Spurweite: erhoehter Verschleiss und Laufprobleme"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Lageparameter eines Gleises"
+        },
+        {
+          "type": "text",
+          "value": "Die Schienenlage wird beschrieben durch:"
+        },
+        {
+          "type": "text",
+          "value": "1) Spurweite"
+        },
+        {
+          "type": "text",
+          "value": "Abstand der Schienen."
+        },
+        {
+          "type": "text",
+          "value": "2) Hoehenlage"
+        },
+        {
+          "type": "text",
+          "value": "Vertikale Lage der Schienen, zum Beispiel gleichmaessig, mit Durchbiegungen oder Senken."
+        },
+        {
+          "type": "text",
+          "value": "3) Seitenlage"
+        },
+        {
+          "type": "text",
+          "value": "Seitliche Position des Gleises, zum Beispiel Verschiebungen oder Ausknickungen."
+        },
+        {
+          "type": "text",
+          "value": "Diese drei Parameter bestimmen Fahrqualitaet und Sicherheit."
+        },
+        {
+          "type": "text",
+          "value": "5. Warum Lageabweichungen kritisch sind"
+        },
+        {
+          "type": "text",
+          "value": "Abweichungen fuehren zu erhoehtem Verschleiss, unruhigem Lauf, dynamischen Zusatzkraeften und Entgleisungsrisiko."
+        },
+        {
+          "type": "text",
+          "value": "Deshalb wird die Gleislage regelmaessig vermessen, kontrolliert und korrigiert (Stopfen oder Richten)."
         },
         {
           "type": "callout",
           "variant": "danger",
-          "title": "Sicherheit",
+          "title": "Sicherheitshinweis",
           "value": "Abweichungen in der Spurweite sind unmittelbar sicherheitsrelevant."
         }
       ],
-      "quizRef": ["Q2"]
+      "quizRef": [
+        "Q2"
+      ]
     },
     {
       "id": "lf11-b3",
       "title": "Schwellen und Kleineisen",
       "goals": [
-        "Schwellenarten mit ihren Einsatzbereichen unterscheiden",
-        "Funktion von Kleineisen fuer Spurhaltung und Befestigung verstehen"
+        "Schwellenarten und Einsatzbereiche fachlich unterscheiden",
+        "Funktion und Bedeutung der Kleineisen fuer Spurhaltung und Stabilitaet erklaeren",
+        "Typische Schaeden an Kleineisen erkennen und korrekt reagieren"
       ],
-      "summary": "Kleineisen befestigen die Schiene auf der Schwelle und sichern die Lage.",
+      "summary": "Nur das Zusammenspiel aus Schiene, Kleineisen und Schwelle sichert Spurweite, Lage und Kraftuebertragung.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Die Schwelle verbindet Schiene und Schotter. Die Kleineisen verbinden Schiene und Schwelle."
+        },
+        {
+          "type": "text",
+          "value": "Nur das Zusammenspiel aus Schiene, Kleineisen und Schwelle sichert die Spurweite, Lage und Kraftuebertragung."
+        },
+        {
+          "type": "text",
+          "value": "2. Aufgaben der Schwelle"
+        },
+        {
+          "type": "text",
+          "value": "Schwellen haben mehrere zentrale Funktionen:"
+        },
         {
           "type": "list",
           "items": [
-            "Betonschwellen sind heute Standard, Holzschwellen vor allem in Sonderbereichen",
-            "Stahlschwellen kommen vergleichsweise selten vor",
-            "Kleineisen (z. B. Klemmen, Schrauben, Platten) fixieren die Schiene auf der Schwelle"
+            "Spurhaltung: Abstand der Schienen konstant halten",
+            "Lastverteilung: Radlast von der Schiene auf das Schotterbett verteilen",
+            "Lagefixierung: horizontale und vertikale Kraefte aufnehmen",
+            "Befestigungsbasis fuer Kleineisen"
           ]
+        },
+        {
+          "type": "text",
+          "value": "3. Schwellenarten und Einsatzbereiche"
+        },
+        {
+          "type": "text",
+          "value": "1) Betonschwellen (Standard)"
+        },
+        {
+          "type": "text",
+          "value": "Heute im Streckennetz ueberwiegend verwendet."
+        },
+        {
+          "type": "text",
+          "value": "Vorteile:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "hohe Lebensdauer",
+            "formstabil",
+            "geeignet fuer hohe Achslasten",
+            "gut maschinell stopfbar"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Einsatz:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Hauptstrecken",
+            "Schnellfahrstrecken",
+            "stark belastete Gleise"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Holzschwellen"
+        },
+        {
+          "type": "text",
+          "value": "Heute vor allem verwendet bei Weichen, Bruecken und Sonderkonstruktionen."
+        },
+        {
+          "type": "text",
+          "value": "Vorteile:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "elastischer",
+            "leichter zu bearbeiten",
+            "flexibler bei Sonderloesungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Nachteile:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "kuerzere Lebensdauer",
+            "empfindlicher gegenueber Feuchtigkeit"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Stahlschwellen"
+        },
+        {
+          "type": "text",
+          "value": "Heute selten, vor allem in Sonderfaellen und Altanlagen."
+        },
+        {
+          "type": "text",
+          "value": "Vorteile:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "geringes Gewicht",
+            "gute Lagefixierung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Kleineisen - Funktion und Bedeutung"
+        },
+        {
+          "type": "text",
+          "value": "Kleineisen sind die Befestigungselemente zwischen Schiene und Schwelle."
+        },
+        {
+          "type": "text",
+          "value": "Typische Bauteile:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Spannklemmen",
+            "Schrauben",
+            "Rippenplatten",
+            "Unterlagsplatten",
+            "Isolierstuecke"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Aufgaben der Kleineisen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Fixierung der Schiene auf der Schwelle",
+            "Sicherung der Spurweite",
+            "Aufnahme horizontaler Kraefte",
+            "elastische Lagerung der Schiene",
+            "Weiterleitung von Lasten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ohne funktionierende Kleineisen verliert das Gleis Spurtreue, Stabilitaet und Sicherheit."
+        },
+        {
+          "type": "text",
+          "value": "5. Typische Schaeden an Kleineisen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "gelockerte Schrauben",
+            "gebrochene Spannklemmen",
+            "Korrosion",
+            "fehlende Teile",
+            "beschaedigte Isolierungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Spurweitenveraenderung",
+            "Schienenwanderung",
+            "erhoehter Verschleiss",
+            "Sicherheitsrisiko"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Kontrolle"
+        },
+        {
+          "type": "text",
+          "value": "Lose oder beschaedigte Kleineisen muessen sofort erkannt, dokumentiert und ersetzt oder nachgezogen werden."
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Kontrolle",
-          "value": "Lose oder beschaedigte Kleineisen muessen sofort erkannt und behoben werden."
+          "title": "Merksatz",
+          "value": "Schwelle verteilt die Last, Kleineisen sichern die Lage."
         }
       ],
-      "quizRef": ["Q3"]
+      "quizRef": [
+        "Q3"
+      ]
     },
     {
       "id": "lf11-b4",
       "title": "Schotterbett und Stopfarbeiten",
       "goals": [
         "Aufgaben des Schotterbetts sicher benennen",
-        "Stopfen als zentrale Massnahme zur Lagekorrektur verstehen"
+        "Stopfen als zentrale Massnahme zur Lagekorrektur verstehen",
+        "Typische Stopffehler und deren Auswirkungen auf Fahrqualitaet erklaeren"
       ],
-      "summary": "Stopfen verdichtet den Schotter unter der Schwelle und stellt die Gleislage ein.",
+      "summary": "Schotterbett und gleichmaessige Stopfung sind entscheidend fuer Entwaesserung, stabile Gleislage und ruhigen Lauf.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Aufgaben des Schotterbetts"
+        },
+        {
+          "type": "text",
+          "value": "Das Schotterbett ist nicht nur Steine unter dem Gleis, sondern ein technisches Funktionsbauteil."
+        },
+        {
+          "type": "text",
+          "value": "Technische Funktionen:"
+        },
+        {
+          "type": "text",
+          "value": "1) Lastverteilung"
+        },
+        {
+          "type": "text",
+          "value": "Radlast -> Schiene -> Schwelle -> Schotter. Der Schotter verteilt die Last in den Unterbau."
+        },
+        {
+          "type": "text",
+          "value": "2) Entwaesserung"
+        },
         {
           "type": "list",
           "items": [
-            "Schotter verteilt Lasten, entwassert und stabilisiert die Gleislage",
-            "Beim Stopfen wird Schotter unter die Schwelle verdichtet",
-            "So werden Hoehen- und Seitenlage eingestellt",
-            "Stopfen kann von Hand oder maschinell erfolgen"
+            "kantiger Schotter ist wasserdurchlaessig",
+            "verhindert Staunaesse",
+            "schuetzt den Unterbau vor Durchfeuchtung"
           ]
         },
         {
+          "type": "text",
+          "value": "3) Lagefixierung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "stabilisiert Schwellen",
+            "verhindert seitliches Wandern"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Elastische Lagerung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "daempft dynamische Kraefte",
+            "reduziert Schwingungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2. Warum Stopfen notwendig ist"
+        },
+        {
+          "type": "text",
+          "value": "Mit der Zeit verdichtet sich Schotter ungleichmaessig. Es entstehen Senken, Hoehenlage und Seitenlage veraendern sich."
+        },
+        {
+          "type": "text",
+          "value": "Stopfen ist die zentrale Massnahme zur Korrektur."
+        },
+        {
+          "type": "text",
+          "value": "3. Was passiert beim Stopfen?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schwelle wird leicht angehoben",
+            "Schotter wird unter die Schwelle eingebracht",
+            "Schotter wird verdichtet"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ziel:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "korrekte Hoehenlage",
+            "korrekte Seitenlage",
+            "gleichmaessige Auflage"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Arten des Stopfens"
+        },
+        {
+          "type": "text",
+          "value": "1) Handstopfen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "kleinere Korrekturen",
+            "punktuelle Arbeiten",
+            "Weichenbereiche"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Maschinelles Stopfen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Stopfmaschinen",
+            "praezise Vermessung",
+            "grossflaechige Korrekturen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Maschinelles Stopfen ist Standard bei Streckenarbeiten."
+        },
+        {
+          "type": "text",
+          "value": "5. Bedeutung fuer Fahrqualitaet"
+        },
+        {
+          "type": "text",
+          "value": "Ungleichmaessige Stopfung fuehrt zu Lagefehlern, Durchbiegungen, erhoehten dynamischen Kraeften, schlechter Fahrqualitaet und hoeherem Verschleiss."
+        },
+        {
+          "type": "text",
+          "value": "6. Typische Fehler"
+        },
+        {
+          "type": "list",
+          "items": [
+            "nur lokal stopfen, ohne Ursache zu pruefen",
+            "ungleichmaessige Verdichtung",
+            "zu wenig Schotter unter Schwelle",
+            "kein Nachstopfen nach Belastung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Praxis"
+        },
+        {
+          "type": "text",
+          "value": "Stopfen ist keine kosmetische Massnahme, sondern entscheidend fuer Sicherheit, Laufqualitaet und Lebensdauer des Oberbaus."
+        },
+        {
           "type": "callout",
-          "variant": "info",
-          "title": "Praxis",
-          "value": "Ungleichmaessige Stopfung fuehrt zu Lagefehlern und Fahrqualitaetsproblemen."
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Gleichmaessige Stopfung sichert ruhigen Lauf."
         }
       ],
-      "quizRef": ["Q4"]
+      "quizRef": [
+        "Q4"
+      ]
     },
     {
       "id": "lf11-b5",
       "title": "Gleisvermessung und Gleislage",
       "goals": [
-        "Wichtige Messgroessen im Gleisbau anwenden",
-        "Messmittel fuer Lagekontrolle sicher einsetzen"
+        "Wichtige Messgroessen im Gleisbau sicher anwenden",
+        "Messmittel fuer Lagekontrolle fachgerecht einsetzen",
+        "Bedeutung regelmaessiger Vermessung fuer Sicherheit und Instandhaltung erklaeren"
       ],
-      "summary": "Vermessung sichert Fahrqualitaet und Betriebssicherheit.",
+      "summary": "Nur die Vermessung liefert eine belastbare Aussage zur sicheren Gleislage und ist damit zentrale Qualitaets- und Sicherheitskontrolle.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Ein Gleis kann optisch gut aussehen, aber nur die Messung zeigt, ob es sicher befahrbar ist."
+        },
+        {
+          "type": "text",
+          "value": "Vermessung ist deshalb Qualitaetskontrolle, Sicherheitsmassnahme und Grundlage fuer Instandhaltung."
+        },
+        {
+          "type": "text",
+          "value": "Ohne Messung gibt es keine belastbare Aussage zur sicheren Gleislage."
+        },
+        {
+          "type": "text",
+          "value": "2. Wichtige Messgroessen im Gleisbau"
+        },
+        {
+          "type": "text",
+          "value": "1) Spurweite"
+        },
+        {
+          "type": "text",
+          "value": "Abstand der beiden Schieneninnenkanten."
+        },
+        {
+          "type": "text",
+          "value": "Regelspur: 1435 mm."
+        },
         {
           "type": "list",
           "items": [
-            "Wesentliche Messgroessen: Spurweite, Ueberhoehung, Hoehenlage und Seitenlage",
-            "Typische Werkzeuge: Messlatte, Richtlatte, Nivelliergeraet",
-            "Vermessung ist Bestandteil von Einbau, Nacharbeit und Endkontrolle"
+            "Zu gross: Entgleisungsgefahr",
+            "Zu klein: erhoehter Verschleiss und Laufprobleme"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Spurweite ist unmittelbar sicherheitsrelevant."
+        },
+        {
+          "type": "text",
+          "value": "2) Hoehenlage"
+        },
+        {
+          "type": "text",
+          "value": "Vertikale Lage der Schienen."
+        },
+        {
+          "type": "text",
+          "value": "Geprueft wird auf:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Senken",
+            "Durchbiegungen",
+            "Hoehenspruenge"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fehler fuehren zu Stossbelastungen, Schwingungen und Materialermuedung."
+        },
+        {
+          "type": "text",
+          "value": "3) Seitenlage"
+        },
+        {
+          "type": "text",
+          "value": "Seitliche Position des Gleises."
+        },
+        {
+          "type": "text",
+          "value": "Abweichungen fuehren zu unruhigem Lauf, erhoehten QuerkrÃ¤ften sowie Komfort- und Sicherheitsproblemen."
+        },
+        {
+          "type": "text",
+          "value": "4) Ueberhoehung"
+        },
+        {
+          "type": "text",
+          "value": "Ueberhoehung ist die Hoehendifferenz zwischen Aussen- und Innenschiene in Kurven."
+        },
+        {
+          "type": "text",
+          "value": "Zweck:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Ausgleich der Fliehkraefte",
+            "ruhiger Lauf bei Geschwindigkeit"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fehlerhafte Ueberhoehung fuehrt zu einseitiger Belastung, erhoehtem Verschleiss und Sicherheitsrisiko."
+        },
+        {
+          "type": "text",
+          "value": "3. Typische Messmittel"
+        },
+        {
+          "type": "text",
+          "value": "Messlatte oder Spurweitenlehre"
+        },
+        {
+          "type": "list",
+          "items": [
+            "schnelle Kontrolle der Spurweite",
+            "Kontrolle der Kleineisenbefestigung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Richtlatte"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Ueberpruefung von Unebenheiten",
+            "lokale Hoehenkontrolle"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Nivelliergeraet"
+        },
+        {
+          "type": "list",
+          "items": [
+            "praezise Hoehenmessung",
+            "Kontrolle von Laengs- und Querprofil"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ergaenzend praxisnah:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "elektronische Gleismesssysteme",
+            "Messfahrzeuge im Streckennetz"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Wann wird gemessen?"
+        },
+        {
+          "type": "list",
+          "items": [
+            "beim Einbau",
+            "nach Stopfarbeiten",
+            "bei Instandsetzung",
+            "bei Endkontrolle",
+            "regelmaessig im Betrieb"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Messung ist kein einmaliger Vorgang, sondern Bestandteil des gesamten Lebenszyklus."
+        },
+        {
+          "type": "text",
+          "value": "5. Warum Vermessung entscheidend ist"
+        },
+        {
+          "type": "text",
+          "value": "Ungleichmaessige Lage fuehrt zu erhoehtem Verschleiss, dynamischen Zusatzkraeften, Komfortverlust und Sicherheitsrisiken."
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Qualitaet",
-          "value": "Ohne Messung keine belastbare Aussage zur sicheren Gleislage."
+          "title": "Qualitaetsprinzip",
+          "value": "Messen bedeutet Sicherheit herstellen."
         }
       ],
-      "quizRef": ["Q5"]
+      "quizRef": [
+        "Q5"
+      ]
     },
     {
       "id": "lf11-b6",
       "title": "Einbauablauf eines Gleises (vereinfacht)",
       "goals": [
         "Typischen Einbauablauf in der richtigen Reihenfolge anwenden",
-        "Nach dem Stopfen notwendige Kontrollschritte sicher durchfuehren"
+        "Zusammenhang zwischen Einbauschritten, Stopfen und Endlage erklaeren",
+        "Nach dem Stopfen notwendige Kontroll- und Nacharbeitschritte sicher durchfuehren"
       ],
-      "summary": "Nach dem Stopfen folgen Vermessung und Nachrichten.",
+      "summary": "Der Gleiseinbau folgt einer technisch zwingenden Reihenfolge, bei der jeder Schritt auf dem vorherigen aufbaut.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Der Gleiseinbau folgt einer festen Reihenfolge. Jeder Schritt baut technisch auf dem vorherigen auf."
+        },
+        {
+          "type": "text",
+          "value": "Fehler in fruehen Schritten wirken sich bis zur Endlage aus."
+        },
+        {
+          "type": "text",
+          "value": "2. Vereinfachter Einbauablauf"
+        },
+        {
+          "type": "text",
+          "value": "1) Planum pruefen"
+        },
         {
           "type": "list",
           "items": [
-            "Ablauf: Planum pruefen, Schotter einbauen, Schwellen verlegen, Schienen auflegen",
-            "Danach Befestigung, Stopfen sowie Vermessen und Nachrichten",
-            "Jeder Schritt baut auf dem vorherigen auf und beeinflusst die Endlage"
+            "Tragfaehigkeit",
+            "Ebenheit",
+            "Gefaelle",
+            "Entwaesserung"
           ]
         },
         {
+          "type": "text",
+          "value": "Fehler im Unterbau fuehren spaeter zu Lageproblemen."
+        },
+        {
+          "type": "text",
+          "value": "2) Schotter einbauen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "gleichmaessig verteilen",
+            "erste Grobverdichtung",
+            "ausreichende Schichtdicke"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Schotter bildet die elastische Tragschicht."
+        },
+        {
+          "type": "text",
+          "value": "3) Schwellen verlegen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "gleichmaessiger Abstand",
+            "korrekte Lage",
+            "Flucht beachten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Schienen auflegen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Profil korrekt positionieren",
+            "Laengsrichtung ausrichten",
+            "Stossbereiche pruefen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5) Befestigung mit Kleineisen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schienen fixieren",
+            "Spurweite einstellen",
+            "elastische Lagerung herstellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6) Stopfen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schwellen anheben",
+            "Schotter unterstopfen",
+            "Hoehen- und Seitenlage einstellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Stopfen ist zentrale Massnahme zur Lagekorrektur."
+        },
+        {
+          "type": "text",
+          "value": "7) Vermessen und Nachrichten"
+        },
+        {
+          "type": "text",
+          "value": "Nach dem Stopfen erfolgt:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Spurweitenkontrolle",
+            "Hoehenkontrolle",
+            "Seitenlagekontrolle",
+            "gegebenenfalls Nacharbeiten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Nachrichten bedeutet Feinjustierung der Gleislage."
+        },
+        {
+          "type": "text",
+          "value": "3. Wichtiger Zusammenhang"
+        },
+        {
+          "type": "text",
+          "value": "Stopfen veraendert die Lage. Erst nach ausreichender Verdichtung ist die endgueltige Lage bewertbar."
+        },
+        {
+          "type": "text",
+          "value": "Lagekorrekturen werden erst nach ausreichender Verdichtung verlaesslich bewertet."
+        },
+        {
+          "type": "text",
+          "value": "4. Warum Reihenfolge entscheidend ist"
+        },
+        {
+          "type": "text",
+          "value": "Beispiele:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Unterbau nicht tragfaehig: Stopfen wirkt nur kurzfristig",
+            "Schwellen falsch ausgerichtet: Spurfehler",
+            "keine Vermessung: unsichere Endlage"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Der Ablauf ist technisch zwingend."
+        },
+        {
+          "type": "text",
+          "value": "Ablaufprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Planum -> Schotter -> Schwellen -> Schienen -> Befestigung -> Stopfen -> Vermessen -> Nacharbeiten"
+        },
+        {
           "type": "callout",
-          "variant": "info",
-          "title": "Ablaufprinzip",
-          "value": "Lagekorrekturen werden erst nach ausreichender Verdichtung verlässlich bewertet."
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Erst bauen, dann stopfen, dann messen - nie umgekehrt."
         }
       ],
-      "quizRef": ["Q6"]
+      "quizRef": [
+        "Q6"
+      ]
     },
     {
       "id": "lf11-b7",
       "title": "Sicherheit im Gleisbau",
       "goals": [
         "Hauptgefahren im Gleisbereich klar benennen",
-        "Lebenswichtige Schutzmassnahmen konsequent umsetzen"
+        "Lebenswichtige Schutzmassnahmen konsequent umsetzen",
+        "Arbeitsfreigaben und Zustaendigkeiten sicherheitsgerecht einhalten"
       ],
-      "summary": "Im Gleis gibt es keine zweite Chance.",
+      "summary": "Gleisbau ist Hochrisiko-Arbeit und erfordert wirksame Sicherung, klare Kommunikation und strikte Freigabeprozesse.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Gleisbau ist Hochrisiko-Arbeit."
+        },
+        {
+          "type": "text",
+          "value": "Im Unterschied zu vielen anderen Baustellen gilt hier:"
+        },
         {
           "type": "list",
           "items": [
-            "Hauptgefahren: Zugverkehr, schwere Bauteile, Maschinen und elektrische Anlagen",
-            "Sicherheitsmassnahmen: Sicherungsposten, Sperrpausen, Warnkleidung, klare Kommunikation",
-            "Arbeiten duerfen nur unter wirksamer Sicherung gegen Zugverkehr stattfinden"
+            "Zuege koennen nicht ausweichen",
+            "Bremswege sind extrem lang",
+            "schwere Bauteile wirken mit enormer Kraft",
+            "elektrische Anlagen stehen unter Hochspannung"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Im Gleis gibt es keine zweite Chance."
+        },
+        {
+          "type": "text",
+          "value": "2. Hauptgefahren im Gleisbereich"
+        },
+        {
+          "type": "text",
+          "value": "1) Zugverkehr"
+        },
+        {
+          "type": "text",
+          "value": "Gefahr durch:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "hohe Geschwindigkeit",
+            "lange Bremswege",
+            "geringe Reaktionszeit",
+            "Sogwirkung vorbeifahrender Zuege"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Selbst bei scheinbar freier Strecke koennen Arbeitszuege, Rangierbewegungen und Sonderfahrten auftreten."
+        },
+        {
+          "type": "text",
+          "value": "2) Schwere Bauteile"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schienen (sehr hohes Gewicht)",
+            "Betonschwellen",
+            "Schotter",
+            "Weichenbauteile"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Gefahren:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Quetschungen",
+            "Einklemmen",
+            "Absturz schwerer Teile"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Maschinen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Stopfmaschinen",
+            "Zweiwegebagger",
+            "Hebezeuge",
+            "Trennschleifer"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Risiken:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Anfahrunfaelle",
+            "Quetschgefahr",
+            "Funkenflug",
+            "Laermbelastung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Elektrische Anlagen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Oberleitungen (Hochspannung)",
+            "Stromschienen (zum Beispiel U-Bahn)",
+            "Rueckstromanlagen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Lebensgefahr durch Lichtbogen, Beruehrung und Annaeherung."
+        },
+        {
+          "type": "text",
+          "value": "3. Lebenswichtige Schutzmassnahmen"
+        },
+        {
+          "type": "text",
+          "value": "1) Sicherung gegen Zugverkehr"
+        },
+        {
+          "type": "text",
+          "value": "Arbeiten duerfen nur stattfinden bei:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "wirksamer Sicherung",
+            "Sperrpause",
+            "eingerichteter Sicherungsperson"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Moeglichkeiten:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sicherungsposten",
+            "automatische Warnsysteme",
+            "betriebliche Sperrung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Klare Kommunikation"
+        },
+        {
+          "type": "list",
+          "items": [
+            "eindeutige Kommandos",
+            "abgestimmte Handzeichen",
+            "Funkverbindung",
+            "klare Verantwortlichkeiten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Missverstaendnisse sind im Gleis lebensgefaehrlich."
+        },
+        {
+          "type": "text",
+          "value": "3) Persoenliche Schutzausruestung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Warnkleidung (hohe Sichtbarkeit)",
+            "Sicherheitsschuhe",
+            "Helm",
+            "gegebenenfalls Gehoerschutz",
+            "gegebenenfalls Atemschutz"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Ordnung im Arbeitsbereich"
+        },
+        {
+          "type": "list",
+          "items": [
+            "keine losen Teile im Gefahrenbereich",
+            "sichere Ablage von Werkzeug",
+            "freier Fluchtweg"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Sicherheitsgrundsatz"
+        },
+        {
+          "type": "text",
+          "value": "Arbeiten im Gleis duerfen niemals beginnen ohne bestaetigte Sicherung, klare Freigabe und eindeutige Zustaendigkeiten."
         },
         {
           "type": "callout",
@@ -182,24 +1323,163 @@
           "value": "Im Gleis gibt es keine zweite Chance."
         }
       ],
-      "quizRef": ["Q7"]
+      "quizRef": [
+        "Q7"
+      ]
     },
     {
       "id": "lf11-b8",
       "title": "Qualitaetskontrolle und typische Fehler",
       "goals": [
         "Wesentliche Kontrollpunkte bei Gleisarbeiten anwenden",
-        "Sicherheitsrelevante Fehler frueh erkennen"
+        "Sicherheitsrelevante Fehler frueh erkennen",
+        "Freigabeentscheidungen auf messbare Kriterien stuetzen"
       ],
-      "summary": "Falsche Spurweite und lose Befestigungen sind kritische Fehler.",
+      "summary": "Ein Gleis darf erst freigegeben werden, wenn Lage, Befestigungen, Schotterverteilung und Sicherheitseinrichtungen geprueft und in Ordnung sind.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Ein Gleis darf erst freigegeben werden, wenn Lage korrekt, Befestigungen sicher, Schotter ausreichend verteilt und Sicherheitseinrichtungen geprueft sind."
+        },
+        {
+          "type": "text",
+          "value": "Qualitaetskontrolle ist unmittelbar sicherheitsrelevant."
+        },
+        {
+          "type": "text",
+          "value": "2. Wesentliche Kontrollpunkte"
+        },
+        {
+          "type": "text",
+          "value": "1) Gleislage"
+        },
         {
           "type": "list",
           "items": [
-            "Kontrollen: Gleislage, Befestigungen, Schotterverteilung und Sicherheitseinrichtungen",
-            "Typische Fehler: falsche Spurweite, ungleichmaessige Stopfung, lose Kleineisen, fehlende Vermessung",
-            "Abweichungen muessen vor Freigabe des Gleises beseitigt werden"
+            "Spurweite korrekt",
+            "Hoehenlage gleichmaessig",
+            "Seitenlage stabil",
+            "Ueberhoehung richtig"
           ]
+        },
+        {
+          "type": "text",
+          "value": "2) Befestigungen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kleineisen vollstaendig",
+            "Spannklemmen korrekt gesetzt",
+            "Schrauben angezogen",
+            "keine beschaedigten Teile"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Schotterverteilung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schwellen vollflaechig unterstopft",
+            "keine Hohlraeume",
+            "gleichmaessige Bettung",
+            "ausreichende Schulterbreite"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Sicherheitseinrichtungen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Absperrungen entfernt?",
+            "Werkzeuge entfernt?",
+            "keine Fremdkoerper im Gleis?"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Typische Fehler im Gleisbau"
+        },
+        {
+          "type": "text",
+          "value": "Falsche Spurweite"
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Entgleisungsgefahr",
+            "erhoehter Verschleiss",
+            "dynamische Belastungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ungleichmaessige Stopfung"
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Setzungen",
+            "Durchbiegungen",
+            "schlechte Fahrqualitaet"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Lose Kleineisen"
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schienenwanderung",
+            "Spurweitenaenderung",
+            "Geraeuschentwicklung",
+            "Sicherheitsrisiko"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fehlende Vermessung"
+        },
+        {
+          "type": "text",
+          "value": "Optisch korrekt ist nicht gleich technisch korrekt."
+        },
+        {
+          "type": "text",
+          "value": "Ohne Messung gibt es keine sichere Aussage und keine belastbare Freigabe."
+        },
+        {
+          "type": "text",
+          "value": "4. Freigabeprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Abweichungen muessen vor Freigabe erkannt, dokumentiert und behoben werden."
+        },
+        {
+          "type": "text",
+          "value": "Ein passt schon gibt es im Gleis nicht."
         },
         {
           "type": "callout",
@@ -208,7 +1488,9 @@
           "value": "Lage- und Befestigungsfehler wirken direkt auf Betriebssicherheit und Fahrqualitaet."
         }
       ],
-      "quizRef": ["Q8"]
+      "quizRef": [
+        "Q8"
+      ]
     },
     {
       "id": "lf11-b9",
@@ -224,7 +1506,23 @@
           "value": "Nutze die Zusatzfragen fuer Wiederholung zu Schiene, Schwelle, Schotter, Gleislage und Arbeitssicherheit im Gleis."
         }
       ],
-      "quizRef": ["Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23"]
+      "quizRef": [
+        "Q9",
+        "Q10",
+        "Q11",
+        "Q12",
+        "Q13",
+        "Q14",
+        "Q15",
+        "Q16",
+        "Q17",
+        "Q18",
+        "Q19",
+        "Q20",
+        "Q21",
+        "Q22",
+        "Q23"
+      ]
     }
   ]
 }

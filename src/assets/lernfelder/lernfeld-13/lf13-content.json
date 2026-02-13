@@ -4,70 +4,519 @@
       "id": "lf13-b1",
       "title": "Grundlagen: Was ist eine Weiche?",
       "goals": [
-        "Aufbau und Funktion einer Weiche erklaeren",
-        "Die wichtigsten Weichenbauteile sicher benennen"
+        "Funktion und Sicherheitsrelevanz von Weichen im Gleisnetz erklaeren",
+        "Hauptbestandteile einer Weiche fachlich korrekt benennen",
+        "Typische sicherheitskritische Fehlerquellen einordnen"
       ],
-      "summary": "Weichen ermoeglichen das sichere Abzweigen zwischen Gleisen und sind sicherheitskritisch.",
+      "summary": "Weichen sind bewegliche, hochbelastete und sicherheitskritische Gleisbauteile fuer den sicheren Fahrwegwechsel.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Eine Weiche ermoeglicht es einem Zug, von einem Gleis auf ein anderes zu wechseln."
+        },
+        {
+          "type": "text",
+          "value": "Sie ist bewegliches Gleisbauteil, geometrisch komplex, hochbelastet und sicherheitskritisch."
+        },
+        {
+          "type": "text",
+          "value": "Weichen sind die sicherheitskritischsten Bauteile im Gleisbau. Fehler an Weichen koennen unmittelbar zu Entgleisungen fuehren."
+        },
+        {
+          "type": "text",
+          "value": "2. Funktion einer Weiche"
+        },
+        {
+          "type": "text",
+          "value": "Weichen ermoeglichen:"
+        },
         {
           "type": "list",
           "items": [
-            "Funktion: Wechsel der Fahrtrichtung zwischen Haupt- und Nebengleis",
-            "Hauptbestandteile: Zungen, Backenschienen, Herzstueck, Radlenker",
-            "Weitere Bauteile: Weichenschwellen, Kleineisen, Stellvorrichtung oder Antrieb"
+            "Abzweigen vom Hauptgleis",
+            "Einfaedeln in Nebengleise",
+            "Richtungswechsel",
+            "flexible Betriebsfuehrung"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Eine Weiche muss Radfuehrung sicherstellen, Spurweite exakt halten, mechanisch belastbar sein und bewegliche Teile zuverlaessig fuehren."
+        },
+        {
+          "type": "text",
+          "value": "3. Hauptbestandteile einer Weiche"
+        },
+        {
+          "type": "text",
+          "value": "1) Zungen"
+        },
+        {
+          "type": "text",
+          "value": "Bewegliche Schienenprofile."
+        },
+        {
+          "type": "text",
+          "value": "Funktion:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "legen fest, welchen Fahrweg der Zug nimmt",
+            "liegen an einer Backenschiene an"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Fehler bei Zungen fuehren zu falscher Radfuehrung und Entgleisungsgefahr."
+        },
+        {
+          "type": "text",
+          "value": "2) Backenschienen"
+        },
+        {
+          "type": "text",
+          "value": "Feste Schienen neben den Zungen."
+        },
+        {
+          "type": "text",
+          "value": "Funktion:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "bilden die Anlageflaeche fuer die Zungen",
+            "fuehren die Raeder stabil"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Herzstueck"
+        },
+        {
+          "type": "text",
+          "value": "Der Kreuzungspunkt der Schienen im Abzweigbereich. Hier entsteht eine Spurluecke."
+        },
+        {
+          "type": "text",
+          "value": "Funktion: sichere Ueberfuehrung der Raeder, praezise Geometrie zwingend erforderlich."
+        },
+        {
+          "type": "text",
+          "value": "Herzstuecke sind besonders verschleissanfaellig."
+        },
+        {
+          "type": "text",
+          "value": "4) Radlenker"
+        },
+        {
+          "type": "text",
+          "value": "Seitlich angeordnete Fuehrungsschienen."
+        },
+        {
+          "type": "text",
+          "value": "Funktion:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "fuehren die Rads?tze im Herzstueckbereich",
+            "verhindern falsches Auffahren"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5) Weitere Bauteile"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Weichenschwellen (laenger und stabiler als Standardschwellen)",
+            "spezielle Kleineisen",
+            "Stellvorrichtung oder elektrischer Antrieb",
+            "Verschluss- und Sicherungseinrichtungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Warum Weichen besonders sicherheitskritisch sind"
+        },
+        {
+          "type": "text",
+          "value": "Weichen vereinen bewegliche Teile, enge Toleranzen, komplexe Geometrie und hohe Belastung."
+        },
+        {
+          "type": "text",
+          "value": "Fehler koennen entstehen durch falsche Zungenlage, verschlissene Herzstuecke, lose Befestigungen und falsche Spurweite."
         },
         {
           "type": "callout",
           "variant": "danger",
           "title": "Sicherheitsrelevanz",
-          "value": "Weichen sind die sicherheitskritischsten Bauteile im Gleisbau. Fehler koennen akute Betriebsgefahr ausloesen."
+          "value": "Eine falsch liegende Zunge kann akute Betriebsgefahr ausloesen."
         }
       ],
-      "quizRef": ["Q1"]
+      "quizRef": [
+        "Q1"
+      ]
     },
     {
       "id": "lf13-b2",
       "title": "Weichenarten und Grundverstaendnis",
       "goals": [
-        "Typische Weichenarten unterscheiden",
-        "Bauform, Abzweigwinkel und Einsatzbereich zuordnen"
+        "Typische Weichenarten und ihre Bauformen unterscheiden",
+        "Abzweigwinkel, Einbauort und Einsatzbereich technisch einordnen",
+        "Einfluss der Weichenwahl auf Dynamik, Wartung und Kosten bewerten"
       ],
-      "summary": "Einfache Weichen, Innenbogen- und Aussenbogenweichen unterscheiden sich vor allem in Geometrie und Einsatz.",
+      "summary": "Die Weichenart bestimmt Fahrdynamik, Platzbedarf, Wartungsaufwand und Wirtschaftlichkeit ueber die Lebensdauer.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Weichen unterscheiden sich vor allem durch Bauform, Abzweigwinkel, Einbauort und betriebliche Funktion."
+        },
+        {
+          "type": "text",
+          "value": "Die Wahl der Weichenart beeinflusst Fahrdynamik, Platzbedarf, Wartungsaufwand und Baukosten."
+        },
+        {
+          "type": "text",
+          "value": "2. Typische Weichenarten"
+        },
+        {
+          "type": "text",
+          "value": "1) Einfache Weiche (links oder rechts)"
+        },
+        {
+          "type": "text",
+          "value": "Standardform."
+        },
+        {
+          "type": "text",
+          "value": "Merkmale:"
+        },
         {
           "type": "list",
           "items": [
-            "Typische Formen: einfache Weiche links/rechts, Innenbogenweiche, Aussenbogenweiche",
-            "Kreuzungsweichen werden im Grundverstaendnis ueberblicksartig betrachtet",
-            "Hauptunterschiede: Bauform, Abzweigwinkel, betrieblicher Einsatzbereich"
+            "ein gerader Strang",
+            "ein abzweigender Strang",
+            "festgelegter Abzweigwinkel"
           ]
         },
         {
+          "type": "text",
+          "value": "Einsatz:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bahnhoefe",
+            "Ueberholgleise",
+            "Streckenabzweige"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Innenbogenweiche"
+        },
+        {
+          "type": "text",
+          "value": "Eingebaut in einer bestehenden Kurve."
+        },
+        {
+          "type": "text",
+          "value": "Besonderheit:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "komplexere Geometrie",
+            "hoehere Belastung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Einsatz:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "beengte Platzverhaeltnisse",
+            "bestehende Kurvenlagen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Aussenbogenweiche"
+        },
+        {
+          "type": "text",
+          "value": "Abzweig erfolgt nach aussen aus einer Kurve."
+        },
+        {
+          "type": "text",
+          "value": "Besonderheit:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "groesserer Platzbedarf",
+            "besondere Belastungssituation"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Kreuzungsweichen (Grundverstaendnis)"
+        },
+        {
+          "type": "text",
+          "value": "Dazu zaehlen einfache Kreuzungen und Doppelkreuzungsweichen."
+        },
+        {
+          "type": "text",
+          "value": "Sie ermoeglichen komplexe Gleisverbindungen und Kreuzungen von Fahrwegen."
+        },
+        {
+          "type": "text",
+          "value": "Hoher Wartungsaufwand."
+        },
+        {
+          "type": "text",
+          "value": "3. Wichtige Unterscheidungsmerkmale"
+        },
+        {
+          "type": "text",
+          "value": "Bauform"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Laenge",
+            "Schwellenanordnung",
+            "Herzstueckform"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Abzweigwinkel"
+        },
+        {
+          "type": "text",
+          "value": "Bestimmt Geschwindigkeit, beeinflusst Fahrkomfort und bestimmt Verschleiss."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kleiner Winkel: groessere Laenge, hoehere Geschwindigkeit moeglich",
+            "Grosser Winkel: kompakter, geringere Geschwindigkeit"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Betrieblicher Einsatz"
+        },
+        {
+          "type": "text",
+          "value": "Je nach Zugart, Geschwindigkeit, Achslast und Platzverhaeltnissen."
+        },
+        {
+          "type": "text",
+          "value": "4. Praxisbezug"
+        },
+        {
+          "type": "text",
+          "value": "Die Auswahl einer Weiche beeinflusst Betriebssicherheit, Instandhaltungsintervalle, Verschleissverhalten und Kosten ueber die Lebensdauer."
+        },
+        {
           "type": "callout",
-          "variant": "info",
-          "title": "Praxis",
-          "value": "Die korrekte Auswahl der Weichenart bestimmt Fahrdynamik, Platzbedarf und Instandhaltungsaufwand."
+          "variant": "tip",
+          "title": "Praxissatz",
+          "value": "Die richtige Weichenart bestimmt Sicherheit, Dynamik und Wirtschaftlichkeit."
         }
       ],
-      "quizRef": ["Q2"]
+      "quizRef": [
+        "Q2"
+      ]
     },
     {
       "id": "lf13-b3",
       "title": "Zungen, Backenschienen und Herzstueck",
       "goals": [
-        "Funktion beweglicher und fester Fuehrungsteile erklaeren",
-        "Verschleisskritische Bereiche erkennen"
+        "Grundprinzip der Radfuehrung in der Weiche erklaeren",
+        "Funktionen von Zungen, Backenschienen, Herzstueck und Radlenkern sicher benennen",
+        "Verschleisskritische Bereiche und Sicherheitsrisiken fachlich einordnen"
       ],
-      "summary": "Zungen legen den Fahrweg fest, Herzstuecke fuehren im Kreuzungsbereich, Radlenker sichern den Radsatzlauf.",
+      "summary": "In der Weiche wird der Radsatz aktiv umgelenkt: Zunge legt, Herzstueck fuehrt und Radlenker sichern die Spur.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip der Radfuehrung in der Weiche"
+        },
+        {
+          "type": "text",
+          "value": "In einer Weiche wird der Radsatz nicht nur gefuehrt, sondern aktiv umgelenkt."
+        },
+        {
+          "type": "text",
+          "value": "Dabei uebernehmen unterschiedliche Bauteile klar definierte Aufgaben: Zunge legt, Herzstueck fuehrt, Radlenker sichern."
+        },
+        {
+          "type": "text",
+          "value": "2. Die Zungen - bewegliche Fahrweglenkung"
+        },
+        {
+          "type": "text",
+          "value": "Zungen sind bewegliche Schienenprofile."
+        },
+        {
+          "type": "text",
+          "value": "Sie liegen entweder an der linken oder an der rechten Backenschiene an und bestimmen damit den Fahrweg."
+        },
+        {
+          "type": "text",
+          "value": "Funktionen der Zungen:"
+        },
         {
           "type": "list",
           "items": [
-            "Zungen sind bewegliche Schienen und legen den Fahrweg fest",
-            "Backenschienen sind feste Fuehrungsschienen",
-            "Herzstuecke liegen im Kreuzungsbereich und sind stark verschleissbelastet"
+            "legen fest, ob der Zug geradeaus oder in den Abzweig faehrt",
+            "fuehren die Raeder in den gewaehlten Strang",
+            "muessen spaltfrei anliegen"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Kritische Punkte bei Zungen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "vollstaendiges Anliegen an der Backenschiene",
+            "keine Fremdkoerper zwischen Zunge und Backenschiene",
+            "kein Verschleiss an der Zungenspitze",
+            "korrekter Stellweg"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Schon kleine Spalte koennen dazu fuehren, dass ein Rad auffaehrt."
+        },
+        {
+          "type": "text",
+          "value": "3. Backenschienen - feste Fuehrung"
+        },
+        {
+          "type": "text",
+          "value": "Backenschienen sind die festen Schienen im Zungenbereich."
+        },
+        {
+          "type": "text",
+          "value": "Funktion:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Anlageflaeche fuer die Zunge",
+            "Fuehrung des Rades beim Uebergang",
+            "Aufnahme von Querkr?ften"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Sie muessen masshaltig, verschleissarm und korrekt befestigt sein."
+        },
+        {
+          "type": "text",
+          "value": "4. Das Herzstueck - hochbelasteter Kreuzungsbereich"
+        },
+        {
+          "type": "text",
+          "value": "Das Herzstueck liegt im Bereich, wo sich die Schienen kreuzen. Hier entsteht eine Spurluecke."
+        },
+        {
+          "type": "text",
+          "value": "Das Rad ueberfaehrt kurzzeitig eine Unterbrechung der Schienenfuehrung."
+        },
+        {
+          "type": "text",
+          "value": "Funktion des Herzstuecks:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Ueberfuehrung des Rades vom Haupt- in den Abzweigstrang",
+            "praezise Radfuehrung im Kreuzungsbereich"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Verschleiss im Herzstueck:"
+        },
+        {
+          "type": "text",
+          "value": "Herzstuecke sind extrem verschleissbelastet durch Stosskraefte, hohe Punktlasten, dynamische Belastung und Fliehkraefte in Kurven."
+        },
+        {
+          "type": "text",
+          "value": "Typische Schaeden:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Materialausbrueche",
+            "Riffelbildung",
+            "Risse",
+            "Profilveraenderung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Radlenker - zusaetzliche Fuehrung"
+        },
+        {
+          "type": "text",
+          "value": "Radlenker liegen gegenueber dem Herzstueck."
+        },
+        {
+          "type": "text",
+          "value": "Funktion:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "seitliche Fuehrung des Rades",
+            "Sicherstellung des richtigen Laufs im Herzstueck",
+            "Verhinderung von Fehlauffahrungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ohne Radlenker koennte das Rad im Herzstueckbereich falsch laufen."
+        },
+        {
+          "type": "text",
+          "value": "6. Verschleisskritische Bereiche"
+        },
+        {
+          "type": "text",
+          "value": "Besonders kritisch sind Zungenspitzen, Herzstueckspitze, Radlenkerabstaende und Befestigungen im Zungenbereich."
+        },
+        {
+          "type": "text",
+          "value": "Hier muessen Inspektionen besonders sorgfaeltig erfolgen."
+        },
+        {
+          "type": "callout",
+          "variant": "danger",
+          "title": "Sicherheitsbezug",
+          "value": "Weichenfehler wirken sofort auf Spurfuehrung, Laufstabilitaet und Entgleisungssicherheit."
         },
         {
           "type": "callout",
@@ -76,102 +525,689 @@
           "value": "Zunge legt - Herzstueck fuehrt - Radlenker sichern."
         }
       ],
-      "quizRef": ["Q3"]
+      "quizRef": [
+        "Q3"
+      ]
     },
     {
       "id": "lf13-b4",
       "title": "Stellvorrichtung und Weichenantrieb",
       "goals": [
-        "Aufgaben der Stelltechnik benennen",
-        "Endlagen und Stellweg sicher bewerten"
+        "Aufgaben der Stelltechnik bei Weichen sicher erklaeren",
+        "Antriebsarten und Endlagensicherung fachlich unterscheiden",
+        "Typische Stellfehler und deren Sicherheitsfolgen erkennen"
       ],
-      "summary": "Stellvorrichtungen bewegen die Zungen, sichern Endlagen und legen den Fahrweg eindeutig fest.",
+      "summary": "Die Stellvorrichtung bewegt und verriegelt die Zungen; sichere Befahrung ist nur bei vollstaendig anliegender und gesicherter Endlage zulaessig.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Die Stellvorrichtung bewegt die Zungen."
+        },
+        {
+          "type": "text",
+          "value": "Der Weichenantrieb sorgt dafuer, dass die Zungen sicher bewegt werden, die Endlage eindeutig erreicht wird und der Fahrweg festgelegt und gesichert ist."
+        },
+        {
+          "type": "text",
+          "value": "Eine Weiche darf nur befahren werden, wenn die Zungen vollstaendig anliegen."
+        },
+        {
+          "type": "text",
+          "value": "2. Aufgaben der Stelltechnik"
+        },
+        {
+          "type": "text",
+          "value": "1) Zungen bewegen"
+        },
         {
           "type": "list",
           "items": [
-            "Aufgaben: Zungen bewegen, Endlagen sichern, Fahrweg eindeutig festlegen",
-            "Antriebsarten: mechanisch, elektrisch oder hydraulisch je nach Anlage",
-            "Wichtig: Zungen muessen vollstaendig anliegen und der Stellweg korrekt eingestellt sein"
+            "definierter Stellweg",
+            "gleichmaessige Bewegung",
+            "kein Verklemmen"
           ]
+        },
+        {
+          "type": "text",
+          "value": "2) Endlagen sichern"
+        },
+        {
+          "type": "text",
+          "value": "Die Zunge muss vollstaendig an der Backenschiene anliegen, mechanisch verriegelt sein und eindeutig in einer Stellung stehen."
+        },
+        {
+          "type": "text",
+          "value": "Zwischenlagen sind unzulaessig."
+        },
+        {
+          "type": "text",
+          "value": "3) Fahrweg eindeutig festlegen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Hauptgleis oder Abzweig",
+            "mechanische oder elektrische Rueckmeldung",
+            "Sicherung gegen unbeabsichtigtes Umstellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Antriebsarten"
+        },
+        {
+          "type": "text",
+          "value": "Mechanischer Antrieb"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Handstellhebel",
+            "mechanische Gestaenge",
+            "haeufig in Nebenbahnen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Elektrischer Antrieb"
+        },
+        {
+          "type": "list",
+          "items": [
+            "motorischer Stellvorgang",
+            "Rueckmeldung an Stellwerk",
+            "haeufig im Hauptstreckennetz"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Hydraulischer Antrieb"
+        },
+        {
+          "type": "list",
+          "items": [
+            "hohe Stellkraft",
+            "Einsatz bei schweren Weichenanlagen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Wichtige Kontrollpunkte"
+        },
+        {
+          "type": "list",
+          "items": [
+            "vollstaendiges Anliegen der Zunge",
+            "kein Spalt sichtbar",
+            "Stellweg korrekt eingestellt",
+            "Verriegelung funktionsfaehig",
+            "kein Fremdkoerper im Zungenbereich"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Typische Fehler"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zunge liegt nicht vollstaendig an",
+            "Stellstange verstellt",
+            "Antrieb blockiert",
+            "Verschmutzung im Zungenraum",
+            "falsche Endlage"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Sicherheitsrisiko"
+        },
+        {
+          "type": "text",
+          "value": "Nicht vollstaendig anliegende Zungen fuehren zu Auffahren der Zunge, Spurwechsel im falschen Moment und Entgleisung."
+        },
+        {
+          "type": "text",
+          "value": "Das Risiko ist unmittelbar und akut."
         },
         {
           "type": "callout",
           "variant": "danger",
-          "title": "Risiko",
-          "value": "Nicht vollstaendig anliegende Zungen erhoehen die Entgleisungsgefahr unmittelbar."
+          "title": "Sicherheitsgrundsatz",
+          "value": "Eine Weiche ist erst sicher, wenn die Zunge vollstaendig anliegt und verriegelt ist."
         }
       ],
-      "quizRef": ["Q4"]
+      "quizRef": [
+        "Q4"
+      ]
     },
     {
       "id": "lf13-b5",
       "title": "Einbau und Bau einer Weiche (vereinfacht)",
       "goals": [
-        "Den typischen Bauablauf in richtiger Reihenfolge darstellen",
-        "Nachweise nach Einbau sicher einordnen"
+        "Den typischen Bauablauf einer Weiche in technisch korrekter Reihenfolge darstellen",
+        "Stelltechnik, Vermessung und Funktionspruefung als Freigabevoraussetzung anwenden",
+        "Kritische Qualitaetsmerkmale im Weichenbereich erkennen und bewerten"
       ],
-      "summary": "Nach Unterbaupruefung folgen Montage, Stopfen sowie Vermessung und Einstellung.",
+      "summary": "Der Weicheneinbau ist komplexer als Regelgleisbau und erfordert praezise Geometrie, exakte Spurfuehrung und belastbare Funktionsnachweise.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Der Einbau einer Weiche ist deutlich komplexer als der Bau eines Regelgleises."
+        },
+        {
+          "type": "text",
+          "value": "Eine Weiche erfordert praezise Geometrie, exakte Spurfuehrung, korrekt eingestellte Stelltechnik und belastbare Funktionsnachweise."
+        },
+        {
+          "type": "text",
+          "value": "Nach dem Stopfen folgen Vermessung und Einstellung als zwingender Funktionsnachweis."
+        },
+        {
+          "type": "text",
+          "value": "2. Typischer Bauablauf einer Weiche"
+        },
+        {
+          "type": "text",
+          "value": "Die Reihenfolge ist technisch zwingend."
+        },
+        {
+          "type": "text",
+          "value": "1) Unterbau und Planum pruefen"
+        },
         {
           "type": "list",
           "items": [
-            "Ablauf: Unterbau und Planum pruefen, Weichenschwellen verlegen",
-            "Schienen und Bauteile montieren, Befestigungen setzen",
-            "Schottern und stopfen, Stellvorrichtung einstellen, anschliessend vermessen und pruefen"
+            "Tragfaehigkeit kontrollieren",
+            "Ebenheit pruefen",
+            "Entwaesserung sicherstellen",
+            "Hoehenlage vorbereiten"
           ]
         },
         {
-          "type": "callout",
-          "variant": "info",
-          "title": "Qualitaet",
-          "value": "Nach dem Stopfen folgen Vermessung und Einstellung als zwingender Funktionsnachweis."
-        }
-      ],
-      "quizRef": ["Q5"]
-    },
-    {
-      "id": "lf13-b6",
-      "title": "Instandhaltung von Weichen",
-      "goals": [
-        "Typische Instandhaltungsarbeiten benennen",
-        "Den hoeheren Wartungsaufwand gegenueber Regelgleis begruenden"
-      ],
-      "summary": "Weichen brauchen wegen beweglicher und stark belasteter Teile deutlich mehr Wartung als Regelgleise.",
-      "content": [
+          "type": "text",
+          "value": "Fehler im Unterbau wirken sich direkt auf die Weichengeometrie aus."
+        },
+        {
+          "type": "text",
+          "value": "2) Weichenschwellen verlegen"
+        },
+        {
+          "type": "text",
+          "value": "Weichenschwellen sind laenger als normale Schwellen, speziell angeordnet und nummeriert."
+        },
+        {
+          "type": "text",
+          "value": "Wichtig:"
+        },
         {
           "type": "list",
           "items": [
-            "Typische Arbeiten: Nachstopfen im Zungen- und Herzstueckbereich",
-            "Zungen nachstellen, einzelne Bauteile austauschen, bewegliche Teile schmieren",
-            "Besonderheit: hoher Wartungsaufwand durch Mechanik und Lastspitzen"
+            "exakte Lage",
+            "korrekter Abstand",
+            "richtige Reihenfolge"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Schienen und Bauteile montieren"
+        },
+        {
+          "type": "text",
+          "value": "Montage von Zungen, Backenschienen, Herzstueck und Radlenkern."
+        },
+        {
+          "type": "text",
+          "value": "Besonderheiten:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "genaue Ausrichtung",
+            "exakte Uebergaenge",
+            "spannungsfreie Montage"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Befestigungen setzen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kleineisen vollstaendig montieren",
+            "Spurweite einstellen",
+            "Befestigung kontrollieren"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Spurweite ist besonders im Herzstueck- und Zungenbereich kritisch."
+        },
+        {
+          "type": "text",
+          "value": "5) Schottern und Stopfen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schotter gleichmaessig einbringen",
+            "unter Schwellen verdichten",
+            "Hoehen- und Seitenlage einstellen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Im Weichenbereich ist Stopfen besonders anspruchsvoll."
+        },
+        {
+          "type": "text",
+          "value": "6) Stellvorrichtung einstellen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zungenbewegung pruefen",
+            "Stellweg einstellen",
+            "vollstaendiges Anliegen kontrollieren",
+            "Endlagen sichern"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Hier entscheidet sich die Funktionssicherheit."
+        },
+        {
+          "type": "text",
+          "value": "7) Vermessen und Pruefen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Spurweite",
+            "Hoehenlage",
+            "Seitenlage",
+            "Ueberhoehung",
+            "Herzstueckmass",
+            "Zungenanliegen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Erst nach vollstaendiger Pruefung darf die Weiche freigegeben werden."
+        },
+        {
+          "type": "text",
+          "value": "3. Qualitaetsanforderungen"
+        },
+        {
+          "type": "text",
+          "value": "Weichen tolerieren deutlich weniger Abweichung als Regelgleise."
+        },
+        {
+          "type": "text",
+          "value": "Besonders kritisch:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zungenlage",
+            "Herzstueckmass",
+            "Spurweite im Uebergangsbereich",
+            "Schotterauflage unter Zungen"
           ]
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Grundsatz",
-          "value": "Weichen muessen enger ueberwacht werden als Regelgleise."
+          "title": "Qualitaetsgrundsatz",
+          "value": "Erst messen, dann freigeben - nie umgekehrt."
         }
       ],
-      "quizRef": ["Q6"]
+      "quizRef": [
+        "Q5"
+      ]
+    },
+    {
+      "id": "lf13-b6",
+      "title": "Instandhaltung von Weichen",
+      "goals": [
+        "Typische Instandhaltungsarbeiten an Weichen fachlich zuordnen",
+        "Hoeheren Wartungsaufwand gegenueber dem Regelgleis technisch begruenden",
+        "Sicherheitskritische Schadensbereiche und Reaktionsbedarf erkennen"
+      ],
+      "summary": "Weichen sind beweglich, komplex und hochbelastet und muessen deshalb haeufiger und intensiver instandgehalten werden als Regelgleise.",
+      "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Weichen sind beweglich, komplex und hochbelastet."
+        },
+        {
+          "type": "text",
+          "value": "Deshalb benoetigen sie deutlich mehr Wartung als Regelgleise."
+        },
+        {
+          "type": "text",
+          "value": "Weichen muessen enger ueberwacht werden als Regelgleise."
+        },
+        {
+          "type": "text",
+          "value": "2. Warum hoeherer Wartungsaufwand?"
+        },
+        {
+          "type": "text",
+          "value": "Weichen vereinen bewegliche Mechanik, hohe Punktbelastung im Herzstueck, enge Toleranzen und komplexe Geometrie."
+        },
+        {
+          "type": "text",
+          "value": "Belastungsspitzen im Herzstueckbereich sind deutlich hoeher als im Regelgleis."
+        },
+        {
+          "type": "text",
+          "value": "3. Typische Instandhaltungsarbeiten"
+        },
+        {
+          "type": "text",
+          "value": "1) Nachstopfen im Zungenbereich"
+        },
+        {
+          "type": "text",
+          "value": "Ziel:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "stabile Auflage der Schwellen",
+            "Vermeidung von Zungenverwindung",
+            "Sicherung der Lage"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ungleichmaessige Stopfung kann das Anliegen der Zunge beeintraechtigen."
+        },
+        {
+          "type": "text",
+          "value": "2) Nachstopfen im Herzstueckbereich"
+        },
+        {
+          "type": "text",
+          "value": "Wichtig wegen Stossbelastung, Setzungsneigung und hohem Verschleiss."
+        },
+        {
+          "type": "text",
+          "value": "3) Zungen nachstellen"
+        },
+        {
+          "type": "text",
+          "value": "Erforderlich bei:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "unvollstaendigem Anliegen",
+            "veraendertem Stellweg",
+            "Verschleiss"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ziel: spaltfreies Anliegen und korrekte Endlage."
+        },
+        {
+          "type": "text",
+          "value": "4) Austausch einzelner Bauteile"
+        },
+        {
+          "type": "text",
+          "value": "Beispiele:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Herzstueck",
+            "Radlenker",
+            "Zungen",
+            "Befestigungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5) Schmieren beweglicher Teile"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Stellstangen",
+            "Gelenke",
+            "Verschluesse"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Ziel: Leichtgaengigkeit, Schutz vor Korrosion und Funktionssicherheit."
+        },
+        {
+          "type": "text",
+          "value": "4. Typische Schadensbereiche"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zungenspitzen",
+            "Herzstueckspitze",
+            "Radlenkerabstaende",
+            "Stellmechanik",
+            "Befestigungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Inspektionshaeufigkeit"
+        },
+        {
+          "type": "text",
+          "value": "Weichen werden haeufiger kontrolliert, intensiver gemessen und enger ueberwacht als Regelgleise."
+        },
+        {
+          "type": "text",
+          "value": "6. Sicherheitsbezug"
+        },
+        {
+          "type": "text",
+          "value": "Weichenfehler koennen fuehren zu Auffahren der Zunge, falschem Fahrweg, Entgleisung und Betriebsstoerung."
+        },
+        {
+          "type": "text",
+          "value": "Deshalb sind sofortige Bewertung und priorisierte Instandsetzung erforderlich."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Grundsatz",
+          "value": "Weichen sind mechanisch komplex und betrieblich kritisch - Wartung ist keine Option, sondern Pflicht."
+        }
+      ],
+      "quizRef": [
+        "Q6"
+      ]
     },
     {
       "id": "lf13-b7",
       "title": "Typische Weichenfehler und Schaeden",
       "goals": [
-        "Gefaehrliche Fehlerbilder im Weichenbereich erkennen",
-        "Betriebliche Folgen korrekt einschaetzen"
+        "Gefaehrliche Fehlerbilder im Weichenbereich sicher erkennen",
+        "Betriebliche und sicherheitsrelevante Folgen fachlich einschaetzen",
+        "Weichenmaengel priorisiert bewerten und dokumentieren"
       ],
-      "summary": "Nicht anliegende Zungen, Herzstueckverschleiss und lose Kleineisen koennen zu Entgleisungen und Betriebseinschraenkungen fuehren.",
+      "summary": "Weichenfehler wirken unmittelbarer als im Regelgleis und koennen direkt zu akuten Sicherheitsrisiken fuehren.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Weichen sind mechanisch komplex und hochbelastet."
+        },
+        {
+          "type": "text",
+          "value": "Fehler im Weichenbereich wirken sich unmittelbarer und schwerwiegender aus als im Regelgleis."
+        },
+        {
+          "type": "text",
+          "value": "Eine nicht anliegende Zunge ist ein akuter sicherheitskritischer Mangel."
+        },
+        {
+          "type": "text",
+          "value": "2. Gefaehrliche Fehlerbilder im Weichenbereich"
+        },
+        {
+          "type": "text",
+          "value": "1) Nicht anliegende Zungen"
+        },
+        {
+          "type": "text",
+          "value": "Die Zunge muss vollstaendig und spaltfrei an der Backenschiene anliegen."
+        },
+        {
+          "type": "text",
+          "value": "Fehlerursachen:"
+        },
         {
           "type": "list",
           "items": [
-            "Fehlerbilder: Zungen liegen nicht an, Verschleiss am Herzstueck, lose Kleineisen",
-            "Zusatzrisiko: Gleislagefehler im Weichenbereich",
-            "Folgen: Entgleisung, Geschwindigkeitsreduzierung, Betriebseinschraenkungen"
+            "Verschmutzung im Zungenraum",
+            "falsch eingestellter Stellweg",
+            "mechanischer Defekt",
+            "Verformung oder Verschleiss"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Gefahr:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Rad kann die Zunge auffahren",
+            "falscher Fahrweg",
+            "Entgleisung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Nicht anliegende Zungen gelten als akute Betriebsgefahr."
+        },
+        {
+          "type": "text",
+          "value": "2) Verschleiss am Herzstueck"
+        },
+        {
+          "type": "text",
+          "value": "Das Herzstueck ist extrem belastet."
+        },
+        {
+          "type": "text",
+          "value": "Typische Schaeden:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Materialausbrueche",
+            "Riffelbildung",
+            "Profilverlust",
+            "Risse"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Stossbelastung",
+            "instabile Radfuehrung",
+            "erhoehter Verschleiss",
+            "Geschwindigkeitsbeschraenkung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Im Extremfall: Bruch oder Spurfuehrungsversagen."
+        },
+        {
+          "type": "text",
+          "value": "3) Lose Kleineisen"
+        },
+        {
+          "type": "text",
+          "value": "Im Weichenbereich besonders kritisch wegen vieler Sonderbefestigungen, hoher Querkräfte und beweglicher Bauteile."
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Spurweitenaenderung",
+            "instabile Lage",
+            "erhoehte Dynamik"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Gleislagefehler im Weichenbereich"
+        },
+        {
+          "type": "text",
+          "value": "Weichen reagieren empfindlicher auf Senken, Seitenverschiebungen und ungleichmaessige Stopfung."
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zungenverwindung",
+            "schlechter Herzstueckuebergang",
+            "erhoehte Belastung der Mechanik"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3. Betriebliche Folgen"
+        },
+        {
+          "type": "text",
+          "value": "Weichenfehler fuehren zu Entgleisungsgefahr, Geschwindigkeitsreduzierung, kurzfristiger Streckensperrung, erhoehtem Wartungsaufwand und Betriebsstoerungen."
+        },
+        {
+          "type": "text",
+          "value": "4. Bewertung von Maengeln"
+        },
+        {
+          "type": "text",
+          "value": "Weichenmaengel muessen sofort bewertet, priorisiert und dokumentiert werden."
+        },
+        {
+          "type": "text",
+          "value": "Viele Fehler dulden keinen Aufschub."
         },
         {
           "type": "callout",
@@ -180,24 +1216,145 @@
           "value": "Eine nicht anliegende Zunge ist ein akuter sicherheitskritischer Mangel."
         }
       ],
-      "quizRef": ["Q7"]
+      "quizRef": [
+        "Q7"
+      ]
     },
     {
       "id": "lf13-b8",
       "title": "Sicherheit bei Weichenarbeiten",
       "goals": [
-        "Spezielle Gefahren an Weichen benennen",
-        "Pflichtmassnahmen fuer sichere Arbeiten anwenden"
+        "Spezielle Gefahren an Weichen gegenueber dem Regelgleis benennen",
+        "Pflichtmassnahmen fuer sichere Arbeiten an Weichen verbindlich anwenden",
+        "Sicheres Verhalten im Bereich beweglicher Weichenbauteile umsetzen"
       ],
-      "summary": "Bewegliche Bauteile, Quetschstellen und Arbeiten unter Betrieb verlangen doppelte Aufmerksamkeit.",
+      "summary": "Weichenarbeiten sind durch bewegliche Bauteile und moegliche Stellbewegungen besonders gefaehrlich und erfordern doppelte Aufmerksamkeit.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Arbeiten an Weichen sind gefaehrlicher als am Regelgleis, weil viele bewegliche Bauteile, enge Zwischenraeume, hohe mechanische Kraefte und moegliche Stellbewegungen auftreten."
+        },
+        {
+          "type": "text",
+          "value": "An Weichen gilt: doppelte Aufmerksamkeit."
+        },
+        {
+          "type": "text",
+          "value": "2. Spezielle Gefahren an Weichen"
+        },
+        {
+          "type": "text",
+          "value": "1) Quetschstellen"
+        },
+        {
+          "type": "text",
+          "value": "Gefahren entstehen zwischen Zunge und Backenschiene, Stellstangen, Antriebsteilen und beweglichen Gelenken."
+        },
+        {
+          "type": "text",
+          "value": "Ploetzliche Bewegung kann schwere Verletzungen verursachen."
+        },
+        {
+          "type": "text",
+          "value": "2) Unerwartete Stellbewegungen"
+        },
+        {
+          "type": "text",
+          "value": "Wenn die Weiche vom Stellwerk bewegt wird, nicht gesichert ist oder falsch abgesprochen wird, entsteht Gefahr durch Quetschung, Einklemmen und schwere Verletzung."
+        },
+        {
+          "type": "text",
+          "value": "3) Arbeiten unter Betrieb"
+        },
+        {
+          "type": "text",
+          "value": "Zusaetzlich zu mechanischen Gefahren kommen Zugverkehr, Zeitdruck und Nachtarbeit."
+        },
+        {
+          "type": "text",
+          "value": "3. Pflichtmassnahmen fuer sichere Arbeiten"
+        },
+        {
+          "type": "text",
+          "value": "1) Sicherung gegen Zugverkehr"
+        },
         {
           "type": "list",
           "items": [
-            "Gefahren: viele Bauteile, Quetschstellen, unerwartete Stellbewegungen",
-            "Arbeiten unter Betrieb erfordern wirksame Sicherung gegen Zugverkehr",
-            "Massnahmen: Stellvorrichtung sichern, klare Kommunikation, abgestimmte Teamarbeit"
+            "betriebliche Freigabe",
+            "Sperrpausen",
+            "Sicherungsposten"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Ohne wirksame Sicherung darf nicht gearbeitet werden."
+        },
+        {
+          "type": "text",
+          "value": "2) Stellvorrichtung sichern"
+        },
+        {
+          "type": "list",
+          "items": [
+            "gegen unbeabsichtigtes Umstellen sichern",
+            "klare Zustaendigkeit festlegen",
+            "Kommunikation mit Stellwerk klaeren"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Klare Kommunikation im Team"
+        },
+        {
+          "type": "list",
+          "items": [
+            "eindeutige Kommandos",
+            "Funkverbindung",
+            "keine parallelen Aktionen ohne Abstimmung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Persoenliche Schutzausruestung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Warnkleidung",
+            "Handschuhe",
+            "Sicherheitsschuhe",
+            "gegebenenfalls Gehoerschutz"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Verhalten im Weichenbereich"
+        },
+        {
+          "type": "list",
+          "items": [
+            "nie zwischen bewegliche Teile greifen",
+            "keine Werkzeuge im Stellbereich liegen lassen",
+            "Stellbewegung nur nach Absprache",
+            "Fluchtweg frei halten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Sicherheitsgrundsatz"
+        },
+        {
+          "type": "text",
+          "value": "Weichen vereinen mechanische Gefahr, betriebliche Gefahr und sicherheitsrelevante Funktion."
+        },
+        {
+          "type": "text",
+          "value": "Deshalb gilt: An Weichen gilt doppelte Aufmerksamkeit."
         },
         {
           "type": "callout",
@@ -206,31 +1363,263 @@
           "value": "An Weichen gilt: doppelte Aufmerksamkeit."
         }
       ],
-      "quizRef": ["Q8"]
+      "quizRef": [
+        "Q8"
+      ]
     },
     {
       "id": "lf13-b9",
       "title": "Kontrolle, Pruefung und Dokumentation",
       "goals": [
-        "Pruefpunkte fuer die Weichenabnahme vollstaendig erfassen",
-        "Dokumentation als Sicherheitsnachweis anwenden"
+        "Vollstaendige Pruefpunkte einer Weichenabnahme sicher anwenden",
+        "Funktion und Messwerte als Freigabevoraussetzung bewerten",
+        "Dokumentation als Sicherheits-, Betriebs- und Rechtsnachweis durchgaengig fuehren"
       ],
-      "summary": "Pruefung umfasst Zungenlage, Spurweite, Herzstueckbereich, Stellweg und Befestigungen inklusive Dokumentation.",
+      "summary": "Eine Weiche darf erst freigegeben werden, wenn alle sicherheitsrelevanten Pruefungen abgeschlossen und lueckenlos dokumentiert sind.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Eine Weiche darf erst freigegeben werden, wenn alle sicherheitsrelevanten Bauteile geprueft, alle Messwerte innerhalb der Toleranz, alle Befestigungen kontrolliert, alle Funktionen getestet und alle Ergebnisse dokumentiert wurden."
+        },
+        {
+          "type": "text",
+          "value": "Lueckenlose Nachweise sind sicherheitsrelevant und betriebsnotwendig."
+        },
+        {
+          "type": "text",
+          "value": "2. Ziel der Weichenpruefung"
+        },
         {
           "type": "list",
           "items": [
-            "Pruefpunkte: Zungenlage, Spurweite, Herzstueckbereich, Stellweg, Befestigungen",
-            "Dokumentation: Messwerte, Sichtpruefung und Abnahmeprotokolle",
-            "Lueckenlose Nachweise sind sicherheitsrelevant und betriebsnotwendig"
+            "Betriebssicherheit sicherstellen",
+            "Entgleisungsgefahr ausschliessen",
+            "mechanische Funktion ueberpruefen",
+            "Nachweis gegenueber Betreiber erbringen"
           ]
         },
         {
           "type": "text",
-          "value": "Grosse Quiz-Bank im App-Stil: 15 Zusatzfragen zur Wiederholung von Aufbau, Fehlerbildern, Instandhaltung und Sicherheit an Weichen."
+          "value": "Weichenpruefung ist mehr als eine Sichtkontrolle, sie ist ein technischer Sicherheitsnachweis."
+        },
+        {
+          "type": "text",
+          "value": "3. Vollstaendige Pruefpunkte einer Weichenabnahme"
+        },
+        {
+          "type": "text",
+          "value": "1) Zungenlage"
+        },
+        {
+          "type": "text",
+          "value": "Pruefen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "vollstaendiges, spaltfreies Anliegen",
+            "kein Fremdkoerper im Zungenraum",
+            "gleichmaessige Anlage an der Backenschiene",
+            "kein sichtbarer Verschleiss an der Zungenspitze"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Zungen muessen eindeutig anliegen und in beiden Endlagen korrekt funktionieren."
+        },
+        {
+          "type": "text",
+          "value": "Nicht anliegende Zungen sind akute Betriebsgefahr."
+        },
+        {
+          "type": "text",
+          "value": "2) Spurweite"
+        },
+        {
+          "type": "text",
+          "value": "Kontrollieren:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "im geraden Strang",
+            "im Abzweig",
+            "im Zungenbereich",
+            "im Herzstueckbereich"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Spurweitenabweichungen im Weichenbereich sind besonders kritisch."
+        },
+        {
+          "type": "text",
+          "value": "3) Herzstueckbereich"
+        },
+        {
+          "type": "text",
+          "value": "Pruefen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Masshaltigkeit",
+            "Verschleisszustand",
+            "Uebergang ohne Stufe",
+            "korrekter Abstand zu Radlenkern"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Herzstuecke sind hochbelastet, kleine Schaeden koennen grosse Folgen haben."
+        },
+        {
+          "type": "text",
+          "value": "4) Stellweg und Stelltechnik"
+        },
+        {
+          "type": "text",
+          "value": "Kontrolle von:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "vollstaendigem Stellweg",
+            "mechanischer Verriegelung",
+            "eindeutiger Endlage",
+            "Rueckmeldung bei elektrischen Antrieben"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Zwischenstellungen sind unzulaessig."
+        },
+        {
+          "type": "text",
+          "value": "5) Befestigungen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kleineisen vollstaendig vorhanden",
+            "Schrauben angezogen",
+            "keine gebrochenen Teile",
+            "keine lockeren Bauteile"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Lose Befestigungen koennen zu Spurweitenfehlern fuehren."
+        },
+        {
+          "type": "text",
+          "value": "4. Funktionstest"
+        },
+        {
+          "type": "text",
+          "value": "Neben der Messung erfolgt Probebewegung der Zungen, Sichtkontrolle der Mechanik und gegebenenfalls Probefahrt."
+        },
+        {
+          "type": "text",
+          "value": "Erst nach Funktionspruefung gilt die Weiche als technisch sicher."
+        },
+        {
+          "type": "text",
+          "value": "5. Dokumentation"
+        },
+        {
+          "type": "text",
+          "value": "Dokumentiert werden muessen:"
+        },
+        {
+          "type": "text",
+          "value": "Messwerte"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Spurweite",
+            "Herzstueckmass",
+            "Ueberhoehung",
+            "Hoehen- und Seitenlage"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Sichtpruefung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Zustand der Zungen",
+            "Zustand Herzstueck",
+            "Zustand Radlenker",
+            "Zustand Befestigungen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Abnahmeprotokolle"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Datum",
+            "Streckenabschnitt",
+            "Art der Massnahme",
+            "verantwortliche Person",
+            "Freigabeentscheidung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Warum Dokumentation so wichtig ist"
+        },
+        {
+          "type": "text",
+          "value": "Dokumentation dient als Sicherheitsnachweis, zur Nachvollziehbarkeit, zur rechtlichen Absicherung, fuer spaetere Schadensanalyse und fuer Instandhaltungsplanung."
+        },
+        {
+          "type": "text",
+          "value": "Bei einem spaeteren Vorfall ist die Dokumentation entscheidend."
+        },
+        {
+          "type": "text",
+          "value": "7. Freigabeprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Eine Weiche darf nur freigegeben werden, wenn keine offenen Maengel bestehen, alle Pruefpunkte erfuellt sind, alle Messwerte innerhalb der Toleranz liegen und die Dokumentation vollstaendig ist."
+        },
+        {
+          "type": "callout",
+          "variant": "tip",
+          "title": "Abschlussgrundsatz",
+          "value": "Pruefen heisst Verantwortung uebernehmen."
         }
       ],
-      "quizRef": ["Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23", "Q24"]
+      "quizRef": [
+        "Q9",
+        "Q10",
+        "Q11",
+        "Q12",
+        "Q13",
+        "Q14",
+        "Q15",
+        "Q16",
+        "Q17",
+        "Q18",
+        "Q19",
+        "Q20",
+        "Q21",
+        "Q22",
+        "Q23",
+        "Q24"
+      ]
     }
   ]
 }

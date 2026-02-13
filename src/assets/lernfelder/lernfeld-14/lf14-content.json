@@ -270,18 +270,141 @@
       "id": "lf14-b3",
       "title": "Gleiskreuzungen und Kreuzungsweichen (Ueberblick)",
       "goals": [
-        "Besondere Bauteilvielfalt in Kreuzungsbereichen benennen",
-        "Belastungsschwerpunkte in komplexen Weichenlagen erkennen"
+        "Grundprinzip und Aufbau von Gleiskreuzungen und Kreuzungsweichen erklaeren",
+        "Belastungsschwerpunkte in Kreuzungsbereichen fachlich einordnen",
+        "Erhoehten Pruef- und Instandhaltungsbedarf sicher begruenden"
       ],
-      "summary": "Kreuzungsbereiche enthalten viele Herzstuecke und Radlenker und gelten als hoch belastet.",
+      "summary": "Kreuzungsbereiche sind hoch belastete, geometrisch komplexe Gleisabschnitte mit erhoehtem Pruef- und Instandhaltungsaufwand.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Kreuzungsbereiche entstehen dort, wo sich zwei Gleise kreuzen, mehrere Fahrwege miteinander verbunden werden oder komplexe Betriebsablaeufe stattfinden."
+        },
+        {
+          "type": "text",
+          "value": "Sie gehoeren zu den am staerksten belasteten Bereichen einer Gleisanlage."
+        },
+        {
+          "type": "text",
+          "value": "Je mehr Kreuzungspunkte, desto hoeher sind Pruef- und Instandhaltungsaufwand."
+        },
+        {
+          "type": "text",
+          "value": "2. Was ist eine Gleiskreuzung?"
+        },
+        {
+          "type": "text",
+          "value": "Eine Gleiskreuzung ist der geometrische Schnittpunkt zweier Gleise ohne bewegliche Zungen."
+        },
+        {
+          "type": "text",
+          "value": "Hier entstehen mehrere Herzstuecke, da sich Schienen gegenseitig kreuzen."
+        },
+        {
+          "type": "text",
+          "value": "3. Was ist eine Kreuzungsweiche?"
+        },
+        {
+          "type": "text",
+          "value": "Eine Kreuzungsweiche kombiniert Weichenfunktion und Kreuzungsfunktion."
+        },
+        {
+          "type": "text",
+          "value": "Sie erlaubt mehrere Fahrwegkombinationen und flexible Verkehrsfuehrung."
+        },
+        {
+          "type": "text",
+          "value": "Typisches Beispiel: Doppelkreuzungsweiche."
+        },
+        {
+          "type": "text",
+          "value": "4. Bauteilvielfalt in Kreuzungsbereichen"
+        },
+        {
+          "type": "text",
+          "value": "Typisch sind:"
+        },
         {
           "type": "list",
           "items": [
-            "Beispiele: Gleiskreuzungen und Kreuzungsweichen",
-            "Typisch sind mehrere Herzstuecke und zahlreiche Radlenker",
-            "Komplexe Geometrie und hohe Lasten erhoehen den Wartungsbedarf"
+            "mehrere Herzstuecke",
+            "zahlreiche Radlenker",
+            "enge Toleranzen",
+            "viele Kleineisen",
+            "komplexe Geometrie"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Im Vergleich zum Regelgleis ist die Bauteilanzahl deutlich hoeher."
+        },
+        {
+          "type": "text",
+          "value": "5. Belastungsschwerpunkte"
+        },
+        {
+          "type": "text",
+          "value": "1) Herzstuecke"
+        },
+        {
+          "type": "list",
+          "items": [
+            "hohe Stossbelastung",
+            "punktuelle Radlast",
+            "starke Materialbeanspruchung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Mehr Herzstuecke bedeuten mehr Verschleissstellen."
+        },
+        {
+          "type": "text",
+          "value": "2) Radlenker"
+        },
+        {
+          "type": "list",
+          "items": [
+            "enge Toleranzen",
+            "hohe seitliche Kraefte",
+            "besonders verschleisskritisch"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Uebergangsbereiche"
+        },
+        {
+          "type": "list",
+          "items": [
+            "unterschiedliche Kraefteverlaeufe",
+            "dynamische Zusatzbelastung",
+            "ungleichmaessige Schotterbeanspruchung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Wartungsaufwand"
+        },
+        {
+          "type": "text",
+          "value": "Kreuzungsanlagen erfordern haeufigere Inspektion, praezisere Vermessung, intensivere Instandhaltung und engmaschige Dokumentation."
+        },
+        {
+          "type": "text",
+          "value": "Kleine Fehler koennen sich schneller verstaerken als im Regelgleis."
+        },
+        {
+          "type": "text",
+          "value": "7. Sicherheitsbezug"
+        },
+        {
+          "type": "text",
+          "value": "Komplexe Geometrie bedeutet mehr potenzielle Fehlstellen, mehr Spurfuehrungsunterbrechungen und hoehere Entgleisungsanfaelligkeit bei Vernachlaessigung."
         },
         {
           "type": "callout",
@@ -298,24 +421,131 @@
       "id": "lf14-b4",
       "title": "Feste Fahrbahn (schotterloser Oberbau)",
       "goals": [
-        "Merkmale der festen Fahrbahn erklaeren",
-        "Einsatzbereiche sowie Vor- und Nachteile einordnen"
+        "Aufbau und Funktionsprinzip der festen Fahrbahn erklaeren",
+        "Einsatzbereiche sowie Vor- und Nachteile gegenueber Schotteroberbau einordnen",
+        "Bedeutung hoher Baupraezision fuer spaetere Instandhaltung bewerten"
       ],
-      "summary": "Feste Fahrbahn arbeitet ohne Schotter, ist lagebestaendig, aber in der Herstellung aufwendig.",
+      "summary": "Die feste Fahrbahn ist ein schotterloser, lagebestaendiger Oberbau mit hohem Bauaufwand und geringen Korrekturmoeglichkeiten.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Die feste Fahrbahn ist ein schotterloser Oberbau."
+        },
+        {
+          "type": "text",
+          "value": "Statt Schotterbett und stopfbarer Lagerung verwendet sie Betontragplatten und feste Unterkonstruktionen."
+        },
+        {
+          "type": "text",
+          "value": "Feste Fahrbahn ist lagebestaendig, aber im Bau sehr anspruchsvoll."
+        },
+        {
+          "type": "text",
+          "value": "2. Aufbau der festen Fahrbahn"
+        },
+        {
+          "type": "text",
+          "value": "Typisch sind tragfaehiger Unterbau, Betontragplatte, Befestigungssystem und Schienen."
+        },
+        {
+          "type": "text",
+          "value": "Eine elastische Schotterschicht ist nicht vorhanden."
+        },
+        {
+          "type": "text",
+          "value": "3. Merkmale"
+        },
         {
           "type": "list",
           "items": [
-            "Merkmale: Schienen auf Betonplatten, kein Schotterbett, hohe Lagekonstanz",
-            "Einsatz: Tunnel, Bruecken, Hochgeschwindigkeitsstrecken, U-Bahn-Systeme",
-            "Vor- und Nachteile: geringerer Wartungsbedarf bei hoeherem Bauaufwand"
+            "hohe Lagekonstanz",
+            "kaum Setzungen",
+            "kein Stopfen erforderlich",
+            "sehr praezise Bauausfuehrung"
           ]
         },
         {
+          "type": "text",
+          "value": "Fehler im Bau lassen sich spaeter nur schwer korrigieren."
+        },
+        {
+          "type": "text",
+          "value": "4. Einsatzbereiche"
+        },
+        {
+          "type": "text",
+          "value": "Feste Fahrbahn wird bevorzugt eingesetzt bei:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Tunneln",
+            "Bruecken",
+            "Hochgeschwindigkeitsstrecken",
+            "U-Bahn-Systemen",
+            "stark belasteten Strecken"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Dort sind hohe Stabilitaet, lange Lebensdauer und geringe Wartungsintervalle entscheidend."
+        },
+        {
+          "type": "text",
+          "value": "5. Vorteile"
+        },
+        {
+          "type": "list",
+          "items": [
+            "geringerer Wartungsaufwand",
+            "keine Stopfarbeiten",
+            "hohe Formstabilitaet",
+            "konstante Gleislage"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "6. Nachteile"
+        },
+        {
+          "type": "list",
+          "items": [
+            "hoher Bauaufwand",
+            "hohe Baukosten",
+            "sehr geringe Korrekturmoeglichkeiten",
+            "Reparaturen aufwendig"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "7. Vergleich mit Schotteroberbau"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schotteroberbau: elastisch | Feste Fahrbahn: sehr steif",
+            "Schotteroberbau: gut stopfbar | Feste Fahrbahn: kaum korrigierbar",
+            "Schotteroberbau: hoeherer Wartungsbedarf | Feste Fahrbahn: geringerer Wartungsbedarf",
+            "Schotteroberbau: geringere Baukosten | Feste Fahrbahn: hoehere Baukosten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Systemwahl"
+        },
+        {
+          "type": "text",
+          "value": "Feste Fahrbahn wird dort genutzt, wo Stabilitaet, Dauerhaftigkeit und geringe Setzungsanfaelligkeit im Vordergrund stehen."
+        },
+        {
           "type": "callout",
-          "variant": "info",
-          "title": "Systemwahl",
-          "value": "Feste Fahrbahn wird dort genutzt, wo hohe Stabilitaet und Dauerhaftigkeit im Fokus stehen."
+          "variant": "tip",
+          "title": "Merksatz",
+          "value": "Hohe Baupraezision ersetzt spaetere Stopfarbeiten."
         }
       ],
       "quizRef": [
@@ -326,23 +556,160 @@
       "id": "lf14-b5",
       "title": "Industrie- und Anschlussgleise",
       "goals": [
-        "Betriebsmerkmale von Industrie- und Anschlussgleisen beschreiben",
-        "Typische Last- und Verschleissbilder ableiten"
+        "Betriebsmerkmale von Industrie- und Anschlussgleisen fachlich einordnen",
+        "Typische Last- und Verschleissbilder erkennen und bewerten",
+        "Instandhaltungsstrategien auf Nutzung und Lastprofil abstimmen"
       ],
-      "summary": "Industriegleise fahren meist langsam, tragen aber hohe Lasten und haben oft spezielle Geometrien.",
+      "summary": "Industrie- und Anschlussgleise sind trotz niedriger Geschwindigkeit oft hoch beansprucht und erfordern angepasste Instandhaltung.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Industrie- und Anschlussgleise unterscheiden sich vom Streckengleis durch geringere Geschwindigkeiten, haeufige Rangierbewegungen, hohe Achslasten, enge Radien und betriebliche Besonderheiten."
+        },
+        {
+          "type": "text",
+          "value": "Geringes Tempo bedeutet nicht geringe Beanspruchung, hohe Lasten bleiben entscheidend."
+        },
+        {
+          "type": "text",
+          "value": "2. Betriebsmerkmale"
+        },
+        {
+          "type": "text",
+          "value": "1) Geringe Geschwindigkeit"
+        },
+        {
+          "type": "text",
+          "value": "Typisch sind Rangierbetrieb, Schrittgeschwindigkeit und kurze Transportwege."
+        },
+        {
+          "type": "text",
+          "value": "Langsam bedeutet nicht materialschonend."
+        },
+        {
+          "type": "text",
+          "value": "2) Hohe Achslasten"
+        },
+        {
+          "type": "text",
+          "value": "Industriegleise transportieren oft schwere Gueterwagen, Massengueter, Tankwagen und Schwerlasttransporte."
+        },
+        {
+          "type": "text",
+          "value": "Hohe Punktlasten fuehren zu:"
+        },
         {
           "type": "list",
           "items": [
-            "Typisch: geringe Geschwindigkeiten bei hohen Achslasten",
-            "Oft liegen besondere Radien und betriebliche Randbedingungen vor",
-            "Unregelmaessige Nutzung und Mischverkehr erzeugen spezielle Verschleissbilder"
+            "starker Schienenbeanspruchung",
+            "intensiver Schwellenbelastung",
+            "erhoehter Unterbaubeanspruchung"
           ]
+        },
+        {
+          "type": "text",
+          "value": "3) Enge Radien"
+        },
+        {
+          "type": "text",
+          "value": "In Werks- oder Hafenanlagen treten haeufig enge Kurven, kurze Uebergaenge und Sondergeometrien auf."
+        },
+        {
+          "type": "text",
+          "value": "Folgen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "einseitiger Schienenverschleiss",
+            "erhoehte Querkraefte",
+            "staerkere Beanspruchung von Kleineisen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Unregelmaessige Nutzung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "zeitweise hohe Belastung",
+            "dann laengere Ruhephasen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Das kann zu Setzungen, Schotterlockerung und Korrosion bei geringer Nutzung fuehren."
+        },
+        {
+          "type": "text",
+          "value": "3. Typische Verschleissbilder"
+        },
+        {
+          "type": "text",
+          "value": "Schienenverschleiss"
+        },
+        {
+          "type": "list",
+          "items": [
+            "einseitiger Kopfverschleiss",
+            "Materialabtrag in engen Radien",
+            "Riffelbildung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Schotterprobleme"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Verdichtung durch hohe Last",
+            "mangelnde Durchlueftung",
+            "Verschmutzung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Befestigungen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "erhoehte Querkraefte",
+            "gelockerte Kleineisen",
+            "Spurweitenaenderung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Instandhaltungsbesonderheiten"
+        },
+        {
+          "type": "text",
+          "value": "Industriegleise benoetigen:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "regelmaessige Spurweitenkontrolle",
+            "Kontrolle enger Radien",
+            "gezieltes Nachstopfen",
+            "verstaerkte Kontrolle von Schienenverschleiss"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Die Wartungsstrategie muss auf Last und Nutzung abgestimmt sein."
         },
         {
           "type": "callout",
           "variant": "tip",
-          "title": "Instandhaltung",
+          "title": "Merksatz",
           "value": "Geringes Tempo bedeutet nicht geringe Beanspruchung - hohe Lasten bleiben entscheidend."
         }
       ],
@@ -354,23 +721,148 @@
       "id": "lf14-b6",
       "title": "Gleise in besonderen Lagen",
       "goals": [
-        "Besondere Einbaulagen sicher unterscheiden",
-        "Arbeitsraum- und Sicherungsprobleme fachlich bewerten"
+        "Besondere Einbaulagen fachlich unterscheiden",
+        "Technische Schwerpunkte bei Bruecken-, Tunnel- und Strassenlagen bewerten",
+        "Arbeitsraum- und Sicherungsprobleme in engen Lagen sicher einordnen"
       ],
-      "summary": "Bruecken-, Tunnel- und Strassenlagen erfordern besondere Sicherung und angepasste Arbeitsverfahren.",
+      "summary": "Gleise in besonderen Lagen haben erhoehte bauliche und sicherungstechnische Anforderungen sowie eingeschraenkte Arbeitsbedingungen.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Gleise in besonderen Lagen unterscheiden sich vom freien Streckengleis durch eingeschraenkten Arbeitsraum, bauliche Randbedingungen und erhoehte Sicherungsanforderungen."
+        },
+        {
+          "type": "text",
+          "value": "Beispiele sind Bruecken, Tunnel und Strassenraum."
+        },
+        {
+          "type": "text",
+          "value": "2. Gleise auf Bruecken"
+        },
+        {
+          "type": "text",
+          "value": "Besonderheiten:"
+        },
         {
           "type": "list",
           "items": [
-            "Beispiele: Gleise auf Bruecken, in Tunneln und im Strassenraum",
-            "Besonderheiten: eingeschraenkter Arbeitsraum und erweiterte Sicherungsmassnahmen",
-            "Entwaesserung und Zugangsbedingungen sind haeufig kritische Punkte"
+            "begrenzte Tragreserven",
+            "eingeschraenkte Schotterhoehe",
+            "haeufig feste Fahrbahn",
+            "besondere Entwaesserung"
           ]
+        },
+        {
+          "type": "text",
+          "value": "Kritische Punkte:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Schwingungen",
+            "Temperaturausdehnung",
+            "Korrosionsschutz",
+            "Befestigungssysteme"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Arbeiten erfordern besondere Sicherung gegen Absturz."
+        },
+        {
+          "type": "text",
+          "value": "3. Gleise in Tunneln"
+        },
+        {
+          "type": "text",
+          "value": "Besonderheiten:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "eingeschraenkter Arbeitsraum",
+            "Beleuchtung notwendig",
+            "Lueftung beachten",
+            "haeufig feste Fahrbahn"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Kritische Punkte:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Entwaesserung",
+            "Brandschutz",
+            "Staubentwicklung",
+            "eingeschraenkte Fluchtwege"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Gleise im Strassenraum"
+        },
+        {
+          "type": "text",
+          "value": "Beispiele sind Strassenbahngleise und Mischverkehr."
+        },
+        {
+          "type": "text",
+          "value": "Besonderheiten:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "kombinierte Verkehrsfuehrung",
+            "enge Platzverhaeltnisse",
+            "hohe Koordination mit Strassenverkehr"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Risiken:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Unfallgefahr mit Fahrzeugen",
+            "Arbeiten unter oeffentlichem Verkehr",
+            "Laermbelastung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "5. Entwaesserung als kritischer Punkt"
+        },
+        {
+          "type": "text",
+          "value": "In Sonderlagen besonders wichtig sind kein Wasserstau, kontrollierte Ableitung und Schutz der Baukonstruktion."
+        },
+        {
+          "type": "text",
+          "value": "Fehlerhafte Entwaesserung kann Bauwerke schaedigen, Unterspuelung verursachen und Korrosion beschleunigen."
+        },
+        {
+          "type": "text",
+          "value": "6. Arbeitsraum- und Sicherungsprobleme"
+        },
+        {
+          "type": "text",
+          "value": "In engen Lagen steigen Abstimmungsbedarf, Gefaehrdungspotenzial und Organisationsaufwand."
+        },
+        {
+          "type": "text",
+          "value": "Arbeiten erfordern genaue Planung, klare Kommunikation und abgestimmte Sicherheitsmassnahmen."
         },
         {
           "type": "callout",
           "variant": "danger",
-          "title": "Arbeitssicherheit",
+          "title": "Arbeitssicherheitsgrundsatz",
           "value": "In engen oder kombinierten Verkehrsraeumen steigen Risiko und Abstimmungsbedarf deutlich."
         }
       ],
@@ -382,24 +874,156 @@
       "id": "lf14-b7",
       "title": "Instandhaltung von Sonderbauformen",
       "goals": [
-        "Typische Instandhaltungsarbeiten bei Sonderbauformen zuordnen",
-        "Warum Standardverfahren oft nicht ausreichen erklaeren"
+        "Instandhaltungsverfahren bei Sonderbauformen fachlich einordnen",
+        "Grenzen von Standardverfahren gegenueber anlagenspezifischen Verfahren beurteilen",
+        "Planung und Ausfuehrung an Hersteller- und Systemvorgaben ausrichten"
       ],
-      "summary": "Sonderbauformen brauchen haeufig spezielle Verfahren und Vorgaben statt Standardablaeufe.",
+      "summary": "Sonderbauformen erfordern angepasste Instandhaltungsverfahren, da klassische Methoden des Schotteroberbaus haeufig nicht anwendbar sind.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Sonderbauformen unterscheiden sich konstruktiv deutlich vom klassischen Schotteroberbau."
+        },
+        {
+          "type": "text",
+          "value": "Deshalb gilt: Nicht jede Sonderbauform laesst sich mit den Verfahren des Standardoberbaus bearbeiten."
+        },
+        {
+          "type": "text",
+          "value": "Waehrend im Schotteroberbau Stopfen ein Standardverfahren ist, sind bei Sonderbauformen oft spezielle Verfahren erforderlich."
+        },
+        {
+          "type": "text",
+          "value": "2. Warum Standardverfahren oft nicht ausreichen"
+        },
+        {
+          "type": "text",
+          "value": "Beispiele:"
+        },
         {
           "type": "list",
           "items": [
-            "Typische Arbeiten: Hoehen- und Lagekorrekturen, Austausch einzelner Elemente",
-            "Uebergaenge und Entwaesserung muessen gezielt kontrolliert werden",
-            "Oft gelten herstellerspezifische oder anlagenspezifische Sondervorgaben"
+            "keine stopfbare Schotterschicht bei fester Fahrbahn",
+            "feste Einbindung in Brueckenkonstruktionen",
+            "Strasseneinbindung bei Bahnuebergaengen",
+            "herstellergebundene Befestigungssysteme"
           ]
         },
         {
+          "type": "text",
+          "value": "Fehlerhafte Anwendung von Standardverfahren kann Bauwerke beschaedigen, Lagefehler verschlimmern und Folgeschaeden verursachen."
+        },
+        {
+          "type": "text",
+          "value": "3. Typische Instandhaltungsarbeiten"
+        },
+        {
+          "type": "text",
+          "value": "1) Hoehen- und Lagekorrekturen"
+        },
+        {
+          "type": "text",
+          "value": "Je nach Bauform:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Justierung von Befestigungssystemen",
+            "Unterfuetterung bei festen Fahrbahnen",
+            "gezielte Bauteilkorrekturen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Hier ist hohe Praezision erforderlich, da nachtraegliche Korrekturen schwierig sind."
+        },
+        {
+          "type": "text",
+          "value": "2) Austausch einzelner Elemente"
+        },
+        {
+          "type": "text",
+          "value": "Beispiele:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Betonfertigteile bei Bahnuebergaengen",
+            "Befestigungselemente",
+            "Schienensegmente",
+            "Daempfungselemente"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Der Austausch erfolgt meist modular und nach Herstellervorgabe."
+        },
+        {
+          "type": "text",
+          "value": "3) Kontrolle von Uebergaengen"
+        },
+        {
+          "type": "text",
+          "value": "Uebergaenge sind besonders kritisch:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bruecke zu Erddamm",
+            "feste Fahrbahn zu Schotteroberbau",
+            "Schiene zu Strassenoberflaeche"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Hier entstehen haeufig Setzungen, Spannungen und Verschleisskonzentrationen."
+        },
+        {
+          "type": "text",
+          "value": "4) Entwaesserung kontrollieren"
+        },
+        {
+          "type": "text",
+          "value": "In Sonderbauformen besonders wichtig sind kein Wasserstau, funktionierende Drainage und Schutz von Beton- oder Stahlkonstruktionen."
+        },
+        {
+          "type": "text",
+          "value": "Wasser kann hier langfristig massive Schaeden verursachen."
+        },
+        {
+          "type": "text",
+          "value": "4. Herstellerspezifische und anlagenspezifische Vorgaben"
+        },
+        {
+          "type": "text",
+          "value": "Bei vielen Sonderbauformen gelten spezielle Einbauvorschriften, besondere Pruefverfahren, festgelegte Wartungsintervalle und eigene Dokumentationspflichten."
+        },
+        {
+          "type": "text",
+          "value": "Die Instandhaltung muss sich strikt an diese Vorgaben halten."
+        },
+        {
+          "type": "text",
+          "value": "5. Besonderheiten der Planung"
+        },
+        {
+          "type": "text",
+          "value": "Instandhaltung von Sonderbauformen erfordert sorgfaeltige Vorplanung, Kenntnis der Systemkonstruktion sowie Abstimmung mit Betreiber und Hersteller."
+        },
+        {
+          "type": "text",
+          "value": "Improvisation ist hier besonders riskant."
+        },
+        {
           "type": "callout",
-          "variant": "info",
-          "title": "Vorgehen",
-          "value": "Nicht jede Sonderbauform laesst sich mit den Verfahren des Standardoberbaus bearbeiten."
+          "type": "callout",
+          "variant": "tip",
+          "title": "Vorgehensgrundsatz",
+          "value": "Jede Sonderbauform verlangt ein angepasstes Verfahren, Standard reicht oft nicht."
         }
       ],
       "quizRef": [
@@ -410,18 +1034,170 @@
       "id": "lf14-b8",
       "title": "Sicherheit bei Sonderbauformen",
       "goals": [
-        "Typische Gefaehrdungen in komplexen Anlagen benennen",
-        "Erweiterte Sicherungsmassnahmen sicher anwenden"
+        "Typische Gefaehrdungen in komplexen Sonderanlagen sicher erkennen",
+        "Erweiterte Sicherungsmassnahmen anlagenbezogen anwenden",
+        "Arbeitsfreigaben und organisatorische Sicherheitsprozesse verbindlich umsetzen"
       ],
-      "summary": "Komplexe Bauformen, enge Raeume und Mischverkehr verlangen erhoehte Aufmerksamkeit und klare Kommunikation.",
+      "summary": "Sonderbauformen erhoehen durch komplexe Konstruktion, enge Arbeitsraeume und Mischverkehr das Risiko und erfordern erweiterte Sicherheitsmassnahmen.",
       "content": [
+        {
+          "type": "text",
+          "value": "1. Grundprinzip"
+        },
+        {
+          "type": "text",
+          "value": "Sonderbauformen bedeuten komplexere Konstruktionen, eingeschraenkte Raeume, kombinierte Verkehrssysteme und zusaetzliche technische Anlagen."
+        },
+        {
+          "type": "text",
+          "value": "Je komplexer die Anlage, desto hoeher die Aufmerksamkeit."
+        },
+        {
+          "type": "text",
+          "value": "2. Typische Gefaehrdungen"
+        },
+        {
+          "type": "text",
+          "value": "1) Enge Arbeitsraeume"
+        },
+        {
+          "type": "text",
+          "value": "Beispiele sind Tunnel, Bruecken und innerstaedtische Strassenraeume."
+        },
+        {
+          "type": "text",
+          "value": "Gefahren:"
+        },
         {
           "type": "list",
           "items": [
-            "Gefahren: enger Raum, Strassenverkehr, elektrische Anlagen, komplexe Bauteile",
-            "Massnahmen: erweiterte Sicherung, klare Kommunikation, zusaetzliche PSA",
-            "Arbeitsablaeufe muessen fuer jede Anlage vorab abgestimmt und gesichert sein"
+            "eingeschraenkte Fluchtwege",
+            "schlechte Sicht",
+            "erhoehte Kollisionsgefahr"
           ]
+        },
+        {
+          "type": "text",
+          "value": "2) Mischverkehr"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Eisenbahnverkehr",
+            "Strassenverkehr",
+            "Fussgaenger",
+            "Radfahrer"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Folge ist hoher Abstimmungsbedarf und erhoehtes Unfallrisiko."
+        },
+        {
+          "type": "text",
+          "value": "3) Elektrische Anlagen"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Oberleitungen",
+            "Stromschienen",
+            "Signalanlagen"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Gefahr durch Hochspannung, Annaeherung und Lichtbogen."
+        },
+        {
+          "type": "text",
+          "value": "4) Komplexe Bauteile"
+        },
+        {
+          "type": "list",
+          "items": [
+            "bewegliche Systeme",
+            "starre Betonkonstruktionen",
+            "grosse Fertigteile"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "Gefahr von Quetschungen, Abstuerzen und Materialversagen."
+        },
+        {
+          "type": "text",
+          "value": "3. Erweiterte Sicherungsmassnahmen"
+        },
+        {
+          "type": "text",
+          "value": "1) Erweiterte Verkehrssicherung"
+        },
+        {
+          "type": "list",
+          "items": [
+            "zusaetzliche Absperrungen",
+            "Verkehrslenkung",
+            "Sicherungsposten"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "2) Klare Kommunikation"
+        },
+        {
+          "type": "list",
+          "items": [
+            "eindeutige Zustaendigkeiten",
+            "abgestimmte Ablaeufe",
+            "Funkverbindung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "3) Zusaetzliche PSA"
+        },
+        {
+          "type": "text",
+          "value": "Je nach Anlage:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Absturzsicherung",
+            "Atemschutz (Tunnel)",
+            "Gehoerschutz",
+            "spezielle Schutzkleidung"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4) Anlagenbezogene Arbeitsfreigabe"
+        },
+        {
+          "type": "text",
+          "value": "Vor Beginn muessen geklaert sein:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sicherung gegen Zugverkehr",
+            "Sicherung gegen Strassenverkehr",
+            "elektrische Abschaltung",
+            "Zugang und Rettungswege"
+          ]
+        },
+        {
+          "type": "text",
+          "value": "4. Organisatorischer Grundsatz"
+        },
+        {
+          "type": "text",
+          "value": "Arbeitsablaeufe muessen vorab abgestimmt, dokumentiert und sicher freigegeben sein."
+        },
+        {
+          "type": "text",
+          "value": "Spontane Aenderungen erhoehen das Risiko."
         },
         {
           "type": "callout",

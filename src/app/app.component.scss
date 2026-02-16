@@ -1,0 +1,89 @@
+:host,
+ion-app {
+  height: 100%;
+}
+
+.privacy-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(6, 14, 28, 0.94);
+}
+
+.privacy-card {
+  width: min(920px, 100%);
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+}
+
+.privacy-eyebrow {
+  margin: 0 0 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  color: #0f766e;
+  font-weight: 700;
+}
+
+.privacy-card h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+}
+
+.privacy-lede,
+.privacy-note,
+.privacy-legal {
+  margin: 0.35rem 0 0;
+  color: #334155;
+}
+
+.privacy-note {
+  font-size: 0.92rem;
+}
+
+.privacy-section {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.privacy-section h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.privacy-section ul {
+  margin: 0.55rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.privacy-section li {
+  margin: 0.35rem 0;
+  color: #1f2937;
+}
+
+.privacy-warning {
+  margin-top: 0.75rem;
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.privacy-actions {
+  margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+  .privacy-card {
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+}

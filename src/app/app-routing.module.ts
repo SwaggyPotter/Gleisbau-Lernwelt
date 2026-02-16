@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { NoPreloading, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -95,6 +95,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/zusatz/nivellieren/lernfeld-02.module').then(m => m.NivellierenModule),
   },
   {
+    path: 'zusatz/gesamtquiz',
+    loadChildren: () => import('./modules/zusatz/gesamtquiz/gesamtquiz.module').then(m => m.GesamtquizModule),
+  },
+  {
     path: 'lernfeld/01',
     redirectTo: 'lernfelder/1',
     pathMatch: 'full',
@@ -173,7 +177,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: NoPreloading })
   ],
   exports: [RouterModule]
 })

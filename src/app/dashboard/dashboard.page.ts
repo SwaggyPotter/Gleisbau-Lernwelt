@@ -86,6 +86,14 @@ export class DashboardPage {
       lf: 'Zusatz',
     },
     {
+      id: 'zusatz-gesamtquiz',
+      title: 'Zusatzmodul: Gesamtquiz alle Module',
+      description: 'Ein grosses Quiz mit allen Fragen aus Lernfeld 1-14 und den Zusatzmodulen.',
+      tag: 'Bonus',
+      link: '/zusatz/gesamtquiz',
+      lf: 'Quiz',
+    },
+    {
       id: 'lf07-baugruben',
       title: 'Lernfeld 7: Baugruben und Graeben herstellen und sichern',
       description: 'Boeschung oder Verbau auswaehlen, Wasserhaltung beurteilen und Sicherheit konsequent umsetzen.',

@@ -1,3 +1,47 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <section
+    *ngIf="!consentAccepted"
+    class="privacy-gate"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="privacy-title"
+  >
+    <article class="privacy-card">
+      <p class="privacy-eyebrow">Datenschutzhinweis</p>
+      <h1 id="privacy-title">Bitte zuerst Datenerhebung bestaetigen</h1>
+      <p class="privacy-lede">
+        Bevor die Seite geladen wird, informiere dich bitte ueber die verarbeiteten Daten.
+        Ohne Zustimmung bleibt die Lernplattform gesperrt.
+      </p>
+      <p class="privacy-note">
+        Diese Abfrage wird bei jedem neuen Seitenaufruf erneut angezeigt.
+      </p>
+
+      <section class="privacy-section" *ngFor="let section of consentSections">
+        <h2>{{ section.title }}</h2>
+        <ul>
+          <li *ngFor="let item of section.items">{{ item }}</li>
+        </ul>
+      </section>
+
+      <p class="privacy-legal">
+        Mit "Ich stimme zu" bestaetigst du, dass du diese Informationen gelesen hast und der Verarbeitung im beschriebenen Umfang zustimmst.
+      </p>
+
+      <p class="privacy-warning" *ngIf="consentDeclined">
+        Ohne Zustimmung kann die Seite nicht genutzt werden.
+      </p>
+
+      <div class="privacy-actions">
+        <ion-button expand="block" size="default" (click)="acceptConsent()">
+          Ich stimme zu und weiter
+        </ion-button>
+        <ion-button expand="block" fill="clear" color="medium" (click)="declineConsent()">
+          Ablehnen
+        </ion-button>
+      </div>
+    </article>
+  </section>
+
+  <ion-router-outlet *ngIf="consentAccepted"></ion-router-outlet>
 </ion-app>

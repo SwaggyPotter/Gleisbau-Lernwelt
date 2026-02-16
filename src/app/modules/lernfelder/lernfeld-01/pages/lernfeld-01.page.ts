@@ -85,7 +85,7 @@ export class Lernfeld01Page implements OnInit, OnDestroy {
     this.progress = this.data.recordScenarioScore(delta);
   }
 
-  quicktestDone(result: { correct: number; total: number }): void {
-    this.progress = this.data.recordQuickTest(result.correct, result.total);
+  answeredQuizCount(): number {
+    return Object.keys(this.progress.quizStats ?? {}).length;
   }
 }

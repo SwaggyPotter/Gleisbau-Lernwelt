@@ -1,5 +1,9 @@
 {
-  "meta": { "lernfeld": "01", "title": "Baustellen einrichten (Gleisbau)", "version": "1.0" },
+  "meta": {
+    "lernfeld": "01",
+    "title": "Baustellen einrichten (Gleisbau)",
+    "version": "1.0"
+  },
   "questions": [
     {
       "id": "Q1",
@@ -7,15 +11,30 @@
       "type": "mcq_single",
       "question": "Was gehoert grundsaetzlich zur Baustelleneinrichtung?",
       "choices": [
-        { "id": "A", "text": "Nur das Aufstellen des Baucontainers" },
-        { "id": "B", "text": "Sicherung, Wege, Lager, Information fuer alle" },
-        { "id": "C", "text": "Erst wenn die Arbeiten fertig sind" },
-        { "id": "D", "text": "Nur Absperrband und ein Schild" }
+        {
+          "id": "A",
+          "text": "Nur das Aufstellen des Baucontainers"
+        },
+        {
+          "id": "B",
+          "text": "Sicherung, Wege, Lager, Information fuer alle"
+        },
+        {
+          "id": "C",
+          "text": "Erst wenn die Arbeiten fertig sind"
+        },
+        {
+          "id": "D",
+          "text": "Nur Absperrband und ein Schild"
+        }
       ],
       "answer": "B",
       "explain": "Baustelleneinrichtung umfasst Flaechen, Wege, Lager, Sicherung und Information – nicht nur einen Container.",
       "difficulty": "easy",
-      "tags": ["baustelleneinrichtung", "basis"]
+      "tags": [
+        "baustelleneinrichtung",
+        "basis"
+      ]
     },
     {
       "id": "Q2",
@@ -23,15 +42,30 @@
       "type": "mcq_single",
       "question": "Warum wird zuerst gesichert und dann gearbeitet?",
       "choices": [
-        { "id": "A", "text": "Zeit zu fuellen, waehrend Material kommt" },
-        { "id": "B", "text": "Weil Sicherheit Voraussetzung fuer jede Arbeit ist" },
-        { "id": "C", "text": "Damit die Polizei zufrieden ist" },
-        { "id": "D", "text": "Um laenger abrechnen zu koennen" }
+        {
+          "id": "A",
+          "text": "Zeit zu fuellen, waehrend Material kommt"
+        },
+        {
+          "id": "B",
+          "text": "Weil Sicherheit Voraussetzung fuer jede Arbeit ist"
+        },
+        {
+          "id": "C",
+          "text": "Damit die Polizei zufrieden ist"
+        },
+        {
+          "id": "D",
+          "text": "Um laenger abrechnen zu koennen"
+        }
       ],
       "answer": "B",
       "explain": "Ohne Sicherung ist die Arbeit gefaehrlich und oft gar nicht erlaubt; Sicherung ist Grundlage.",
       "difficulty": "easy",
-      "tags": ["baustelleneinrichtung", "prinzip"]
+      "tags": [
+        "baustelleneinrichtung",
+        "prinzip"
+      ]
     },
     {
       "id": "Q3",
@@ -39,15 +73,30 @@
       "type": "mcq_single",
       "question": "Wer traegt Verantwortung, dass PSA benutzt wird?",
       "choices": [
-        { "id": "A", "text": "Nur die Sicherheitsfachkraft" },
-        { "id": "B", "text": "Jede Person auf der Baustelle" },
-        { "id": "C", "text": "Nur die Auszubildenden" },
-        { "id": "D", "text": "Niemand, ist freiwillig" }
+        {
+          "id": "A",
+          "text": "Nur die Sicherheitsfachkraft"
+        },
+        {
+          "id": "B",
+          "text": "Jede Person auf der Baustelle"
+        },
+        {
+          "id": "C",
+          "text": "Nur die Auszubildenden"
+        },
+        {
+          "id": "D",
+          "text": "Niemand, ist freiwillig"
+        }
       ],
       "answer": "B",
       "explain": "Bereitstellung durch Arbeitgeber, Nutzung durch jede Person – Verantwortung wird nicht delegiert.",
       "difficulty": "easy",
-      "tags": ["verantwortung", "psa"]
+      "tags": [
+        "verantwortung",
+        "psa"
+      ]
     },
     {
       "id": "Q4",
@@ -55,15 +104,30 @@
       "type": "mcq_single",
       "question": "Was ist ein typischer Fehler bei Baustellen im oeffentlichen Raum?",
       "choices": [
-        { "id": "A", "text": "Zu viele Vorwarnschilder" },
-        { "id": "B", "text": "Schilder zu spaet oder widerspruechlich" },
-        { "id": "C", "text": "Barrierefreie Wege anbieten" },
-        { "id": "D", "text": "Absperrungen regelmaessig pruefen" }
+        {
+          "id": "A",
+          "text": "Zu viele Vorwarnschilder"
+        },
+        {
+          "id": "B",
+          "text": "Schilder zu spaet oder widerspruechlich"
+        },
+        {
+          "id": "C",
+          "text": "Barrierefreie Wege anbieten"
+        },
+        {
+          "id": "D",
+          "text": "Absperrungen regelmaessig pruefen"
+        }
       ],
       "answer": "B",
       "explain": "Unklare oder spaete Beschilderung fuehrt zu Unsicherheit und Gefahren.",
       "difficulty": "medium",
-      "tags": ["beschilderung", "fehler"]
+      "tags": [
+        "beschilderung",
+        "fehler"
+      ]
     },
     {
       "id": "Q5",
@@ -71,15 +135,30 @@
       "type": "mcq_single",
       "question": "Wozu dienen Absperrungen?",
       "choices": [
-        { "id": "A", "text": "Dekoration" },
-        { "id": "B", "text": "Trennen und fuehren von Verkehr und Arbeit" },
-        { "id": "C", "text": "Nur fuer Fotos" },
-        { "id": "D", "text": "Um Material zu lagern" }
+        {
+          "id": "A",
+          "text": "Dekoration"
+        },
+        {
+          "id": "B",
+          "text": "Trennen und fuehren von Verkehr und Arbeit"
+        },
+        {
+          "id": "C",
+          "text": "Nur fuer Fotos"
+        },
+        {
+          "id": "D",
+          "text": "Um Material zu lagern"
+        }
       ],
       "answer": "B",
       "explain": "Absperrungen sollen Menschen und Verkehr leiten und trennen.",
       "difficulty": "easy",
-      "tags": ["absperrung", "sicherung"]
+      "tags": [
+        "absperrung",
+        "sicherung"
+      ]
     },
     {
       "id": "Q6",
@@ -87,15 +166,30 @@
       "type": "mcq_single",
       "question": "Welche Gefahr entsteht, wenn Kabel ueber Gehwege liegen?",
       "choices": [
-        { "id": "A", "text": "Keine, wenn man warnt" },
-        { "id": "B", "text": "Stolper- und Sturzgefahr fuer Fussgaenger" },
-        { "id": "C", "text": "Nur optisch stoerend" },
-        { "id": "D", "text": "Sie schmelzen bei Sonne" }
+        {
+          "id": "A",
+          "text": "Keine, wenn man warnt"
+        },
+        {
+          "id": "B",
+          "text": "Stolper- und Sturzgefahr fuer Fussgaenger"
+        },
+        {
+          "id": "C",
+          "text": "Nur optisch stoerend"
+        },
+        {
+          "id": "D",
+          "text": "Sie schmelzen bei Sonne"
+        }
       ],
       "answer": "B",
       "explain": "Lose Kabel sind Stolperstellen und muessen abgedeckt oder umgefuehrt werden.",
       "difficulty": "easy",
-      "tags": ["stolpern", "ordnung"]
+      "tags": [
+        "stolpern",
+        "ordnung"
+      ]
     },
     {
       "id": "Q7",
@@ -103,15 +197,30 @@
       "type": "mcq_single",
       "question": "Was ist bei Nachtarbeit besonders wichtig?",
       "choices": [
-        { "id": "A", "text": "Nur schneller arbeiten" },
-        { "id": "B", "text": "Sichtbarkeit durch Beleuchtung und Reflexion" },
-        { "id": "C", "text": "Musik lauter stellen" },
-        { "id": "D", "text": "Auf Warnkleidung verzichten" }
+        {
+          "id": "A",
+          "text": "Nur schneller arbeiten"
+        },
+        {
+          "id": "B",
+          "text": "Sichtbarkeit durch Beleuchtung und Reflexion"
+        },
+        {
+          "id": "C",
+          "text": "Musik lauter stellen"
+        },
+        {
+          "id": "D",
+          "text": "Auf Warnkleidung verzichten"
+        }
       ],
       "answer": "B",
       "explain": "Gute Beleuchtung und reflektierende Elemente sichern Sichtbarkeit bei Nacht.",
       "difficulty": "easy",
-      "tags": ["nachtarbeit", "sichtbarkeit"]
+      "tags": [
+        "nachtarbeit",
+        "sichtbarkeit"
+      ]
     },
     {
       "id": "Q8",
@@ -119,15 +228,30 @@
       "type": "mcq_single",
       "question": "Warum sind widerspruechliche Schilder gefaehrlich?",
       "choices": [
-        { "id": "A", "text": "Sie sehen unprofessionell aus" },
-        { "id": "B", "text": "Sie fuehren Verkehrsteilnehmer in falsche oder keine Richtung" },
-        { "id": "C", "text": "Weil sie teurer sind" },
-        { "id": "D", "text": "Weil sie mehr Platz brauchen" }
+        {
+          "id": "A",
+          "text": "Sie sehen unprofessionell aus"
+        },
+        {
+          "id": "B",
+          "text": "Sie fuehren Verkehrsteilnehmer in falsche oder keine Richtung"
+        },
+        {
+          "id": "C",
+          "text": "Weil sie teurer sind"
+        },
+        {
+          "id": "D",
+          "text": "Weil sie mehr Platz brauchen"
+        }
       ],
       "answer": "B",
       "explain": "Widerspruch erzeugt Unsicherheit und kann in den Gefahrenbereich lenken.",
       "difficulty": "medium",
-      "tags": ["beschilderung", "risiko"]
+      "tags": [
+        "beschilderung",
+        "risiko"
+      ]
     },
     {
       "id": "Q9",
@@ -135,15 +259,30 @@
       "type": "mcq_single",
       "question": "Was ist der Kern einer Gefaehrdungsbeurteilung?",
       "choices": [
-        { "id": "A", "text": "Material bestellen" },
-        { "id": "B", "text": "Gefahren erkennen und Massnahmen festlegen" },
-        { "id": "C", "text": "Nur Unterschriften sammeln" },
-        { "id": "D", "text": "Zeitbedarf schaetzen" }
+        {
+          "id": "A",
+          "text": "Material bestellen"
+        },
+        {
+          "id": "B",
+          "text": "Gefahren erkennen und Massnahmen festlegen"
+        },
+        {
+          "id": "C",
+          "text": "Nur Unterschriften sammeln"
+        },
+        {
+          "id": "D",
+          "text": "Zeitbedarf schaetzen"
+        }
       ],
       "answer": "B",
       "explain": "Sie dient dazu, Risiken zu identifizieren und passende Schutzmassnahmen zu planen.",
       "difficulty": "easy",
-      "tags": ["gefaehrdung", "pflicht"]
+      "tags": [
+        "gefaehrdung",
+        "pflicht"
+      ]
     },
     {
       "id": "Q10",
@@ -151,15 +290,30 @@
       "type": "mcq_single",
       "question": "Warum Unterweisung dokumentieren?",
       "choices": [
-        { "id": "A", "text": "Nur fuer die Statistik" },
-        { "id": "B", "text": "Rechtssicherheit und nachvollziehbare Inhalte" },
-        { "id": "C", "text": "Um mehr Papier zu haben" },
-        { "id": "D", "text": "Weil sonst niemand zuhoert" }
+        {
+          "id": "A",
+          "text": "Nur fuer die Statistik"
+        },
+        {
+          "id": "B",
+          "text": "Rechtssicherheit und nachvollziehbare Inhalte"
+        },
+        {
+          "id": "C",
+          "text": "Um mehr Papier zu haben"
+        },
+        {
+          "id": "D",
+          "text": "Weil sonst niemand zuhoert"
+        }
       ],
       "answer": "B",
       "explain": "Dokumentation zeigt, was besprochen wurde, und erfuellt rechtliche Anforderungen.",
       "difficulty": "medium",
-      "tags": ["unterweisung", "dokumentation"]
+      "tags": [
+        "unterweisung",
+        "dokumentation"
+      ]
     },
     {
       "id": "Q11",
@@ -167,15 +321,30 @@
       "type": "mcq_single",
       "question": "Was bedeutet STOP-Regel?",
       "choices": [
-        { "id": "A", "text": "Sofort Tempo ohne Pause" },
-        { "id": "B", "text": "Unsicher = stoppen, nachfragen, sichern" },
-        { "id": "C", "text": "Schilder tragen ohne Pause" },
-        { "id": "D", "text": "Staendig telefonieren ohne Pause" }
+        {
+          "id": "A",
+          "text": "Sofort Tempo ohne Pause"
+        },
+        {
+          "id": "B",
+          "text": "Unsicher = stoppen, nachfragen, sichern"
+        },
+        {
+          "id": "C",
+          "text": "Schilder tragen ohne Pause"
+        },
+        {
+          "id": "D",
+          "text": "Staendig telefonieren ohne Pause"
+        }
       ],
       "answer": "B",
       "explain": "Bei Unsicherheit Arbeit stoppen, Klaerung holen, erst danach weiter.",
       "difficulty": "easy",
-      "tags": ["stop", "verhalten"]
+      "tags": [
+        "stop",
+        "verhalten"
+      ]
     },
     {
       "id": "Q12",
@@ -183,15 +352,30 @@
       "type": "mcq_single",
       "question": "Welche Info gehoert in eine kurze Unterweisungsnotiz?",
       "choices": [
-        { "id": "A", "text": "Lieblingsmusik des Teams" },
-        { "id": "B", "text": "Was wurde gesagt, Datum, Teilnehmende" },
-        { "id": "C", "text": "Wetterbericht" },
-        { "id": "D", "text": "Mittagsmenue" }
+        {
+          "id": "A",
+          "text": "Lieblingsmusik des Teams"
+        },
+        {
+          "id": "B",
+          "text": "Was wurde gesagt, Datum, Teilnehmende"
+        },
+        {
+          "id": "C",
+          "text": "Wetterbericht"
+        },
+        {
+          "id": "D",
+          "text": "Mittagsmenue"
+        }
       ],
       "answer": "B",
       "explain": "Kernaussagen, Datum und Teilnehmer sichern Nachvollziehbarkeit.",
       "difficulty": "easy",
-      "tags": ["unterweisung", "dokumentation"]
+      "tags": [
+        "unterweisung",
+        "dokumentation"
+      ]
     },
     {
       "id": "Q13",
@@ -199,15 +383,30 @@
       "type": "mcq_single",
       "question": "Welche Reihenfolge ist sinnvoll?",
       "choices": [
-        { "id": "A", "text": "Arbeiten, dann warnen" },
-        { "id": "B", "text": "Warnen -> fuehren -> trennen -> arbeiten" },
-        { "id": "C", "text": "Erst Kaffee, dann Schilder" },
-        { "id": "D", "text": "Keine Reihenfolge noetig" }
+        {
+          "id": "A",
+          "text": "Arbeiten, dann warnen"
+        },
+        {
+          "id": "B",
+          "text": "Warnen -> fuehren -> trennen -> arbeiten"
+        },
+        {
+          "id": "C",
+          "text": "Erst Kaffee, dann Schilder"
+        },
+        {
+          "id": "D",
+          "text": "Keine Reihenfolge noetig"
+        }
       ],
       "answer": "B",
       "explain": "Zuerst Gefahren deutlich machen, dann sichere Wege, dann Arbeitsbeginn.",
       "difficulty": "medium",
-      "tags": ["ablauf", "sicherung"]
+      "tags": [
+        "ablauf",
+        "sicherung"
+      ]
     },
     {
       "id": "Q14",
@@ -215,15 +414,30 @@
       "type": "mcq_single",
       "question": "Was tun, wenn eine Anweisung unklar ist?",
       "choices": [
-        { "id": "A", "text": "Trotzdem weiterarbeiten" },
-        { "id": "B", "text": "STOP, nachfragen, Klaerung holen" },
-        { "id": "C", "text": "Eigenen Weg probieren" },
-        { "id": "D", "text": "Kollege entscheiden lassen" }
+        {
+          "id": "A",
+          "text": "Trotzdem weiterarbeiten"
+        },
+        {
+          "id": "B",
+          "text": "STOP, nachfragen, Klaerung holen"
+        },
+        {
+          "id": "C",
+          "text": "Eigenen Weg probieren"
+        },
+        {
+          "id": "D",
+          "text": "Kollege entscheiden lassen"
+        }
       ],
       "answer": "B",
       "explain": "Unklarheit = stoppen und klaeren, sonst steigt Risiko.",
       "difficulty": "easy",
-      "tags": ["kommunikation", "stop"]
+      "tags": [
+        "kommunikation",
+        "stop"
+      ]
     },
     {
       "id": "Q15",
@@ -231,15 +445,30 @@
       "type": "mcq_single",
       "question": "Warum ist \"nur kurz\" oft gefaehrlich?",
       "choices": [
-        { "id": "A", "text": "Weil es Zeit spart" },
-        { "id": "B", "text": "Weil Sicherung umgangen wird und Routine eintritt" },
-        { "id": "C", "text": "Weil es lauter ist" },
-        { "id": "D", "text": "Weil es verboten klingt" }
+        {
+          "id": "A",
+          "text": "Weil es Zeit spart"
+        },
+        {
+          "id": "B",
+          "text": "Weil Sicherung umgangen wird und Routine eintritt"
+        },
+        {
+          "id": "C",
+          "text": "Weil es lauter ist"
+        },
+        {
+          "id": "D",
+          "text": "Weil es verboten klingt"
+        }
       ],
       "answer": "B",
       "explain": "\"Nur kurz\" fuehrt zu Regelbruechen und ungeplanten Risiken.",
       "difficulty": "medium",
-      "tags": ["verhalten", "routine"]
+      "tags": [
+        "verhalten",
+        "routine"
+      ]
     },
     {
       "id": "Q16",
@@ -247,15 +476,30 @@
       "type": "mcq_single",
       "question": "Welche PSA ist beim Arbeiten mit Trennschleifer typisch?",
       "choices": [
-        { "id": "A", "text": "Nur Handschuhe" },
-        { "id": "B", "text": "Augenschutz, Gehoerschutz, Handschuhe" },
-        { "id": "C", "text": "Flipflops" },
-        { "id": "D", "text": "Keine, Maschine macht alles" }
+        {
+          "id": "A",
+          "text": "Nur Handschuhe"
+        },
+        {
+          "id": "B",
+          "text": "Augenschutz, Gehoerschutz, Handschuhe"
+        },
+        {
+          "id": "C",
+          "text": "Flipflops"
+        },
+        {
+          "id": "D",
+          "text": "Keine, Maschine macht alles"
+        }
       ],
       "answer": "B",
       "explain": "Fliegende Funken/Partikel und Laerm erfordern Augen- und Gehoerschutz sowie Handschuhe.",
       "difficulty": "easy",
-      "tags": ["psa", "werkzeug"]
+      "tags": [
+        "psa",
+        "werkzeug"
+      ]
     },
     {
       "id": "Q17",
@@ -263,15 +507,30 @@
       "type": "mcq_single",
       "question": "Was tun bei beschaedigter Warnweste?",
       "choices": [
-        { "id": "A", "text": "Weitertragen, ist egal" },
-        { "id": "B", "text": "Sofort tauschen oder instandsetzen lassen" },
-        { "id": "C", "text": "Umdrehen, damit man es nicht sieht" },
-        { "id": "D", "text": "Mit Klebeband flicken und ignorieren" }
+        {
+          "id": "A",
+          "text": "Weitertragen, ist egal"
+        },
+        {
+          "id": "B",
+          "text": "Sofort tauschen oder instandsetzen lassen"
+        },
+        {
+          "id": "C",
+          "text": "Umdrehen, damit man es nicht sieht"
+        },
+        {
+          "id": "D",
+          "text": "Mit Klebeband flicken und ignorieren"
+        }
       ],
       "answer": "B",
       "explain": "Defekte Warnkleidung mindert Sichtbarkeit und muss ersetzt werden.",
       "difficulty": "easy",
-      "tags": ["warnkleidung", "pflege"]
+      "tags": [
+        "warnkleidung",
+        "pflege"
+      ]
     },
     {
       "id": "Q18",
@@ -279,15 +538,30 @@
       "type": "mcq_single",
       "question": "Warum sind reflektierende Elemente nachts entscheidend?",
       "choices": [
-        { "id": "A", "text": "Weil sie huebsch aussehen" },
-        { "id": "B", "text": "Sie machen Personen frueh sichtbar im Licht" },
-        { "id": "C", "text": "Sie sind billiger" },
-        { "id": "D", "text": "Sie halten warm" }
+        {
+          "id": "A",
+          "text": "Weil sie huebsch aussehen"
+        },
+        {
+          "id": "B",
+          "text": "Sie machen Personen frueh sichtbar im Licht"
+        },
+        {
+          "id": "C",
+          "text": "Sie sind billiger"
+        },
+        {
+          "id": "D",
+          "text": "Sie halten warm"
+        }
       ],
       "answer": "B",
       "explain": "Reflexe sorgen dafuer, dass Verkehrsteilnehmer fruehzeitig warnen koennen.",
       "difficulty": "easy",
-      "tags": ["sichtbarkeit", "nacht"]
+      "tags": [
+        "sichtbarkeit",
+        "nacht"
+      ]
     },
     {
       "id": "Q19",
@@ -295,15 +569,30 @@
       "type": "mcq_single",
       "question": "Welche Aussage stimmt: \"Warnweste reicht immer\"?",
       "choices": [
-        { "id": "A", "text": "Ja, fuer alle Taetigkeiten" },
-        { "id": "B", "text": "Nein, zusaetzliche PSA je nach Risiko noetig" },
-        { "id": "C", "text": "Nur bei Regen falsch" },
-        { "id": "D", "text": "Nur im Winter falsch" }
+        {
+          "id": "A",
+          "text": "Ja, fuer alle Taetigkeiten"
+        },
+        {
+          "id": "B",
+          "text": "Nein, zusaetzliche PSA je nach Risiko noetig"
+        },
+        {
+          "id": "C",
+          "text": "Nur bei Regen falsch"
+        },
+        {
+          "id": "D",
+          "text": "Nur im Winter falsch"
+        }
       ],
       "answer": "B",
       "explain": "Warnweste ersetzt keinen Helm, Handschuhe oder Gehoerschutz.",
       "difficulty": "medium",
-      "tags": ["psa", "bewusstsein"]
+      "tags": [
+        "psa",
+        "bewusstsein"
+      ]
     },
     {
       "id": "Q20",
@@ -311,15 +600,30 @@
       "type": "mcq_single",
       "question": "Warum sind Routine und Ablenkung riskant?",
       "choices": [
-        { "id": "A", "text": "Weil man dann schneller ist" },
-        { "id": "B", "text": "Gefahr wird unterschaetzt, Warnsignale werden ueberhoert" },
-        { "id": "C", "text": "Weil es langweilig ist" },
-        { "id": "D", "text": "Weil man mehr redet" }
+        {
+          "id": "A",
+          "text": "Weil man dann schneller ist"
+        },
+        {
+          "id": "B",
+          "text": "Gefahr wird unterschaetzt, Warnsignale werden ueberhoert"
+        },
+        {
+          "id": "C",
+          "text": "Weil es langweilig ist"
+        },
+        {
+          "id": "D",
+          "text": "Weil man mehr redet"
+        }
       ],
       "answer": "B",
       "explain": "Routine laesst Risiken verschwinden, Ablenkung blockiert Wahrnehmung.",
       "difficulty": "medium",
-      "tags": ["verhalten", "aufmerksamkeit"]
+      "tags": [
+        "verhalten",
+        "aufmerksamkeit"
+      ]
     },
     {
       "id": "Q21",
@@ -327,15 +631,30 @@
       "type": "mcq_single",
       "question": "Was zeigt gute PSA-Pflege?",
       "choices": [
-        { "id": "A", "text": "PSA nie reinigen" },
-        { "id": "B", "text": "Beschaedigte Teile melden und ersetzen" },
-        { "id": "C", "text": "Etiketten abschneiden" },
-        { "id": "D", "text": "Farbige Stifte auftragen" }
+        {
+          "id": "A",
+          "text": "PSA nie reinigen"
+        },
+        {
+          "id": "B",
+          "text": "Beschaedigte Teile melden und ersetzen"
+        },
+        {
+          "id": "C",
+          "text": "Etiketten abschneiden"
+        },
+        {
+          "id": "D",
+          "text": "Farbige Stifte auftragen"
+        }
       ],
       "answer": "B",
       "explain": "Regelmaessige Kontrolle und Austausch sichert Schutzwirkung.",
       "difficulty": "easy",
-      "tags": ["pflege", "psa"]
+      "tags": [
+        "pflege",
+        "psa"
+      ]
     },
     {
       "id": "Q22",
@@ -343,15 +662,30 @@
       "type": "mcq_single",
       "question": "Warum ist Sichtbarkeit im Verkehrsraum lebenswichtig?",
       "choices": [
-        { "id": "A", "text": "Nur fuer Fotos" },
-        { "id": "B", "text": "Fahrende koennen frueh reagieren und Abstand halten" },
-        { "id": "C", "text": "Damit Kleidung sauber bleibt" },
-        { "id": "D", "text": "Damit Kollegen dich finden" }
+        {
+          "id": "A",
+          "text": "Nur fuer Fotos"
+        },
+        {
+          "id": "B",
+          "text": "Fahrende koennen frueh reagieren und Abstand halten"
+        },
+        {
+          "id": "C",
+          "text": "Damit Kleidung sauber bleibt"
+        },
+        {
+          "id": "D",
+          "text": "Damit Kollegen dich finden"
+        }
       ],
       "answer": "B",
       "explain": "Fruehzeitige Wahrnehmung verhindert Kollisionen.",
       "difficulty": "easy",
-      "tags": ["sichtbarkeit", "verkehr"]
+      "tags": [
+        "sichtbarkeit",
+        "verkehr"
+      ]
     },
     {
       "id": "Q23",
@@ -359,15 +693,30 @@
       "type": "mcq_single",
       "question": "Warum muessen Baustellenzeichen fruehzeitig stehen?",
       "choices": [
-        { "id": "A", "text": "Damit mehr Fotos gemacht werden" },
-        { "id": "B", "text": "Damit Verkehrsteilnehmer Zeit zum Reagieren haben" },
-        { "id": "C", "text": "Weil es schoen aussieht" },
-        { "id": "D", "text": "Um Material zu verbrauchen" }
+        {
+          "id": "A",
+          "text": "Damit mehr Fotos gemacht werden"
+        },
+        {
+          "id": "B",
+          "text": "Damit Verkehrsteilnehmer Zeit zum Reagieren haben"
+        },
+        {
+          "id": "C",
+          "text": "Weil es schoen aussieht"
+        },
+        {
+          "id": "D",
+          "text": "Um Material zu verbrauchen"
+        }
       ],
       "answer": "B",
       "explain": "Vorwarnung ermoeglicht sicheres Anpassen von Geschwindigkeit und Spur.",
       "difficulty": "easy",
-      "tags": ["warnung", "beschilderung"]
+      "tags": [
+        "warnung",
+        "beschilderung"
+      ]
     },
     {
       "id": "Q24",
@@ -375,15 +724,30 @@
       "type": "mcq_single",
       "question": "Was ist gefaehrlicher: fehlendes oder falsches Schild?",
       "choices": [
-        { "id": "A", "text": "Falsches Schild kann aktiv in Gefahr fuehren" },
-        { "id": "B", "text": "Fehlendes Schild ist immer schlimmer" },
-        { "id": "C", "text": "Beides egal" },
-        { "id": "D", "text": "Kommt auf die Farbe an" }
+        {
+          "id": "A",
+          "text": "Falsches Schild kann aktiv in Gefahr fuehren"
+        },
+        {
+          "id": "B",
+          "text": "Fehlendes Schild ist immer schlimmer"
+        },
+        {
+          "id": "C",
+          "text": "Beides egal"
+        },
+        {
+          "id": "D",
+          "text": "Kommt auf die Farbe an"
+        }
       ],
       "answer": "A",
       "explain": "Falsches Schild leitet Verkehr in falsche Richtung und erhoeht Risiko massiv.",
       "difficulty": "medium",
-      "tags": ["beschilderung", "risiko"]
+      "tags": [
+        "beschilderung",
+        "risiko"
+      ]
     },
     {
       "id": "Q25",
@@ -391,15 +755,30 @@
       "type": "mcq_single",
       "question": "Welche Massnahme verhindert Schleichwege?",
       "choices": [
-        { "id": "A", "text": "Absperrung weglassen" },
-        { "id": "B", "text": "Klare Umleitung und sichtbare Absperrung" },
-        { "id": "C", "text": "Nur ein Schild aufstellen" },
-        { "id": "D", "text": "Auf Vertrauen setzen" }
+        {
+          "id": "A",
+          "text": "Absperrung weglassen"
+        },
+        {
+          "id": "B",
+          "text": "Klare Umleitung und sichtbare Absperrung"
+        },
+        {
+          "id": "C",
+          "text": "Nur ein Schild aufstellen"
+        },
+        {
+          "id": "D",
+          "text": "Auf Vertrauen setzen"
+        }
       ],
       "answer": "B",
       "explain": "Nur klare Wegfuehrung plus Absperrung verhindert Abkuerzungen.",
       "difficulty": "easy",
-      "tags": ["absperrung", "fuehrung"]
+      "tags": [
+        "absperrung",
+        "fuehrung"
+      ]
     },
     {
       "id": "Q26",
@@ -407,15 +786,30 @@
       "type": "mcq_single",
       "question": "Welche Witterung verschlechtert Sicht besonders?",
       "choices": [
-        { "id": "A", "text": "Leichter Wind" },
-        { "id": "B", "text": "Nebel oder Regen in der Nacht" },
-        { "id": "C", "text": "Sonnenschein" },
-        { "id": "D", "text": "Hitze" }
+        {
+          "id": "A",
+          "text": "Leichter Wind"
+        },
+        {
+          "id": "B",
+          "text": "Nebel oder Regen in der Nacht"
+        },
+        {
+          "id": "C",
+          "text": "Sonnenschein"
+        },
+        {
+          "id": "D",
+          "text": "Hitze"
+        }
       ],
       "answer": "B",
       "explain": "Nebel und Regen reflektieren Licht, Sichtweite sinkt, Beleuchtung wichtiger.",
       "difficulty": "medium",
-      "tags": ["wetter", "sichtbarkeit"]
+      "tags": [
+        "wetter",
+        "sichtbarkeit"
+      ]
     },
     {
       "id": "Q27",
@@ -423,15 +817,30 @@
       "type": "mcq_single",
       "question": "Wie reduziert man Stolperunfaelle?",
       "choices": [
-        { "id": "A", "text": "Kabel lose lassen" },
-        { "id": "B", "text": "Wege freihalten, Abdeckungen nutzen" },
-        { "id": "C", "text": "Mehr Musik spielen" },
-        { "id": "D", "text": "Warnwesten weglassen" }
+        {
+          "id": "A",
+          "text": "Kabel lose lassen"
+        },
+        {
+          "id": "B",
+          "text": "Wege freihalten, Abdeckungen nutzen"
+        },
+        {
+          "id": "C",
+          "text": "Mehr Musik spielen"
+        },
+        {
+          "id": "D",
+          "text": "Warnwesten weglassen"
+        }
       ],
       "answer": "B",
       "explain": "Freie Wege und abgedeckte Leitungen mindern Stolperrisiken.",
       "difficulty": "easy",
-      "tags": ["ordnung", "stolpern"]
+      "tags": [
+        "ordnung",
+        "stolpern"
+      ]
     },
     {
       "id": "Q28",
@@ -439,15 +848,30 @@
       "type": "mcq_single",
       "question": "Was tun, wenn Absperrung von Dritten geoeffnet wird?",
       "choices": [
-        { "id": "A", "text": "Ignorieren" },
-        { "id": "B", "text": "Sofort schliessen und freundlich verweisen" },
-        { "id": "C", "text": "Filmen fuer Social Media" },
-        { "id": "D", "text": "Abwarten" }
+        {
+          "id": "A",
+          "text": "Ignorieren"
+        },
+        {
+          "id": "B",
+          "text": "Sofort schliessen und freundlich verweisen"
+        },
+        {
+          "id": "C",
+          "text": "Filmen fuer Social Media"
+        },
+        {
+          "id": "D",
+          "text": "Abwarten"
+        }
       ],
       "answer": "B",
       "explain": "Absperrung wiederherstellen, informieren und fuehren.",
       "difficulty": "medium",
-      "tags": ["absperrung", "kommunikation"]
+      "tags": [
+        "absperrung",
+        "kommunikation"
+      ]
     },
     {
       "id": "Q29",
@@ -455,15 +879,30 @@
       "type": "mcq_single",
       "question": "Was ist bei Engstellen mit Fussgaengern wichtig?",
       "choices": [
-        { "id": "A", "text": "Schmale Wege ohne Hinweis" },
-        { "id": "B", "text": "Barrierearme, klare Fuehrung und Absicherung" },
-        { "id": "C", "text": "Nur auf Lautsprecherdurchsagen setzen" },
-        { "id": "D", "text": "Nichts, die finden den Weg" }
+        {
+          "id": "A",
+          "text": "Schmale Wege ohne Hinweis"
+        },
+        {
+          "id": "B",
+          "text": "Barrierearme, klare Fuehrung und Absicherung"
+        },
+        {
+          "id": "C",
+          "text": "Nur auf Lautsprecherdurchsagen setzen"
+        },
+        {
+          "id": "D",
+          "text": "Nichts, die finden den Weg"
+        }
       ],
       "answer": "B",
       "explain": "Breite, fuehrung und Absperrung muessen auch Rollstuhl/Kinderwagen berücksichtigen.",
       "difficulty": "medium",
-      "tags": ["fussgaenger", "barrierefrei"]
+      "tags": [
+        "fussgaenger",
+        "barrierefrei"
+      ]
     },
     {
       "id": "Q30",
@@ -471,15 +910,30 @@
       "type": "mcq_single",
       "question": "Welche Kategorie beschreibt Gebote/Verbote?",
       "choices": [
-        { "id": "A", "text": "Gefahrzeichen" },
-        { "id": "B", "text": "Vorschriftzeichen" },
-        { "id": "C", "text": "Richtzeichen" },
-        { "id": "D", "text": "Zusatzzeichen" }
+        {
+          "id": "A",
+          "text": "Gefahrzeichen"
+        },
+        {
+          "id": "B",
+          "text": "Vorschriftzeichen"
+        },
+        {
+          "id": "C",
+          "text": "Richtzeichen"
+        },
+        {
+          "id": "D",
+          "text": "Zusatzzeichen"
+        }
       ],
       "answer": "B",
       "explain": "Vorschriftzeichen geben Verbote oder Gebote vor.",
       "difficulty": "easy",
-      "tags": ["beschilderung", "kategorien"]
+      "tags": [
+        "beschilderung",
+        "kategorien"
+      ]
     },
     {
       "id": "Q31",
@@ -487,15 +941,30 @@
       "type": "mcq_single",
       "question": "Wofuer dienen Zusatzzeichen?",
       "choices": [
-        { "id": "A", "text": "Zur Dekoration" },
-        { "id": "B", "text": "Ergaenzen, wer/wann/wie ein Schild gilt" },
-        { "id": "C", "text": "Um Schilder groesser zu machen" },
-        { "id": "D", "text": "Keine Funktion" }
+        {
+          "id": "A",
+          "text": "Zur Dekoration"
+        },
+        {
+          "id": "B",
+          "text": "Ergaenzen, wer/wann/wie ein Schild gilt"
+        },
+        {
+          "id": "C",
+          "text": "Um Schilder groesser zu machen"
+        },
+        {
+          "id": "D",
+          "text": "Keine Funktion"
+        }
       ],
       "answer": "B",
       "explain": "Zusatzzeichen praezisieren die Reichweite eines Schildes.",
       "difficulty": "easy",
-      "tags": ["zusatzzeichen", "regel"]
+      "tags": [
+        "zusatzzeichen",
+        "regel"
+      ]
     },
     {
       "id": "Q32",
@@ -503,15 +972,30 @@
       "type": "mcq_single",
       "question": "Was ist der Zweck von Leitbaken/Leitkegeln?",
       "choices": [
-        { "id": "A", "text": "Deko fuer Fotos" },
-        { "id": "B", "text": "Verkehr fuehren und trennen" },
-        { "id": "C", "text": "Material abstuetzen" },
-        { "id": "D", "text": "Nur fuer Parkplaetze" }
+        {
+          "id": "A",
+          "text": "Deko fuer Fotos"
+        },
+        {
+          "id": "B",
+          "text": "Verkehr fuehren und trennen"
+        },
+        {
+          "id": "C",
+          "text": "Material abstuetzen"
+        },
+        {
+          "id": "D",
+          "text": "Nur fuer Parkplaetze"
+        }
       ],
       "answer": "B",
       "explain": "Sie leiten Fahrzeuge sicher am Arbeitsbereich vorbei.",
       "difficulty": "easy",
-      "tags": ["leitung", "verkehr"]
+      "tags": [
+        "leitung",
+        "verkehr"
+      ]
     },
     {
       "id": "Q33",
@@ -519,15 +1003,30 @@
       "type": "mcq_single",
       "question": "Wann ist eine Umleitung sinnvoll?",
       "choices": [
-        { "id": "A", "text": "Nur bei schoenem Wetter" },
-        { "id": "B", "text": "Wenn der direkte Weg gesperrt oder gefaehrlich ist" },
-        { "id": "C", "text": "Wenn man mehr Schilder hat" },
-        { "id": "D", "text": "Nie, Menschen finden selbst einen Weg" }
+        {
+          "id": "A",
+          "text": "Nur bei schoenem Wetter"
+        },
+        {
+          "id": "B",
+          "text": "Wenn der direkte Weg gesperrt oder gefaehrlich ist"
+        },
+        {
+          "id": "C",
+          "text": "Wenn man mehr Schilder hat"
+        },
+        {
+          "id": "D",
+          "text": "Nie, Menschen finden selbst einen Weg"
+        }
       ],
       "answer": "B",
       "explain": "Umleitung fuehrt sicher um die Gefahrenstelle herum.",
       "difficulty": "easy",
-      "tags": ["umleitung", "sicherheit"]
+      "tags": [
+        "umleitung",
+        "sicherheit"
+      ]
     },
     {
       "id": "Q34",
@@ -535,15 +1034,30 @@
       "type": "mcq_single",
       "question": "Welche Beschilderung muss vor einer Sperrung kommen?",
       "choices": [
-        { "id": "A", "text": "Absperrschranke" },
-        { "id": "B", "text": "Vorwarnung (z. B. Baustelle)" },
-        { "id": "C", "text": "Umleitung nach der Sperre" },
-        { "id": "D", "text": "Keine, reicht nach der Sperre" }
+        {
+          "id": "A",
+          "text": "Absperrschranke"
+        },
+        {
+          "id": "B",
+          "text": "Vorwarnung (z. B. Baustelle)"
+        },
+        {
+          "id": "C",
+          "text": "Umleitung nach der Sperre"
+        },
+        {
+          "id": "D",
+          "text": "Keine, reicht nach der Sperre"
+        }
       ],
       "answer": "B",
       "explain": "Verkehr braucht Vorwarnung, bevor er die Sperre erreicht.",
       "difficulty": "medium",
-      "tags": ["warnung", "reihenfolge"]
+      "tags": [
+        "warnung",
+        "reihenfolge"
+      ]
     },
     {
       "id": "Q35",
@@ -551,15 +1065,30 @@
       "type": "mcq_single",
       "question": "Warum kann eine falsche Geschwindigkeitsbegrenzung riskant sein?",
       "choices": [
-        { "id": "A", "text": "Weil Fahrer lachen" },
-        { "id": "B", "text": "Sie erzeugt unerwartetes Bremsen oder zu hohe Geschwindigkeit" },
-        { "id": "C", "text": "Weil das Schild teurer ist" },
-        { "id": "D", "text": "Keine Auswirkung" }
+        {
+          "id": "A",
+          "text": "Weil Fahrer lachen"
+        },
+        {
+          "id": "B",
+          "text": "Sie erzeugt unerwartetes Bremsen oder zu hohe Geschwindigkeit"
+        },
+        {
+          "id": "C",
+          "text": "Weil das Schild teurer ist"
+        },
+        {
+          "id": "D",
+          "text": "Keine Auswirkung"
+        }
       ],
       "answer": "B",
       "explain": "Falsche Tempoangabe fuehrt zu Fehlverhalten und Gefahren.",
       "difficulty": "medium",
-      "tags": ["geschwindigkeit", "verkehr"]
+      "tags": [
+        "geschwindigkeit",
+        "verkehr"
+      ]
     },
     {
       "id": "Q36",
@@ -567,15 +1096,30 @@
       "type": "mcq_single",
       "question": "Wie erkennst du eine klare Wegfuehrung?",
       "choices": [
-        { "id": "A", "text": "Viele verschiedene Pfeile" },
-        { "id": "B", "text": "Durchgaengige Linie von Warnung, Fuehrung, Umleitung" },
-        { "id": "C", "text": "Keine Schilder, nur Absperrband" },
-        { "id": "D", "text": "Jede Kreuzung anders beschildert" }
+        {
+          "id": "A",
+          "text": "Viele verschiedene Pfeile"
+        },
+        {
+          "id": "B",
+          "text": "Durchgaengige Linie von Warnung, Fuehrung, Umleitung"
+        },
+        {
+          "id": "C",
+          "text": "Keine Schilder, nur Absperrband"
+        },
+        {
+          "id": "D",
+          "text": "Jede Kreuzung anders beschildert"
+        }
       ],
       "answer": "B",
       "explain": "Eine nachvollziehbare Kette ohne Bruche verhindert Irritation.",
       "difficulty": "medium",
-      "tags": ["fuehrung", "logik"]
+      "tags": [
+        "fuehrung",
+        "logik"
+      ]
     },
     {
       "id": "Q37",
@@ -583,15 +1127,30 @@
       "type": "mcq_single",
       "question": "Was ist Kernrisiko im Gleisbereich?",
       "choices": [
-        { "id": "A", "text": "Langsames WLAN" },
-        { "id": "B", "text": "Annaehernde Fahrten und Lichtraum" },
-        { "id": "C", "text": "Zu wenig Kaffee" },
-        { "id": "D", "text": "Zu viele Schilder" }
+        {
+          "id": "A",
+          "text": "Langsames WLAN"
+        },
+        {
+          "id": "B",
+          "text": "Annaehernde Fahrten und Lichtraum"
+        },
+        {
+          "id": "C",
+          "text": "Zu wenig Kaffee"
+        },
+        {
+          "id": "D",
+          "text": "Zu viele Schilder"
+        }
       ],
       "answer": "B",
       "explain": "Fahrten und Lichtraumprofil machen den Gleisbereich hochriskant.",
       "difficulty": "easy",
-      "tags": ["gleisbereich", "risiko"]
+      "tags": [
+        "gleisbereich",
+        "risiko"
+      ]
     },
     {
       "id": "Q38",
@@ -599,15 +1158,30 @@
       "type": "mcq_single",
       "question": "Wann darfst du den Gleisbereich betreten?",
       "choices": [
-        { "id": "A", "text": "Wenn es leer aussieht" },
-        { "id": "B", "text": "Nur wenn Sicherung organisiert und aktiv ist" },
-        { "id": "C", "text": "Immer, wenn du es eilig hast" },
-        { "id": "D", "text": "Nie" }
+        {
+          "id": "A",
+          "text": "Wenn es leer aussieht"
+        },
+        {
+          "id": "B",
+          "text": "Nur wenn Sicherung organisiert und aktiv ist"
+        },
+        {
+          "id": "C",
+          "text": "Immer, wenn du es eilig hast"
+        },
+        {
+          "id": "D",
+          "text": "Nie"
+        }
       ],
       "answer": "B",
       "explain": "Sicherung muss stehen, sonst bleibt der Bereich tabu.",
       "difficulty": "easy",
-      "tags": ["sicherung", "gleis"]
+      "tags": [
+        "sicherung",
+        "gleis"
+      ]
     },
     {
       "id": "Q39",
@@ -615,15 +1189,30 @@
       "type": "mcq_single",
       "question": "Was bedeutet Warnsignal im Gleisbereich?",
       "choices": [
-        { "id": "A", "text": "Langsamer weiterarbeiten" },
-        { "id": "B", "text": "Sofort Arbeit stoppen, Werkzeug sichern, in Sicherheitsraum" },
-        { "id": "C", "text": "Nur kurz schauen" },
-        { "id": "D", "text": "Erst fertig machen, dann gehen" }
+        {
+          "id": "A",
+          "text": "Langsamer weiterarbeiten"
+        },
+        {
+          "id": "B",
+          "text": "Sofort Arbeit stoppen, Werkzeug sichern, in Sicherheitsraum"
+        },
+        {
+          "id": "C",
+          "text": "Nur kurz schauen"
+        },
+        {
+          "id": "D",
+          "text": "Erst fertig machen, dann gehen"
+        }
       ],
       "answer": "B",
       "explain": "Warnung verlangt sofortiges Freimachen des Gleises und Sicherungsraum aufsuchen.",
       "difficulty": "medium",
-      "tags": ["warnsignal", "verhalten"]
+      "tags": [
+        "warnsignal",
+        "verhalten"
+      ]
     },
     {
       "id": "Q40",
@@ -631,15 +1220,30 @@
       "type": "mcq_single",
       "question": "Warum sind Kopfhoerer im Gleisbereich tabu?",
       "choices": [
-        { "id": "A", "text": "Weil Musik nervt" },
-        { "id": "B", "text": "Sie blockieren Warnsignale und Kommunikation" },
-        { "id": "C", "text": "Sie sehen schlecht aus" },
-        { "id": "D", "text": "Sie sind zu teuer" }
+        {
+          "id": "A",
+          "text": "Weil Musik nervt"
+        },
+        {
+          "id": "B",
+          "text": "Sie blockieren Warnsignale und Kommunikation"
+        },
+        {
+          "id": "C",
+          "text": "Sie sehen schlecht aus"
+        },
+        {
+          "id": "D",
+          "text": "Sie sind zu teuer"
+        }
       ],
       "answer": "B",
       "explain": "Akustische Warnungen muessen hoerbar bleiben.",
       "difficulty": "easy",
-      "tags": ["aufmerksamkeit", "gleis"]
+      "tags": [
+        "aufmerksamkeit",
+        "gleis"
+      ]
     },
     {
       "id": "Q41",
@@ -647,15 +1251,30 @@
       "type": "mcq_single",
       "question": "Was ist Lichtraumprofil?",
       "choices": [
-        { "id": "A", "text": "Beleuchtung in der Nacht" },
-        { "id": "B", "text": "Der Bereich, den Fahrzeuge zum sicheren Durchfahren brauchen" },
-        { "id": "C", "text": "Eine neue App" },
-        { "id": "D", "text": "Farbe des Signals" }
+        {
+          "id": "A",
+          "text": "Beleuchtung in der Nacht"
+        },
+        {
+          "id": "B",
+          "text": "Der Bereich, den Fahrzeuge zum sicheren Durchfahren brauchen"
+        },
+        {
+          "id": "C",
+          "text": "Eine neue App"
+        },
+        {
+          "id": "D",
+          "text": "Farbe des Signals"
+        }
       ],
       "answer": "B",
       "explain": "Kein Material oder Person darf in den Lichtraum ragen.",
       "difficulty": "medium",
-      "tags": ["lichtraum", "gleis"]
+      "tags": [
+        "lichtraum",
+        "gleis"
+      ]
     },
     {
       "id": "Q42",
@@ -663,15 +1282,30 @@
       "type": "mcq_single",
       "question": "Warum klare Fluchtraeume definieren?",
       "choices": [
-        { "id": "A", "text": "Zum Rauchen" },
-        { "id": "B", "text": "Damit alle wissen, wohin bei Warnung" },
-        { "id": "C", "text": "Damit Material gelagert wird" },
-        { "id": "D", "text": "Keine Notwendigkeit" }
+        {
+          "id": "A",
+          "text": "Zum Rauchen"
+        },
+        {
+          "id": "B",
+          "text": "Damit alle wissen, wohin bei Warnung"
+        },
+        {
+          "id": "C",
+          "text": "Damit Material gelagert wird"
+        },
+        {
+          "id": "D",
+          "text": "Keine Notwendigkeit"
+        }
       ],
       "answer": "B",
       "explain": "Nur klar vereinbarte Fluchtraeume sichern schnelle Reaktion.",
       "difficulty": "easy",
-      "tags": ["fluchtraum", "sicherung"]
+      "tags": [
+        "fluchtraum",
+        "sicherung"
+      ]
     },
     {
       "id": "Q43",
@@ -679,15 +1313,30 @@
       "type": "mcq_single",
       "question": "Typischer Fehler im Gleisbereich?",
       "choices": [
-        { "id": "A", "text": "Material im Lichtraum lagern" },
-        { "id": "B", "text": "Warnkleidung tragen" },
-        { "id": "C", "text": "Fluchtraum kennen" },
-        { "id": "D", "text": "Sicherungsposten ansprechen" }
+        {
+          "id": "A",
+          "text": "Material im Lichtraum lagern"
+        },
+        {
+          "id": "B",
+          "text": "Warnkleidung tragen"
+        },
+        {
+          "id": "C",
+          "text": "Fluchtraum kennen"
+        },
+        {
+          "id": "D",
+          "text": "Sicherungsposten ansprechen"
+        }
       ],
       "answer": "A",
       "explain": "Material darf nicht in den Lichtraum ragen oder dort gelagert werden.",
       "difficulty": "medium",
-      "tags": ["fehler", "lichtraum"]
+      "tags": [
+        "fehler",
+        "lichtraum"
+      ]
     },
     {
       "id": "Q44",
@@ -695,15 +1344,30 @@
       "type": "mcq_single",
       "question": "Warum ist Ablenkung (Handy) im Gleisbereich extrem riskant?",
       "choices": [
-        { "id": "A", "text": "Weil Akku leer gehen kann" },
-        { "id": "B", "text": "Du verpasst Warnsignale und Sichtkontakt" },
-        { "id": "C", "text": "Handy kann herunterfallen" },
-        { "id": "D", "text": "Weil es verboten aussieht" }
+        {
+          "id": "A",
+          "text": "Weil Akku leer gehen kann"
+        },
+        {
+          "id": "B",
+          "text": "Du verpasst Warnsignale und Sichtkontakt"
+        },
+        {
+          "id": "C",
+          "text": "Handy kann herunterfallen"
+        },
+        {
+          "id": "D",
+          "text": "Weil es verboten aussieht"
+        }
       ],
       "answer": "B",
       "explain": "Blick und Hoersinn muessen frei fuer Warnungen bleiben.",
       "difficulty": "easy",
-      "tags": ["aufmerksamkeit", "gleis"]
+      "tags": [
+        "aufmerksamkeit",
+        "gleis"
+      ]
     },
     {
       "id": "Q45",
@@ -711,15 +1375,30 @@
       "type": "mcq_single",
       "question": "Hauptgefahr am Bahnuebergang?",
       "choices": [
-        { "id": "A", "text": "Keine, Schranke regelt alles" },
-        { "id": "B", "text": "Autos/Fussgaenger unterschaetzen Bahnverkehr und Material" },
-        { "id": "C", "text": "Zu viele Schilder" },
-        { "id": "D", "text": "Nur Laerm" }
+        {
+          "id": "A",
+          "text": "Keine, Schranke regelt alles"
+        },
+        {
+          "id": "B",
+          "text": "Autos/Fussgaenger unterschaetzen Bahnverkehr und Material"
+        },
+        {
+          "id": "C",
+          "text": "Zu viele Schilder"
+        },
+        {
+          "id": "D",
+          "text": "Nur Laerm"
+        }
       ],
       "answer": "B",
       "explain": "Autos und Fussgaenger rechnen oft nicht mit Baustelle und Bahnverkehr gleichzeitig.",
       "difficulty": "medium",
-      "tags": ["bahnuebergang", "risiko"]
+      "tags": [
+        "bahnuebergang",
+        "risiko"
+      ]
     },
     {
       "id": "Q46",
@@ -727,15 +1406,30 @@
       "type": "mcq_single",
       "question": "Welche Massnahme gilt am Bahnuebergang?",
       "choices": [
-        { "id": "A", "text": "Arbeitsbereich offen lassen" },
-        { "id": "B", "text": "Arbeitsbereich klar absperren und fuehren" },
-        { "id": "C", "text": "Absperrung waehrend Pausen oeffnen" },
-        { "id": "D", "text": "Nur Warnweste reicht" }
+        {
+          "id": "A",
+          "text": "Arbeitsbereich offen lassen"
+        },
+        {
+          "id": "B",
+          "text": "Arbeitsbereich klar absperren und fuehren"
+        },
+        {
+          "id": "C",
+          "text": "Absperrung waehrend Pausen oeffnen"
+        },
+        {
+          "id": "D",
+          "text": "Nur Warnweste reicht"
+        }
       ],
       "answer": "B",
       "explain": "Absperrungen und klare Fuehrung schuetzen Team und Dritte.",
       "difficulty": "easy",
-      "tags": ["absperrung", "bahnuebergang"]
+      "tags": [
+        "absperrung",
+        "bahnuebergang"
+      ]
     },
     {
       "id": "Q47",
@@ -743,15 +1437,30 @@
       "type": "mcq_single",
       "question": "Wie reagierst du, wenn Auto trotz Absperrung in Baustelle faehrt?",
       "choices": [
-        { "id": "A", "text": "Ignorieren" },
-        { "id": "B", "text": "Arbeit stoppen, Fahrer sicher anhalten/verweisen, Vorgesetzten informieren" },
-        { "id": "C", "text": "Filmen fuer Social Media" },
-        { "id": "D", "text": "Absperrung abbauen" }
+        {
+          "id": "A",
+          "text": "Ignorieren"
+        },
+        {
+          "id": "B",
+          "text": "Arbeit stoppen, Fahrer sicher anhalten/verweisen, Vorgesetzten informieren"
+        },
+        {
+          "id": "C",
+          "text": "Filmen fuer Social Media"
+        },
+        {
+          "id": "D",
+          "text": "Absperrung abbauen"
+        }
       ],
       "answer": "B",
       "explain": "Sicherheit vor, Arbeit stoppen, Person sicher herausfuehren und melden.",
       "difficulty": "hard",
-      "tags": ["zwischenfall", "reaktion"]
+      "tags": [
+        "zwischenfall",
+        "reaktion"
+      ]
     },
     {
       "id": "Q48",
@@ -759,15 +1468,30 @@
       "type": "mcq_single",
       "question": "Warum sind Sichtdreiecke wichtig?",
       "choices": [
-        { "id": "A", "text": "Nur fuer Optik" },
-        { "id": "B", "text": "Material darf Sicht auf Bahnuebergang nicht verdecken" },
-        { "id": "C", "text": "Damit Fotos besser werden" },
-        { "id": "D", "text": "Keine Relevanz" }
+        {
+          "id": "A",
+          "text": "Nur fuer Optik"
+        },
+        {
+          "id": "B",
+          "text": "Material darf Sicht auf Bahnuebergang nicht verdecken"
+        },
+        {
+          "id": "C",
+          "text": "Damit Fotos besser werden"
+        },
+        {
+          "id": "D",
+          "text": "Keine Relevanz"
+        }
       ],
       "answer": "B",
       "explain": "Freie Sicht ermoeglicht rechtzeitiges Erkennen von Verkehr.",
       "difficulty": "medium",
-      "tags": ["sicht", "bahnuebergang"]
+      "tags": [
+        "sicht",
+        "bahnuebergang"
+      ]
     },
     {
       "id": "Q49",
@@ -775,15 +1499,30 @@
       "type": "mcq_single",
       "question": "Was tun, wenn fehlende Schilder/Material bemerkt werden?",
       "choices": [
-        { "id": "A", "text": "Weiterarbeiten" },
-        { "id": "B", "text": "Melden, stoppen, Ersatz organisieren" },
-        { "id": "C", "text": "Improvisieren mit Pappkarton" },
-        { "id": "D", "text": "Nichts, wird schon gehen" }
+        {
+          "id": "A",
+          "text": "Weiterarbeiten"
+        },
+        {
+          "id": "B",
+          "text": "Melden, stoppen, Ersatz organisieren"
+        },
+        {
+          "id": "C",
+          "text": "Improvisieren mit Pappkarton"
+        },
+        {
+          "id": "D",
+          "text": "Nichts, wird schon gehen"
+        }
       ],
       "answer": "B",
       "explain": "Sicherungsluecken muessen sofort geschlossen werden.",
       "difficulty": "easy",
-      "tags": ["meldung", "sicherheit"]
+      "tags": [
+        "meldung",
+        "sicherheit"
+      ]
     },
     {
       "id": "Q50",
@@ -791,15 +1530,30 @@
       "type": "mcq_single",
       "question": "Typische Unfallursache im Gleisbereich?",
       "choices": [
-        { "id": "A", "text": "Zu viel Planen" },
-        { "id": "B", "text": "Routine und Unterschaetzung von Fahrten" },
-        { "id": "C", "text": "Zu viele Warnwesten" },
-        { "id": "D", "text": "Zu viele Pausen" }
+        {
+          "id": "A",
+          "text": "Zu viel Planen"
+        },
+        {
+          "id": "B",
+          "text": "Routine und Unterschaetzung von Fahrten"
+        },
+        {
+          "id": "C",
+          "text": "Zu viele Warnwesten"
+        },
+        {
+          "id": "D",
+          "text": "Zu viele Pausen"
+        }
       ],
       "answer": "B",
       "explain": "Vertrautheit fuehrt zu Regelverletzungen und Unachtsamkeit.",
       "difficulty": "medium",
-      "tags": ["routine", "gefahr"]
+      "tags": [
+        "routine",
+        "gefahr"
+      ]
     },
     {
       "id": "Q51",
@@ -807,15 +1561,30 @@
       "type": "mcq_single",
       "question": "Warum ist klare Kommunikation wichtig?",
       "choices": [
-        { "id": "A", "text": "Damit es lauter ist" },
-        { "id": "B", "text": "Kurze, eindeutige Ansagen vermeiden Missverstaendnisse" },
-        { "id": "C", "text": "Weil Funkgeraete teuer sind" },
-        { "id": "D", "text": "Keine Bedeutung" }
+        {
+          "id": "A",
+          "text": "Damit es lauter ist"
+        },
+        {
+          "id": "B",
+          "text": "Kurze, eindeutige Ansagen vermeiden Missverstaendnisse"
+        },
+        {
+          "id": "C",
+          "text": "Weil Funkgeraete teuer sind"
+        },
+        {
+          "id": "D",
+          "text": "Keine Bedeutung"
+        }
       ],
       "answer": "B",
       "explain": "Eindeutige Kommunikation verhindert falsche Bewegungen und Unfaelle.",
       "difficulty": "easy",
-      "tags": ["kommunikation", "team"]
+      "tags": [
+        "kommunikation",
+        "team"
+      ]
     },
     {
       "id": "Q52",
@@ -823,15 +1592,30 @@
       "type": "mcq_single",
       "question": "Reaktion auf unuebersichtliche Stelle (Kurve)?",
       "choices": [
-        { "id": "A", "text": "Nichts tun" },
-        { "id": "B", "text": "Vorwarnung weiter vorne, Sicherungsposten mit Sichtkontakt" },
-        { "id": "C", "text": "Absperrung weglassen" },
-        { "id": "D", "text": "Kopfhoerer aufsetzen" }
+        {
+          "id": "A",
+          "text": "Nichts tun"
+        },
+        {
+          "id": "B",
+          "text": "Vorwarnung weiter vorne, Sicherungsposten mit Sichtkontakt"
+        },
+        {
+          "id": "C",
+          "text": "Absperrung weglassen"
+        },
+        {
+          "id": "D",
+          "text": "Kopfhoerer aufsetzen"
+        }
       ],
       "answer": "B",
       "explain": "Fruehere Warnung und Sichtkontakt verringern Risiko in Kurven.",
       "difficulty": "hard",
-      "tags": ["sicht", "sicherung"]
+      "tags": [
+        "sicht",
+        "sicherung"
+      ]
     },
     {
       "id": "Q53",
@@ -839,15 +1623,30 @@
       "type": "mcq_single",
       "question": "Warum Ordnung am Ende des Tages?",
       "choices": [
-        { "id": "A", "text": "Nur fuer gutes Gefuehl" },
-        { "id": "B", "text": "Verhindert Stolpern, Diebstahl, Schaeden" },
-        { "id": "C", "text": "Damit Chef laechelt" },
-        { "id": "D", "text": "Keine Relevanz" }
+        {
+          "id": "A",
+          "text": "Nur fuer gutes Gefuehl"
+        },
+        {
+          "id": "B",
+          "text": "Verhindert Stolpern, Diebstahl, Schaeden"
+        },
+        {
+          "id": "C",
+          "text": "Damit Chef laechelt"
+        },
+        {
+          "id": "D",
+          "text": "Keine Relevanz"
+        }
       ],
       "answer": "B",
       "explain": "Ordnung reduziert Gefahren und schuetzt Material.",
       "difficulty": "easy",
-      "tags": ["ordnung", "abschluss"]
+      "tags": [
+        "ordnung",
+        "abschluss"
+      ]
     },
     {
       "id": "Q54",
@@ -855,15 +1654,30 @@
       "type": "mcq_single",
       "question": "Was ist bei Materiallagerung wichtig?",
       "choices": [
-        { "id": "A", "text": "So nah wie moeglich an Gleis/Verkehr" },
-        { "id": "B", "text": "Nichts im Gefahren- oder Lichtraumbereich lagern" },
-        { "id": "C", "text": "Auf Wegen ablegen, damit sichtbar" },
-        { "id": "D", "text": "Egal, wenn beschriftet" }
+        {
+          "id": "A",
+          "text": "So nah wie moeglich an Gleis/Verkehr"
+        },
+        {
+          "id": "B",
+          "text": "Nichts im Gefahren- oder Lichtraumbereich lagern"
+        },
+        {
+          "id": "C",
+          "text": "Auf Wegen ablegen, damit sichtbar"
+        },
+        {
+          "id": "D",
+          "text": "Egal, wenn beschriftet"
+        }
       ],
       "answer": "B",
       "explain": "Material muss ausserhalb von Fahr- und Fluchtbereichen liegen.",
       "difficulty": "medium",
-      "tags": ["lagerung", "lichtraum"]
+      "tags": [
+        "lagerung",
+        "lichtraum"
+      ]
     },
     {
       "id": "Q55",
@@ -871,15 +1685,30 @@
       "type": "mcq_single",
       "question": "Welche Aussage zu Umweltschutz stimmt?",
       "choices": [
-        { "id": "A", "text": "Oel darf in Schotter sickern" },
-        { "id": "B", "text": "Oel/Kraftstoff auffangen und entsorgen" },
-        { "id": "C", "text": "Abfaelle liegen lassen" },
-        { "id": "D", "text": "Nichts, Umwelt erholt sich" }
+        {
+          "id": "A",
+          "text": "Oel darf in Schotter sickern"
+        },
+        {
+          "id": "B",
+          "text": "Oel/Kraftstoff auffangen und entsorgen"
+        },
+        {
+          "id": "C",
+          "text": "Abfaelle liegen lassen"
+        },
+        {
+          "id": "D",
+          "text": "Nichts, Umwelt erholt sich"
+        }
       ],
       "answer": "B",
       "explain": "Fluessigkeiten muessen aufgefangen und fachgerecht entsorgt werden.",
       "difficulty": "easy",
-      "tags": ["umwelt", "entsorgung"]
+      "tags": [
+        "umwelt",
+        "entsorgung"
+      ]
     },
     {
       "id": "Q56",
@@ -887,15 +1716,30 @@
       "type": "mcq_single",
       "question": "Welche Reaktion ist falsch?",
       "choices": [
-        { "id": "A", "text": "\"Erst mal weiterarbeiten, bis jemand was sagt\"" },
-        { "id": "B", "text": "Bei Unsicherheit stoppen und klaeren" },
-        { "id": "C", "text": "Gefahren melden" },
-        { "id": "D", "text": "Absicherung pruefen" }
+        {
+          "id": "A",
+          "text": "\"Erst mal weiterarbeiten, bis jemand was sagt\""
+        },
+        {
+          "id": "B",
+          "text": "Bei Unsicherheit stoppen und klaeren"
+        },
+        {
+          "id": "C",
+          "text": "Gefahren melden"
+        },
+        {
+          "id": "D",
+          "text": "Absicherung pruefen"
+        }
       ],
       "answer": "A",
       "explain": "Weiterarbeiten trotz Zweifel ist riskant und verstoesst gegen STOP-Regel.",
       "difficulty": "medium",
-      "tags": ["verhalten", "stop"]
+      "tags": [
+        "verhalten",
+        "stop"
+      ]
     },
     {
       "id": "Q57",
@@ -903,15 +1747,30 @@
       "type": "mcq_single",
       "question": "Was ist bei Fussgaengern mit Kinderwagen/Rollstuhl zu beachten?",
       "choices": [
-        { "id": "A", "text": "Keine Ruecksicht noetig" },
-        { "id": "B", "text": "Barrierearme, breite Wege und Rampen" },
-        { "id": "C", "text": "Treppen sind genug" },
-        { "id": "D", "text": "Nur Hinweise per Lautsprecher" }
+        {
+          "id": "A",
+          "text": "Keine Ruecksicht noetig"
+        },
+        {
+          "id": "B",
+          "text": "Barrierearme, breite Wege und Rampen"
+        },
+        {
+          "id": "C",
+          "text": "Treppen sind genug"
+        },
+        {
+          "id": "D",
+          "text": "Nur Hinweise per Lautsprecher"
+        }
       ],
       "answer": "B",
       "explain": "Sichere Fuehrung muss barrierearm sein.",
       "difficulty": "medium",
-      "tags": ["barrierefrei", "fussgaenger"]
+      "tags": [
+        "barrierefrei",
+        "fussgaenger"
+      ]
     },
     {
       "id": "Q58",
@@ -919,15 +1778,30 @@
       "type": "mcq_single",
       "question": "Warum Beleuchtung nicht nur Komfort?",
       "choices": [
-        { "id": "A", "text": "Nur fuer Fotos" },
-        { "id": "B", "text": "Sichtbarkeit und Erkennbarkeit, besonders nachts" },
-        { "id": "C", "text": "Damit Maschinen warm bleiben" },
-        { "id": "D", "text": "Keine Wirkung" }
+        {
+          "id": "A",
+          "text": "Nur fuer Fotos"
+        },
+        {
+          "id": "B",
+          "text": "Sichtbarkeit und Erkennbarkeit, besonders nachts"
+        },
+        {
+          "id": "C",
+          "text": "Damit Maschinen warm bleiben"
+        },
+        {
+          "id": "D",
+          "text": "Keine Wirkung"
+        }
       ],
       "answer": "B",
       "explain": "Beleuchtung ist Schutzmassnahme fuer Arbeitende und Verkehr.",
       "difficulty": "easy",
-      "tags": ["beleuchtung", "sicht"]
+      "tags": [
+        "beleuchtung",
+        "sicht"
+      ]
     },
     {
       "id": "Q59",
@@ -935,15 +1809,30 @@
       "type": "mcq_single",
       "question": "Wie verhinderst du, dass Leute trotzdem durchlaufen?",
       "choices": [
-        { "id": "A", "text": "Absperrung offen lassen" },
-        { "id": "B", "text": "Klare, fruehe Fuehrung und Praesenz vor Ort" },
-        { "id": "C", "text": "Keine Schilder" },
-        { "id": "D", "text": "Nur hoffen" }
+        {
+          "id": "A",
+          "text": "Absperrung offen lassen"
+        },
+        {
+          "id": "B",
+          "text": "Klare, fruehe Fuehrung und Praesenz vor Ort"
+        },
+        {
+          "id": "C",
+          "text": "Keine Schilder"
+        },
+        {
+          "id": "D",
+          "text": "Nur hoffen"
+        }
       ],
       "answer": "B",
       "explain": "Kombination aus Fuehrung, Absperrung und Ansprache verhindert Durchlaeufer.",
       "difficulty": "medium",
-      "tags": ["fuehrung", "kommunikation"]
+      "tags": [
+        "fuehrung",
+        "kommunikation"
+      ]
     },
     {
       "id": "Q60",
@@ -951,15 +1840,402 @@
       "type": "mcq_single",
       "question": "Welches Prinzip fasst Lernfeld 1 am besten zusammen?",
       "choices": [
-        { "id": "A", "text": "Arbeiten vor Sicherung" },
-        { "id": "B", "text": "Sichern vor Arbeiten" },
-        { "id": "C", "text": "Schneller ist sicherer" },
-        { "id": "D", "text": "Material vor Menschen" }
+        {
+          "id": "A",
+          "text": "Arbeiten vor Sicherung"
+        },
+        {
+          "id": "B",
+          "text": "Sichern vor Arbeiten"
+        },
+        {
+          "id": "C",
+          "text": "Schneller ist sicherer"
+        },
+        {
+          "id": "D",
+          "text": "Material vor Menschen"
+        }
       ],
       "answer": "B",
       "explain": "Zentraler Satz: erst sichern, dann arbeiten.",
       "difficulty": "easy",
-      "tags": ["prinzip", "kern"]
+      "tags": [
+        "prinzip",
+        "kern"
+      ]
+    },
+    {
+      "id": "Q61",
+      "block": "lf01-b1",
+      "type": "mcq_single",
+      "question": "Wer darf bei akuter Gefahr die Arbeiten stoppen?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Nur der Bauherr"
+        },
+        {
+          "id": "B",
+          "text": "Sicherungsaufsicht mit Weisungsrecht"
+        },
+        {
+          "id": "C",
+          "text": "Nur der Kranfuehrer"
+        },
+        {
+          "id": "D",
+          "text": "Niemand, es wird weitergearbeitet"
+        }
+      ],
+      "answer": "B",
+      "explain": "Die Sicherungsaufsicht kann und muss bei Gefahr sofort stoppen.",
+      "difficulty": "easy",
+      "tags": [
+        "verantwortung",
+        "sicherung"
+      ]
+    },
+    {
+      "id": "Q62",
+      "block": "lf01-b2",
+      "type": "mcq_single",
+      "question": "Wann muss neben der jaehrlichen Unterweisung zusaetzlich unterwiesen werden?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Nur bei gutem Wetter"
+        },
+        {
+          "id": "B",
+          "text": "Bei Aenderung von Taetigkeit, Geraet oder Baustelle"
+        },
+        {
+          "id": "C",
+          "text": "Nur wenn neue Mitarbeitende starten"
+        },
+        {
+          "id": "D",
+          "text": "Nie, einmal pro Jahr reicht immer"
+        }
+      ],
+      "answer": "B",
+      "explain": "Aenderungen von Risiken oder Ablaeufen erfordern eine neue, konkrete Unterweisung.",
+      "difficulty": "medium",
+      "tags": [
+        "unterweisung",
+        "pflicht"
+      ]
+    },
+    {
+      "id": "Q63",
+      "block": "lf01-b3",
+      "type": "mcq_single",
+      "question": "Welche Warnschutzklasse ist im Gleisbereich in der Praxis meist erforderlich?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Klasse 1"
+        },
+        {
+          "id": "B",
+          "text": "Klasse 2"
+        },
+        {
+          "id": "C",
+          "text": "Klasse 3"
+        },
+        {
+          "id": "D",
+          "text": "Keine Klasse notwendig"
+        }
+      ],
+      "answer": "C",
+      "explain": "Im Gleisbereich wird in der Regel Warnschutzklasse 3 verlangt.",
+      "difficulty": "easy",
+      "tags": [
+        "warnkleidung",
+        "gleisbereich"
+      ]
+    },
+    {
+      "id": "Q64",
+      "block": "lf01-b4",
+      "type": "mcq_single",
+      "question": "Was ist das Hauptziel im oeffentlichen Raum?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Nur den Bauablauf beschleunigen"
+        },
+        {
+          "id": "B",
+          "text": "Nur Material vor Diebstahl schuetzen"
+        },
+        {
+          "id": "C",
+          "text": "Beschaeftigte und unbeteiligte Dritte gleichzeitig schuetzen"
+        },
+        {
+          "id": "D",
+          "text": "Verkehr ohne Beschilderung laufen lassen"
+        }
+      ],
+      "answer": "C",
+      "explain": "Im oeffentlichen Raum muessen Arbeits- und Verkehrsrisiken gleichzeitig abgesichert werden.",
+      "difficulty": "easy",
+      "tags": [
+        "oeffentlicher-raum",
+        "sicherheit"
+      ]
+    },
+    {
+      "id": "Q65",
+      "block": "lf01-b5",
+      "type": "mcq_single",
+      "question": "Welche Aussage zu Verkehrszeichen auf Baustellen ist richtig?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Schilder duerfen spontan aufgestellt werden"
+        },
+        {
+          "id": "B",
+          "text": "Aufstellen nur auf Basis verkehrsrechtlicher Anordnung"
+        },
+        {
+          "id": "C",
+          "text": "Aenderungen macht jedes Teammitglied selbst"
+        },
+        {
+          "id": "D",
+          "text": "Richtzeichen sind unverbindliche Tipps"
+        }
+      ],
+      "answer": "B",
+      "explain": "Verkehrszeichen im oeffentlichen Raum brauchen eine behordliche Anordnung.",
+      "difficulty": "medium",
+      "tags": [
+        "beschilderung",
+        "anordnung"
+      ]
+    },
+    {
+      "id": "Q66",
+      "block": "lf01-b6",
+      "type": "mcq_single",
+      "question": "Was gilt bei Warnung im Gleisbereich?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Arbeit sauber zu Ende fuehren und dann raus"
+        },
+        {
+          "id": "B",
+          "text": "Sofort Gefahrenbereich verlassen und in Sicherheitsraum gehen"
+        },
+        {
+          "id": "C",
+          "text": "Nur laute Maschinen stoppen"
+        },
+        {
+          "id": "D",
+          "text": "Auf Rueckfrage warten"
+        }
+      ],
+      "answer": "B",
+      "explain": "Warnung bedeutet unverzueglich raus aus dem Gefahrenbereich.",
+      "difficulty": "easy",
+      "tags": [
+        "gleisbereich",
+        "warnung"
+      ]
+    },
+    {
+      "id": "Q67",
+      "block": "lf01-b7",
+      "type": "mcq_single",
+      "question": "Warum gilt der Bahnuebergang als Doppelgefahrenbereich?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Weil dort zwei Schranken stehen"
+        },
+        {
+          "id": "B",
+          "text": "Weil Schienen- und Strassenverkehr gleichzeitig zu sichern sind"
+        },
+        {
+          "id": "C",
+          "text": "Weil nur nachts gearbeitet wird"
+        },
+        {
+          "id": "D",
+          "text": "Weil dort keine Regeln gelten"
+        }
+      ],
+      "answer": "B",
+      "explain": "Am Bahnuebergang treffen Bahn- und Strassenverkehr direkt aufeinander.",
+      "difficulty": "easy",
+      "tags": [
+        "bahnuebergang",
+        "sicherung"
+      ]
+    },
+    {
+      "id": "Q68",
+      "block": "lf01-b8",
+      "type": "mcq_single",
+      "question": "Was gehoert zwingend zum Tagesabschluss?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Nur Werkzeuge zaehlen"
+        },
+        {
+          "id": "B",
+          "text": "Absperrung, Beleuchtung, Material und Maschinenzustand kontrollieren"
+        },
+        {
+          "id": "C",
+          "text": "Nur den Container abschliessen"
+        },
+        {
+          "id": "D",
+          "text": "Nur den Wetterbericht pruefen"
+        }
+      ],
+      "answer": "B",
+      "explain": "Der Tagesabschluss sichert die Baustelle auch ohne Personal in der Nacht.",
+      "difficulty": "medium",
+      "tags": [
+        "tagesabschluss",
+        "ordnung"
+      ]
+    },
+    {
+      "id": "Q69",
+      "block": "lf01-b2",
+      "type": "mcq_single",
+      "question": "Welche Reihenfolge beschreibt das TOP-Prinzip korrekt?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Persoenlich, Organisatorisch, Technisch"
+        },
+        {
+          "id": "B",
+          "text": "Technisch, Organisatorisch, Persoenlich"
+        },
+        {
+          "id": "C",
+          "text": "Organisatorisch, Persoenlich, Technisch"
+        },
+        {
+          "id": "D",
+          "text": "Es gibt keine feste Reihenfolge"
+        }
+      ],
+      "answer": "B",
+      "explain": "Erst technische und organisatorische Massnahmen, PSA als letzte Schutzstufe.",
+      "difficulty": "easy",
+      "tags": [
+        "top-prinzip",
+        "schutzmassnahmen"
+      ]
+    },
+    {
+      "id": "Q70",
+      "block": "lf01-b3",
+      "type": "mcq_single",
+      "question": "Wie ist mit einem Helm mit sichtbarem Riss umzugehen?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Weitertragen bis Feierabend"
+        },
+        {
+          "id": "B",
+          "text": "Mit Klebeband reparieren und nutzen"
+        },
+        {
+          "id": "C",
+          "text": "Sofort aus dem Einsatz nehmen und ersetzen"
+        },
+        {
+          "id": "D",
+          "text": "Nur bei Regen austauschen"
+        }
+      ],
+      "answer": "C",
+      "explain": "Beschaedigte PSA verliert Schutzwirkung und muss ersetzt werden.",
+      "difficulty": "easy",
+      "tags": [
+        "psa",
+        "pflege"
+      ]
+    },
+    {
+      "id": "Q71",
+      "block": "lf01-b5",
+      "type": "mcq_single",
+      "question": "Was ist ein typischer Beschilderungsfehler nach Bauphasenwechsel?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Neue Schilder korrekt nach Plan"
+        },
+        {
+          "id": "B",
+          "text": "Restbeschilderung bleibt stehen und widerspricht neuer Fuehrung"
+        },
+        {
+          "id": "C",
+          "text": "Taegliche Sichtkontrolle der Schilder"
+        },
+        {
+          "id": "D",
+          "text": "Leitbaken nachts beleuchten"
+        }
+      ],
+      "answer": "B",
+      "explain": "Alte oder widerspruechliche Beschilderung fuehrt zu Unsicherheit und Fehlverhalten.",
+      "difficulty": "medium",
+      "tags": [
+        "beschilderung",
+        "fehler"
+      ]
+    },
+    {
+      "id": "Q72",
+      "block": "lf01-b6",
+      "type": "mcq_single",
+      "question": "Welche Aussage zum Lichtraumprofil ist korrekt?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Werkzeug darf kurz im Lichtraum liegen bleiben"
+        },
+        {
+          "id": "B",
+          "text": "Material im Lichtraum ist erlaubt, wenn es markiert ist"
+        },
+        {
+          "id": "C",
+          "text": "Lichtraumprofil muss jederzeit frei von Personen, Material und Geraeten sein"
+        },
+        {
+          "id": "D",
+          "text": "Das gilt nur bei Tageslicht"
+        }
+      ],
+      "answer": "C",
+      "explain": "Der fuer Zugfahrten benoetigte Raum ist strikt freizuhalten.",
+      "difficulty": "medium",
+      "tags": [
+        "gleisbereich",
+        "lichtraumprofil"
+      ]
     }
   ]
 }

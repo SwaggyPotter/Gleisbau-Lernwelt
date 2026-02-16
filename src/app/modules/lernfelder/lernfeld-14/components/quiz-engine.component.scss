@@ -41,6 +41,25 @@
   ion-item.selected {
     --background: #f2f2f5;
   }
+  .instant-feedback {
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 10px;
+    strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    p {
+      margin: 0;
+      color: #223;
+    }
+    &.correct {
+      background: #e7f7eb;
+    }
+    &.wrong {
+      background: #fdebec;
+    }
+  }
   .nav-row {
     display: flex;
     align-items: center;

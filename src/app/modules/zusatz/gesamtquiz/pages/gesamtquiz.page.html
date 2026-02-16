@@ -1,0 +1,51 @@
+﻿<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>EXTRA: Gesamtquiz alle Module</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">Zur Uebersicht</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="page-shell" *ngIf="!loading && !error; else stateBlock">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Extra</p>
+        <h1>Grosses Quiz ueber alle Module</h1>
+        <p class="lede">
+          Diese Runde enthaelt alle verfuegbaren Fragen aus Lernfeld 1 bis 14 und den Zusatzmodulen.
+          Nach jeder Antwort siehst du direkt richtig oder falsch.
+        </p>
+        <div class="badges" *ngIf="quiz?.meta?.sources?.length">
+          <ion-chip color="primary" outline="true">{{ quiz?.meta?.sources?.length }} Quellen</ion-chip>
+          <ion-chip color="success" outline="true">{{ quiz?.questions?.length || 0 }} Fragen gesamt</ion-chip>
+        </div>
+      </div>
+      <div class="progress">
+        <div class="stat">
+          <span>Beantwortete Fragen</span>
+          <strong>{{ answeredQuizCount() }}/{{ quiz?.questions?.length || 0 }}</strong>
+        </div>
+        <div class="stat">
+          <span>Antwortversuche</span>
+          <strong>{{ totalAttempts() }}</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="quiz-section" *ngIf="quiz">
+      <app-gesamtquiz-quiz-engine
+        [questions]="quiz.questions"
+        [shuffle]="false"
+        [title]="quiz.meta.title"
+        (answered)="quizAnswered($event)"
+      ></app-gesamtquiz-quiz-engine>
+    </section>
+  </div>
+
+  <ng-template #stateBlock>
+    <ion-spinner *ngIf="loading"></ion-spinner>
+    <p *ngIf="error">{{ error }}</p>
+  </ng-template>
+</ion-content>

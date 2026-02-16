@@ -70,14 +70,15 @@
   color: var(--ion-color-medium);
 }
 
-.block-actions {
-  display: flex;
-  gap: 6px;
-  margin: 8px 0;
-}
-
 .extras {
   margin-top: 12px;
+}
+
+.overall-quiz {
+  p {
+    margin: 0 0 10px;
+    color: var(--ion-color-medium);
+  }
 }
 
 .sticky-nav {

@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Lernfeld 1: Baustellen einrichten (Gleisbau)</ion-title>
     <ion-buttons slot="end">
-      <ion-button routerLink="/dashboard" fill="clear">Zur Übersicht</ion-button>
+      <ion-button routerLink="/dashboard" fill="clear">Zur Uebersicht</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -14,7 +14,7 @@
         <p class="eyebrow">Lernfeld 1</p>
         <h1>Baustellen einrichten</h1>
         <p class="lede">
-          Ziele: sicher aufbauen, Verkehrs- und Gleisbereich absichern, Abläufe klar machen.
+          Ziele: sicher aufbauen, Verkehrs- und Gleisbereich absichern, Ablaeufe klar machen.
           Dauer: ca. 20 Stunden. Fokus: erst sichern, dann arbeiten.
         </p>
         <div class="badges">
@@ -24,7 +24,7 @@
       </div>
       <div class="progress">
         <div class="stat">
-          <span>Abgeschlossene Blöcke</span>
+          <span>Abgeschlossene Bloecke</span>
           <strong>{{ progress.completedBlocks.length }}/{{ blocks.length }}</strong>
         </div>
         <div class="stat">
@@ -32,8 +32,8 @@
           <strong>{{ progress.scenarioScore }}</strong>
         </div>
         <div class="stat">
-          <span>Quicktests</span>
-          <strong>{{ progress.quickTests.length }}</strong>
+          <span>Quizfragen bearbeitet</span>
+          <strong>{{ answeredQuizCount() }}/{{ quiz?.questions?.length || 0 }}</strong>
         </div>
       </div>
     </section>
@@ -72,51 +72,32 @@
             </div>
 
             <app-lesson-renderer [block]="block"></app-lesson-renderer>
-
-            <div class="block-actions" *ngIf="quiz">
-              <ion-button size="small" color="primary" fill="outline" (click)="selectBlock(block.id)">Zum Block</ion-button>
-              <ion-button size="small" color="tertiary" fill="solid" *ngIf="block.quizRef?.length">
-                Üben ({{ block.quizRef?.length }} Fragen)
-              </ion-button>
-            </div>
-
-            <ion-accordion-group>
-              <ion-accordion [value]="block.id">
-                <ion-item slot="header" color="light">
-                  <ion-label>Üben: {{ block.title }}</ion-label>
-                  <ion-chip color="primary" outline="true">
-                    <ion-label>{{ block.quizRef?.length || '0' }} Fragen</ion-label>
-                  </ion-chip>
-                </ion-item>
-                <div slot="content">
-                  <app-quiz-engine
-                    *ngIf="quiz"
-                    [questions]="quiz.questions"
-                    [questionIds]="block.quizRef"
-                    [limit]="block.quizRef?.length || 4"
-                    [title]="'Üben: ' + block.title"
-                    (answered)="quizAnswered($event)"
-                  ></app-quiz-engine>
-                </div>
-              </ion-accordion>
-            </ion-accordion-group>
           </section>
         </ion-col>
       </ion-row>
     </ion-grid>
 
+    <section class="extras overall-quiz" *ngIf="quiz">
+      <h3>Grosses Gesamtquiz Lernfeld 1</h3>
+      <p>
+        Alle Fragen aus Lernfeld 1 in einem Durchlauf. Nach jeder Antwort siehst du direkt, ob sie richtig oder falsch war.
+      </p>
+      <app-quiz-engine
+        [questions]="quiz.questions"
+        [shuffle]="false"
+        [title]="'Gesamtquiz Lernfeld 1'"
+        (answered)="quizAnswered($event)"
+      ></app-quiz-engine>
+    </section>
+
     <section class="extras" *ngIf="scenarios">
-      <h3>Story-Szenarien: Was würdest du tun?</h3>
+      <h3>Story-Szenarien: Was wuerdest du tun?</h3>
       <app-scenario-runner [scenarios]="scenarios.scenarios" (progress)="scenarioProgress($event)"></app-scenario-runner>
     </section>
 
     <section class="extras" *ngIf="puzzle">
       <h3>Drag & Drop Puzzle</h3>
       <app-lf01-sign-puzzle [puzzle]="puzzle"></app-lf01-sign-puzzle>
-    </section>
-
-    <section class="extras" *ngIf="quiz">
-      <app-lf01-quicktest [quiz]="quiz" [blocks]="blocks" (done)="quicktestDone($event)"></app-lf01-quicktest>
     </section>
   </div>
 

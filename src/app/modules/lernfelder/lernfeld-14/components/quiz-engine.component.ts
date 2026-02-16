@@ -1,4 +1,4 @@
-﻿import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { QuizQuestion } from '../models/lf14.models';
 
 type AnswerState = { choice?: string; correct?: boolean };
@@ -43,6 +43,9 @@ export class QuizEngineComponent implements OnChanges {
   }
 
   select(question: QuizQuestion, choiceId: string): void {
+    if (this.answers[question.id]?.choice) {
+      return;
+    }
     const correct = question.answer === choiceId;
     this.answers[question.id] = { choice: choiceId, correct };
     this.answered.emit({ id: question.id, correct });
@@ -54,9 +57,6 @@ export class QuizEngineComponent implements OnChanges {
         .map(([id]) => id);
       this.finishedSummary = { correct: correctCount, total: this.active.length };
       this.completed.emit({ correct: correctCount, total: this.active.length, wrongIds, questionIds: this.active.map(q => q.id) });
-    }
-    if (this.currentIndex < this.active.length - 1) {
-      this.currentIndex += 1;
     }
   }
 
@@ -72,12 +72,9 @@ export class QuizEngineComponent implements OnChanges {
     const current = this.answers[question.id];
     if (!current?.choice) return 'neutral';
     if (choiceId === current.choice) {
-      if (this.finishedSummary) {
-        return current.correct ? 'correct' : 'wrong';
-      }
-      return 'selected';
+      return current.correct ? 'correct' : 'wrong';
     }
-    if (this.showSolutions && choiceId === question.answer) return 'correct';
+    if (choiceId === question.answer && (!current.correct || this.showSolutions)) return 'correct';
     return 'neutral';
   }
 

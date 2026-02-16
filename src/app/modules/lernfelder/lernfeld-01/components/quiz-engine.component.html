@@ -13,6 +13,7 @@
         <ion-item
           *ngFor="let c of q.choices"
           (click)="select(q, c.id)"
+          [disabled]="!!answers[q.id]?.choice"
           [class.correct]="choiceState(q, c.id) === 'correct'"
           [class.wrong]="choiceState(q, c.id) === 'wrong'"
           [class.selected]="choiceState(q, c.id) === 'selected'"
@@ -21,9 +22,15 @@
           <ion-label>{{ c.text }}</ion-label>
         </ion-item>
       </ion-list>
+
+      <div class="instant-feedback" *ngIf="answers[q.id] as a" [class.correct]="a.correct" [class.wrong]="!a.correct">
+        <strong>{{ a.correct ? 'Richtig' : 'Falsch' }}</strong>
+        <p>{{ q.explain }}</p>
+      </div>
     </div>
+
     <div class="nav-row">
-      <ion-button size="small" fill="outline" (click)="prev()" [disabled]="currentIndex === 0">Zurück</ion-button>
+      <ion-button size="small" fill="outline" (click)="prev()" [disabled]="currentIndex === 0">Zurueck</ion-button>
       <ion-button size="small" fill="outline" (click)="next()" [disabled]="currentIndex >= active.length - 1">Weiter</ion-button>
       <div class="spacer"></div>
       <ion-chip color="primary" outline="true">{{ answeredCount() }}/{{ active.length }} beantwortet</ion-chip>
@@ -33,7 +40,7 @@
       <p>Ergebnis: {{ finishedSummary.correct }} / {{ finishedSummary.total }} richtig</p>
       <ion-button size="small" fill="outline" color="medium" (click)="reset()">Neue Runde</ion-button>
       <ion-button size="small" fill="clear" (click)="toggleSolutions()">
-        {{ showSolutions ? 'Lösungen ausblenden' : 'Lösungen zeigen' }}
+        {{ showSolutions ? 'Loesungen ausblenden' : 'Loesungen zeigen' }}
       </ion-button>
     </div>
   </ion-card-content>

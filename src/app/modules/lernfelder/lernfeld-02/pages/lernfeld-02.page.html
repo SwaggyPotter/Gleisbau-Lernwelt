@@ -66,37 +66,17 @@
             </div>
 
             <app-lf02-lesson-renderer [block]="block"></app-lf02-lesson-renderer>
-
-            <ion-accordion-group *ngIf="quiz">
-              <ion-accordion [value]="block.id">
-                <ion-item slot="header" color="light">
-                  <ion-label>Quiz zu {{ block.title }}</ion-label>
-                  <ion-chip color="primary" outline="true">
-                    <ion-label>{{ block.quizRef?.length || '0' }} Fragen</ion-label>
-                  </ion-chip>
-                </ion-item>
-                <div slot="content">
-                  <app-lf02-quiz-engine
-                    *ngIf="quiz"
-                    [questions]="quiz.questions"
-                    [questionIds]="block.quizRef"
-                    [limit]="block.quizRef?.length || 3"
-                    [title]="'Ueben: ' + block.title"
-                    (answered)="quizAnswered($event)"
-                  ></app-lf02-quiz-engine>
-                </div>
-              </ion-accordion>
-            </ion-accordion-group>
           </section>
         </ion-col>
       </ion-row>
     </ion-grid>
 
     <section class="extras" *ngIf="quiz">
-      <h3>Gesamtes Quiz (alle Fragen)</h3>
+      <h3>Grosses Gesamtquiz Lernfeld 2</h3>
+      <p>Alle Fragen aus Lernfeld 2 in einem Durchlauf. Nach jeder Antwort siehst du direkt, ob sie richtig oder falsch war.</p>
       <app-lf02-quiz-engine
         [questions]="quiz.questions"
-        [shuffle]="true"
+        [shuffle]="false"
         [title]="overallQuizTitle"
         (answered)="quizAnswered($event)"
       ></app-lf02-quiz-engine>

@@ -1,0 +1,67 @@
+﻿.page-shell {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(135deg, #0d2f52, #163f63);
+  color: #fff;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.eyebrow {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin: 0;
+}
+
+.lede {
+  margin: 8px 0;
+}
+
+.badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.progress {
+  display: grid;
+  gap: 8px;
+  min-width: 240px;
+
+  .stat {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 10px;
+    border-radius: 10px;
+
+    span {
+      display: block;
+      font-size: 12px;
+    }
+
+    strong {
+      font-size: 24px;
+    }
+  }
+}
+
+.quiz-section {
+  background: #fff;
+  border: 1px solid #e7ecf3;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+  }
+}

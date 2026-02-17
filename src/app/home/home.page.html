@@ -10,7 +10,7 @@
       </ion-button>
       <ion-chip [color]="chipColor" outline="true" (click)="goToProfile()" class="profile-chip">
         <ion-icon name="person-circle-outline"></ion-icon>
-        <ion-label>{{ user.name || 'Angemeldet' }}</ion-label>
+        <ion-label>{{ displayName }}</ion-label>
       </ion-chip>
       <ion-button fill="clear" (click)="goToAdmin()">Admin Panel</ion-button>
       <ion-button color="medium" fill="outline" (click)="handleLogout()">Logout</ion-button>

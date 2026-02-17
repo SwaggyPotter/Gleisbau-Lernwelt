@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-button fill="clear" (click)="goBack()">
         <ion-icon name="arrow-back-outline"></ion-icon>
-        Zurück
+        Zurueck
       </ion-button>
     </ion-buttons>
     <ion-title>Profil</ion-title>
@@ -12,32 +12,123 @@
 
 <ion-content class="profile-content" [fullscreen]="true">
   <ng-container *ngIf="user; else noUser">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>{{ user.name }}</ion-card-title>
-        <ion-card-subtitle>{{ user.email || 'Kein E-Mail' }}</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list lines="full">
-          <ion-item>
-            <ion-label>Rolle</ion-label>
-            <ion-note slot="end">{{ user.role }}</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Lehrjahr</ion-label>
-            <ion-note slot="end">{{ user.year || '-' }}</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Key</ion-label>
-            <ion-note slot="end">{{ user.keyUsed || '-' }}</ion-note>
-          </ion-item>
-        </ion-list>
-        <ion-button expand="block" fill="outline" color="primary" (click)="goToAdmin()">
-          Admin Panel
-        </ion-button>
+    <ion-card class="profile-card">
+      <ion-card-content class="identity-head">
+        <div class="avatar-wrap">
+          <img *ngIf="avatarPreview; else defaultAvatar" [src]="avatarPreview" alt="Profilbild" />
+          <ng-template #defaultAvatar>
+            <ion-icon name="person-circle-outline"></ion-icon>
+          </ng-template>
+        </div>
+        <div>
+          <h2>{{ displayName }}</h2>
+          <p>{{ user.email || 'Keine E-Mail' }}</p>
+          <p class="meta">Rolle: {{ user.role }} | Lehrjahr: {{ user.year || '-' }}</p>
+        </div>
       </ion-card-content>
     </ion-card>
+
+    <ion-card *ngIf="!isAdmin" class="profile-card">
+      <ion-card-header>
+        <ion-card-title>Profil anpassen</ion-card-title>
+        <ion-card-subtitle>Klarname wird im Profil nicht angezeigt.</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="full">
+          <ion-label position="stacked">Username</ion-label>
+          <ion-input
+            [value]="usernameInput"
+            (ionInput)="onUsernameInput($event)"
+            placeholder="Dein Username"
+            maxlength="18"
+          ></ion-input>
+        </ion-item>
+
+        <input #avatarInput type="file" accept="image/*" hidden (change)="onAvatarSelected($event)" />
+
+        <div class="actions-row">
+          <ion-button fill="outline" (click)="avatarInput.click()">Bild waehlen</ion-button>
+          <ion-button fill="clear" color="medium" (click)="removeAvatar()">Bild entfernen</ion-button>
+        </div>
+
+        <ion-text color="danger" *ngIf="errorMessage">
+          <p>{{ errorMessage }}</p>
+        </ion-text>
+        <ion-text color="success" *ngIf="saveMessage">
+          <p>{{ saveMessage }}</p>
+        </ion-text>
+
+        <ion-button expand="block" (click)="saveProfileSettings()">Speichern</ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="summary" class="profile-card">
+      <ion-card-header>
+        <ion-card-title>Dein Fortschritt</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span>Streak</span>
+            <strong>{{ summary.streakDays }} Tage</strong>
+          </div>
+          <div class="stat-box">
+            <span>Lernfeld-Achievements</span>
+            <strong>{{ unlockedFieldCount }} / {{ summary.fieldAchievements.length }}</strong>
+          </div>
+          <div class="stat-box">
+            <span>Quiz-Achievements</span>
+            <strong>{{ unlockedQuizMilestones }} / {{ summary.quizMilestones.length }}</strong>
+          </div>
+          <div class="stat-box">
+            <span>Richtige Fragen</span>
+            <strong>{{ summary.totalCorrectAnswers }}</strong>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="summary" class="profile-card">
+      <ion-card-header>
+        <ion-card-title>Lernfeld-Errungenschaften</ion-card-title>
+      </ion-card-header>
+      <ion-list lines="full" class="achievement-list">
+        <ion-item *ngFor="let item of summary.fieldAchievements">
+          <ion-icon [name]="item.unlocked ? 'trophy' : 'lock-closed'" slot="start"></ion-icon>
+          <ion-label>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.correctAnswers }} richtige Fragen</p>
+          </ion-label>
+          <ion-badge [color]="item.unlocked ? 'success' : 'medium'">
+            {{ item.unlocked ? 'Freigeschaltet' : 'Gesperrt' }}
+          </ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+
+    <ion-card *ngIf="summary" class="profile-card">
+      <ion-card-header>
+        <ion-card-title>Quiz-Meilensteine</ion-card-title>
+      </ion-card-header>
+      <ion-list lines="full" class="achievement-list">
+        <ion-item *ngFor="let item of summary.quizMilestones">
+          <ion-icon [name]="item.unlocked ? 'checkmark-circle' : 'ellipse-outline'" slot="start"></ion-icon>
+          <ion-label>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.progress }} / {{ item.threshold }}</p>
+          </ion-label>
+          <ion-badge [color]="item.unlocked ? 'success' : 'warning'">
+            {{ item.unlocked ? 'Erreicht' : 'In Arbeit' }}
+          </ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+
+    <ion-button *ngIf="isAdmin" expand="block" fill="outline" color="primary" (click)="goToAdmin()">
+      Admin Panel
+    </ion-button>
   </ng-container>
+
   <ng-template #noUser>
     <ion-text color="medium">Kein Profil geladen.</ion-text>
   </ng-template>

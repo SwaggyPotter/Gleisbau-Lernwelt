@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription, switchMap, of } from 'rxjs';
 import { AuthService, UserProfile } from '../services/auth.service';
 import { ApiService, FieldDto, SnapshotDto } from '../services/api.service';
+import { GamificationService } from '../services/gamification.service';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomePage implements OnInit, OnDestroy {
     private readonly authService: AuthService,
     private readonly api: ApiService,
     private readonly router: Router,
+    private readonly gamification: GamificationService,
   ) {
     this.sub.add(
       this.authService.user$
@@ -83,6 +85,10 @@ export class HomePage implements OnInit, OnDestroy {
 
   get chipColor(): string {
     return this.darkMode ? 'light' : 'dark';
+  }
+
+  get displayName(): string {
+    return this.gamification.getDisplayName(this.user);
   }
 
   goToProfile(): void {

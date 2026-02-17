@@ -7,7 +7,7 @@
     <ion-buttons slot="end" class="toolbar-actions">
       <ion-chip class="profile-chip" color="light" outline="true" (click)="goToProfile()">
         <ion-icon name="person-circle-outline"></ion-icon>
-        <ion-label>Angemeldet als {{ user?.name || 'Admin' }}</ion-label>
+        <ion-label>Angemeldet als {{ displayName }}</ion-label>
       </ion-chip>
       <ion-button fill="clear" (click)="goToAdmin()">Admin Panel</ion-button>
       <ion-button fill="clear" routerLink="/home">Start</ion-button>
@@ -20,7 +20,7 @@
   <section class="welcome">
     <div class="welcome-copy">
       <p class="eyebrow">Uebersicht</p>
-      <h1>Hallo {{ user?.name || 'Admin' }}, hier sind deine Lernfelder</h1>
+      <h1>Hallo {{ displayName }}, hier sind deine Lernfelder</h1>
       <p class="lede">
         Gleisbau-Module nach Lehrjahr mit zusaetzlichen Extras. Alte Standard-Lernfelder sind ausgeblendet.
       </p>

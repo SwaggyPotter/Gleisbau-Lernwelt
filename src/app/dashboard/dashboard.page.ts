@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, UserProfile } from '../services/auth.service';
+import { GamificationService } from '../services/gamification.service';
 
 type GleisbauModule = {
   id: string;
@@ -170,11 +171,16 @@ export class DashboardPage {
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
+    private readonly gamification: GamificationService,
   ) {
     this.authService.user$.subscribe(user => {
       this.user = user;
       this.summary = { completed: 0, inProgress: 0, planned: this.gleisbauModules.length };
     });
+  }
+
+  get displayName(): string {
+    return this.gamification.getDisplayName(this.user);
   }
 
   handleLogout(): void {

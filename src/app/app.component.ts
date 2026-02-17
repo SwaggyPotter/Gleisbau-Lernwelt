@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from './services/auth.service';
+import { GamificationService } from './services/gamification.service';
 
 type ConsentSection = {
   title: string;
@@ -11,9 +15,13 @@ type ConsentSection = {
   styleUrls: ['app.component.scss'],
   standalone: false,
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
+  private readonly consentStorageKey = 'gleisbau-privacy-consent';
+  private readonly sub = new Subscription();
+
   consentAccepted = false;
   consentDeclined = false;
+  showPrivacyDialog = true;
 
   readonly consentSections: ConsentSection[] = [
     {
@@ -47,13 +55,81 @@ export class AppComponent {
     },
   ];
 
+  constructor(
+    private readonly router: Router,
+    private readonly auth: AuthService,
+    private readonly gamification: GamificationService,
+  ) {}
+
+  ngOnInit(): void {
+    this.consentAccepted = this.loadConsentFromStorage();
+    this.showPrivacyDialog = !this.consentAccepted;
+
+    this.sub.add(
+      this.router.events.subscribe(event => {
+        if (!(event instanceof NavigationEnd)) {
+          return;
+        }
+        this.trackLearningRoute(event.urlAfterRedirects);
+      }),
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
   acceptConsent(): void {
     this.consentAccepted = true;
     this.consentDeclined = false;
+    this.showPrivacyDialog = false;
+    this.persistConsent();
   }
 
   declineConsent(): void {
     this.consentAccepted = false;
     this.consentDeclined = true;
+    this.showPrivacyDialog = true;
+  }
+
+  openPrivacyDialog(): void {
+    this.showPrivacyDialog = true;
+    this.consentDeclined = false;
+  }
+
+  closePrivacyDialog(): void {
+    if (!this.consentAccepted) {
+      return;
+    }
+
+    this.showPrivacyDialog = false;
+  }
+
+  private loadConsentFromStorage(): boolean {
+    try {
+      return localStorage.getItem(this.consentStorageKey) === 'accepted';
+    } catch {
+      return false;
+    }
+  }
+
+  private persistConsent(): void {
+    try {
+      localStorage.setItem(this.consentStorageKey, 'accepted');
+    } catch {
+      // ignore storage errors and keep current in-memory state
+    }
+  }
+
+  private trackLearningRoute(url: string): void {
+    const user = this.auth.currentUser;
+    if (!user) {
+      return;
+    }
+
+    const isLearningRoute = /^\/(lernfelder\/\d+|zusatz\/[^/?#]+|field\/[^/]+\/quiz)(\/|$)/.test(url);
+    if (isLearningRoute) {
+      this.gamification.recordLearningDay(user.id);
+    }
   }
 }

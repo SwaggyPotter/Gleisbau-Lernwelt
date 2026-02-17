@@ -1,7 +1,8 @@
 <ion-app>
   <section
-    *ngIf="!consentAccepted"
+    *ngIf="showPrivacyDialog"
     class="privacy-gate"
+    [class.privacy-gate--blocking]="!consentAccepted"
     role="dialog"
     aria-modal="true"
     aria-labelledby="privacy-title"
@@ -14,7 +15,7 @@
         Ohne Zustimmung bleibt die Lernplattform gesperrt.
       </p>
       <p class="privacy-note">
-        Diese Abfrage wird bei jedem neuen Seitenaufruf erneut angezeigt.
+        Die Zustimmung wird im localStorage gespeichert. Nach Zustimmung wird diese Abfrage nicht bei jedem Aufruf erneut gezeigt.
       </p>
 
       <section class="privacy-section" *ngFor="let section of consentSections">
@@ -32,7 +33,7 @@
         Ohne Zustimmung kann die Seite nicht genutzt werden.
       </p>
 
-      <div class="privacy-actions">
+      <div class="privacy-actions" *ngIf="!consentAccepted">
         <ion-button expand="block" size="default" (click)="acceptConsent()">
           Ich stimme zu und weiter
         </ion-button>
@@ -40,8 +41,18 @@
           Ablehnen
         </ion-button>
       </div>
+      <div class="privacy-actions" *ngIf="consentAccepted">
+        <ion-button expand="block" fill="clear" color="medium" (click)="closePrivacyDialog()">
+          Schliessen
+        </ion-button>
+      </div>
     </article>
   </section>
 
   <ion-router-outlet *ngIf="consentAccepted"></ion-router-outlet>
+
+  <footer class="privacy-footer" *ngIf="consentAccepted">
+    <p>Datenschutz</p>
+    <button type="button" (click)="openPrivacyDialog()">Informationen ansehen</button>
+  </footer>
 </ion-app>

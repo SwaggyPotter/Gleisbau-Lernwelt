@@ -1,4 +1,4 @@
-<ion-app>
+<ion-app [class.with-privacy-footer]="consentAccepted">
   <section
     *ngIf="showPrivacyDialog"
     class="privacy-gate"

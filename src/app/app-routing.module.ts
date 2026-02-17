@@ -95,6 +95,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/zusatz/nivellieren/lernfeld-02.module').then(m => m.NivellierenModule),
   },
   {
+    path: 'zusatz/volumen',
+    loadChildren: () => import('./modules/zusatz/volumen/volumen.module').then(m => m.VolumenModule),
+  },
+  {
     path: 'zusatz/gesamtquiz',
     loadChildren: () => import('./modules/zusatz/gesamtquiz/gesamtquiz.module').then(m => m.GesamtquizModule),
   },

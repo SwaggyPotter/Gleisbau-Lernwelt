@@ -1,0 +1,147 @@
+{
+  "blocks": [
+    {
+      "id": "vol-b1",
+      "title": "Quadratflaeche -> Volumen (Einfuehrung)",
+      "goals": [
+        "Quadratflaeche A = a * a sicher berechnen",
+        "Volumen mit V = A * h aus Flaeche und Dicke bestimmen"
+      ],
+      "summary": "Sauberkeitsschicht unter einem quadratischen Fundament: erst Flaeche, dann Volumen.",
+      "content": [
+        { "type": "text", "value": "Vorgehen: Dicke in Meter umrechnen, Quadratflaeche berechnen, mit der Dicke multiplizieren." },
+        { "type": "list", "items": ["Quadratflaeche: A = a * a", "Volumen: V = A * h", "Einheiten pruefen: alle Masse in m"] },
+        { "type": "callout", "variant": "tip", "title": "Info-Fenster", "value": "Tipp: cm immer in m umrechnen (8 cm = 0,08 m). Typischer Fehler: Dicke in cm stehen lassen." }
+      ],
+      "quizRef": ["Q1"]
+    },
+    {
+      "id": "vol-b2",
+      "title": "Rechteckflaeche -> Volumen (Planumsschutz)",
+      "goals": [
+        "Rechteckflaeche A = L * B anwenden",
+        "Ergebnisse sinnvoll runden"
+      ],
+      "summary": "Planumsschutz mit gegebener Laenge, Breite und Dicke.",
+      "content": [
+        { "type": "list", "items": ["Dicke in m umrechnen", "A = L * B", "V = A * h", "auf 2 Nachkommastellen runden"] },
+        { "type": "callout", "variant": "info", "title": "Info-Fenster", "value": "Rechteckflaeche: A = L * B. Volumen: V = A * h." }
+      ],
+      "quizRef": ["Q2"]
+    },
+    {
+      "id": "vol-b3",
+      "title": "Betonquader (Fundament)",
+      "goals": [
+        "Quader-Volumen mit drei Abmessungen berechnen",
+        "Rechenweg sauber in Teilschritten aufbauen"
+      ],
+      "summary": "Ein Fundament als Quader: Laenge mal Breite mal Hoehe.",
+      "content": [
+        { "type": "list", "items": ["Quader: V = L * B * H", "erst L * B rechnen, danach * H", "Ergebnis auf 2 Stellen runden"] },
+        { "type": "callout", "variant": "tip", "title": "Info-Fenster", "value": "Tipp: erst Grundflaeche bilden (L * B), dann mit Hoehe multiplizieren. Das reduziert Rechenfehler." }
+      ],
+      "quizRef": ["Q3"]
+    },
+    {
+      "id": "vol-b4",
+      "title": "Schotterbett (Rechteckquerschnitt)",
+      "goals": [
+        "Volumen eines rechteckigen Schotterkoerpers berechnen",
+        "Masseinheiten im Gleisbau konsistent halten"
+      ],
+      "summary": "Klassisches Gleisbeispiel mit Laenge, Bettbreite und Schichtdicke.",
+      "content": [
+        { "type": "text", "value": "Das Schotterbett wird als Rechteckblock angenaehert." },
+        { "type": "list", "items": ["V = L * B * h", "alle Werte in Meter", "Zwischenschritte notieren"] },
+        { "type": "callout", "variant": "info", "title": "Info-Fenster", "value": "Rechteckblock: Volumen direkt aus Laenge, Breite und Dicke." }
+      ],
+      "quizRef": ["Q4"]
+    },
+    {
+      "id": "vol-b5",
+      "title": "Aushub Graben (Rechteck)",
+      "goals": [
+        "Aushubvolumen fuer rechteckige Graeben berechnen",
+        "Kommafehler bei Breitenangaben vermeiden"
+      ],
+      "summary": "Kabelgraben mit Laenge, Breite und Tiefe.",
+      "content": [
+        { "type": "list", "items": ["V = L * B * T", "0,45 m entspricht 45 cm", "0,45 m ist nicht 0,045 m"] },
+        { "type": "callout", "variant": "danger", "title": "Typischer Fehler", "value": "Dezimalstelle bei der Breite verrutscht: dadurch wird das Ergebnis um den Faktor 10 falsch." }
+      ],
+      "quizRef": ["Q5"]
+    },
+    {
+      "id": "vol-b6",
+      "title": "Trapezflaeche -> Volumen (Bahndamm)",
+      "goals": [
+        "Trapezflaeche korrekt berechnen",
+        "Querschnittsflaeche mit Dammlaenge zum Volumen erweitern"
+      ],
+      "summary": "Trapezfoermiger Querschnitt eines Damms ueber die Laenge aufziehen.",
+      "content": [
+        { "type": "list", "items": ["Trapez: A = ((a + c) / 2) * h", "Volumen: V = A * L", "(a + c) immer zuerst halbieren"] },
+        { "type": "callout", "variant": "tip", "title": "Info-Fenster", "value": "Erst Querschnitt sauber rechnen, dann mit der Dammlaenge multiplizieren." }
+      ],
+      "quizRef": ["Q6"]
+    },
+    {
+      "id": "vol-b7",
+      "title": "Trapezflaeche - Aushub mit Boeschung",
+      "goals": [
+        "Trapezformel auch bei Graeben sicher anwenden",
+        "Volumen aus Querschnitt und Laenge bestimmen"
+      ],
+      "summary": "Ein Graben mit Boeschung: oben breiter als unten.",
+      "content": [
+        { "type": "text", "value": "Die Trapezformel bleibt gleich, egal ob Damm oder Graben." },
+        { "type": "list", "items": ["A = ((a + c) / 2) * h", "V = A * L", "Einheiten konsequent in m und m^3"] },
+        { "type": "callout", "variant": "info", "title": "Info-Fenster", "value": "Trapez = oben breiter, unten schmaler (oder umgekehrt); gerechnet wird immer identisch." }
+      ],
+      "quizRef": ["Q7"]
+    },
+    {
+      "id": "vol-b8",
+      "title": "Stufenprofil (2 Rechtecke)",
+      "goals": [
+        "Teilvolumina getrennt berechnen",
+        "Gesamtvolumen korrekt addieren"
+      ],
+      "summary": "Zwei Bereiche mit gleicher Breite, aber unterschiedlicher Dicke.",
+      "content": [
+        { "type": "list", "items": ["V1 = L1 * B * h1", "V2 = L2 * B * h2", "Vges = V1 + V2"] },
+        { "type": "callout", "variant": "tip", "title": "Info-Fenster", "value": "Gleiche Breite bedeutet nicht ein gemeinsamer Rechenschritt: wegen unterschiedlicher Dicke immer getrennt rechnen." }
+      ],
+      "quizRef": ["Q8"]
+    },
+    {
+      "id": "vol-b9",
+      "title": "Rechteck minus Aussparung",
+      "goals": [
+        "Volumen mit Abzug einer Aussparung berechnen",
+        "Rundung am Ende korrekt ausfuehren"
+      ],
+      "summary": "Betonplatte mit Schachtaussparung.",
+      "content": [
+        { "type": "list", "items": ["Vgesamt = L * B * h", "Vaussparung = La * Ba * h", "Vrest = Vgesamt - Vaussparung"] },
+        { "type": "callout", "variant": "info", "title": "Info-Fenster", "value": "Minus-Aufgabe: Gesamtvolumen minus Aussparungsvolumen. Meist hat die Aussparung dieselbe Dicke wie die Platte." }
+      ],
+      "quizRef": ["Q9"]
+    },
+    {
+      "id": "vol-b10",
+      "title": "Mittlere Tiefe bei linearer Aenderung",
+      "goals": [
+        "Mittlere Tiefe als Mittelwert berechnen",
+        "Mit mittlerer Tiefe das Volumen abschaetzen"
+      ],
+      "summary": "Tiefe steigt linear: fuer die Volumenrechnung reicht die mittlere Tiefe.",
+      "content": [
+        { "type": "list", "items": ["t_mittel = (t1 + t2) / 2", "V = L * B * t_mittel", "nur bei linearer Aenderung verwenden"] },
+        { "type": "callout", "variant": "tip", "title": "Info-Fenster", "value": "Bei linearer Tiefenaenderung entspricht die mittlere Tiefe dem arithmetischen Mittel aus Anfangs- und Endtiefe." }
+      ],
+      "quizRef": ["Q10"]
+    }
+  ]
+}

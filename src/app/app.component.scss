@@ -3,6 +3,14 @@ ion-app {
   height: 100%;
 }
 
+:host ::ng-deep ion-app.with-privacy-footer ion-content {
+  --padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+}
+
+:host ::ng-deep ion-app.with-privacy-footer ion-content::part(scroll) {
+  padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+}
+
 .privacy-gate {
   position: fixed;
   inset: 0;

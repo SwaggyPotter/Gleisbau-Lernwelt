@@ -87,6 +87,14 @@ export class DashboardPage {
       lf: 'Zusatz',
     },
     {
+      id: 'zusatz-volumen',
+      title: 'Zusatzmodul: Volumen berechnen',
+      description: '10 Quizaufgaben zu Volumenberechnung im Gleisbau, inkl. Trapezprofilen und Aussparungen.',
+      tag: 'Bonus',
+      link: '/zusatz/volumen',
+      lf: 'Zusatz',
+    },
+    {
       id: 'zusatz-gesamtquiz',
       title: 'Zusatzmodul: Gesamtquiz alle Module',
       description: 'Ein grosses Quiz mit allen Fragen aus Lernfeld 1-14 und den Zusatzmodulen.',

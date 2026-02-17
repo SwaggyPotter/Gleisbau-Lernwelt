@@ -1,0 +1,165 @@
+{
+  "meta": { "lernfeld": "ZV-01", "title": "Volumen berechnen", "version": "1.0" },
+  "questions": [
+    {
+      "id": "Q1",
+      "block": "vol-b1",
+      "type": "mcq_single",
+      "question": "Eine Sauberkeitsschicht ist quadratisch: Seitenlaenge 2,50 m, Schichtdicke 8 cm. Wie gross ist das Volumen?",
+      "choices": [
+        { "id": "A", "text": "0,50 m^3" },
+        { "id": "B", "text": "0,63 m^3" },
+        { "id": "C", "text": "1,25 m^3" },
+        { "id": "D", "text": "6,25 m^3" }
+      ],
+      "answer": "A",
+      "explain": "8 cm = 0,08 m. A = 2,50 * 2,50 = 6,25 m^2. V = 6,25 * 0,08 = 0,50 m^3.",
+      "difficulty": "easy",
+      "tags": ["quadrat", "einfuehrung", "einheiten"]
+    },
+    {
+      "id": "Q2",
+      "block": "vol-b2",
+      "type": "mcq_single",
+      "question": "Ein Planumsschutz hat Laenge 18 m, Breite 3,20 m und Dicke 12 cm. Wie gross ist das Volumen?",
+      "choices": [
+        { "id": "A", "text": "6,91 m^3" },
+        { "id": "B", "text": "69,1 m^3" },
+        { "id": "C", "text": "5,76 m^3" },
+        { "id": "D", "text": "8,64 m^3" }
+      ],
+      "answer": "A",
+      "explain": "12 cm = 0,12 m. A = 18 * 3,20 = 57,6 m^2. V = 57,6 * 0,12 = 6,912 m^3, gerundet 6,91 m^3.",
+      "difficulty": "easy",
+      "tags": ["rechteck", "planumsschutz", "runden"]
+    },
+    {
+      "id": "Q3",
+      "block": "vol-b3",
+      "type": "mcq_single",
+      "question": "Ein Betonfundament (Quader) hat Laenge 2,40 m, Breite 1,60 m und Hoehe 0,55 m. Wie viel Beton wird benoetigt?",
+      "choices": [
+        { "id": "A", "text": "1,41 m^3" },
+        { "id": "B", "text": "2,11 m^3" },
+        { "id": "C", "text": "3,84 m^3" },
+        { "id": "D", "text": "0,86 m^3" }
+      ],
+      "answer": "B",
+      "explain": "V = 2,40 * 1,60 * 0,55. Erst 2,40 * 1,60 = 3,84. Dann 3,84 * 0,55 = 2,112 m^3, gerundet 2,11 m^3.",
+      "difficulty": "easy",
+      "tags": ["quader", "fundament", "beton"]
+    },
+    {
+      "id": "Q4",
+      "block": "vol-b4",
+      "type": "mcq_single",
+      "question": "Ein Gleisabschnitt wird eingeschottert: Laenge 75 m, Bettbreite 3,60 m, Schichtdicke 0,28 m. Wie gross ist das Volumen?",
+      "choices": [
+        { "id": "A", "text": "75,6 m^3" },
+        { "id": "B", "text": "68,4 m^3" },
+        { "id": "C", "text": "56,7 m^3" },
+        { "id": "D", "text": "94,5 m^3" }
+      ],
+      "answer": "A",
+      "explain": "V = 75 * 3,60 * 0,28. 75 * 3,60 = 270. 270 * 0,28 = 75,6 m^3.",
+      "difficulty": "easy",
+      "tags": ["schotterbett", "gleisbau", "rechteck"]
+    },
+    {
+      "id": "Q5",
+      "block": "vol-b5",
+      "type": "mcq_single",
+      "question": "Ein Kabelgraben hat Laenge 42 m, Breite 0,45 m und Tiefe 0,80 m. Wie gross ist das Aushubvolumen?",
+      "choices": [
+        { "id": "A", "text": "15,12 m^3" },
+        { "id": "B", "text": "12,60 m^3" },
+        { "id": "C", "text": "18,90 m^3" },
+        { "id": "D", "text": "8,40 m^3" }
+      ],
+      "answer": "A",
+      "explain": "V = 42 * 0,45 * 0,80. 42 * 0,45 = 18,9. 18,9 * 0,80 = 15,12 m^3.",
+      "difficulty": "easy",
+      "tags": ["graben", "aushub", "rechteck"]
+    },
+    {
+      "id": "Q6",
+      "block": "vol-b6",
+      "type": "mcq_single",
+      "question": "Bahndamm mit trapezfoermigem Querschnitt: a = 3,00 m, c = 6,20 m, h = 1,10 m, Laenge 28 m. Welches Volumen ist korrekt?",
+      "choices": [
+        { "id": "A", "text": "141,68 m^3" },
+        { "id": "B", "text": "120,12 m^3" },
+        { "id": "C", "text": "96,25 m^3" },
+        { "id": "D", "text": "60,06 m^3" }
+      ],
+      "answer": "A",
+      "explain": "A = ((3,00 + 6,20) / 2) * 1,10 = 5,06 m^2. V = 5,06 * 28 = 141,68 m^3.",
+      "difficulty": "medium",
+      "tags": ["trapez", "bahndamm", "querschnitt"]
+    },
+    {
+      "id": "Q7",
+      "block": "vol-b7",
+      "type": "mcq_single",
+      "question": "Graben mit Boeschung (trapezfoermig): oben 1,20 m, unten 0,60 m, Tiefe 0,90 m, Laenge 35 m. Wie gross ist das Volumen?",
+      "choices": [
+        { "id": "A", "text": "25,20 m^3" },
+        { "id": "B", "text": "28,35 m^3" },
+        { "id": "C", "text": "18,90 m^3" },
+        { "id": "D", "text": "31,50 m^3" }
+      ],
+      "answer": "B",
+      "explain": "A = ((1,20 + 0,60) / 2) * 0,90 = 0,81 m^2. V = 0,81 * 35 = 28,35 m^3.",
+      "difficulty": "medium",
+      "tags": ["trapez", "boeschung", "graben"]
+    },
+    {
+      "id": "Q8",
+      "block": "vol-b8",
+      "type": "mcq_single",
+      "question": "Stufenprofil mit zwei Bereichen: Bereich 1 = 40 m * 3,60 m * 0,12 m, Bereich 2 = 25 m * 3,60 m * 0,20 m. Wie gross ist das Gesamtvolumen?",
+      "choices": [
+        { "id": "A", "text": "17,28 m^3" },
+        { "id": "B", "text": "35,28 m^3" },
+        { "id": "C", "text": "31,20 m^3" },
+        { "id": "D", "text": "27,36 m^3" }
+      ],
+      "answer": "B",
+      "explain": "V1 = 40 * 3,60 * 0,12 = 17,28 m^3. V2 = 25 * 3,60 * 0,20 = 18,00 m^3. Vges = 17,28 + 18,00 = 35,28 m^3.",
+      "difficulty": "medium",
+      "tags": ["stufenprofil", "teilvolumen", "summe"]
+    },
+    {
+      "id": "Q9",
+      "block": "vol-b9",
+      "type": "mcq_single",
+      "question": "Betonplatte 6,00 m * 4,00 m * 0,18 m mit Aussparung 1,20 m * 1,20 m * 0,18 m. Wie viel Betonvolumen bleibt?",
+      "choices": [
+        { "id": "A", "text": "4,06 m^3" },
+        { "id": "B", "text": "4,32 m^3" },
+        { "id": "C", "text": "3,98 m^3" },
+        { "id": "D", "text": "3,60 m^3" }
+      ],
+      "answer": "A",
+      "explain": "VPlatte = 6 * 4 * 0,18 = 4,32 m^3. VAussparung = 1,2 * 1,2 * 0,18 = 0,2592 m^3. Rest = 4,32 - 0,2592 = 4,0608 m^3, gerundet 4,06 m^3.",
+      "difficulty": "medium",
+      "tags": ["aussparung", "betonplatte", "minus"]
+    },
+    {
+      "id": "Q10",
+      "block": "vol-b10",
+      "type": "mcq_single",
+      "question": "Ein Graben ist 60 m lang und 0,50 m breit. Die Tiefe steigt linear von 0,40 m auf 1,00 m. Wie gross ist das Volumen mit mittlerer Tiefe?",
+      "choices": [
+        { "id": "A", "text": "18,0 m^3" },
+        { "id": "B", "text": "21,0 m^3" },
+        { "id": "C", "text": "24,0 m^3" },
+        { "id": "D", "text": "15,0 m^3" }
+      ],
+      "answer": "B",
+      "explain": "t_mittel = (0,40 + 1,00) / 2 = 0,70 m. V = 60 * 0,50 * 0,70 = 21,0 m^3.",
+      "difficulty": "medium",
+      "tags": ["mittelwert", "lineare-aenderung", "graben"]
+    }
+  ]
+}

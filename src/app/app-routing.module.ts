@@ -99,6 +99,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/zusatz/volumen/volumen.module').then(m => m.VolumenModule),
   },
   {
+    path: 'zusatz/prozentrechnung',
+    loadChildren: () => import('./modules/zusatz/prozentrechnung/prozentrechnung.module').then(m => m.ProzentrechnungModule),
+  },
+  {
     path: 'zusatz/gesamtquiz',
     loadChildren: () => import('./modules/zusatz/gesamtquiz/gesamtquiz.module').then(m => m.GesamtquizModule),
   },

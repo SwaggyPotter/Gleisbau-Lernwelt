@@ -1,0 +1,133 @@
+{
+  "meta": { "lernfeld": "ZP-01", "title": "Prozentrechnung", "version": "1.0" },
+  "questions": [
+    {
+      "id": "Q3",
+      "block": "pr-b2",
+      "type": "mcq_single",
+      "question": "Auf einer Lieferung sind 18 Schwellen beschaedigt. Insgesamt wurden 240 Schwellen geliefert. Wie viel Prozent sind beschaedigt?",
+      "choices": [
+        { "id": "A", "text": "6,5 %" },
+        { "id": "B", "text": "7,5 %" },
+        { "id": "C", "text": "8,0 %" },
+        { "id": "D", "text": "9,5 %" }
+      ],
+      "answer": "B",
+      "explain": "18 / 240 = 0,075. 0,075 * 100 = 7,5 %.",
+      "difficulty": "easy",
+      "tags": ["anteil", "prozent", "teil-ganzes"]
+    },
+    {
+      "id": "Q4",
+      "block": "pr-b3",
+      "type": "mcq_single",
+      "question": "Ein Baustoff kostet 1.480 EUR. Du bekommst 12 % Rabatt. Wie hoch ist der Rabatt in Euro?",
+      "choices": [
+        { "id": "A", "text": "148,0 EUR" },
+        { "id": "B", "text": "177,6 EUR" },
+        { "id": "C", "text": "192,4 EUR" },
+        { "id": "D", "text": "216,0 EUR" }
+      ],
+      "answer": "B",
+      "explain": "Prozentwert: 1480 * 0,12 = 177,6 EUR.",
+      "difficulty": "easy",
+      "tags": ["prozentwert", "rabatt", "euro"]
+    },
+    {
+      "id": "Q5",
+      "block": "pr-b4",
+      "type": "mcq_single",
+      "question": "Wie viel musst du nach 12 % Rabatt auf 1.480 EUR zahlen?",
+      "choices": [
+        { "id": "A", "text": "1.302,4 EUR" },
+        { "id": "B", "text": "1.314,0 EUR" },
+        { "id": "C", "text": "1.248,0 EUR" },
+        { "id": "D", "text": "1.357,6 EUR" }
+      ],
+      "answer": "A",
+      "explain": "Rabatt ausrechnen: 1480 * 0,12 = 177,6 EUR. Endbetrag: 1480 - 177,6 = 1302,4 EUR.",
+      "difficulty": "easy",
+      "tags": ["endbetrag", "rabatt", "abzug"]
+    },
+    {
+      "id": "Q6",
+      "block": "pr-b5",
+      "type": "mcq_single",
+      "question": "Eine Lieferung kostet letztes Jahr 9.600 EUR. Dieses Jahr +7 %. Neuer Preis?",
+      "choices": [
+        { "id": "A", "text": "10.272 EUR" },
+        { "id": "B", "text": "10.260 EUR" },
+        { "id": "C", "text": "10.072 EUR" },
+        { "id": "D", "text": "10.320 EUR" }
+      ],
+      "answer": "A",
+      "explain": "Erhoehung: 9600 * 1,07 = 10.272 EUR.",
+      "difficulty": "medium",
+      "tags": ["erhoehung", "preissteigerung", "faktor"]
+    },
+    {
+      "id": "Q7",
+      "block": "pr-b6",
+      "type": "mcq_single",
+      "question": "Geplant waren 520 t Schotter, tatsaechlich verbaut wurden 585 t. Um wie viel Prozent ist der Verbrauch gestiegen (bezogen auf den Plan)?",
+      "choices": [
+        { "id": "A", "text": "10,0 %" },
+        { "id": "B", "text": "12,5 %" },
+        { "id": "C", "text": "15,0 %" },
+        { "id": "D", "text": "7,5 %" }
+      ],
+      "answer": "B",
+      "explain": "Mehrverbrauch: 585 - 520 = 65. Prozentuale Aenderung: 65 / 520 = 0,125 = 12,5 %.",
+      "difficulty": "medium",
+      "tags": ["mehrverbrauch", "aenderung", "plan-ist"]
+    },
+    {
+      "id": "Q8",
+      "block": "pr-b7",
+      "type": "mcq_single",
+      "question": "Nach einem 8 % Zuschlag wurden 270 t bestellt. Wie gross war die urspruengliche berechnete Menge (ohne Zuschlag)?",
+      "choices": [
+        { "id": "A", "text": "249,1 t" },
+        { "id": "B", "text": "250,0 t" },
+        { "id": "C", "text": "259,2 t" },
+        { "id": "D", "text": "232,6 t" }
+      ],
+      "answer": "B",
+      "explain": "Rueckrechnung: alt = neu / 1,08 = 270 / 1,08 = 250,0 t.",
+      "difficulty": "medium",
+      "tags": ["rueckrechnung", "grundwert", "zuschlag"]
+    },
+    {
+      "id": "Q9",
+      "block": "pr-b8",
+      "type": "mcq_single",
+      "question": "Ein Team arbeitet 8 Stunden. Davon sind 2,5 Stunden reine Vermessung. Wie viel Prozent der Arbeitszeit war Vermessung?",
+      "choices": [
+        { "id": "A", "text": "28,25 %" },
+        { "id": "B", "text": "31,25 %" },
+        { "id": "C", "text": "33,00 %" },
+        { "id": "D", "text": "25,00 %" }
+      ],
+      "answer": "B",
+      "explain": "2,5 / 8 = 0,3125. 0,3125 * 100 = 31,25 %.",
+      "difficulty": "easy",
+      "tags": ["arbeitszeit", "anteil", "prozent"]
+    },
+    {
+      "id": "Q10",
+      "block": "pr-b9",
+      "type": "mcq_single",
+      "question": "Ein Sollmass betraegt 100 mm. Zulaessig sind +/-3 %. Wie gross ist der erlaubte Bereich (Min/Max)?",
+      "choices": [
+        { "id": "A", "text": "97-103 mm" },
+        { "id": "B", "text": "96-104 mm" },
+        { "id": "C", "text": "98-102 mm" },
+        { "id": "D", "text": "95-105 mm" }
+      ],
+      "answer": "A",
+      "explain": "3 % von 100 mm sind 3 mm. Bereich: 100 - 3 = 97 mm und 100 + 3 = 103 mm.",
+      "difficulty": "easy",
+      "tags": ["toleranz", "sollmass", "plus-minus"]
+    }
+  ]
+}

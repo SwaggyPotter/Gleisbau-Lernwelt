@@ -1,0 +1,110 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>Zusatzmodul: Prozentrechnung</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">Zur Uebersicht</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="page-shell" *ngIf="!loading && !error; else stateBlock">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Zusatzmodul</p>
+        <h1>Prozentrechnung</h1>
+        <p class="lede">
+          Praxisnahe Aufgaben zu Prozentwert, Rabatt, Preissteigerung, Rueckrechnung und Toleranzbereich im
+          Gleisbau.
+        </p>
+        <div class="badges">
+          <ion-chip color="primary" outline="true">{{ quizTitle }}</ion-chip>
+          <ion-chip color="success" outline="true">Praxis + Rechnen</ion-chip>
+          <ion-chip color="tertiary" outline="true">Formeln + Tipps</ion-chip>
+        </div>
+      </div>
+      <div class="progress">
+        <div class="stat">
+          <span>Abgeschlossene Bloecke</span>
+          <strong>{{ progress.completedBlocks.length }}/{{ blocks.length }}</strong>
+        </div>
+        <div class="stat">
+          <span>Beantwortete Quizfragen</span>
+          <strong>{{ totalAnswered() }}</strong>
+        </div>
+      </div>
+    </section>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeLg="3">
+          <div class="sticky-nav">
+            <app-prozentrechnung-nav
+              [blocks]="blocks"
+              [completed]="progress.completedBlocks"
+              [activeId]="selectedBlock?.id"
+              (selectBlock)="selectBlock($event)"
+            ></app-prozentrechnung-nav>
+          </div>
+        </ion-col>
+
+        <ion-col size="12" sizeLg="9">
+          <section *ngFor="let block of blocks" class="block" [attr.id]="block.id">
+            <div class="block-head">
+              <div>
+                <p class="eyebrow">{{ block.id | uppercase }}</p>
+                <h2>{{ block.title }}</h2>
+                <p class="summary">{{ block.summary }}</p>
+              </div>
+              <ion-button
+                color="success"
+                (click)="toggleCompleted(block)"
+                [fill]="progress.completedBlocks.includes(block.id) ? 'solid' : 'outline'"
+              >
+                Erledigt
+              </ion-button>
+            </div>
+
+            <app-prozentrechnung-lesson-renderer [block]="block"></app-prozentrechnung-lesson-renderer>
+
+            <ion-accordion-group *ngIf="quiz">
+              <ion-accordion [value]="block.id">
+                <ion-item slot="header" color="light">
+                  <ion-label>Quiz zu {{ block.title }}</ion-label>
+                  <ion-chip color="primary" outline="true">
+                    <ion-label>{{ block.quizRef?.length || '0' }} Fragen</ion-label>
+                  </ion-chip>
+                </ion-item>
+                <div slot="content">
+                  <app-prozentrechnung-quiz-engine
+                    *ngIf="quiz"
+                    [questions]="quiz.questions"
+                    [questionIds]="block.quizRef"
+                    [limit]="block.quizRef?.length || 3"
+                    [title]="'Ueben: ' + block.title"
+                    (answered)="quizAnswered($event)"
+                  ></app-prozentrechnung-quiz-engine>
+                </div>
+              </ion-accordion>
+            </ion-accordion-group>
+          </section>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <section class="extras" *ngIf="quiz">
+      <h3>Gesamtes Quiz (alle Fragen)</h3>
+      <app-prozentrechnung-quiz-engine
+        [questions]="quiz.questions"
+        [shuffle]="true"
+        [title]="overallQuizTitle"
+        (answered)="quizAnswered($event)"
+      ></app-prozentrechnung-quiz-engine>
+    </section>
+  </div>
+
+  <ng-template #stateBlock>
+    <ion-spinner *ngIf="loading"></ion-spinner>
+    <p *ngIf="error">{{ error }}</p>
+  </ng-template>
+</ion-content>

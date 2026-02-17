@@ -95,6 +95,14 @@ export class DashboardPage {
       lf: 'Zusatz',
     },
     {
+      id: 'zusatz-prozentrechnung',
+      title: 'Zusatzmodul: Prozentrechnung',
+      description: 'Prozentwert, Rabatt, Erhoehung, Rueckrechnung und Toleranzen mit praxisnahen Aufgaben.',
+      tag: 'Bonus',
+      link: '/zusatz/prozentrechnung',
+      lf: 'Zusatz',
+    },
+    {
       id: 'zusatz-gesamtquiz',
       title: 'Zusatzmodul: Gesamtquiz alle Module',
       description: 'Ein grosses Quiz mit allen Fragen aus Lernfeld 1-14 und den Zusatzmodulen.',

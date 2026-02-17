@@ -1,0 +1,131 @@
+{
+  "blocks": [
+    {
+      "id": "pr-b1",
+      "title": "Abzug und Endbetrag",
+      "goals": [
+        "Endbetrag nach prozentualem Abzug berechnen",
+        "Formel neu = alt * (1 - p) sicher anwenden"
+      ],
+      "summary": "Grundregel fuer Rabatte und prozentuale Minderungen.",
+      "content": [
+        { "type": "text", "value": "Bei einem Abzug (Rabatt, Minderpreis, Abschlag) wird der neue Wert mit (1 - p) berechnet." },
+        { "type": "list", "items": ["Abzug: neu = alt * (1 - p)", "p immer als Dezimalzahl einsetzen (z. B. 12 % = 0,12)", "Alternative: erst Rabattbetrag berechnen, dann abziehen"] },
+        { "type": "callout", "variant": "tip", "title": "Info-Fenster", "value": "Abzug: neu = alt * (1 - p). Typischer Fehler: p nicht in Dezimalzahl umgerechnet." }
+      ],
+      "quizRef": []
+    },
+    {
+      "id": "pr-b2",
+      "title": "Prozent ausrechnen (Anteil beschaedigt)",
+      "goals": [
+        "Prozentanteil aus Teil und Ganzem bestimmen",
+        "Bruch -> Dezimalzahl -> Prozent sicher umrechnen"
+      ],
+      "summary": "Wie viel Prozent eines Bestands betroffen sind.",
+      "content": [
+        { "type": "list", "items": ["Formel: (Teil / Ganzes) * 100", "Ergebnis in % angeben", "Auf sinnvolle Nachkommastelle runden"] },
+        { "type": "callout", "variant": "info", "title": "Info-Fenster", "value": "Anteil in %: Teil / Ganzes * 100" }
+      ],
+      "quizRef": ["Q3"]
+    },
+    {
+      "id": "pr-b3",
+      "title": "Prozentwert (Rabatt in Euro)",
+      "goals": [
+        "Prozentwert W mit W = G * p berechnen",
+        "Rabattbetrag in Euro aus Grundwert bestimmen"
+      ],
+      "summary": "Der Prozentwert ist der eigentliche Anteil vom Gesamtwert.",
+      "content": [
+        { "type": "list", "items": ["Prozentwert: W = G * p", "p als Dezimalzahl einsetzen", "Einheit bleibt Einheit des Grundwertes (hier Euro)"] },
+        { "type": "callout", "variant": "info", "title": "Info-Fenster", "value": "Prozentwert: W = G * p" }
+      ],
+      "quizRef": ["Q4"]
+    },
+    {
+      "id": "pr-b4",
+      "title": "Neuer Preis nach Rabatt",
+      "goals": [
+        "Endbetrag nach Rabatt bestimmen",
+        "Direktformel und Zweischritt-Rechnung vergleichen"
+      ],
+      "summary": "Nach einem Rabatt wird entweder der Rabattbetrag abgezogen oder direkt mit (1-p) multipliziert.",
+      "content": [
+        { "type": "list", "items": ["Weg 1: Rabattbetrag berechnen und abziehen", "Weg 2: neu = alt * (1 - p)", "Beide Wege muessen zum gleichen Ergebnis fuehren"] },
+        { "type": "callout", "variant": "tip", "title": "Info-Fenster", "value": "Endbetrag: neu = alt * (1 - p)" }
+      ],
+      "quizRef": ["Q5"]
+    },
+    {
+      "id": "pr-b5",
+      "title": "Preissteigerung (Erhoehung)",
+      "goals": [
+        "Erhoehungen mit (1 + p) berechnen",
+        "Fehlmarkierte MC-Ergebnisse erkennen"
+      ],
+      "summary": "Material- und Preissteigerungen korrekt hochrechnen.",
+      "content": [
+        { "type": "list", "items": ["Erhoehung: neu = alt * (1 + p)", "7 % = 0,07", "Ergebnis auf Plausibilitaet pruefen"] },
+        { "type": "callout", "variant": "danger", "title": "Info-Fenster", "value": "Korrektur: Bei 9.600 EUR und +7 % ist der richtige Wert 10.272 EUR." }
+      ],
+      "quizRef": ["Q6"]
+    },
+    {
+      "id": "pr-b6",
+      "title": "Prozentualer Unterschied (Mehrverbrauch)",
+      "goals": [
+        "Mehrverbrauch in Prozent bezogen auf den Plan berechnen",
+        "Bezugswert eindeutig festlegen"
+      ],
+      "summary": "Prozentuale Veraenderung braucht immer einen klaren Ausgangswert.",
+      "content": [
+        { "type": "list", "items": ["Delta = Ist - Plan", "Prozentuale Aenderung = (Delta / Ausgang) * 100", "Hier ist der Ausgang der Planwert"] },
+        { "type": "callout", "variant": "info", "title": "Info-Fenster", "value": "Prozentuale Aenderung: Delta / Ausgang * 100" }
+      ],
+      "quizRef": ["Q7"]
+    },
+    {
+      "id": "pr-b7",
+      "title": "Rueckrechnung (Grundwert gesucht)",
+      "goals": [
+        "Vom Endwert auf den Ausgangswert zurueckrechnen",
+        "Formel alt = neu / (1 + p) anwenden"
+      ],
+      "summary": "Wenn der Wert schon inklusive Zuschlag vorliegt, muss dividiert werden.",
+      "content": [
+        { "type": "list", "items": ["Rueckrechnung bei Zuschlag: alt = neu / (1 + p)", "Bei 8 % ist der Faktor 1,08", "Nicht neu * (1 - p) verwenden"] },
+        { "type": "callout", "variant": "danger", "title": "Info-Fenster", "value": "Korrektur: 270 / 1,08 = 250,0 t. Richtige Option ist B." }
+      ],
+      "quizRef": ["Q8"]
+    },
+    {
+      "id": "pr-b8",
+      "title": "Mischung und Zeitanteile",
+      "goals": [
+        "Anteile aus Teilzeiten in Prozent umrechnen",
+        "Ergebnisse sauber auf zwei Stellen angeben"
+      ],
+      "summary": "Teilzeit/Gesamtzeit in Prozent fuer Arbeitsanteile.",
+      "content": [
+        { "type": "list", "items": ["Anteil in %: (Teil / Ganzes) * 100", "Zeiteinheiten muessen gleich sein", "2,5 h von 8 h = 31,25 %"] },
+        { "type": "callout", "variant": "info", "title": "Info-Fenster", "value": "Teil/Ganzes * 100" }
+      ],
+      "quizRef": ["Q9"]
+    },
+    {
+      "id": "pr-b9",
+      "title": "Toleranzbereich (plus/minus Prozent)",
+      "goals": [
+        "Toleranzabweichung als Prozentwert berechnen",
+        "Min- und Maxbereich aus Sollmass bestimmen"
+      ],
+      "summary": "Bei +/- Prozent wird zuerst die Abweichung berechnet, dann der Bereich.",
+      "content": [
+        { "type": "list", "items": ["Abweichung = G * p", "Bereich = G - Abweichung bis G + Abweichung", "Einheit unveraendert lassen"] },
+        { "type": "callout", "variant": "tip", "title": "Info-Fenster", "value": "Toleranz: Abweichung = G * p, danach Bereich mit G +/- Abweichung." }
+      ],
+      "quizRef": ["Q10"]
+    }
+  ]
+}

@@ -1,29 +1,142 @@
 .goals {
-  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f3f7fb;
+
+  ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  li {
+    font-size: 15px;
+    line-height: 1.5;
+  }
 }
 
 .entries {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
+}
+
+.topic-heading {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.35;
+  font-weight: 700;
+  color: #111111;
+}
+
+.topic-heading-sub {
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 700;
 }
 
 .paragraph {
-  line-height: 1.5;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #1b2636;
 }
 
 .bullet {
-  padding-left: 18px;
+  margin: 0;
+  padding-left: 22px;
+
+  li {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #1b2636;
+    margin-bottom: 8px;
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .callout {
-  border-left: 4px solid var(--ion-color-primary);
+  border-left: 4px solid var(--ion-color-warning);
+  border-radius: 12px;
+
+  ion-card-title {
+    font-size: 18px;
+  }
+
+  ion-card-content {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  &.danger {
+    border-color: var(--ion-color-danger);
+  }
+  &.tip {
+    border-color: var(--ion-color-success);
+  }
 }
 
-.callout.danger {
-  border-color: var(--ion-color-danger);
+.checklist {
+  display: none;
 }
 
-.callout.tip {
-  border-color: var(--ion-color-success);
+.image-block {
+  margin: 0;
+  .image-placeholder {
+    width: 100%;
+    background: linear-gradient(135deg, #1f3b4d, #3b5c6e);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      mix-blend-mode: lighten;
+      opacity: 0.8;
+    }
+  }
+  figcaption {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--ion-color-medium);
+  }
+}
+
+@media (max-width: 768px) {
+  .topic-heading {
+    font-size: 17px;
+    line-height: 1.35;
+  }
+
+  .topic-heading-sub {
+    font-size: 15px;
+  }
+
+  .paragraph {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .bullet li {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .callout {
+    ion-card-title {
+      font-size: 17px;
+    }
+
+    ion-card-content {
+      font-size: 15px;
+    }
+  }
 }

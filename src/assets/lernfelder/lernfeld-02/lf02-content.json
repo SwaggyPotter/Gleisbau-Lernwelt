@@ -1,4 +1,4 @@
-{
+﻿{
   "blocks": [
     {
       "id": "lf02-b1",
@@ -9,7 +9,7 @@
       ],
       "summary": "Welche Informationen brauchst du vor dem Start der Erd- und Gruendungsarbeiten?",
       "content": [
-        { "type": "text", "value": "1) Warum ist die Analyse vor Arbeitsbeginn so entscheidend?" },
+        { "type": "text", "value": "Warum ist die Analyse vor Arbeitsbeginn so entscheidend?" },
         {
           "type": "list",
           "items": [
@@ -18,7 +18,7 @@
             "Merksatz fuer die Lernwelt: Was man vor dem Start nicht prueft, holt einen spaeter ein."
           ]
         },
-        { "type": "text", "value": "2) Der Auftrag - was genau soll gemacht werden?" },
+        { "type": "text", "value": "Der Auftrag - was genau soll gemacht werden?" },
         { "type": "text", "value": "2.1 Inhalte des Auftrags" },
         {
           "type": "list",
@@ -28,14 +28,14 @@
             "Unklarer Auftrag = hohes Risiko. Unklarheiten muessen vor Arbeitsbeginn geklaert werden."
           ]
         },
-        { "type": "text", "value": "3) Oertliche Gegebenheiten - was muss analysiert werden?" },
+        { "type": "text", "value": "Oertliche Gegebenheiten - was muss analysiert werden?" },
         {
           "type": "list",
           "items": [
             "Die Analyse der oertlichen Gegebenheiten umfasst alle Bedingungen, die Einfluss auf Sicherheit, Bauablauf, Technik und Kosten haben."
           ]
         },
-        { "type": "text", "value": "4) Baugrund - Bodenverhaeltnisse beurteilen" },
+        { "type": "text", "value": "Baugrund - Bodenverhaeltnisse beurteilen" },
         { "type": "text", "value": "4.1 Warum ist der Boden so wichtig?" },
         {
           "type": "list",
@@ -59,7 +59,7 @@
             "Auffuellungen und unbekannte Boeden sind besonders kritisch."
           ]
         },
-        { "type": "text", "value": "5) Wasser - Grundwasser und Oberflaechenwasser" },
+        { "type": "text", "value": "Wasser - Grundwasser und Oberflaechenwasser" },
         { "type": "text", "value": "5.1 Warum Wasser ein zentrales Thema ist" },
         {
           "type": "list",
@@ -82,7 +82,7 @@
             "Wasserhaltung muss geplant sein - nicht improvisiert."
           ]
         },
-        { "type": "text", "value": "6) Leitungen und vorhandene Anlagen" },
+        { "type": "text", "value": "Leitungen und vorhandene Anlagen" },
         { "type": "text", "value": "6.1 Warum Leitungen besonders gefaehrlich sind" },
         {
           "type": "list",
@@ -105,7 +105,7 @@
             "Keine Erdarbeiten ohne Leitungspruefung."
           ]
         },
-        { "type": "text", "value": "7) Platzverhaeltnisse und Arbeitsraum" },
+        { "type": "text", "value": "Platzverhaeltnisse und Arbeitsraum" },
         { "type": "text", "value": "7.1 Warum Platz entscheidend ist" },
         {
           "type": "list",
@@ -121,7 +121,7 @@
             "Je enger der Raum, desto hoeher die Anforderungen an Planung und Sicherung."
           ]
         },
-        { "type": "text", "value": "8) Zufahrt und Logistik" },
+        { "type": "text", "value": "Zufahrt und Logistik" },
         { "type": "text", "value": "8.1 Zufahrt klaeren" },
         {
           "type": "list",
@@ -137,7 +137,7 @@
             "Schlechte Logistik = Stillstand auf der Baustelle."
           ]
         },
-        { "type": "text", "value": "9) Sicherheit und Umfeld (erste Bewertung)" },
+        { "type": "text", "value": "Sicherheit und Umfeld (erste Bewertung)" },
         {
           "type": "list",
           "items": [
@@ -145,7 +145,7 @@
             "Diese Erkenntnisse fliessen spaeter in Gefaehrdungsbeurteilung, Baugrubensicherung sowie Verkehrs- und Personensicherung."
           ]
         },
-        { "type": "text", "value": "10) Verantwortlichkeiten in dieser Phase" },
+        { "type": "text", "value": "Verantwortlichkeiten in dieser Phase" },
         {
           "type": "list",
           "items": [
@@ -155,14 +155,14 @@
             "Analyse ist Teamarbeit."
           ]
         },
-        { "type": "text", "value": "11) Typische Fehler (sehr pruefungsrelevant)" },
+        { "type": "text", "value": "Typische Fehler (sehr pruefungsrelevant)" },
         {
           "type": "list",
           "items": [
             "Boden falsch eingeschaetzt, Wasser nicht beruecksichtigt, Leitungen uebersehen, Platzbedarf unterschaetzt, Zufahrt nicht geprueft, Arbeiten begonnen obwohl Infos fehlen."
           ]
         },
-        { "type": "text", "value": "12) Merksaetze fuer die Lernwelt" },
+        { "type": "text", "value": "Merksaetze fuer die Lernwelt" },
         {
           "type": "callout",
           "variant": "danger",
@@ -181,7 +181,7 @@
       ],
       "summary": "Boden verstehen, richtig einschaetzen und Gefahren erkennen.",
       "content": [
-        { "type": "text", "value": "1) Warum ist Baugrunderkundung so wichtig?" },
+        { "type": "text", "value": "Warum ist Baugrunderkundung so wichtig?" },
         {
           "type": "list",
           "items": [
@@ -190,7 +190,7 @@
             "Merksatz: Der Boden verzeiht keine Annahmen - nur Wissen."
           ]
         },
-        { "type": "text", "value": "2) Was bedeutet Baugrunderkundung?" },
+        { "type": "text", "value": "Was bedeutet Baugrunderkundung?" },
         {
           "type": "list",
           "items": [
@@ -198,7 +198,7 @@
             "Die Ergebnisse bilden die Grundlage fuer Gruendungsart, Baugrubensicherung, Wasserhaltung und Bauverfahren."
           ]
         },
-        { "type": "text", "value": "3) Wer fuehrt Baugrunderkundungen durch?" },
+        { "type": "text", "value": "Wer fuehrt Baugrunderkundungen durch?" },
         {
           "type": "list",
           "items": [
@@ -208,7 +208,7 @@
             "Weicht der Boden von der Beschreibung ab -> sofort melden."
           ]
         },
-        { "type": "text", "value": "4) Methoden der Baugrunderkundung (Grundwissen)" },
+        { "type": "text", "value": "Methoden der Baugrunderkundung (Grundwissen)" },
         { "type": "text", "value": "4.1 Bohrungen" },
         {
           "type": "list",
@@ -233,7 +233,7 @@
             "Vorteil: Boden direkt sichtbar, Geruch, Feuchte und Struktur erkennbar."
           ]
         },
-        { "type": "text", "value": "5) Bodenarten - Grundwissen fuer die Ausbildung" },
+        { "type": "text", "value": "Bodenarten - Grundwissen fuer die Ausbildung" },
         { "type": "text", "value": "5.1 Grobe Einteilung der Boeden" },
         {
           "type": "list",
@@ -243,7 +243,7 @@
             "Auffuellungen: Mischmaterial, Bauschutt, unbekannte Zusammensetzung. Besonders gefaehrlich und unberechenbar."
           ]
         },
-        { "type": "text", "value": "6) Wichtige Bodeneigenschaften (praxisnah)" },
+        { "type": "text", "value": "Wichtige Bodeneigenschaften (praxisnah)" },
         {
           "type": "list",
           "items": [
@@ -253,7 +253,7 @@
             "Frostempfindlichkeit: Auf- und Abfrieren, Volumenaenderung, Schaeden an Fundamenten."
           ]
         },
-        { "type": "text", "value": "7) Boden und Wasser - kritische Kombination" },
+        { "type": "text", "value": "Boden und Wasser - kritische Kombination" },
         {
           "type": "list",
           "items": [
@@ -262,7 +262,7 @@
             "Boden nie ohne Wasser betrachten."
           ]
         },
-        { "type": "text", "value": "8) Baugrundgutachten - was steht drin?" },
+        { "type": "text", "value": "Baugrundgutachten - was steht drin?" },
         {
           "type": "list",
           "items": [
@@ -270,7 +270,7 @@
             "Gutachten lesen heisst nicht ueberfliegen - sondern verstehen."
           ]
         },
-        { "type": "text", "value": "9) Was muessen Auszubildende wissen und koennen?" },
+        { "type": "text", "value": "Was muessen Auszubildende wissen und koennen?" },
         {
           "type": "list",
           "items": [
@@ -278,14 +278,14 @@
             "Azubis graben nicht auf Verdacht."
           ]
         },
-        { "type": "text", "value": "10) Typische Fehler und Lernfallen" },
+        { "type": "text", "value": "Typische Fehler und Lernfallen" },
         {
           "type": "list",
           "items": [
             "Boden unterschaetzen, Auffuellungen ignorieren, Wasser nicht beachten, Gutachten nicht gelesen, Boden vor Ort passt nicht und wird ignoriert."
           ]
         },
-        { "type": "text", "value": "11) Verbindung zu den naechsten Bloecken" },
+        { "type": "text", "value": "Verbindung zu den naechsten Bloecken" },
         {
           "type": "list",
           "items": [
@@ -297,7 +297,7 @@
             "Bodenwissen ist Grundlage fuer alles Weitere."
           ]
         },
-        { "type": "text", "value": "12) Merksaetze fuer die Lernwelt" },
+        { "type": "text", "value": "Merksaetze fuer die Lernwelt" },
         {
           "type": "callout",
           "variant": "danger",
@@ -316,7 +316,7 @@
       ],
       "summary": "Sicherung, Arbeitsraum, Standfestigkeit - bevor gegraben wird.",
       "content": [
-        { "type": "text", "value": "1) Warum ist die Planung von Baugruben und Graeben so kritisch?" },
+        { "type": "text", "value": "Warum ist die Planung von Baugruben und Graeben so kritisch?" },
         {
           "type": "list",
           "items": [
@@ -325,7 +325,7 @@
             "Was einmal nachrutscht, laesst sich nicht zurueckholen."
           ]
         },
-        { "type": "text", "value": "2) Unterschied: Baugrube vs. Graben" },
+        { "type": "text", "value": "Unterschied: Baugrube vs. Graben" },
         { "type": "text", "value": "2.1 Baugrube" },
         {
           "type": "list",
@@ -345,7 +345,7 @@
             "Beide brauchen Sicherung - unabhaengig von der Tiefe."
           ]
         },
-        { "type": "text", "value": "3) Zentrale Frage vor dem Aushub" },
+        { "type": "text", "value": "Zentrale Frage vor dem Aushub" },
         {
           "type": "list",
           "items": [
@@ -353,7 +353,7 @@
             "Die Antwort ergibt sich aus Bodenart, Wasser, Tiefe, Platzverhaeltnissen, Dauer der Arbeiten und Umgebung (Gebaeude, Verkehr)."
           ]
         },
-        { "type": "text", "value": "4) Arbeitsraum - was bedeutet das?" },
+        { "type": "text", "value": "Arbeitsraum - was bedeutet das?" },
         { "type": "text", "value": "4.1 Definition Arbeitsraum" },
         {
           "type": "list",
@@ -371,7 +371,7 @@
             "In zu engen Graeben steigt das Unfallrisiko massiv."
           ]
         },
-        { "type": "text", "value": "5) Sicherungsarten von Baugruben und Graeben" },
+        { "type": "text", "value": "Sicherungsarten von Baugruben und Graeben" },
         { "type": "text", "value": "5.1 Boeschung" },
         {
           "type": "list",
@@ -390,7 +390,7 @@
             "Standardloesung bei wenig Platz und groesseren Tiefen."
           ]
         },
-        { "type": "text", "value": "6) Wann ist Sicherung zwingend erforderlich?" },
+        { "type": "text", "value": "Wann ist Sicherung zwingend erforderlich?" },
         {
           "type": "list",
           "items": [
@@ -399,7 +399,7 @@
             "Der Boden haelt schon ist keine Planung."
           ]
         },
-        { "type": "text", "value": "7) Einfluss von Wasser auf die Sicherung" },
+        { "type": "text", "value": "Einfluss von Wasser auf die Sicherung" },
         {
           "type": "list",
           "items": [
@@ -408,7 +408,7 @@
             "Sicherung und Wasserhaltung muessen zusammen gedacht werden."
           ]
         },
-        { "type": "text", "value": "8) Umfeld und Zusatzbelastungen" },
+        { "type": "text", "value": "Umfeld und Zusatzbelastungen" },
         {
           "type": "list",
           "items": [
@@ -416,7 +416,7 @@
             "Lasten duerfen nicht an den Rand gestellt werden, wenn dadurch der Boden nachgibt."
           ]
         },
-        { "type": "text", "value": "9) Zugang und Rettung" },
+        { "type": "text", "value": "Zugang und Rettung" },
         { "type": "text", "value": "9.1 Sicherer Zugang" },
         {
           "type": "list",
@@ -432,7 +432,7 @@
             "Jederzeit moeglich, nicht verstellt, ausreichend breit, bekannt fuer alle Beschaeftigten."
           ]
         },
-        { "type": "text", "value": "10) Verantwortlichkeiten" },
+        { "type": "text", "value": "Verantwortlichkeiten" },
         {
           "type": "list",
           "items": [
@@ -442,7 +442,7 @@
             "Sicherung ist tabu fuer Eigenbastelei."
           ]
         },
-        { "type": "text", "value": "11) Typische Fehler (extrem pruefungsrelevant)" },
+        { "type": "text", "value": "Typische Fehler (extrem pruefungsrelevant)" },
         {
           "type": "list",
           "items": [
@@ -450,7 +450,7 @@
             "Viele toedliche Unfaelle passieren in flachen Graeben, bei kurzen Arbeiten, nur mal eben."
           ]
         },
-        { "type": "text", "value": "12) Verbindung zu anderen Bloecken" },
+        { "type": "text", "value": "Verbindung zu anderen Bloecken" },
         {
           "type": "list",
           "items": [
@@ -461,7 +461,7 @@
             "Ohne Planung keine sichere Baugrube."
           ]
         },
-        { "type": "text", "value": "13) Merksaetze fuer die Lernwelt" },
+        { "type": "text", "value": "Merksaetze fuer die Lernwelt" },
         {
           "type": "callout",
           "variant": "danger",
@@ -480,7 +480,7 @@
       ],
       "summary": "Offen vs. geschlossen - wann, warum, wie?",
       "content": [
-        { "type": "text", "value": "1) Warum ist Wasserhaltung so wichtig?" },
+        { "type": "text", "value": "Warum ist Wasserhaltung so wichtig?" },
         {
           "type": "list",
           "items": [
@@ -489,7 +489,7 @@
             "Merksatz: Wasser entscheidet, ob gebaut werden kann - oder nicht."
           ]
         },
-        { "type": "text", "value": "2) Welche Arten von Wasser treten auf Baustellen auf?" },
+        { "type": "text", "value": "Welche Arten von Wasser treten auf Baustellen auf?" },
         { "type": "text", "value": "2.1 Grundwasser" },
         {
           "type": "list",
@@ -518,7 +518,7 @@
             "Alle Wasserarten muessen beruecksichtigt werden."
           ]
         },
-        { "type": "text", "value": "3) Ziel der Wasserhaltung" },
+        { "type": "text", "value": "Ziel der Wasserhaltung" },
         {
           "type": "list",
           "items": [
@@ -529,7 +529,7 @@
             "Nicht Ziel: Wasser einfach loswerden - sondern kontrolliert ableiten."
           ]
         },
-        { "type": "text", "value": "4) Grundarten der Wasserhaltung" },
+        { "type": "text", "value": "Grundarten der Wasserhaltung" },
         {
           "type": "list",
           "items": [
@@ -537,7 +537,7 @@
             "Die Wahl haengt ab von Wassermenge, Bodenart, Baugrubentiefe, Dauer der Arbeiten und Umgebung (Gebaeude)."
           ]
         },
-        { "type": "text", "value": "5) Offene Wasserhaltung" },
+        { "type": "text", "value": "Offene Wasserhaltung" },
         { "type": "text", "value": "5.1 Was ist offene Wasserhaltung?" },
         {
           "type": "list",
@@ -568,7 +568,7 @@
             "Offene Wasserhaltung ist keine Dauerloesung bei Grundwasser."
           ]
         },
-        { "type": "text", "value": "6) Geschlossene Wasserhaltung (Grundwasserabsenkung)" },
+        { "type": "text", "value": "Geschlossene Wasserhaltung (Grundwasserabsenkung)" },
         { "type": "text", "value": "6.1 Was bedeutet geschlossene Wasserhaltung?" },
         {
           "type": "list",
@@ -600,7 +600,7 @@
             "Grundwasserabsenkung darf nicht unkontrolliert erfolgen."
           ]
         },
-        { "type": "text", "value": "7) Entscheidung: offen oder geschlossen?" },
+        { "type": "text", "value": "Entscheidung: offen oder geschlossen?" },
         {
           "type": "list",
           "items": [
@@ -608,7 +608,7 @@
             "Die Wasserhaltung wird geplant - nicht improvisiert."
           ]
         },
-        { "type": "text", "value": "8) Wasser und Boden - gefaehrliche Kombination" },
+        { "type": "text", "value": "Wasser und Boden - gefaehrliche Kombination" },
         {
           "type": "list",
           "items": [
@@ -616,7 +616,7 @@
             "Besonders kritisch bei Sand und Kies, Auffuellungen, Boeschungen und Verbaugrenzen."
           ]
         },
-        { "type": "text", "value": "9) Ableitung und Umwelt" },
+        { "type": "text", "value": "Ableitung und Umwelt" },
         { "type": "text", "value": "9.1 Wohin mit dem Wasser?" },
         {
           "type": "list",
@@ -633,7 +633,7 @@
             "Wasserhaltung ist auch Umweltschutz."
           ]
         },
-        { "type": "text", "value": "10) Kontrolle und Betrieb" },
+        { "type": "text", "value": "Kontrolle und Betrieb" },
         {
           "type": "list",
           "items": [
@@ -641,7 +641,7 @@
             "Ausfall der Wasserhaltung = akute Gefahr."
           ]
         },
-        { "type": "text", "value": "11) Verantwortlichkeiten" },
+        { "type": "text", "value": "Verantwortlichkeiten" },
         {
           "type": "list",
           "items": [
@@ -650,7 +650,7 @@
             "Mitarbeitende/Auszubildende: beobachten Wasserstaende, melden Veraenderungen, greifen nicht eigenmaechtig ein."
           ]
         },
-        { "type": "text", "value": "12) Typische Fehler (sehr pruefungsrelevant)" },
+        { "type": "text", "value": "Typische Fehler (sehr pruefungsrelevant)" },
         {
           "type": "list",
           "items": [
@@ -658,7 +658,7 @@
             "Viele Einstuerze passieren nach Feierabend, bei Starkregen und nach Pumpenausfall."
           ]
         },
-        { "type": "text", "value": "13) Verbindung zu anderen Bloecken" },
+        { "type": "text", "value": "Verbindung zu anderen Bloecken" },
         {
           "type": "list",
           "items": [
@@ -668,7 +668,7 @@
             "Ohne Wasserhaltung keine sichere Baugrube."
           ]
         },
-        { "type": "text", "value": "14) Merksaetze fuer die Lernwelt" },
+        { "type": "text", "value": "Merksaetze fuer die Lernwelt" },
         {
           "type": "callout",
           "variant": "danger",
@@ -687,7 +687,7 @@
       ],
       "summary": "Lastabtragung verstehen, Gruendung auswaehlen, Plaene richtig lesen.",
       "content": [
-        { "type": "text", "value": "1) Was bedeutet Gruenden?" },
+        { "type": "text", "value": "Was bedeutet Gruenden?" },
         {
           "type": "list",
           "items": [
@@ -696,7 +696,7 @@
             "Die Gruendung verbindet Bauwerk und Boden. Wenn sie falsch ist, hilft das beste Bauwerk nichts."
           ]
         },
-        { "type": "text", "value": "2) Wovon haengt die Wahl der Gruendungsart ab?" },
+        { "type": "text", "value": "Wovon haengt die Wahl der Gruendungsart ab?" },
         {
           "type": "list",
           "items": [
@@ -704,7 +704,7 @@
             "Der Baugrund bestimmt die Gruendung - nicht umgekehrt."
           ]
         },
-        { "type": "text", "value": "3) Flachgruendungen (Grundwissen)" },
+        { "type": "text", "value": "Flachgruendungen (Grundwissen)" },
         { "type": "text", "value": "3.1 Streifenfundament" },
         {
           "type": "list",
@@ -730,7 +730,7 @@
             "Merkmale: lastverteilende Betonplatte, geringer Bodendruck, oft bei weichen Boeden."
           ]
         },
-        { "type": "text", "value": "4) Tiefgruendungen (Grundverstaendnis)" },
+        { "type": "text", "value": "Tiefgruendungen (Grundverstaendnis)" },
         { "type": "text", "value": "4.1 Wann braucht man eine Tiefgruendung?" },
         {
           "type": "list",
@@ -747,7 +747,7 @@
             "Kommt eher im Spezialtiefbau vor - Grundverstaendnis reicht in der Ausbildung."
           ]
         },
-        { "type": "text", "value": "5) Frostsichere Gruendung" },
+        { "type": "text", "value": "Frostsichere Gruendung" },
         { "type": "text", "value": "5.1 Warum Frost wichtig ist" },
         {
           "type": "list",
@@ -756,7 +756,7 @@
             "Fundamente muessen unterhalb der Frosttiefe liegen."
           ]
         },
-        { "type": "text", "value": "6) Fundamentaufbau - was gehoert dazu?" },
+        { "type": "text", "value": "Fundamentaufbau - was gehoert dazu?" },
         {
           "type": "list",
           "items": [
@@ -764,7 +764,7 @@
             "Jede Schicht hat eine Funktion."
           ]
         },
-        { "type": "text", "value": "7) Fundamentplan lesen - Grundwissen" },
+        { "type": "text", "value": "Fundamentplan lesen - Grundwissen" },
         { "type": "text", "value": "7.1 Was ist ein Fundamentplan?" },
         {
           "type": "list",
@@ -772,7 +772,7 @@
             "Ein Fundamentplan ist eine technische Zeichnung, die Art der Fundamente, Lage, Abmessungen, Hoehen, Bewehrung (Grundlagen) und Bezugspunkte zeigt."
           ]
         },
-        { "type": "text", "value": "8) Wichtige Inhalte im Fundamentplan" },
+        { "type": "text", "value": "Wichtige Inhalte im Fundamentplan" },
         { "type": "text", "value": "8.1 Draufsicht (Grundriss)" },
         {
           "type": "list",
@@ -795,7 +795,7 @@
             "Ohne Mass wird nichts gebaut."
           ]
         },
-        { "type": "text", "value": "9) Hoehen und Bezugspunkte verstehen" },
+        { "type": "text", "value": "Hoehen und Bezugspunkte verstehen" },
         {
           "type": "list",
           "items": [
@@ -803,7 +803,7 @@
             "Verwechslungen fuehren zu falscher Gruendungstiefe."
           ]
         },
-        { "type": "text", "value": "10) Typische Symbole und Abkuerzungen" },
+        { "type": "text", "value": "Typische Symbole und Abkuerzungen" },
         {
           "type": "list",
           "items": [
@@ -811,7 +811,7 @@
             "Plaene lesen heisst: Zeichen verstehen."
           ]
         },
-        { "type": "text", "value": "11) Wer arbeitet mit dem Fundamentplan?" },
+        { "type": "text", "value": "Wer arbeitet mit dem Fundamentplan?" },
         {
           "type": "list",
           "items": [
@@ -819,14 +819,14 @@
             "Auch Auszubildende muessen Plaene lesen, Masse verstehen und Unklarheiten melden."
           ]
         },
-        { "type": "text", "value": "12) Typische Fehler (pruefungsrelevant)" },
+        { "type": "text", "value": "Typische Fehler (pruefungsrelevant)" },
         {
           "type": "list",
           "items": [
             "Falsche Fundamentart, Frosttiefe ignoriert, Masse falsch gelesen, Hoehen verwechselt, Boden passt nicht zum Plan und wird ignoriert, Plan nicht aktuell."
           ]
         },
-        { "type": "text", "value": "13) Verbindung zu anderen Bloecken" },
+        { "type": "text", "value": "Verbindung zu anderen Bloecken" },
         {
           "type": "list",
           "items": [
@@ -838,7 +838,7 @@
             "Gruendung verbindet alles."
           ]
         },
-        { "type": "text", "value": "14) Merksaetze fuer die Lernwelt" },
+        { "type": "text", "value": "Merksaetze fuer die Lernwelt" },
         {
           "type": "callout",
           "variant": "danger",
@@ -857,7 +857,7 @@
       ],
       "summary": "Masse uebertragen, Hoehen sichern, Bauwerke richtig positionieren.",
       "content": [
-        { "type": "text", "value": "1) Warum ist Vermessung so wichtig?" },
+        { "type": "text", "value": "Warum ist Vermessung so wichtig?" },
         {
           "type": "list",
           "items": [
@@ -866,7 +866,7 @@
             "Ein Fehler von wenigen Zentimetern kann bedeuten: Fundament passt nicht, Bauwerk kollidiert mit Leitungen, Grenzabstaende werden verletzt, Rueckbau oder Nacharbeit."
           ]
         },
-        { "type": "text", "value": "2) Was bedeutet Abstecken?" },
+        { "type": "text", "value": "Was bedeutet Abstecken?" },
         {
           "type": "list",
           "items": [
@@ -874,7 +874,7 @@
             "Dabei werden Achsen, Kanten, Hoehen und Bauwerkslagen sichtbar und nachvollziehbar markiert."
           ]
         },
-        { "type": "text", "value": "3) Grundlagen der Vermessung auf Baustellen" },
+        { "type": "text", "value": "Grundlagen der Vermessung auf Baustellen" },
         { "type": "text", "value": "3.1 Bezugspunkte" },
         {
           "type": "list",
@@ -900,7 +900,7 @@
             "Hoehenfehler sind besonders kritisch, da sie oft spaet auffallen."
           ]
         },
-        { "type": "text", "value": "4) Schnurgeruest - Herzstueck der Absteckung" },
+        { "type": "text", "value": "Schnurgeruest - Herzstueck der Absteckung" },
         { "type": "text", "value": "4.1 Was ist ein Schnurgeruest?" },
         {
           "type": "list",
@@ -919,7 +919,7 @@
             "Hohe Genauigkeit."
           ]
         },
-        { "type": "text", "value": "5) Aufbau eines Schnurgeruests" },
+        { "type": "text", "value": "Aufbau eines Schnurgeruests" },
         {
           "type": "list",
           "items": [
@@ -927,7 +927,7 @@
             "Schnurgeruest steht ausserhalb des Arbeitsraums, damit es nicht zerstoert wird."
           ]
         },
-        { "type": "text", "value": "6) Abstecken in der Praxis - Ablauf" },
+        { "type": "text", "value": "Abstecken in der Praxis - Ablauf" },
         {
           "type": "list",
           "items": [
@@ -938,7 +938,7 @@
             "Abstecken ist erst fertig, wenn kontrolliert wurde."
           ]
         },
-        { "type": "text", "value": "7) Vermessungsgeraete (Grundverstaendnis)" },
+        { "type": "text", "value": "Vermessungsgeraete (Grundverstaendnis)" },
         {
           "type": "list",
           "items": [
@@ -946,7 +946,7 @@
             "Auszubildende arbeiten meist unter Anleitung, muessen aber verstehen, was gemessen wird."
           ]
         },
-        { "type": "text", "value": "8) Hoehenuebertragung (sehr wichtig)" },
+        { "type": "text", "value": "Hoehenuebertragung (sehr wichtig)" },
         {
           "type": "list",
           "items": [
@@ -955,7 +955,7 @@
             "Hoehen nicht schaetzen - immer messen."
           ]
         },
-        { "type": "text", "value": "9) Wer ist wofuer verantwortlich?" },
+        { "type": "text", "value": "Wer ist wofuer verantwortlich?" },
         {
           "type": "list",
           "items": [
@@ -965,7 +965,7 @@
             "Mitarbeitende/Auszubildende: schuetzen Schnurgeruest, melden Verschiebungen, arbeiten nicht ohne Absteckung."
           ]
         },
-        { "type": "text", "value": "10) Schutz und Erhalt des Schnurgeruests" },
+        { "type": "text", "value": "Schutz und Erhalt des Schnurgeruests" },
         {
           "type": "list",
           "items": [
@@ -973,14 +973,14 @@
             "Ein zerstoertes Schnurgeruest bedeutet Baustopp."
           ]
         },
-        { "type": "text", "value": "11) Typische Fehler (sehr pruefungsrelevant)" },
+        { "type": "text", "value": "Typische Fehler (sehr pruefungsrelevant)" },
         {
           "type": "list",
           "items": [
             "Falscher Plan verwendet, Bezugspunkt verwechselt, Schnurgeruest zu nah an Baugrube, Hoehen falsch gelesen, keine Kontrolle der Diagonalen, Absteckung nicht gesichert."
           ]
         },
-        { "type": "text", "value": "12) Verbindung zu anderen Bloecken" },
+        { "type": "text", "value": "Verbindung zu anderen Bloecken" },
         {
           "type": "list",
           "items": [
@@ -990,7 +990,7 @@
             "Vermessung verbindet Planung und Ausfuehrung."
           ]
         },
-        { "type": "text", "value": "13) Merksaetze fuer die Lernwelt" },
+        { "type": "text", "value": "Merksaetze fuer die Lernwelt" },
         {
           "type": "callout",
           "variant": "danger",
@@ -1009,7 +1009,7 @@
       ],
       "summary": "Aushub, Tragschichten, Planum, Verdichtung - vom Boden zur tragfaehigen Flaeche.",
       "content": [
-        { "type": "text", "value": "1) Was sind Erdarbeiten?" },
+        { "type": "text", "value": "Was sind Erdarbeiten?" },
         {
           "type": "list",
           "items": [
@@ -1017,7 +1017,7 @@
             "Merksatz: Erdarbeiten entscheiden, ob alles darueber haelt - oder spaeter versagt."
           ]
         },
-        { "type": "text", "value": "2) Aushub - Boden loesen und abtragen" },
+        { "type": "text", "value": "Aushub - Boden loesen und abtragen" },
         { "type": "text", "value": "2.1 Was bedeutet Aushub?" },
         {
           "type": "list",
@@ -1042,7 +1042,7 @@
             "Nicht jeder Boden darf wieder eingebaut werden."
           ]
         },
-        { "type": "text", "value": "3) Planum - die entscheidende Flaeche" },
+        { "type": "text", "value": "Planum - die entscheidende Flaeche" },
         { "type": "text", "value": "3.1 Was ist das Planum?" },
         {
           "type": "list",
@@ -1060,7 +1060,7 @@
             "Ein schlechtes Planum kann nicht durch gute Tragschichten ausgeglichen werden."
           ]
         },
-        { "type": "text", "value": "4) Tragschichten - Lasten verteilen" },
+        { "type": "text", "value": "Tragschichten - Lasten verteilen" },
         { "type": "text", "value": "4.1 Was ist eine Tragschicht?" },
         {
           "type": "list",
@@ -1085,7 +1085,7 @@
             "Zu dicke Lagen lassen sich nicht richtig verdichten."
           ]
         },
-        { "type": "text", "value": "5) Verdichtung - entscheidend fuer Tragfaehigkeit" },
+        { "type": "text", "value": "Verdichtung - entscheidend fuer Tragfaehigkeit" },
         { "type": "text", "value": "5.1 Warum ist Verdichtung so wichtig?" },
         {
           "type": "list",
@@ -1109,7 +1109,7 @@
             "Zu nass oder zu trocken bedeutet schlechte Verdichtung."
           ]
         },
-        { "type": "text", "value": "6) Kontrolle der Erdarbeiten" },
+        { "type": "text", "value": "Kontrolle der Erdarbeiten" },
         {
           "type": "list",
           "items": [
@@ -1118,7 +1118,7 @@
             "Was nicht kontrolliert wird, ist nicht sicher."
           ]
         },
-        { "type": "text", "value": "7) Typische Fehler bei Erdarbeiten (sehr pruefungsrelevant)" },
+        { "type": "text", "value": "Typische Fehler bei Erdarbeiten (sehr pruefungsrelevant)" },
         {
           "type": "list",
           "items": [
@@ -1126,7 +1126,7 @@
             "Viele spaetere Schaeden entstehen unter der Oberflaeche und lange nach der Bauphase."
           ]
         },
-        { "type": "text", "value": "8) Verantwortlichkeiten" },
+        { "type": "text", "value": "Verantwortlichkeiten" },
         {
           "type": "list",
           "items": [
@@ -1136,7 +1136,7 @@
             "Erdarbeiten sind Teamarbeit."
           ]
         },
-        { "type": "text", "value": "9) Verbindung zu anderen Bloecken" },
+        { "type": "text", "value": "Verbindung zu anderen Bloecken" },
         {
           "type": "list",
           "items": [
@@ -1148,7 +1148,7 @@
             "Erdarbeiten setzen alles um."
           ]
         },
-        { "type": "text", "value": "10) Merksaetze fuer die Lernwelt" },
+        { "type": "text", "value": "Merksaetze fuer die Lernwelt" },
         {
           "type": "callout",
           "variant": "danger",
@@ -1167,7 +1167,7 @@
       ],
       "summary": "Wie Bauwerke an die technische Infrastruktur angeschlossen werden.",
       "content": [
-        { "type": "text", "value": "1) Was bedeutet Erschliessung?" },
+        { "type": "text", "value": "Was bedeutet Erschliessung?" },
         {
           "type": "list",
           "items": [
@@ -1176,7 +1176,7 @@
             "Erschliessung beginnt unter der Erde und muss vor oder parallel zum Hoch- bzw. Gleisbau korrekt ausgefuehrt werden."
           ]
         },
-        { "type": "text", "value": "2) Leitungen - Grundverstaendnis" },
+        { "type": "text", "value": "Leitungen - Grundverstaendnis" },
         { "type": "text", "value": "2.1 Welche Leitungen gibt es?" },
         {
           "type": "list",
@@ -1201,7 +1201,7 @@
             "Schutz verhindert Schaeden bei spaeteren Erdarbeiten."
           ]
         },
-        { "type": "text", "value": "3) Schaechte - Zugang und Kontrolle" },
+        { "type": "text", "value": "Schaechte - Zugang und Kontrolle" },
         { "type": "text", "value": "3.1 Wozu dienen Schaechte?" },
         {
           "type": "list",
@@ -1224,7 +1224,7 @@
             "Schaechte sind Bauwerke - keine einfachen Loecher."
           ]
         },
-        { "type": "text", "value": "4) Entwaesserung - Wasser gezielt ableiten" },
+        { "type": "text", "value": "Entwaesserung - Wasser gezielt ableiten" },
         { "type": "text", "value": "4.1 Warum Entwaesserung so wichtig ist" },
         {
           "type": "list",
@@ -1248,7 +1248,7 @@
             "Falsches Gefaelle fuehrt zu Rueckstau oder Verstopfung."
           ]
         },
-        { "type": "text", "value": "5) Durchfuehrungen - durch Waende und Fundamente" },
+        { "type": "text", "value": "Durchfuehrungen - durch Waende und Fundamente" },
         { "type": "text", "value": "5.1 Was sind Durchfuehrungen?" },
         {
           "type": "list",
@@ -1272,7 +1272,7 @@
             "Nachtraegliche Durchbrueche gefaehrden Statik und Dichtheit."
           ]
         },
-        { "type": "text", "value": "6) Abstimmung und Reihenfolge der Arbeiten" },
+        { "type": "text", "value": "Abstimmung und Reihenfolge der Arbeiten" },
         {
           "type": "list",
           "items": [
@@ -1281,7 +1281,7 @@
             "Fehlende Abstimmung fuehrt zu Aufreissen und Nacharbeit."
           ]
         },
-        { "type": "text", "value": "7) Kontrolle und Qualitaetssicherung" },
+        { "type": "text", "value": "Kontrolle und Qualitaetssicherung" },
         {
           "type": "list",
           "items": [
@@ -1289,7 +1289,7 @@
             "Was verfuellt ist, sieht man spaeter nicht mehr."
           ]
         },
-        { "type": "text", "value": "8) Verantwortlichkeiten" },
+        { "type": "text", "value": "Verantwortlichkeiten" },
         {
           "type": "list",
           "items": [
@@ -1299,7 +1299,7 @@
             "Mitarbeitende/Auszubildende: arbeiten nach Plan, schuetzen Leitungen, melden Abweichungen."
           ]
         },
-        { "type": "text", "value": "9) Typische Fehler (sehr pruefungsrelevant)" },
+        { "type": "text", "value": "Typische Fehler (sehr pruefungsrelevant)" },
         {
           "type": "list",
           "items": [
@@ -1307,7 +1307,7 @@
             "Viele Schaeden entstehen erst nach Inbetriebnahme."
           ]
         },
-        { "type": "text", "value": "10) Verbindung zu Lernfeld 2 insgesamt" },
+        { "type": "text", "value": "Verbindung zu Lernfeld 2 insgesamt" },
         {
           "type": "list",
           "items": [
@@ -1321,7 +1321,7 @@
             "Erschliessung verbindet alles unter der Erde."
           ]
         },
-        { "type": "text", "value": "11) Merksaetze fuer die Lernwelt" },
+        { "type": "text", "value": "Merksaetze fuer die Lernwelt" },
         {
           "type": "callout",
           "variant": "danger",
@@ -1340,7 +1340,7 @@
       ],
       "summary": "Grundlagen fuer sichere, tragfaehige und nutzbare Verkehrsflaechen.",
       "content": [
-        { "type": "text", "value": "1) Was sind Verkehrsflaechen?" },
+        { "type": "text", "value": "Was sind Verkehrsflaechen?" },
         {
           "type": "list",
           "items": [
@@ -1349,7 +1349,7 @@
             "Merksatz: Verkehrsflaechen muessen tragen, entwaessern und sicher begehbar oder befahrbar sein."
           ]
         },
-        { "type": "text", "value": "2) Warum sind Verkehrsflaechen Teil von Lernfeld 2?" },
+        { "type": "text", "value": "Warum sind Verkehrsflaechen Teil von Lernfeld 2?" },
         {
           "type": "list",
           "items": [
@@ -1357,7 +1357,7 @@
             "Schlechte Verkehrsflaechen fuehren zu Einsinken von Fahrzeugen, Stolperstellen, Staunaesse, Unfaellen und Nacharbeiten."
           ]
         },
-        { "type": "text", "value": "3) Zufahrten - temporaer und dauerhaft" },
+        { "type": "text", "value": "Zufahrten - temporaer und dauerhaft" },
         { "type": "text", "value": "3.1 Baustellenzufahrten (temporaer)" },
         {
           "type": "list",
@@ -1375,7 +1375,7 @@
             "Anforderungen: dauerhafte Tragfaehigkeit, Entwaesserung, Frostsicherheit, ebene Oberflaeche."
           ]
         },
-        { "type": "text", "value": "4) Aufbau von Verkehrsflaechen (Grundprinzip)" },
+        { "type": "text", "value": "Aufbau von Verkehrsflaechen (Grundprinzip)" },
         {
           "type": "list",
           "items": [
@@ -1383,7 +1383,7 @@
             "Jede Schicht hat eine Funktion."
           ]
         },
-        { "type": "text", "value": "5) Pflasterflaechen - Ueberblick" },
+        { "type": "text", "value": "Pflasterflaechen - Ueberblick" },
         { "type": "text", "value": "5.1 Wozu Pflaster?" },
         {
           "type": "list",
@@ -1399,7 +1399,7 @@
             "Unterschiede bestehen bei Belastbarkeit, Optik, Verlegeart und Fugen."
           ]
         },
-        { "type": "text", "value": "6) Pflaster - Grundregeln der Ausfuehrung" },
+        { "type": "text", "value": "Pflaster - Grundregeln der Ausfuehrung" },
         {
           "type": "list",
           "items": [
@@ -1407,7 +1407,7 @@
             "Pflaster gleicht keinen schlechten Unterbau aus."
           ]
         },
-        { "type": "text", "value": "7) Entwaesserung von Verkehrsflaechen" },
+        { "type": "text", "value": "Entwaesserung von Verkehrsflaechen" },
         {
           "type": "list",
           "items": [
@@ -1416,7 +1416,7 @@
             "Stehendes Wasser zerstoert Verkehrsflaechen."
           ]
         },
-        { "type": "text", "value": "8) Belastung und Nutzung beruecksichtigen" },
+        { "type": "text", "value": "Belastung und Nutzung beruecksichtigen" },
         {
           "type": "list",
           "items": [
@@ -1424,7 +1424,7 @@
             "Belastung bestimmt Aufbau und Material."
           ]
         },
-        { "type": "text", "value": "9) Sicherheit und Nutzung" },
+        { "type": "text", "value": "Sicherheit und Nutzung" },
         {
           "type": "list",
           "items": [
@@ -1432,7 +1432,7 @@
             "Im Baustellenbetrieb besonders wichtig: klare Trennung von Verkehrsarten, sichere Wegefuehrung, ausreichende Beleuchtung."
           ]
         },
-        { "type": "text", "value": "10) Typische Fehler (pruefungsrelevant)" },
+        { "type": "text", "value": "Typische Fehler (pruefungsrelevant)" },
         {
           "type": "list",
           "items": [
@@ -1440,7 +1440,7 @@
             "Viele Schaeden entstehen unter der Oberflaeche und erst nach Nutzung."
           ]
         },
-        { "type": "text", "value": "11) Verbindung zu Lernfeld 2" },
+        { "type": "text", "value": "Verbindung zu Lernfeld 2" },
         {
           "type": "list",
           "items": [
@@ -1452,7 +1452,7 @@
             "Verkehrsflaechen sind das sichtbare Ergebnis guter Planung."
           ]
         },
-        { "type": "text", "value": "12) Merksaetze fuer die Lernwelt" },
+        { "type": "text", "value": "Merksaetze fuer die Lernwelt" },
         {
           "type": "callout",
           "variant": "danger",
@@ -1478,3 +1478,4 @@
     }
   ]
 }
+

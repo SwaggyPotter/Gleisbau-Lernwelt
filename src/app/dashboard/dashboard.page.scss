@@ -180,14 +180,35 @@
 .progress-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
+  margin: 0 0 6px;
+
+  span {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #4b5563;
+  }
 }
 
 .progress-value {
   font-weight: 700;
   color: #0b1626;
-  min-width: 48px;
+  min-width: 56px;
   text-align: right;
+}
+
+.module-progress {
+  margin-top: 8px;
+
+  ion-progress-bar {
+    --background: #e5eaf0;
+    --progress-background: var(--rail-teal);
+    height: 8px;
+    border-radius: 999px;
+    overflow: hidden;
+  }
 }
 
 @media (max-width: 767px) {

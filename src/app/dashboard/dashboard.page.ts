@@ -13,6 +13,12 @@ type GleisbauModule = {
   lf: string;
 };
 
+type ModuleProgress = {
+  completed: number;
+  total: number;
+  ratio: number;
+};
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -23,6 +29,23 @@ export class DashboardPage {
   user: UserProfile | null = null;
   summary = { completed: 0, inProgress: 0, planned: 0 };
   searchTerm = '';
+  moduleProgressByLink: Record<string, ModuleProgress> = {};
+  private readonly blockTotalsByField: Record<number, number> = {
+    1: 8,
+    2: 10,
+    3: 9,
+    4: 9,
+    5: 9,
+    6: 10,
+    7: 9,
+    8: 9,
+    9: 9,
+    10: 10,
+    11: 9,
+    12: 9,
+    13: 9,
+    14: 9,
+  };
   gleisbauModules: GleisbauModule[] = [
     {
       id: 'lf01-custom',
@@ -192,7 +215,12 @@ export class DashboardPage {
     this.authService.user$.subscribe(user => {
       this.user = user;
       this.summary = { completed: 0, inProgress: 0, planned: this.gleisbauModules.length };
+      this.refreshModuleProgress();
     });
+  }
+
+  ionViewWillEnter(): void {
+    this.refreshModuleProgress();
   }
 
   get displayName(): string {
@@ -257,6 +285,55 @@ export class DashboardPage {
 
   get hasActiveSearch(): boolean {
     return this.searchTerm.trim().length > 0;
+  }
+
+  private refreshModuleProgress(): void {
+    const progressByLink: Record<string, ModuleProgress> = {};
+
+    for (const module of this.gleisbauModules) {
+      const fieldNumber = this.parseFieldNumber(module.link);
+      if (fieldNumber === null) {
+        continue;
+      }
+
+      const total = this.blockTotalsByField[fieldNumber] ?? 0;
+      if (total <= 0) {
+        continue;
+      }
+
+      const storageKey = `lf${String(fieldNumber).padStart(2, '0')}-progress`;
+      const completed = Math.min(this.readCompletedBlocks(storageKey), total);
+      progressByLink[module.link] = {
+        completed,
+        total,
+        ratio: total > 0 ? completed / total : 0,
+      };
+    }
+
+    this.moduleProgressByLink = progressByLink;
+  }
+
+  private parseFieldNumber(link: string): number | null {
+    const match = /^\/lernfelder\/(\d+)$/.exec(link);
+    if (!match) {
+      return null;
+    }
+    return Number(match[1]);
+  }
+
+  private readCompletedBlocks(storageKey: string): number {
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) {
+      return 0;
+    }
+
+    try {
+      const parsed = JSON.parse(raw) as { completedBlocks?: unknown };
+      const completedBlocks = parsed.completedBlocks;
+      return Array.isArray(completedBlocks) ? completedBlocks.length : 0;
+    } catch {
+      return 0;
+    }
   }
 
   private normalizeText(value: string): string {

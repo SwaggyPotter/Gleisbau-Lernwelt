@@ -79,6 +79,10 @@ export class Lernfeld02Page implements OnInit, OnDestroy {
     return Object.values(this.progress.quizStats).reduce((sum, entry) => sum + entry.correct + entry.wrong, 0);
   }
 
+  answeredQuizCount(): number {
+    return Object.keys(this.progress.quizStats ?? {}).length;
+  }
+
   get quizTitle(): string {
     return this.quiz?.meta.title ?? 'Quiz';
   }

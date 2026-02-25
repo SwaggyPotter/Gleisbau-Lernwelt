@@ -72,6 +72,13 @@
             </ion-card-header>
             <ion-card-content>
               <p class="tile-description">Direkter Zugang: {{ module.link }}</p>
+              <div class="module-progress" *ngIf="moduleProgressByLink[module.link] as progress">
+                <div class="progress-row">
+                  <span>Fortschritt</span>
+                  <span class="progress-value">{{ progress.completed }}/{{ progress.total }}</span>
+                </div>
+                <ion-progress-bar color="success" [value]="progress.ratio"></ion-progress-bar>
+              </div>
             </ion-card-content>
           </ion-card>
         </ion-col>

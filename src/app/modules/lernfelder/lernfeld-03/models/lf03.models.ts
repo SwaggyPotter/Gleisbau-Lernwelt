@@ -1,7 +1,8 @@
-export type ContentEntry =
+﻿export type ContentEntry =
   | { type: 'text'; value: string }
   | { type: 'list'; items: string[] }
-  | { type: 'callout'; variant: 'danger' | 'info' | 'tip'; title: string; value: string };
+  | { type: 'callout'; variant: 'danger' | 'info' | 'tip'; title: string; value: string }
+  | { type: 'image'; src: string; caption?: string };
 
 export interface ContentBlock {
   id: string;
@@ -38,3 +39,4 @@ export interface BlockProgress {
   completedBlocks: string[];
   quizStats: Record<string, { correct: number; wrong: number }>;
 }
+

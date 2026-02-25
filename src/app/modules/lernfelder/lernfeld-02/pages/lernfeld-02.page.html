@@ -1,4 +1,4 @@
-<ion-header translucent="true">
+﻿<ion-header translucent="true">
   <ion-toolbar>
     <ion-title>Lernfeld 2: Bauwerke erschliessen &amp; gruenden</ion-title>
     <ion-buttons slot="end">
@@ -17,22 +17,36 @@
           Erd- und Gruendungsarbeiten planen: Baugrund beurteilen, Baugruben/Graeben sichern, Wasserhaltung waehlen,
           Fundamente lesen sowie Vermessung und Erschliessung sicher umsetzen.
         </p>
-        <div class="badges">
+                        <div class="badges">
           <ion-chip color="primary" outline="true">{{ quizTitle }}</ion-chip>
           <ion-chip color="success" outline="true">Arbeitsraum &amp; Sicherheit</ion-chip>
           <ion-chip color="tertiary" outline="true">Wasserhaltung &amp; Vermessung</ion-chip>
         </div>
-      </div>
+        <div class="completion-meter">
+          <div class="completion-meta">
+            <span>Lernfortschritt</span>
+            <strong>{{ progress.completedBlocks.length }}/{{ blocks.length }} Bloecke</strong>
+          </div>
+          <ion-progress-bar
+            color="success"
+            [value]="blocks.length ? progress.completedBlocks.length / blocks.length : 0"
+          ></ion-progress-bar>
+        </div>      
+              </div>
       <div class="progress">
-        <div class="stat">
+<div class="stat">
           <span>Abgeschlossene Bloecke</span>
           <strong>{{ progress.completedBlocks.length }}/{{ blocks.length }}</strong>
         </div>
         <div class="stat">
-          <span>Beantwortete Quizfragen</span>
+          <span>Quizantworten gesamt</span>
           <strong>{{ totalAnswered() }}</strong>
         </div>
-      </div>
+        <div class="stat">
+          <span>Quizfragen bearbeitet</span>
+          <strong>{{ answeredQuizCount() }}/{{ quiz?.questions?.length || 0 }}</strong>
+        </div>
+            </div>
     </section>
 
     <ion-grid>
@@ -53,15 +67,20 @@
             <div class="block-head">
               <div>
                 <p class="eyebrow">{{ block.id | uppercase }}</p>
-                <h2>{{ block.title }}</h2>
+                <h2>
+                  {{ block.title }}
+                  <ion-badge color="warning" *ngIf="block.title.toLowerCase().includes('gleis')">Gleisbau</ion-badge>
+                </h2>
                 <p class="summary">{{ block.summary }}</p>
               </div>
               <ion-button
-                color="success"
+                class="complete-toggle"
+                [color]="progress.completedBlocks.includes(block.id) ? 'success' : 'medium'"
                 (click)="toggleCompleted(block)"
                 [fill]="progress.completedBlocks.includes(block.id) ? 'solid' : 'outline'"
+                [attr.aria-label]="progress.completedBlocks.includes(block.id) ? 'Als offen markieren' : 'Als erledigt markieren'"
               >
-                Erledigt
+                <ion-icon slot="icon-only" name="checkmark"></ion-icon>
               </ion-button>
             </div>
 
@@ -71,7 +90,7 @@
       </ion-row>
     </ion-grid>
 
-    <section class="extras" *ngIf="quiz">
+    <section class="extras overall-quiz" *ngIf="quiz">
       <h3>Grosses Gesamtquiz Lernfeld 2</h3>
       <p>Alle Fragen aus Lernfeld 2 in einem Durchlauf. Nach jeder Antwort siehst du direkt, ob sie richtig oder falsch war.</p>
       <app-lf02-quiz-engine
@@ -88,3 +107,7 @@
     <p *ngIf="error">{{ error }}</p>
   </ng-template>
 </ion-content>
+
+
+
+

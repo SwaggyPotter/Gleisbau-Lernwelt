@@ -1,4 +1,26 @@
 .nav-card {
+  ion-card-header {
+    padding-bottom: 8px;
+  }
+
+  ion-card-title {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  ion-card-subtitle {
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  ion-item {
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+    --inner-padding-end: 10px;
+    border-radius: 10px;
+    margin: 4px 6px;
+  }
+
   ion-item.active {
     background: #0d2f52;
     color: #fff;
@@ -8,12 +30,30 @@
   h3 {
     margin: 0;
     font-weight: 600;
+    font-size: 16px;
+    line-height: 1.35;
   }
 
   p {
     margin: 4px 0 0;
-    font-size: 13px;
+    font-size: 14px;
+    line-height: 1.45;
     color: var(--ion-color-medium);
   }
 }
 
+@media (max-width: 768px) {
+  .nav-card {
+    ion-card-title {
+      font-size: 20px;
+    }
+
+    h3 {
+      font-size: 15px;
+    }
+
+    p {
+      font-size: 13px;
+    }
+  }
+}

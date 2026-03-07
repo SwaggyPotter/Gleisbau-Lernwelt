@@ -4,8 +4,11 @@
       <span class="brand-mark">Gleisbau</span>
       <span class="brand-sub">Admin</span>
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-button fill="clear" (click)="gotoDashboard()">Zurueck zur Uebersicht</ion-button>
+    <ion-buttons slot="end" class="toolbar-actions">
+      <ion-button fill="clear" (click)="gotoDashboard()">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zurueck zur Uebersicht</span>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -50,13 +53,13 @@
 
     <ion-list lines="none" class="key-list">
       <ion-list-header>Aktive Keys</ion-list-header>
-      <ion-item *ngFor="let key of keys">
+      <ion-item *ngFor="let key of keys" class="key-item">
         <ion-icon slot="start" name="key-outline"></ion-icon>
         <ion-label>
           <h3>{{ key.key }}</h3>
           <p>Lehrjahr {{ key.year }} · {{ key.full_name }} · erstellt {{ key.created_at | date:'dd.MM.yyyy' }} · Aussteller: {{ key.issued_by }}</p>
         </ion-label>
-        <ion-badge color="primary">Verwendet: {{ key.uses }} / {{ key.max_uses }}</ion-badge>
+        <ion-badge color="primary" class="item-badge">Verwendet: {{ key.uses }} / {{ key.max_uses }}</ion-badge>
         <ion-button slot="end" fill="clear" color="danger" (click)="deleteKey(key.key)">
           <ion-icon name="trash-outline"></ion-icon>
         </ion-button>
@@ -72,7 +75,7 @@
     </div>
 
     <ion-list lines="full" class="user-list">
-      <ion-item *ngFor="let user of users">
+      <ion-item *ngFor="let user of users" class="user-item">
         <ion-avatar slot="start">
           <ion-icon name="person-circle-outline"></ion-icon>
         </ion-avatar>
@@ -85,7 +88,7 @@
             Zur Loeschung vorgemerkt bis: {{ user.deletion_due_at | date:'dd.MM.yyyy' }}
           </p>
         </ion-label>
-        <ion-badge [color]="user.role === 'admin' ? 'tertiary' : (user.deletion_due_at ? 'warning' : 'primary')">
+        <ion-badge class="item-badge" [color]="user.role === 'admin' ? 'tertiary' : (user.deletion_due_at ? 'warning' : 'primary')">
           {{ user.role }}
         </ion-badge>
         <ion-button *ngIf="user.role !== 'admin'" slot="end" fill="clear" color="danger" (click)="confirmDeleteUser(user)">

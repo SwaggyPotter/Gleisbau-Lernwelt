@@ -10,18 +10,30 @@
       </ion-button>
       <ion-chip [color]="chipColor" outline="true" (click)="goToProfile()" class="profile-chip">
         <ion-icon name="person-circle-outline"></ion-icon>
-        <ion-label>{{ displayName }}</ion-label>
+        <ion-label class="toolbar-action-label">{{ displayName }}</ion-label>
       </ion-chip>
-      <ion-button fill="clear" (click)="goToAdmin()">Admin Panel</ion-button>
-      <ion-button color="medium" fill="outline" (click)="handleLogout()">Logout</ion-button>
+      <ion-button fill="clear" (click)="goToAdmin()">
+        <ion-icon slot="start" name="shield-checkmark-outline"></ion-icon>
+        <span class="toolbar-action-label">Admin Panel</span>
+      </ion-button>
+      <ion-button color="medium" fill="outline" (click)="handleLogout()">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        <span class="toolbar-action-label">Logout</span>
+      </ion-button>
     </ion-buttons>
     <ng-template #guestButtons>
       <ion-buttons slot="end" class="toolbar-actions">
         <ion-button fill="clear" (click)="toggleTheme()" aria-label="Theme umschalten">
           <ion-icon slot="icon-only" [name]="darkMode ? 'sunny-outline' : 'moon-outline'"></ion-icon>
         </ion-button>
-        <ion-button fill="clear" routerLink="/login">Login</ion-button>
-        <ion-button color="primary" routerLink="/register">Registrieren</ion-button>
+        <ion-button fill="clear" routerLink="/login">
+          <ion-icon slot="start" name="log-in-outline"></ion-icon>
+          <span class="toolbar-action-label">Login</span>
+        </ion-button>
+        <ion-button color="primary" routerLink="/register">
+          <ion-icon slot="start" name="person-add-outline"></ion-icon>
+          <span class="toolbar-action-label">Registrieren</span>
+        </ion-button>
       </ion-buttons>
     </ng-template>
   </ion-toolbar>
@@ -36,6 +48,7 @@
       <h1>Willkommen in der Gleisbau Lernwelt</h1>
       <div class="hero-actions" *ngIf="user; else guestHeroActions">
         <ion-button size="large" class="cta-strong" routerLink="/dashboard">Weiter lernen</ion-button>
+        <ion-button size="large" fill="outline" color="light" (click)="goToProfile()">Profil</ion-button>
         <ion-button size="large" fill="outline" color="light" (click)="goToAdmin()">Admin Panel</ion-button>
         <ion-button size="large" fill="outline" color="medium" (click)="handleLogout()">Logout</ion-button>
       </div>

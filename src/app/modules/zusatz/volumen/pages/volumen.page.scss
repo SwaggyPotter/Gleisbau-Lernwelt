@@ -83,7 +83,7 @@
   padding-right: 4px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .hero {
     flex-direction: column;
   }
@@ -98,5 +98,160 @@
     max-height: none;
     overflow: visible;
     padding-right: 0;
+  }
+}
+
+/* Handy-Optimierung: volle Breite, kompakte Abstaende, Nav ausblenden */
+@media (max-width: 768px) {
+  .page-shell {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px 8px 12px;
+    gap: 12px;
+  }
+
+  ion-grid {
+    padding: 0;
+  }
+
+  ion-row,
+  ion-col {
+    margin: 0;
+    padding: 0;
+  }
+
+  ion-grid > ion-row > ion-col:first-child {
+    display: none;
+  }
+
+  ion-grid > ion-row > ion-col:last-child {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero {
+    gap: 12px;
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .lede {
+    margin: 6px 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .badges {
+    gap: 4px;
+  }
+
+  .progress {
+    gap: 6px;
+  }
+
+  .progress .stat {
+    padding: 8px;
+  }
+
+  .progress .stat strong {
+    font-size: 22px;
+  }
+
+  .block {
+    margin-bottom: 14px;
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .block:last-of-type {
+    margin-bottom: 4px;
+  }
+
+  .block-head {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .summary {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .extras {
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .extras h3 {
+    font-size: 18px;
+  }
+
+  .extras p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .sticky-nav {
+    display: none;
+  }
+}
+
+/* iPhone-SE-Fix (375px): harte Overflow-Guards */
+@media (max-width: 768px) {
+  .page-shell,
+  .page-shell > *,
+  .page-shell ion-grid,
+  .page-shell ion-row,
+  .page-shell ion-col,
+  .hero,
+  .block,
+  .extras {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .badges ion-chip {
+    max-width: 100%;
+  }
+
+  .badges ion-chip ion-label {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .hero h1,
+  .block-head h2,
+  .summary,
+  .lede {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 390px) {
+  .page-shell {
+    padding: 6px 6px 10px;
+    gap: 10px;
+  }
+
+  .hero {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .block {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .extras {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .progress .stat strong {
+    font-size: 20px;
   }
 }

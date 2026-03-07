@@ -7,11 +7,20 @@
     <ion-buttons slot="end" class="toolbar-actions">
       <ion-chip class="profile-chip" color="light" outline="true" (click)="goToProfile()">
         <ion-icon name="person-circle-outline"></ion-icon>
-        <ion-label>Angemeldet als {{ displayName }}</ion-label>
+        <ion-label class="toolbar-action-label">Profil: {{ displayName }}</ion-label>
       </ion-chip>
-      <ion-button fill="clear" (click)="goToAdmin()">Admin Panel</ion-button>
-      <ion-button fill="clear" routerLink="/home">Start</ion-button>
-      <ion-button color="medium" (click)="handleLogout()">Logout</ion-button>
+      <ion-button fill="clear" (click)="goToAdmin()">
+        <ion-icon slot="start" name="shield-checkmark-outline"></ion-icon>
+        <span class="toolbar-action-label">Admin Panel</span>
+      </ion-button>
+      <ion-button fill="clear" routerLink="/home">
+        <ion-icon slot="start" name="home-outline"></ion-icon>
+        <span class="toolbar-action-label">Start</span>
+      </ion-button>
+      <ion-button color="medium" (click)="handleLogout()">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        <span class="toolbar-action-label">Logout</span>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

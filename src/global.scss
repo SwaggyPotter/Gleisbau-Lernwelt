@@ -52,10 +52,89 @@ ion-content {
   margin: 0 auto;
 }
 
+html,
+body,
+ion-app {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
 :root {
   --ion-font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
 body, ion-title, ion-label, h1, h2, h3, h4, h5, h6, p, button, input, textarea {
   font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+@media (max-width: 1024px) {
+  ion-content {
+    --padding-start: 14px;
+    --padding-end: 14px;
+    --padding-top: 14px;
+    --padding-bottom: 22px;
+  }
+
+  .page-shell {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  ion-content {
+    --padding-start: 12px;
+    --padding-end: 12px;
+    --padding-top: 12px;
+    --padding-bottom: 20px;
+  }
+
+  ion-header ion-toolbar {
+    --min-height: 52px;
+    padding-inline: 6px;
+  }
+
+  ion-header ion-toolbar ion-title {
+    font-size: 0.96rem;
+    padding-inline: 8px;
+    max-width: calc(100% - 56px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .toolbar-action-label {
+    display: none;
+  }
+
+  ion-header ion-toolbar ion-button {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    min-height: 36px;
+  }
+}
+
+@media (max-width: 390px) {
+  ion-header ion-toolbar ion-title {
+    font-size: 0.88rem;
+    padding-inline: 6px;
+    max-width: calc(100% - 48px);
+  }
 }

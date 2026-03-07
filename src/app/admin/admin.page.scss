@@ -34,6 +34,22 @@
   text-transform: uppercase;
 }
 
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  max-width: 76vw;
+  overflow-x: auto;
+  padding-block: 2px;
+}
+
+.toolbar-actions ion-button {
+  margin: 0;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
 .admin-content {
   --background: linear-gradient(135deg, var(--rail-night) 0%, var(--rail-deep) 70%, #0c1824 100%);
   padding: 14px 16px 48px;
@@ -77,6 +93,17 @@
   margin-top: 8px;
 }
 
+.key-item ion-label p,
+.user-item ion-label p {
+  white-space: normal;
+  line-height: 1.45;
+}
+
+.item-badge {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
 .user-card {
   --background: rgba(255, 255, 255, 0.94);
   color: #0b1626;
@@ -118,4 +145,81 @@
 .lede {
   margin: 0 0 12px;
   color: rgba(232, 238, 245, 0.8);
+}
+
+@media (max-width: 1024px) {
+  .admin-header ion-toolbar {
+    padding-inline: 8px;
+  }
+
+  .brand {
+    font-size: 0.95rem;
+  }
+
+  .toolbar-actions {
+    max-width: 78vw;
+  }
+
+  .toolbar-actions ion-button {
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-content {
+    padding: 10px 12px 32px;
+  }
+
+  .panel {
+    padding: 14px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+  }
+
+  .panel-head h1 {
+    font-size: clamp(1.3rem, 6vw, 1.6rem);
+  }
+
+  .panel-body {
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .panel-body ion-grid {
+    width: 100%;
+  }
+
+  .generate-btn {
+    width: 100%;
+  }
+
+  .last-key {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .toolbar-actions {
+    max-width: 72vw;
+  }
+
+  .key-item ion-label h3,
+  .user-item ion-label h3 {
+    font-size: 0.97rem;
+  }
+
+  .key-item ion-label p,
+  .user-item ion-label p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .toolbar-actions {
+    max-width: 84vw;
+  }
+
+  .item-badge {
+    margin-top: 6px;
+  }
 }

@@ -53,13 +53,33 @@
 }
 
 .toolbar-actions ion-button {
-  margin-left: 6px;
+  margin-left: 0;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  max-width: min(74vw, 760px);
+  overflow-x: auto;
+  padding-block: 2px;
 }
 
 .profile-chip {
   cursor: pointer;
   --background: var(--chip-bg, rgba(255, 255, 255, 0.9));
   --color: var(--chip-fg, #0f172a);
+  max-width: min(42vw, 260px);
+  flex: 0 0 auto;
+}
+
+.profile-chip ion-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 :host-context(body.ion-palette-dark) .profile-chip {
@@ -241,5 +261,78 @@
 
   .hero {
     padding: 24px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .home-header ion-toolbar {
+    padding-inline: 8px;
+  }
+
+  .brand {
+    font-size: 0.95rem;
+  }
+
+  .toolbar-actions {
+    max-width: 76vw;
+    gap: 4px;
+  }
+
+  .toolbar-actions ion-button {
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
+
+  .profile-chip {
+    max-width: 220px;
+  }
+
+  .hero {
+    padding: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-content {
+    padding: 8px 12px 30px;
+  }
+
+  .toolbar-actions {
+    max-width: 68vw;
+  }
+
+  .profile-chip {
+    max-width: 52px;
+  }
+
+  .hero {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .hero h1 {
+    font-size: clamp(24px, 8vw, 34px);
+  }
+
+  .hero-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .hero-actions ion-button {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-chip {
+    display: none;
+  }
+
+  .toolbar-actions {
+    max-width: 80vw;
   }
 }

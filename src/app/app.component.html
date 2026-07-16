@@ -1,58 +1,6 @@
-<ion-app [class.with-privacy-footer]="consentAccepted">
-  <section
-    *ngIf="showPrivacyDialog"
-    class="privacy-gate"
-    [class.privacy-gate--blocking]="!consentAccepted"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="privacy-title"
-  >
-    <article class="privacy-card">
-      <p class="privacy-eyebrow">Datenschutzhinweis</p>
-      <h1 id="privacy-title">Bitte zuerst Datenerhebung bestaetigen</h1>
-      <p class="privacy-lede">
-        Bevor die Seite geladen wird, informiere dich bitte ueber die verarbeiteten Daten.
-        Ohne Zustimmung bleibt die Lernplattform gesperrt.
-      </p>
-      <p class="privacy-note">
-        Die Zustimmung wird im localStorage gespeichert. Nach Zustimmung wird diese Abfrage nicht bei jedem Aufruf erneut gezeigt.
-      </p>
+<div style="text-align: center; padding: 100px;">
+  <h1>Welcome to {{ title }}</h1>
+  <p>Dies ist die Basis-Angular-Anwendung für die Gleisbau Lernwelt.</p>
+</div>
 
-      <section class="privacy-section" *ngFor="let section of consentSections">
-        <h2>{{ section.title }}</h2>
-        <ul>
-          <li *ngFor="let item of section.items">{{ item }}</li>
-        </ul>
-      </section>
-
-      <p class="privacy-legal">
-        Mit "Ich stimme zu" bestaetigst du, dass du diese Informationen gelesen hast und der Verarbeitung im beschriebenen Umfang zustimmst.
-      </p>
-
-      <p class="privacy-warning" *ngIf="consentDeclined">
-        Ohne Zustimmung kann die Seite nicht genutzt werden.
-      </p>
-
-      <div class="privacy-actions" *ngIf="!consentAccepted">
-        <ion-button expand="block" size="default" (click)="acceptConsent()">
-          Ich stimme zu und weiter
-        </ion-button>
-        <ion-button expand="block" fill="clear" color="medium" (click)="declineConsent()">
-          Ablehnen
-        </ion-button>
-      </div>
-      <div class="privacy-actions" *ngIf="consentAccepted">
-        <ion-button expand="block" fill="clear" color="medium" (click)="closePrivacyDialog()">
-          Schliessen
-        </ion-button>
-      </div>
-    </article>
-  </section>
-
-  <ion-router-outlet *ngIf="consentAccepted"></ion-router-outlet>
-
-  <footer class="privacy-footer" *ngIf="consentAccepted">
-    <p>Datenschutz</p>
-    <button type="button" (click)="openPrivacyDialog()">Informationen ansehen</button>
-  </footer>
-</ion-app>
+<router-outlet></router-outlet>

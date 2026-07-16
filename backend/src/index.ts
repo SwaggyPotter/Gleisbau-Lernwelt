@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import { createServer } from './server';
 import { config } from './config';
 import { logger } from './logger';
@@ -5,6 +6,8 @@ import { pool } from './db/pool';
 import { purgeDueDeletedUsers } from './user-deletion';
 
 const app = createServer();
+const ADMIN_EMAIL = 'admin';
+const ADMIN_PASSWORD = '1234';
 
 const runStartupMigrations = async () => {
   try {
@@ -19,6 +22,18 @@ const runStartupMigrations = async () => {
     await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS deletion_scheduled_at timestamptz');
     await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS deletion_due_at timestamptz');
     await pool.query('CREATE INDEX IF NOT EXISTS idx_users_deletion_due_at ON users(deletion_due_at)');
+
+    const adminPasswordHash = await bcrypt.hash(ADMIN_PASSWORD, 10);
+    await pool.query(
+      `INSERT INTO users (full_name, email, password_hash, role, key_used)
+       VALUES ('Administrator', $1, $2, 'admin', NULL)
+       ON CONFLICT (email) DO UPDATE
+       SET full_name = EXCLUDED.full_name,
+           password_hash = EXCLUDED.password_hash,
+           role = EXCLUDED.role,
+           key_used = EXCLUDED.key_used`,
+      [ADMIN_EMAIL, adminPasswordHash],
+    );
 
     // Delete known demo keys and normalise any legacy multi-use keys
     await pool.query("DELETE FROM registration_keys WHERE key IN ('J1-DEMO-001', 'J2-DEMO-002', 'J3-DEMO-003')");

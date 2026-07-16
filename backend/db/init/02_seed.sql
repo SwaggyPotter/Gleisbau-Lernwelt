@@ -1,7 +1,7 @@
 -- Seed admin user with fixed credentials
 INSERT INTO users (full_name, email, password_hash, role, key_used)
 VALUES
-    ('Administrator', 'admin', '$2a$10$hICJtzt3vc97SdTzvcb1g.69PWkgaRguDtfOStxNiwHWPfsMoxmLa', 'admin', NULL)
+    ('Administrator', 'admin', '$2a$10$//UasHoMVLzEdmtua08qy.Lkq38hG8GZoqEfiECtbQmqs2.5OUiJ.', 'admin', NULL)
 ON CONFLICT (email) DO NOTHING;
 
 INSERT INTO learning_fields (id, title, description, year, tag)

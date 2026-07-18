@@ -1,0 +1,107 @@
+{
+  "topicNumber": 1,
+  "questions": [
+    {
+      "id": "t1q1",
+      "topicNumber": 1,
+      "question": "Welche drei Hauptbereiche umfasst ein Eisenbahngleis?",
+      "correctAnswerId": 0,
+      "options": [
+        { "id": 0, "text": "Oberbau, Unterbau und Bauwerke" },
+        { "id": 1, "text": "Schiene, Schwelle und Schotter" },
+        { "id": 2, "text": "Weiche, Signal und Gleis" },
+        { "id": 3, "text": "Fahrweg, Fahrbahn und Fahrstrom" }
+      ],
+      "explanation": "Ein Eisenbahngleis setzt sich zusammen aus Oberbau (Schiene, Schwelle, Befestigung, Bettung), Unterbau (Planum, Bodenrampe) und eventuellen Bauwerken wie Brücken.",
+      "difficulty": 1,
+      "sources": [{ "title": "Eisenbahn-Bau- und Betriebsordnung (EBO)", "url": "https://www.gesetze-im-internet.de/ebo/", "publisher": "Bundesministerium der Justiz", "accessedDate": "2025-09-09" }]
+    },
+    {
+      "id": "t1q2",
+      "topicNumber": 1,
+      "question": "Welche Hauptaufgabe haben Schwellen im Gleisbau?",
+      "correctAnswerId": 0,
+      "options": [
+        { "id": 0, "text": "Schiene lagern und Lasten verteilen" },
+        { "id": 1, "text": "Züge bremsen" },
+        { "id": 2, "text": "Gleis vor Witterung schützen" },
+        { "id": 3, "text": "Den Zugstrom ableiten" }
+      ],
+      "explanation": "Schwellen halten die Schienen in der Spurweite und leiten Radlasten flächig auf das Bett ab.",
+      "difficulty": 1,
+      "sources": [{ "title": "Eisenbahn-Bau- und Betriebsordnung (EBO)", "url": "https://www.gesetze-im-internet.de/ebo/", "publisher": "Bundesministerium der Justiz", "accessedDate": "2025-09-09" }]
+    },
+    {
+      "id": "t1q3",
+      "topicNumber": 1,
+      "question": "Was zählt zum Unterbau?",
+      "correctAnswerId": 0,
+      "options": [
+        { "id": 0, "text": "Planum und Bodenrampe" },
+        { "id": 1, "text": "Schiene und Befestigung" },
+        { "id": 2, "text": "Schotterbett" },
+        { "id": 3, "text": "Weiche" }
+      ],
+      "explanation": "Der Unterbau umfasst Planum, Bodenrampe und Entwässerung. Das Schotterbett gehört zum Oberbau.",
+      "difficulty": 2,
+      "sources": [{ "title": "Eisenbahn-Bau- und Betriebsordnung (EBO)", "url": "https://www.gesetze-im-internet.de/ebo/", "publisher": "Bundesministerium der Justiz", "accessedDate": "2025-09-09" }]
+    },
+    {
+      "id": "t1q4",
+      "topicNumber": 1,
+      "question": "Welche Hauptaufgabe hat das Schotterbett?",
+      "correctAnswerId": 0,
+      "options": [
+        { "id": 0, "text": "Lastverteilung, Entwässerung und Elastizität" },
+        { "id": 1, "text": "Stromleitung für Signale" },
+        { "id": 2, "text": "Schienen vor Rost schützen" },
+        { "id": 3, "text": "Züge beschleunigen" }
+      ],
+      "explanation": "Das Schotterbett verteilt die Radlasten auf den Unterbau, sorgt für Entwässerung und elastische Lagerung.",
+      "difficulty": 1,
+      "sources": [{ "title": "Eisenbahn-Bau- und Betriebsordnung (EBO)", "url": "https://www.gesetze-im-internet.de/ebo/", "publisher": "Bundesministerium der Justiz", "accessedDate": "2025-09-09" }]
+    },
+    {
+      "id": "t1q5",
+      "topicNumber": 1,
+      "question": "Was ist die Hauptaufgabe eines Gleisbauers?",
+      "correctAnswerId": 0,
+      "options": [
+        { "id": 0, "text": "Gleise bauen, warten und erneuern" },
+        { "id": 1, "text": "Züge fahren und Signale bedienen" },
+        { "id": 2, "text": "Bahnhöfe planen und bauen" },
+        { "id": 3, "text": "Waggons reparieren" }
+      ],
+      "explanation": "Gleisbauer errichten, warten und erneuern Eisenbahngleise einschließlich Ober- und Unterbau.",
+      "difficulty": 1,
+      "sources": [{ "title": "DB Nah Verkehr Ausbildung Gleisbauer", "url": "https://www.db-nahverkehr.de/carrier/stellenart/ausbildung/gleisbauer/", "publisher": "Deutsche Bahn", "accessedDate": "2025-09-09" }]
+    },
+    {
+      "id": "t1q6",
+      "topicNumber": 1,
+      "question": "Welcher Teil gehört NICHT zum Oberbau?",
+      "correctAnswerId": 0,
+      "options": [
+        { "id": 0, "text": "Planum" },
+        { "id": 1, "text": "Schiene" },
+        { "id": 2, "text": "Schwelle" },
+        { "id": 3, "text": "Bettung" }
+      ],
+      "explanation": "Das Planum gehört zum Unterbau. Schiene, Schwelle und Bettung sind Oberbauteile.",
+      "difficulty": 2,
+      "sources": [{ "title": "Eisenbahn-Bau- und Betriebsordnung (EBO)", "url": "https://www.gesetze-im-internet.de/ebo/", "publisher": "Bundesministerium der Justiz", "accessedDate": "2025-09-09" }]
+    },
+    {
+      "id": "t1q7",
+      "topicNumber": 1,
+      "question": "Was ist die Funktion des Schotterbettes beim Wasserabfluss?",
+      "correctAnswerId": 0,
+      "options": [
+        { "id": 0, "text": "Wasser schnell seitlich ableiten" },
+        { "id": 1, "text": "Wasser speichern" },
+        { "id": 2, "text": "Wasser verdampfen lassen" },
+        { "id": 3, "text": "Wasser in den Unterbau sickern lassen" }
+      ],
+      "explanation": "Das Schotterbett leitet Wasser schnell seitlich ab und verhindert Staunässe im Gleis.",
+      "difficulty": 2,
+      "sources": [{ "title": "Eisenbahn-Bau- und Betriebsordnung (EBO)", "url": "https://www.gesetze-im-internet.de/ebo/",

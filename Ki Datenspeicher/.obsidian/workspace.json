@@ -1,0 +1,218 @@
+{
+  "main": {
+    "id": "5fce5fbb1587fe2e",
+    "type": "split",
+    "children": [
+      {
+        "id": "eaaccb3c57d60f7d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "355e7ddc5246f01f",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph-Ansicht"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a86c5d21247f8fb5",
+    "type": "split",
+    "children": [
+      {
+        "id": "ec2dccc370e51404",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "35b1e3b62a0221f1",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Dateiexplorer"
+            }
+          },
+          {
+            "id": "24d0d163241fc8f0",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Suchen"
+            }
+          },
+          {
+            "id": "f6c9a1a859492929",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Lesezeichen"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "f51566046cbeb911",
+    "type": "split",
+    "children": [
+      {
+        "id": "79e353bc003745e7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3c429ff88417ade9",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Rückverweise"
+            }
+          },
+          {
+            "id": "7dfd599e60c9d586",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Ausgehende Links"
+            }
+          },
+          {
+            "id": "d9c8c06815ec6c74",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "2a69a726550ae6c6",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Alle Eigenschaften"
+            }
+          },
+          {
+            "id": "c159dd02f8f82c37",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Gliederung"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Schnellauswahl öffnen": false,
+      "graph:Graph-Ansicht öffnen": false,
+      "canvas:Neuen Canvas erstellen": false,
+      "daily-notes:Heutige Notiz öffnen": false,
+      "templates:Vorlage einfügen": false,
+      "command-palette:Befehlspalette öffnen": false,
+      "bases:Neue Base erstellen": false
+    }
+  },
+  "active": "355e7ddc5246f01f",
+  "lastOpenFiles": [
+    "08-Recherche-Gwen/00-Rechercheauftrag-für-Gwen.md.tmp.35848.4a49b09bba2a",
+    "08-Recherche-Gwen/Kickoff-Prompt.md",
+    "08-Recherche-Gwen/Kickoff-Prompt.md.tmp.35848.02e769f0a50c",
+    "00-Start-Hier.md.tmp.35848.cefd8c8cdf18",
+    "00-Start-Hier.md.tmp.35848.6e26fd65c647",
+    "00-Start-Hier.md.tmp.35848.91761ed48620",
+    "08-Recherche-Gwen/15-Zusatzmodul-Volumen.md",
+    "08-Recherche-Gwen/15-Zusatzmodul-Volumen.md.tmp.35848.d4964f12ad49",
+    "08-Recherche-Gwen/14-Zusatzmodul-Prozentrechnung.md",
+    "08-Recherche-Gwen/14-Zusatzmodul-Prozentrechnung.md.tmp.35848.9a5312c82718",
+    "08-Recherche-Gwen/13-Zusatzmodul-Nivellieren.md",
+    "08-Recherche-Gwen/13-Zusatzmodul-Nivellieren.md.tmp.35848.c9fd69168c15",
+    "08-Recherche-Gwen/12-Schienen.md",
+    "08-Recherche-Gwen/12-Schienen.md.tmp.35848.a1c624a4391d",
+    "08-Recherche-Gwen/11-Spurweite-und-Gleisgeometrie.md",
+    "08-Recherche-Gwen/11-Spurweite-und-Gleisgeometrie.md.tmp.35848.0ae879d40b24",
+    "08-Recherche-Gwen/10-Gleisbau-Grundlagen.md",
+    "08-Recherche-Gwen/10-Gleisbau-Grundlagen.md.tmp.35848.5502d1ae6394",
+    "08-Recherche-Gwen/09-Schotter-und-Schwellen.md",
+    "08-Recherche-Gwen/08-Kleineisen-und-Bettung.md",
+    "08-Recherche-Gwen/07-Schienenbefestigung.md",
+    "08-Recherche-Gwen/06-Vermessung.md",
+    "08-Recherche-Gwen/05-Messmittel.md",
+    "08-Recherche-Gwen/04-Kleingeraete-und-Maschinen.md",
+    "08-Recherche-Gwen/03-Gleisbau-Allgemein.md",
+    "08-Recherche-Gwen/02-Lesen-und-Werkzeuge.md",
+    "08-Recherche-Gwen/01-Trassenplan.md",
+    "08-Recherche-Gwen/00-Rechercheauftrag-für-Gwen.md",
+    "07-Offene-Punkte/Offene-Punkte.md",
+    "06-Fragen-und-Antworten/Fragenkatalog.md",
+    "05-Update-Log/Update-Log.md",
+    "04-Lernfelder/Lernfelder-Übersicht.md",
+    "03-Module/Zusatz-Gesamtquiz.md",
+    "03-Module/Zusatz-Volumen.md",
+    "03-Module/Zusatz-Prozentrechnung.md",
+    "03-Module/Zusatz-Nivellieren.md"
+  ]
+}

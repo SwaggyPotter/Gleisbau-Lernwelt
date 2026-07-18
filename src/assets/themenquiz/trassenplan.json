@@ -1,0 +1,90 @@
+{
+  "topicId": "trassenplan",
+  "title": "Trassenplan lesen",
+  "questions": [
+    {
+      "id": "tp-q1",
+      "question": "Was zeigt ein Trassenplan?",
+      "choices": [
+        "Den Verlauf und die Lage einer Bahnstrecke (Lageplan und Hoehenplan)",
+        "Nur die Standorte der Weichen",
+        "Nur die Schotterkoernung entlang der Strecke",
+        "Die Anzahl der Zugfahrten pro Tag"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Trassenplan stellt den Streckenverlauf in Lage (Draufsicht) und Hoehe (Laengsschnitt) dar."
+    },
+    {
+      "id": "tp-q2",
+      "question": "Was versteht man unter Kilometrierung?",
+      "choices": [
+        "Die fortlaufende Streckenkennzeichnung in Kilometern zur genauen Ortsangabe",
+        "Die Messung der Spurweite alle 1000 Meter",
+        "Die Anzahl der Weichen pro Streckenkilometer",
+        "Die Hoechstgeschwindigkeit auf der Strecke"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kilometrierung bezeichnet die durchgehende Streckenkennzeichnung, mit der jeder Punkt der Strecke eindeutig lokalisiert werden kann."
+    },
+    {
+      "id": "tp-q3",
+      "question": "Was zeigt der Laengsschnitt (Hoehenplan) einer Trasse?",
+      "choices": [
+        "Den Hoehenverlauf und die Neigungsverhaeltnisse der Strecke",
+        "Die Position der Bahnhoefe im Grundriss",
+        "Die Farbe der Signalanlagen",
+        "Die Anzahl der Gleise nebeneinander"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Laengsschnitt stellt dar, wie sich die Hoehe der Trasse entlang der Strecke aendert, inklusive der Steigungen und Gefaelle."
+    },
+    {
+      "id": "tp-q4",
+      "question": "Wozu dienen Kilometersteine bzw. Streckenkilometer-Angaben in der Praxis?",
+      "choices": [
+        "Zur eindeutigen Ortsbestimmung entlang der Bahnstrecke, z. B. fuer Bauarbeiten oder Stoerungen",
+        "Zur Anzeige der zulaessigen Zuglaenge",
+        "Zur Kennzeichnung des Schotterlieferanten",
+        "Zur Anzeige der Anzahl Weichen im Bahnhof"
+      ],
+      "correctIndex": 0,
+      "explanation": "Streckenkilometer erlauben es, jeden Ort entlang der Strecke praezise anzugeben, etwa fuer Bauarbeiten, Instandhaltung oder im Stoerungsfall."
+    },
+    {
+      "id": "tp-q5",
+      "question": "Was wird im Lageplan einer Trasse dargestellt?",
+      "choices": [
+        "Der Streckenverlauf in der Draufsicht, inklusive Kurven und Geraden",
+        "Nur die Hoehenlage der Schienenoberkante",
+        "Die Temperaturverteilung entlang der Schiene",
+        "Die Belastbarkeit der Schwellen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Lageplan zeigt die Strecke von oben, also den Verlauf von Geraden und Boegen (Kurven)."
+    },
+    {
+      "id": "tp-q6",
+      "question": "Welche Bauwerke bzw. Elemente werden typischerweise in einem Trassenplan gekennzeichnet?",
+      "choices": [
+        "Bruecken, Tunnel, Bahnuebergaenge und Weichen",
+        "Nur die Farbe der Waggons",
+        "Nur die Namen der Lokfuehrer",
+        "Die Anzahl der Reisenden pro Zug"
+      ],
+      "correctIndex": 0,
+      "explanation": "In Trassenplaenen werden wichtige Bauwerke und Anlagen wie Bruecken, Tunnel, Bahnuebergaenge und Weichen eingezeichnet."
+    },
+    {
+      "id": "tp-q7",
+      "question": "Warum ist die Laengsneigung einer Trasse fuer den Gleisbauer wichtig?",
+      "choices": [
+        "Sie beeinflusst Entwaesserung, Bauausfuehrung und zulaessige Fahrgeschwindigkeit",
+        "Sie hat keinen Einfluss auf den Bau",
+        "Sie bestimmt nur die Farbe der Signale",
+        "Sie legt die Schwellenart fest"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Neigung der Trasse wirkt sich auf Wasserabfluss, Bauablauf und die zulaessigen Geschwindigkeiten der Zuege aus."
+    }
+  ]
+}

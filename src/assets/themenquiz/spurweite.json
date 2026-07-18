@@ -1,0 +1,78 @@
+{
+  "topicId": "spurweite",
+  "title": "Spurweite und Gleisgeometrie",
+  "questions": [
+    {
+      "id": "t2q1",
+      "question": "Wie breit ist die Regelspur bei Eisenbahnen?",
+      "choices": [
+        "1435 mm",
+        "1520 mm",
+        "1000 mm",
+        "1600 mm"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Regelspur beträgt 1435 mm und ist in Europa und vielen anderen Ländern der Standard."
+    },
+    {
+      "id": "t2q2",
+      "question": "Wo wird die Spurweite gemessen?",
+      "choices": [
+        "80 mm unter der Schienenoberkante",
+        "An der Schienenaußenseite",
+        "Auf halber Schienenhöhe",
+        "Am Schienenkopf"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Spurweite wird im Abstand von 80 mm unter der Fahrkante (Schienenoberkante) gemessen. Dies ist in § 5 EBO definiert."
+    },
+    {
+      "id": "t2q3",
+      "question": "Was bedeutet der Begriff »Überhöhung« im Gleisbogen?",
+      "choices": [
+        "Die äußere Schiene wird höher gelegt als die innere",
+        "Die innere Schiene ist höher als die äußere",
+        "Beide Schienen werden erhöht",
+        "Der Schotter wird im Bogen aufgeschüttet"
+      ],
+      "correctIndex": 0,
+      "explanation": "Im Gleisbogen wird die äußere Schiene höher gelegt als die innere (Überhöhung), um die Zentrifugalkraft auszugleichen."
+    },
+    {
+      "id": "t2q4",
+      "question": "Welcher Zusammenhang gilt bei Gleisbogen und Fahrgeschwindigkeit?",
+      "choices": [
+        "Je höher die Geschwindigkeit, desto größer muss der Bogenradius sein",
+        "Der Radius hat keinen Einfluss auf die Geschwindigkeit",
+        "Kleine Radien sind für hohe Geschwindigkeiten besser",
+        "Es gibt keine Radiusvorgaben bei Regelspur"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bei höheren Fahrgeschwindigkeiten muss der Gleisbogenradius größer sein, um die Zentrifugalkraft zu begrenzen."
+    },
+    {
+      "id": "t2q5",
+      "question": "Was ist der Normalabstand zweier Gleise?",
+      "choices": [
+        "4,1 m (Schieneninnenkante zu Schieneninnenkante)",
+        "3,5 m",
+        "5,0 m",
+        "4,8 m"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der normale Gleisabstand beträgt mindestens 4,1 m von Schieneninnenkante zu Schieneninnenkante."
+    },
+    {
+      "id": "t2q6",
+      "question": "Welche Spurweite haben die U-Bahnen in Berlin und Hamburg?",
+      "choices": [
+        "Regelspur (1435 mm)",
+        "Breitspur (1435 mm bei Berlin, 1435 mm bei Hamburg)",
+        "Schmalspur (1000 mm)",
+        "Feldbahnsch"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dies ist eine Platzhalterfrage."
+    }
+  ]
+}

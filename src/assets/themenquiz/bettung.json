@@ -1,0 +1,126 @@
+{
+  "topicId": "bettung",
+  "title": "Bettung und Schotter",
+  "questions": [
+    {
+      "id": "t5q1",
+      "question": "Was sind die Hauptaufgaben des Schotterbetts?",
+      "choices": [
+        "Lastverteilung, Entwässerung, Elastizität",
+        "Isolierung und Signalübertragung",
+        "Schienenbefestigung",
+        "Rostschutz"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das Schotterbett verteilt die Last auf das Planum, entwässert und bietet elastische Lagerung."
+    },
+    {
+      "id": "t5q2",
+      "question": "Welches Gestein wird für Gleisschotter verwendet?",
+      "choices": [
+        "Granit oder Basalt",
+        "Kalkstein",
+        "Sandstein",
+        "Marmor"
+      ],
+      "correctIndex": 0,
+      "explanation": "Gleisschotter besteht aus festem Gestein wie Granit oder Basalt."
+    },
+    {
+      "id": "t5q3",
+      "question": "Welche Schotterkörnung ist standard?",
+      "choices": [
+        "50/70 mm",
+        "20/30 mm",
+        "80/100 mm",
+        "10/20 mm"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Standardkörnung ist 50/70 mm nach DIN EN 13450."
+    },
+    {
+      "id": "t5q4",
+      "question": "Was versteht man unter der Schotterdecke?",
+      "choices": [
+        "Die Schicht aus verfestigtem Schotterkörper",
+        "Eine Abdeckung über dem Gleis",
+        "Die Oberkante der Schwelle",
+        "Ein Dach über dem Gleis"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Schotterdecke ist der verfestigte Schotterkörper unter und um die Schwelle."
+    },
+    {
+      "id": "t5q5",
+      "question": "Was ist die Funktion der Schotterschulter?",
+      "choices": [
+        "Sichert die Spurhaltung und seitliche Abstützung",
+        "Dient als Dekoration",
+        "Senkt die Temperatur",
+        "Leitet Strom ab"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Schotterschulter stützt das Gleis seitlich ab und trägt zur Spurhaltung bei."
+    },
+    {
+      "id": "t5q6",
+      "question": "Was ist Stopfen im Gleisbau?",
+      "choices": [
+        "Schotter nachtragen und mit der Stopfhacke einarbeiten",
+        "Schienen löten",
+        "Schwellen bemalen",
+        "Gleisöl auftragen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Beim Stopfen wird Schotter unter die Schwelle eingeführt, um Setzungen auszugleichen."
+    },
+    {
+      "id": "t5q7",
+      "question": "Warum ist die Entwässerung des Gleisbetts wichtig?",
+      "choices": [
+        "Stauwasser lockert den Schotter und gefährdet die Tragfähigkeit",
+        "Entwässerung spart Kosten",
+        "Nur für Ästhetik relevant",
+        "Verhindert Rost an der Schiene"
+      ],
+      "correctIndex": 0,
+      "explanation": "Stauwasser im Bett mindert die Tragfähigkeit und kann zum Setzen führen."
+    },
+    {
+      "id": "t5q8",
+      "question": "Was ist das Planum im Gleisbau?",
+      "choices": [
+        "Die verdichtete Bodenlage unter dem Schotterbett",
+        "Die Oberkante der Schiene",
+        "Der Bahndamm",
+        "Die Schwelle"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das Planum ist die planig ausgeformte und verdichtete Bodenlage unter dem Schotterbett."
+    },
+    {
+      "id": "t5q9",
+      "question": "Was bewirkt der Planumsschutzschicht?",
+      "choices": [
+        "Verhindert das Eindringen von Schotter in den Boden und schützt vor Aufwirbeln von Feinmaterial",
+        "Ist nur dekorativ",
+        "Ersetzt die Schwelle",
+        "Leitet Strom"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Trennschicht aus Geotextilie oder Kies verhindert Schotterverlust und Feinmaterialaufwirbelung."
+    },
+    {
+      "id": "t5q10",
+      "question": "Was bedeutet Bettungsreinigung?",
+      "choices": [
+        "Erneuerung oder Säubern der verschmutzten Schotterdecke",
+        "Reinigen der Schienenoberfläche",
+        "Waschen der Schwellen",
+        "Fegen des Bahnhofs"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bettungsreinigung entfernt Verschmutzung aus dem Schotter und stellt Tragfähigkeit wieder her."
+    }
+  ]
+}

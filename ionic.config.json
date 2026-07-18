@@ -1,0 +1,7 @@
+{
+  "name": "gleisbau-lernwelt",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

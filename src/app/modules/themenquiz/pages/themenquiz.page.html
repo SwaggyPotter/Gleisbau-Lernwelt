@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{ quiz?.title || 'Wissenstest' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="quiz-content">
+  <div class="page-shell" *ngIf="!loading && !error && quiz; else stateBlock">
+    <section class="hero">
+      <p class="eyebrow">Wissenstest</p>
+      <h1>{{ quiz.title }}</h1>
+      <p class="lede">Beantworte jede Frage direkt. Du bekommst sofort eine Rueckmeldung, ob deine Antwort richtig war.</p>
+      <ion-chip color="success" outline="true">{{ quiz.questions.length }} Fragen</ion-chip>
+    </section>
+
+    <section class="quiz-section">
+      <app-themenquiz-engine
+        [questions]="quiz.questions"
+        (answered)="quizAnswered($event)"
+      ></app-themenquiz-engine>
+    </section>
+  </div>
+
+  <ng-template #stateBlock>
+    <div class="state-block">
+      <ion-spinner *ngIf="loading"></ion-spinner>
+      <p *ngIf="error">{{ error }}</p>
+    </div>
+  </ng-template>
+</ion-content>

@@ -1,0 +1,66 @@
+{
+  "topicId": "schwellen",
+  "title": "Schwellen",
+  "questions": [
+    {
+      "id": "t4q1",
+      "question": "Welche Hauptaufgabe haben Schwellen im Gleisbau?",
+      "choices": [
+        "Lastverteilung auf das Bettungsmaterial und Sicherung des Gleisabstands",
+        "Direkte Verbindung zwischen Schiene und Planum",
+        "Stromableitung beim Fahrbetrieb",
+        "Dämpfung von Schallimmissionen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Schwellen verteilen die Radlasten aus der Schiene auf das Schotterbett und halten den richtigen Gleisabstand (Spurweite)."
+    },
+    {
+      "id": "t4q2",
+      "question": "Welche Schwellentypen werden im Eisenbahngleisbau eingesetzt?",
+      "choices": [
+        "Holzschwelle, Betonschwelle und Stahlschwelle",
+        "Nur Holz- und Kunststoffschwellen",
+        "Alu- und Glasfaser-Schwellen",
+        "Nur Betonschwellen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Im Eisenbahngleisbau kommen vorwiegend Holz-, Beton- und Stahlschwellen zum Einsatz. Betonschwellen sind im Regelfahrweg am weitesten verbreitet."
+    },
+    {
+      "id": "t4q3",
+      "question": "Welcher Vorteil haben Betonschwellen gegenüber Holzschwellen?",
+      "choices": [
+        "Längere Lebensdauer und keine Fäulnisgefahr",
+        "Sie sind leichter zu transportieren",
+        "Sie benötigen keine Befestigungsmittel",
+        "Sie sind immer günstiger"
+      ],
+      "correctIndex": 0,
+      "explanation": "Betonschwellen sind langlebig, widerstandsfähig gegen Fäulnis und behalten ihre Form auch unter hohen Belastungen über viele Jahre."
+    },
+    {
+      "id": "t4q4",
+      "question": "Wozu dient die Schienenbefestigung auf der Schwelle?",
+      "choices": [
+        "Sie fixiert die Schiene in der richtigen Position und übernimmt Kraftübertragung",
+        "Sie ersetzt das Schotterbett",
+        "Sie dient nur der optischen Ausrichtung",
+        "Sie isoliert die Schwelle gegen Feuchtigkeit"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Schienenbefestigung (Klemmen, Platten, Schrauben) hält die Schiene in der vorgesehenen Lage und überträgt Kräfte auf die Schwelle."
+    },
+    {
+      "id": "t4q5",
+      "question": "Was muss bei der Schwelleinstellung im Gleis beachtet werden?",
+      "choices": [
+        "Richtiger Achsabstand und korrekte Ausrichtung in Längs- und Querrichtung",
+        "Nur das Gewicht der Schwelle ist relevant",
+        "Schwellen können willkürlich verschoben werden",
+        "Es spielt keine Rolle, ob die Schwelle schief liegt"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Schwellenachsenabstand und die korrekte Lage sind wichtig für gleichmäßige Lastverteilung und Stabilität des Gleises."
+    }
+  ]
+}

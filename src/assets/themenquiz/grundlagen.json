@@ -1,0 +1,78 @@
+{
+  "topicId": "grundlagen",
+  "title": "Gleisbau-Grundlagen",
+  "questions": [
+    {
+      "id": "t1q1",
+      "question": "Welche drei Hauptbereiche umfasst ein Eisenbahngleis?",
+      "choices": [
+        "Oberbau, Unterbau und Bauwerke",
+        "Schiene, Schwelle und Schotter",
+        "Weiche, Signal und Gleis",
+        "Fahrweg, Fahrbahn und Fahrstrom"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ein Eisenbahngleis setzt sich zusammen aus Oberbau (Schiene, Schwelle, Befestigung, Bettung), Unterbau (Planum, Bodenrampe) und eventuellen Bauwerken wie Brücken."
+    },
+    {
+      "id": "t1q2",
+      "question": "Welche Hauptaufgabe haben Schwellen im Gleisbau?",
+      "choices": [
+        "Schiene lagern und Lasten verteilen",
+        "Züge bremsen",
+        "Gleis vor Witterung schützen",
+        "Den Zugstrom ableiten"
+      ],
+      "correctIndex": 0,
+      "explanation": "Schwellen halten die Schienen in der Spurweite und leiten Radlasten flächig auf das Bett ab."
+    },
+    {
+      "id": "t1q3",
+      "question": "Was zählt zum Unterbau?",
+      "choices": [
+        "Planum und Bodenrampe",
+        "Schiene und Befestigung",
+        "Schotterbett",
+        "Weiche"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Unterbau umfasst Planum, Bodenrampe und Entwässerung. Das Schotterbett gehört zum Oberbau."
+    },
+    {
+      "id": "t1q4",
+      "question": "Welche Hauptaufgabe hat das Schotterbett?",
+      "choices": [
+        "Lastverteilung, Entwässerung und Elastizität",
+        "Stromleitung für Signale",
+        "Schienen vor Rost schützen",
+        "Züge beschleunigen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das Schotterbett verteilt die Radlasten auf den Unterbau, sorgt für Entwässerung und elastische Lagerung."
+    },
+    {
+      "id": "t1q5",
+      "question": "Was ist die Hauptaufgabe eines Gleisbauers?",
+      "choices": [
+        "Gleise bauen, warten und erneuern",
+        "Züge fahren und Signale bedienen",
+        "Bahnhöfe planen und bauen",
+        "Waggons reparieren"
+      ],
+      "correctIndex": 0,
+      "explanation": "Gleisbauer errichten, warten und erneuern Eisenbahngleise einschließlich Ober- und Unterbau."
+    },
+    {
+      "id": "t1q6",
+      "question": "Welcher Teil gehört NICHT zum Oberbau?",
+      "choices": [
+        "Planum",
+        "Schiene",
+        "Schwelle",
+        "Bettung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das Planum gehört zum Unterbau. Schiene, Schwelle und Bettung sind Oberbauteile."
+    }
+  ]
+}

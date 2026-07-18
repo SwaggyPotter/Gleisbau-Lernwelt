@@ -4,44 +4,26 @@
       <span class="brand-mark">Gleisbau</span>
       <span class="brand-sub">Lernwelt</span>
     </ion-title>
-    <ion-buttons slot="end" class="toolbar-actions">
-      <ion-chip class="profile-chip" color="light" outline="true" (click)="goToProfile()">
-        <ion-icon name="person-circle-outline"></ion-icon>
-        <ion-label class="toolbar-action-label">Profil: {{ displayName }}</ion-label>
-      </ion-chip>
-      <ion-button fill="clear" (click)="goToAdmin()">
-        <ion-icon slot="start" name="shield-checkmark-outline"></ion-icon>
-        <span class="toolbar-action-label">Admin Panel</span>
-      </ion-button>
-      <ion-button fill="clear" routerLink="/home">
-        <ion-icon slot="start" name="home-outline"></ion-icon>
-        <span class="toolbar-action-label">Start</span>
-      </ion-button>
-      <ion-button color="medium" (click)="handleLogout()">
-        <ion-icon slot="start" name="log-out-outline"></ion-icon>
-        <span class="toolbar-action-label">Logout</span>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="dash-content" [fullscreen]="true">
   <section class="welcome">
     <div class="welcome-copy">
-      <p class="eyebrow">Uebersicht</p>
-      <h1>Hallo {{ displayName }}, hier sind deine Lernfelder</h1>
+      <p class="eyebrow">Wissenstest</p>
+      <h1>Frag dein Wissen ab</h1>
       <p class="lede">
-        Gleisbau-Module nach Lehrjahr mit zusaetzlichen Extras. Alte Standard-Lernfelder sind ausgeblendet.
+        Wähle ein Thema, beantworte die Fragen und sieh sofort, ob du richtig liegst.
       </p>
       <div class="search-wrap">
         <ion-searchbar
           [value]="searchTerm"
           (ionInput)="onSearchInput($event)"
-          placeholder="Themen suchen, z. B. Schalung"
+          placeholder="Themen suchen, z. B. Bettung"
           [debounce]="0"
           [showClearButton]="'focus'"
         ></ion-searchbar>
-        <p class="search-hint" *ngIf="hasActiveSearch">Treffer: {{ totalVisibleModules }}</p>
+        <p class="search-hint" *ngIf="hasActiveSearch">Treffer: {{ totalVisibleTiles }}</p>
       </div>
       <div class="pill-row">
         <div class="pill">
@@ -60,32 +42,32 @@
     </div>
   </section>
 
-  <section class="grid-section" *ngFor="let group of yearGroups">
+  <section class="grid-section" *ngIf="filteredQuizTopics.length > 0">
     <div class="section-head">
-      <p class="eyebrow">Lehrjahr {{ group.year }}</p>
-      <h2>Gleisbau Lernfelder</h2>
+      <p class="eyebrow">Themen</p>
+      <h2>Wissenstests</h2>
     </div>
     <ion-grid>
       <ion-row>
-        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let module of group.modules">
-          <ion-card class="tile-card highlight" [routerLink]="module.link">
+        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of filteredQuizTopics; trackBy: trackByTileId">
+          <ion-card class="tile-card highlight" [routerLink]="tile.link">
+            <div class="tile-icon">
+              <ion-icon [name]="tile.icon"></ion-icon>
+            </div>
             <ion-card-header>
               <div class="tile-top">
                 <ion-chip color="tertiary" outline="true">
-                  <ion-label>{{ module.tag }}</ion-label>
+                  <ion-label>{{ tile.tag }}</ion-label>
                 </ion-chip>
-                <ion-badge color="primary">{{ module.lf }}</ion-badge>
+                <ion-badge color="primary" *ngIf="tileProgressByLink[tile.link] as progress">
+                  {{ progress.answered }}/{{ progress.total }}
+                </ion-badge>
               </div>
-              <ion-card-title>{{ module.title }}</ion-card-title>
-              <ion-card-subtitle>{{ module.description }}</ion-card-subtitle>
+              <ion-card-title>{{ tile.title }}</ion-card-title>
+              <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
-              <p class="tile-description">Direkter Zugang: {{ module.link }}</p>
-              <div class="module-progress" *ngIf="moduleProgressByLink[module.link] as progress">
-                <div class="progress-row">
-                  <span>Fortschritt</span>
-                  <span class="progress-value">{{ progress.completed }}/{{ progress.total }}</span>
-                </div>
+              <div class="module-progress" *ngIf="tileProgressByLink[tile.link] as progress">
                 <ion-progress-bar color="success" [value]="progress.ratio"></ion-progress-bar>
               </div>
             </ion-card-content>
@@ -95,39 +77,38 @@
     </ion-grid>
   </section>
 
-  <section class="grid-section" *ngIf="extraModules.length > 0">
+  <section class="grid-section" *ngIf="filteredExtraTiles.length > 0">
     <div class="section-head">
       <p class="eyebrow">Extra</p>
       <h2>Zusatzmodule</h2>
     </div>
     <ion-grid>
       <ion-row>
-        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let module of extraModules">
-          <ion-card class="tile-card highlight" [routerLink]="module.link">
+        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of filteredExtraTiles; trackBy: trackByTileId">
+          <ion-card class="tile-card highlight" [routerLink]="tile.link">
+            <div class="tile-icon">
+              <ion-icon [name]="tile.icon"></ion-icon>
+            </div>
             <ion-card-header>
               <div class="tile-top">
                 <ion-chip color="tertiary" outline="true">
-                  <ion-label>{{ module.tag }}</ion-label>
+                  <ion-label>{{ tile.tag }}</ion-label>
                 </ion-chip>
-                <ion-badge color="primary">{{ module.lf }}</ion-badge>
               </div>
-              <ion-card-title>{{ module.title }}</ion-card-title>
-              <ion-card-subtitle>{{ module.description }}</ion-card-subtitle>
+              <ion-card-title>{{ tile.title }}</ion-card-title>
+              <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
             </ion-card-header>
-            <ion-card-content>
-              <p class="tile-description">Direkter Zugang: {{ module.link }}</p>
-            </ion-card-content>
           </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
   </section>
 
-  <section class="no-results" *ngIf="hasActiveSearch && totalVisibleModules === 0">
+  <section class="no-results" *ngIf="hasActiveSearch && totalVisibleTiles === 0">
     <ion-card class="tile-card">
       <ion-card-header>
         <ion-card-title>Keine Treffer</ion-card-title>
-        <ion-card-subtitle>Fuer "{{ searchTerm }}" wurde kein Lernfeld gefunden.</ion-card-subtitle>
+        <ion-card-subtitle>Fuer "{{ searchTerm }}" wurde kein Thema gefunden.</ion-card-subtitle>
       </ion-card-header>
     </ion-card>
   </section>

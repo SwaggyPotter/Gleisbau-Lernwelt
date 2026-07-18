@@ -1,0 +1,51 @@
+:host {
+  --rail-night: #0b1626;
+  --rail-deep: #0f2438;
+  --rail-edge: #0c1824;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+}
+
+.quiz-content {
+  --background: linear-gradient(135deg, var(--rail-night) 0%, var(--rail-deep) 60%, var(--rail-edge) 100%);
+  padding: 16px;
+}
+
+.page-shell {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.hero {
+  text-align: center;
+  color: #f8fbff;
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  color: #f59e0b;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+.hero h1 {
+  margin: 0 0 10px;
+  font-size: clamp(24px, 4vw, 32px);
+}
+
+.lede {
+  color: rgba(232, 238, 245, 0.82);
+  margin: 0 0 12px;
+}
+
+.state-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  color: #f8fbff;
+  gap: 12px;
+}

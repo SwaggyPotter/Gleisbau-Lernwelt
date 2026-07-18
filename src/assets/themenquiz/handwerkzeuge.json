@@ -1,0 +1,78 @@
+{
+  "topicId": "handwerkzeuge",
+  "title": "Handwerkzeuge im Gleisbau",
+  "questions": [
+    {
+      "id": "hw-q1",
+      "question": "Wofuer wird eine Gleiswinde eingesetzt?",
+      "choices": [
+        "Zum Anheben und seitlichen Verschieben von Schiene bzw. Gleisrost",
+        "Zum Bohren von Loechern in die Schiene",
+        "Zum Messen der Spurweite",
+        "Zum Verschweissen von Schienenenden"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Gleiswinde ist ein Hebel- bzw. Hydraulikwerkzeug, mit dem Gleisroste angehoben und seitlich gerueckt werden koennen."
+    },
+    {
+      "id": "hw-q2",
+      "question": "Was ist eine Schottergabel?",
+      "choices": [
+        "Ein Handwerkzeug mit verstaerkten Zinken zum Bearbeiten und Verteilen von Schotter",
+        "Ein Messgeraet fuer die Gleisueberhoehung",
+        "Ein Werkzeug zum Anziehen von Schienenschrauben",
+        "Eine Bezeichnung fuer den Schienenkopf"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Schottergabel hat besonders stabile, oft leicht gebogene Zinken, um Schotter im Gleisbett zu bewegen und zu verteilen."
+    },
+    {
+      "id": "hw-q3",
+      "question": "Wozu dient ein Schienenheber?",
+      "choices": [
+        "Zum leichten Anheben der Schiene, z. B. beim Austausch von Kleineisen",
+        "Zum Schneiden der Schiene auf Laenge",
+        "Zum Reinigen des Schotterbetts",
+        "Zum Anzeichnen der Spurweite"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Schienenheber ermoeglicht ein gezieltes, kontrolliertes Anheben der Schiene fuer Wartungs- und Austauscharbeiten."
+    },
+    {
+      "id": "hw-q4",
+      "question": "Welches Werkzeug wird typischerweise zum Anziehen der Schwellenschrauben verwendet?",
+      "choices": [
+        "Schraubenschluessel bzw. Drehmomentschluessel",
+        "Schottergabel",
+        "Nivelliergeraet",
+        "Trennschleifmaschine"
+      ],
+      "correctIndex": 0,
+      "explanation": "Schwellenschrauben werden mit einem passenden Schraubenschluessel oder Drehmomentschluessel fest und gleichmaessig angezogen."
+    },
+    {
+      "id": "hw-q5",
+      "question": "Welche persoenliche Schutzausruestung (PSA) ist beim Arbeiten mit Handwerkzeugen im Gleis grundsaetzlich vorgeschrieben?",
+      "choices": [
+        "Warnkleidung, Sicherheitsschuhe und Schutzhandschuhe",
+        "Nur eine Schutzbrille",
+        "Nur ein Gehoerschutz",
+        "Keine, da Handwerkzeuge ungefaehrlich sind"
+      ],
+      "correctIndex": 0,
+      "explanation": "Im Gleisbereich gilt grundsaetzlich Warnkleidung, dazu je nach Taetigkeit Sicherheitsschuhe und Handschuhe, um Verletzungen zu vermeiden."
+    },
+    {
+      "id": "hw-q6",
+      "question": "Warum ist bei Arbeiten mit Handwerkzeugen im Gleisbereich besondere Vorsicht geboten?",
+      "choices": [
+        "Wegen der Gefahr durch Zugverkehr und schwere Lasten (Quetschgefahr)",
+        "Weil Handwerkzeuge elektrisch betrieben werden",
+        "Weil dabei immer Funken entstehen",
+        "Weil Handwerkzeuge sehr laut sind"
+      ],
+      "correctIndex": 0,
+      "explanation": "Neben dem allgemeinen Quetsch- und Verletzungsrisiko besteht im Gleisbereich zusaetzlich die Gefahr durch den laufenden Zugverkehr, daher sind Sicherungsmassnahmen zwingend."
+    }
+  ]
+}

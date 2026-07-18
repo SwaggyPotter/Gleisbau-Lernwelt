@@ -1,5 +1,6 @@
 {
   "compileOnSave": false,
+  "exclude": ["backend", "www", "node_modules"],
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

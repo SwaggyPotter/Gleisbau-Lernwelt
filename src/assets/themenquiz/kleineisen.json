@@ -1,0 +1,90 @@
+{
+  "topicId": "kleineisen",
+  "title": "Schienenbefestigung und Kleineisen",
+  "questions": [
+    {
+      "id": "ke-q1",
+      "question": "Was versteht man im Gleisbau unter dem Begriff \"Kleineisen\"?",
+      "choices": [
+        "Sammelbegriff fuer alle kleinen Befestigungsteile der Schiene (Klemmen, Platten, Schrauben, Duebel)",
+        "Eine besondere Schienenform fuer Weichen",
+        "Kleine Reststuecke von durchtrennten Schienen",
+        "Werkzeuge zum Anheben der Schiene"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kleineisen ist der Sammelbegriff fuer alle kleinteiligen Bauteile, mit denen die Schiene auf der Schwelle befestigt wird."
+    },
+    {
+      "id": "ke-q2",
+      "question": "Welche Aufgabe hat die Spannklemme (z. B. Skl-Klemme)?",
+      "choices": [
+        "Sie presst den Schienenfuss elastisch auf die Unterlage und sichert die Schiene gegen Verschieben",
+        "Sie verbindet zwei Schienenenden miteinander",
+        "Sie misst die Spurweite",
+        "Sie daempft nur den Zugleraerm"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die elastische Spannklemme druecke den Schienenfuss federnd auf die Unterlage und haelt die Schiene seitlich fest, laesst aber geringe Laengsbewegungen zu."
+    },
+    {
+      "id": "ke-q3",
+      "question": "Welche Funktion hat die Zwischenlage zwischen Schiene und Schwelle bzw. Rippenplatte?",
+      "choices": [
+        "Daempfung von Stoessen und Schwingungen sowie elektrische Isolierung",
+        "Erhoehung der Schienentemperatur",
+        "Verlaengerung der Schiene bei Hitze",
+        "Anzeige der Spurweite"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die elastische Zwischenlage federt Stoesse ab, reduziert Verschleiss und Laerm und isoliert die Schiene elektrisch von der Unterlage."
+    },
+    {
+      "id": "ke-q4",
+      "question": "Was ist eine Rippenplatte?",
+      "choices": [
+        "Eine gerippte Unterlagsplatte, die die Last der Schiene auf die Holzschwelle verteilt",
+        "Ein Werkzeug zum Trennen von Schienen",
+        "Ein Messgeraet fuer die Ueberhoehung",
+        "Ein Teil der Weichenzunge"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Rippenplatte liegt zwischen Schiene und Holzschwelle, verteilt die Last grossflaechig und kann die Schienenneigung sicherstellen."
+    },
+    {
+      "id": "ke-q5",
+      "question": "Wozu dienen Duebel bei Betonschwellen im Zusammenhang mit der Schienenbefestigung?",
+      "choices": [
+        "Zur Aufnahme der Schwellenschrauben, mit denen die Befestigung verschraubt wird",
+        "Zur Daempfung von Schwingungen",
+        "Zur elektrischen Isolierung der Schiene",
+        "Zur Messung der Spurweite"
+      ],
+      "correctIndex": 0,
+      "explanation": "In Betonschwellen eingelassene Duebel nehmen die Schwellenschrauben auf, mit denen Klemmen bzw. Platten fest verschraubt werden."
+    },
+    {
+      "id": "ke-q6",
+      "question": "Warum muss die Zwischenlage elastisch sein und nicht starr?",
+      "choices": [
+        "Um Erschuetterungen zu daempfen und den Verschleiss von Schiene und Schwelle zu verringern",
+        "Damit die Schiene sich staerker ausdehnen kann",
+        "Damit die Spurweite variabel bleibt",
+        "Um Gewicht einzusparen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Eine elastische Zwischenlage nimmt dynamische Kraefte aus dem Zugverkehr auf und schont dadurch Schiene, Befestigung und Schwelle."
+    },
+    {
+      "id": "ke-q7",
+      "question": "Welchen Vorteil hat eine elastische Schienenbefestigung gegenueber einer starren Befestigung?",
+      "choices": [
+        "Geringerer Verschleiss, bessere Lastverteilung und Geraeuschminderung",
+        "Sie ist grundsaetzlich billiger in der Herstellung",
+        "Sie benoetigt keine Wartung",
+        "Sie erhoeht die zulaessige Spurweite"
+      ],
+      "correctIndex": 0,
+      "explanation": "Elastische Befestigungssysteme daempfen Stoesse und Schwingungen, was Verschleiss und Laerm reduziert und die Lebensdauer der Gleisanlage erhoeht."
+    }
+  ]
+}

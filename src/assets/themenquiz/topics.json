@@ -1,0 +1,62 @@
+[
+  {
+    "topicId": "grundlagen",
+    "title": "Gleisbau-Grundlagen",
+    "description": "Aufbau Eisenbahngleis, Oberbau, Unterbau, Bestandteile und Aufgaben des Gleisbauers",
+    "questionCount": 6
+  },
+  {
+    "topicId": "spurweite",
+    "title": "Spurweite und Gleisgeometrie",
+    "description": "EBO Spurweite, Regelspur 1435 mm, Gleisbogen, Ueberhoehung",
+    "questionCount": 6
+  },
+  {
+    "topicId": "schiene",
+    "title": "Schienen",
+    "description": "Schiene Aufbau, Profil, Waermeausdehnung, verschweisstes Gleis",
+    "questionCount": 5
+  },
+  {
+    "topicId": "schwellen",
+    "title": "Schwellen",
+    "description": "Aufgabe, Arten, Lastverteilung und Spurhaltung",
+    "questionCount": 5
+  },
+  {
+    "topicId": "bettung",
+    "title": "Bettung und Schotter",
+    "description": "Gleisschotter, Lastverteilung, Entwaesserung, Bettungsquerschnitt",
+    "questionCount": 10
+  },
+  {
+    "topicId": "kleineisen",
+    "title": "Schienenbefestigung und Kleineisen",
+    "description": "Bestandteile, Spannklemme, Zwischenlage, Rippenplatte",
+    "questionCount": 7
+  },
+  {
+    "topicId": "handwerkzeuge",
+    "title": "Handwerkzeuge im Gleisbau",
+    "description": "Gleiswinde, Schienenheber, Schottergabel, Sicherheit",
+    "questionCount": 6
+  },
+  {
+    "topicId": "kleingeraete",
+    "title": "Kleingeraete und Maschinen",
+    "description": "Schienenbohrmaschine, Trennschleifmaschine, Sicherheit",
+    "questionCount": 6
+  },
+  {
+    "topicId": "messmittel",
+    "title": "Messmittel und Vermessung",
+    "description": "Spurweitenmessgeraet, Nivelliergeraet, Pfeilhoehe, Temperatur",
+    "questionCount": 7
+  },
+  {
+    "topicId": "trassenplan",
+    "title": "Trassenplan lesen",
+    "description": "Trassenplan Grundlagen, Kilometrierung, Symbole",
+    "questionCount": 7
+  }
+]

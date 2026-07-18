@@ -1,0 +1,78 @@
+{
+  "topicId": "kleingeraete",
+  "title": "Kleingeraete und Maschinen",
+  "questions": [
+    {
+      "id": "kg-q1",
+      "question": "Wozu dient eine Schienenbohrmaschine?",
+      "choices": [
+        "Zum Bohren von Loechern in die Schiene, z. B. fuer Laschenverbindungen",
+        "Zum Anheben des Gleisrosts",
+        "Zum Messen der Ueberhoehung",
+        "Zum Verdichten des Schotterbetts"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mit der mobilen Schienenbohrmaschine werden praezise Bohrungen in den Schienensteg gesetzt, z. B. fuer Laschen- oder Kabelverbindungen."
+    },
+    {
+      "id": "kg-q2",
+      "question": "Was ist eine Trennschleifmaschine?",
+      "choices": [
+        "Eine Maschine zum Durchtrennen von Schienen mittels rotierender Trennscheibe",
+        "Ein Geraet zur Messung der Spurweite",
+        "Eine Maschine zum Stopfen von Schotter",
+        "Ein Werkzeug zum Biegen von Schienen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Trennschleifmaschine trennt Schienen mit einer schnell rotierenden Scheibe sauber und praezise auf Laenge."
+    },
+    {
+      "id": "kg-q3",
+      "question": "Welche Schutzausruestung ist beim Trennschleifen besonders wichtig?",
+      "choices": [
+        "Schutzbrille bzw. Gesichtsschutz und Gehoerschutz",
+        "Nur Handschuhe",
+        "Nur Sicherheitsschuhe",
+        "Keine besondere, da die Scheibe geschuetzt ist"
+      ],
+      "correctIndex": 0,
+      "explanation": "Beim Trennschleifen entstehen Funkenflug und hohe Laermpegel, daher sind Augen- und Gehoerschutz zwingend erforderlich."
+    },
+    {
+      "id": "kg-q4",
+      "question": "Welche besondere Gefahr besteht beim Arbeiten mit Trennschleifmaschinen?",
+      "choices": [
+        "Funkenflug und Rueckschlag (Kickback) der Trennscheibe",
+        "Elektrischer Schlag durch die Fahrleitung",
+        "Vergiftung durch Abgase",
+        "Absturz aus grosser Hoehe"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ein Verkanten der Trennscheibe kann zu einem gefaehrlichen Rueckschlag fuehren, zusaetzlich entsteht heisser Funkenflug."
+    },
+    {
+      "id": "kg-q5",
+      "question": "Was sollte vor jedem Einsatz eines motorisierten Kleingeraets im Gleisbau geprueft werden?",
+      "choices": [
+        "Der technische Zustand, z. B. Kabel, Schutzvorrichtungen und Werkzeugaufnahme",
+        "Nur der Kraftstofffuellstand",
+        "Nur die Lautstaerke des Motors",
+        "Das ist nicht noetig, wenn das Geraet neu ist"
+      ],
+      "correctIndex": 0,
+      "explanation": "Eine Sichtpruefung von Schutzvorrichtungen, Kabeln und beweglichen Teilen vor Arbeitsbeginn verhindert Unfaelle durch defekte Geraete."
+    },
+    {
+      "id": "kg-q6",
+      "question": "Wofuer werden motorisierte Kleingeraete im Gegensatz zu einfachen Handwerkzeugen im Gleisbau eingesetzt?",
+      "choices": [
+        "Fuer Arbeiten, die hohe Kraft oder Praezision erfordern, z. B. Bohren oder Trennen",
+        "Ausschliesslich fuer die Reinigung des Gleisbetts",
+        "Nur zur Beleuchtung der Baustelle",
+        "Fuer die Vermessung der Spurweite"
+      ],
+      "correctIndex": 0,
+      "explanation": "Motorisierte Kleingeraete uebernehmen Arbeiten, die mit reiner Handkraft zu aufwendig oder zu ungenau waeren, etwa das Bohren oder Trennen von Schienen."
+    }
+  ]
+}

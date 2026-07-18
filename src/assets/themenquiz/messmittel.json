@@ -1,0 +1,90 @@
+{
+  "topicId": "messmittel",
+  "title": "Messmittel und Vermessung",
+  "questions": [
+    {
+      "id": "mm-q1",
+      "question": "Wozu dient ein Spurweitenmessgeraet?",
+      "choices": [
+        "Zur Messung des Abstands zwischen den Innenkanten der beiden Schienen",
+        "Zur Messung der Schienentemperatur",
+        "Zur Messung der Schotterkoernung",
+        "Zur Messung der Schwellenlaenge"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das Spurweitenmessgeraet ermittelt den Abstand der Innenkanten beider Schienen, um Abweichungen von der Regelspur zu erkennen."
+    },
+    {
+      "id": "mm-q2",
+      "question": "Welche Regelspurweite gilt in Deutschland nach der Eisenbahn-Bau- und Betriebsordnung (EBO)?",
+      "choices": [
+        "1435 mm",
+        "1000 mm",
+        "1520 mm",
+        "1600 mm"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nach der EBO betraegt die Regelspur in Deutschland 1435 mm, wie in weiten Teilen Europas."
+    },
+    {
+      "id": "mm-q3",
+      "question": "Wozu wird ein Nivelliergeraet im Gleisbau eingesetzt?",
+      "choices": [
+        "Zur Messung von Hoehenunterschieden, z. B. der Gleislage oder Ueberhoehung",
+        "Zur Messung der Spurweite",
+        "Zur Messung der Schienentemperatur",
+        "Zur Pruefung der Schienenhaerte"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mit dem Nivelliergeraet werden Hoehenunterschiede exakt bestimmt, wichtig fuer die Gleislage und die Ueberhoehung in Kurven."
+    },
+    {
+      "id": "mm-q4",
+      "question": "Was versteht man unter der Pfeilhoehe bei der Gleisvermessung?",
+      "choices": [
+        "Den Abstand zwischen einer Sehne und dem Gleisbogen, zur Bestimmung des Bogenradius",
+        "Die Hoehe der Schotterschulter",
+        "Die Hoehe des Schienenkopfes ueber der Schwelle",
+        "Die Neigung der Boeschung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Pfeilhoehe ist der Abstand zwischen einer gedachten Sehne und dem Gleisbogen und dient zur rechnerischen Bestimmung des Kurvenradius."
+    },
+    {
+      "id": "mm-q5",
+      "question": "Warum wird bei lueckenlos verschweisstem Gleis die Schienentemperatur gemessen?",
+      "choices": [
+        "Um Spannungen durch Waermeausdehnung zu kontrollieren und die neutrale Temperatur einzuhalten",
+        "Um die Fahrgeschwindigkeit zu berechnen",
+        "Um die Spurweite anzupassen",
+        "Um den Verschleiss der Schwellen zu pruefen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bei durchgehend verschweissten Gleisen entstehen bei Temperaturaenderung grosse innere Spannungen, deshalb wird die Temperatur regelmaessig kontrolliert."
+    },
+    {
+      "id": "mm-q6",
+      "question": "Was bezeichnet die \"neutrale Temperatur\" beim lueckenlosen Gleis?",
+      "choices": [
+        "Die Temperatur, bei der die Schiene spannungsfrei verlegt bzw. verschweisst wurde",
+        "Die durchschnittliche Jahrestemperatur am Einbauort",
+        "Die niedrigste jemals gemessene Schienentemperatur",
+        "Die Temperatur, bei der Schotter am staerksten verdichtet ist"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die neutrale Temperatur ist die Bezugstemperatur, bei der die verschweisste Schiene ohne zusaetzliche Zug- oder Druckspannung liegt."
+    },
+    {
+      "id": "mm-q7",
+      "question": "Welches Hilfsmittel wird verwendet, um den Verschleiss des Schienenprofils zu pruefen?",
+      "choices": [
+        "Eine Schienenprofil-Messschablone",
+        "Ein Nivelliergeraet",
+        "Ein Spurweitenmessgeraet",
+        "Eine Wasserwaage"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mit einer Profil-Messschablone laesst sich der Verschleisszustand des Schienenkopfes im Vergleich zum Sollprofil pruefen."
+    }
+  ]
+}

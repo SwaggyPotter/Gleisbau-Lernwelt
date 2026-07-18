@@ -1,0 +1,66 @@
+{
+  "topicId": "schiene",
+  "title": "Schienen",
+  "questions": [
+    {
+      "id": "t3q1",
+      "question": "Aus welchen drei Teilen besteht ein Schienenquerschnitt?",
+      "choices": [
+        "Schienenkopf, Schienensteg, Schienenfuß",
+        "Schienenrand, Schienenmittel, Schienenbasis",
+        "Oberkante, Unterkante, Mittelteil",
+        "Kopf, Hals, Fuß"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Schiene besteht aus dem Schienenkopf (mit der Fahrkante), dem Schienensteg (Verbindungsteil) und dem Schienenfuß (Befestigungsbasis auf der Schwelle)."
+    },
+    {
+      "id": "t3q2",
+      "question": "Welche Aufgabe hat der Schienenkopf?",
+      "choices": [
+        "Er trägt die Radlast und bildet die Fahrkante",
+        "Er verbindet Schiene mit Schwelle",
+        "Er verteilt die Last auf das Bettungsmaterial",
+        "Er hält die Spurweite stabil"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Schienenkopf bildet die Fahrkante, auf der die Räder laufen. Er muss verschleißfest sein und die Radlasten aufnehmen."
+    },
+    {
+      "id": "t3q3",
+      "question": "Warum dehnen sich Schienen bei Wärme aus?",
+      "choices": [
+        "Stahl hat einen positiven thermischen Ausdehnungskoeffizienten",
+        "Schienen sind aus Aluminium gefertigt",
+        "Nur die Klemmen dehnen sich aus",
+        "Schienen reagieren nicht auf Temperatur"
+      ],
+      "correctIndex": 0,
+      "explanation": "Stahl dehnt sich bei Temperaturerhöhung aus. Dieser Effekt muss beim Gleisbau berücksichtigt werden, z. B. durch lückenlos verschweißte Gleise mit Spannungsstaat."
+    },
+    {
+      "id": "t3q4",
+      "question": "Was ist ein lückenlos verschweißtes Gleis?",
+      "choices": [
+        "Ein Gleis, bei dem die Schienenabschnitte zu langen Strecken verschweißt sind",
+        "Ein Gleis ohne Schwellen",
+        "Ein Gleis mit Kupferschweißung an den Klemmen",
+        "Ein Gleis aus einem einzigen Stahlblock"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bei lückenlos verschweißtem Gleis werden einzelne Schienenabschnitte zu sehr langen Strecken verschweißt, um ein gleichmäßiges Fahrverhalten zu erreichen."
+    },
+    {
+      "id": "t3q5",
+      "question": "Was bedeutet »Schienenverschleiß an der Fahrkante«?",
+      "choices": [
+        "Die Fahrkante wird durch Radkontakt abgenutzt",
+        "Die Schiene rostet von außen",
+        "Der Schienenfuß wird dünner",
+        "Der Schienensteg bricht ab"
+      ],
+      "correctIndex": 0,
+      "explanation": "Schienenverschleiß an der Fahrkante entsteht durch den ständigen Kontakt der Räder. Er muss regelmäßig gemessen und bei Grenzwerten saniert oder ersetzt werden."
+    }
+  ]
+}

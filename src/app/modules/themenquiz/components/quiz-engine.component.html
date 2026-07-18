@@ -1,0 +1,44 @@
+<ion-card class="quiz-card" *ngIf="!finished && current as q; else doneBlock">
+  <ion-card-header>
+    <ion-card-subtitle>{{ progressLabel }}</ion-card-subtitle>
+    <ion-card-title>{{ q.question }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list lines="none">
+      <ion-item
+        *ngFor="let c of shuffledChoices; trackBy: trackByChoice"
+        (click)="select(c)"
+        [disabled]="selectedIndex !== null"
+        [class]="choiceClass(c)"
+        button
+      >
+        <ion-label>{{ c.text }}</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <div class="feedback" *ngIf="isCorrect !== null" [class.correct]="isCorrect" [class.wrong]="!isCorrect">
+      <strong>{{ isCorrect ? 'Richtig!' : 'Leider falsch.' }}</strong>
+      <p>{{ q.explanation }}</p>
+    </div>
+
+    <div class="nav-row">
+      <ion-chip color="primary" outline="true">{{ answeredCount }}/{{ order.length }} beantwortet</ion-chip>
+      <div class="spacer"></div>
+      <ion-button size="small" (click)="next()" [disabled]="selectedIndex === null || currentIndex >= order.length - 1">
+        Naechste Frage
+      </ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+<ng-template #doneBlock>
+  <ion-card class="quiz-card result-card" *ngIf="finished">
+    <ion-card-header>
+      <ion-card-title>Ergebnis</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p class="score">{{ correctCount }} / {{ order.length }} richtig</p>
+      <ion-button (click)="restart()">Nochmal versuchen</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ng-template>

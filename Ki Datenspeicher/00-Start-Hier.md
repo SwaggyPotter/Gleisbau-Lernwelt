@@ -23,6 +23,9 @@ was das Projekt ist, wie es aufgebaut ist, was zuletzt passiert ist, und was off
 10. [[08-Recherche-Gwen/00-Rechercheauftrag-für-Gwen]] — Rechercheauftrag mit
     Fragenkatalog zu 15 Fachthemen, für ein lokales Modell (Gwen/Qwen via
     LM Studio) zur Bearbeitung
+11. [[09-Fachwissen-Fragenkatalog/00-Übersicht]] — von Claude aus Gwens
+    Rechercheergebnissen aufbereiteter Frage-Antwort-Katalog (aktuell 4 von
+    15 Themen)
 
 ## Kurzfassung (falls nur 30 Sekunden Zeit sind)
 
@@ -91,9 +94,13 @@ Ki Datenspeicher/
 │   └── Fragenkatalog.md
 ├── 07-Offene-Punkte/
 │   └── Offene-Punkte.md
-└── 08-Recherche-Gwen/
-    ├── 00-Rechercheauftrag-für-Gwen.md
-    └── 01…15  (je eine Recherche-Datei pro Fachthema)
+├── 08-Recherche-Gwen/
+│   ├── 00-Rechercheauftrag-für-Gwen.md
+│   ├── Kickoff-Prompt.md
+│   └── 01…15  (je eine Recherche-Datei pro Fachthema)
+└── 09-Fachwissen-Fragenkatalog/
+    ├── 00-Übersicht.md
+    └── je eine Datei pro fertig recherchiertem Thema (von Claude aufbereitet)
 ```
 
 ## Pflegehinweis

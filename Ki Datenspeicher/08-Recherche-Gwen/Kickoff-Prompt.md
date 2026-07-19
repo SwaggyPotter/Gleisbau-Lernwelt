@@ -7,9 +7,9 @@ autor: Claude
 
 Dieser Text kann direkt als Chat-Nachricht an Gwen (lokales Modell in LM Studio)
 gegeben werden, um die Recherche zu starten oder fortzusetzen. Bei jedem neuen
-Anlauf (z. B. neue Chat-Session) einfach erneut einfügen. Version 2
-(2026-07-19) — überarbeitet nach einer ersten Qualitätsprüfung, siehe
-"Änderungen seit Version 1" am Ende.
+Anlauf (z. B. neue Chat-Session) einfach erneut einfügen. Version 3
+(2026-07-19) — überarbeitet nach der zweiten Qualitätsprüfung, siehe
+"Änderungen seit Version 2" am Ende.
 
 ---
 
@@ -21,28 +21,43 @@ unter `E:\Gleisbau-Lernwelt\Ki Datenspeicher\`.
 1. Lies zuerst die Datei `08-Recherche-Gwen/00-Rechercheauftrag-für-Gwen.md`
    vollständig. Dort stehen deine Arbeitsregeln — insbesondere: **du ergänzt
    nur, du veränderst oder löschst nie bestehende Inhalte.** Das gilt
-   ausdrücklich auch für den Abschnitt "Fragen für die Recherche" am Anfang
-   jeder Datei — der darf niemals gekürzt, überschrieben oder gelöscht
-   werden, auch nicht aus Versehen beim Einfügen deiner eigenen Antwort.
+   ausdrücklich auch für:
+   - den Abschnitt "Fragen für die Recherche" am Anfang jeder Datei — der
+     darf niemals gekürzt, umformuliert, umsortiert oder durch eigene Fragen
+     ersetzt werden.
+   - das Frontmatter (die Zeilen zwischen `---` am Dateianfang) — `autor:`
+     bleibt `Claude`, `status:` änderst du nur auf einen der drei Werte aus
+     Punkt 2, nichts anderes.
+   - die Überschriftenstruktur — deine Antworten kommen **immer** in
+     `> [!gwen]`-Callouts (siehe Format weiter unten), niemals als eigene
+     `###`-Überschriften anstelle davon.
+
+   **Beantworte genau die gestellten Fragen — erfinde keine Ersatzfragen.**
+   In der letzten Runde wurden mehrfach eigene, ähnliche Fragen anstelle der
+   gestellten beantwortet (besonders bei der Lernfeld-Frage). Wenn du
+   zusätzlich interessante Informationen hast, die über die gestellte Frage
+   hinausgehen, ergänze sie **zusätzlich**, aber beantworte zuerst immer die
+   tatsächlich gestellte Frage.
 
 2. Arbeite danach die 15 Themen-Dateien im selben Ordner ab. Prüfe im
    Frontmatter jeder Datei das Feld `status:` — es gibt drei mögliche Werte:
-   - `offen` — noch nicht bearbeitet, oder zurückgesetzt (siehe Punkt 3)
+   - `offen` — noch nicht bearbeitet
    - `unvollständig (von Gwen)` — teilweise bearbeitet, einzelne Fragen fehlen
-     noch (steht meist ein Claude-Hinweis direkt über deinem letzten Eintrag,
-     der sagt welche Fragen fehlen)
+     noch (steht ein Claude-Hinweis direkt über deinem letzten Eintrag, der
+     sagt welche Fragen genau fehlen — lies ihn zuerst)
    - `von Gwen recherchiert` — vollständig fertig
 
    **Priorität für diese Runde:**
-   1. Zuerst `09-Schotter-und-Schwellen.md` und
-      `11-Spurweite-und-Gleisgeometrie.md` — beide stehen auf `offen` und
-      haben noch **gar keine** Recherche (bei 09 war der Fragen-Abschnitt
-      versehentlich verlorengegangen und wurde von Claude wiederhergestellt).
-   2. Danach `01-Trassenplan.md`, `03-Gleisbau-Allgemein.md` und
-      `04-Kleingeraete-und-Maschinen.md` — hier stehen jeweils ein
-      **Claude-Hinweis**, welche Fragen noch unbeantwortet sind. Nur diese
-      fehlenden Fragen ergänzen, den vorhandenen Text nicht anfassen.
-   3. Danach `12-Schienen.md` und die drei Zusatzmodul-Dateien (13–15).
+   1. Zuerst `12-Schienen.md` und die drei Zusatzmodul-Dateien
+      (`13-Zusatzmodul-Nivellieren.md`, `14-Zusatzmodul-Prozentrechnung.md`,
+      `15-Zusatzmodul-Volumen.md`) — alle vier stehen noch auf `offen` und
+      wurden bisher gar nicht bearbeitet.
+   2. Danach die als `unvollständig (von Gwen)` markierten Dateien: die
+      jeweiligen Claude-Hinweise sagen genau, welche einzelne Frage noch
+      fehlt (meist nur die Lernfeld-Frage oder 1–2 andere Fragen) —
+      `01-Trassenplan.md`, `03-Gleisbau-Allgemein.md`,
+      `04-Kleingeraete-und-Maschinen.md`, `09-Schotter-und-Schwellen.md`,
+      `11-Spurweite-und-Gleisgeometrie.md`.
 
 3. **Für jede Themen-Datei:**
    - Lies zuerst eventuell vorhandene **"Hinweis (Claude, ...)"**-Absätze am
@@ -97,9 +112,41 @@ unter `E:\Gleisbau-Lernwelt\Ki Datenspeicher\`.
    zur nächsten Datei wechselst — in der letzten Runde brachen mehrere
    Antworten mitten im Satz ab.
 
-Fang jetzt mit `09-Schotter-und-Schwellen.md` an.
+7. **Lies deine eigene Antwort vor dem Speichern noch einmal durch.** In der
+   letzten Runde enthielten mehrere Antworten einzelne Wörter oder Zeichen in
+   anderen Sprachen mitten im deutschen Text (z. B. chinesische Schriftzeichen,
+   spanische/englische Wörter) — das sind Generierungsfehler, keine
+   absichtlichen Einschübe. Wenn dir so etwas beim Schreiben auffällt, korrigier
+   es, bevor du speicherst.
+
+Fang jetzt mit `12-Schienen.md` an.
 
 ---
+
+## Änderungen seit Version 2 (2026-07-19, nach zweiter Qualitätsprüfung durch Claude)
+
+Bei der zweiten Runde (Themen 01, 09, 11) fielen weitere Probleme auf:
+
+1. In `11-Spurweite-und-Gleisgeometrie.md` wurde erneut der komplette
+   Fragen-Abschnitt gelöscht und durch einen eigenen Fragenkatalog ersetzt
+   (obwohl Version 2 das schon ausdrücklich verboten hatte) → Regel dazu noch
+   deutlicher formuliert, Frontmatter/Struktur jetzt explizit geregelt
+   (Punkt 1), Datei wiederhergestellt.
+2. In `09-Schotter-und-Schwellen.md` wurden zwei der sieben gestellten Fragen
+   (Verschleißprüfung, Lernfeld) durch zwei andere, selbst gewählte Fragen
+   ersetzt, statt sie zu beantworten. In `01-Trassenplan.md` passierte
+   dasselbe bei der Lernfeld-Frage. → neue Regel: "erfinde keine Ersatzfragen"
+   (Punkt 1).
+3. Mehrere Antworten enthielten einzelne fremdsprachige Wörter/Zeichen
+   (Chinesisch, Spanisch, Englisch) mitten im deutschen Text → Regel 7 ergänzt.
+4. `09-Schotter-und-Schwellen.md` benutzte eigene `###`-Überschriften statt
+   der vereinbarten `> [!gwen]`-Callouts, und setzte `autor: Gwen` statt
+   `autor: Claude` ins Frontmatter → Formatregeln in Punkt 1 präzisiert.
+
+Positiv: In `11-Spurweite-und-Gleisgeometrie.md` wurde die Lernfeld-Frage
+erstmals korrekt beantwortet (Lernfeld 10, stimmt mit der echten Liste
+überein) — die Anweisung, zuerst die Lernfelder-Übersicht zu lesen,
+funktioniert also grundsätzlich, wenn sie befolgt wird.
 
 ## Änderungen seit Version 1 (2026-07-19, nach erster Qualitätsprüfung durch Claude)
 

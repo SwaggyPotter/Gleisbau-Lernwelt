@@ -46,10 +46,13 @@ Aktuell gibt es dazu ein Themenquiz, aber keinen ausführlichen Lektionstext.
 
 ## 🔎 Rechercheergebnisse von Gwen
 
-**Hinweis (Claude, 2026-07-19):** Die Antwort bricht bei Frage 7 mitten im
-Satz ab, Frage 8 (Ausbildungsbezug) ist unbeantwortet. Bitte bei nächster
-Gelegenheit ab Frage 7 fortsetzen (nicht die vorhandene Antwort neu schreiben,
-nur ergänzen).
+**Hinweis (Claude, 2026-07-19, aktualisiert):** Frage 7 wurde inzwischen
+vollständig beantwortet. Frage 8 (welchem der 14 Lernfelder ist "Trassenplan
+lesen" zugeordnet?) ist aber weiterhin **nicht** beantwortet — stattdessen
+wurde eine andere, selbst gewählte Frage ("Wie wird die Trassenmitte auf der
+Baustelle markiert?") beantwortet. Das ist eine interessante Zusatzinfo,
+ersetzt aber nicht die eigentliche Frage 8. Bitte noch ergänzen: zuerst
+[[04-Lernfelder/Lernfelder-Übersicht]] lesen, dann zuordnen.
 
 > [!gwen] Gwen-Recherche — 18.7.2026
 > **ACHTUNG:** Ich habe keinen direkten Internetzugriff. Alle folgenden Angaben basieren auf meinem Trainingswissen und sind als **ungeprüft** zu markieren. Normen-/Paragraphennummern sollten vor Nutzung von einem Fachmann verifiziert werden!

@@ -1,7 +1,7 @@
 ---
 tags: [recherche, thema/schotter-schwellen]
-autor: Gwen
-status: recherchiert
+autor: Claude
+status: unvollständig (von Gwen)
 ---
 
 # Recherche: Schotter & Schwellen
@@ -38,6 +38,31 @@ Verschiedene Schwellenarten haben unterschiedliche Eigenschaften.
 7. Welchem Lernfeld ist dieses Thema zugeordnet?
 
 ## 🔎 Rechercheergebnisse von Gwen
+
+**Hinweis (Claude, 2026-07-19):** Mehrere Punkte zu diesem Eintrag:
+- Formatierung weicht von der vereinbarten Konvention ab (keine `> [!gwen]`-
+  Callouts, `autor: Gwen` im Frontmatter statt der vereinbarten
+  `[!gwen]`-Markierung innerhalb der Datei) — Frontmatter wurde von Claude auf
+  die Konvention zurückgesetzt, der Inhalt selbst wurde nicht verändert.
+- Die tatsächlichen Fragen 6 ("Wie werden Schwellen im laufenden Betrieb auf
+  Schäden/Verschleiß geprüft, welche Grenzwerte gibt es für den Austausch?")
+  und 7 ("Welchem Lernfeld ist dieses Thema zugeordnet?") wurden **nicht**
+  beantwortet — stattdessen wurden zwei andere, selbst gewählte Fragen
+  beantwortet (Schwellenabstand, Beton- vs. Holzschwellen-Vergleich). Diese
+  Zusatzinfos sind interessant, ersetzen aber nicht die Antworten auf die
+  ursprünglichen Fragen 6/7.
+- Die Antwort zu "Frage 7" (Gwens eigene Frage zu Beton- vs. Holzschwellen)
+  bricht mitten in der Vorteile-Liste ab, es fehlt der Nachteile-Teil.
+- Im Abschnitt zu Frage 1 (Kunststoffschwelle, Einsatzgebiete) ist ein
+  kompletter chinesischer Satz statt der deutschen Antwort eingefügt —
+  offensichtlich ein Generierungsfehler, keine absichtliche Information.
+- Mehrere sehr spezifische Normangaben (z. B. die durchgehend
+  durchnummerierte Reihe "DIN 45226", "DIN 45227", "DIN 45228" für
+  Schotter/Holzschwellen/Betonschwellen-Einbaubestimmungen, sowie
+  "DIN EN 13230-1/-2/-3" und "DB RL 901 06/901 08") wirken plausibel
+  konstruiert, sind aber **ohne jede Unsicherheits-Kennzeichnung** angegeben
+  — nach dem bisherigen Muster (siehe [[09-Fachwissen-Fragenkatalog/00-Übersicht]])
+  besonders vorsichtig behandeln und vor Verwendung unabhängig verifizieren.
 
 ### Frage 1: Schwellenarten mit Vor- und Nachteilen
 

@@ -1,0 +1,378 @@
+{
+  "topicId": "lf04",
+  "title": "Stahlbetonbauteile herstellen",
+  "questions": [
+    {
+      "id": "LF04-Q1",
+      "question": "Was ist beim Start der Herstellung als Erstes zu klaeren?",
+      "choices": [
+        "Bauteilfunktion, Plan/Details und Masse",
+        "Betonfarbe",
+        "Werkzeugmarke",
+        "Pausenplan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ohne klares Plan- und Bauteilverstaendnis sind korrekte Ausfuehrung und QS nicht moeglich."
+    },
+    {
+      "id": "LF04-Q2",
+      "question": "Wofuer ist ein Bewehrungsplan da?",
+      "choices": [
+        "Lage, Anzahl und Durchmesser der Bewehrung zeigen",
+        "Nur fuer den Betonfahrer",
+        "Nur Deko",
+        "Nur Schalungsaufbau"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Bewehrungsplan beschreibt die erforderliche Bewehrung fuer das Bauteil."
+    },
+    {
+      "id": "LF04-Q3",
+      "question": "Was passiert typischerweise bei Wasser nachkippen ohne Freigabe?",
+      "choices": [
+        "Verarbeitbarkeit steigt, Festigkeit und Dauerhaftigkeit sinken oft",
+        "Festigkeit steigt immer",
+        "Beton wird automatisch wasserdicht",
+        "Hat keinen Einfluss"
+      ],
+      "correctIndex": 0,
+      "explanation": "Zu viel Wasser veraendert den w/z-Wert und verschlechtert meist die Betoneigenschaften."
+    },
+    {
+      "id": "LF04-Q4",
+      "question": "Expositionsklasse beschreibt vor allem ...",
+      "choices": [
+        "Umweltbeanspruchung und Dauerhaftigkeitsanforderung",
+        "Schalhauttyp",
+        "LKW-Kennzeichen",
+        "Lieferscheinnummer"
+      ],
+      "correctIndex": 0,
+      "explanation": "Expositionsklassen geben an, welchen Einwirkungen der Beton dauerhaft standhalten muss."
+    },
+    {
+      "id": "LF04-Q5",
+      "question": "Schalung dient primaer ...",
+      "choices": [
+        "Formgebung, Masshaltigkeit und Dichtheit",
+        "Waermedaemmung",
+        "Korrosionsschutz vom Stahl",
+        "als Absturzsicherung allein"
+      ],
+      "correctIndex": 0,
+      "explanation": "Schalung formt das Bauteil und muss dicht und geometrisch korrekt sein."
+    },
+    {
+      "id": "LF04-Q6",
+      "question": "Womit werden Schalungs- und Traggeruestsysteme sicher betrieben?",
+      "choices": [
+        "Nach Systemvorgaben und Aufbau-/Verwendungsanleitung",
+        "So wie immer",
+        "Nur nach Gefuehl",
+        "Nur nach Wetterlage"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die sichere Nutzung ergibt sich aus den Hersteller- und Systemangaben."
+    },
+    {
+      "id": "LF04-Q7",
+      "question": "Wozu dienen Abstandhalter?",
+      "choices": [
+        "Betondeckung sicherstellen",
+        "Beton schneller haerten",
+        "Schalung sparen",
+        "Bewehrung ersetzen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Abstandhalter halten die Bewehrung in der geplanten Lage und sichern die Deckung."
+    },
+    {
+      "id": "LF04-Q8",
+      "question": "Betondeckung ist wichtig, weil ...",
+      "choices": [
+        "Korrosionsschutz und Dauerhaftigkeit gesichert werden",
+        "Beton dann leichter wird",
+        "Matten guenstiger sind",
+        "man weniger verdichten muss"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ausreichende Deckung schuetzt den Stahl vor schaedlichen Einwirkungen."
+    },
+    {
+      "id": "LF04-Q9",
+      "question": "Warum wird verdichtet?",
+      "choices": [
+        "Lunker vermeiden und Dichte sowie Haftung erhoehen",
+        "Beton trocknet schneller",
+        "Bewehrung wird ueberfluessig",
+        "Schalung haelt dann besser"
+      ],
+      "correctIndex": 0,
+      "explanation": "Verdichtung entfernt eingeschlossene Luft und verbessert den Verbund."
+    },
+    {
+      "id": "LF04-Q10",
+      "question": "Was ist beim Ruetteln kritisch?",
+      "choices": [
+        "Nicht zu kurz und nicht kaputtruetteln oder entmischen",
+        "Immer maximal lange",
+        "Bewehrung muss wackeln",
+        "Nur am Rand ruetteln"
+      ],
+      "correctIndex": 0,
+      "explanation": "Zu kurze oder zu lange Verdichtung fuehrt zu technischen Maengeln."
+    },
+    {
+      "id": "LF04-Q11",
+      "question": "Nachbehandlung ist wichtig, weil ...",
+      "choices": [
+        "Austrocknung und Risse vermieden sowie Festigkeit und Dauerhaftigkeit gesichert werden",
+        "nur wegen Optik",
+        "Beton dann leichter wird",
+        "man schneller ausschalen darf"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nachbehandlung unterstuetzt die Erhaertung und reduziert Fruehschaeden."
+    },
+    {
+      "id": "LF04-Q12",
+      "question": "Zu fruehes Ausschalen kann ...",
+      "choices": [
+        "Schaeden und Verformungen verursachen",
+        "immer helfen",
+        "Festigkeit erhoehen",
+        "Bewehrung sparen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Wenn die noetige Festigkeit fehlt, koennen Abplatzungen und Formfehler entstehen."
+    },
+    {
+      "id": "LF04-Q13",
+      "question": "Was ist ein typischer Verdichtungsmangel?",
+      "choices": [
+        "Lunker oder Kiesnester",
+        "saubere Kante",
+        "glatte Oberflaeche",
+        "richtige Deckung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Lunker und Kiesnester sind haeufige Folgen unzureichender Verdichtung."
+    },
+    {
+      "id": "LF04-Q14",
+      "question": "Was muss vor Betonage unbedingt final geprueft werden?",
+      "choices": [
+        "Schalung standsicher, Bewehrung/Deckung und Einbauteile korrekt",
+        "nur Helmfarbe",
+        "nur Wetter-App",
+        "nur Betonmischer"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diese Punkte gehoeren zu den zentralen Freigabekriterien vor dem Betonieren."
+    },
+    {
+      "id": "LF04-Q15",
+      "question": "Womit reduzierst du das Risiko bei Schalungs- und Traggeruestsystemen am staerksten?",
+      "choices": [
+        "Aufbau strikt nach Systemvorgaben und A+V",
+        "schneller arbeiten",
+        "improvisieren",
+        "nur mehr Leute hinstellen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sichere Montage und Nutzung setzen die Herstellerangaben voraus."
+    },
+    {
+      "id": "LF04-Q16",
+      "question": "Frischbeton ist riskant fuer ...",
+      "choices": [
+        "Haut und Augen",
+        "Gehor nur",
+        "nur Schuhe",
+        "gar nichts"
+      ],
+      "correctIndex": 0,
+      "explanation": "Frischbeton kann reizen oder veraetzend wirken und erfordert Schutzmassnahmen."
+    },
+    {
+      "id": "LF04-Q17",
+      "question": "Stahlbeton funktioniert, weil ...",
+      "choices": [
+        "Beton Druck und Stahl Zug uebernimmt",
+        "Stahl nur dekorativ ist",
+        "Beton alles alleine kann",
+        "nur Schalung traegt"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das Tragprinzip kombiniert druckfesten Beton mit zugfestem Stahl."
+    },
+    {
+      "id": "LF04-Q18",
+      "question": "Betondeckung wird gesichert durch ...",
+      "choices": [
+        "Abstandhalter",
+        "zusaetzliches Wasser",
+        "mehr Trennmittel",
+        "duenne Schalhaut"
+      ],
+      "correctIndex": 0,
+      "explanation": "Abstandhalter halten den geplanten Abstand zwischen Bewehrung und Schalung."
+    },
+    {
+      "id": "LF04-Q19",
+      "question": "Schalung muss vor allem ...",
+      "choices": [
+        "masshaltig, dicht und standsicher sein",
+        "nur guenstig sein",
+        "nur schnell sein",
+        "nur leicht sein"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nur so werden Geometrie, Oberflaeche und Sicherheit eingehalten."
+    },
+    {
+      "id": "LF04-Q20",
+      "question": "Verdichten verhindert ...",
+      "choices": [
+        "Lunker und Kiesnester",
+        "Hydratation",
+        "Bewehrung",
+        "Nachbehandlung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Verdichtung sorgt fuer dichten Beton mit gutem Verbund."
+    },
+    {
+      "id": "LF04-Q21",
+      "question": "Zu langes Ruetteln kann ...",
+      "choices": [
+        "Entmischung beguenstigen",
+        "immer verbessern",
+        "Beton leichter machen",
+        "Deckung automatisch erhoehen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ueberverdichtung kann die Kornverteilung unguenstig veraendern."
+    },
+    {
+      "id": "LF04-Q22",
+      "question": "Nachbehandlung schuetzt vor ...",
+      "choices": [
+        "Fruehschwinden und Rissen",
+        "Bewehrungslagefehlern",
+        "falschem Schalplan",
+        "Transportkosten"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sie reduziert Wasserverlust und unterstuetzt die gleichmaessige Erhaertung."
+    },
+    {
+      "id": "LF04-Q23",
+      "question": "Einbauteile wie Anker prueft man ...",
+      "choices": [
+        "vor Betonage final",
+        "erst nach Ausschalen",
+        "nur bei Regen",
+        "gar nicht"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nach dem Betonieren sind Lagekorrekturen kaum noch moeglich."
+    },
+    {
+      "id": "LF04-Q24",
+      "question": "Bewehrung auf der Schalung ist ...",
+      "choices": [
+        "ein Fehler, weil Deckung fehlt",
+        "normal",
+        "nur bei Decken richtig",
+        "sogar besser"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ohne korrekte Deckung ist der Korrosionsschutz nicht gegeben."
+    },
+    {
+      "id": "LF04-Q25",
+      "question": "Expositionsklasse betrifft ...",
+      "choices": [
+        "Dauerhaftigkeit und Umweltbeanspruchung",
+        "Schalungsfarbe",
+        "Kolonnengroesse",
+        "Werkzeuglager"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sie legt die Anforderungen an den Beton fuer die Umgebungsbedingungen fest."
+    },
+    {
+      "id": "LF04-Q26",
+      "question": "Bei Schalungssystemen gilt ...",
+      "choices": [
+        "A+V-Anleitung und Herstellerangaben einhalten",
+        "nur Erfahrungswerte reichen",
+        "immer frei kombinieren",
+        "nur auf Zeit schauen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Systeme duerfen nur bestimmungsgemaess montiert und genutzt werden."
+    },
+    {
+      "id": "LF04-Q27",
+      "question": "Bewehrungsplan zeigt ...",
+      "choices": [
+        "Durchmesser, Abstaende und Lagen der Bewehrung",
+        "nur Betonlieferzeiten",
+        "nur die Schalhaut",
+        "nur den Kranstandort"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diese Angaben sind Grundlage fuer den korrekten Bewehrungseinbau."
+    },
+    {
+      "id": "LF04-Q28",
+      "question": "Schalungstrennmittel ...",
+      "choices": [
+        "sparsam und richtig anwenden",
+        "immer grosszuegig auf alles spruehen",
+        "auf Bewehrung auftragen",
+        "durch Wasser ersetzen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Zu viel oder falsch aufgetragenes Trennmittel verschlechtert Oberflaeche und Verbund."
+    },
+    {
+      "id": "LF04-Q29",
+      "question": "Kiesnest ist oft Folge von ...",
+      "choices": [
+        "schlechter Verdichtung oder unguenstigem Einbau",
+        "zu guter Nachbehandlung",
+        "richtiger Betondeckung",
+        "zu wenig Schalung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fehlstellen entstehen haeufig bei unzureichendem Verdichten und ungleichmaessigem Einbringen."
+    },
+    {
+      "id": "LF04-Q30",
+      "question": "Ausschalen zu frueh fuehrt zu ...",
+      "choices": [
+        "Abplatzungen und Verformungen",
+        "hoehere Endfestigkeit",
+        "besserer Oberflaeche immer",
+        "weniger QS-Bedarf"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fehlende Tragfaehigkeit im jungen Beton kann zu sichtbaren Schaeden fuehren."
+    },
+    {
+      "id": "LF04-Q31",
+      "question": "QS dokumentiert ...",
+      "choices": [
+        "Pruefpunkte, Abweichungen und Fotos",
+        "nur Wetterdaten",
+        "nur Materialpreise",
+        "nur Personalstand"
+      ],
+      "correctIndex": 0,
+      "explanation": "Dokumentation macht Ausfuehrung und Abweichungen nachvollziehbar."
+    }
+  ]
+}

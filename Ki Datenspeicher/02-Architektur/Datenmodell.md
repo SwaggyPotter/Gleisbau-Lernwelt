@@ -68,3 +68,10 @@ drei parallele Repräsentationen der Lernfeld-Daten:
 Falls die Lernfeld-Inhalte jemals reaktiviert werden, ist zu entscheiden, welches
 dieser drei Modelle die Quelle der Wahrheit wird — siehe
 [[07-Offene-Punkte/Offene-Punkte]].
+
+**Ergänzung (verifiziert 2026-07-22):** Daneben gibt es im Backend noch ein
+viertes, unabhängiges Datenmodell für Quiz-*Sessions* (nicht zu verwechseln
+mit den 14 Lernfeld-Inhalten): die Tabellen `quiz_sessions`/`quiz_answers`
+(Details siehe [[02-Architektur/Backend-Architektur]]). Auch dieses ist vom
+aktuellen Frontend komplett ungenutzt und deckt inhaltlich ohnehin nur
+`lf-01` mit drei Beispielfragen ab.

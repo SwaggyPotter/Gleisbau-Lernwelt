@@ -1,0 +1,306 @@
+{
+  "topicId": "lf07",
+  "title": "Baugruende erkunden",
+  "questions": [
+    {
+      "id": "LF07-Q1",
+      "question": "Ein Graben ist in der Regel ...",
+      "choices": [
+        "laenglich und schmal",
+        "immer rund",
+        "ueberdacht",
+        "hoeher als breit"
+      ],
+      "correctIndex": 0,
+      "explanation": "Graeben werden typischerweise als laengliche Aushuebe ausgefuehrt."
+    },
+    {
+      "id": "LF07-Q2",
+      "question": "Baugruben werden meist benoetigt fuer ...",
+      "choices": [
+        "Fundamente, Bauwerke oder Schaechte",
+        "Anstriche",
+        "nur Pflaster",
+        "Daecher"
+      ],
+      "correctIndex": 0,
+      "explanation": "Baugruben dienen vor allem der Herstellung von Bauwerken und deren Gruendung."
+    },
+    {
+      "id": "LF07-Q3",
+      "question": "Was ist die groesste Gefahr bei ungesicherten Graeben?",
+      "choices": [
+        "Einsturz und Verschuetten",
+        "Staub",
+        "Laerm",
+        "Hitze"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die akute Lebensgefahr entsteht durch nachrutschenden Boden und Einsturz."
+    },
+    {
+      "id": "LF07-Q4",
+      "question": "Wann ist eine Boeschung besonders kritisch?",
+      "choices": [
+        "bei lockerem oder nassem Boden",
+        "bei Sonne",
+        "bei Beton",
+        "bei Asphalt"
+      ],
+      "correctIndex": 0,
+      "explanation": "Lockerer oder nasser Boden verliert Stabilitaet und braucht flachere Boeschungen."
+    },
+    {
+      "id": "LF07-Q5",
+      "question": "Wann ist Verbau zwingend?",
+      "choices": [
+        "wenn Boeschung nicht sicher oder nicht moeglich ist",
+        "nur im Winter",
+        "nur nachts",
+        "freiwillig"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kann die Boeschung die Sicherheit nicht gewaehrleisten, muss verbaut werden."
+    },
+    {
+      "id": "LF07-Q6",
+      "question": "Verbau wird zurueckgebaut ...",
+      "choices": [
+        "erst nach dem Verfuellen",
+        "vor dem Betonieren",
+        "sofort",
+        "nie"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Rueckbau erfolgt erst, wenn die Standsicherheit durch Verfuellung gesichert ist."
+    },
+    {
+      "id": "LF07-Q7",
+      "question": "Warum ist Wasser in der Baugrube gefaehrlich?",
+      "choices": [
+        "Unterspuelung und Instabilitaet",
+        "nur wegen Schmutz",
+        "wegen Farbe",
+        "ist egal"
+      ],
+      "correctIndex": 0,
+      "explanation": "Wasser schwemmt Boden aus und kann die Baugrubenwaende destabilisieren."
+    },
+    {
+      "id": "LF07-Q8",
+      "question": "Randlasten an der Kante sind gefaehrlich, weil ...",
+      "choices": [
+        "sie Einsturz ausloesen koennen",
+        "sie stauben",
+        "sie teuer sind",
+        "sie laut sind"
+      ],
+      "correctIndex": 0,
+      "explanation": "Zusatzlasten an der Kante erhoehen den Bodendruck und damit das Einsturzrisiko."
+    },
+    {
+      "id": "LF07-Q9",
+      "question": "Wie darf man eine Baugrube betreten?",
+      "choices": [
+        "nur ueber sichere Zugaenge",
+        "springend",
+        "mit improvisierter Leiter",
+        "ueber den Rand klettern"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sichere Zugaenge sind Pflicht, Improvisation ist unzulaessig."
+    },
+    {
+      "id": "LF07-Q10",
+      "question": "Was ist ein schwerer Fehler?",
+      "choices": [
+        "Arbeiten unter ungesichertem Grubenrand",
+        "Pause machen",
+        "Helm tragen",
+        "messen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ungelesicherte Randbereiche duerfen nicht betreten oder unterarbeitet werden."
+    },
+    {
+      "id": "LF07-Q11",
+      "question": "Welche Aussage ist richtig?",
+      "choices": [
+        "Ungesicherte Graeben sind lebensgefaehrlich",
+        "Ungesicherte Graeben sind unkritisch",
+        "Nur tiefe Graeben sind gefaehrlich",
+        "Gefahr besteht nur bei Regen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bereits bei geringeren Tiefen besteht akute Einsturz- und Verschuettungsgefahr."
+    },
+    {
+      "id": "LF07-Q12",
+      "question": "Wovon haengt die Boeschung wesentlich ab?",
+      "choices": [
+        "Von Boden und Wasser",
+        "Nur von der Uhrzeit",
+        "Nur von der Farbe des Bodens",
+        "Nur vom Werkzeug"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bodenart und Wasserverhaeltnisse beeinflussen die Stabilitaet direkt."
+    },
+    {
+      "id": "LF07-Q13",
+      "question": "Welche Aussage zu Verbau und Boeschung ist korrekt?",
+      "choices": [
+        "Verbau ersetzt Boeschung, wenn Platz fehlt",
+        "Verbau und Boeschung schliessen sich immer aus",
+        "Verbau ist nur bei Frost erlaubt",
+        "Boeschung ist immer Pflicht"
+      ],
+      "correctIndex": 0,
+      "explanation": "Wenn eine sichere Boeschung nicht moeglich ist, wird mit Verbau gesichert."
+    },
+    {
+      "id": "LF07-Q14",
+      "question": "Welche Wirkung hat Wasser auf den Boden in Baugruben?",
+      "choices": [
+        "Es reduziert die Standfestigkeit",
+        "Es erhoeht immer die Tragfaehigkeit",
+        "Es hat keinen Einfluss",
+        "Es verhindert Randabbrueche"
+      ],
+      "correctIndex": 0,
+      "explanation": "Durch Wasser kann der Boden aufgeweicht oder ausgespuelt werden."
+    },
+    {
+      "id": "LF07-Q15",
+      "question": "Wo duerfen Randlasten gelagert werden?",
+      "choices": [
+        "Nicht direkt an der Kante",
+        "Moeglichst nah an der Kante",
+        "Immer auf dem Verbau",
+        "Nur bei trockenem Wetter an der Kante"
+      ],
+      "correctIndex": 0,
+      "explanation": "Abstand zur Kante reduziert zusaetzliche Lasten am kritischen Randbereich."
+    },
+    {
+      "id": "LF07-Q16",
+      "question": "Wann soll Verbau eingebaut werden?",
+      "choices": [
+        "Mit dem Aushub",
+        "Erst nach kompletter Fertigstellung",
+        "Nur bei Nacht",
+        "Nach Rueckbau der Boeschung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Verbau muss den Aushubschritt begleiten, um Sicherheit zu gewaehrleisten."
+    },
+    {
+      "id": "LF07-Q17",
+      "question": "Rueckbau von Verbau erfolgt ...",
+      "choices": [
+        "erst nach Verfuellung",
+        "direkt nach Einbau",
+        "vor der Sicherung",
+        "nur bei Maschinenstillstand"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Verbau bleibt bis zur gesicherten Verfuellung wirksam."
+    },
+    {
+      "id": "LF07-Q18",
+      "question": "Welche Aussage zu Baugrube und Graben stimmt?",
+      "choices": [
+        "Sie unterscheiden sich in Form und Zweck",
+        "Es sind immer dieselben Bauwerke",
+        "Nur der Name ist anders",
+        "Graben ist immer breiter als Baugrube"
+      ],
+      "correctIndex": 0,
+      "explanation": "Baugrube und Graben haben unterschiedliche Geometrie und Einsatzbereiche."
+    },
+    {
+      "id": "LF07-Q19",
+      "question": "Wie erfolgt der Zugang in die Baugrube korrekt?",
+      "choices": [
+        "Ueber sichere Leiter oder Rampe",
+        "Durch Springen",
+        "Ueber lose Kanten",
+        "Mit improvisierten Brettern"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sichere Zugaenge sind verbindliche Schutzmassnahmen."
+    },
+    {
+      "id": "LF07-Q20",
+      "question": "Wie oft sollte die Sichtpruefung mindestens erfolgen?",
+      "choices": [
+        "Taeglich",
+        "Nur montags",
+        "Nur nach Beschwerden",
+        "Einmal pro Monat"
+      ],
+      "correctIndex": 0,
+      "explanation": "Taegliche Kontrolle ist notwendig, weil sich Bedingungen schnell aendern."
+    },
+    {
+      "id": "LF07-Q21",
+      "question": "Pumpensumpf gehoert zu welcher Wasserhaltung?",
+      "choices": [
+        "Offene Wasserhaltung",
+        "Geschlossene Wasserhaltung",
+        "Nur Notentwaesserung",
+        "Keine Wasserhaltung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Beim Pumpensumpf wird Wasser offen gesammelt und abgepumpt."
+    },
+    {
+      "id": "LF07-Q22",
+      "question": "Wann sind Spundwaende besonders sinnvoll?",
+      "choices": [
+        "Bei tiefen oder wasserfuehrenden Baugruben",
+        "Nur bei trockenem Sand",
+        "Nur fuer Pflasterarbeiten",
+        "Ausschliesslich bei kleinen Graeben"
+      ],
+      "correctIndex": 0,
+      "explanation": "Spundwaende sind fuer hohe Tiefen und Wasserandrang geeignet."
+    },
+    {
+      "id": "LF07-Q23",
+      "question": "Was zaehlt als Randlast?",
+      "choices": [
+        "Maschinenlasten",
+        "Nur Personen",
+        "Nur Regenwasser",
+        "Nur Werkzeuge in der Tasche"
+      ],
+      "correctIndex": 0,
+      "explanation": "Maschinen, Material, Aushub und Fahrzeuge sind typische Randlasten."
+    },
+    {
+      "id": "LF07-Q24",
+      "question": "Welche PSA ist im Baugrubenbereich Pflicht?",
+      "choices": [
+        "Helm",
+        "Nur Sonnenbrille",
+        "Nur Handschuhe",
+        "Keine PSA bei kurzer Arbeit"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mindestens Helm, Warnkleidung und Sicherheitsschuhe gehoeren zur Grundausstattung."
+    },
+    {
+      "id": "LF07-Q25",
+      "question": "Welcher Grundsatz gilt in LF7 immer?",
+      "choices": [
+        "Sicherheit geht vor Tempo",
+        "Tempo geht vor Sicherheit",
+        "Zeitdruck ersetzt Kontrolle",
+        "Verbau ist optional"
+      ],
+      "correctIndex": 0,
+      "explanation": "Arbeitssicherheit hat bei Baugruben und Graeben immer Prioritaet."
+    }
+  ]
+}

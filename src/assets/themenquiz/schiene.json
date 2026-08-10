@@ -61,6 +61,174 @@
       ],
       "correctIndex": 0,
       "explanation": "Schienenverschleiß an der Fahrkante entsteht durch den ständigen Kontakt der Räder. Er muss regelmäßig gemessen und bei Grenzwerten saniert oder ersetzt werden."
+    },
+    {
+      "id": "schiene-g1",
+      "question": "Wie groß ist das Querschnittsgewicht der breiten Schiene nach DIN EN 13674-1 (UIC 60)?",
+      "choices": [
+        "52,0 kg/m",
+        "60,21 kg/m",
+        "68,5 kg/m",
+        "75,0 kg/m"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die UIC 60 Breitschiene (auch 60E1 genannt) hat ein Querschnittsgewicht von 60,21 kg pro Meter Länge."
+    },
+    {
+      "id": "schiene-g2",
+      "question": "Welcher Schienenbereich bildet die Fahrkante und trägt direkt die Radlast?",
+      "choices": [
+        "Der Schienensteg (Web)",
+        "Der Schienenfuß (Foot)",
+        "Der Schienenkopf (Head/Tread)",
+        "Die Fahrnase"
+      ],
+      "correctIndex": 2,
+      "explanation": "Der Schienenkopf ist der obere Teil, der die Radlast trägt und die geometrische Fahrkante für den Zug bildet."
+    },
+    {
+      "id": "schiene-g3",
+      "question": "Welcher thermische Längenausdehnungskoeffizient gilt für Schienenstahl im Bereich von 20°C bis 100°C?",
+      "choices": [
+        "8 µm/(m·K)",
+        "10,5 µm/(m·K)",
+        "11 µm/(m·K)",
+        "14 µm/(m·K)"
+      ],
+      "correctIndex": 2,
+      "explanation": "Stahl hat einen thermischen Längenausdehnungskoeffizienten von etwa 11 Mikrometer pro Meter und Kelvin im Temperaturbereich von 20°C bis 100°C."
+    },
+    {
+      "id": "schiene-g4",
+      "question": "Wie berechnet sich die Längenausdehnung einer Schiene mit der Formel für lineare thermische Ausdehnung?",
+      "choices": [
+        "ΔL = α · A · ΔT (Flächenausdehnung)",
+        "ΔL = α · l₀ · ΔT (Längenausdehnung)",
+        "ΔL = β · V · ΔT (Volumenausdehnung)",
+        "ΔL = ρ · m · ΔT (Dichtebestimmung)"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die Längenausdehnung berechnet sich aus dem Ausdehnungskoeffizienten α, der Ausgangslänge l₀ und der Temperaturänderung ΔT."
+    },
+    {
+      "id": "schiene-g5",
+      "question": "Welche Norm legt den Querschnitt sowie die technischen Anforderungen an Vignole-Eisenbahnschienen fest?",
+      "choices": [
+        "DIN EN 13674-2",
+        "DIN EN 13674-1",
+        "DIN EN 14798",
+        "DIN 55603"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die Norm EN 13674-1 regelt die technischen Anforderungen an Breitschienen einschließlich des Profilquerschnitts."
+    },
+    {
+      "id": "schiene-g6",
+      "question": "Welche Aufgabe hat der Schienensteg im Schienenprofil?",
+      "choices": [
+        "Sie geben dem Schienenkopf die gewünschte Krümmung (Railhead profile)",
+        "Sie leiten Biegespannungen von Kopf nach Fuß weiter",
+        "Sie bilden den Auflagebereich für das Schienenschweißgerät",
+        "Sie bestimmen die Neutralachse des Querschnitts"
+      ],
+      "correctIndex": 1,
+      "explanation": "Der schmale Steg verbindet Kopffläche und Fußfläche und leitet Biegemomente zwischen Kopf (Druckzone) und Fuß (Zugzone) weiter."
+    },
+    {
+      "id": "schiene-g7",
+      "question": "Welcher Querschnittsmodul bezieht sich auf die Schienenkopffläche X-X und dient der Bemessung gegen Biegen?",
+      "choices": [
+        "Wx-Kopf = 333,6 cm³ bei UIC 60",
+        "Wy-Seite = 68,3 cm³ für UIC 60",
+        "Iz-Trägheit = 512,3 cm⁴ (X-X)",
+        "Wx-Basis = 375,5 cm³ für den Schienenfuß"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Querschnittsmodul X-X für den Kopf der UIC 60 Schiene beträgt 333,6 cm³ und ist entscheidend für die Biegebeanspruchung."
+    },
+    {
+      "id": "schiene-g8",
+      "question": "Wie stark dehnt sich ein 25 Meter langer Schienenabschnitt aus, wenn sich die Schiene um 5 °C erwärmt (α = 11 µm/(m·K))?",
+      "choices": [
+        "Ausdehnung = 13,75 mm",
+        "Ausdehnung = 1,375 mm",
+        "Ausdehnung = 0,1375 mm",
+        "Ausdehnung = 137,5 mm"
+      ],
+      "correctIndex": 1,
+      "explanation": "ΔL = α · l₀ · ΔT = 11·10⁻⁶/m·K × 25 m × 5 K = 1,375 mm. Dieser Wert zeigt die thermische Ausdehnung an."
+    },
+    {
+      "id": "schiene-g9",
+      "question": "Was ist ein Vorteil von lückenlos verschweißten Gleisen (CWR) gegenüber gelenkigen Schienenabschnitten?",
+      "choices": [
+        "Geringerer Instandhaltungsaufwand durch Wegfall der Schienenstöße (Laschen) und ruhigerer, verschleißärmerer Lauf",
+        "Höhere Flexibilität bei Erdbeben",
+        "Einfachere Lagerung im Depot",
+        "Geringeres Gewicht der Gesamtschiene"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ohne Schienenstöße entfallen Stoßlücken und Laschenverbindungen — das bedeutet weniger Verschleiß an Rad und Schiene, ruhigeren Lauf und geringeren Instandhaltungsaufwand."
+    },
+    {
+      "id": "schiene-g10",
+      "question": "Welche Größe ist für die Stabilität des Schienenprofils unter seitlicher Last entscheidend?",
+      "choices": [
+        "Querschnittsfläche (76,7 cm²)",
+        "Trägheitsmoment X-X (3038,3 cm⁴)",
+        "Trägheitsmoment Y-Y (512,3 cm⁴) – für seitliche Steifigkeit wichtig",
+        "Querschnittsmodul Z (68,3 cm³) für Biegung senkrecht zur Fahrbahn"
+      ],
+      "correctIndex": 2,
+      "explanation": "Das Trägheitsmoment Y-Y ist mit 512,3 cm⁴ entscheidend für die seitliche Stabilität und Verformung der Schiene unter Querlast."
+    },
+    {
+      "id": "schiene-g11",
+      "question": "Welche Bedeutung hat die Neutraltemperatur (NRT) bei CWR-Gleisen?",
+      "choices": [
+        "Sie gibt die Temperatur an, bei der das Gleis knickt",
+        "Sie ist die Temperatur, bei der keine axiale thermische Spannung im Schienenprofil vorhanden ist",
+        "Sie markiert den Übergang von Stahl zu Eisen",
+        "Sie ist die höchste Temperatur, die eine Schiene ohne Knicken aushält"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die Neutraltemperatur ist die spannungsfreie Temperatur. Liegt die Schienentemperatur darüber, entsteht Druckspannung; liegt sie darunter, entsteht Zugspannung."
+    },
+    {
+      "id": "schiene-g12",
+      "question": "Wie wirkt sich das Trägheitsmoment X-X des Schienenprofils auf das Gleisverhalten aus?",
+      "choices": [
+        "Es bestimmt, wie stark das Profil unter Biegebelastung senkrecht zur Fahrbahn widersteht",
+        "Es beeinflusst den Seitenschub bei der Durchfahrt durch Kurven",
+        "Es hat keinen Einfluss auf die Dynamik des Schienensystems",
+        "Es dient als Maß für die thermische Ausdehnungsrate"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das große Trägheitsmoment X-X (3038,3 cm⁴) sorgt dafür, dass das Profil unter der Vertikallast stabil bleibt und Biegeverformungen klein bleiben."
+    },
+    {
+      "id": "schiene-g13",
+      "question": "Warum wird beim CWR-Gleis oft von einem »Neutraltemperaturbereich« gesprochen, statt von einer festen NRT-Wert?",
+      "choices": [
+        "Weil die Temperaturmessung nur auf Millisekunden genau sein muss",
+        "Weil sich die tatsächliche Neutraltemperatur im Betrieb verschiebt (z. B. durch Schweißungen, Gleisarbeiten und Setzungen)",
+        "Weil es mehrere Normen gibt, die unterschiedliche NRT definieren",
+        "Weil die Neutraltemperatur nicht messbar ist"
+      ],
+      "correctIndex": 1,
+      "explanation": "Durch Schweißstellen, Gleisarbeiten und Temperaturbeanspruchung im Betrieb verschiebt sich die tatsächliche Neutraltemperatur, daher wird ein Bereich betrachtet."
+    },
+    {
+      "id": "schiene-g14",
+      "question": "Was ist eine Konsequenz von zu niedriger Neutraltemperatur bei einem CWR-Gleis im Sommer?",
+      "choices": [
+        "Das Gleis neigt zum Knicken (Buckling) aufgrund thermischer Druckspannung",
+        "Die Schiene zieht sich stark zusammen und knarzt",
+        "Der Schienenkopf wird an der Fahrkante abgenutzt",
+        "Die Trägheitsmoment X-X erhöht sich"
+      ],
+      "correctIndex": 0,
+      "explanation": "Liegt die Betriebstemperatur deutlich über der NRT, entstehen thermische Druckspannungen, die zum Gleisknicken (Buckling) führen können."
     }
   ]
 }

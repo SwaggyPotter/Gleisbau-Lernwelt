@@ -1,0 +1,378 @@
+{
+  "topicId": "lf05",
+  "title": "Holzkonstruktionen herstellen",
+  "questions": [
+    {
+      "id": "LF05-Q1",
+      "question": "Warum ist Holzfeuchte wichtig?",
+      "choices": [
+        "Verzug, Schwinden und Passgenauigkeit",
+        "Nur wegen Farbe",
+        "Egal",
+        "Ersetzt Aussteifung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Holzfeuchte beeinflusst Formstabilitaet und die Genauigkeit der Konstruktion."
+    },
+    {
+      "id": "LF05-Q2",
+      "question": "Faserrichtung ist relevant, weil ...",
+      "choices": [
+        "Holz laengs und quer unterschiedlich belastbar ist",
+        "Naegel dann unnoetig sind",
+        "Beton ersetzt wird",
+        "Holz nicht arbeitet"
+      ],
+      "correctIndex": 0,
+      "explanation": "Holz ist anisotrop und reagiert je nach Richtung unterschiedlich."
+    },
+    {
+      "id": "LF05-Q3",
+      "question": "Konstruktiver Holzschutz bedeutet hauptsaechlich ...",
+      "choices": [
+        "Feuchte vermeiden und ableiten",
+        "Holz anmalen",
+        "mehr Naegel",
+        "schwereres Holz"
+      ],
+      "correctIndex": 0,
+      "explanation": "Wasser fernzuhalten ist der wichtigste Schutzmechanismus im Holzbau."
+    },
+    {
+      "id": "LF05-Q4",
+      "question": "Was ist ein Klassiker-Fehler?",
+      "choices": [
+        "Holz direkt auf feuchtem Beton ohne Trennung",
+        "Holz trocknen lassen",
+        "Abdecken",
+        "Hinterlueften"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ohne Trennlage wird Feuchte ins Holz eingetragen."
+    },
+    {
+      "id": "LF05-Q5",
+      "question": "Was gehoert typisch zum Holzrahmenbau?",
+      "choices": [
+        "Schwelle, Staender, Raehm",
+        "Schiene, Schwelle, Kleineisen",
+        "Schalung, Bewehrung",
+        "Ziegel, Moertel"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diese Bauteile bilden den grundlegenden Rahmen einer Holzrahmenwand."
+    },
+    {
+      "id": "LF05-Q6",
+      "question": "Pfetten gehoeren vor allem zu ...",
+      "choices": [
+        "Dachkonstruktionen",
+        "Estrich",
+        "Abdichtung",
+        "Mauerwerk"
+      ],
+      "correctIndex": 0,
+      "explanation": "Pfetten sind tragende Bauteile in typischen Dachsystemen."
+    },
+    {
+      "id": "LF05-Q7",
+      "question": "Warum Bezugskante festlegen?",
+      "choices": [
+        "Damit Masse reproduzierbar stimmen",
+        "Nur fuers Foto",
+        "Spart PSA",
+        "Macht Holz haerter"
+      ],
+      "correctIndex": 0,
+      "explanation": "Eine feste Bezugskante verhindert Messkettenfehler."
+    },
+    {
+      "id": "LF05-Q8",
+      "question": "Was ist Abbund am ehesten?",
+      "choices": [
+        "Anreissen, Zuschneiden und Anschluesse herstellen",
+        "Betonieren",
+        "Pflastern",
+        "Stopfen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Abbund beschreibt die handwerkliche Vorbereitung der Holzbauteile."
+    },
+    {
+      "id": "LF05-Q9",
+      "question": "Welche Verbindungsmittel zaehlen zu stiftfoermig?",
+      "choices": [
+        "Naegel, Schrauben, Bolzen",
+        "Moertel",
+        "Putz",
+        "Bitumen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diese Verbindungsmittel leiten Kraefte ueber stabfoermige Elemente ein."
+    },
+    {
+      "id": "LF05-Q10",
+      "question": "Warum sind Abstaende und Randabstaende wichtig?",
+      "choices": [
+        "Sonst Rissbildung und Spalten",
+        "Nur Optik",
+        "Egal",
+        "Ersetzt Aussteifung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Zu kleine Abstaende ueberlasten den Randbereich des Holzes."
+    },
+    {
+      "id": "LF05-Q11",
+      "question": "Wozu dient Aussteifung?",
+      "choices": [
+        "Stabilitaet gegen seitliche Kraefte und Verformen",
+        "Macht Holz trocken",
+        "Ersetzt Verbindungen",
+        "Ist nur Deko"
+      ],
+      "correctIndex": 0,
+      "explanation": "Aussteifung sichert die Form und Lastweiterleitung der Konstruktion."
+    },
+    {
+      "id": "LF05-Q12",
+      "question": "Wie pruefst du Auswinkeln?",
+      "choices": [
+        "Diagonalen vergleichen",
+        "Nur mit Augenmass",
+        "Wetter-App",
+        "Mit Hammer"
+      ],
+      "correctIndex": 0,
+      "explanation": "Gleiche Diagonalen zeigen bei Rechtecken korrekte Winkligkeit."
+    },
+    {
+      "id": "LF05-Q13",
+      "question": "Warum steht man beim Saegen seitlich?",
+      "choices": [
+        "Reduziert Risiko bei Rueckschlag/Kickback",
+        "Sieht cooler aus",
+        "Spart Strom",
+        "Ist egal"
+      ],
+      "correctIndex": 0,
+      "explanation": "Seitliche Position reduziert das Risiko direkter Treffer bei Rueckschlag."
+    },
+    {
+      "id": "LF05-Q14",
+      "question": "Was ist vor Arbeitsbeginn wichtig?",
+      "choices": [
+        "Betriebsanleitung, korrekter Aufbau, geeignetes Saegeblatt",
+        "Nur Handschuhe",
+        "Nur Musik",
+        "Nur Handylicht"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sicherer Maschinenbetrieb beginnt bei Aufbau, Zustand und Anleitung."
+    },
+    {
+      "id": "LF05-Q15",
+      "question": "Was ist ein gefaehrlicher Mangel?",
+      "choices": [
+        "Fehlende Aussteifung",
+        "Kratzer im Bleistift",
+        "Staub auf Schuhen",
+        "Falsche Pausenbox"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ohne Aussteifung ist die Konstruktion gegen seitliche Lasten nicht gesichert."
+    },
+    {
+      "id": "LF05-Q16",
+      "question": "Was gehoert in die Endkontrolle?",
+      "choices": [
+        "Masse, Lot/Flucht, Verbindungen und Aussteifung",
+        "Nur Fotos",
+        "Nur Lieferschein",
+        "Nur Wetter"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diese Punkte sind fuer Qualitaet und Sicherheit der Konstruktion wesentlich."
+    },
+    {
+      "id": "LF05-Q17",
+      "question": "Im Holzrahmenbau ist die Schwelle ...",
+      "choices": [
+        "unten",
+        "oben",
+        "in der Mitte",
+        "nur bei Daechern"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Schwelle bildet den unteren Rahmenabschluss."
+    },
+    {
+      "id": "LF05-Q18",
+      "question": "Der Raehm ist ...",
+      "choices": [
+        "oben",
+        "unten",
+        "immer diagonal",
+        "kein Holzbauteil"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Raehm bildet den oberen Abschluss im Rahmenbau."
+    },
+    {
+      "id": "LF05-Q19",
+      "question": "Aussteifung verhindert vor allem ...",
+      "choices": [
+        "seitliches Scheren",
+        "Holzfeuchte",
+        "Saegespuren",
+        "Winkelmass"
+      ],
+      "correctIndex": 0,
+      "explanation": "Aussteifung begrenzt horizontale Verformung der Konstruktion."
+    },
+    {
+      "id": "LF05-Q20",
+      "question": "Stiftfoermige Verbindungsmittel sind ...",
+      "choices": [
+        "Naegel, Schrauben, Bolzen",
+        "Moertel und Putz",
+        "Nur Leim",
+        "Nur Bitumen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diese Verbindungsmittel gehoeren zur stiftfoermigen Gruppe."
+    },
+    {
+      "id": "LF05-Q21",
+      "question": "Randabstaende verhindern vor allem ...",
+      "choices": [
+        "Rissbildung",
+        "Holzfeuchte",
+        "Farbunterschiede",
+        "Schaeden im Beton"
+      ],
+      "correctIndex": 0,
+      "explanation": "Zu kleine Randabstaende fuehren haeufig zu Spalten und Rissen."
+    },
+    {
+      "id": "LF05-Q22",
+      "question": "Bezugskante sorgt fuer ...",
+      "choices": [
+        "Masssicherheit",
+        "hoehere Holzhaerte",
+        "chemischen Holzschutz",
+        "automatische Aussteifung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Von einer festen Bezugskante aus bleiben Messungen konsistent."
+    },
+    {
+      "id": "LF05-Q23",
+      "question": "Abbund umfasst ...",
+      "choices": [
+        "Anreissen, Zuschnitt, Anschlussherstellung",
+        "Ausschliesslich Montage",
+        "nur Materialbestellung",
+        "nur Endkontrolle"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das ist die typische Abfolge vor dem Einbau."
+    },
+    {
+      "id": "LF05-Q24",
+      "question": "Bei Saegearbeiten ist wichtig ...",
+      "choices": [
+        "standsicherer Aufbau der Maschine",
+        "nur schneller Schnitt",
+        "nur Musiklautstaerke",
+        "nur Handschuhe"
+      ],
+      "correctIndex": 0,
+      "explanation": "Maschinen muessen stabil und bestimmungsgemaess betrieben werden."
+    },
+    {
+      "id": "LF05-Q25",
+      "question": "Bei Saegen sollten nur ... verwendet werden",
+      "choices": [
+        "unbeschaedigte Saegeblaetter",
+        "gebrauchte Blaetter egal",
+        "stumpfe Blaetter",
+        "beliebige Fremdblaetter"
+      ],
+      "correctIndex": 0,
+      "explanation": "Beschaedigte Blaetter erhoehen Unfall- und Qualitaetsrisiken."
+    },
+    {
+      "id": "LF05-Q26",
+      "question": "Seitlicher Stand beim Saegen reduziert ...",
+      "choices": [
+        "Rueckschlagrisiko",
+        "Holzfeuchte",
+        "Massabweichung",
+        "Aussteifungsbedarf"
+      ],
+      "correctIndex": 0,
+      "explanation": "Seitlich stehen heisst ausserhalb der direkten Rueckschlaglinie."
+    },
+    {
+      "id": "LF05-Q27",
+      "question": "Parallelanschlag falsch genutzt bedeutet ...",
+      "choices": [
+        "Risiko fuer Klemmen und Kickback",
+        "bessere Schnitte immer",
+        "weniger Verschleiss",
+        "kein Einfluss"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ein klemmendes Werkstueck kann abrupt zurueckschlagen."
+    },
+    {
+      "id": "LF05-Q28",
+      "question": "Konstruktiver Holzschutz heisst ...",
+      "choices": [
+        "Wasser wegfuehren und Feuchte fernhalten",
+        "nur chemisch behandeln",
+        "mehr Schrauben setzen",
+        "hoehere Lasten ansetzen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Konstruktive Details sind die erste und wichtigste Schutzstufe."
+    },
+    {
+      "id": "LF05-Q29",
+      "question": "Holz auf feuchtem Beton ohne Trennung fuehrt typischerweise zu ...",
+      "choices": [
+        "Feuchteschaeden",
+        "besserer Tragfaehigkeit",
+        "geringerem Verzug",
+        "keinem Effekt"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kapillar eingetragene Feuchte schaedigt Holzbauteile langfristig."
+    },
+    {
+      "id": "LF05-Q30",
+      "question": "Auswinkeln prueft man ueber ...",
+      "choices": [
+        "Diagonalen",
+        "Wetterbericht",
+        "Holzfarbe",
+        "nur Augenmass"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diagonalen sind ein schneller und zuverlaessiger Winkligkeitscheck."
+    },
+    {
+      "id": "LF05-Q31",
+      "question": "Pfetten und Sparren gehoeren zu ...",
+      "choices": [
+        "Dachkonstruktionen",
+        "Abdichtungsschichten",
+        "Mauerwerk",
+        "Betonbewehrung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Beide Bauteile sind typische Elemente tragender Dachsysteme."
+    }
+  ]
+}

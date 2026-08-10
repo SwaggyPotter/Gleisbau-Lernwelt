@@ -1,0 +1,870 @@
+{
+  "topicId": "lf01",
+  "title": "Baustellen einrichten",
+  "questions": [
+    {
+      "id": "LF01-Q1",
+      "question": "Was gehoert grundsaetzlich zur Baustelleneinrichtung?",
+      "choices": [
+        "Nur das Aufstellen des Baucontainers",
+        "Sicherung, Wege, Lager, Information fuer alle",
+        "Erst wenn die Arbeiten fertig sind",
+        "Nur Absperrband und ein Schild"
+      ],
+      "correctIndex": 1,
+      "explanation": "Baustelleneinrichtung umfasst Flaechen, Wege, Lager, Sicherung und Information – nicht nur einen Container."
+    },
+    {
+      "id": "LF01-Q2",
+      "question": "Warum wird zuerst gesichert und dann gearbeitet?",
+      "choices": [
+        "Zeit zu fuellen, waehrend Material kommt",
+        "Weil Sicherheit Voraussetzung fuer jede Arbeit ist",
+        "Damit die Polizei zufrieden ist",
+        "Um laenger abrechnen zu koennen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ohne Sicherung ist die Arbeit gefaehrlich und oft gar nicht erlaubt; Sicherung ist Grundlage."
+    },
+    {
+      "id": "LF01-Q3",
+      "question": "Wer traegt Verantwortung, dass PSA benutzt wird?",
+      "choices": [
+        "Nur die Sicherheitsfachkraft",
+        "Jede Person auf der Baustelle",
+        "Nur die Auszubildenden",
+        "Niemand, ist freiwillig"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bereitstellung durch Arbeitgeber, Nutzung durch jede Person – Verantwortung wird nicht delegiert."
+    },
+    {
+      "id": "LF01-Q4",
+      "question": "Was ist ein typischer Fehler bei Baustellen im oeffentlichen Raum?",
+      "choices": [
+        "Zu viele Vorwarnschilder",
+        "Schilder zu spaet oder widerspruechlich",
+        "Barrierefreie Wege anbieten",
+        "Absperrungen regelmaessig pruefen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Unklare oder spaete Beschilderung fuehrt zu Unsicherheit und Gefahren."
+    },
+    {
+      "id": "LF01-Q5",
+      "question": "Wozu dienen Absperrungen?",
+      "choices": [
+        "Dekoration",
+        "Trennen und fuehren von Verkehr und Arbeit",
+        "Nur fuer Fotos",
+        "Um Material zu lagern"
+      ],
+      "correctIndex": 1,
+      "explanation": "Absperrungen sollen Menschen und Verkehr leiten und trennen."
+    },
+    {
+      "id": "LF01-Q6",
+      "question": "Welche Gefahr entsteht, wenn Kabel ueber Gehwege liegen?",
+      "choices": [
+        "Keine, wenn man warnt",
+        "Stolper- und Sturzgefahr fuer Fussgaenger",
+        "Nur optisch stoerend",
+        "Sie schmelzen bei Sonne"
+      ],
+      "correctIndex": 1,
+      "explanation": "Lose Kabel sind Stolperstellen und muessen abgedeckt oder umgefuehrt werden."
+    },
+    {
+      "id": "LF01-Q7",
+      "question": "Was ist bei Nachtarbeit besonders wichtig?",
+      "choices": [
+        "Nur schneller arbeiten",
+        "Sichtbarkeit durch Beleuchtung und Reflexion",
+        "Musik lauter stellen",
+        "Auf Warnkleidung verzichten"
+      ],
+      "correctIndex": 1,
+      "explanation": "Gute Beleuchtung und reflektierende Elemente sichern Sichtbarkeit bei Nacht."
+    },
+    {
+      "id": "LF01-Q8",
+      "question": "Warum sind widerspruechliche Schilder gefaehrlich?",
+      "choices": [
+        "Sie sehen unprofessionell aus",
+        "Sie fuehren Verkehrsteilnehmer in falsche oder keine Richtung",
+        "Weil sie teurer sind",
+        "Weil sie mehr Platz brauchen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Widerspruch erzeugt Unsicherheit und kann in den Gefahrenbereich lenken."
+    },
+    {
+      "id": "LF01-Q9",
+      "question": "Was ist der Kern einer Gefaehrdungsbeurteilung?",
+      "choices": [
+        "Material bestellen",
+        "Gefahren erkennen und Massnahmen festlegen",
+        "Nur Unterschriften sammeln",
+        "Zeitbedarf schaetzen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sie dient dazu, Risiken zu identifizieren und passende Schutzmassnahmen zu planen."
+    },
+    {
+      "id": "LF01-Q10",
+      "question": "Warum Unterweisung dokumentieren?",
+      "choices": [
+        "Nur fuer die Statistik",
+        "Rechtssicherheit und nachvollziehbare Inhalte",
+        "Um mehr Papier zu haben",
+        "Weil sonst niemand zuhoert"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dokumentation zeigt, was besprochen wurde, und erfuellt rechtliche Anforderungen."
+    },
+    {
+      "id": "LF01-Q11",
+      "question": "Was bedeutet STOP-Regel?",
+      "choices": [
+        "Sofort Tempo ohne Pause",
+        "Unsicher = stoppen, nachfragen, sichern",
+        "Schilder tragen ohne Pause",
+        "Staendig telefonieren ohne Pause"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bei Unsicherheit Arbeit stoppen, Klaerung holen, erst danach weiter."
+    },
+    {
+      "id": "LF01-Q12",
+      "question": "Welche Info gehoert in eine kurze Unterweisungsnotiz?",
+      "choices": [
+        "Lieblingsmusik des Teams",
+        "Was wurde gesagt, Datum, Teilnehmende",
+        "Wetterbericht",
+        "Mittagsmenue"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kernaussagen, Datum und Teilnehmer sichern Nachvollziehbarkeit."
+    },
+    {
+      "id": "LF01-Q13",
+      "question": "Welche Reihenfolge ist sinnvoll?",
+      "choices": [
+        "Arbeiten, dann warnen",
+        "Warnen -> fuehren -> trennen -> arbeiten",
+        "Erst Kaffee, dann Schilder",
+        "Keine Reihenfolge noetig"
+      ],
+      "correctIndex": 1,
+      "explanation": "Zuerst Gefahren deutlich machen, dann sichere Wege, dann Arbeitsbeginn."
+    },
+    {
+      "id": "LF01-Q14",
+      "question": "Was tun, wenn eine Anweisung unklar ist?",
+      "choices": [
+        "Trotzdem weiterarbeiten",
+        "STOP, nachfragen, Klaerung holen",
+        "Eigenen Weg probieren",
+        "Kollege entscheiden lassen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Unklarheit = stoppen und klaeren, sonst steigt Risiko."
+    },
+    {
+      "id": "LF01-Q15",
+      "question": "Warum ist \"nur kurz\" oft gefaehrlich?",
+      "choices": [
+        "Weil es Zeit spart",
+        "Weil Sicherung umgangen wird und Routine eintritt",
+        "Weil es lauter ist",
+        "Weil es verboten klingt"
+      ],
+      "correctIndex": 1,
+      "explanation": "\"Nur kurz\" fuehrt zu Regelbruechen und ungeplanten Risiken."
+    },
+    {
+      "id": "LF01-Q16",
+      "question": "Welche PSA ist beim Arbeiten mit Trennschleifer typisch?",
+      "choices": [
+        "Nur Handschuhe",
+        "Augenschutz, Gehoerschutz, Handschuhe",
+        "Flipflops",
+        "Keine, Maschine macht alles"
+      ],
+      "correctIndex": 1,
+      "explanation": "Fliegende Funken/Partikel und Laerm erfordern Augen- und Gehoerschutz sowie Handschuhe."
+    },
+    {
+      "id": "LF01-Q17",
+      "question": "Was tun bei beschaedigter Warnweste?",
+      "choices": [
+        "Weitertragen, ist egal",
+        "Sofort tauschen oder instandsetzen lassen",
+        "Umdrehen, damit man es nicht sieht",
+        "Mit Klebeband flicken und ignorieren"
+      ],
+      "correctIndex": 1,
+      "explanation": "Defekte Warnkleidung mindert Sichtbarkeit und muss ersetzt werden."
+    },
+    {
+      "id": "LF01-Q18",
+      "question": "Warum sind reflektierende Elemente nachts entscheidend?",
+      "choices": [
+        "Weil sie huebsch aussehen",
+        "Sie machen Personen frueh sichtbar im Licht",
+        "Sie sind billiger",
+        "Sie halten warm"
+      ],
+      "correctIndex": 1,
+      "explanation": "Reflexe sorgen dafuer, dass Verkehrsteilnehmer fruehzeitig warnen koennen."
+    },
+    {
+      "id": "LF01-Q19",
+      "question": "Welche Aussage stimmt: \"Warnweste reicht immer\"?",
+      "choices": [
+        "Ja, fuer alle Taetigkeiten",
+        "Nein, zusaetzliche PSA je nach Risiko noetig",
+        "Nur bei Regen falsch",
+        "Nur im Winter falsch"
+      ],
+      "correctIndex": 1,
+      "explanation": "Warnweste ersetzt keinen Helm, Handschuhe oder Gehoerschutz."
+    },
+    {
+      "id": "LF01-Q20",
+      "question": "Warum sind Routine und Ablenkung riskant?",
+      "choices": [
+        "Weil man dann schneller ist",
+        "Gefahr wird unterschaetzt, Warnsignale werden ueberhoert",
+        "Weil es langweilig ist",
+        "Weil man mehr redet"
+      ],
+      "correctIndex": 1,
+      "explanation": "Routine laesst Risiken verschwinden, Ablenkung blockiert Wahrnehmung."
+    },
+    {
+      "id": "LF01-Q21",
+      "question": "Was zeigt gute PSA-Pflege?",
+      "choices": [
+        "PSA nie reinigen",
+        "Beschaedigte Teile melden und ersetzen",
+        "Etiketten abschneiden",
+        "Farbige Stifte auftragen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Regelmaessige Kontrolle und Austausch sichert Schutzwirkung."
+    },
+    {
+      "id": "LF01-Q22",
+      "question": "Warum ist Sichtbarkeit im Verkehrsraum lebenswichtig?",
+      "choices": [
+        "Nur fuer Fotos",
+        "Fahrende koennen frueh reagieren und Abstand halten",
+        "Damit Kleidung sauber bleibt",
+        "Damit Kollegen dich finden"
+      ],
+      "correctIndex": 1,
+      "explanation": "Fruehzeitige Wahrnehmung verhindert Kollisionen."
+    },
+    {
+      "id": "LF01-Q23",
+      "question": "Warum muessen Baustellenzeichen fruehzeitig stehen?",
+      "choices": [
+        "Damit mehr Fotos gemacht werden",
+        "Damit Verkehrsteilnehmer Zeit zum Reagieren haben",
+        "Weil es schoen aussieht",
+        "Um Material zu verbrauchen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Vorwarnung ermoeglicht sicheres Anpassen von Geschwindigkeit und Spur."
+    },
+    {
+      "id": "LF01-Q24",
+      "question": "Was ist gefaehrlicher: fehlendes oder falsches Schild?",
+      "choices": [
+        "Falsches Schild kann aktiv in Gefahr fuehren",
+        "Fehlendes Schild ist immer schlimmer",
+        "Beides egal",
+        "Kommt auf die Farbe an"
+      ],
+      "correctIndex": 0,
+      "explanation": "Falsches Schild leitet Verkehr in falsche Richtung und erhoeht Risiko massiv."
+    },
+    {
+      "id": "LF01-Q25",
+      "question": "Welche Massnahme verhindert Schleichwege?",
+      "choices": [
+        "Absperrung weglassen",
+        "Klare Umleitung und sichtbare Absperrung",
+        "Nur ein Schild aufstellen",
+        "Auf Vertrauen setzen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nur klare Wegfuehrung plus Absperrung verhindert Abkuerzungen."
+    },
+    {
+      "id": "LF01-Q26",
+      "question": "Welche Witterung verschlechtert Sicht besonders?",
+      "choices": [
+        "Leichter Wind",
+        "Nebel oder Regen in der Nacht",
+        "Sonnenschein",
+        "Hitze"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nebel und Regen reflektieren Licht, Sichtweite sinkt, Beleuchtung wichtiger."
+    },
+    {
+      "id": "LF01-Q27",
+      "question": "Wie reduziert man Stolperunfaelle?",
+      "choices": [
+        "Kabel lose lassen",
+        "Wege freihalten, Abdeckungen nutzen",
+        "Mehr Musik spielen",
+        "Warnwesten weglassen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Freie Wege und abgedeckte Leitungen mindern Stolperrisiken."
+    },
+    {
+      "id": "LF01-Q28",
+      "question": "Was tun, wenn Absperrung von Dritten geoeffnet wird?",
+      "choices": [
+        "Ignorieren",
+        "Sofort schliessen und freundlich verweisen",
+        "Filmen fuer Social Media",
+        "Abwarten"
+      ],
+      "correctIndex": 1,
+      "explanation": "Absperrung wiederherstellen, informieren und fuehren."
+    },
+    {
+      "id": "LF01-Q29",
+      "question": "Was ist bei Engstellen mit Fussgaengern wichtig?",
+      "choices": [
+        "Schmale Wege ohne Hinweis",
+        "Barrierearme, klare Fuehrung und Absicherung",
+        "Nur auf Lautsprecherdurchsagen setzen",
+        "Nichts, die finden den Weg"
+      ],
+      "correctIndex": 1,
+      "explanation": "Breite, fuehrung und Absperrung muessen auch Rollstuhl/Kinderwagen berücksichtigen."
+    },
+    {
+      "id": "LF01-Q30",
+      "question": "Welche Kategorie beschreibt Gebote/Verbote?",
+      "choices": [
+        "Gefahrzeichen",
+        "Vorschriftzeichen",
+        "Richtzeichen",
+        "Zusatzzeichen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Vorschriftzeichen geben Verbote oder Gebote vor."
+    },
+    {
+      "id": "LF01-Q31",
+      "question": "Wofuer dienen Zusatzzeichen?",
+      "choices": [
+        "Zur Dekoration",
+        "Ergaenzen, wer/wann/wie ein Schild gilt",
+        "Um Schilder groesser zu machen",
+        "Keine Funktion"
+      ],
+      "correctIndex": 1,
+      "explanation": "Zusatzzeichen praezisieren die Reichweite eines Schildes."
+    },
+    {
+      "id": "LF01-Q32",
+      "question": "Was ist der Zweck von Leitbaken/Leitkegeln?",
+      "choices": [
+        "Deko fuer Fotos",
+        "Verkehr fuehren und trennen",
+        "Material abstuetzen",
+        "Nur fuer Parkplaetze"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sie leiten Fahrzeuge sicher am Arbeitsbereich vorbei."
+    },
+    {
+      "id": "LF01-Q33",
+      "question": "Wann ist eine Umleitung sinnvoll?",
+      "choices": [
+        "Nur bei schoenem Wetter",
+        "Wenn der direkte Weg gesperrt oder gefaehrlich ist",
+        "Wenn man mehr Schilder hat",
+        "Nie, Menschen finden selbst einen Weg"
+      ],
+      "correctIndex": 1,
+      "explanation": "Umleitung fuehrt sicher um die Gefahrenstelle herum."
+    },
+    {
+      "id": "LF01-Q34",
+      "question": "Welche Beschilderung muss vor einer Sperrung kommen?",
+      "choices": [
+        "Absperrschranke",
+        "Vorwarnung (z. B. Baustelle)",
+        "Umleitung nach der Sperre",
+        "Keine, reicht nach der Sperre"
+      ],
+      "correctIndex": 1,
+      "explanation": "Verkehr braucht Vorwarnung, bevor er die Sperre erreicht."
+    },
+    {
+      "id": "LF01-Q35",
+      "question": "Warum kann eine falsche Geschwindigkeitsbegrenzung riskant sein?",
+      "choices": [
+        "Weil Fahrer lachen",
+        "Sie erzeugt unerwartetes Bremsen oder zu hohe Geschwindigkeit",
+        "Weil das Schild teurer ist",
+        "Keine Auswirkung"
+      ],
+      "correctIndex": 1,
+      "explanation": "Falsche Tempoangabe fuehrt zu Fehlverhalten und Gefahren."
+    },
+    {
+      "id": "LF01-Q36",
+      "question": "Wie erkennst du eine klare Wegfuehrung?",
+      "choices": [
+        "Viele verschiedene Pfeile",
+        "Durchgaengige Linie von Warnung, Fuehrung, Umleitung",
+        "Keine Schilder, nur Absperrband",
+        "Jede Kreuzung anders beschildert"
+      ],
+      "correctIndex": 1,
+      "explanation": "Eine nachvollziehbare Kette ohne Bruche verhindert Irritation."
+    },
+    {
+      "id": "LF01-Q37",
+      "question": "Was ist Kernrisiko im Gleisbereich?",
+      "choices": [
+        "Langsames WLAN",
+        "Annaehernde Fahrten und Lichtraum",
+        "Zu wenig Kaffee",
+        "Zu viele Schilder"
+      ],
+      "correctIndex": 1,
+      "explanation": "Fahrten und Lichtraumprofil machen den Gleisbereich hochriskant."
+    },
+    {
+      "id": "LF01-Q38",
+      "question": "Wann darfst du den Gleisbereich betreten?",
+      "choices": [
+        "Wenn es leer aussieht",
+        "Nur wenn Sicherung organisiert und aktiv ist",
+        "Immer, wenn du es eilig hast",
+        "Nie"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sicherung muss stehen, sonst bleibt der Bereich tabu."
+    },
+    {
+      "id": "LF01-Q39",
+      "question": "Was bedeutet Warnsignal im Gleisbereich?",
+      "choices": [
+        "Langsamer weiterarbeiten",
+        "Sofort Arbeit stoppen, Werkzeug sichern, in Sicherheitsraum",
+        "Nur kurz schauen",
+        "Erst fertig machen, dann gehen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Warnung verlangt sofortiges Freimachen des Gleises und Sicherungsraum aufsuchen."
+    },
+    {
+      "id": "LF01-Q40",
+      "question": "Warum sind Kopfhoerer im Gleisbereich tabu?",
+      "choices": [
+        "Weil Musik nervt",
+        "Sie blockieren Warnsignale und Kommunikation",
+        "Sie sehen schlecht aus",
+        "Sie sind zu teuer"
+      ],
+      "correctIndex": 1,
+      "explanation": "Akustische Warnungen muessen hoerbar bleiben."
+    },
+    {
+      "id": "LF01-Q41",
+      "question": "Was ist Lichtraumprofil?",
+      "choices": [
+        "Beleuchtung in der Nacht",
+        "Der Bereich, den Fahrzeuge zum sicheren Durchfahren brauchen",
+        "Eine neue App",
+        "Farbe des Signals"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kein Material oder Person darf in den Lichtraum ragen."
+    },
+    {
+      "id": "LF01-Q42",
+      "question": "Warum klare Fluchtraeume definieren?",
+      "choices": [
+        "Zum Rauchen",
+        "Damit alle wissen, wohin bei Warnung",
+        "Damit Material gelagert wird",
+        "Keine Notwendigkeit"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nur klar vereinbarte Fluchtraeume sichern schnelle Reaktion."
+    },
+    {
+      "id": "LF01-Q43",
+      "question": "Typischer Fehler im Gleisbereich?",
+      "choices": [
+        "Material im Lichtraum lagern",
+        "Warnkleidung tragen",
+        "Fluchtraum kennen",
+        "Sicherungsposten ansprechen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Material darf nicht in den Lichtraum ragen oder dort gelagert werden."
+    },
+    {
+      "id": "LF01-Q44",
+      "question": "Warum ist Ablenkung (Handy) im Gleisbereich extrem riskant?",
+      "choices": [
+        "Weil Akku leer gehen kann",
+        "Du verpasst Warnsignale und Sichtkontakt",
+        "Handy kann herunterfallen",
+        "Weil es verboten aussieht"
+      ],
+      "correctIndex": 1,
+      "explanation": "Blick und Hoersinn muessen frei fuer Warnungen bleiben."
+    },
+    {
+      "id": "LF01-Q45",
+      "question": "Hauptgefahr am Bahnuebergang?",
+      "choices": [
+        "Keine, Schranke regelt alles",
+        "Autos/Fussgaenger unterschaetzen Bahnverkehr und Material",
+        "Zu viele Schilder",
+        "Nur Laerm"
+      ],
+      "correctIndex": 1,
+      "explanation": "Autos und Fussgaenger rechnen oft nicht mit Baustelle und Bahnverkehr gleichzeitig."
+    },
+    {
+      "id": "LF01-Q46",
+      "question": "Welche Massnahme gilt am Bahnuebergang?",
+      "choices": [
+        "Arbeitsbereich offen lassen",
+        "Arbeitsbereich klar absperren und fuehren",
+        "Absperrung waehrend Pausen oeffnen",
+        "Nur Warnweste reicht"
+      ],
+      "correctIndex": 1,
+      "explanation": "Absperrungen und klare Fuehrung schuetzen Team und Dritte."
+    },
+    {
+      "id": "LF01-Q47",
+      "question": "Wie reagierst du, wenn Auto trotz Absperrung in Baustelle faehrt?",
+      "choices": [
+        "Ignorieren",
+        "Arbeit stoppen, Fahrer sicher anhalten/verweisen, Vorgesetzten informieren",
+        "Filmen fuer Social Media",
+        "Absperrung abbauen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sicherheit vor, Arbeit stoppen, Person sicher herausfuehren und melden."
+    },
+    {
+      "id": "LF01-Q48",
+      "question": "Warum sind Sichtdreiecke wichtig?",
+      "choices": [
+        "Nur fuer Optik",
+        "Material darf Sicht auf Bahnuebergang nicht verdecken",
+        "Damit Fotos besser werden",
+        "Keine Relevanz"
+      ],
+      "correctIndex": 1,
+      "explanation": "Freie Sicht ermoeglicht rechtzeitiges Erkennen von Verkehr."
+    },
+    {
+      "id": "LF01-Q49",
+      "question": "Was tun, wenn fehlende Schilder/Material bemerkt werden?",
+      "choices": [
+        "Weiterarbeiten",
+        "Melden, stoppen, Ersatz organisieren",
+        "Improvisieren mit Pappkarton",
+        "Nichts, wird schon gehen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sicherungsluecken muessen sofort geschlossen werden."
+    },
+    {
+      "id": "LF01-Q50",
+      "question": "Typische Unfallursache im Gleisbereich?",
+      "choices": [
+        "Zu viel Planen",
+        "Routine und Unterschaetzung von Fahrten",
+        "Zu viele Warnwesten",
+        "Zu viele Pausen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Vertrautheit fuehrt zu Regelverletzungen und Unachtsamkeit."
+    },
+    {
+      "id": "LF01-Q51",
+      "question": "Warum ist klare Kommunikation wichtig?",
+      "choices": [
+        "Damit es lauter ist",
+        "Kurze, eindeutige Ansagen vermeiden Missverstaendnisse",
+        "Weil Funkgeraete teuer sind",
+        "Keine Bedeutung"
+      ],
+      "correctIndex": 1,
+      "explanation": "Eindeutige Kommunikation verhindert falsche Bewegungen und Unfaelle."
+    },
+    {
+      "id": "LF01-Q52",
+      "question": "Reaktion auf unuebersichtliche Stelle (Kurve)?",
+      "choices": [
+        "Nichts tun",
+        "Vorwarnung weiter vorne, Sicherungsposten mit Sichtkontakt",
+        "Absperrung weglassen",
+        "Kopfhoerer aufsetzen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Fruehere Warnung und Sichtkontakt verringern Risiko in Kurven."
+    },
+    {
+      "id": "LF01-Q53",
+      "question": "Warum Ordnung am Ende des Tages?",
+      "choices": [
+        "Nur fuer gutes Gefuehl",
+        "Verhindert Stolpern, Diebstahl, Schaeden",
+        "Damit Chef laechelt",
+        "Keine Relevanz"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ordnung reduziert Gefahren und schuetzt Material."
+    },
+    {
+      "id": "LF01-Q54",
+      "question": "Was ist bei Materiallagerung wichtig?",
+      "choices": [
+        "So nah wie moeglich an Gleis/Verkehr",
+        "Nichts im Gefahren- oder Lichtraumbereich lagern",
+        "Auf Wegen ablegen, damit sichtbar",
+        "Egal, wenn beschriftet"
+      ],
+      "correctIndex": 1,
+      "explanation": "Material muss ausserhalb von Fahr- und Fluchtbereichen liegen."
+    },
+    {
+      "id": "LF01-Q55",
+      "question": "Welche Aussage zu Umweltschutz stimmt?",
+      "choices": [
+        "Oel darf in Schotter sickern",
+        "Oel/Kraftstoff auffangen und entsorgen",
+        "Abfaelle liegen lassen",
+        "Nichts, Umwelt erholt sich"
+      ],
+      "correctIndex": 1,
+      "explanation": "Fluessigkeiten muessen aufgefangen und fachgerecht entsorgt werden."
+    },
+    {
+      "id": "LF01-Q56",
+      "question": "Welche Reaktion ist falsch?",
+      "choices": [
+        "\"Erst mal weiterarbeiten, bis jemand was sagt\"",
+        "Bei Unsicherheit stoppen und klaeren",
+        "Gefahren melden",
+        "Absicherung pruefen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Weiterarbeiten trotz Zweifel ist riskant und verstoesst gegen STOP-Regel."
+    },
+    {
+      "id": "LF01-Q57",
+      "question": "Was ist bei Fussgaengern mit Kinderwagen/Rollstuhl zu beachten?",
+      "choices": [
+        "Keine Ruecksicht noetig",
+        "Barrierearme, breite Wege und Rampen",
+        "Treppen sind genug",
+        "Nur Hinweise per Lautsprecher"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sichere Fuehrung muss barrierearm sein."
+    },
+    {
+      "id": "LF01-Q58",
+      "question": "Warum Beleuchtung nicht nur Komfort?",
+      "choices": [
+        "Nur fuer Fotos",
+        "Sichtbarkeit und Erkennbarkeit, besonders nachts",
+        "Damit Maschinen warm bleiben",
+        "Keine Wirkung"
+      ],
+      "correctIndex": 1,
+      "explanation": "Beleuchtung ist Schutzmassnahme fuer Arbeitende und Verkehr."
+    },
+    {
+      "id": "LF01-Q59",
+      "question": "Wie verhinderst du, dass Leute trotzdem durchlaufen?",
+      "choices": [
+        "Absperrung offen lassen",
+        "Klare, fruehe Fuehrung und Praesenz vor Ort",
+        "Keine Schilder",
+        "Nur hoffen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kombination aus Fuehrung, Absperrung und Ansprache verhindert Durchlaeufer."
+    },
+    {
+      "id": "LF01-Q60",
+      "question": "Welches Prinzip fasst Lernfeld 1 am besten zusammen?",
+      "choices": [
+        "Arbeiten vor Sicherung",
+        "Sichern vor Arbeiten",
+        "Schneller ist sicherer",
+        "Material vor Menschen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Zentraler Satz: erst sichern, dann arbeiten."
+    },
+    {
+      "id": "LF01-Q61",
+      "question": "Wer darf bei akuter Gefahr die Arbeiten stoppen?",
+      "choices": [
+        "Nur der Bauherr",
+        "Sicherungsaufsicht mit Weisungsrecht",
+        "Nur der Kranfuehrer",
+        "Niemand, es wird weitergearbeitet"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die Sicherungsaufsicht kann und muss bei Gefahr sofort stoppen."
+    },
+    {
+      "id": "LF01-Q62",
+      "question": "Wann muss neben der jaehrlichen Unterweisung zusaetzlich unterwiesen werden?",
+      "choices": [
+        "Nur bei gutem Wetter",
+        "Bei Aenderung von Taetigkeit, Geraet oder Baustelle",
+        "Nur wenn neue Mitarbeitende starten",
+        "Nie, einmal pro Jahr reicht immer"
+      ],
+      "correctIndex": 1,
+      "explanation": "Aenderungen von Risiken oder Ablaeufen erfordern eine neue, konkrete Unterweisung."
+    },
+    {
+      "id": "LF01-Q63",
+      "question": "Welche Warnschutzklasse ist im Gleisbereich in der Praxis meist erforderlich?",
+      "choices": [
+        "Klasse 1",
+        "Klasse 2",
+        "Klasse 3",
+        "Keine Klasse notwendig"
+      ],
+      "correctIndex": 2,
+      "explanation": "Im Gleisbereich wird in der Regel Warnschutzklasse 3 verlangt."
+    },
+    {
+      "id": "LF01-Q64",
+      "question": "Was ist das Hauptziel im oeffentlichen Raum?",
+      "choices": [
+        "Nur den Bauablauf beschleunigen",
+        "Nur Material vor Diebstahl schuetzen",
+        "Beschaeftigte und unbeteiligte Dritte gleichzeitig schuetzen",
+        "Verkehr ohne Beschilderung laufen lassen"
+      ],
+      "correctIndex": 2,
+      "explanation": "Im oeffentlichen Raum muessen Arbeits- und Verkehrsrisiken gleichzeitig abgesichert werden."
+    },
+    {
+      "id": "LF01-Q65",
+      "question": "Welche Aussage zu Verkehrszeichen auf Baustellen ist richtig?",
+      "choices": [
+        "Schilder duerfen spontan aufgestellt werden",
+        "Aufstellen nur auf Basis verkehrsrechtlicher Anordnung",
+        "Aenderungen macht jedes Teammitglied selbst",
+        "Richtzeichen sind unverbindliche Tipps"
+      ],
+      "correctIndex": 1,
+      "explanation": "Verkehrszeichen im oeffentlichen Raum brauchen eine behordliche Anordnung."
+    },
+    {
+      "id": "LF01-Q66",
+      "question": "Was gilt bei Warnung im Gleisbereich?",
+      "choices": [
+        "Arbeit sauber zu Ende fuehren und dann raus",
+        "Sofort Gefahrenbereich verlassen und in Sicherheitsraum gehen",
+        "Nur laute Maschinen stoppen",
+        "Auf Rueckfrage warten"
+      ],
+      "correctIndex": 1,
+      "explanation": "Warnung bedeutet unverzueglich raus aus dem Gefahrenbereich."
+    },
+    {
+      "id": "LF01-Q67",
+      "question": "Warum gilt der Bahnuebergang als Doppelgefahrenbereich?",
+      "choices": [
+        "Weil dort zwei Schranken stehen",
+        "Weil Schienen- und Strassenverkehr gleichzeitig zu sichern sind",
+        "Weil nur nachts gearbeitet wird",
+        "Weil dort keine Regeln gelten"
+      ],
+      "correctIndex": 1,
+      "explanation": "Am Bahnuebergang treffen Bahn- und Strassenverkehr direkt aufeinander."
+    },
+    {
+      "id": "LF01-Q68",
+      "question": "Was gehoert zwingend zum Tagesabschluss?",
+      "choices": [
+        "Nur Werkzeuge zaehlen",
+        "Absperrung, Beleuchtung, Material und Maschinenzustand kontrollieren",
+        "Nur den Container abschliessen",
+        "Nur den Wetterbericht pruefen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Der Tagesabschluss sichert die Baustelle auch ohne Personal in der Nacht."
+    },
+    {
+      "id": "LF01-Q69",
+      "question": "Welche Reihenfolge beschreibt das TOP-Prinzip korrekt?",
+      "choices": [
+        "Persoenlich, Organisatorisch, Technisch",
+        "Technisch, Organisatorisch, Persoenlich",
+        "Organisatorisch, Persoenlich, Technisch",
+        "Es gibt keine feste Reihenfolge"
+      ],
+      "correctIndex": 1,
+      "explanation": "Erst technische und organisatorische Massnahmen, PSA als letzte Schutzstufe."
+    },
+    {
+      "id": "LF01-Q70",
+      "question": "Wie ist mit einem Helm mit sichtbarem Riss umzugehen?",
+      "choices": [
+        "Weitertragen bis Feierabend",
+        "Mit Klebeband reparieren und nutzen",
+        "Sofort aus dem Einsatz nehmen und ersetzen",
+        "Nur bei Regen austauschen"
+      ],
+      "correctIndex": 2,
+      "explanation": "Beschaedigte PSA verliert Schutzwirkung und muss ersetzt werden."
+    },
+    {
+      "id": "LF01-Q71",
+      "question": "Was ist ein typischer Beschilderungsfehler nach Bauphasenwechsel?",
+      "choices": [
+        "Neue Schilder korrekt nach Plan",
+        "Restbeschilderung bleibt stehen und widerspricht neuer Fuehrung",
+        "Taegliche Sichtkontrolle der Schilder",
+        "Leitbaken nachts beleuchten"
+      ],
+      "correctIndex": 1,
+      "explanation": "Alte oder widerspruechliche Beschilderung fuehrt zu Unsicherheit und Fehlverhalten."
+    },
+    {
+      "id": "LF01-Q72",
+      "question": "Welche Aussage zum Lichtraumprofil ist korrekt?",
+      "choices": [
+        "Werkzeug darf kurz im Lichtraum liegen bleiben",
+        "Material im Lichtraum ist erlaubt, wenn es markiert ist",
+        "Lichtraumprofil muss jederzeit frei von Personen, Material und Geraeten sein",
+        "Das gilt nur bei Tageslicht"
+      ],
+      "correctIndex": 2,
+      "explanation": "Der fuer Zugfahrten benoetigte Raum ist strikt freizuhalten."
+    }
+  ]
+}

@@ -1,0 +1,282 @@
+{
+  "topicId": "lf12",
+  "title": "Weichen montieren und einmessen",
+  "questions": [
+    {
+      "id": "LF12-Q1",
+      "question": "Instandhaltung dient vor allem ...",
+      "choices": [
+        "der Sicherung von Betrieb und Sicherheit",
+        "nur der Optik",
+        "Neubau",
+        "Zeitgewinn"
+      ],
+      "correctIndex": 0,
+      "explanation": "Instandhaltung soll den sicheren und verfuegbaren Bahnbetrieb sichern."
+    },
+    {
+      "id": "LF12-Q2",
+      "question": "Was ist ein typischer Gleisfehler?",
+      "choices": [
+        "Setzungen oder Schienenverschleiss",
+        "saubere Schwellen",
+        "neue Schienen",
+        "korrektes Stopfen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Setzungen und Verschleiss sind haeufige Schadensbilder im Bestand."
+    },
+    {
+      "id": "LF12-Q3",
+      "question": "Warum sind Gleislagefehler kritisch?",
+      "choices": [
+        "sie gefaehrden Sicherheit und erhoehen Verschleiss",
+        "nur Komfort",
+        "nur Laerm",
+        "nur Optik"
+      ],
+      "correctIndex": 0,
+      "explanation": "Lagefehler wirken direkt auf Fahrdynamik, Bauteilbelastung und Betriebssicherheit."
+    },
+    {
+      "id": "LF12-Q4",
+      "question": "Was wird bei der Gleispruefung gemessen?",
+      "choices": [
+        "Spurweite, Hoehe, Seite, Ueberhoehung",
+        "nur Schotterfarbe",
+        "Schwellenanzahl",
+        "Wetter"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diese Messgroessen beschreiben die wesentliche Gleisgeometrie."
+    },
+    {
+      "id": "LF12-Q5",
+      "question": "Was ist eine typische Instandhaltungsmassnahme?",
+      "choices": [
+        "Nachstopfen des Schotters",
+        "Schienenneubau immer",
+        "Abriss",
+        "Asphaltieren"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nachstopfen ist eine klassische Massnahme zur Wiederherstellung der Gleislage."
+    },
+    {
+      "id": "LF12-Q6",
+      "question": "Was ist beim Stopfen im Bestand besonders wichtig?",
+      "choices": [
+        "Genauigkeit und Sicherheit unter Betrieb",
+        "Geschwindigkeit allein",
+        "Optik",
+        "neue Schwellen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Im Bestand sind praezise Korrektur und sichere Ausfuehrung entscheidend."
+    },
+    {
+      "id": "LF12-Q7",
+      "question": "Was ist bei Arbeiten unter Betrieb zwingend?",
+      "choices": [
+        "Sicherung gegen Zugverkehr",
+        "schnelleres Arbeiten",
+        "weniger Personal",
+        "Improvisation"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sicherung gegen Zugverkehr ist nicht verhandelbar."
+    },
+    {
+      "id": "LF12-Q8",
+      "question": "Warum wird dokumentiert?",
+      "choices": [
+        "Nachweis von Sicherheit und Qualitaet",
+        "nur Bueroarbeit",
+        "freiwillig",
+        "Zeitvertreib"
+      ],
+      "correctIndex": 0,
+      "explanation": "Dokumentation belegt Zustand, Massnahmen und Ergebnis nachvollziehbar."
+    },
+    {
+      "id": "LF12-Q9",
+      "question": "Instandhaltung erhaelt vor allem ...",
+      "choices": [
+        "Betriebssicherheit",
+        "nur Optik",
+        "nur Materiallager",
+        "nur Geschwindigkeit"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der sichere Betrieb ist das Hauptziel der Gleisinstandhaltung."
+    },
+    {
+      "id": "LF12-Q10",
+      "question": "Gleisfehler entstehen haeufig durch ...",
+      "choices": [
+        "Belastung und Zeit",
+        "nur Farbe",
+        "nur Schilder",
+        "nur Wetterbericht"
+      ],
+      "correctIndex": 0,
+      "explanation": "Verkehrslast und Alterung wirken kontinuierlich auf das Gleis ein."
+    },
+    {
+      "id": "LF12-Q11",
+      "question": "Setzungen fuehren oft zu ...",
+      "choices": [
+        "Hoehenfehlern",
+        "besserer Lage",
+        "weniger Verschleiss",
+        "korrekter Spurweite"
+      ],
+      "correctIndex": 0,
+      "explanation": "Setzungen veraendern die vertikale Lage des Gleises."
+    },
+    {
+      "id": "LF12-Q12",
+      "question": "Gleislagefehler erhoehen ...",
+      "choices": [
+        "den Verschleiss",
+        "nur die Farbe",
+        "nur den Papierverbrauch",
+        "nichts"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fehlgeometrie erzeugt unguenstige dynamische Belastungen."
+    },
+    {
+      "id": "LF12-Q13",
+      "question": "Welche Groesse ist sicherheitsrelevant?",
+      "choices": [
+        "Spurweite",
+        "Schotterfarbe",
+        "Wetterlage",
+        "Baustellenname"
+      ],
+      "correctIndex": 0,
+      "explanation": "Spurweite ist eine zentrale Sicherheitsgroesse im Gleis."
+    },
+    {
+      "id": "LF12-Q14",
+      "question": "Nachstopfen ist ...",
+      "choices": [
+        "eine typische Instandhaltungsmassnahme",
+        "nur Neubau",
+        "nur Optik",
+        "nicht notwendig"
+      ],
+      "correctIndex": 0,
+      "explanation": "Damit wird die Gleisgeometrie im Bestand korrigiert."
+    },
+    {
+      "id": "LF12-Q15",
+      "question": "Welche Aussage stimmt?",
+      "choices": [
+        "Neubau ist nicht immer noetig",
+        "jede Abweichung braucht Neubau",
+        "nur Abriss hilft",
+        "Instandsetzung ist unzulaessig"
+      ],
+      "correctIndex": 0,
+      "explanation": "Viele Fehler lassen sich durch gezielte Instandsetzung beheben."
+    },
+    {
+      "id": "LF12-Q16",
+      "question": "Messung ist Grundlage fuer ...",
+      "choices": [
+        "jede Massnahme",
+        "nur den Bericht",
+        "nur Fotos",
+        "keine Entscheidungen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ohne Messwerte fehlt die fachliche Basis fuer Korrekturen."
+    },
+    {
+      "id": "LF12-Q17",
+      "question": "Stopfen stellt vor allem ... wieder her",
+      "choices": [
+        "die Gleislage",
+        "die Schienenfarbe",
+        "die Beschilderung",
+        "die Vegetation"
+      ],
+      "correctIndex": 0,
+      "explanation": "Stopfen korrigiert Hoehe und Lage des Gleises."
+    },
+    {
+      "id": "LF12-Q18",
+      "question": "Arbeiten im Bestand sind oft ...",
+      "choices": [
+        "risikoreicher",
+        "immer einfacher",
+        "immer ohne Sicherung",
+        "nur theoretisch"
+      ],
+      "correctIndex": 0,
+      "explanation": "Betrieb, Zeitfenster und Bestandseinfluss erhoehen das Risiko."
+    },
+    {
+      "id": "LF12-Q19",
+      "question": "Sicherungsposten sind ...",
+      "choices": [
+        "Pflicht",
+        "optional",
+        "nur bei Neubau",
+        "nur bei Regen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sie sind elementarer Bestandteil der Sicherung gegen Zugverkehr."
+    },
+    {
+      "id": "LF12-Q20",
+      "question": "Dokumentation schuetzt ...",
+      "choices": [
+        "Betrieb und Personal",
+        "nur Aktenordner",
+        "nur Termine",
+        "nur den Einkauf"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sie liefert Nachweis und Nachvollziehbarkeit bei Betrieb und Abnahme."
+    },
+    {
+      "id": "LF12-Q21",
+      "question": "Lose Befestigungen sind ...",
+      "choices": [
+        "gefaehrlich",
+        "unproblematisch",
+        "nur optisch",
+        "gewollt"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sie beeintraechtigen Spur- und Lagehaltung direkt."
+    },
+    {
+      "id": "LF12-Q22",
+      "question": "Schotterverschmutzung verschlechtert vor allem ...",
+      "choices": [
+        "die Drainage",
+        "nur die Farbe",
+        "die Schienenlaenge",
+        "den Betonanteil"
+      ],
+      "correctIndex": 0,
+      "explanation": "Verschmutzter Schotter verliert Entwaesserungs- und Tragfunktion."
+    },
+    {
+      "id": "LF12-Q23",
+      "question": "Welcher Grundsatz gilt immer?",
+      "choices": [
+        "Sicherheit geht vor Zeitdruck",
+        "Zeitdruck geht vor Sicherheit",
+        "Improvisation spart Risiko",
+        "Dokumentation ist entbehrlich"
+      ],
+      "correctIndex": 0,
+      "explanation": "Auch bei engen Sperrpausen bleibt Sicherheit das oberste Prinzip."
+    }
+  ]
+}

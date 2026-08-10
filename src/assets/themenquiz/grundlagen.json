@@ -73,6 +73,246 @@
       ],
       "correctIndex": 0,
       "explanation": "Das Planum gehört zum Unterbau. Schiene, Schwelle und Bettung sind Oberbauteile."
+    },
+    {
+      "id": "grundlagen-g1",
+      "question": "Welcher Begriff bezeichnet im Eisenbahnbau das Maß zwischen der Schwellenunterkante und der Planumsschutzschicht (PSS)?",
+      "choices": [
+        "Gleisschotterhöhe",
+        "Bettungsstärke",
+        "Oberbautiefe",
+        "Sohlwandtiefe"
+      ],
+      "correctIndex": 1,
+      "explanation": "Als wirksame Dicke der Bettung gilt das Maß zwischen Schwellenunterkante und Planumschutzschicht (PSS) von mindestens 30 cm, wie in der Trackopedia zur Schotterbettung beschrieben."
+    },
+    {
+      "id": "grundlagen-g2",
+      "question": "Welches Gestein ist für den Gleisschotter des Oberbaus am besten geeignet?",
+      "choices": [
+        "Kalkstein",
+        "Basalt oder Granit (Hartgestein)",
+        "Sandstein",
+        "Tonschiefer"
+      ],
+      "correctIndex": 1,
+      "explanation": "Hartgesteine wie Basalt, Diabas oder Granit sind am besten geeignet, da sie große Druckfestigkeit und Zähigkeit besitzen. Weichgesteine wie Kalk, Dolomit oder Sedimentgestein sind weniger brauchbar."
+    },
+    {
+      "id": "grundlagen-g3",
+      "question": "Welche Korngröße ist für Gleisschotter in Hauptgleisen allgemein üblich?",
+      "choices": [
+        "8 bis 14 mm",
+        "22,4 bis 63 mm",
+        "64 bis 100 mm",
+        "101 bis 150 mm"
+      ],
+      "correctIndex": 1,
+      "explanation": "Für Hauptgleise ist gebrochener Schotter im Kornbereich von rund 22,4 bis 63 mm üblich (Siebreihe nach DIN EN 13450). Korngröße und Kornverteilung müssen der Siebkurve bzw. Sieblinie entsprechen."
+    },
+    {
+      "id": "grundlagen-g4",
+      "question": "Welche drei Komponenten bilden zusammen den klassischen Eisenbahnoberbau?",
+      "choices": [
+        "Schiene, Schwelle und Bettung",
+        "Schwelle, Unterbau und Planum",
+        "Gleisbogen, Weiche und Kreuzung",
+        "Schienen, Bauwerke und Drainage"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der klassische Eisenbahnoberbau besteht aus dem Gleis (Schiene, Schwelle mit Befestigungsmitteln), der Bettung und den Schutzschichten. Diese Komponenten bilden den gleitfähigen Oberbau auf dem Unterbau."
+    },
+    {
+      "id": "grundlagen-g5",
+      "question": "Welche Aufgabe hat das Schotterbett im Eisenbahnoberbau NICHT?",
+      "choices": [
+        "Lastverteilung von Schienen auf den Unterbau",
+        "Elektrische Isolierung der Schienen",
+        "Elastizität für Fahrgemütlichkeit",
+        "Entwässerung des Gleiskörpers"
+      ],
+      "correctIndex": 1,
+      "explanation": "Das Schotterbett leitet vertikale und horizontale Kräfte in den Untergrund ab, verleiht Elastizität und ermöglicht Entwässerung. Die elektrische Isolierung der Schienen gehört nicht zu den Aufgaben des Schotterbetts."
+    },
+    {
+      "id": "grundlagen-g6",
+      "question": "Warum muss das Gleisbett stabilisiert und verdichtet werden?",
+      "choices": [
+        "Um die elektrische Leitfähigkeit zu erhöhen",
+        "Um die Lagestabilität des Gleises und seine Dauerhaftigkeit zu sichern",
+        "Um den Schotter optisch schöner wirken zu lassen",
+        "Um die Kosten für den Unterbau zu senken"
+      ],
+      "correctIndex": 1,
+      "explanation": "Lagenweise Verdichtung und Stabilisierung führen zu einer Erhöhung der Lagestabilität des Gleises und seiner Dauerhaftigkeit. Ein optimaler Querverschiebewiderstand wird durch dynamische Stabilisierung erreicht."
+    },
+    {
+      "id": "grundlagen-g7",
+      "question": "Welche Eigenschaft muss Gleisschotter erfüllen, damit er dem Oberflächenwasser standhält?",
+      "choices": [
+        "Er muss wasserundurchlässig sein",
+        "Er muss eine gute Wasserdurchlässigkeit besitzen (entwässerbar)",
+        "Er muss hydrophob beschichtet sein",
+        "Er muss porös und wasserspeichernd sein"
+      ],
+      "correctIndex": 1,
+      "explanation": "Das Schotterbett muss dem Oberflächenwasser (Regen) standhalten können. Eine gute Entwässerung ist essentiell, damit sich das Gleis nicht aufquellen kann und die Elastizität bleibt."
+    },
+    {
+      "id": "grundlagen-g8",
+      "question": "Was ist die Hauptaufgabe des Unterbaus im Eisenbahnbau?",
+      "choices": [
+        "Die Gleislage zu stabilisieren und Lasten in den natürlichen Untergrund abzuleiten",
+        "Die elektrische Isolierung zwischen Schienen sicherzustellen",
+        "Die Weichen anzufahren und einzustellen",
+        "Das Gleis vor Witterungseinflüssen zu schützen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mit dem Begriff Unterbau bezeichnet man die Gesamtheit der Konstruktionen, die die Kräfte aus dem Oberbau bzw. dem Gleisbett aufnehmen und in den natürlichen Untergrund ableiten. Er bildet die feste Unterlage für den Oberbau."
+    },
+    {
+      "id": "grundlagen-g9",
+      "question": "Welche Funktion hat die Planumsschutzschicht (PSS)?",
+      "choices": [
+        "Sie schützt das Schotterbett vor Verwitterung von oben",
+        "Sie begrenzt die wirksame Bettungstiefe und verhindert Durchpressen des Planums",
+        "Sie leitet Signale zwischen den Schienen weiter",
+        "Sie dient als Isolierung gegen Frosthebungen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die Planumsschutzschicht (PSS) liegt zwischen Bettung und Erdplanum. Sie begrenzt die wirksame Bettungsdicke nach unten, verbessert die Lastverteilung, schützt das Planum vor eindringendem Schotter und dient Entwässerung und Frostschutz."
+    },
+    {
+      "id": "grundlagen-g10",
+      "question": "Welche drei Arten von Bauwerken zählen zum Eisenbahnunterbau?",
+      "choices": [
+        "Dämme, Einschnitte und Kunstbauwerke (Brücken, Tunnel)",
+        "Weichen, Kreuzungen und Gleiswechsel",
+        "Signale, Lichtsignale und Durchfahrtsschilder",
+        "Schwellen, Schotter und Bettungszwischenlage"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Unterbau bildet die feste Unterlage für den Oberbau, indem er Höhenunterschiede des Geländes durch Dammschüttungen, Einschnitte oder Kunstbauwerke wie Brücken oder Tunnel ausgleicht."
+    },
+    {
+      "id": "grundlagen-g11",
+      "question": "Was ist eine \"Feste Fahrbahn\" im Gegensatz zum klassischen Schotteroberbau?",
+      "choices": [
+        "Sie verwendet Betonplatten statt Schotter als Bettung",
+        "Sie hat keine Schwellen und verwendet nur Schienen auf Betontafeln",
+        "Sie verwendet Stahlseile zur Spannung der Schiene",
+        "Sie besteht nur aus Asphaltbelag"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bei einer Tragschicht aus Beton oder Asphalt statt Schotter, auch zwischen den Schwellen, handelt es sich um eine Feste Fahrbahn. Diese Alternative bietet höhere Stabilität bei höheren Geschwindigkeiten."
+    },
+    {
+      "id": "grundlagen-g12",
+      "question": "Welche Aufgabe haben die Schutzschichten im Eisenbahnoberbau?",
+      "choices": [
+        "Sie erhöhen den elektrischen Widerstand zwischen Schiene und Schwelle",
+        "Sie schützen den Oberbau vor Wasser, Frost und anderen Witterungseinflüssen",
+        "Sie stabilisieren mechanisch das Gleisbett zusätzlich zum Schotter",
+        "Sie leiten elektrische Signale für das Signalwesen weiter"
+      ],
+      "correctIndex": 1,
+      "explanation": "Schutzschichten dienen dem Schutz des Oberbaus vor Feuchtigkeit, Frost und anderen Witterungseinflüssen. Dazu zählen z.B. Dränschichten oder wasserdurchlässige Schutzdecken über der Bettung."
+    },
+    {
+      "id": "grundlagen-g13",
+      "question": "Was versteht man unter \"Bettungsreinigung\"?",
+      "choices": [
+        "Die Entfernung von Pflanzen und Gras aus dem Schotterbett",
+        "Das Reinigen des Schotters von Verunreinigungen, die den Wasserabfluss behindern und die Elastizität mindern",
+        "Die Erhöhung der Bettungstiefe durch Nachschütten frischen Schotters",
+        "Das Reinigen der Schienenoberfläche vor Korrosionsschutz"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die Bettungsreinigung ist essentiell für die Haltbarkeit des Schotterbettes. Verunreinigungen wie Schlamm, Laub oder Erde mindern die Reibung zwischen den Schotterschichten und behindern die Entwässerung."
+    },
+    {
+      "id": "grundlagen-g14",
+      "question": "Was ist ein Hauptvorteil der Feste Fahrbahn gegenüber dem Schotteroberbau?",
+      "choices": [
+        "Geringere Baukosten bei gleichen Eigenschaften",
+        "Geringerer Instandhaltungsaufwand und dauerhaft stabile Gleislage",
+        "Einfachere Montage von Weichen und Kreuzungen",
+        "Höhere Elastizität des Gleiskörpers"
+      ],
+      "correctIndex": 1,
+      "explanation": "Eine Feste Fahrbahn bietet eine dauerhaft stabile Gleislage und deutlich geringeren Instandhaltungsaufwand (kein Stopfen nötig) und wird deshalb vor allem auf Hochgeschwindigkeitsstrecken eingesetzt. Ohne zusätzliche Schallabsorber ist sie allerdings lauter als Schotteroberbau."
+    },
+    {
+      "id": "grundlagen-g15",
+      "question": "Welche Anforderungen hat das Gleisbett des Oberbaus laut DIN EN 13231-1?",
+      "choices": [
+        "Technische Anforderungen und Toleranzen für Abnahme von Arbeiten im Schotteroberbau",
+        "Nur Angaben zur Farbenkennzeichnung der verschiedenen Bauteile",
+        "Sicherheitsanweisungen für den Bauarbeiter beim Gleisaufbau",
+        "Kostenvoranschläge für verschiedene Oberbaumaterialien"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Norm DIN EN 13231-1 legt technische Anforderungen und Toleranzen für die Abnahme von Arbeiten im Schotteroberbau fest, um eine gleichmäßige und sichere Gleislage sicherzustellen."
+    },
+    {
+      "id": "grundlagen-g16",
+      "question": "Welche Aufgabe haben die Kleineisen im Eisenbahnoberbau?",
+      "choices": [
+        "Sie verbinden die Schiene mit der Schwelle und halten die Gleislage",
+        "Sie dienen als Ballast für das Schotterbett",
+        "Sie leiten elektrischen Strom zwischen den Gleisbahnen weiter",
+        "Sie schützen den Oberbau vor Korrosion"
+      ],
+      "correctIndex": 0,
+      "explanation": "Zu den Befestigungsmitteln im Gleisbau zählen die Kleineisen. Diese sind nötig, um die Gleise mit den Schwellen zu verbinden und halten Schiene und Schwelle in ihrer geometrischen Lage gegeneinander (z.B. Spannklemmen, Rippenplatten)."
+    },
+    {
+      "id": "grundlagen-g17",
+      "question": "Was ist die Hauptfunktion der Spannklemme in einem Schienenbefestigungssystem?",
+      "choices": [
+        "Sie verbindet mechanisch Schiene und Schwelle und erzeugt Vorspannung",
+        "Sie leitet elektrische Signale zum Signalsystem weiter",
+        "Sie dient als Ersatzteil für abgenutzte Schwellen",
+        "Sie isoliert die Schwelle vor Witterungseinflüssen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Spannklemmen (z.B. SB4) verbinden mechanisch die Schiene mit der Schwelle und erzeugen Vorspannung, um die Gleislage zu halten und Längskräfte aufzunehmen. Moderne Systeme haben beschichtete Bauteile zum Korrosionsschutz."
+    },
+    {
+      "id": "grundlagen-g18",
+      "question": "Welche Rolle spielt die Schottermenge und -verdichtung für das Gleis?",
+      "choices": [
+        "Sie hat keinen Einfluss, solange die Dicke stimmt",
+        "Ein homogenes Schotterbett mit ausreichender Menge ist ausschlaggebend für die Gleislagequalität",
+        "Je weniger Schotter, desto besser die Entwässerung",
+        "Die Verdichtung muss oberflächlich sein, damit Wasser ablaufen kann"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ein homogenes Schotterbett mit ausreichend Menge ist entscheidend für die Qualität des Gleises. Lagenweise Verdichtung und Stabilisierung führen zu einer Erhöhung der Lagestabilität und Dauerhaftigkeit."
+    },
+    {
+      "id": "grundlagen-g19",
+      "question": "Was passiert mit der Elastizität des Gleises, wenn das Schotterbett verschmutzt ist?",
+      "choices": [
+        "Die Elastizität steigt aufgrund verbesserter Reibung",
+        "Die Elastizität sinkt, da die Reibung zwischen den Schotterkorngrößen abnimmt",
+        "Die Elastizität bleibt unverändert, nur optisch ändert sich etwas",
+        "Das Gleis wird elektrisch leitfähiger und funktioniert besser"
+      ],
+      "correctIndex": 1,
+      "explanation": "Infolge von Verschmutzung im Schotterbett sinkt die Reibung zwischen den einzelnen Schotterkorngrößen, was die Elastizität des Gleises mindert und damit die andauernde Haltbarkeit der Gleislage reduziert."
+    },
+    {
+      "id": "grundlagen-g20",
+      "question": "Welche Bedeutung haben Weichen, Kreuzungen und Übergangskonstruktionen für den Oberbau?",
+      "choices": [
+        "Sie gehören ebenfalls zum Oberbau (spezielle Bauelemente)",
+        "Sie sind ausschließlich Bestandteil des Unterbaus",
+        "Sie zählen weder zum Ober- noch zum Unterbau",
+        "Sie ersetzen die Schwellen in Weichenbereichen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Über den klassischen Oberbau hinaus zählen auch Weichen, Kreuzungen sowie spezielle Bauelemente wie Isolierschienen oder Übergangskonstruktionen zum Oberbau."
     }
   ]
 }

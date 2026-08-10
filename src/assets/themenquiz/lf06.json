@@ -1,0 +1,366 @@
+{
+  "topicId": "lf06",
+  "title": "Bauteile beschichten und bekleiden",
+  "questions": [
+    {
+      "id": "LF06-Q1",
+      "question": "Beschichten heisst ...",
+      "choices": [
+        "Schicht auftragen",
+        "Bauteil verschrauben",
+        "Betonieren",
+        "Abstecken"
+      ],
+      "correctIndex": 0,
+      "explanation": "Beschichten bedeutet das Aufbringen eines Materials als Schicht."
+    },
+    {
+      "id": "LF06-Q2",
+      "question": "Bekleiden heisst ...",
+      "choices": [
+        "Bauteil mit Belaegen oder Platten versehen",
+        "Moertel anmischen nur",
+        "Schweissen",
+        "Verdichten"
+      ],
+      "correctIndex": 0,
+      "explanation": "Beim Bekleiden werden fertige Elemente auf das Bauteil aufgebracht."
+    },
+    {
+      "id": "LF06-Q3",
+      "question": "Warum ist Untergrundpruefung Pflicht?",
+      "choices": [
+        "Falscher Untergrund fuehrt zu Haftungsproblemen und Schaeden",
+        "Nur wegen Optik",
+        "Spart Material",
+        "Ist optional"
+      ],
+      "correctIndex": 0,
+      "explanation": "Haftung und Dauerhaftigkeit haengen direkt vom Untergrund ab."
+    },
+    {
+      "id": "LF06-Q4",
+      "question": "Eine Benetzungsprobe prueft vor allem ...",
+      "choices": [
+        "Saugverhalten des Untergrunds",
+        "Betonfestigkeit",
+        "Laerm",
+        "Temperatur"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das Benetzungsverhalten zeigt, wie stark der Untergrund Wasser aufnimmt."
+    },
+    {
+      "id": "LF06-Q5",
+      "question": "Wozu dient der Unterputz hauptsaechlich?",
+      "choices": [
+        "Egalisieren und tragende Grundlage fuer das System",
+        "Nur Farbe",
+        "Nur Deko",
+        "Ersetzt Abdichtung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Unterputz gleicht Unebenheiten aus und traegt den weiteren Aufbau."
+    },
+    {
+      "id": "LF06-Q6",
+      "question": "Putzregeln innen und aussen sind in Normen zu finden wie ...",
+      "choices": [
+        "DIN EN 13914 und DIN 18550",
+        "DIN 4124",
+        "VOB/C Metall",
+        "BOStrab"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diese Normen sind zentrale Grundlagen fuer Planung und Ausfuehrung von Putzen."
+    },
+    {
+      "id": "LF06-Q7",
+      "question": "Warum entstauben nach dem Schleifen?",
+      "choices": [
+        "Staub stoert Haftung und Oberflaechenbild",
+        "Macht schneller trocken",
+        "Egal",
+        "Nur wegen Ordnung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Schleifstaub wirkt als Trennschicht und verschlechtert die Beschichtung."
+    },
+    {
+      "id": "LF06-Q8",
+      "question": "Warum sind loesemittelhaltige Lacke kritisch?",
+      "choices": [
+        "Gefahrstoff und oft entzuendlich, Brand- und Explosionsrisiko",
+        "Nur wegen Farbe",
+        "Nur wegen Laerm",
+        "Harmlos"
+      ],
+      "correctIndex": 0,
+      "explanation": "Loesemittel koennen gesundheitsschaedlich sein und leicht entzuendbar wirken."
+    },
+    {
+      "id": "LF06-Q9",
+      "question": "Was gehoert zu Grundmassnahmen?",
+      "choices": [
+        "Lueften, Zundquellen vermeiden, PSA nach Betriebsanweisung",
+        "Nur Fenster zu",
+        "Nur schneller arbeiten",
+        "Loesungsmittel offen stehen lassen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das sind zentrale Schutzmassnahmen bei gefahrstoffhaltigen Beschichtungen."
+    },
+    {
+      "id": "LF06-Q10",
+      "question": "Wozu dient der Zahnspachtel?",
+      "choices": [
+        "Definierte Kleberschicht und Struktur herstellen",
+        "Fugen auskratzen",
+        "Schleifen",
+        "Grundieren"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Zahnung steuert Schichtdicke und Verteilung des Klebers."
+    },
+    {
+      "id": "LF06-Q11",
+      "question": "Duennbettverlegung heisst ...",
+      "choices": [
+        "Kleber duenn und gleichmaessig mit Zahnung auftragen",
+        "5 cm Moertelbett",
+        "Ohne Kleber",
+        "Nur schrauben"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das Verfahren basiert auf einem gleichmaessigen, duennen Kleberbett."
+    },
+    {
+      "id": "LF06-Q12",
+      "question": "Warum Abdichtung unter Fliesen im Nassbereich?",
+      "choices": [
+        "Schutz vor Feuchteschaeden am Untergrund",
+        "Nur Optik",
+        "Spart Fugen",
+        "Macht schneller trocken"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Abdichtung schuetzt den Untergrund vor Wassereintrag."
+    },
+    {
+      "id": "LF06-Q13",
+      "question": "Bewegungsfugen sind wichtig, weil ...",
+      "choices": [
+        "Bauteile arbeiten und sonst Risse oder Abplatzungen drohen",
+        "Sie nur schoen aussehen",
+        "Sie Kleber sparen",
+        "Sie Abdichtung ersetzen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fugen nehmen Verformungen auf und vermeiden Zwangespannungen."
+    },
+    {
+      "id": "LF06-Q14",
+      "question": "Hohllagen bei Fliesen deuten oft auf ...",
+      "choices": [
+        "Ungenuegende Benetzung, Kleberauftrag oder Untergrundproblem",
+        "Zu viele Abstandhalter",
+        "Falsche Wasserwaage",
+        "Zu viel Licht"
+      ],
+      "correctIndex": 0,
+      "explanation": "Haftungsstoerungen entstehen haeufig durch fehlerhaften Kontakt zwischen Fliese und Kleber."
+    },
+    {
+      "id": "LF06-Q15",
+      "question": "Abblaetternder Anstrich kommt haeufig durch ...",
+      "choices": [
+        "Untergrund-, Haftungs- oder Feuchteprobleme",
+        "Zu viel Musik",
+        "Zu lange Pause",
+        "Zu viel Fugenmoertel"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ungeeigneter Untergrund und Feuchte sind typische Ursachen fuer Haftungsversagen."
+    },
+    {
+      "id": "LF06-Q16",
+      "question": "Untergrund tragfaehig heisst ...",
+      "choices": [
+        "Es loest sich nichts bei Kratz- oder Wischprobe",
+        "Nur glatte Farbe",
+        "Immer nass",
+        "Nur neu gebaut"
+      ],
+      "correctIndex": 0,
+      "explanation": "Tragfaehigkeit bedeutet stabiler, haftgeeigneter Untergrund."
+    },
+    {
+      "id": "LF06-Q17",
+      "question": "Ein Putzsystem hat meist ...",
+      "choices": [
+        "Unterputz und Oberputz",
+        "Nur Oberputz",
+        "Nur Farbe",
+        "Nur Armierung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diese Schichten bilden den Grundaufbau bei vielen Putzsystemen."
+    },
+    {
+      "id": "LF06-Q18",
+      "question": "DIN EN 13914 und DIN 18550 stehen fuer ...",
+      "choices": [
+        "Putzplanung und Putzausfuehrung",
+        "Verkehrssicherung",
+        "Gleisbau",
+        "Schweissen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Beide Normen regeln wesentliche Punkte fuer Putzarbeiten."
+    },
+    {
+      "id": "LF06-Q19",
+      "question": "Loesemittelhaltige Lacke koennen ...",
+      "choices": [
+        "Brand- und Explosionsrisiken verursachen",
+        "Nur Geruch erzeugen",
+        "Nie gefaehrlich sein",
+        "Abdichtung ersetzen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Viele Loesemittel sind entzuendlich und brauchen Schutzmassnahmen."
+    },
+    {
+      "id": "LF06-Q20",
+      "question": "Zum Gefahrstoffumgang gehoert ...",
+      "choices": [
+        "Gefaehrdungsbeurteilung, Betriebsanweisung und Dokumentation",
+        "Nur schneller arbeiten",
+        "Nur Handschuhe",
+        "Nur Entsorgung am Ende"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sicherer Umgang basiert auf Beurteilung, Unterweisung und Nachweis."
+    },
+    {
+      "id": "LF06-Q21",
+      "question": "Der Zahnspachtel erzeugt ...",
+      "choices": [
+        "Eine definierte Kleberschicht",
+        "Nur Fugenbreite",
+        "Schleifbild",
+        "Abdichtungsschicht"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Zahnung steuert die Klebermenge und Verteilung."
+    },
+    {
+      "id": "LF06-Q22",
+      "question": "Duennbettverlegung bedeutet ...",
+      "choices": [
+        "Kleberauftrag mit Zahnung im duennen Bett",
+        "Dickes Moertelbett",
+        "Verlegen ohne Kleber",
+        "Nur punktuelle Verklebung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Name beschreibt die geringe, gleichmaessige Kleberdicke."
+    },
+    {
+      "id": "LF06-Q23",
+      "question": "Verbundabdichtung schuetzt ...",
+      "choices": [
+        "Nassbereiche und Untergrund vor Feuchte",
+        "Nur die Fliesenfarbe",
+        "Nur die Fugenbreite",
+        "Nur den Kleberverbrauch"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sie verhindert Feuchteeintrag in empfindliche Untergruende."
+    },
+    {
+      "id": "LF06-Q24",
+      "question": "Bewegungsfugen muessen ...",
+      "choices": [
+        "uebernommen und funktionsfaehig bleiben",
+        "immer verschlossen werden",
+        "nur dekorativ sein",
+        "nur bei Bodenflaechen gelten"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sie sind notwendig, um Bauteilbewegungen schadlos aufzunehmen."
+    },
+    {
+      "id": "LF06-Q25",
+      "question": "Grundieren dient oft ...",
+      "choices": [
+        "Haftung verbessern und Saugfaehigkeit ausgleichen",
+        "Nur Farbton veraendern",
+        "Abdichtung ersetzen",
+        "Trocknung stoppen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Grundierungen stellen den Untergrund fuer den Folgeschritt ein."
+    },
+    {
+      "id": "LF06-Q26",
+      "question": "Schleifstaub entfernen heisst ...",
+      "choices": [
+        "Haftung sichern",
+        "Nur Zeitverlust",
+        "Nur Optik",
+        "Nur bei Fliesen noetig"
+      ],
+      "correctIndex": 0,
+      "explanation": "Staub verhindert den direkten Verbund der Schichten."
+    },
+    {
+      "id": "LF06-Q27",
+      "question": "Laeufer und Wolken sind typisch fuer ...",
+      "choices": [
+        "Anstrichfehler",
+        "Fliesenbruch",
+        "Betonmangel",
+        "Holzverzug"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das sind typische Oberflaechenmaengel bei Beschichtungen."
+    },
+    {
+      "id": "LF06-Q28",
+      "question": "Hohllage bei Fliesen ist oft ein ...",
+      "choices": [
+        "Haftungs- oder Kleberproblem",
+        "Reines Farbstoerbild",
+        "Messfehler beim Zollstock",
+        "Wettereffekt ohne Relevanz"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fehlende vollflaechige Benetzung ist eine haeufige Ursache."
+    },
+    {
+      "id": "LF06-Q29",
+      "question": "Putzrisse koennen entstehen durch ...",
+      "choices": [
+        "Untergrundbewegung, Feuchte oder unpassenden Schichtaufbau",
+        "Nur zu viele Fliesen",
+        "Nur Fugenfarbe",
+        "Nur Raumtemperatur ueber 20 Grad"
+      ],
+      "correctIndex": 0,
+      "explanation": "Risse sind meist multikausal und oft systembedingt."
+    },
+    {
+      "id": "LF06-Q30",
+      "question": "Zum Gefahrstoffumgang gehoert auch ...",
+      "choices": [
+        "Richtige Entsorgung von Resten und Loesungsmitteln",
+        "Reste in den Ablauf kippen",
+        "Alles offen verdunsten lassen",
+        "Nur am Ende kurz lueften"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sichere Lagerung und Entsorgung sind Teil der Schutzkette."
+    }
+  ]
+}

@@ -37,7 +37,7 @@ export class DashboardPage {
       icon: 'school-outline',
       link: '/themenquiz/grundlagen',
       topicId: 'grundlagen',
-      questionCount: 6,
+      questionCount: 26,
     },
     {
       id: 'themenquiz-spurweite',
@@ -47,7 +47,7 @@ export class DashboardPage {
       icon: 'resize-outline',
       link: '/themenquiz/spurweite',
       topicId: 'spurweite',
-      questionCount: 6,
+      questionCount: 20,
     },
     {
       id: 'themenquiz-schiene',
@@ -57,7 +57,7 @@ export class DashboardPage {
       icon: 'remove-outline',
       link: '/themenquiz/schiene',
       topicId: 'schiene',
-      questionCount: 5,
+      questionCount: 19,
     },
     {
       id: 'themenquiz-schwellen',
@@ -67,7 +67,7 @@ export class DashboardPage {
       icon: 'reorder-four-outline',
       link: '/themenquiz/schwellen',
       topicId: 'schwellen',
-      questionCount: 5,
+      questionCount: 22,
     },
     {
       id: 'themenquiz-bettung',
@@ -131,6 +131,149 @@ export class DashboardPage {
     },
   ];
 
+  readonly lernfeldTiles: QuizTile[] = [
+    {
+      id: 'lernfeld-lf01',
+      title: 'Baustellen einrichten',
+      description: 'Lernfeld 1, Jahr 1: Sicherheit, Organisation, Baustelleneinrichtung.',
+      tag: 'Jahr 1',
+      icon: 'shield-checkmark-outline',
+      link: '/themenquiz/lf01',
+      topicId: 'lf01',
+      questionCount: 72,
+    },
+    {
+      id: 'lernfeld-lf02',
+      title: 'Bauwerke erschliessen und gruenden',
+      description: 'Lernfeld 2, Jahr 1: Erschliessung, Fundamente, Baugrund.',
+      tag: 'Jahr 1',
+      icon: 'business-outline',
+      link: '/themenquiz/lf02',
+      topicId: 'lf02',
+      questionCount: 30,
+    },
+    {
+      id: 'lernfeld-lf03',
+      title: 'Einschalige Baukoerper mauern',
+      description: 'Lernfeld 3, Jahr 1: Mauerwerk, Steine, Verbaende.',
+      tag: 'Jahr 1',
+      icon: 'grid-outline',
+      link: '/themenquiz/lf03',
+      topicId: 'lf03',
+      questionCount: 34,
+    },
+    {
+      id: 'lernfeld-lf04',
+      title: 'Stahlbetonbauteile herstellen',
+      description: 'Lernfeld 4, Jahr 1: Schalung, Bewehrung, Beton.',
+      tag: 'Jahr 1',
+      icon: 'cube-outline',
+      link: '/themenquiz/lf04',
+      topicId: 'lf04',
+      questionCount: 31,
+    },
+    {
+      id: 'lernfeld-lf05',
+      title: 'Holzkonstruktionen herstellen',
+      description: 'Lernfeld 5, Jahr 1: Holzbauteile, Verbindungen, Montage.',
+      tag: 'Jahr 1',
+      icon: 'leaf-outline',
+      link: '/themenquiz/lf05',
+      topicId: 'lf05',
+      questionCount: 31,
+    },
+    {
+      id: 'lernfeld-lf06',
+      title: 'Bauteile beschichten und bekleiden',
+      description: 'Lernfeld 6, Jahr 1: Schutz, Abdichtung, Oberflaechen.',
+      tag: 'Jahr 1',
+      icon: 'brush-outline',
+      link: '/themenquiz/lf06',
+      topicId: 'lf06',
+      questionCount: 30,
+    },
+    {
+      id: 'lernfeld-lf07',
+      title: 'Baugruende erkunden',
+      description: 'Lernfeld 7, Jahr 2: Bodenarten, Tragfaehigkeit, Baugrunduntersuchung.',
+      tag: 'Jahr 2',
+      icon: 'search-outline',
+      link: '/themenquiz/lf07',
+      topicId: 'lf07',
+      questionCount: 25,
+    },
+    {
+      id: 'lernfeld-lf08',
+      title: 'Erdbauwerke errichten',
+      description: 'Lernfeld 8, Jahr 2: Aushub, Verbau, Planum, Verdichtung.',
+      tag: 'Jahr 2',
+      icon: 'earth-outline',
+      link: '/themenquiz/lf08',
+      topicId: 'lf08',
+      questionCount: 23,
+    },
+    {
+      id: 'lernfeld-lf09',
+      title: 'Verkehrsflaechen aus Pflaster- und Plattenbelaegen herstellen',
+      description: 'Lernfeld 9, Jahr 2: Wege, Flaechen, Unterbau.',
+      tag: 'Jahr 2',
+      icon: 'apps-outline',
+      link: '/themenquiz/lf09',
+      topicId: 'lf09',
+      questionCount: 23,
+    },
+    {
+      id: 'lernfeld-lf10',
+      title: 'Gleisanlagen neu bauen',
+      description: 'Lernfeld 10, Jahr 2: Gleisaufbau, Schotter, Schwellen, Schienen.',
+      tag: 'Jahr 2',
+      icon: 'train-outline',
+      link: '/themenquiz/lf10',
+      topicId: 'lf10',
+      questionCount: 24,
+    },
+    {
+      id: 'lernfeld-lf11',
+      title: 'Gleisboegen herstellen und einmessen',
+      description: 'Lernfeld 11, Jahr 3: Vermessung, Gleislage, Radien.',
+      tag: 'Jahr 3',
+      icon: 'analytics-outline',
+      link: '/themenquiz/lf11',
+      topicId: 'lf11',
+      questionCount: 23,
+    },
+    {
+      id: 'lernfeld-lf12',
+      title: 'Weichen montieren und einmessen',
+      description: 'Lernfeld 12, Jahr 3: Weichenarten, Einbau, Kontrolle.',
+      tag: 'Jahr 3',
+      icon: 'git-branch-outline',
+      link: '/themenquiz/lf12',
+      topicId: 'lf12',
+      questionCount: 23,
+    },
+    {
+      id: 'lernfeld-lf13',
+      title: 'Weichen bauen und instand halten',
+      description: 'Lernfeld 13, Jahr 3: Weichenaufbau, Instandhaltung, sichere Weichenarbeit.',
+      tag: 'Jahr 3',
+      icon: 'git-network-outline',
+      link: '/themenquiz/lf13',
+      topicId: 'lf13',
+      questionCount: 24,
+    },
+    {
+      id: 'lernfeld-lf14',
+      title: 'Sonderbauformen und besondere Gleisanlagen',
+      description: 'Lernfeld 14, Jahr 3: Sonderbauformen, Bahnuebergaenge, feste Fahrbahn.',
+      tag: 'Jahr 3',
+      icon: 'extension-puzzle-outline',
+      link: '/themenquiz/lf14',
+      topicId: 'lf14',
+      questionCount: 24,
+    },
+  ];
+
   readonly extraTiles: QuizTile[] = [
     {
       id: 'zusatz-nivellieren',
@@ -164,6 +307,14 @@ export class DashboardPage {
       tag: 'Bonus',
       link: '/zusatz/gesamtquiz',
     },
+    {
+      id: 'zusatz-materialrechner',
+      title: 'Zusatzmodul: Materialrechner',
+      description: 'Unbegrenzt neue Rechenaufgaben zu Volumen, Materialgewicht und Schotterbedarf, in 3 Schwierigkeitsgraden.',
+      icon: 'scale-outline',
+      tag: 'Bonus',
+      link: '/zusatz/materialrechner',
+    },
   ];
 
   constructor() {
@@ -187,8 +338,16 @@ export class DashboardPage {
     return this.filterTiles(this.extraTiles);
   }
 
+  get filteredLernfeldTiles(): QuizTile[] {
+    return this.filterTiles(this.lernfeldTiles);
+  }
+
   get totalVisibleTiles(): number {
-    return this.filteredQuizTopics.length + this.filteredExtraTiles.length;
+    return (
+      this.filteredQuizTopics.length +
+      this.filteredLernfeldTiles.length +
+      this.filteredExtraTiles.length
+    );
   }
 
   get hasActiveSearch(): boolean {
@@ -216,7 +375,7 @@ export class DashboardPage {
     let inProgress = 0;
     let planned = 0;
 
-    for (const tile of this.quizTopics) {
+    for (const tile of [...this.quizTopics, ...this.lernfeldTiles]) {
       const total = tile.questionCount ?? 0;
       if (!tile.topicId || total <= 0) continue;
 

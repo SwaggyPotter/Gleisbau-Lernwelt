@@ -64,6 +64,35 @@ Aus `src/app/` gelöscht (weiterhin serverseitig im Backend vorhanden):
 
 Siehe [[04-Lernfelder/Lernfelder-Übersicht]] für Details zum Lernfeld-Inhalt.
 
+## Capacitor (Ergänzung, verifiziert 2026-07-22)
+
+`capacitor.config.ts` (Projekt-Root) ist vorhanden — `appId:
+com.gleisbau.lernwelt`, `appName: Gleisbau Lernwelt`, `webDir: www`. In
+`package.json` stehen dazu die Runtime-Pakete `@capacitor/core`,
+`@capacitor/app`, `@capacitor/haptics`, `@capacitor/keyboard`,
+`@capacitor/status-bar` sowie `@capacitor/cli` als Dev-Dependency.
+
+Tatsächlich genutzt wird davon aber **nichts**: Es gibt weder ein `android/`-
+noch ein `ios/`-Verzeichnis im Repo (d. h. `npx cap add` wurde nie
+ausgeführt), und eine Volltextsuche nach `Capacitor`/`StatusBar`/`Haptics`/
+`Keyboard` in `src/` liefert keinen Treffer — keine Komponente ruft eine
+Capacitor-Plugin-API auf. Capacitor ist also nur als Web-Grundgerüst
+vorbereitet/deklariert, die App läuft aktuell ausschließlich als reine
+Web-App (Browser/PWA-artig via `ng build` → `www/`), nicht als gebaute native
+App.
+
+## Test-Setup (Ergänzung, verifiziert 2026-07-22)
+
+Standard-Angular/Ionic-Testkonfiguration ist vorhanden: `karma.conf.js`
+(Karma + Jasmine, Chrome-Launcher, Coverage-Reporter) und die zugehörigen
+Angular-CLI-Targets (`test` in `angular.json`/`package.json`, `tsconfig.spec.json`).
+Sie ist unverändert die Angular-CLI-Standardvorlage. Die tatsächliche
+Testabdeckung ist aber minimal: Es existiert aktuell nur eine einzige
+Spec-Datei im ganzen Projekt, `src/app/app.component.spec.ts` — keine Tests
+für Dashboard, Themenquiz oder die Zusatzmodule. Eine CI-Pipeline, die `ng
+test`/`ng lint` automatisch ausführt, existiert nicht (kein `.github/`-
+Verzeichnis im Repo).
+
 ## Datenmodell
 
 Siehe eigene Notiz: [[02-Architektur/Datenmodell]]

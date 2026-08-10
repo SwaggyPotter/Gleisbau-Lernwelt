@@ -77,6 +77,41 @@
     </ion-grid>
   </section>
 
+  <section class="grid-section" *ngIf="filteredLernfeldTiles.length > 0">
+    <div class="section-head">
+      <p class="eyebrow">Ausbildung</p>
+      <h2>Lernfeld-Quizze</h2>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of filteredLernfeldTiles; trackBy: trackByTileId">
+          <ion-card class="tile-card highlight" [routerLink]="tile.link">
+            <div class="tile-icon">
+              <ion-icon [name]="tile.icon"></ion-icon>
+            </div>
+            <ion-card-header>
+              <div class="tile-top">
+                <ion-chip color="tertiary" outline="true">
+                  <ion-label>{{ tile.tag }}</ion-label>
+                </ion-chip>
+                <ion-badge color="primary" *ngIf="tileProgressByLink[tile.link] as progress">
+                  {{ progress.answered }}/{{ progress.total }}
+                </ion-badge>
+              </div>
+              <ion-card-title>{{ tile.title }}</ion-card-title>
+              <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="module-progress" *ngIf="tileProgressByLink[tile.link] as progress">
+                <ion-progress-bar color="success" [value]="progress.ratio"></ion-progress-bar>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
   <section class="grid-section" *ngIf="filteredExtraTiles.length > 0">
     <div class="section-head">
       <p class="eyebrow">Extra</p>

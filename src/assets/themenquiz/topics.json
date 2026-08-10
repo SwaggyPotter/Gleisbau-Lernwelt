@@ -3,25 +3,25 @@
     "topicId": "grundlagen",
     "title": "Gleisbau-Grundlagen",
     "description": "Aufbau Eisenbahngleis, Oberbau, Unterbau, Bestandteile und Aufgaben des Gleisbauers",
-    "questionCount": 6
+    "questionCount": 26
   },
   {
     "topicId": "spurweite",
     "title": "Spurweite und Gleisgeometrie",
     "description": "EBO Spurweite, Regelspur 1435 mm, Gleisbogen, Ueberhoehung",
-    "questionCount": 6
+    "questionCount": 20
   },
   {
     "topicId": "schiene",
     "title": "Schienen",
     "description": "Schiene Aufbau, Profil, Waermeausdehnung, verschweisstes Gleis",
-    "questionCount": 5
+    "questionCount": 19
   },
   {
     "topicId": "schwellen",
     "title": "Schwellen",
     "description": "Aufgabe, Arten, Lastverteilung und Spurhaltung",
-    "questionCount": 5
+    "questionCount": 22
   },
   {
     "topicId": "bettung",
@@ -58,5 +58,89 @@
     "title": "Trassenplan lesen",
     "description": "Trassenplan Grundlagen, Kilometrierung, Symbole",
     "questionCount": 7
+  },
+  {
+    "topicId": "lf01",
+    "title": "Baustellen einrichten",
+    "description": "Lernfeld 1, Jahr 1: Sicherheit, Organisation, Baustelleneinrichtung.",
+    "questionCount": 72
+  },
+  {
+    "topicId": "lf02",
+    "title": "Bauwerke erschliessen und gruenden",
+    "description": "Lernfeld 2, Jahr 1: Erschliessung, Fundamente, Baugrund.",
+    "questionCount": 30
+  },
+  {
+    "topicId": "lf03",
+    "title": "Einschalige Baukoerper mauern",
+    "description": "Lernfeld 3, Jahr 1: Mauerwerk, Steine, Verbaende.",
+    "questionCount": 34
+  },
+  {
+    "topicId": "lf04",
+    "title": "Stahlbetonbauteile herstellen",
+    "description": "Lernfeld 4, Jahr 1: Schalung, Bewehrung, Beton.",
+    "questionCount": 31
+  },
+  {
+    "topicId": "lf05",
+    "title": "Holzkonstruktionen herstellen",
+    "description": "Lernfeld 5, Jahr 1: Holzbauteile, Verbindungen, Montage.",
+    "questionCount": 31
+  },
+  {
+    "topicId": "lf06",
+    "title": "Bauteile beschichten und bekleiden",
+    "description": "Lernfeld 6, Jahr 1: Schutz, Abdichtung, Oberflaechen.",
+    "questionCount": 30
+  },
+  {
+    "topicId": "lf07",
+    "title": "Baugruende erkunden",
+    "description": "Lernfeld 7, Jahr 2: Bodenarten, Tragfaehigkeit, Baugrunduntersuchung.",
+    "questionCount": 25
+  },
+  {
+    "topicId": "lf08",
+    "title": "Erdbauwerke errichten",
+    "description": "Lernfeld 8, Jahr 2: Aushub, Verbau, Planum, Verdichtung.",
+    "questionCount": 23
+  },
+  {
+    "topicId": "lf09",
+    "title": "Verkehrsflaechen aus Pflaster- und Plattenbelaegen herstellen",
+    "description": "Lernfeld 9, Jahr 2: Wege, Flaechen, Unterbau.",
+    "questionCount": 23
+  },
+  {
+    "topicId": "lf10",
+    "title": "Gleisanlagen neu bauen",
+    "description": "Lernfeld 10, Jahr 2: Gleisaufbau, Schotter, Schwellen, Schienen.",
+    "questionCount": 24
+  },
+  {
+    "topicId": "lf11",
+    "title": "Gleisboegen herstellen und einmessen",
+    "description": "Lernfeld 11, Jahr 3: Vermessung, Gleislage, Radien.",
+    "questionCount": 23
+  },
+  {
+    "topicId": "lf12",
+    "title": "Weichen montieren und einmessen",
+    "description": "Lernfeld 12, Jahr 3: Weichenarten, Einbau, Kontrolle.",
+    "questionCount": 23
+  },
+  {
+    "topicId": "lf13",
+    "title": "Weichen bauen und instand halten",
+    "description": "Lernfeld 13, Jahr 3: Weichenaufbau, Instandhaltung, sichere Weichenarbeit.",
+    "questionCount": 24
+  },
+  {
+    "topicId": "lf14",
+    "title": "Sonderbauformen und besondere Gleisanlagen",
+    "description": "Lernfeld 14, Jahr 3: Sonderbauformen, Bahnuebergaenge, feste Fahrbahn.",
+    "questionCount": 24
   }
 ]

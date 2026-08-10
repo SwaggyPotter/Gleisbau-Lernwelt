@@ -38,13 +38,28 @@ das Frontend angebunden ("verwaist"/geparkt).** Siehe
 
 ## Datenbankschema (`backend/db/init/01_schema.sql` + Migrationen 02–06)
 
-Tabellen:
+Tabellen aus den SQL-Dateien:
 
 - `registration_keys`
 - `users` — Rollen `user`/`admin`; Felder `deletion_scheduled_at`/`deletion_due_at`
   für die Karenzzeit-Löschung
 - `learning_fields` — id/title/description/year/tag (die 14 Lernfelder)
 - `user_progress` — Fortschritt/Fehler pro Nutzer und Lernfeld
+
+**Ergänzung (verifiziert 2026-07-22):** Zusätzlich existieren zwei weitere,
+aktiv genutzte Tabellen `quiz_sessions` und `quiz_answers` (Session-ID, Feld-ID,
+aktueller Fragenindex/Abschluss-Status bzw. Session-ID/Frage-ID/gewählte
+Antwort/Korrektheit). Sie stehen **nicht** in den nummerierten SQL-Dateien
+01–06, sondern werden erst zur Laufzeit per `CREATE TABLE IF NOT EXISTS` in
+`backend/src/index.ts` (`runStartupMigrations()`) angelegt — ein
+Migrations-Pfad außerhalb der sonstigen SQL-Migrationskonvention. Genutzt
+werden sie von `routes/quizzes.ts` (`POST /api/quizzes/start`,
+`POST /api/quizzes/:id/answer`, `POST /api/quizzes/:id/complete`,
+`GET /api/quizzes/:id/results`). Wichtig: Der dortige `quizBank` ist aktuell
+nur für `lf-01` mit drei Beispielfragen befüllt — für die übrigen 13
+Lernfelder liefert die Route 404 ("Für dieses Lernfeld ist noch kein Quiz
+hinterlegt"). Das serverseitige Quiz-Feature ist also nur ein Teil-Stub, nicht
+vollständig für alle 14 Lernfelder ausgebaut.
 
 `backend/src/index.ts` seedet beim Start:
 - Kanonische Liste der **14 Lernfelder** (`lf-01` … `lf-14`) mit deutschen Titeln

@@ -8,12 +8,14 @@ autor: Claude
 Die App besteht aktuell aus drei sichtbaren Bereichen für Nutzer:
 
 1. [[03-Module/Dashboard]] — Startseite mit allen Kacheln
-2. [[03-Module/Themenquiz]] — 10 Themenquiz
-3. Vier Zusatz-Lerntools:
+2. [[03-Module/Themenquiz]] — 10 Themenquiz + 14 Lernfeld-Quizze
+3. Fünf Zusatz-Lerntools:
    - [[03-Module/Zusatz-Nivellieren]]
    - [[03-Module/Zusatz-Prozentrechnung]]
    - [[03-Module/Zusatz-Volumen]]
    - [[03-Module/Zusatz-Gesamtquiz]]
+   - [[03-Module/Zusatz-Materialrechner]] — zufällig generierte Rechenaufgaben
+     statt fester Fragenliste
 
 Alle Module sind eigenständige, lazy-geladene Angular-Feature-Module unter
 `src/app/modules/`. Details zum gemeinsamen Datenschema: siehe
@@ -29,3 +31,4 @@ Alle Module sind eigenständige, lazy-geladene Angular-Feature-Module unter
 | `/zusatz/prozentrechnung` | Prozentrechnung-Trainer |
 | `/zusatz/volumen` | Volumenberechnung-Trainer |
 | `/zusatz/gesamtquiz` | Gesamtquiz (alle Zusatz-Module kombiniert) |
+| `/zusatz/materialrechner` | Materialrechner (zufällig generierte Aufgaben) |

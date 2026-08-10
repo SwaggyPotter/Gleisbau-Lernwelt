@@ -1,0 +1,294 @@
+{
+  "topicId": "lf14",
+  "title": "Sonderbauformen und besondere Gleisanlagen",
+  "questions": [
+    {
+      "id": "LF14-Q1",
+      "question": "Sonderbauformen sind ...",
+      "choices": [
+        "Gleisanlagen ausserhalb des Standardoberbaus",
+        "nur alte Gleise",
+        "nur Provisorien",
+        "stillgelegte Strecken"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sonderbauformen weichen konstruktiv oder betrieblich vom Standardoberbau ab."
+    },
+    {
+      "id": "LF14-Q2",
+      "question": "Warum sind Bahnuebergaenge besonders wartungsintensiv?",
+      "choices": [
+        "Verkehrsbelastung und unterschiedliche Nutzung",
+        "wegen der Farbe",
+        "wegen der Laenge",
+        "wegen des Schotters"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Uebergang zwischen Schiene und Strasse ist hoch belastet und verschleisskritisch."
+    },
+    {
+      "id": "LF14-Q3",
+      "question": "Was ist typisch fuer Gleiskreuzungen?",
+      "choices": [
+        "Mehrere Herzstuecke und hohe Belastung",
+        "wenige Bauteile",
+        "einfache Bauweise",
+        "geringe Sicherheitsrelevanz"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kreuzungsbereiche haben viele verschleisskritische Fuehrungsteile und hohe Lasten."
+    },
+    {
+      "id": "LF14-Q4",
+      "question": "Wo wird feste Fahrbahn haeufig eingesetzt?",
+      "choices": [
+        "Tunnel und Bruecken",
+        "nur Nebenstrecken",
+        "Werkstattgleise",
+        "Rangierbahnhoefe"
+      ],
+      "correctIndex": 0,
+      "explanation": "In Tunnel- und Brueckenlagen wird die hohe Lagebestaendigkeit der festen Fahrbahn genutzt."
+    },
+    {
+      "id": "LF14-Q5",
+      "question": "Was ist typisch fuer Industriegleise?",
+      "choices": [
+        "Hohe Lasten bei niedriger Geschwindigkeit",
+        "Hochgeschwindigkeit",
+        "nur feste Fahrbahn",
+        "keine Wartung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Industriegleise sind oft langsam befahren, aber durch hohe Achslasten stark beansprucht."
+    },
+    {
+      "id": "LF14-Q6",
+      "question": "Warum sind Gleise in Tunneln besonders anspruchsvoll?",
+      "choices": [
+        "Platzmangel und hohe Sicherheitsanforderungen",
+        "wegen Licht",
+        "wegen Schotter",
+        "wegen Schwellen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Begrenzter Arbeitsraum und erschwerte Rettungs- und Sicherungsbedingungen machen Tunnelanlagen anspruchsvoll."
+    },
+    {
+      "id": "LF14-Q7",
+      "question": "Warum gibt es fuer Sonderbauformen oft Sonderregelungen?",
+      "choices": [
+        "Weil Standardverfahren nicht ausreichen",
+        "wegen Optik",
+        "wegen Kosten",
+        "wegen Personal"
+      ],
+      "correctIndex": 0,
+      "explanation": "Komplexe Bauformen erfordern oft anlagenspezifische oder herstellerspezifische Verfahren."
+    },
+    {
+      "id": "LF14-Q8",
+      "question": "Was ist bei Sonderbauformen besonders wichtig?",
+      "choices": [
+        "Erhoehte Aufmerksamkeit und Sicherung",
+        "schneller arbeiten",
+        "weniger Personal",
+        "improvisieren"
+      ],
+      "correctIndex": 0,
+      "explanation": "Komplexitaet und Mischverkehr erfordern verstaerkte Sicherung und disziplinierte Kommunikation."
+    },
+    {
+      "id": "LF14-Q9",
+      "question": "Warum ist Dokumentation bei Sonderbauformen wichtig?",
+      "choices": [
+        "Sicherheit, Nachweis und Haftung",
+        "nur Buerokratie",
+        "optional",
+        "unwichtig"
+      ],
+      "correctIndex": 0,
+      "explanation": "Dokumentation ist Grundlage fuer Nachvollziehbarkeit, Betrieb und haftungsrelevante Nachweise."
+    },
+    {
+      "id": "LF14-Q10",
+      "question": "Welche Aussage ist korrekt?",
+      "choices": [
+        "Sonderbauformen weichen vom Standardoberbau ab",
+        "Sonderbauformen sind immer stillgelegt",
+        "Sonderbauformen haben nie Sicherheitsrelevanz",
+        "Sonderbauformen sind immer provisorisch"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die konstruktive und betriebliche Abweichung vom Standard ist das Kernmerkmal."
+    },
+    {
+      "id": "LF14-Q11",
+      "question": "Wie sind Bahnuebergaenge einzuordnen?",
+      "choices": [
+        "Stark belastete Uebergangsbereiche",
+        "nur optische Bauwerke",
+        "wartungsfreie Anlagen",
+        "bereits stillgelegt"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Kombination aus Schiene und Strasse erzeugt hohe mechanische und betriebliche Beanspruchung."
+    },
+    {
+      "id": "LF14-Q12",
+      "question": "Was gilt fuer die feste Fahrbahn?",
+      "choices": [
+        "Sie ist schotterlos",
+        "Sie nutzt ausschliesslich Schotter",
+        "Sie ist nur fuer Rangiergleise",
+        "Sie ist provisorisch"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die feste Fahrbahn kommt ohne Schotterbett aus und nutzt einen starren Unterbau."
+    },
+    {
+      "id": "LF14-Q13",
+      "question": "Welche Aussage trifft fuer Tunnelanlagen zu?",
+      "choices": [
+        "Sie brauchen besondere Sicherung",
+        "Sie sind immer leicht zugaenglich",
+        "Sie haben unbegrenzten Arbeitsraum",
+        "Sie sind nicht sicherheitskritisch"
+      ],
+      "correctIndex": 0,
+      "explanation": "Raumenge und Rettungswege machen besondere Sicherungskonzepte notwendig."
+    },
+    {
+      "id": "LF14-Q14",
+      "question": "Was ist typisch fuer Kreuzungen und Kreuzungsweichen?",
+      "choices": [
+        "Viele Herzstuecke",
+        "nur wenige Bauteile",
+        "keine Radlenker",
+        "geringer Wartungsbedarf"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kreuzungsbereiche enthalten mehrere Fuehrungs- und Kreuzungselemente."
+    },
+    {
+      "id": "LF14-Q15",
+      "question": "Welche Belastung ist bei Industriegleisen haeufig?",
+      "choices": [
+        "Hohe Achslasten",
+        "nur leichte Fahrzeuge",
+        "keine Lastspitzen",
+        "nur Personenverkehr"
+      ],
+      "correctIndex": 0,
+      "explanation": "Insbesondere Gueterverkehr in Anschlussgleisen erzeugt hohe Lasten."
+    },
+    {
+      "id": "LF14-Q16",
+      "question": "LF14 steht vor allem fuer ...",
+      "choices": [
+        "Spezialwissen im Gleisbau",
+        "nur Standardoberbau",
+        "ausschliesslich Neubau im Regelgleis",
+        "nur Theorie ohne Praxisbezug"
+      ],
+      "correctIndex": 0,
+      "explanation": "LF14 behandelt die komplexen Sonderformen ausserhalb des Standardgleises."
+    },
+    {
+      "id": "LF14-Q17",
+      "question": "Warum gelten bei Sonderbauformen oft Sondervorgaben?",
+      "choices": [
+        "Standardverfahren reichen nicht immer aus",
+        "nur wegen Dokumentenformat",
+        "nur wegen Personalplanung",
+        "es gibt keine technischen Gruende"
+      ],
+      "correctIndex": 0,
+      "explanation": "Konstruktion und Umfeld verlangen oft anlagenspezifische Vorgehensweisen."
+    },
+    {
+      "id": "LF14-Q18",
+      "question": "Welche Bauteilzonen sind besonders fehleranfaellig?",
+      "choices": [
+        "Uebergangsbereiche",
+        "nur neue Schienen",
+        "nur frisch gereinigte Teile",
+        "grundsaetzlich keine"
+      ],
+      "correctIndex": 0,
+      "explanation": "Uebergaenge zwischen Systemen sind mechanisch und betrieblich besonders belastet."
+    },
+    {
+      "id": "LF14-Q19",
+      "question": "Welcher Grundsatz gilt bei Sonderbauformen?",
+      "choices": [
+        "Sicherheit steht ueber Bauzeit",
+        "Zeitdruck geht immer vor",
+        "Sicherung ist optional",
+        "Dokumentation kann entfallen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Komplexe Anlagen verlangen konsequente Priorisierung der Sicherheit."
+    },
+    {
+      "id": "LF14-Q20",
+      "question": "Warum ist Dokumentation haftungsrelevant?",
+      "choices": [
+        "Sie liefert nachvollziehbare Nachweise",
+        "Sie ist nur optional",
+        "Sie ersetzt technische Pruefung",
+        "Sie hat keinen Einfluss"
+      ],
+      "correctIndex": 0,
+      "explanation": "Pruefprotokolle und Messwerte sichern Nachvollziehbarkeit bei Betrieb und Ereignissen."
+    },
+    {
+      "id": "LF14-Q21",
+      "question": "Welche Aussage stimmt?",
+      "choices": [
+        "Nicht jeder Oberbau ist gleich aufgebaut",
+        "Alle Oberbauarten sind identisch",
+        "Sonderbauformen gibt es nicht",
+        "Nur Schotteroberbau ist zulassungsfaehig"
+      ],
+      "correctIndex": 0,
+      "explanation": "Oberbauformen unterscheiden sich je nach Einsatzfall und Randbedingungen."
+    },
+    {
+      "id": "LF14-Q22",
+      "question": "Was ist fuer Sonderbauformen haeufig zutreffend?",
+      "choices": [
+        "Hoeherer Planungsaufwand",
+        "weniger Abstimmung als Standardgleis",
+        "kein Pruefbedarf",
+        "keine Betriebsrelevanz"
+      ],
+      "correctIndex": 0,
+      "explanation": "Komplexe Randbedingungen erzeugen meist hoeheren Planungs- und Koordinationsbedarf."
+    },
+    {
+      "id": "LF14-Q23",
+      "question": "Wie sind Arbeiten im Strassenraum zu bewerten?",
+      "choices": [
+        "Sie sind besonders gefaehrlich",
+        "Sie sind immer einfach",
+        "Sie brauchen keine Sicherung",
+        "Sie haben keine Verkehrseinfluesse"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mischverkehr und begrenzter Raum erhoehen das Unfall- und Fehlerrisiko."
+    },
+    {
+      "id": "LF14-Q24",
+      "question": "Welche Aussage beschreibt LF14 am besten?",
+      "choices": [
+        "LF14 schliesst die Ausbildung fachlich mit Spezialthemen ab",
+        "LF14 behandelt nur Grundlagen wie LF1",
+        "LF14 ist ohne Sicherheitsbezug",
+        "LF14 ist fuer den Betrieb nicht relevant"
+      ],
+      "correctIndex": 0,
+      "explanation": "LF14 vertieft Sonderbauformen und komplexe Betriebs- und Instandhaltungssituationen."
+    }
+  ]
+}

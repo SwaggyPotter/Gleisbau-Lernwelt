@@ -73,6 +73,174 @@
       ],
       "correctIndex": 1,
       "explanation": "Dies ist eine Platzhalterfrage."
+    },
+    {
+      "id": "spurweite-g1",
+      "question": "Wie wird laut § 5 EBO die Spurweite technisch definiert?",
+      "choices": [
+        "Als Abstand zwischen den äußeren Schienenkanten auf der Oberkante",
+        "Als kleinsten Abstand der Innenflächen der Schienenköpfe im Bereich von 0 bis 14 mm unter Schienenoberkante",
+        "Als mittlerer Abstand der Schienenmittelachsen auf halber Schwelle",
+        "Als Abstand zwischen den Außenkanten der Radsätze des Zuges"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nach § 5 EBO ist die Spurweite der kleinste Abstand der Innenflächen der Schienenköpfe im Bereich von 0 bis 14 mm unter Schienenoberkante (SO)."
+    },
+    {
+      "id": "spurweite-g2",
+      "question": "Welches Grundmaß hat die Regelspur in Deutschland nach § 5 EBO?",
+      "choices": [
+        "1.400 mm",
+        "1.435 mm",
+        "1.470 mm",
+        "1.524 mm"
+      ],
+      "correctIndex": 1,
+      "explanation": "Das Grundmaß der Spurweite beträgt nach § 5 EBO 1.435 mm. Dies ist der Standard für normalspurige Eisenbahnen in Deutschland und Europa."
+    },
+    {
+      "id": "spurweite-g3",
+      "question": "Wie groß darf die Spurweite in Hauptgleisen maximal sein?",
+      "choices": [
+        "1.430 mm",
+        "1.435 mm",
+        "1.465 mm",
+        "1.500 mm"
+      ],
+      "correctIndex": 2,
+      "explanation": "Nach § 5 EBO darf die Spurweite in Hauptgleisen nicht größer sein als 1.465 mm. Diese Toleranzgrenze ist gesetzlich festgelegt."
+    },
+    {
+      "id": "spurweite-g4",
+      "question": "Welcher Bogenradius gilt für durchgehende Hauptgleise bei Neubauten als Mindestwert?",
+      "choices": [
+        "100 m",
+        "150 m",
+        "300 m",
+        "500 m"
+      ],
+      "correctIndex": 2,
+      "explanation": "Nach § 6 EBO soll der Bogenradius in durchgehenden Hauptgleisen bei Neubauten nicht weniger als 300 m betragen, um einen sicheren Fahrbetrieb zu gewährleisten."
+    },
+    {
+      "id": "spurweite-g5",
+      "question": "Was gilt für die Spurweite in engen Gleisbögen mit Radien unter 175 m?",
+      "choices": [
+        "Sie bleibt immer exakt beim Grundmaß von 1.435 mm",
+        "Sie wird verkleinert, damit die Räder besser anliegen",
+        "Sie wird erweitert (Spurerweiterung), damit die Radsätze den engen Bogen zwängungsfrei durchfahren können",
+        "Es gelten keine besonderen Vorgaben"
+      ],
+      "correctIndex": 2,
+      "explanation": "Für Gleisbögen mit Radien unter 175 m schreibt § 5 EBO Mindestwerte für die Spurweite vor, die über dem Grundmaß liegen (Spurerweiterung) — je enger der Bogen, desto größer die Erweiterung."
+    },
+    {
+      "id": "spurweite-g6",
+      "question": "Wie hoch darf die Überhöhung in Gleisbögen maximal sein?",
+      "choices": [
+        "50 mm",
+        "100 mm",
+        "180 mm",
+        "250 mm"
+      ],
+      "correctIndex": 2,
+      "explanation": "Nach § 6 EBO darf die Überhöhung unter Einbeziehung der sich im Betrieb einstellenden Abweichungen 180 mm nicht überschreiten."
+    },
+    {
+      "id": "spurweite-g7",
+      "question": "Wie steil darf die Überhöhungsrampe nach § 6 EBO höchstens sein?",
+      "choices": [
+        "Höchstens 1:100 auf allen Bahnen",
+        "Höchstens 1:400 auf Hauptbahnen, höchstens 1:300 auf Nebenbahnen",
+        "Höchstens 1:1000 auf allen Bahnen",
+        "Die Neigung ist nicht begrenzt"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nach § 6 EBO ist jede Änderung der Überhöhung durch eine Überhöhungsrampe zu vermitteln, deren Neigung nicht größer sein darf als 1:400 auf Hauptbahnen bzw. 1:300 auf Nebenbahnen."
+    },
+    {
+      "id": "spurweite-g8",
+      "question": "Was versteht man unter \"Übergangsbogen\"?",
+      "choices": [
+        "Ein Gleisbogen mit besonders großem Radius für hohe Geschwindigkeiten",
+        "Ein Gleiselement mit stetig veränderlicher Krümmung, das Gerade und Kreisbogen verbindet",
+        "Ein S-Kurven-Gleis für Rangierbahnhöfe",
+        "Ein bogenförmiger Abschnitt mit konstantem Radius"
+      ],
+      "correctIndex": 1,
+      "explanation": "Wo erforderlich, sind nach § 6 EBO Übergangsbogen anzulegen, um die Richtung durchgehender Hauptgleise stetig ändern zu können und Fahrkomfort zu verbessern."
+    },
+    {
+      "id": "spurweite-g9",
+      "question": "Von welcher Größe hängt die Überhöhung ab?",
+      "choices": [
+        "Nur vom Bogenradius des Gleises",
+        "Nur von der Zugmasse und Länge",
+        "Vom Oberbau, Bauart der Fahrzeuge, Ladung und deren Sicherung",
+        "Nur von der zulässigen Fahrgeschwindigkeit"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Überhöhung ist in Abhängigkeit von der Beschaffenheit des Oberbaus, von der Bauart der Fahrzeuge sowie von der Ladung und deren Sicherung festzulegen."
+    },
+    {
+      "id": "spurweite-g10",
+      "question": "Was ist der Zweck der Überhöhung bei Gleisbögen?",
+      "choices": [
+        "Die Schienen zu versteifen und korrosionsschützend zu überziehen",
+        "Die äußere Schiene höher zu legen als die innere, um den Zug in die Kurve zu legen",
+        "Die Geschwindigkeit auf Gleisbögen zu erhöhen",
+        "Den Radsatz abzuwärmen und mechanisch zu stabilisieren"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bei Gleisbögen wird in der Regel die äußere Schiene höher gelegt als die innere, damit sich der Zug schön in die Kurve legt und ein seitliches Ablenkvermögen verringert wird."
+    },
+    {
+      "id": "spurweite-g11",
+      "question": "Wie wird die Neigung bei Überhöhungsrampen bezeichnet?",
+      "choices": [
+        "Mit einem Maß in Millimetern pro Zentimeter Strecke",
+        "Mit einer dimensionslosen Zahl wie 0,3 oder 0,4",
+        "Mit dem Format 1:m, also Steilheit = 1:m (z.B. 1:300)",
+        "Mit einem Prozentwert wie 3 % oder 4 %"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Neigung wird als Verhältnis 1:m angegeben (z.B. 1:400): eine Einheit Höhenänderung auf m Einheiten Länge."
+    },
+    {
+      "id": "spurweite-g12",
+      "question": "Warum sind Übergangsbogen erforderlich?",
+      "choices": [
+        "Um den Gleisbau zu beschleunigen",
+        "Damit die Richtung des Hauptgleises stetig geändert werden kann und Fahrkomfort erhöht wird",
+        "Um die Spurweite in der Kurve vergrößern zu können",
+        "Um Überhöhungen von 180 mm auf weniger als 50 mm herabzusetzen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nach § 6 EBO dürfen sich durchgehende Hauptgleise in der Regel nur stetig ändern. Wo erforderlich, sind Übergangsbogen anzulegen, um Fahrkomfort zu verbessern."
+    },
+    {
+      "id": "spurweite-g13",
+      "question": "Welche Mindest-Bogenradien nennt § 6 EBO für durchgehende Hauptgleise bei Neubauten?",
+      "choices": [
+        "150 m auf Hauptbahnen, 100 m auf Nebenbahnen",
+        "300 m auf Hauptbahnen, 180 m auf Nebenbahnen",
+        "500 m auf Hauptbahnen, 300 m auf Nebenbahnen",
+        "Es gibt keine Mindestwerte"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nach § 6 EBO soll der Bogenradius durchgehender Hauptgleise bei Neubauten nicht weniger als 300 m (Hauptbahnen) bzw. 180 m (Nebenbahnen) betragen."
+    },
+    {
+      "id": "spurweite-g14",
+      "question": "Welche Anforderung gilt für Räder und Radsätze im Gleisbogen?",
+      "choices": [
+        "Sie müssen aus leichtem Aluminium bestehen",
+        "Sie müssen so beschaffen sein, dass Gleisbogen mit 150 m Radius und 1.435 mm Spurweite einwandfrei durchfahren werden können",
+        "Der Radsatzabstand darf nicht unter 1.200 mm gehen",
+        "Die Räder müssen drehbar gelagert sein, aber fest im Achsrohr sitzen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nach § 21 EBO müssen die Räder und Radsätze der Fahrzeuge so beschaffen und gelagert sein, daß Gleisbogen mit 150 m Radius und 1.435 mm Spurweite einwandfrei durchfahren werden können."
     }
   ]
 }

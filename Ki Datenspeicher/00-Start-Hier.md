@@ -26,6 +26,12 @@ was das Projekt ist, wie es aufgebaut ist, was zuletzt passiert ist, und was off
 11. [[09-Fachwissen-Fragenkatalog/00-Übersicht]] — von Claude aus Gwens
     Rechercheergebnissen aufbereiteter Frage-Antwort-Katalog (aktuell 4 von
     15 Themen)
+12. [[10-Gesamtquiz-Pruefung/00-Anweisung-für-Gwen]] — laufende fachliche
+    Prüfung aller 427 Gesamtquiz-Fragen durch Gwen (43 Batch-Dateien à 10
+    Fragen, ein Batch pro Session)
+13. [[11-Fragen-Generierung/00-Anweisung-für-Gwen]] — Ausbau der 10
+    Gleisbau-Wissenstests: Gwen erstellt pro Thema 15–25 neue, per Websuche
+    belegte Quizfragen (ein Auftrag pro Session)
 
 ## Kurzfassung (falls nur 30 Sekunden Zeit sind)
 
@@ -98,9 +104,18 @@ Ki Datenspeicher/
 │   ├── 00-Rechercheauftrag-für-Gwen.md
 │   ├── Kickoff-Prompt.md
 │   └── 01…15  (je eine Recherche-Datei pro Fachthema)
-└── 09-Fachwissen-Fragenkatalog/
-    ├── 00-Übersicht.md
-    └── je eine Datei pro fertig recherchiertem Thema (von Claude aufbereitet)
+├── 09-Fachwissen-Fragenkatalog/
+│   ├── 00-Übersicht.md
+│   └── je eine Datei pro fertig recherchiertem Thema (von Claude aufbereitet)
+├── 10-Gesamtquiz-Pruefung/
+│   ├── 00-Anweisung-für-Gwen.md
+│   ├── Chat-Prompt.md      ← pro Session in den Gwen-Chat einfügen
+│   ├── Fortschritt.md      ← Abhak-Liste (nur Tim/Claude)
+│   └── Batch-01…43.md      ← je 10 Gesamtquiz-Fragen zur Prüfung
+└── 11-Fragen-Generierung/
+    ├── 00-Anweisung-für-Gwen.md
+    ├── Chat-Prompt.md      ← pro Session einfügen (AUFTRAG ersetzen)
+    └── Auftrag-<thema>.md  ← je Wissenstest-Thema ein Fragen-Auftrag
 ```
 
 ## Pflegehinweis

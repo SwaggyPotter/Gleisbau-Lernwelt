@@ -61,6 +61,210 @@
       ],
       "correctIndex": 0,
       "explanation": "Der Schwellenachsenabstand und die korrekte Lage sind wichtig für gleichmäßige Lastverteilung und Stabilität des Gleises."
+    },
+    {
+      "id": "schwellen-g1",
+      "question": "Wie groß ist die zulässige Achslast für eine Betonschwelle vom Typ B70?",
+      "choices": [
+        "200 kN",
+        "225 kN",
+        "250 kN (25 t)",
+        "280 kN"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Betonschwelle B70 ist laut Herstellerdatenblatt für Achslasten bis 25 t (rund 250 kN) ausgelegt und damit für hohe Betriebsbeanspruchungen geeignet."
+    },
+    {
+      "id": "schwellen-g2",
+      "question": "Welche Standard-Länge hat eine normale Gleisschwelle aus Beton?",
+      "choices": [
+        "2200 mm",
+        "2400 mm",
+        "2600 mm",
+        "2800 mm"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Betonschwelle B70 hat eine Standardlänge von 2600 mm, was als typische Länge für Schotteroberbau gilt."
+    },
+    {
+      "id": "schwellen-g3",
+      "question": "Was bedeutet die Betonstärkenangabe \"C 50/60\" bei der Betonschwelle B70?",
+      "choices": [
+        "Die Zylinderdruckfestigkeit beträgt 50 N/mm², die Würfeldruckfestigkeit 60 N/mm²",
+        "Der Preis ist mit Kategorie 50-60 Euro/m² gestaffelt",
+        "Die Schwelle ist 50 cm lang und 60 mm dick",
+        "Das Betonvolumen beträgt 50 Liter für eine 60-cm lange Schwelle"
+      ],
+      "correctIndex": 0,
+      "explanation": "C 50/60 bezeichnet die Druckfestigkeit des Betons (Zylinderdruckfestigkeit) mit 50 N/mm² und den würfelförmigen Bruchwert von 60 N/mm²."
+    },
+    {
+      "id": "schwellen-g4",
+      "question": "Wie groß ist die maximale zulässige Geschwindigkeit für eine B70-Betonschwelle im Schotteroberbau?",
+      "choices": [
+        "120 km/h",
+        "200 km/h",
+        "250 km/h",
+        "300 km/h"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Betonschwelle B70 ist für eine maximale Geschwindigkeit von 250 km/h zugelassen und wird auf Hochgeschwindigkeitsstrecken eingesetzt."
+    },
+    {
+      "id": "schwellen-g5",
+      "question": "Wie viel wiegt eine Betonschwelle B70 ohne Befestigungssystem?",
+      "choices": [
+        "200 kg",
+        "234 kg",
+        "280 kg",
+        "315 kg"
+      ],
+      "correctIndex": 2,
+      "explanation": "Eine B70-Betonschwelle wiegt laut Herstellerdatenblatt ca. 280 kg ohne Befestigungselemente (Betonvolumen 114 Liter)."
+    },
+    {
+      "id": "schwellen-g6",
+      "question": "Was ist der Hauptvorteil von Y-Stahlschwellen gegenüber Betonschwellen?",
+      "choices": [
+        "Geringere Bauhöhe und höhere Gleislagestabilität auch bei engen Bogenradien",
+        "Längere Lebensdauer (bis zu 100 Jahre)",
+        "Kostengünstigere Anschaffung als Beton",
+        "Keine Wartung erforderlich"
+      ],
+      "correctIndex": 0,
+      "explanation": "Y-Stahlschwellen bieten eine geringe Bauhöhe und hohe Gleislagestabilität, was besonders bei engen Bogenradien wichtig ist."
+    },
+    {
+      "id": "schwellen-g7",
+      "question": "In welchem Geschwindigkeitsbereich sind Y-Stahlschwellen auf Schotteroberbau im deutschen Netz zugelassen?",
+      "choices": [
+        "Bis 100 km/h",
+        "Bis 120 km/h",
+        "Bis 160 km/h",
+        "Bis 200 km/h"
+      ],
+      "correctIndex": 1,
+      "explanation": "In Deutschland sind Y-Stahlschwellen bis zu Geschwindigkeiten von 120 km/h auf Schotteroberbau möglich."
+    },
+    {
+      "id": "schwellen-g8",
+      "question": "Wie viel länger ist die Lebensdauer einer imprägnierten Holzschwelle im Vergleich zu einem unbehandelten Schwelblock?",
+      "choices": [
+        "Das Leben ist 3x so lang (6-12 Jahre → 30-45 Jahre)",
+        "Die Nutzungsdauer bleibt gleich, nur die Optik verbessert sich",
+        "Sie hält kürzer, weil das Imprägniermittel das Holz mit der Zeit zersetzt",
+        "Eine imprägnierte Holzschwelle hält nur halb so lange wie Beton"
+      ],
+      "correctIndex": 0,
+      "explanation": "Imprägnierte Holzschwellen (aus Buche oder Eiche) erreichen eine Lebensdauer von 30 bis 45 Jahren, während unbehandeltes Holz deutlich kürzer dauert."
+    },
+    {
+      "id": "schwellen-g9",
+      "question": "Welcher Abstand wird typischerweise zwischen den Querschwellen im Schotteroberbau eingehalten?",
+      "choices": [
+        "40 cm (400 mm Achsabstand)",
+        "50 cm (500 mm Achsabstand)",
+        "60 cm (600 mm Achsabstand)",
+        "100 cm (1000 mm Achsabstand)"
+      ],
+      "correctIndex": 2,
+      "explanation": "Im Schotteroberbau werden Schwellen im Abstand von ca. 60 cm verlegt, was dem Standardabstand entspricht."
+    },
+    {
+      "id": "schwellen-g10",
+      "question": "Welche Schwellentypen werden im Eisenbahnbau verwendet?",
+      "choices": [
+        "Nur Betonschwellen für Hauptstrecken, nur Holzschwellen für Nebenstrecken",
+        "Holzschwelle, Betonschwelle, Stahlschwelle (Y-Schwelle)",
+        "Nur Fachwerkschwellen aus Holz",
+        "Nur Gussstahl Schwellen in Glockenform"
+      ],
+      "correctIndex": 1,
+      "explanation": "Man unterscheidet zwischen Querschwellen und Langschwellen, mit Typen Holz, Beton und Stahl."
+    },
+    {
+      "id": "schwellen-g11",
+      "question": "Wie groß ist die Breite einer typischen B70-Betonschwelle?",
+      "choices": [
+        "260 mm",
+        "280 mm",
+        "300 mm",
+        "320 mm"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Betonschwelle B70 hat eine Breite von 300 mm und eine Höhe von 234 mm."
+    },
+    {
+      "id": "schwellen-g12",
+      "question": "Warum ist eine große Auflagerfläche der Schwelle wichtig?",
+      "choices": [
+        "Sie verteilt die Last großflächig auf die Bettung und hält die Flächenpressung gering",
+        "Sie ist nur für die Montage notwendig, aber nicht für Lastverteilung relevant",
+        "Sie beträgt 68 cm² bei einer Schwelle mit 2600 mm Länge",
+        "Sie hat keinen Einfluss auf die Gleislagestabilität"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Auflagerfläche (gesamt) von 6801 cm² ist entscheidend für die Lastverteilung auf das Bettungsmaterial und sorgt für geringe Flächenpressung."
+    },
+    {
+      "id": "schwellen-g13",
+      "question": "Was ist ein Vorteil der Y-Stahlschwelle bei der Schotterbettung?",
+      "choices": [
+        "Sie benötigt nur 2,6 m an der Schotterbettoberkante (Vorkopfschotter eingerechnet)",
+        "Die Bettung muss aus Spezialmaterial bestehen",
+        "Sie benötigt 4,0 m Schotterbettung für Stabilität",
+        "Der Vorkopfschotter ist nicht erforderlich"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Y-Stahlschwelle ermöglicht eine schmale Schotterbettung von nur 2,6 m an der Oberkante, was Platz bei Kurven spart und Material einspart."
+    },
+    {
+      "id": "schwellen-g14",
+      "question": "Warum werden Holzschwellen in der Regel aus Buche oder Eiche gefertigt?",
+      "choices": [
+        "Diese Hölzer haben hohe Druckfestigkeit, Biegesteifigkeit und sind witterungsbeständig nach Imprägnierung",
+        "Buche und Eiche sind die kostengünstigsten Hölzer für Schwellen",
+        "Beide Arten von Holz sind weich und leicht zu bearbeiten",
+        "Nur diese Holzarten lassen sich imprägnieren"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die mechanische Beanspruchung erfordert hartes Holz wie Buche oder Eiche mit hoher Widerstandskraft."
+    },
+    {
+      "id": "schwellen-g15",
+      "question": "Welche Aufgabe hat die Imprägnierung bei Holzschwellen?",
+      "choices": [
+        "Sie schützt vor Feuchtigkeit, Fäulnis und biologischen Angriffen",
+        "Sie verbessert die elektrische Leitfähigkeit für Signale",
+        "Sie macht das Holz härter und schmelzfähig",
+        "Sie dient primär der Ästhetik, hat aber keine technische Funktion"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Imprägnierung ist notwendig, um die Holzschwelle vor Feuchtigkeit, Fäulnisgefahr und anderen Schädigungen zu schützen."
+    },
+    {
+      "id": "schwellen-g16",
+      "question": "Was bedeutet \"Schotteroberbau\" im Gegensatz zur \"Festen Fahrbahn\"?",
+      "choices": [
+        "Schotteroberbau = Schienen auf Holz-, Beton- oder Stahlschwellen im Schotterbett; Feste Fahrbahn = Gleis direkt auf bzw. in einer Beton- oder Asphalttragschicht",
+        "Der Oberbau mit Kies ist teurer und unpassend für Hochgeschwindigkeit",
+        "Schotteroberbau ist nur für Holzschwellen, fester Aufbau nur für Stahl",
+        "Schotteroberbau wird nur bei Y-Stahlschwellen verwendet"
+      ],
+      "correctIndex": 0,
+      "explanation": "Beim Schotteroberbau liegen die Schwellen im Schotterbett, während bei der Festen Fahrbahn das Gleis direkt auf bzw. in einer Beton- oder Asphalttragschicht befestigt ist."
+    },
+    {
+      "id": "schwellen-g17",
+      "question": "Warum ist die Spurhaltung eine Hauptaufgabe der Schwellen?",
+      "choices": [
+        "Die Schwelle hält die beiden Schienen im richtigen Abstand (Spurweite) und überträgt zugleich die Kräfte auf die Bettung",
+        "Nur bei Betonschwellen wird die Spurhaltung erreicht",
+        "Die Y-Stahlschwelle ist kein Spurhalter",
+        "Holzschwellen benötigen keinen Spurhalter, da sie weich sind"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Schwelle ist Träger und Spurhalter zugleich – sie fixiert die Schienen in der richtigen Position (Spurweite) und überträgt die Kräfte auf das Bettungsmaterial."
     }
   ]
 }

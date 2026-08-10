@@ -33,6 +33,11 @@ const routes: Routes = [
     loadChildren: () => import('./modules/zusatz/gesamtquiz/gesamtquiz.module')
       .then(m => m.GesamtquizModule)
   },
+  {
+    path: 'zusatz/materialrechner',
+    loadChildren: () => import('./modules/zusatz/materialrechner/materialrechner.module')
+      .then(m => m.MaterialrechnerModule)
+  },
   { path: '**', redirectTo: 'dashboard' }
 ];
 

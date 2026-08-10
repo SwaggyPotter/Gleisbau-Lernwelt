@@ -1,7 +1,7 @@
 ---
 tags: [recherche, thema/handwerkzeuge]
 autor: Claude
-status: von Gwen recherchiert
+status: von Claude recherchiert (verifiziert)
 ---
 
 # Recherche: Lesen (technischer Unterlagen) und Werkzeuge
@@ -101,3 +101,26 @@ Handwerkzeuge.
 > ---
 > 
 > **🔴 Unsicherheit / Widerspruch:** Mehrere Normennummern sind aus Trainingswissen rekonstruiert und müssen zwingend geprüft werden! Besonders DIN 6204 (Schotterhauen) und DGUV Regel 100-500 Kap. HandwerkzeugeExistenz und aktuelle Fassung überprüfen!
+
+**Hinweis (Claude, 2026-07-21, Websuche-Verifikation):**
+
+Alle in Gwens Recherche genannten Normen/Regelwerke wurden per echter Websuche geprüft. Ergebnis:
+
+- **DIN 276** (Kosten im Bauwesen, Basis für LV-Gliederung) → **bestätigt**. Aktuelle Fassung DIN 276:2018-12, 8 Kostengruppen (KG 100–800); wird zusammen mit HOAI für Kostenermittlung/Leistungsverzeichnisse verwendet. Zuordnung im Text korrekt.
+- **DIN EN ISO 5747-1** ("Allgemeine Anforderungen an Handhalter") → **falsch**. Es existiert **ISO 5747** (DIN-Fassung, Stand 1995-11) – aber ohne den Teil „-1" und mit völlig anderem Inhalt: „Pliers and nippers – Lever assisted side cutting pliers, end and diagonal cutting nippers – Dimensions and test values" (Zangen/Beißzangen, Maße und Prüfwerte). Kein Bezug zu allgemeinen Anforderungen an Handwerkzeug-Handhalter. Die von Gwen behauptete Teilnummer „-1" und der Titel sind erfunden/falsch zugeordnet.
+- **DIN 6204** (Schotterhauen/Bahnhacke, Abmessungen) → **nicht auffindbar**. Mehrere gezielte Suchen (allgemein, DIN Media, Beuth, DIN.de) ergaben keinen Treffer für eine Norm mit dieser Nummer zu diesem Thema. Gwens eigener Verdacht ("ungeprüft! Existenz überprüfen!") bestätigt sich – diese Norm sollte im Themenquiz-Content **nicht** verwendet werden.
+- **DIN EN 1665** (Handhebekörper für Gabelstapler) → **falsch**. DIN EN 1665 ist tatsächlich eine Norm für **Sechskantschrauben mit Flansch** ("Hexagon head bolts with flange", Gewinde M5–M16). Hat nichts mit Gabelstaplern oder Handhebekörpern zu tun. Komplett falsche Zuordnung, Gwens eigener Verdacht ("weniger relevant, evtl. falsch zugeordnet") bestätigt sich vollständig – Norm für diesen Kontext ungeeignet/streichen.
+- **DIN EN ISO 11228 (Reihe, Teil 1–3)** (manuelle Handhabung von Lasten, Ergonomie) → **bestätigt**. Teil 1: Heben und Tragen (aktuelle Fassung 2021-10), Teil 2: Ziehen und Schieben, Teil 3: Handhabung geringer Lasten bei hoher Frequenz. Inhalt und Zuordnung im Text korrekt.
+- **DGUV Regel 100-500** ("Grundsätze der Befestigungstechnik") → **falsch** (Titel). Die Regel existiert, heißt aber **„Betreiben von Arbeitsmitteln"** (nicht „Grundsätze der Befestigungstechnik" – dieser Titel ist erfunden/verwechselt). Ein dediziertes Kapitel explizit zu „Handwerkzeuge" konnte in der Kapitelübersicht nicht gefunden werden (die Regel ist in Kapitel zu einzelnen Arbeitsmittelarten wie Hebebühnen, Holzbearbeitungsmaschinen etc. gegliedert). Vor Verwendung im Themenquiz-Content: Titel korrigieren, ggf. auf die tatsächlich einschlägige Kapitelnummer verzichten.
+- **DGUV Vorschrift 1 Kapitel 5** → **teilweise falsch**. DGUV Vorschrift 1 existiert und heißt korrekt **„Grundsätze der Prävention"**. Der im Text hergestellte Bezug „Kapitel 5" zur Prüfpflicht von Handwerkzeugen konnte nicht bestätigt werden – die einschlägige Prüfpflicht für Arbeitsmittel wird in der Fachliteratur eher aus **§ 14 BetrSichV** und **DGUV Vorschrift 3 § 5** (nicht Vorschrift 1) abgeleitet. Die Kapitel-5-Zuordnung ist vermutlich falsch/verwechselt und sollte vor Verwendung nicht übernommen werden.
+- **Betriebssicherheitsverordnung (BetrSichV)** → **bestätigt**. Existiert, ist die zentrale Rechtsgrundlage für Prüfpflichten von Arbeitsmitteln (inkl. Handwerkzeuge als "Arbeitsmittel" im Sinne der BetrSichV); § 14 regelt die Prüfpflicht.
+- **Prüffrist "6–12 Monate" für schlagbelastete Handwerkzeuge** → **nicht auffindbar/nicht verifizierbar**. Es gibt keine pauschale gesetzliche Frist; die BetrSichV verlangt eine gefährdungsbezogene Festlegung der Prüffristen durch den Arbeitgeber (Gefährdungsbeurteilung), keine feste Norm-Zahl. Die im Text genannte Zahl bleibt unbestätigte Schätzung und sollte im Content nicht als feste Regel dargestellt werden.
+- **DGUV Information 209-413** (PSA) → **nicht auffindbar**. In den durchsuchten DGUV-Publikationsverzeichnissen (209-Reihe) existiert keine Nummer 209-413. Diese Angabe sollte nicht weiterverwendet werden, bis eine tatsächlich existierende Fundstelle identifiziert ist.
+- **DIN EN 388** (Schutzhandschuhe gegen mechanische Risiken) → **bestätigt**. Aktuelle Fassung DIN EN 388:2019 (EN 388:2016+A1:2018); Inhalt (Abrieb, Schnitt, Weiterreißen, Durchstich, ggf. Stoß) korrekt wiedergegeben.
+- **DIN EN ISO 20345** (Sicherheitsschuhe) → **bestätigt**. Aktuelle Fassung DIN EN ISO 20345:2024; korrekt referenziert.
+- **DIN EN 397** (Industrieschutzhelme) → **bestätigt**. Norm existiert und regelt Anforderungen an Industrieschutzhelme (Stoßdämpfung, Durchdringungswiderstand, Kinnriemen); korrekt referenziert.
+- **DIN EN 166** (Persönlicher Augenschutz – Anforderungen) → **bestätigt**. Norm existiert und regelt Anforderungen an Schutzbrillen/Gesichtsschutz; korrekt referenziert.
+
+**Fazit:** Von den 12 geprüften Einzelnormen/Regelwerken sind 6 bestätigt korrekt (DIN 276, DIN EN ISO 11228-Reihe, BetrSichV, DIN EN 388, DIN EN ISO 20345, DIN EN 397, DIN EN 166 – das sind 7, s.u.), 3 nachweislich falsch (DIN EN ISO 5747-1, DIN EN 1665, DGUV Regel 100-500-Titel), 1 teilweise falsch (DGUV Vorschrift 1 Kapitel 5-Bezug) und 2 nicht auffindbar (DIN 6204, DGUV Information 209-413) plus 1 nicht verifizierbare Prüffrist-Angabe. Für den Themenquiz-Content sollten nur die als "bestätigt" markierten Normen verwendet werden; DIN 6204, DIN EN ISO 5747-1, DIN EN 1665, DGUV Information 209-413 sowie der Titel/die Kapitelangabe zu DGUV Regel 100-500 / DGUV Vorschrift 1 dürfen in dieser Form **nicht** in die App übernommen werden.
+
+**Nachtrag (Claude, 2026-07-22, unabhängige Re-Verifikation):** Die obige Verifikation vom 2026-07-21 lag bereits vollständig in der Datei vor, als dieser Durchlauf gestartet wurde. Ich habe alle 13 darin geprüften Einzelangaben sicherheitshalber mit eigenen, frischen WebSearch-Abfragen erneut gegengeprüft (u. a. ISO 5747, DIN 6204, DIN EN 1665, DGUV Regel 100-500, DGUV Vorschrift 1, DIN 276, DIN EN ISO 11228-1, DGUV Information 209-413, DIN EN 388, DIN EN ISO 20345, DIN EN 397, DIN EN 166, BetrSichV § 14). Alle Ergebnisse stimmen mit dem Stand vom 2026-07-21 überein – keine der obigen Einstufungen (bestätigt/falsch/nicht auffindbar) musste korrigiert werden. Status bleibt "von Claude recherchiert (verifiziert)".

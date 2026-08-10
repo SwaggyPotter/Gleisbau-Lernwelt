@@ -1,0 +1,282 @@
+{
+  "topicId": "lf11",
+  "title": "Gleisboegen herstellen und einmessen",
+  "questions": [
+    {
+      "id": "LF11-Q1",
+      "question": "Was gehoert zum Oberbau?",
+      "choices": [
+        "Schienen, Schwellen, Schotter, Kleineisen",
+        "Asphalt",
+        "Pflaster",
+        "Betonfundamente"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diese Elemente bilden den eigentlichen Gleisoberbau."
+    },
+    {
+      "id": "LF11-Q2",
+      "question": "Die Spurweite beschreibt ...",
+      "choices": [
+        "den Abstand der Schieneninnenkanten",
+        "die Schienenhoehe",
+        "die Laenge",
+        "das Gewicht"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Spurweite ist ein zentraler Sicherheitsparameter des Gleises."
+    },
+    {
+      "id": "LF11-Q3",
+      "question": "Wozu dienen Kleineisen?",
+      "choices": [
+        "Befestigung der Schiene auf der Schwelle",
+        "Entwaesserung",
+        "Laermschutz",
+        "Markierung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kleineisen halten Schiene und Spur in definierter Lage."
+    },
+    {
+      "id": "LF11-Q4",
+      "question": "Warum wird gestopft?",
+      "choices": [
+        "um das Gleis lagegerecht zu fixieren",
+        "um Schotter zu reinigen",
+        "um Schwellen zu kuerzen",
+        "wegen Optik"
+      ],
+      "correctIndex": 0,
+      "explanation": "Stopfen verdichtet den Schotter unter der Schwelle und stellt die Lage ein."
+    },
+    {
+      "id": "LF11-Q5",
+      "question": "Warum wird das Gleis vermessen?",
+      "choices": [
+        "zur Kontrolle der Sicherheit und Fahrqualitaet",
+        "nur fuer Dokumentation",
+        "fuer Abrechnung",
+        "wegen Optik"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nur gemessene Gleislagen sind sicher und betrieblich belastbar."
+    },
+    {
+      "id": "LF11-Q6",
+      "question": "Was erfolgt nach dem Stopfen?",
+      "choices": [
+        "Vermessen und Nachrichten",
+        "Schienen abbauen",
+        "Planum entfernen",
+        "Asphaltieren"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nach Stopfarbeiten wird die Lage gemessen und gezielt nachgerichtet."
+    },
+    {
+      "id": "LF11-Q7",
+      "question": "Was ist im Gleisbereich lebenswichtig?",
+      "choices": [
+        "Sicherung gegen Zugverkehr",
+        "schneller arbeiten",
+        "Handy",
+        "Abkuerzungen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Wirksame Sicherung gegen Zugverkehr hat absolute Prioritaet."
+    },
+    {
+      "id": "LF11-Q8",
+      "question": "Was ist ein sicherheitsrelevanter Fehler?",
+      "choices": [
+        "falsche Spurweite oder lose Befestigungen",
+        "schmutziger Schotter",
+        "fehlende Farbe",
+        "Werkzeug"
+      ],
+      "correctIndex": 0,
+      "explanation": "Lage- und Befestigungsfehler betreffen direkt die Betriebssicherheit."
+    },
+    {
+      "id": "LF11-Q9",
+      "question": "Der Oberbau besteht aus ...",
+      "choices": [
+        "Schiene, Schwelle und Schotter",
+        "nur Schiene",
+        "nur Beton",
+        "Pflaster und Asphalt"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diese Elemente bilden zusammen die tragende Gleisstruktur oben."
+    },
+    {
+      "id": "LF11-Q10",
+      "question": "Der Unterbau ...",
+      "choices": [
+        "traegt den Oberbau",
+        "ersetzt den Oberbau",
+        "ist nur fuer Optik",
+        "ist entbehrlich"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ohne tragfaehigen Unterbau kann die Gleisstruktur nicht dauerhaft funktionieren."
+    },
+    {
+      "id": "LF11-Q11",
+      "question": "Die Spurweite ist ...",
+      "choices": [
+        "sicherheitsrelevant",
+        "nur eine Kennzahl",
+        "nur fuer Statistik",
+        "unwichtig"
+      ],
+      "correctIndex": 0,
+      "explanation": "Spurweitenfehler koennen unmittelbar zu Betriebsgefaehrdungen fuehren."
+    },
+    {
+      "id": "LF11-Q12",
+      "question": "Kleineisen haben die Hauptaufgabe ...",
+      "choices": [
+        "die Schiene zu befestigen",
+        "den Schotter zu reinigen",
+        "Wasser abzufuehren",
+        "Lack aufzutragen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sie sorgen fuer die sichere Verbindung zwischen Schiene und Schwelle."
+    },
+    {
+      "id": "LF11-Q13",
+      "question": "Schotterbett hat unter anderem die Aufgabe ...",
+      "choices": [
+        "Lastverteilung und Entwaesserung",
+        "nur Markierung",
+        "nur Daemmung",
+        "nur Gewichtserhoehung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Schotter sichert Lastabtrag, Lagehaltung und Wasserabfluss."
+    },
+    {
+      "id": "LF11-Q14",
+      "question": "Stopfen dient vor allem ...",
+      "choices": [
+        "dem Einstellen der Gleislage",
+        "dem Wechsel der Schiene",
+        "dem Schottertransport",
+        "der Optik"
+      ],
+      "correctIndex": 0,
+      "explanation": "Durch Stopfen wird Schotter gezielt unter die Schwellen eingebracht und verdichtet."
+    },
+    {
+      "id": "LF11-Q15",
+      "question": "Beim Stopfen sind moeglich ...",
+      "choices": [
+        "Hand- und Maschinenverfahren",
+        "nur Handstopfen",
+        "nur Maschinenstopfen",
+        "kein Stopfen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Je nach Baustelle kommen manuelle oder maschinelle Verfahren zum Einsatz."
+    },
+    {
+      "id": "LF11-Q16",
+      "question": "Warum ist Gleisvermessung wichtig?",
+      "choices": [
+        "sie sichert Fahrqualitaet",
+        "nur fuer Fotos",
+        "nur fuer Abrechnung",
+        "nur fuer Statistiken"
+      ],
+      "correctIndex": 0,
+      "explanation": "Messdaten sind Grundlage fuer sichere und ruhige Fahrdynamik."
+    },
+    {
+      "id": "LF11-Q17",
+      "question": "Nach dem Stopfen wird das Gleis ...",
+      "choices": [
+        "kontrolliert und nachgerichtet",
+        "abgebaut",
+        "ignoriert",
+        "asphaltiert"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kontrolle nach Stopfarbeiten ist fester Teil des Einbauprozesses."
+    },
+    {
+      "id": "LF11-Q18",
+      "question": "Welche Schwellenart ist Standard?",
+      "choices": [
+        "Betonschwellen",
+        "Holzschwellen",
+        "Stahlschwellen",
+        "Kunststoffschwellen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Im Regeloberbau werden heute ueberwiegend Betonschwellen verwendet."
+    },
+    {
+      "id": "LF11-Q19",
+      "question": "Holzschwellen sind heute vor allem ...",
+      "choices": [
+        "fuer Sonderfaelle",
+        "immer Standard",
+        "verboten",
+        "nur fuer Tunnel"
+      ],
+      "correctIndex": 0,
+      "explanation": "Holzschwellen kommen meist in besonderen Bereichen zum Einsatz."
+    },
+    {
+      "id": "LF11-Q20",
+      "question": "Lose Kleineisen sind ...",
+      "choices": [
+        "gefaehrlich",
+        "unproblematisch",
+        "nur optisch auffaellig",
+        "normal"
+      ],
+      "correctIndex": 0,
+      "explanation": "Befestigungsfehler beeinflussen Spur- und Lagehaltung unmittelbar."
+    },
+    {
+      "id": "LF11-Q21",
+      "question": "Die groesste Gefahr im Gleisbereich ist oft ...",
+      "choices": [
+        "Zugverkehr",
+        "Farbmangel",
+        "fehlende Notizen",
+        "leichter Regen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Gegen Zugverkehr muss immer wirksam gesichert werden."
+    },
+    {
+      "id": "LF11-Q22",
+      "question": "Warnkleidung im Gleisbau ist ...",
+      "choices": [
+        "Pflicht",
+        "nur bei Nacht",
+        "optional",
+        "nur fuer Gaeste"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sichtbarkeit ist eine zentrale Schutzmassnahme im Gleisbereich."
+    },
+    {
+      "id": "LF11-Q23",
+      "question": "Welcher Grundsatz gilt immer?",
+      "choices": [
+        "Sicherheit geht vor Zeitdruck",
+        "Zeitdruck geht vor Sicherheit",
+        "Abkuerzungen sind erlaubt",
+        "Messungen sind optional"
+      ],
+      "correctIndex": 0,
+      "explanation": "Gerade im Gleisbereich hat sichere Ausfuehrung absolute Prioritaet."
+    }
+  ]
+}

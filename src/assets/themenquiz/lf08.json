@@ -1,0 +1,282 @@
+{
+  "topicId": "lf08",
+  "title": "Erdbauwerke errichten",
+  "questions": [
+    {
+      "id": "LF08-Q1",
+      "question": "Verkehrsflaechen dienen vor allem ...",
+      "choices": [
+        "der sicheren Nutzung durch Verkehrsteilnehmer",
+        "nur der Optik",
+        "nur der Entwaesserung",
+        "nur der Baustelleneinrichtung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Verkehrsflaechen muessen sichere Nutzung unter Verkehrslast ermoeglichen."
+    },
+    {
+      "id": "LF08-Q2",
+      "question": "Warum ist das Planum so wichtig?",
+      "choices": [
+        "Es ist die Grundlage aller Schichten",
+        "Es spart Material",
+        "Es ist nur Deko",
+        "Es ersetzt Verdichtung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fehler im Planum setzen sich durch den gesamten Schichtenaufbau fort."
+    },
+    {
+      "id": "LF08-Q3",
+      "question": "Welche Schicht verteilt Lasten?",
+      "choices": [
+        "Tragschicht oder Frostschutzschicht",
+        "Deckschicht allein",
+        "Farbe",
+        "Randstein"
+      ],
+      "correctIndex": 0,
+      "explanation": "Trag- und Frostschutzschichten verteilen Lasten in den Untergrund."
+    },
+    {
+      "id": "LF08-Q4",
+      "question": "Warum wird lagenweise verdichtet?",
+      "choices": [
+        "um gleichmaessige Tragfaehigkeit zu erreichen",
+        "weil es Zeit spart",
+        "nur wegen Wintervorschrift",
+        "es ist egal"
+      ],
+      "correctIndex": 0,
+      "explanation": "Lagenweise Verdichtung erzeugt einen gleichmaessigen und tragfaehigen Aufbau."
+    },
+    {
+      "id": "LF08-Q5",
+      "question": "Warum sind Randbefestigungen wichtig?",
+      "choices": [
+        "sie verhindern seitliches Wandern des Pflasters",
+        "nur fuer Optik",
+        "sie sparen Steine",
+        "sie ersetzen die Tragschicht"
+      ],
+      "correctIndex": 0,
+      "explanation": "Randbefestigungen halten das Pflaster im Verband und verhindern Ausweichen."
+    },
+    {
+      "id": "LF08-Q6",
+      "question": "Warum muss Asphalt heiss eingebaut werden?",
+      "choices": [
+        "damit er verdichtbar und dauerhaft ist",
+        "wegen der Farbe",
+        "wegen des Geruchs",
+        "wegen Staub"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nur bei ausreichender Temperatur laesst sich Asphalt korrekt verdichten."
+    },
+    {
+      "id": "LF08-Q7",
+      "question": "Warum braucht jede Verkehrsflaeche Gefaelle?",
+      "choices": [
+        "um Wasser abzuleiten und Schaeden zu vermeiden",
+        "nur fuer Optik",
+        "nur fuer Markierungen",
+        "es ist freiwillig"
+      ],
+      "correctIndex": 0,
+      "explanation": "Stehendes Wasser fuehrt zu Frost- und Substanzschaeden."
+    },
+    {
+      "id": "LF08-Q8",
+      "question": "Was ist ein haeufiger Schaden durch schlechte Verdichtung?",
+      "choices": [
+        "Setzungen und Spurrinnen",
+        "Farbveraenderung",
+        "Laerm",
+        "Geruch"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mangelnde Verdichtung reduziert die Tragfaehigkeit und fuehrt zu Verformungen."
+    },
+    {
+      "id": "LF08-Q9",
+      "question": "Verkehrsflaechen muessen vor allem ...",
+      "choices": [
+        "Lasten aufnehmen",
+        "nur dekorativ sein",
+        "nur trocken bleiben",
+        "nur markiert sein"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die zentrale technische Funktion ist die sichere Lastaufnahme."
+    },
+    {
+      "id": "LF08-Q10",
+      "question": "Welche Aussage zum Planum ist korrekt?",
+      "choices": [
+        "Es ist die Grundlage aller Schichten",
+        "Es ist optional",
+        "Es ersetzt die Tragschicht",
+        "Es wird nicht verdichtet"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das Planum traegt den gesamten weiteren Schichtenaufbau."
+    },
+    {
+      "id": "LF08-Q11",
+      "question": "Tragschicht und Frostschutzschicht dienen ...",
+      "choices": [
+        "der Lastverteilung und dem Frostschutz",
+        "nur der Farbgebung",
+        "nur dem Fugenbild",
+        "nur der Entwaesserung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sie tragen die Verkehrsbelastung und schuetzen den Aufbau vor Frostwirkung."
+    },
+    {
+      "id": "LF08-Q12",
+      "question": "Wie erfolgt Verdichtung fachgerecht?",
+      "choices": [
+        "lagenweise",
+        "nur am Ende einmal",
+        "nur bei Trockenheit",
+        "gar nicht"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nur lagenweise Verdichtung erzeugt eine gleichmaessige Tragstruktur."
+    },
+    {
+      "id": "LF08-Q13",
+      "question": "Ohne Verdichtung drohen vor allem ...",
+      "choices": [
+        "Setzungen",
+        "Markierungsfehler",
+        "nur Staub",
+        "keine Folgen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Unzureichende Verdichtung fuehrt zu Nachverdichtungen unter Verkehrslast."
+    },
+    {
+      "id": "LF08-Q14",
+      "question": "Pflaster braucht Randbefestigungen, damit ...",
+      "choices": [
+        "die Steine seitlich nicht auswandern",
+        "Fugen nicht noetig sind",
+        "keine Verdichtung noetig ist",
+        "kein Gefaelle gebraucht wird"
+      ],
+      "correctIndex": 0,
+      "explanation": "Randbefestigungen halten den Verband unter Last stabil."
+    },
+    {
+      "id": "LF08-Q15",
+      "question": "Fugen im Pflaster sind wichtig, weil ...",
+      "choices": [
+        "sie das System funktionsfaehig und leicht beweglich halten",
+        "sie nur dekorativ sind",
+        "sie Tragschichten ersetzen",
+        "sie Wasser dauerhaft stauen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fugen sichern Lastabtrag, Verzahnung und Anpassung im Verband."
+    },
+    {
+      "id": "LF08-Q16",
+      "question": "Asphalt wird eingebaut ...",
+      "choices": [
+        "heiss",
+        "gefroren",
+        "trocken als Schuettgut",
+        "nur handwarm"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Einbautemperatur ist Voraussetzung fuer Verdichtbarkeit und Verbund."
+    },
+    {
+      "id": "LF08-Q17",
+      "question": "Asphaltflaechen werden verdichtet mit ...",
+      "choices": [
+        "Walzen",
+        "Besen",
+        "Schaufeln",
+        "Wasser"
+      ],
+      "correctIndex": 0,
+      "explanation": "Walzen stellen die erforderliche Dichte und Ebenheit der Asphaltschicht her."
+    },
+    {
+      "id": "LF08-Q18",
+      "question": "Warum ist Gefaelle unverzichtbar?",
+      "choices": [
+        "Es verhindert stehendes Wasser",
+        "Es spart Material",
+        "Es ersetzt Entwaesserung",
+        "Es ist nur fuer Optik"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ohne Gefaelle bleibt Wasser stehen und belastet den Aufbau."
+    },
+    {
+      "id": "LF08-Q19",
+      "question": "Quergefaelle leitet Wasser ...",
+      "choices": [
+        "seitlich ab",
+        "nach oben",
+        "in den Untergrund",
+        "gar nicht"
+      ],
+      "correctIndex": 0,
+      "explanation": "Quergefaelle fuehrt Oberflaechenwasser zur Seite in die Entwaesserung."
+    },
+    {
+      "id": "LF08-Q20",
+      "question": "Die Bettung liegt typischerweise ...",
+      "choices": [
+        "zwischen Tragschicht und Pflaster",
+        "ueber der Deckschicht",
+        "unter dem Untergrund",
+        "nur an den Raendern"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Bettung bildet das Auflager fuer die Pflastersteine."
+    },
+    {
+      "id": "LF08-Q21",
+      "question": "Fehler im Untergrund ...",
+      "choices": [
+        "wirken sich bis zur Oberflaeche aus",
+        "bleiben ohne Auswirkung",
+        "verbessern die Deckschicht",
+        "sind nur optisch"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mangel im unteren Aufbau fuehrt spaeter oft zu sichtbaren Schaeden oben."
+    },
+    {
+      "id": "LF08-Q22",
+      "question": "Spurrinnen deuten haeufig auf ...",
+      "choices": [
+        "Verdichtungsmaengel hin",
+        "zu viele Fugen",
+        "falsche Farbe",
+        "zu viel Randbefestigung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Spurrinnen entstehen oft durch unzureichende Tragfaehigkeit und Verdichtung."
+    },
+    {
+      "id": "LF08-Q23",
+      "question": "Qualitaetssicherung bei Verkehrsflaechen ist ...",
+      "choices": [
+        "Pflicht, nicht Kuer",
+        "nur bei Grossprojekten noetig",
+        "freiwillig",
+        "nur fuer Dokumentation"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nur konsequente Kontrolle sichert Funktion und Dauerhaftigkeit der Flaeche."
+    }
+  ]
+}

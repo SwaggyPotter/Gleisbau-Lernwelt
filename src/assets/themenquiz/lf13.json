@@ -1,0 +1,294 @@
+{
+  "topicId": "lf13",
+  "title": "Weichen bauen und instand halten",
+  "questions": [
+    {
+      "id": "LF13-Q1",
+      "question": "Wozu dient eine Weiche?",
+      "choices": [
+        "Zum Wechseln der Fahrtrichtung zwischen Gleisen",
+        "Zur Entwaesserung",
+        "Zur Bremsung",
+        "Zur Stromversorgung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Weichen verbinden Gleise und ermoeglichen das sichere Abzweigen von Fahrzeugen."
+    },
+    {
+      "id": "LF13-Q2",
+      "question": "Wodurch unterscheiden sich Weichenarten hauptsaechlich?",
+      "choices": [
+        "Bauform und Abzweigwinkel",
+        "Farbe",
+        "Schienenlaenge",
+        "Schotterart"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bauform und Geometrie bestimmen Funktion und Einsatzbereich der Weiche."
+    },
+    {
+      "id": "LF13-Q3",
+      "question": "Welche Teile einer Weiche sind beweglich?",
+      "choices": [
+        "Zungen",
+        "Herzstueck",
+        "Backenschienen",
+        "Schwellen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Zungen sind beweglich und legen den Fahrweg fest."
+    },
+    {
+      "id": "LF13-Q4",
+      "question": "Warum muessen Zungen vollstaendig anliegen?",
+      "choices": [
+        "Sonst besteht Entgleisungsgefahr",
+        "Nur wegen Geraeusch",
+        "Nur wegen Optik",
+        "Das ist egal"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fehlende Zungenanlage fuehrt zu einer sicherheitskritischen Fehlleitung des Radsatzes."
+    },
+    {
+      "id": "LF13-Q5",
+      "question": "Was erfolgt nach dem Stopfen einer Weiche?",
+      "choices": [
+        "Vermessen und Einstellen",
+        "Ausbau",
+        "Asphaltieren",
+        "Lackieren"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nach dem Stopfen folgt die geometrische Kontrolle und die korrekte Einstellung."
+    },
+    {
+      "id": "LF13-Q6",
+      "question": "Warum sind Weichen wartungsintensiver als Regelgleise?",
+      "choices": [
+        "Viele bewegliche und stark belastete Teile",
+        "Wegen ihrer Laenge",
+        "Wegen der Schotterfarbe",
+        "Wegen ihrer Lage"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mechanik und konzentrierte Lasten erzeugen mehr Verschleiss und mehr Einstellbedarf."
+    },
+    {
+      "id": "LF13-Q7",
+      "question": "Was ist ein besonders gefaehrlicher Weichenfehler?",
+      "choices": [
+        "Nicht anliegende Zunge",
+        "Saubere Schwellen",
+        "Neue Schrauben",
+        "Korrekte Lage"
+      ],
+      "correctIndex": 0,
+      "explanation": "Eine nicht anliegende Zunge kann unmittelbar zur Entgleisung fuehren."
+    },
+    {
+      "id": "LF13-Q8",
+      "question": "Warum sind Weichenarbeiten besonders gefaehrlich?",
+      "choices": [
+        "Bewegliche Teile und hohe Sicherheitsrelevanz",
+        "Wegen der Farbe",
+        "Wegen der Laenge",
+        "Wegen des Schotters"
+      ],
+      "correctIndex": 0,
+      "explanation": "Stellbewegungen, Quetschstellen und betriebliche Wirkung machen Weichenarbeiten besonders kritisch."
+    },
+    {
+      "id": "LF13-Q9",
+      "question": "Was wird bei der Weichenpruefung kontrolliert?",
+      "choices": [
+        "Zungenlage, Spurweite und Herzstueckbereich",
+        "Nur Farbe",
+        "Nur Schotter",
+        "Nur Schwellen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Diese Pruefpunkte gehoeren zu den zentralen sicherheitsrelevanten Kontrollen."
+    },
+    {
+      "id": "LF13-Q10",
+      "question": "Welche Aussage ueber Weichen ist korrekt?",
+      "choices": [
+        "Weichen ermoeglichen Richtungswechsel",
+        "Weichen dienen nur der Entwaesserung",
+        "Weichen bremsen Zuege",
+        "Weichen ersetzen Signale"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Hauptfunktion ist das sichere Fuehren in unterschiedliche Fahrwege."
+    },
+    {
+      "id": "LF13-Q11",
+      "question": "Welche Aussage zu Zungen stimmt?",
+      "choices": [
+        "Zungen sind bewegliche Teile",
+        "Zungen sind fest verschweisst",
+        "Zungen ersetzen das Herzstueck",
+        "Zungen sind nur Deko"
+      ],
+      "correctIndex": 0,
+      "explanation": "Zungen bewegen sich in Endlagen und bestimmen den gewaehlten Fahrweg."
+    },
+    {
+      "id": "LF13-Q12",
+      "question": "Warum sind Herzstuecke ein Fokus der Instandhaltung?",
+      "choices": [
+        "Sie sind stark verschleissbelastet",
+        "Sie sind immer unbenutzt",
+        "Sie tragen keine Last",
+        "Sie haben nur optische Funktion"
+      ],
+      "correctIndex": 0,
+      "explanation": "Im Herzstueckbereich wirken hohe dynamische Lasten und Kontaktbeanspruchungen."
+    },
+    {
+      "id": "LF13-Q13",
+      "question": "Welche Abweichung ist akut gefaehrlich?",
+      "choices": [
+        "Nicht anliegende Zungen",
+        "Neue Kleineisen",
+        "Saubere Schienen",
+        "Frischer Schotter"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nicht anliegende Zungen sind ein klassischer Entgleisungsgrund."
+    },
+    {
+      "id": "LF13-Q14",
+      "question": "Welche Aussage zur Weichenwartung trifft zu?",
+      "choices": [
+        "Weichen haben hoeheren Wartungsaufwand",
+        "Weichen sind wartungsfrei",
+        "Nur Schotter wird gewartet",
+        "Wartung ist nur bei Neubau noetig"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bewegliche Teile und Lastwechsel erfordern engmaschige Pflege."
+    },
+    {
+      "id": "LF13-Q15",
+      "question": "Welche Aufgabe hat die Stellvorrichtung?",
+      "choices": [
+        "Sie bewegt die Zungen",
+        "Sie ersetzt das Herzstueck",
+        "Sie misst nur die Spurweite",
+        "Sie dient nur der Beleuchtung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Stellvorrichtung stellt die Endlage her und fixiert den Fahrweg."
+    },
+    {
+      "id": "LF13-Q16",
+      "question": "Was bewirkt Stopfen im Weichenbereich?",
+      "choices": [
+        "Die Weichenlage wird eingestellt",
+        "Nur die Farbe wird verbessert",
+        "Die Zungen werden ersetzt",
+        "Der Betrieb wird beschleunigt"
+      ],
+      "correctIndex": 0,
+      "explanation": "Stopfarbeiten stabilisieren Tragverhalten und Geometrie der Weiche."
+    },
+    {
+      "id": "LF13-Q17",
+      "question": "Welche Folge koennen Weichenfehler haben?",
+      "choices": [
+        "Sie gefaehrden den Betrieb",
+        "Sie verbessern den Fahrkomfort",
+        "Sie reduzieren immer Wartung",
+        "Sie sind rein optisch"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fehler an Weichen haben direkte Auswirkung auf Betriebssicherheit und Verfuegbarkeit."
+    },
+    {
+      "id": "LF13-Q18",
+      "question": "Welche Aussage zu Sicherungsmassnahmen ist richtig?",
+      "choices": [
+        "Sicherung gegen Zugverkehr ist Pflicht",
+        "Sicherung ist optional",
+        "Nur nachts sichern",
+        "Nur bei Regen sichern"
+      ],
+      "correctIndex": 0,
+      "explanation": "Arbeiten an Weichen duerfen nur mit wirksamer Sicherung ausgefuehrt werden."
+    },
+    {
+      "id": "LF13-Q19",
+      "question": "Welche Rolle hat die Dokumentation?",
+      "choices": [
+        "Sie ist sicherheitsrelevant",
+        "Sie ist nur freiwillig",
+        "Sie ersetzt die Pruefung",
+        "Sie hat keine Wirkung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Messwerte und Protokolle sichern Nachweis, Rueckverfolgbarkeit und Abnahme."
+    },
+    {
+      "id": "LF13-Q20",
+      "question": "Wozu dienen Radlenker?",
+      "choices": [
+        "Sie sichern den Radsatzlauf",
+        "Sie bremsen den Zug",
+        "Sie ersetzen Schotter",
+        "Sie bewegen die Zungen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Radlenker fuehren die Radsatzlage im kritischen Bereich der Weiche."
+    },
+    {
+      "id": "LF13-Q21",
+      "question": "Warum sind lose Kleineisen kritisch?",
+      "choices": [
+        "Sie beeintraechtigen die sichere Spurhaltung",
+        "Sie verbessern die Lage",
+        "Sie haben keinen Einfluss",
+        "Sie sind gewollt"
+      ],
+      "correctIndex": 0,
+      "explanation": "Lockere Befestigungen koennen Lagefehler und weitere Schaeden verursachen."
+    },
+    {
+      "id": "LF13-Q22",
+      "question": "Was ist nach dem Einbau einer Weiche erforderlich?",
+      "choices": [
+        "Vermessen und pruefen",
+        "Nur reinigen",
+        "Ohne Kontrolle freigeben",
+        "Nur fotografieren"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ohne geometrische und funktionale Pruefung ist keine sichere Inbetriebnahme moeglich."
+    },
+    {
+      "id": "LF13-Q23",
+      "question": "Wie sind Arbeiten unter Betrieb im Weichenbereich einzuordnen?",
+      "choices": [
+        "Sie sind risikoreich",
+        "Sie sind immer ungefaehrlich",
+        "Sie brauchen keine Abstimmung",
+        "Sie sind nur Theorie"
+      ],
+      "correctIndex": 0,
+      "explanation": "Betrieb, Zeitdruck und Bewegungen der Weiche erhoehen das Risiko deutlich."
+    },
+    {
+      "id": "LF13-Q24",
+      "question": "Welcher Grundsatz gilt immer bei Weichenarbeiten?",
+      "choices": [
+        "Sicherheit geht vor Geschwindigkeit",
+        "Geschwindigkeit geht vor Sicherheit",
+        "Hauptsache schnell fertig",
+        "Dokumentation ist verzichtbar"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sicherheitsregeln haben Vorrang vor Zeitdruck und Produktionszielen."
+    }
+  ]
+}

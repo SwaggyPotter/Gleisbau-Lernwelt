@@ -1,0 +1,104 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>Zusatzmodul: Materialrechner</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="page-shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Zusatzmodul</p>
+        <h1>Materialrechner</h1>
+        <p class="lede">
+          Immer neue Rechenaufgaben zu Volumen, Materialgewicht und Schotterbedarf im Gleisbau —
+          jede Aufgabe wird zufaellig generiert, es gibt keine feste Anzahl.
+        </p>
+        <div class="badges">
+          <ion-chip color="primary" outline="true">Zufaellig generiert</ion-chip>
+          <ion-chip color="success" outline="true">Volumen + Gewicht</ion-chip>
+          <ion-chip color="tertiary" outline="true">3 Schwierigkeitsgrade</ion-chip>
+        </div>
+      </div>
+    </section>
+
+    <section class="difficulty-row">
+      <ion-segment [value]="difficulty" (ionChange)="setDifficulty($any($event).detail.value)">
+        <ion-segment-button *ngFor="let d of difficulties" [value]="d.id">
+          <ion-label>{{ d.label }}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <div class="stats-row">
+        <ion-chip *ngFor="let d of difficulties" [color]="d.id === difficulty ? 'primary' : 'medium'" outline="true">
+          {{ d.label }}: {{ statsFor(d.id).correct }}/{{ statsFor(d.id).total }}
+        </ion-chip>
+      </div>
+    </section>
+
+    <ion-card class="quiz-card">
+      <ion-card-header>
+        <ion-card-subtitle>Aufgabe ({{ difficulty }})</ion-card-subtitle>
+        <ion-card-title>{{ question.prompt }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list lines="none">
+          <ion-item
+            *ngFor="let c of question.choices"
+            (click)="select(c.id)"
+            [disabled]="isAnswered"
+            [class]="choiceClass(c.id)"
+            button
+          >
+            <ion-label>{{ c.text }}</ion-label>
+          </ion-item>
+        </ion-list>
+
+        <div class="feedback" *ngIf="isAnswered" [class.correct]="isCorrect" [class.wrong]="!isCorrect">
+          <strong>{{ isCorrect ? 'Richtig!' : 'Leider falsch.' }}</strong>
+          <p>{{ question.explanation }}</p>
+        </div>
+
+        <div class="nav-row">
+          <div class="spacer"></div>
+          <ion-button (click)="newQuestion()">
+            <ion-icon slot="start" name="refresh-outline"></ion-icon>
+            Neue Aufgabe
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <section class="table-section">
+      <ion-button fill="clear" (click)="showTable = !showTable">
+        <ion-icon slot="start" [name]="showTable ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+        Schuettdichte-Tabelle {{ showTable ? 'ausblenden' : 'anzeigen' }}
+      </ion-button>
+      <div class="density-table" *ngIf="showTable">
+        <table>
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Schuettdichte</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let m of materialien">
+              <td>{{ m.name }}</td>
+              <td>{{ m.schuettdichteTPerM3 | number: '1.2-2' }} t/m&sup3;</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-hint">
+          Richtwerte fuer losen, unverdichteten Zustand (Baustoffhandel-Rechner/Herstellerangaben).
+          Verdichtete Tragschichten wiegen real ca. 10-25 % mehr.
+        </p>
+      </div>
+    </section>
+  </div>
+</ion-content>

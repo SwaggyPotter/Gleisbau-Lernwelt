@@ -1,7 +1,7 @@
 ---
 tags: [recherche, thema/messmittel]
 autor: Claude
-status: von Gwen recherchiert
+status: von Claude recherchiert (verifiziert)
 ---
 
 # Recherche: Messmittel

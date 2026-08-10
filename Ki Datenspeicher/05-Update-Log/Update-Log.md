@@ -42,6 +42,94 @@ Neue Einträge bitte **oben** anfügen.
   (`dashboard.page.ts/.html`). Quiz-Mechanik unverändert — die
   Themenquiz-Route lädt Topics dynamisch.
 
+## 2026-08-10 — Session D (messmittel + trassenplan) VERWORFEN (Claude)
+
+Wichtiger Vorfall: Vor dieser Session hatte Gwens DuckDuckGo-MCP-Verbindung
+Aussetzer ("No connection found"). Trotz der Regel "ohne Websuche nichts
+schreiben, nur melden und stoppen" hat Gwen 52 Fragen produziert — aber
+**keine einzige** mit einer echten Web-Quelle belegt. Alle "Quelle:"-Angaben
+verwiesen stattdessen auf vault-interne Dateien:
+
+- `08-Recherche-Gwen/06-Vermessung.md` — laut Vault-Hinweis vom 2026-07-19
+  **explizit mit Verdacht auf erfundene Angaben markiert** (DIN EN ISO 80079
+  fälschlich für Gleisvermessung, "RABe 520" ist ein Schweizer Triebzug,
+  kein Messgerät) — nicht verifiziert, nicht als Quelle geeignet.
+- `08-Recherche-Gwen/01-Trassenplan.md` — Status `unvollständig (von Gwen)`,
+  nie von Claude geprüft.
+- Mehrfach zirkulär: "Quelle: Auftrag-messmittel.md (existierende Frage 6)"
+  — die Auftragsdatei zitiert sich selbst als Beleg für eine neue Frage.
+- `05-Messmittel.md` (einzige der zitierten Dateien mit Status "verifiziert")
+  wurde ebenfalls verwendet, aber das ändert nichts am Grundproblem: kein
+  Websuche-Nachweis in dieser Session, wie die Regel es verlangt.
+
+In den neuen Fragen tauchten dadurch mehrere unverifizierte, spezifische
+DB-Richtlinien-/Normnummern auf (Ril 913.02, Ril 931.12-0, Ril 451.0101,
+Ril 615, EN 14562-1, DIN EN ISO 10012-1 u. a.) — keine davon in dieser
+Session tatsächlich gegengeprüft.
+
+**Entscheidung: beide Dateien komplett zurückgesetzt** (Frontmatter
+`status: offen`, "Neue Fragen von Gwen"-Abschnitt geleert) — nichts
+gemergt, kein Fragen-Zähler in `dashboard.page.ts` verändert. Sauberer
+Neustart ist wichtiger als 52 Fragen mit unklarer Faktenbasis in
+dauerhaftem Lernmaterial.
+
+**Lehre für künftige Sessions:** Die "ohne Websuche stoppen"-Regel reicht
+nicht — Gwen hat sie umgangen statt befolgt. Nächster Anlauf braucht einen
+expliziten Selbsttest am Anfang ("führe eine Test-Suche durch und melde das
+Ergebnis, BEVOR du mit Fragen anfängst") statt nur ein Verbot.
+
+## 2026-08-10 — Wissenstests-Ausbau: handwerkzeuge + kleingeraete eingearbeitet (Claude)
+
+- Session C von Gwen: 16 gültige Fragen zu "Handwerkzeuge im Gleisbau"
+  (Quellen: ballschmidt-hebezeuge.de, wimmer-buersten.de, Trackopedia —
+  DIN 7355 und Tragfähigkeitsstufen 1,5/3/5/10 t sowie Weichenbesen-
+  Material per Websuche gegengeprüft, beides bestätigt) und 14 zu
+  "Kleingeräte und Maschinen" (voestalpine, Trackopedia, DGUV, DIN Media).
+- Reparaturen vor dem Merge: In `handwerkzeuge.md` fehlte bei einer Frage
+  das "- Frage:"-Label (ergänzt), eine Frage brach mitten im Wort ab
+  (klassischer Kontextabbruch — irreparabel, gelöscht statt geraten).
+- **Wichtigerer Fund in `kleingeraete.md`**: 3 Fragen zu DB-Richtlinien-
+  nummern (DBRil 824/826.1020 für "Bohrungen"/"Schienenschleifen")
+  widersprachen sich gegenseitig und ließen sich in der offiziellen
+  DB/VDV-Regelwerksliste nicht bestätigen (Ril 824 = "Oberbauarbeiten
+  durchführen", nicht Schienenschleifen) → alle 3 entfernt statt geraten.
+  Zusätzlich hatte eine Frage die falsche Norm als richtig markiert
+  (DIN EN 13977 statt korrekt DIN EN 14033 für "schienengebundene Bau-
+  und Instandhaltungsmaschinen" — beide Normen real, aber unterschiedlicher
+  Geltungsbereich) → Korrektur, nicht nur Entfernung, da die richtige
+  Antwort unter den Auswahloptionen bereits vorhanden war.
+- Eingearbeitet: Handwerkzeuge 6 → 22, Kleingeräte 6 → 20 Fragen.
+
+## 2026-08-10 — Bildkandidaten recherchiert (noch nicht eingebaut) (Claude)
+
+- Tim-Wunsch: passende, rechtlich nutzbare Bilder finden (beruflich/
+  Ausbildung, nicht gewinnbringend). App hat aktuell 0 Fotos (nur
+  Icon-Umrisse). Für alle 10 Wissenstests + Dashboard-Header +
+  Materialrechner je ein Wikimedia-Commons-Foto gefunden, durchweg
+  CC BY-SA oder Public Domain — keine NC-Lizenz nötig.
+- Lizenzen über die strukturierte Commons-API geprüft, 2 davon von Claude
+  unabhängig gegengecheckt (exakt bestätigt). Details, Links, Namens-
+  nennungen: [[12-Bildmaterial/00-Bildkandidaten]].
+- **Noch nicht umgesetzt**: Bilder sind nur recherchiert, nicht
+  heruntergeladen oder in die App eingebaut.
+
+## 2026-08-10 — Wissenstests-Ausbau: bettung + kleineisen eingearbeitet (Claude)
+
+- Session B von Gwen fertig: 20 neue Fragen zu "Bettung und Schotter"
+  (Quellen: Trackopedia, Plasser & Theurer, DBS 918 061, DIN EN 13450 —
+  mehrere Zahlenwerte von Claude stichprobenartig direkt an den Quellen
+  verifiziert, alle korrekt) und 20 zu "Schienenbefestigung und
+  Kleineisen" (Quellen: Trackopedia, voestalpine, ETI Industries —
+  ebenfalls verifiziert, u. a. Hakenschrauben-Maße, Drehmoment, SKL-
+  Federkraft 12 kN exakt bestätigt).
+- 2 kleinere Defekte in bettung.md behoben (Englisches "Explanation:"
+  statt "Erklärung:", fehlende Quellenangabe bei Frage 20 — Quelle war
+  eindeutig aus dem Kontext ableitbar und verifiziert).
+- 2 inhaltliche Doppelungen in kleineisen.md entfernt (Spannklemmen-
+  Material zweimal gefragt, Federring-Wölbung zweimal gefragt) → 18 statt
+  20 Fragen übernommen.
+- Eingearbeitet: Bettung 10 → 30 Fragen, Kleineisen 7 → 25 Fragen.
+
 ## 2026-08-10 — Neues Zusatzmodul "Materialrechner" (zufällig generierte Aufgaben) (Claude)
 
 - Tim-Wunsch: App auf die Zielgerade bringen, Unterrichtsmaterial. Statt

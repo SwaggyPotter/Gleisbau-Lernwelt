@@ -73,6 +73,198 @@
       ],
       "correctIndex": 0,
       "explanation": "Neben dem allgemeinen Quetsch- und Verletzungsrisiko besteht im Gleisbereich zusaetzlich die Gefahr durch den laufenden Zugverkehr, daher sind Sicherungsmassnahmen zwingend."
+    },
+    {
+      "id": "handwerkzeuge-g1",
+      "question": "Welche DIN-Norm regelt die Gleishebewinde für den Einsatz im Gleisbau?",
+      "choices": [
+        "DIN 7350",
+        "DIN 7352",
+        "DIN 7354",
+        "DIN 7355"
+      ],
+      "correctIndex": 3,
+      "explanation": "Gleishebewinden sind nach DIN 7355 als Spezialgeräte für den Einsatz im Gleisbau zugelassen."
+    },
+    {
+      "id": "handwerkzeuge-g2",
+      "question": "Welche Ausführung einer Gleishebewinde wird durch die einfachere Konfiguration mit seitlichen Streben gekennzeichnet?",
+      "choices": [
+        "Ausführung A",
+        "Ausführung B",
+        "Ausführung C",
+        "Ausführung Standard"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die einfache Ausführung A ist mit seitlichen Streben ausgestattet, während Ausführung B eine Fußplatte hat."
+    },
+    {
+      "id": "handwerkzeuge-g3",
+      "question": "Welche Ausführung einer Gleishebewinde wird für den sicheren Einsatz empfohlen?",
+      "choices": [
+        "Ausführung A ohne Fußplatte",
+        "Verstärkte Ausführung B mit Fußplatte",
+        "Ausführung Standard ohne Sicherheitskurbel",
+        "Beide Ausführungen sind gleichwertig"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die verstärkte Ausführung B wird aufgrund der zusätzlichen Fußplatte für mehr Stabilität empfohlen."
+    },
+    {
+      "id": "handwerkzeuge-g4",
+      "question": "Welchen Zweck erfüllt die selbsthemmende Sicherheitskurbel an einer Gleishebewinde?",
+      "choices": [
+        "Erhöht die Hubgeschwindigkeit",
+        "Hält die Last in jeder Höhe sicher fest",
+        "Verhindert das Ablassen des Hebels",
+        "Reduziert den Kraftaufwand beim Heben"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die Sicherheitskurbel (Siku) sorgt dafür, dass die Last auf der Gleiswinde in jeder Höhe sicher gehalten wird."
+    },
+    {
+      "id": "handwerkzeuge-g5",
+      "question": "Was bedeutet die Tragfähigkeitsangabe \"3.000 kg\" für eine Gleishebewinde?",
+      "choices": [
+        "Das Eigengewicht des Geräts",
+        "Die maximale Hubkraft (Hubgewicht)",
+        "Die Mindesthöhe zum Ansetzen",
+        "Die maximale Kurbelkraft"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die Tragfähigkeit von 3.000 kg bezeichnet die maximale Hubkraft, die das Gerät sicher erheben kann."
+    },
+    {
+      "id": "handwerkzeuge-g6",
+      "question": "Was kennzeichnet eine Gleishebewinde mit einem Eigengewicht von 43 kg?",
+      "choices": [
+        "Sie ist in verstärkter Ausführung B für höhere Lasten ausgelegt",
+        "Sie gehört zur einfachen Ausführung A und ist leichter zu handhaben",
+        "Sie hat eine geringere Tragfähigkeit als Modelle mit 29 kg",
+        "Sie benötigt weniger Wartung als andere Modelle"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ein Eigengewicht von 43 kg kennzeichnet die verstärkte Ausführung B für die maximale Tragfähigkeit von 10.000 kg."
+    },
+    {
+      "id": "handwerkzeuge-g7",
+      "question": "Wozu dient ein Schwellenhebegerät beim Gleisbau?",
+      "choices": [
+        "Zum Reinigen der Weichen",
+        "Zum Bearbeiten von Holzschwellen",
+        "Zum Anheben der Schwelle zur Befestigungsmittel-Anbringung",
+        "Zum Verteilen von Schotter im Bett"
+      ],
+      "correctIndex": 2,
+      "explanation": "Das Schwellenhebegerät dient zum Anheben der Schwelle, damit die Befestigungsmittel zwischen Schiene und Schwelle angebracht werden können."
+    },
+    {
+      "id": "handwerkzeuge-g8",
+      "question": "Wie kann ein Weichenbesen optimiert werden, um die Lebensdauer der Borsten zu gewährleisten?",
+      "choices": [
+        "Durch häufiges Waschen in heißem Wasser",
+        "Durch Klopfen auf der kleinsten Seitenfläche bei Kälte",
+        "Durch Lagern nur bei hohen Temperaturen",
+        "Durch Verwendung von Schmiermitteln"
+      ],
+      "correctIndex": 1,
+      "explanation": "Zur Vermeidung von Borstenabnutzung empfiehlt das Reinigen des Kunststoffkörpers nur behutsam auf der kleinsten Seitenfläche auszuklopfen."
+    },
+    {
+      "id": "handwerkzeuge-g9",
+      "question": "Aus welchen Materialien besteht der Körper eines typischen Weichenbesens?",
+      "choices": [
+        "Stahl und Eisen",
+        "Aluminium und Kupfer",
+        "Kunststoff mit Polypropylen-Fasern",
+        "Holz und Gummi"
+      ],
+      "correctIndex": 2,
+      "explanation": "Der Weichenbesenkörper besteht aus Kunststoff, in den Polypropylen-Fasern gestanzt sind."
+    },
+    {
+      "id": "handwerkzeuge-g10",
+      "question": "Warum ist beim Einsatz von Weichenbesen zu beachten, dass der Kunststoffkörper bei Kälte spröder wird?",
+      "choices": [
+        "Um die Borsten besser auf den Schienen zu halten",
+        "Zur Vermeidung von Querreißungen und Bruchgefahr",
+        "Um die Lebensdauer des Besens zu verlängern",
+        "Damit sich kein Schnee am Besen festsetzt"
+      ],
+      "correctIndex": 1,
+      "explanation": "Da der Kunststoff bei Kälte spröder wird, ist eine unsachgemäße Belastung in Querrichtung zu vermeiden."
+    },
+    {
+      "id": "handwerkzeuge-g11",
+      "question": "Was ist die Hauptfunktion eines Hackenschraubenausstoßers?",
+      "choices": [
+        "Zum Reinigen von Schraubenlöchern",
+        "Zum zerstörungsfreien Herausstoßen von ausgehärteten Hackenschrauben",
+        "Zum Anziehen von Muttern an Rippenplatten",
+        "Zum Abbrechen eingedrossener Schraubbolzen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bei längerer Liegedauer verbinden sich die Hackenschrauben mit den Rippenplatten, so dass dieses Spezialwerkzeug das zerstörungsfreie Herausstoßen ermöglicht."
+    },
+    {
+      "id": "handwerkzeuge-g12",
+      "question": "Wozu dient ein Kaltschrotmeißel im Gleisbau?",
+      "choices": [
+        "Zum Abtragen von Korrosion von Schienen",
+        "Zum Abschlagen von Schweißwulsten und Entfernen eingeklemmter Muttern",
+        "Zum Bearbeiten von Holzschwellen",
+        "Zum Bohren in Stahlkonstruktionen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Der Kaltschrotmeißel wird zum Abschlag von Schweißwulsten verwendet, besonders beim Entfernen von Hackenschrauben-Muttern."
+    },
+    {
+      "id": "handwerkzeuge-g13",
+      "question": "Wann kommt ein Durchtreiber beim Gleisbau zum Einsatz?",
+      "choices": [
+        "Zum Durchbohren von Holzschwellen für Schrauben",
+        "Wenn bei Holzschwellen der Schraubenkopf abgedreht und herausgezogen ist, aber der Rest in der Schwelle bleibt",
+        "Zum Durchtrennen verrosteter Schienenverbindungen",
+        "Zum Durchschlagen von festgeschweißten Muttern"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bei Holzschwellen dient der Durchtreiber dazu, den Schraubenrest aus der Schwelle herauszuschlagen, wenn nur der Kopf abgedreht wurde."
+    },
+    {
+      "id": "handwerkzeuge-g14",
+      "question": "Wofür wird eine Gleisschwungramme beim Richtungsfehler-Korrektur im Gleis verwendet?",
+      "choices": [
+        "Zum vertikalen Heben von Schienen bei Profilfreiheitsmangel",
+        "Zum horizontalen Verschieben des Gleises bei kleineren Richtungsfehlern ohne Stopfmaschine",
+        "Zum Anheben von Weichenzungen beim Ausrichten",
+        "Zum seitlichen Richten der Spurmitte nach Schottern"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bei kleineren Richtungsfehlern kann das Gleis mit der Gleisschwungramme horizontal verschoben werden, wenn keine Stopf- und Richtmaschine verfügbar ist."
+    },
+    {
+      "id": "handwerkzeuge-g15",
+      "question": "Welchen Zweck hat ein Dechsel bei der Instandhaltung von Holzschwellen?",
+      "choices": [
+        "Zum Einschlagen von Schwellenschrauben",
+        "Zur Herausarbeitung von zerfasertem und zersplittertem Holz bei Einkerbungen",
+        "Zum Abstreichen von Lack auf den Schwellen",
+        "Zum Bearbeiten von Metallschienenenden"
+      ],
+      "correctIndex": 1,
+      "explanation": "Der Dechsel entfernt durch äußere Einflüsse beschädigtes Holz, wodurch weniger witterungsbedingte Angriffsflächen entstehen."
+    },
+    {
+      "id": "handwerkzeuge-g16",
+      "question": "Wozu dient ein Weichenmontierhebel im Gleisbau?",
+      "choices": [
+        "Zum Lösen von Muttern an Schienenstößen",
+        "Zu kleinen und wendigen Arbeiten in Zwischenräumen bei Weichenzungen oder Antriebselementen",
+        "Zum Anheben ganzer Schwellen im Wechselbereich",
+        "Zum Bohren von Montageöffnungen in Holzschwellen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Beim Weicheneinbau sind kleine, wendige Werkzeuge notwendig, die in den Zwischenräumen beim Antrieb oder bei den Zungen verwendet werden können."
     }
   ]
 }

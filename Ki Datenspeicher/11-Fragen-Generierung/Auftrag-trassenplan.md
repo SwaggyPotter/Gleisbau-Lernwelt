@@ -1,4 +1,4 @@
----
+﻿---
 tags: [fragen-generierung, gwen]
 autor: Claude
 status: offen
@@ -10,12 +10,12 @@ ziel: 15-25 neue Fragen
 
 **Thema:** Trassenplan Grundlagen, Kilometrierung, Symbole
 
-**Kurzanweisung fuer Gwen** (Details: [[00-Anweisung-für-Gwen]]):
+**Kurzanweisung für Gwen** (Details: [[00-Anweisung-für-Gwen]]):
 Recherchiere per Websuche zu diesem Thema und erstelle **15 bis 25 neue
-Quizfragen** im Format unten. Jede Frage muss sich auf eine Quelle stuetzen,
+Quizfragen** im Format unten. Jede Frage muss sich auf eine Quelle stützen,
 die du in DIESER Session per Websuche gefunden hast. Trage neue Fragen
-AUSSCHLIESSLICH unter "Neue Fragen von Gwen" am Dateiende ein — veraendere
-nichts anderes in dieser Datei. Wenn du fertig bist, aendere oben im
+AUSSCHLIESSLICH unter "Neue Fragen von Gwen" am Dateiende ein — verändere
+nichts anderes in dieser Datei. Wenn du fertig bist, ändere oben im
 Frontmatter `status: offen` zu `status: fertig (von Gwen)`.
 
 ## Bereits vorhandene Fragen (NICHT duplizieren)
@@ -28,7 +28,7 @@ Frontmatter `status: offen` zu `status: fertig (von Gwen)`.
 6. Welche Bauwerke bzw. Elemente werden typischerweise in einem Trassenplan gekennzeichnet? *(Richtig: Bruecken, Tunnel, Bahnuebergaenge und Weichen)*
 7. Warum ist die Laengsneigung einer Trasse fuer den Gleisbauer wichtig? *(Richtig: Sie beeinflusst Entwaesserung, Bauausfuehrung und zulaessige Fahrgeschwindigkeit)*
 
-## Format fuer neue Fragen (genau so, ein Block pro Frage)
+## Format für neue Fragen (genau so, ein Block pro Frage)
 
 ```
 ### Neue Frage 1
@@ -38,7 +38,7 @@ Frontmatter `status: offen` zu `status: fertig (von Gwen)`.
 - C: <Antwortoption>
 - D: <Antwortoption>
 - Richtig: <A, B, C oder D>
-- Erklaerung: <1-2 Saetze, warum die richtige Antwort stimmt>
+- Erklärung: <1-2 Sätze, warum die richtige Antwort stimmt>
 - Quelle: <URL oder exakte Norm-/Regelwerksbezeichnung>
 ```
 

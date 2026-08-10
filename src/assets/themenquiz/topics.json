@@ -27,25 +27,25 @@
     "topicId": "bettung",
     "title": "Bettung und Schotter",
     "description": "Gleisschotter, Lastverteilung, Entwaesserung, Bettungsquerschnitt",
-    "questionCount": 10
+    "questionCount": 30
   },
   {
     "topicId": "kleineisen",
     "title": "Schienenbefestigung und Kleineisen",
     "description": "Bestandteile, Spannklemme, Zwischenlage, Rippenplatte",
-    "questionCount": 7
+    "questionCount": 25
   },
   {
     "topicId": "handwerkzeuge",
     "title": "Handwerkzeuge im Gleisbau",
     "description": "Gleiswinde, Schienenheber, Schottergabel, Sicherheit",
-    "questionCount": 6
+    "questionCount": 22
   },
   {
     "topicId": "kleingeraete",
     "title": "Kleingeraete und Maschinen",
     "description": "Schienenbohrmaschine, Trennschleifmaschine, Sicherheit",
-    "questionCount": 6
+    "questionCount": 20
   },
   {
     "topicId": "messmittel",

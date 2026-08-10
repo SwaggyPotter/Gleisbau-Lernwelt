@@ -73,6 +73,174 @@
       ],
       "correctIndex": 0,
       "explanation": "Motorisierte Kleingeraete uebernehmen Arbeiten, die mit reiner Handkraft zu aufwendig oder zu ungenau waeren, etwa das Bohren oder Trennen von Schienen."
+    },
+    {
+      "id": "kleingeraete-g1",
+      "question": "Welche maximale Bohrungsdurchmesser kann eine Schienenbohrmaschine gemäß voestalpine Angaben bohren?",
+      "choices": [
+        "Bis zu einem Durchmesser von 20 mm",
+        "Bis zu einem Durchmesser von 26 mm",
+        "Bis zu einem Durchmesser von 32 mm",
+        "Bis zu einem Durchmesser von 36 mm"
+      ],
+      "correctIndex": 3,
+      "explanation": "Schienenbohrgeräte mit innerer Kühlmittelzuführ werden für alle Bohrungen bis zu einem Durchmesser von 36 mm im Gleisbereich eingesetzt."
+    },
+    {
+      "id": "kleingeraete-g2",
+      "question": "Welche Betriebsarten stehen für Schienenbohrmaschinen zur Verfügung?",
+      "choices": [
+        "Nur elektrisch betrieben",
+        "Nur benzinbetrieben",
+        "Elektrisch und benzinbetrieben",
+        "Hydraulisch und pneumatisch"
+      ],
+      "correctIndex": 2,
+      "explanation": "Schienenbohrgeräte sind sowohl elektrisch als auch benzinbetriebbar erhältlich."
+    },
+    {
+      "id": "kleingeraete-g3",
+      "question": "Was ist eine charakteristische Eigenschaft der überfahrbaren Ausführung einer Schienenbohrmaschine?",
+      "choices": [
+        "Sie kann von Zugfahrzeugen nicht angefahren werden",
+        "Der Bediener muss vor jedem Überfahren sich zurückziehen",
+        "Die Maschine kann von Zügen oder Baumaschinen befahren werden",
+        "Sie benötigt eine spezielle Unterlage für das Überfahren"
+      ],
+      "correctIndex": 2,
+      "explanation": "Überfahrbare Ausführung bedeutet, dass die Maschine von Zügen oder anderen Fahrzeugen befahren werden kann."
+    },
+    {
+      "id": "kleingeraete-g4",
+      "question": "Welchen Vorteil bietet die Schnellspanneinrichtung bei Schienenbohrmaschinen?",
+      "choices": [
+        "Ermöglicht schnelleres Wechseln der Bohrmasken ohne Werkzeug",
+        "Erhöht die maximale Bohrleistung um 50%",
+        "Reduziert den Kraftstoffverbrauch",
+        "Erlaubt das Bohren in vertikaler Position"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mit einer Schnellspanneinrichtung sind Bohrmasken ohne Werkzeug tauschbar."
+    },
+    {
+      "id": "kleingeraete-g5",
+      "question": "Welche Zulassung ist für eine Schienenbohrmaschine notwendig, um sie gemäß voestalpine im Gleisbau einzusetzen?",
+      "choices": [
+        "EBA-zugelassen und DB-freigegeben",
+        "CE-Zertifizierung allein",
+        "ISO-9001-Zertifikat",
+        "TÜV-Siegel für Maschinen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Schienenbohrgeräte sind EBA-zugelassen und DB-freigegeben für den Einsatz im Gleisbau."
+    },
+    {
+      "id": "kleingeraete-g6",
+      "question": "Welche Befestigungsmöglichkeiten bietet ein Schienenbohrgerät über dem Schienenkopf?",
+      "choices": [
+        "Nur Kabelabzweig und SDK 02",
+        "Schnellspanner zur Befestigung über dem Schienenkopf oder wahlweise unter dem Schienenfuß",
+        "Nur Schienendoppelkontakt",
+        "Nur Presskabelschuh"
+      ],
+      "correctIndex": 1,
+      "explanation": "Das Bohrgerät kann mit einem Schnellspanner entweder über dem Schienenkopf oder unter dem Schienenfuß (überfahrbar) montiert werden."
+    },
+    {
+      "id": "kleingeraete-g7",
+      "question": "Welche Eigenschaften zeichnen moderne Trennschleifmaschinen aus?",
+      "choices": [
+        "Nur elektrischer Antrieb",
+        "Trennung in einem Arbeitsgang, umleitung des Funkenflugs, automatische Drehzahlbegrenzung",
+        "Nur Benzinmotor ohne Sicherheitsvorrichtungen",
+        "Schwere Bauweise für höhere Stabilität"
+      ],
+      "correctIndex": 1,
+      "explanation": "Moderne Trennschleifmaschinen zeichnen sich durch Trennung in einem Arbeitsgang, Umleitung des Funkenflugs und automatische Drehzahlbegrenzung aus."
+    },
+    {
+      "id": "kleingeraete-g8",
+      "question": "Wie funktioniert die exakte Ausrichtung bei modernen Trennschleifmaschinen?",
+      "choices": [
+        "Durch visuelle Markierung auf der Schiene",
+        "Durch Schnittfugenanzeige",
+        "Durch Laserzielhilfe",
+        "Durch mechanische Anschläge am Führungsrahmen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die exakte Ausrichtung erfolgt durch eine Schnittfugenanzeige."
+    },
+    {
+      "id": "kleingeraete-g9",
+      "question": "Welche Technik ermöglicht das funkenfreie Trennen von Schienen?",
+      "choices": [
+        "Kriechstromverfahren",
+        "Isolierende Trennscheibe mit Schutzsystem",
+        "Laserstrahlschneiden",
+        "Mechanisches Abhacken"
+      ],
+      "correctIndex": 1,
+      "explanation": "Zum funkenfreien Trennen von Schienen in Neubau und Instandhaltung wird die patentierte 4-Rollen-Technik verwendet."
+    },
+    {
+      "id": "kleingeraete-g10",
+      "question": "Welche Norm behandelt die Bahnanwendungen für Schienengebundene Bau- und Instandhaltungsmaschinen?",
+      "choices": [
+        "DIN EN 13976",
+        "DIN EN 13977",
+        "DIN EN 14033",
+        "DIN EN 15746"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Norm DIN EN 14033 (\"Bahnanwendungen – Oberbau – Schienengebundene Bau- und Instandhaltungsmaschinen\") regelt genau diesen Maschinentyp. DIN EN 13977 ist eine verwandte, aber andere Norm für tragbare Maschinen und Rollwagen."
+    },
+    {
+      "id": "kleingeraete-g11",
+      "question": "Welche DGUV-Vorschrift ist relevant für Arbeiten im Bereich von Gleisen?",
+      "choices": [
+        "DGUV Vorschrift 70 und 71",
+        "DGUV Vorschrift 72 und 73",
+        "DGUV Vorschrift 77 und 78",
+        "DGUV Vorschrift 79 und 80"
+      ],
+      "correctIndex": 2,
+      "explanation": "DGUV Vorschrift 77 und 78 behandeln Arbeiten im Bereich von Gleisen."
+    },
+    {
+      "id": "kleingeraete-g12",
+      "question": "Welche Norm regelt die Anforderungen an Warnkleidung im Gleisbereich?",
+      "choices": [
+        "DIN EN ISO 20471+A1",
+        "DIN EN ISO 7731",
+        "DIN EN ISO 9001",
+        "VDE 0105-100"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Norm DIN EN ISO 20471+A1 regelt Hochsichtbare Warnkleidung mit Prüfverfahren und Anforderungen."
+    },
+    {
+      "id": "kleingeraete-g13",
+      "question": "Was bietet der A-TSG 350 Trennschleifer von FKM?",
+      "choices": [
+        "Nur elektrische Betriebsoptionen",
+        "Speziell für Arbeiten an Schienen im Zug-, Straßenbahn- und U-Bahn-System konzipiert, zum funkenfreien Trennen geeignet",
+        "Nur für Hochbahn-Anwendungen",
+        "Nur zum Schleifen von Rillenbahnschienen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Der A-TSG 350 ist speziell für Arbeiten an Schienen im Zug- und Straßenbahnverkehr sowie in U-Bahn-Systemen konzipiert."
+    },
+    {
+      "id": "kleingeraete-g14",
+      "question": "Welche Sicherheitseigenschaft haben Trennschleifgeräte mit schwenkbarem Leichtmetallführungsarm?",
+      "choices": [
+        "Erhöhte Mobilität auf dem Gleisbett",
+        "Der Schnitt kann exakt von oben nach unten geführt werden",
+        "Reduziertes Eigengewicht um 30%",
+        "Schnellere Montage an der Schiene"
+      ],
+      "correctIndex": 1,
+      "explanation": "Eine Schnellspanneinrichtung für gängige Schienenprofile erlaubt es, den Schnitt exakt von oben nach unten zu führen."
     }
   ]
 }

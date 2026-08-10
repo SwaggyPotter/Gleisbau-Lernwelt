@@ -77,7 +77,7 @@ export class DashboardPage {
       icon: 'layers-outline',
       link: '/themenquiz/bettung',
       topicId: 'bettung',
-      questionCount: 10,
+      questionCount: 30,
     },
     {
       id: 'themenquiz-kleineisen',
@@ -87,7 +87,7 @@ export class DashboardPage {
       icon: 'construct-outline',
       link: '/themenquiz/kleineisen',
       topicId: 'kleineisen',
-      questionCount: 7,
+      questionCount: 25,
     },
     {
       id: 'themenquiz-handwerkzeuge',
@@ -97,7 +97,7 @@ export class DashboardPage {
       icon: 'hammer-outline',
       link: '/themenquiz/handwerkzeuge',
       topicId: 'handwerkzeuge',
-      questionCount: 6,
+      questionCount: 22,
     },
     {
       id: 'themenquiz-kleingeraete',
@@ -107,7 +107,7 @@ export class DashboardPage {
       icon: 'cog-outline',
       link: '/themenquiz/kleingeraete',
       topicId: 'kleingeraete',
-      questionCount: 6,
+      questionCount: 20,
     },
     {
       id: 'themenquiz-messmittel',

@@ -85,6 +85,222 @@
       ],
       "correctIndex": 0,
       "explanation": "Elastische Befestigungssysteme daempfen Stoesse und Schwingungen, was Verschleiss und Laerm reduziert und die Lebensdauer der Gleisanlage erhoeht."
+    },
+    {
+      "id": "kleineisen-g1",
+      "question": "Welche Komponente verbindet die Schiene über eine sogenannte Rippenplatte mit der Schwelle zu einem Gleisrahmen?",
+      "choices": [
+        "Die Spannklemme allein",
+        "Die Klemmplatte",
+        "Das Kleineisen (Befestigungsmittel)",
+        "Der Duebel"
+      ],
+      "correctIndex": 2,
+      "explanation": "Zu den Befestigungsmitteln im Gleisbau zählen unter anderem die Kleineisen, die nötig sind, um die Gleise mit den Schwellen zu verbinden. Dazu gehören Schraubenmuttern, Federringe, Schwellenschrauben und Klemmplatten."
+    },
+    {
+      "id": "kleineisen-g2",
+      "question": "Aus welchem Material sind die Spannklemmen gefertigt?",
+      "choices": [
+        "Aluminium",
+        "Zink",
+        "Hochspannender Federstahl",
+        "Kupfer"
+      ],
+      "correctIndex": 2,
+      "explanation": "Federringe, sowie auch die sonstigen im Oberbau verwendeten Spannmittel, werden aus hochelastischem Federstahl gefertigt. Eine Spannklemme ist gut verspannt, wenn die Federringe soweit zusammengedrückt sind, dass ein Spielraum von etwa 1 mm bleibt."
+    },
+    {
+      "id": "kleineisen-g3",
+      "question": "Wie wird die elastische kraftschlüssige Verspannung zwischen Schwelle und Schiene erreicht?",
+      "choices": [
+        "Durch feste Verschraubung ohne Federweg",
+        "Die Spannklemme wird mittels Hakenschraube, Unterlegscheibe und Mutter an der Rippenplatte verschraubt",
+        "Nur mit Hilfe von Klebstoff",
+        "Durch Aufpressen mit einer Presse"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die Spannklemme Skl wird im Gleisoberbau Ks mit einer Hakenschraube, einer Unterlegscheibe und einer Mutter an der Rippenplatte verschraubt. Sie zeichnet sich durch ihre gute Klemmkraft und hohe Elastizität aus."
+    },
+    {
+      "id": "kleineisen-g4",
+      "question": "Welche Federkraft erreicht die elastische Schienenbefestigung SKL pro Klemme?",
+      "choices": [
+        "5 kN/Klemme",
+        "8 kN/Klemme",
+        "12 kN/Klemme",
+        "15 kN/Klemme"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Federkraft der elastischen Schienenbefestigung SKL beträgt ca. 12 kN/Klemme. Diese Kraft ermöglicht eine dauerhafte federnde Verspannung mit gutem Durchschub- und Verdrehwiderstand."
+    },
+    {
+      "id": "kleineisen-g5",
+      "question": "Welche Befestigungskategorien der EN13481-Serie erfüllt die elastische Schienenbefestigung?",
+      "choices": [
+        "Nur Kategorie A und B",
+        "Kategorien C und D",
+        "Kategorien A, B, C, D und E",
+        "Kategorien F und G"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Spannklemmen gewährleisten eine dauerhafte federnde Verspannung für Befestigungskategorien A, B, C, D und E gemäß EN13481-Serie."
+    },
+    {
+      "id": "kleineisen-g6",
+      "question": "Welche Länge hat eine Hakenschraube Hs 24 für den Oberbau K?",
+      "choices": [
+        "30 mm",
+        "40 mm",
+        "50 mm",
+        "60 mm"
+      ],
+      "correctIndex": 1,
+      "explanation": "Für die Hakenschraube Hs 24 (Oberbau K) beträgt die Länge 40 mm mit einem Gewicht von 0,445 kg. Der Schaft ist halbkreisförmig am unteren Ende gestaltet."
+    },
+    {
+      "id": "kleineisen-g7",
+      "question": "Welche Länge hat eine Hakenschraube Hs 32 für den Oberbau Ks?",
+      "choices": [
+        "40 mm",
+        "50 mm",
+        "55 mm",
+        "65 mm"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Hakenschraube Hs 32 für den Oberbau Ks hat eine Länge von 55 mm und wiegt 0,503 kg. Sie ist am unteren Ende halbkreisförmig ausgeformt und passt in den Schwalbenschwanz der Rippenplatte."
+    },
+    {
+      "id": "kleineisen-g8",
+      "question": "Welches Drehmoment ist nötig, um eine Schiene mittels Hakenschraube auf der Rippenplatte zu befestigen?",
+      "choices": [
+        "50–70 Nm",
+        "100–130 Nm",
+        "180–220 Nm",
+        "250–300 Nm"
+      ],
+      "correctIndex": 2,
+      "explanation": "Mittels der Hakenschraube und einem Drehmoment von ca. 180–220 Nm kann die Schiene auf den Rippenplatten befestigt werden."
+    },
+    {
+      "id": "kleineisen-g9",
+      "question": "Welche Länge hat eine Schwellenschraube Ss 5?",
+      "choices": [
+        "100 mm",
+        "110 mm bis 120 mm",
+        "150 mm",
+        "180 mm"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Schwellenschraube Ss 5 hat eine Länge von 150 mm und ein Gewicht von 0,543 kg. Sie besitzt ein Gewinde aus Holz für Holz- und Betonschwellen."
+    },
+    {
+      "id": "kleineisen-g10",
+      "question": "Welche Länge hat eine Schwellenschraube Ss 7?",
+      "choices": [
+        "150 mm",
+        "160 mm",
+        "180 mm",
+        "200 mm"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Schwellenschraube Ss 7 hat eine Länge von 180 mm und ein Gewicht von 0,636 kg. Sie ist für größere Belastungen im Oberbau gedacht."
+    },
+    {
+      "id": "kleineisen-g11",
+      "question": "Welchen Zweck hat der konische Schaft unterhalb des Kopfes einer Schwellenschraube?",
+      "choices": [
+        "Zur optischen Gestaltung",
+        "Um das Gewinde beim Eindrehen fest in die Löcher und Holzfasern einzupresen",
+        "Zur Vermeidung von Rostbildung",
+        "Zur Erhöhung der Drehbarkeit"
+      ],
+      "correctIndex": 1,
+      "explanation": "Durch die konische Form des Schaftes unterhalb des Kopfes presst sich das Gewinde des Schraubenhalses beim Eindrehen fest in die Löcher und die Holzfasern ein. Die Schwelle muss aber vorgebohrt werden."
+    },
+    {
+      "id": "kleineisen-g12",
+      "question": "Warum haben Federringe eine zusätzliche Wölbung pro Gang?",
+      "choices": [
+        "Zur optischen Unterscheidung",
+        "Damit jeder Gang einen Spielraum von etwa 1 mm lässt, was die Elastizität erhöht",
+        "Um den Ring stabiler zu machen",
+        "Zur Vereinfachung der Montage"
+      ],
+      "correctIndex": 1,
+      "explanation": "Federringe sind so ausgebildet, dass jeder Gang eine zusätzliche Wölbung hat. Eine Schienenbefestigung ist gut verspannt, wenn die Federringe soweit zusammengedrückt sind, dass ein Spielraum von etwa 1 mm verbleibt."
+    },
+    {
+      "id": "kleineisen-g13",
+      "question": "Welche Funktion erfüllt das Zungenvorrichtungs-Element (Kpo 3) bei der Spannklemmenbefestigung?",
+      "choices": [
+        "Es dient als Lager für die Schraubenmutter",
+        "Es wird dort eingebaut, wo sich keine Zwischenlagen zwischen Gleitstuhlplatten oder Rippenplatten und Fahrschiene befinden",
+        "Es erhöht die Federkraft der Klemme",
+        "Es ist nur ästhetischer Natur"
+      ],
+      "correctIndex": 1,
+      "explanation": "Für den Bereich der Zungenvorrichtung wird eine Kpo 3 eingebaut dort, wo sich keine Zwischenlagen zwischen Gleitstuhlplatten bzw. Rippenplatten und Fahrschiene befinden."
+    },
+    {
+      "id": "kleineisen-g14",
+      "question": "Welche Vorteile bietet die elastische Schienenbefestigung im durchgehend verschweißten Gleis?",
+      "choices": [
+        "Geringerer Verschleiß, bessere Lastverteilung und Geräuschminderung",
+        "Sie ist einfacher zu montieren als starre Befestigungen",
+        "Sie reduziert den Materialverbrauch um 50 %",
+        "Sie ist kostengünstiger in der Herstellung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ein wesentlicher Vorteil der elastischen Schienenbefestigung gegenüber einer starren Befestigung ist geringerer Verschleiß, bessere Lastverteilung und Geräuschminderung."
+    },
+    {
+      "id": "kleineisen-g15",
+      "question": "Warum muss die Mittelschleife der Spannklemme bei der Montage noch einen geringen Abstand zum Schienenfuß aufweisen?",
+      "choices": [
+        "Damit die Klemme nicht zu fest gespannt wird und plastische Verformung verhindert wird",
+        "Weil der Schienenfuß später nachgebessert werden muss",
+        "Um den Halt von Muttern zu verbessern",
+        "Weil es keine normative Vorgabe ist"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der optimale Einbauzustand ist erreicht, wenn die Mittelschleife noch einen geringen Abstand zum Schienenfuß aufweist. Eine plastische Verformung der Federarme ist so nicht möglich."
+    },
+    {
+      "id": "kleineisen-g16",
+      "question": "Welches Material wird für die Platten der Spannklemmenbefestigung verwendet?",
+      "choices": [
+        "Leichtmetalllegierungen",
+        "Aluminiumguss",
+        "Baustahl oder Sphäroguss GJS / Stahlguss",
+        "Kunststoff mit Stahlversteifungen"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Platten werden aus Baustahl, Sphäroguss GJS oder Stahlguss gefertigt. Für den Korrosionsschutz kann eine verzinkte Ausführung gewählt werden."
+    },
+    {
+      "id": "kleineisen-g17",
+      "question": "Welche Spannklemmenarten sind für den Gleisoberbau Ks üblich?",
+      "choices": [
+        "Nur einfache Klemmen ohne Feder",
+        "Spannklemme Skl 2, Skl 3, Skl 12, Skl 14 und montierte Sätze",
+        "Nur Weichenklemmen mit speziellen Auslegern",
+        "Nur temporäre Montageklemmen aus Holz"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die Spannklemmen für den Gleisoberbau werden in vielen Varianten lagervorrätig gehalten, unter anderem Spannklemme Skl 12, Skl 14, Skl 2, Skl 3 sowie montierte Sätze."
+    },
+    {
+      "id": "kleineisen-g18",
+      "question": "Warum können die Spannklemmen mit oder ohne Korrosionsschutz geliefert werden?",
+      "choices": [
+        "Weil es vom Wetter an der Baustelle abhängt",
+        "Weil der Korrosionsschutz nachträglich angewendet werden kann",
+        "Um entsprechend den Umweltbedingungen anzupassen und Lebensdauer zu sichern",
+        "Nur um Gewicht einzusparen"
+      ],
+      "correctIndex": 2,
+      "explanation": "Der Korrosionsschutz wird gemäß Anforderung entsprechend den Umweltbedingungen geliefert, damit die Bauteile unter verschiedenen Bedingungen ihre Lebensdauer erhalten."
     }
   ]
 }

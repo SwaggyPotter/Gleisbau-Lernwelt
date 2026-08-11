@@ -15,8 +15,8 @@ Status je Batch steht zusätzlich im Frontmatter der jeweiligen Batch-Datei
 - [x] Batch-01 (LF01-Q1 bis LF01-Q10) — 10× RICHTIG, von Claude gegengelesen 2026-07-26 (Stichprobe: URLs echt, Paragraphen korrekt)
 - [x] Batch-02 (LF01-Q11 bis LF01-Q20) — 10× RICHTIG, von Claude gegengelesen 2026-07-26 (Stichprobe: 4/4 URLs echt)
 - [x] Batch-03 (LF01-Q21 bis LF01-Q30) — 10× RICHTIG, von Claude gegengelesen 2026-07-26 (4 gelöschte Fragenblöcke aus JSON repariert; Stichprobe: 4/4 URLs echt)
-- [ ] Batch-04 (LF01-Q31 bis LF01-Q40)
-- [ ] Batch-05 (LF01-Q41 bis LF01-Q50)
+- [x] Batch-04 (LF01-Q31 bis LF01-Q40) — 10× RICHTIG, von Claude gegengelesen 2026-08-10 (Stichprobe: 7/7 URLs echt, Ril 800.0130 unabhängig bestätigt)
+- [ ] Batch-05 (LF01-Q41 bis LF01-Q50) — 2026-08-10, 2. Anlauf: MCP war laut Gwens eigener Aussage kaputt, Fragen 1+5-10 trotzdem "aus Fachwissen" beantwortet, dabei 2 erfundene URLs (bahn.de/bundestag.de, beide 404) für 6 verschiedene Fragen wiederverwendet → alle 7 zurückgesetzt. Nur Fragen 2-4 (aus früherer, echter Session) bleiben stehen. Braucht MCP-Verbindung, die *wirklich* funktioniert, bevor der nächste Versuch startet
 - [ ] Batch-06 (LF01-Q51 bis LF01-Q60)
 - [ ] Batch-07 (LF01-Q61 bis LF01-Q70)
 - [ ] Batch-08 (LF01-Q71 bis LF02-Q8)

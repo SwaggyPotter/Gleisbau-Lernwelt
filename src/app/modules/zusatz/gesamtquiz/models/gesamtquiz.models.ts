@@ -13,6 +13,9 @@ export interface QuizQuestion {
   explain: string;
   difficulty: 'easy' | 'medium' | 'hard';
   tags: string[];
+  /** Beleg fuer die Antwort, z. B. "DIN EN 13481-2" oder "EBO Paragraph 22". Optional, da nicht jede Frage bereits belegt ist. */
+  source?: string;
+  sourceUrl?: string;
 }
 
 export interface QuizFile {

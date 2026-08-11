@@ -1,0 +1,14 @@
+{
+  "relFile": "13-CLI-Testbereich/Test-03-Fortsetzung.md",
+  "status": "SUCCESS",
+  "reasons": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 60,
+      "status": "SUCCESS",
+      "reasons": []
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-11T10-12-15-325Z_Test-03-Fortsetzung.md.log"
+}

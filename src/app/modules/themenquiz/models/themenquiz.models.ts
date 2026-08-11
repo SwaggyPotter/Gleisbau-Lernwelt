@@ -4,6 +4,10 @@ export interface ThemenquizQuestion {
   choices: string[];
   correctIndex: number;
   explanation: string;
+  /** Beleg fuer die Antwort, z. B. "DIN EN 13481-2" oder "EBO Paragraph 22". Optional, da nicht jede Frage bereits belegt ist. */
+  source?: string;
+  /** Optionaler Link zur Quelle (Norm-Datenbank, Gesetzestext, Fachartikel). */
+  sourceUrl?: string;
 }
 
 export interface ThemenquizFile {

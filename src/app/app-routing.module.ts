@@ -38,6 +38,11 @@ const routes: Routes = [
     loadChildren: () => import('./modules/zusatz/materialrechner/materialrechner.module')
       .then(m => m.MaterialrechnerModule)
   },
+  {
+    path: 'bildnachweise',
+    loadChildren: () => import('./bildnachweise/bildnachweise.module')
+      .then(m => m.BildnachweisePageModule)
+  },
   { path: '**', redirectTo: 'dashboard' }
 ];
 

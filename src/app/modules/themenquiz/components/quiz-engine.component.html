@@ -19,11 +19,17 @@
     <div class="feedback" *ngIf="isCorrect !== null" [class.correct]="isCorrect" [class.wrong]="!isCorrect">
       <strong>{{ isCorrect ? 'Richtig!' : 'Leider falsch.' }}</strong>
       <p>{{ q.explanation }}</p>
+      <p class="source" *ngIf="q.source">
+        Quelle:
+        <a *ngIf="q.sourceUrl; else plainSource" [href]="q.sourceUrl" target="_blank" rel="noopener">{{ q.source }}</a>
+        <ng-template #plainSource>{{ q.source }}</ng-template>
+      </p>
     </div>
 
     <div class="nav-row">
       <ion-chip color="primary" outline="true">{{ answeredCount }}/{{ order.length }} beantwortet</ion-chip>
       <div class="spacer"></div>
+      <ion-button size="small" fill="clear" color="medium" (click)="reportQuestion()">Frage melden</ion-button>
       <ion-button size="small" (click)="next()" [disabled]="selectedIndex === null || currentIndex >= order.length - 1">
         Naechste Frage
       </ion-button>

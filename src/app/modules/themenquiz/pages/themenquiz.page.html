@@ -22,6 +22,7 @@
     <section class="quiz-section">
       <app-themenquiz-engine
         [questions]="quiz.questions"
+        [topicId]="topicId"
         (answered)="quizAnswered($event)"
       ></app-themenquiz-engine>
     </section>

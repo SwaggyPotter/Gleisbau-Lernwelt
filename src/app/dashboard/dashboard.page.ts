@@ -9,6 +9,16 @@ type QuizTile = {
   link: string;
   topicId?: string;
   questionCount?: number;
+  /**
+   * Optionales Foto. Aktuell als Hotlink auf Wikimedia Commons (nicht lokal
+   * gehostet) — siehe assets/bilder/bildnachweise.json fuer Lizenz/Quelle.
+   * Grund: Bulk-Download loeste Wikimedias Rate-Limit aus (HTTP 429), das
+   * Hotlinken einzelner Bilder pro Nutzer-Browser ist der normale, von
+   * Wikimedia dafuer vorgesehene Weg. Spaeter ggf. lokal herunterladen mit
+   * tools/cline-cli/download-bildkandidaten.cjs (resume-faehig).
+   */
+  image?: string;
+  imageCredit?: string;
 };
 
 type TileProgress = {
@@ -38,6 +48,8 @@ export class DashboardPage {
       link: '/themenquiz/grundlagen',
       topicId: 'grundlagen',
       questionCount: 26,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Gleisbau_in_Schoenberg_(1).jpg?width=900',
+      imageCredit: 'Siegbert Brey (Snoopy1964), CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'themenquiz-spurweite',
@@ -48,6 +60,8 @@ export class DashboardPage {
       link: '/themenquiz/spurweite',
       topicId: 'spurweite',
       questionCount: 20,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Genshagener_Heide-Kurve.JPG?width=900',
+      imageCredit: 'Global Fish, CC BY-SA 3.0, via Wikimedia Commons',
     },
     {
       id: 'themenquiz-schiene',
@@ -58,6 +72,8 @@ export class DashboardPage {
       link: '/themenquiz/schiene',
       topicId: 'schiene',
       questionCount: 19,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Thermite_rail_welding_33.jpg?width=900',
+      imageCredit: 'Cjp24, CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'themenquiz-schwellen',
@@ -68,6 +84,8 @@ export class DashboardPage {
       link: '/themenquiz/schwellen',
       topicId: 'schwellen',
       questionCount: 22,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Eisenbahnschienen_mit_Betonschwellen.jpg?width=900',
+      imageCredit: 'Noebse, CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'themenquiz-bettung',
@@ -78,6 +96,8 @@ export class DashboardPage {
       link: '/themenquiz/bettung',
       topicId: 'bettung',
       questionCount: 30,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Workers_manually_levelling_gravel_(Ballast)_in_the_railway_track%2C_Tamil_Nadu_01.jpg?width=900',
+      imageCredit: 'PJeganathan, CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'themenquiz-kleineisen',
@@ -88,6 +108,8 @@ export class DashboardPage {
       link: '/themenquiz/kleineisen',
       topicId: 'kleineisen',
       questionCount: 25,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Clamp_4401.jpg?width=900',
+      imageCredit: 'Chris Light, CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'themenquiz-handwerkzeuge',
@@ -98,6 +120,8 @@ export class DashboardPage {
       link: '/themenquiz/handwerkzeuge',
       topicId: 'handwerkzeuge',
       questionCount: 22,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/SOUTHERN_RAILWAY_RIGHT-OF-WAY_WORK_CREW_JACK_UP_A_RAIL_THEY_ARE_REMOVING_OLD_TIES_AND_REPLACING_THEM_WITH_NEW_ONES..._-_NARA_-_556898.jpg?width=900',
+      imageCredit: 'US-Bundesbehoerde (NARA), gemeinfrei',
     },
     {
       id: 'themenquiz-kleingeraete',
@@ -108,6 +132,8 @@ export class DashboardPage {
       link: '/themenquiz/kleingeraete',
       topicId: 'kleingeraete',
       questionCount: 20,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Work_on_the_railway_line_-_fitting_a_fishplate_-_geograph.org.uk_-_1754311.jpg?width=900',
+      imageCredit: 'Evelyn Simak, CC BY-SA 2.0, via Wikimedia Commons/Geograph',
     },
     {
       id: 'themenquiz-messmittel',
@@ -117,7 +143,9 @@ export class DashboardPage {
       icon: 'speedometer-outline',
       link: '/themenquiz/messmittel',
       topicId: 'messmittel',
-      questionCount: 7,
+      questionCount: 21,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Measurement_Trolley_832.jpg?width=900',
+      imageCredit: 'Chen Melling, CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'themenquiz-trassenplan',
@@ -127,7 +155,9 @@ export class DashboardPage {
       icon: 'map-outline',
       link: '/themenquiz/trassenplan',
       topicId: 'trassenplan',
-      questionCount: 7,
+      questionCount: 23,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Railway_bridge%2C_Fiesby_Curve%2C_aerial_2018_-_geograph.org.uk_-_5661711.jpg?width=900',
+      imageCredit: 'Chris (geograph.org.uk), CC BY-SA 2.0',
     },
   ];
 
@@ -314,6 +344,8 @@ export class DashboardPage {
       icon: 'scale-outline',
       tag: 'Bonus',
       link: '/zusatz/materialrechner',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Loading_bay_at_Hakkila_rail_yard_in_Vantaa%2C_Finland%2C_2021.jpg?width=900',
+      imageCredit: 'Coen, CC BY-SA 4.0, via Wikimedia Commons',
     },
   ];
 

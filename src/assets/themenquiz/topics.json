@@ -51,13 +51,13 @@
     "topicId": "messmittel",
     "title": "Messmittel und Vermessung",
     "description": "Spurweitenmessgeraet, Nivelliergeraet, Pfeilhoehe, Temperatur",
-    "questionCount": 7
+    "questionCount": 21
   },
   {
     "topicId": "trassenplan",
     "title": "Trassenplan lesen",
     "description": "Trassenplan Grundlagen, Kilometrierung, Symbole",
-    "questionCount": 7
+    "questionCount": 23
   },
   {
     "topicId": "lf01",

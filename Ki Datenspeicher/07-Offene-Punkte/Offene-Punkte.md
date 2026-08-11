@@ -16,7 +16,13 @@ abhaken, sobald geklärt.
   (`backend/`) ist voll funktionsfähig (Login, Admin, Registrierungs-Keys,
   Nutzerfortschritt), aber seit 18.07.2026 nicht mehr ans Frontend angebunden.
   Es liegt totes Gewicht im Repo, falls es dauerhaft nicht gebraucht wird.
-  Siehe [[02-Architektur/Backend-Architektur]].
+  Siehe [[02-Architektur/Backend-Architektur]]. **Update 2026-08-11:** Tim hat
+  im Rahmen der Gesamtziel-Planung entschieden, das Backend vorerst NICHT
+  anzubinden — App bleibt statisch, Backend/Deployment-Doku nur startklar
+  halten. Die neue Melde-Funktion (`question-report.service.ts`) speichert
+  deshalb bewusst nur lokal (localStorage), ist aber so strukturiert, dass ein
+  echter HTTP-Aufruf ans Backend später ohne Änderung der aufrufenden
+  Komponenten nachgerüstet werden kann.
 - [ ] **Was passiert mit den 14 Lernfeld-Inhalten?** Aktuell nur als Rohtext in
   `LERNFELDER-BACKUP.txt` archiviert. Wenn sie zurückkommen sollen, müsste
   entschieden werden, in welchem Format (eigene Module wie bei "Zusatz", oder
@@ -79,6 +85,25 @@ abhaken, sobald geklärt.
   Zulieferaufgaben ohne Norm-Bezug eingesetzt wird? Reine Beobachtung aus dem
   Vault-Zustand, keine Entscheidung aus dem Code ableitbar — echte Tim-Frage.
   Siehe [[08-Recherche-Gwen/Kickoff-Prompt]].
+
+## Spiele-Feature (aus Tims Gesamtziel-Vision, 2026-08-11 — noch nicht gebaut)
+
+- [ ] **Zusatz-Spielformen konzipieren und bauen.** Tim wünscht sich neben dem
+  reinen Quiz-Format noch spielerische Formate, hat sich für "Zusatz-
+  Spielformen" (statt reinem Punkte-/Abzeichen-System) entschieden. Grober
+  Vorschlag, noch nicht umgesetzt:
+  - **Memory/Zuordnungsspiel**: Begriff ↔ Definition oder Bild ↔ Begriff,
+    gespeist aus den bestehenden `explanation`-Feldern der Themenquiz-Fragen
+    (kein neuer Inhalt nötig, nur neue Präsentationsform).
+  - **Zeitrennen-Modus**: bestehende Fragen aus einem Thema/Gesamtquiz unter
+    Zeitdruck beantworten, z. B. als neuer Modus im `GesamtquizEngineComponent`
+    (dort existiert bereits Fragenpool + Shuffle, "nur" ein Timer + Highscore
+    fehlen).
+  - Beide Formate könnten dieselbe Fragen-Datenbasis wiederverwenden (kein
+    neuer Recherche-Aufwand), sind also primär Frontend-Arbeit: neues Modul
+    `modules/zusatz/spiele/` oder zwei separate kleine Module.
+  - Noch zu klären mit Tim: Highscore lokal (localStorage, wie der bestehende
+    Fortschritt) oder erst nach Backend-Anbindung sinnvoll?
 
 ## Unbekannt / an Tim zu klären
 

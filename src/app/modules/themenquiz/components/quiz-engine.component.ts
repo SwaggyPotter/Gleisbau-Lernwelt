@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ThemenquizQuestion } from '../models/themenquiz.models';
+import { QuestionReportService } from '../../../services/question-report.service';
 
 type ShuffledChoice = { text: string; originalIndex: number };
 
@@ -11,7 +13,14 @@ type ShuffledChoice = { text: string; originalIndex: number };
 })
 export class ThemenquizEngineComponent implements OnChanges {
   @Input() questions: ThemenquizQuestion[] = [];
+  @Input() topicId = '';
   @Output() answered = new EventEmitter<{ id: string; correct: boolean }>();
+
+  constructor(
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
+    private reportSvc: QuestionReportService
+  ) {}
 
   order: ThemenquizQuestion[] = [];
   currentIndex = 0;
@@ -69,6 +78,37 @@ export class ThemenquizEngineComponent implements OnChanges {
 
   restart(): void {
     this.start();
+  }
+
+  async reportQuestion(): Promise<void> {
+    const q = this.current;
+    if (!q) return;
+
+    const alert = await this.alertCtrl.create({
+      header: 'Frage melden',
+      subHeader: 'Was ist an dieser Frage falsch oder unklar?',
+      inputs: [
+        { name: 'comment', type: 'textarea', placeholder: 'z. B. falsche Loesung, veraltete Norm, unklare Formulierung...' },
+      ],
+      buttons: [
+        { text: 'Abbrechen', role: 'cancel' },
+        {
+          text: 'Melden',
+          handler: async (data: { comment?: string }) => {
+            this.reportSvc.submitReport({
+              questionId: q.id,
+              topic: this.topicId,
+              question: q.question,
+              reason: 'Nutzer-Meldung',
+              comment: data.comment,
+            });
+            const toast = await this.toastCtrl.create({ message: 'Danke, die Meldung wurde gespeichert.', duration: 2000, color: 'success' });
+            await toast.present();
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
   choiceClass(choice: ShuffledChoice): string {

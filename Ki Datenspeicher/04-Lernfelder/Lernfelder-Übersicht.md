@@ -5,10 +5,16 @@ autor: Claude
 
 # Lernfelder – Übersicht
 
-**Status: Nicht mehr im Frontend aktiv.** Die 14 Lernfelder waren früher der
-Kern der App (eigene Detail-/Quiz-Seiten pro Lernfeld), wurden aber am
-18.07.2026 aus `src/app` entfernt (siehe [[05-Update-Log/Update-Log]]). Die App
-funktioniert seitdem themenbasiert (siehe [[03-Module/Übersicht]]).
+**Korrektur (2026-08-11, Claude):** Diese Notiz war veraltet. Die 14
+Lernfelder sind inzwischen wieder aktiv im Frontend — als eigene Themenquiz-
+Kacheln `src/assets/themenquiz/lf01.json` … `lf14.json`, eingebunden über
+`readonly lernfeldTiles` in `src/app/dashboard/dashboard.page.ts` (Route
+`/themenquiz/lfNN`, jede Kachel trägt bereits `tag: 'Jahr 1/2/3'` gemäß der
+Tabelle unten). Die **Jahr-1/2/3-Zuordnung ist damit bereits umgesetzt und
+sourced** (kanonische Seed-Liste, siehe unten) — keine offene Aufgabe mehr.
+Unklar/nicht nachgeprüft: ob der Frage-Inhalt der `lf0N.json`-Dateien aus
+`LERNFELDER-BACKUP.txt` stammt oder komplett neu erstellt wurde — bei Bedarf
+vor Verwendung stichprobenartig vergleichen.
 
 ## Die 14 Lernfelder (Ausbildungsrahmenplan-Struktur, Jahr 1–3)
 

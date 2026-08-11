@@ -26,12 +26,18 @@
       <div class="instant-feedback" *ngIf="answers[q.id] as a" [class.correct]="a.correct" [class.wrong]="!a.correct">
         <strong>{{ a.correct ? 'Richtig' : 'Falsch' }}</strong>
         <p>{{ q.explain }}</p>
+        <p class="source" *ngIf="q.source">
+          Quelle:
+          <a *ngIf="q.sourceUrl; else plainSource" [href]="q.sourceUrl" target="_blank" rel="noopener">{{ q.source }}</a>
+          <ng-template #plainSource>{{ q.source }}</ng-template>
+        </p>
       </div>
     </div>
 
     <div class="nav-row">
       <ion-button size="small" fill="outline" (click)="prev()" [disabled]="currentIndex === 0">Zurueck</ion-button>
       <ion-button size="small" fill="outline" (click)="next()" [disabled]="currentIndex >= active.length - 1">Weiter</ion-button>
+      <ion-button size="small" fill="clear" color="medium" (click)="reportQuestion()">Frage melden</ion-button>
       <div class="spacer"></div>
       <ion-chip color="primary" outline="true">{{ answeredCount() }}/{{ active.length }} beantwortet</ion-chip>
     </div>

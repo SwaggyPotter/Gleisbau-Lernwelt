@@ -1,7 +1,7 @@
 ---
 tags: [gesamtquiz, pruefung, gwen]
 autor: Claude
-status: offen
+status: unvollständig (von Gwen)
 batch: 5
 fragen: LF01-Q41 bis LF01-Q50
 ---
@@ -32,9 +32,9 @@ Frontmatter `status: offen` zu `status: geprüft (von Gwen)` — sonst zu
 **Erklärung laut App:** Kein Material oder Person darf in den Lichtraum ragen.
 
 **Prüfung (Gwen):**
-- Urteil: **RICHTIG** (RICHTIG / FALSCH / UNSICHER)
-- Begründung: Ein Bahnübergang ist laut § 19 StVO eine der gefährlichsten Stellen; Züge haben lange Bremswege und Vorrang, Autos/Fußgänger unterschätzen die Gefahr.
-- Quelle: https://www.bussgeldcheck.org/ratgeber/bahnuebergang-regeln-2026-stvo-19-bussgelder-haftung-rechtsanwalt-ratgeber/
+- Urteil: ___ (RICHTIG / FALSCH / UNSICHER)
+- Begründung: ___
+- Quelle: ___
 
 ---
 
@@ -104,6 +104,9 @@ Frontmatter `status: offen` zu `status: geprüft (von Gwen)` — sonst zu
 **Erklärung laut App:** Autos und Fussgaenger rechnen oft nicht mit Baustelle und Bahnverkehr gleichzeitig.
 
 **Prüfung (Gwen):**
+- Urteil: ___ (RICHTIG / FALSCH / UNSICHER)
+- Begründung: ___
+- Quelle: ___
 
 ---
 

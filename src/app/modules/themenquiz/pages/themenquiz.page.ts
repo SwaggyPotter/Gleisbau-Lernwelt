@@ -15,7 +15,7 @@ export class ThemenquizPage implements OnInit, OnDestroy {
   loading = true;
   error = '';
   progress: ThemenquizProgress = { quizStats: {} };
-  private topicId = '';
+  topicId = '';
   private sub = new Subscription();
 
   constructor(

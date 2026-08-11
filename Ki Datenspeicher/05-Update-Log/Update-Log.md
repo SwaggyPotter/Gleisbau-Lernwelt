@@ -42,6 +42,50 @@ Neue Einträge bitte **oben** anfügen.
   (`dashboard.page.ts/.html`). Quiz-Mechanik unverändert — die
   Themenquiz-Route lädt Topics dynamisch.
 
+## 2026-08-10 — Session D neu versucht: messmittel + trassenplan eingearbeitet — Wissenstests-Ausbau ABGESCHLOSSEN (Claude)
+
+Nach dem Verwurf oben (siehe Eintrag darunter) neuer Prompt mit
+Pflicht-Selbsttest ("erst eine Testsuche durchführen und Ergebnis zeigen,
+bevor irgendetwas geschrieben wird") — hat funktioniert: Gwen postete eine
+echte URL (buzer.de, EBO §5) vor Beginn. Ergebnis diesmal grundlegend
+anders als im verworfenen Versuch — alle 31 Quellen echte externe URLs
+(Hersteller wie Goecke/Vogel&Plötscher, Trackopedia, Plasser & Theurer,
+TU Dresden, Springer, gesetze-im-internet.de, gispoint.de), keine
+Vault-Selbstzitate mehr.
+
+- **messmittel.md**: 14 von 15 übernommen (1 Doppelung entfernt: Neutrali-
+  sationstemperatur und Schweißtemperatur beide 20-26 °C, gleicher Fakt
+  zweimal gefragt). Stichproben verifiziert und bestätigt: EBO §5
+  Mindestspurweite 1.430 mm (wortgleich mit Gesetzestext), Neutralisations-
+  temperatur 20-26 °C, Schienenabnutzungs-Messwinkel 22,5°/45°/67,5°
+  (beide wortgleich mit Trackopedia).
+- **trassenplan.md**: 16 von 17 übernommen (1 Doppelung entfernt: "Aufriss"
+  und "Längsschnitt" wurden beide fast identisch als "vertikaler Schnitt
+  entlang der Trasse" definiert; 1 fehlendes "- Frage:"-Label ergänzt).
+  DB-Richtlinie 885.1102 für Trassenpläne per Zweitquelle (gispoint.de-
+  Artikeltitel) bestätigt — anders als die drei erfundenen Ril-Nummern im
+  verworfenen Versuch diesmal eine echte, verifizierbare Richtliniennummer.
+- Eingearbeitet: Messmittel 7 → 21, Trassenplan 7 → 23 Fragen.
+
+**Damit sind alle 10 Wissenstests ausgebaut.** Gesamtbild:
+
+| Thema | vorher | nachher |
+|---|---|---|
+| Grundlagen | 6 | 26 |
+| Spurweite | 6 | 20 |
+| Schienen | 5 | 19 |
+| Schwellen | 5 | 22 |
+| Bettung | 10 | 30 |
+| Kleineisen | 7 | 25 |
+| Handwerkzeuge | 6 | 22 |
+| Kleingeräte | 6 | 20 |
+| Messmittel | 7 | 21 |
+| Trassenplan | 7 | 23 |
+| **Summe** | **65** | **228** |
+
+Nächster sinnvoller Schritt: die pausierte Gesamtquiz-Prüfung (Batch 4/43
+der 427 Lernfeld-Fragen) wieder aufnehmen.
+
 ## 2026-08-10 — Session D (messmittel + trassenplan) VERWORFEN (Claude)
 
 Wichtiger Vorfall: Vor dieser Session hatte Gwens DuckDuckGo-MCP-Verbindung

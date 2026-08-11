@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Bildnachweise</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <p>
+    Alle Fotos in dieser App stammen von Wikimedia Commons und stehen unter
+    einer freien Lizenz (Creative Commons oder gemeinfrei). Namensnennung
+    gemaess Lizenzbedingungen:
+  </p>
+  <p class="hint">
+    Hinweis: Die Bilder werden aktuell direkt von Wikimedia Commons geladen
+    (nicht auf unserem Server gespeichert) und je Betrachter einzeln von dort
+    bezogen. Ein spaeterer Umzug auf eigenes Hosting ist geplant.
+  </p>
+
+  <ion-list>
+    <ion-item *ngFor="let b of bilder" lines="full">
+      <ion-label class="ion-text-wrap">
+        <p class="credit">{{ b.credit }}</p>
+        <p class="meta">Lizenz: {{ b.license }} &middot; <a [href]="b.sourceUrl" target="_blank" rel="noopener">Quelle auf Wikimedia Commons</a></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <p class="hint" *ngIf="bilder.length === 0">Keine Bildnachweise gefunden.</p>
+</ion-content>

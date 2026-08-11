@@ -85,6 +85,174 @@
       ],
       "correctIndex": 0,
       "explanation": "Mit einer Profil-Messschablone laesst sich der Verschleisszustand des Schienenkopfes im Vergleich zum Sollprofil pruefen."
+    },
+    {
+      "id": "messmittel-g1",
+      "question": "Welchen Messbereich hat ein Spurweitenmessgerät für die Abweichung von der Sollspurweite?",
+      "choices": [
+        "±0,5 mm bis +20 mm",
+        "-10 mm bis +40 mm",
+        "-5 mm bis +30 mm",
+        "0 mm bis +50 mm"
+      ],
+      "correctIndex": 1,
+      "explanation": "Nach den Produktspezifikationen lässt sich die Abweichung von der Sollspurweite im Bereich von -10 mm bis +40 mm messen."
+    },
+    {
+      "id": "messmittel-g2",
+      "question": "Mit welcher Genauigkeit kann ein Spurweitenmessgerät die Spurweite bestimmen?",
+      "choices": [
+        "±0,5 mm",
+        "±1 mm",
+        "±2 mm",
+        "±3 mm"
+      ],
+      "correctIndex": 1,
+      "explanation": "Das Spurweitenmessgerät ermöglicht eine schnelle Bestimmung mit einer Genauigkeit von +/- 1 mm."
+    },
+    {
+      "id": "messmittel-g3",
+      "question": "Welchen Zweck erfüllt ein Spurlineal im Gleisbau?",
+      "choices": [
+        "Messen des Schienenprofils",
+        "Messen des Abstands zwischen der Innenseite des Eisenbahngleises und der Basismarke sowie der Höhe zur Basismarke",
+        "Messen der Überhöhung allein",
+        "Messen der Schienenlänge"
+      ],
+      "correctIndex": 1,
+      "explanation": "Das l-förmige Spurlineal ist speziell für das Messen des Abstands zwischen der Innenseite des Eisenbahngleises und der Basismarke sowie der Höhe zwischen der Ebene auf der Schiene und der Basismarke ausgelegt."
+    },
+    {
+      "id": "messmittel-g4",
+      "question": "Wie nennt sich das Gerät zur Ermittlung der Längshöhe und Bestimmung der Gleishöhe?",
+      "choices": [
+        "Visiergerät VIG 1300",
+        "Theodolit",
+        "Tachymeter",
+        "Nivellierlatte"
+      ],
+      "correctIndex": 0,
+      "explanation": "Das VIG 1300 ist ein Universalgerät, das als Visiergerät zur Ermittlung der Längshöhe und beim Nivellieren zur Bestimmung der Gleishöhe dient."
+    },
+    {
+      "id": "messmittel-g5",
+      "question": "Mit welchen Genauigkeit kann ein Überhöhungsmessgerät die Horizontierung durchführen?",
+      "choices": [
+        "±0,5 mm pro Meter",
+        "±0,7 mm pro Meter",
+        "±1,0 mm pro Meter",
+        "±2,0 mm pro Meter"
+      ],
+      "correctIndex": 1,
+      "explanation": "Durch eine Stellschraube wird die empfindliche Röhrenlibelle mit einer Genauigkeit von +/- 0,7 mm pro Meter horizontiert."
+    },
+    {
+      "id": "messmittel-g6",
+      "question": "Welche zwei Funktionen kombiniert ein Spur- und Überhöhungsmessgerät?",
+      "choices": [
+        "Längenmessung und Höhenmessung",
+        "Spurweitenmessung und Überhöhungsprüfung",
+        "Gleishöhe und Schienenbefestigung",
+        "Querneigung und Längsneigung"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die korrekte Bezeichnung \"Spur- und Überhöhungsmessgerät\" beschreibt bereits die Funktionsweise für Spurweitenmessung und Überhöhungsprüfung."
+    },
+    {
+      "id": "messmittel-g7",
+      "question": "Wie bestimmt man mit der Pfeilhöhenmessung den Bogenradius?",
+      "choices": [
+        "Durch Messung des Schienenabnutungsprofils",
+        "In der Mitte einer Sehne von 16 m oder 20 m Länge wird der lotrechte Abstand zum Gleis gemessen",
+        "Durch Messung der Überhöhung in Kurven",
+        "Durch Ausmessung der Spurweite im Bogen"
+      ],
+      "correctIndex": 1,
+      "explanation": "Mit der Pfeilhöhenmessung bestimmt man den Radius, wobei jeweils in der Mitte einer Sehne mit der Länge ls = 16 m oder ls = 20 m der lotrechte Abstand hf des Gleises gemessen wird."
+    },
+    {
+      "id": "messmittel-g8",
+      "question": "Welches Gerät zur Pfeilhöhenmessung ist bei der Deutschen Bahn zugelassen?",
+      "choices": [
+        "EM-SAT Satellit",
+        "WM-Wuppertaler Messlatten",
+        "Laser-Distanzmesser",
+        "Digitale Messlatte"
+      ],
+      "correctIndex": 1,
+      "explanation": "Die WM-Pfeilhöhenmesslatten \"Wuppertaler Verfahren\" sind ein bei der Deutschen Bahn zugelassenes Messgerät zur Ermittlung der Pfeilhöhe."
+    },
+    {
+      "id": "messmittel-g9",
+      "question": "Welche Temperaturbereiche liegen für die Neutralisation beim lückenlos verschweißten Gleis im Sommer?",
+      "choices": [
+        "10-15 °C",
+        "15-20 °C",
+        "20-26 °C",
+        "26-32 °C"
+      ],
+      "correctIndex": 2,
+      "explanation": "Neutralisationen finden meist im Sommer in der Nacht statt, wobei die geeignete Schienentemperatur zwischen 20 - 26 °C liegt."
+    },
+    {
+      "id": "messmittel-g10",
+      "question": "Wie wird die senkrechte und seitliche Schienenabnutzung bei der Messtechnik gemessen?",
+      "choices": [
+        "In einer Richtung zur Schienenmittelachse",
+        "Nur in horizontaler Richtung",
+        "Unter 22,5°, 45° und 67,5° zur Schienenmittelachse",
+        "Mit einer einzigen Messrichtung"
+      ],
+      "correctIndex": 2,
+      "explanation": "Gemessen werden können Winkel von 22,5°, 45° und 67,5° zur Schienenmittelachse zur Erfassung der senkrechten und seitlichen Schienenabnutzung."
+    },
+    {
+      "id": "messmittel-g11",
+      "question": "Welche Sensoren werden für die Inspektion und Prüfung von Gleisen eingesetzt, um hohe Präzision zu erreichen?",
+      "choices": [
+        "Induktive Wegsensoren mit ±5 mm Genauigkeit",
+        "Laseroptische Sensoren mit Genauigkeit von einigen Mikrometern",
+        "Mechanische Messlatte mit 1 mm Genauigkeit",
+        "Ultraschallsensoren mit ±2 mm Bandbreite"
+      ],
+      "correctIndex": 1,
+      "explanation": "Hochpräzise Triangulationssensoren mit einer Genauigkeit von einigen Mikrometern und einer Bandbreite von 16 kHz werden zur Inspektion eingesetzt."
+    },
+    {
+      "id": "messmittel-g12",
+      "question": "Welchen Zweck erfüllt das Gleis-Fixpunkt-Messgerät?",
+      "choices": [
+        "Zur Vermessung der Spurweite in Kurven",
+        "Zum Aufmessen der Abstände zu Festpunkten und zur Feststellung der Gleislage",
+        "Zur Messung der Schienenoberflächentemperatur",
+        "Zur Prüfung der Neutralisationstemperatur"
+      ],
+      "correctIndex": 1,
+      "explanation": "Das Gleis-Fixpunkt-Messgerät dient zur Feststellung der Gleislage sowie zur Überprüfung einzelner Höhenwerte mit einer entsprechenden Messlatte."
+    },
+    {
+      "id": "messmittel-g13",
+      "question": "Welches Gerät dient zur Ermittlung der Krümmung (d. h. des Höhenunterschieds) zwischen den beiden Schienen?",
+      "choices": [
+        "Das Gleis- und Weichenspurmessgerät Typ GARNET-DL",
+        "Der VIG 1300 Visier- und Nivelliergeräte",
+        "Das WM-Wuppertaler Messlatten",
+        "Das Spurlineal"
+      ],
+      "correctIndex": 1,
+      "explanation": "Das VIG 1300 kann auch die Krümmung des Gleises (d. h. den Höhenunterschied zwischen den beiden Schienen) messen."
+    },
+    {
+      "id": "messmittel-g14",
+      "question": "Wie groß darf nach § 5 EBO die Regelspurweite mindestens betragen?",
+      "choices": [
+        "1.380 mm",
+        "1.400 mm",
+        "1.430 mm",
+        "1.435 mm"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Spurweite darf nicht kleiner sein als 1.430 mm, das Grundmaß beträgt 1.435 mm."
     }
   ]
 }

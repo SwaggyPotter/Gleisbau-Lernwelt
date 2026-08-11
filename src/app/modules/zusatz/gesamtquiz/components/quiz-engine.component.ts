@@ -1,5 +1,7 @@
 ﻿import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { AlertController, ToastController } from '@ionic/angular';
 import { QuizQuestion } from '../models/gesamtquiz.models';
+import { QuestionReportService } from '../../../../services/question-report.service';
 
 type AnswerState = { choice?: string; correct?: boolean };
 
@@ -16,6 +18,12 @@ export class GesamtquizEngineComponent implements OnChanges {
   @Input() shuffle = true;
   @Input() title = 'Gesamtquiz';
   @Output() answered = new EventEmitter<{ id: string; correct: boolean }>();
+
+  constructor(
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
+    private reportSvc: QuestionReportService
+  ) {}
 
   active: QuizQuestion[] = [];
   answers: Record<string, AnswerState> = {};
@@ -92,6 +100,37 @@ export class GesamtquizEngineComponent implements OnChanges {
 
   prev(): void {
     if (this.currentIndex > 0) this.currentIndex -= 1;
+  }
+
+  async reportQuestion(): Promise<void> {
+    const q = this.currentQuestion();
+    if (!q) return;
+
+    const alert = await this.alertCtrl.create({
+      header: 'Frage melden',
+      subHeader: 'Was ist an dieser Frage falsch oder unklar?',
+      inputs: [
+        { name: 'comment', type: 'textarea', placeholder: 'z. B. falsche Loesung, veraltete Norm, unklare Formulierung...' },
+      ],
+      buttons: [
+        { text: 'Abbrechen', role: 'cancel' },
+        {
+          text: 'Melden',
+          handler: async (data: { comment?: string }) => {
+            this.reportSvc.submitReport({
+              questionId: q.id,
+              topic: this.title,
+              question: q.question,
+              reason: 'Nutzer-Meldung',
+              comment: data.comment,
+            });
+            const toast = await this.toastCtrl.create({ message: 'Danke, die Meldung wurde gespeichert.', duration: 2000, color: 'success' });
+            await toast.present();
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
   private shuffleArray<T>(arr: T[]): T[] {

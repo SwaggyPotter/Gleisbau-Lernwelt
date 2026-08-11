@@ -51,9 +51,17 @@
       <ion-row>
         <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of filteredQuizTopics; trackBy: trackByTileId">
           <ion-card class="tile-card highlight" [routerLink]="tile.link">
-            <div class="tile-icon">
-              <ion-icon [name]="tile.icon"></ion-icon>
+            <div class="tile-image" *ngIf="tile.image; else tileIconOnly" [style.background-image]="'url(' + tile.image + ')'">
+              <div class="tile-icon overlay">
+                <ion-icon [name]="tile.icon"></ion-icon>
+              </div>
+              <p class="image-credit" *ngIf="tile.imageCredit">Foto: {{ tile.imageCredit }}</p>
             </div>
+            <ng-template #tileIconOnly>
+              <div class="tile-icon">
+                <ion-icon [name]="tile.icon"></ion-icon>
+              </div>
+            </ng-template>
             <ion-card-header>
               <div class="tile-top">
                 <ion-chip color="tertiary" outline="true">
@@ -86,9 +94,17 @@
       <ion-row>
         <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of filteredLernfeldTiles; trackBy: trackByTileId">
           <ion-card class="tile-card highlight" [routerLink]="tile.link">
-            <div class="tile-icon">
-              <ion-icon [name]="tile.icon"></ion-icon>
+            <div class="tile-image" *ngIf="tile.image; else tileIconOnly" [style.background-image]="'url(' + tile.image + ')'">
+              <div class="tile-icon overlay">
+                <ion-icon [name]="tile.icon"></ion-icon>
+              </div>
+              <p class="image-credit" *ngIf="tile.imageCredit">Foto: {{ tile.imageCredit }}</p>
             </div>
+            <ng-template #tileIconOnly>
+              <div class="tile-icon">
+                <ion-icon [name]="tile.icon"></ion-icon>
+              </div>
+            </ng-template>
             <ion-card-header>
               <div class="tile-top">
                 <ion-chip color="tertiary" outline="true">
@@ -121,9 +137,17 @@
       <ion-row>
         <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of filteredExtraTiles; trackBy: trackByTileId">
           <ion-card class="tile-card highlight" [routerLink]="tile.link">
-            <div class="tile-icon">
-              <ion-icon [name]="tile.icon"></ion-icon>
+            <div class="tile-image" *ngIf="tile.image; else tileIconOnly" [style.background-image]="'url(' + tile.image + ')'">
+              <div class="tile-icon overlay">
+                <ion-icon [name]="tile.icon"></ion-icon>
+              </div>
+              <p class="image-credit" *ngIf="tile.imageCredit">Foto: {{ tile.imageCredit }}</p>
             </div>
+            <ng-template #tileIconOnly>
+              <div class="tile-icon">
+                <ion-icon [name]="tile.icon"></ion-icon>
+              </div>
+            </ng-template>
             <ion-card-header>
               <div class="tile-top">
                 <ion-chip color="tertiary" outline="true">
@@ -147,5 +171,9 @@
       </ion-card-header>
     </ion-card>
   </section>
+
+  <footer class="app-footer">
+    <a [routerLink]="'/bildnachweise'">Bildnachweise</a>
+  </footer>
 
 </ion-content>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#16242f"/>
+  <!-- Rasterlinien -->
+  <g stroke="#6fa8dc" stroke-opacity="0.15" stroke-width="1">
+    <line x1="0" y1="50" x2="400" y2="50"/>
+    <line x1="0" y1="100" x2="400" y2="100"/>
+    <line x1="0" y1="150" x2="400" y2="150"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+    <line x1="0" y1="250" x2="400" y2="250"/>
+    <line x1="50" y1="0" x2="50" y2="300"/>
+    <line x1="100" y1="0" x2="100" y2="300"/>
+    <line x1="150" y1="0" x2="150" y2="300"/>
+    <line x1="200" y1="0" x2="200" y2="300"/>
+    <line x1="250" y1="0" x2="250" y2="300"/>
+    <line x1="300" y1="0" x2="300" y2="300"/>
+    <line x1="350" y1="0" x2="350" y2="300"/>
+  </g>
+
+  <!-- Trapezprofil (Bettungsquerschnitt) -->
+  <polygon points="110,220 290,220 250,110 150,110" fill="none" stroke="#ff8a3d" stroke-width="3"/>
+  <polygon points="110,220 290,220 250,110 150,110" fill="#ff8a3d" fill-opacity="0.08"/>
+
+  <!-- Bemassungslinien -->
+  <g stroke="#6fa8dc" stroke-width="1.5">
+    <!-- obere Breite b -->
+    <line x1="150" y1="90" x2="250" y2="90"/>
+    <line x1="150" y1="85" x2="150" y2="110"/>
+    <line x1="250" y1="85" x2="250" y2="110"/>
+    <!-- untere Breite a -->
+    <line x1="110" y1="245" x2="290" y2="245"/>
+    <line x1="110" y1="220" x2="110" y2="250"/>
+    <line x1="290" y1="220" x2="290" y2="250"/>
+    <!-- Hoehe h -->
+    <line x1="320" y1="110" x2="320" y2="220"/>
+    <line x1="290" y1="110" x2="325" y2="110"/>
+    <line x1="290" y1="220" x2="325" y2="220"/>
+  </g>
+
+  <text x="200" y="80" fill="#eaf2f5" font-family="JetBrains Mono, monospace" font-size="14" text-anchor="middle">b</text>
+  <text x="200" y="268" fill="#eaf2f5" font-family="JetBrains Mono, monospace" font-size="14" text-anchor="middle">a</text>
+  <text x="340" y="169" fill="#eaf2f5" font-family="JetBrains Mono, monospace" font-size="14" text-anchor="middle">h</text>
+
+  <text x="200" y="20" fill="#8ca3af" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1" text-anchor="middle">TRAPEZPROFIL — A = (A+B)/2 · H</text>
+</svg>

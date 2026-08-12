@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 340" width="500" height="340">
+  <rect width="500" height="340" fill="#16242f"/>
+  <g stroke="#6fa8dc" stroke-opacity="0.15" stroke-width="1">
+    <line x1="0" y1="42" x2="500" y2="42"/><line x1="0" y1="84" x2="500" y2="84"/>
+    <line x1="0" y1="126" x2="500" y2="126"/><line x1="0" y1="168" x2="500" y2="168"/>
+    <line x1="0" y1="210" x2="500" y2="210"/><line x1="0" y1="252" x2="500" y2="252"/>
+    <line x1="0" y1="294" x2="500" y2="294"/>
+    <line x1="42" y1="0" x2="42" y2="340"/><line x1="84" y1="0" x2="84" y2="340"/>
+    <line x1="126" y1="0" x2="126" y2="340"/><line x1="168" y1="0" x2="168" y2="340"/>
+    <line x1="210" y1="0" x2="210" y2="340"/><line x1="252" y1="0" x2="252" y2="340"/>
+    <line x1="294" y1="0" x2="294" y2="340"/><line x1="336" y1="0" x2="336" y2="340"/>
+    <line x1="378" y1="0" x2="378" y2="340"/><line x1="420" y1="0" x2="420" y2="340"/>
+    <line x1="462" y1="0" x2="462" y2="340"/>
+  </g>
+
+  <text x="20" y="24" fill="#8ca3af" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1">LAGEPLAN</text>
+
+  <!-- Lageplan: Gleis mit Kurve -->
+  <path d="M 20,120 C 140,120 160,60 280,60 S 420,110 480,90" fill="none" stroke="#ff8a3d" stroke-width="3"/>
+  <path d="M 20,120 C 140,120 160,60 280,60 S 420,110 480,90" fill="none" stroke="#ff8a3d" stroke-width="3" stroke-dasharray="1 7" stroke-opacity="0.6" transform="translate(0,8)"/>
+
+  <!-- Kilometrierung -->
+  <g font-family="JetBrains Mono, monospace" font-size="9" fill="#6fa8dc">
+    <circle cx="60" cy="119" r="2.5" fill="#6fa8dc"/>
+    <text x="60" y="140">km 12+300</text>
+    <circle cx="250" cy="64" r="2.5" fill="#6fa8dc"/>
+    <text x="250" y="52">km 12+650</text>
+    <circle cx="440" cy="97" r="2.5" fill="#6fa8dc"/>
+    <text x="400" y="118">km 13+020</text>
+  </g>
+
+  <!-- Radius-Angabe an der Kurve -->
+  <text x="290" y="90" fill="#eaf2f5" font-family="JetBrains Mono, monospace" font-size="10">R = 300 m</text>
+
+  <line x1="0" y1="175" x2="500" y2="175" stroke="#6fa8dc" stroke-opacity="0.3" stroke-width="1"/>
+
+  <text x="20" y="196" fill="#8ca3af" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1">HOEHENPLAN</text>
+
+  <!-- Hoehenplan: Gradiente -->
+  <polyline points="20,300 140,300 260,255 380,255 480,270" fill="none" stroke="#6fbf73" stroke-width="2.5"/>
+  <g font-family="JetBrains Mono, monospace" font-size="9" fill="#6fbf73">
+    <text x="150" y="245">+4,2‰</text>
+    <text x="390" y="290">-1,8‰</text>
+  </g>
+  <line x1="20" y1="315" x2="480" y2="315" stroke="#8ca3af" stroke-width="1"/>
+  <g stroke="#8ca3af" stroke-width="1">
+    <line x1="60" y1="312" x2="60" y2="318"/>
+    <line x1="250" y1="312" x2="250" y2="318"/>
+    <line x1="440" y1="312" x2="440" y2="318"/>
+  </g>
+</svg>

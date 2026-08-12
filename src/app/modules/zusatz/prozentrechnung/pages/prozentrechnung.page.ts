@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { IonContent } from '@ionic/angular';
 import { combineLatest, Subscription } from 'rxjs';
 import { BlockProgress, ContentBlock, QuizFile } from '../models/prozentrechnung.models';
@@ -24,10 +25,12 @@ export class ProzentrechnungPage implements OnInit, OnDestroy {
   constructor(
     private readonly data: ProzentrechnungDataService,
     private readonly scroller: ViewportScroller,
+    private readonly route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
     this.progress = this.data.loadProgress();
+    const jumpToQuiz = this.route.snapshot.queryParamMap.get('view') === 'quiz';
     this.sub.add(
       combineLatest([
         this.data.getContent(),
@@ -38,6 +41,9 @@ export class ProzentrechnungPage implements OnInit, OnDestroy {
           this.quiz = quiz;
           this.selectedBlock = this.blocks[0];
           this.loading = false;
+          if (jumpToQuiz) {
+            setTimeout(() => this.scrollToId('gesamtquiz-anchor'), 150);
+          }
         },
         error: () => {
           this.error = 'Daten konnten nicht geladen werden.';
@@ -55,16 +61,21 @@ export class ProzentrechnungPage implements OnInit, OnDestroy {
     const found = this.blocks.find(b => b.id === blockId);
     if (found) {
       this.selectedBlock = found;
-      const target = document.getElementById(blockId);
-      if (target && this.content) {
-        this.content.getScrollElement().then(el => {
-          const y = target.offsetTop - 60;
-          el.scrollTo({ top: y < 0 ? 0 : y, behavior: 'smooth' });
-        });
-      } else {
+      if (!this.scrollToId(blockId)) {
         this.scroller.scrollToAnchor(blockId);
       }
     }
+  }
+
+  /** Scrollt innerhalb des ion-content-eigenen Scroll-Containers zu einem Element-Id. */
+  private scrollToId(id: string): boolean {
+    const target = document.getElementById(id);
+    if (!target || !this.content) return false;
+    this.content.getScrollElement().then(el => {
+      const y = target.offsetTop - 60;
+      el.scrollTo({ top: y < 0 ? 0 : y, behavior: 'smooth' });
+    });
+    return true;
   }
 
   toggleCompleted(block: ContentBlock): void {

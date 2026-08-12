@@ -95,7 +95,7 @@
       </ion-row>
     </ion-grid>
 
-    <section class="extras" *ngIf="quiz">
+    <section class="extras" id="gesamtquiz-anchor" *ngIf="quiz">
       <h3>Gesamtes Quiz (alle Fragen)</h3>
       <app-lf02-quiz-engine
         [questions]="quiz.questions"

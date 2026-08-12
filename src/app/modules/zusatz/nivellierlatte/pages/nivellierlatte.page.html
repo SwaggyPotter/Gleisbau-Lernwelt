@@ -1,0 +1,103 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Nivellierlatte ablesen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Spiel</p>
+      <h1>Nivellierlatte ablesen</h1>
+      <p class="lede">
+        Schau durchs Zielfernrohr rechts: Wo schneidet das Fadenkreuz die Latte?
+        Trag den Wert in Metern ein (z. B. 1,234). Richtig ist alles innerhalb von {{ toleranceMm }} mm.
+      </p>
+      <div class="stat-row">
+        <div class="stat"><span>Runde</span><strong>{{ round }}</strong></div>
+        <div class="stat"><span>Richtig</span><strong>{{ correctCount }}</strong></div>
+        <div class="stat"><span>Serie</span><strong>{{ streak }}</strong></div>
+        <div class="stat"><span>Bestwert</span><strong>{{ bestStreak }}</strong></div>
+      </div>
+    </section>
+
+    <section class="game-area">
+      <div class="rod-row">
+        <div class="rod-wrap">
+          <p class="panel-label">Latte</p>
+          <svg [attr.viewBox]="'0 0 60 ' + svgHeight" preserveAspectRatio="xMidYMin meet" class="rod-svg">
+            <rect x="10" y="0" width="24" [attr.height]="svgHeight" fill="#f4f6f5"/>
+            <rect *ngFor="let b of decimeterBlocks" x="10" [attr.y]="b.svgY" width="24" height="10"
+                  [attr.fill]="b.dark ? '#0b0e11' : 'transparent'"/>
+            <line *ngFor="let b of decimeterBlocks" x1="10" [attr.y1]="b.svgY" x2="34" [attr.y2]="b.svgY"
+                  stroke="#0b0e11" stroke-width="0.4"/>
+            <rect x="10" y="0" width="24" [attr.height]="svgHeight" fill="none" stroke="#333" stroke-width="0.6"/>
+            <g *ngFor="let m of meterLabels">
+              <line x1="34" [attr.y1]="m.svgY" x2="38" [attr.y2]="m.svgY" [attr.stroke]="m.red ? '#e0463a' : '#0b0e11'" stroke-width="0.8"/>
+              <text x="40" [attr.y]="m.svgY + 2.6" [attr.fill]="m.red ? '#e0463a' : '#eaf2f5'" font-size="5.5" font-weight="700"
+                    font-family="JetBrains Mono, monospace">{{ m.value }}</text>
+            </g>
+            <line x1="0" [attr.y1]="crosshairY" x2="60" [attr.y2]="crosshairY" stroke="#ff8a3d" stroke-width="0.6" stroke-dasharray="1.5 1.5" opacity="0.7"/>
+          </svg>
+        </div>
+
+        <div class="scope-wrap">
+          <p class="panel-label">Zielfernrohr</p>
+          <div class="scope-circle">
+            <svg [attr.viewBox]="scopeViewBox" class="scope-svg">
+              <rect x="10" y="0" width="24" [attr.height]="svgHeight" fill="#f4f6f5"/>
+              <rect *ngFor="let b of decimeterBlocks" x="10" [attr.y]="b.svgY" width="24" height="10"
+                    [attr.fill]="b.dark ? '#0b0e11' : 'transparent'"/>
+              <line *ngFor="let b of decimeterBlocks" x1="10" [attr.y1]="b.svgY" x2="34" [attr.y2]="b.svgY"
+                    stroke="#0b0e11" stroke-width="0.4"/>
+              <rect x="10" y="0" width="24" [attr.height]="svgHeight" fill="none" stroke="#333" stroke-width="0.6"/>
+              <g *ngFor="let m of meterLabels">
+                <line x1="34" [attr.y1]="m.svgY" x2="38" [attr.y2]="m.svgY" [attr.stroke]="m.red ? '#e0463a' : '#0b0e11'" stroke-width="0.8"/>
+                <text x="40" [attr.y]="m.svgY + 2.6" [attr.fill]="m.red ? '#e0463a' : '#eaf2f5'" font-size="5.5" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ m.value }}</text>
+              </g>
+            </svg>
+            <svg class="reticle-svg" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="47" fill="none" stroke="#ff8a3d" stroke-width="1.4"/>
+              <line x1="50" y1="4" x2="50" y2="96" stroke="#ff8a3d" stroke-width="0.7"/>
+              <line x1="4" y1="50" x2="96" y2="50" stroke="#ff8a3d" stroke-width="1.1"/>
+              <line x1="4" y1="34" x2="96" y2="34" stroke="#ff8a3d" stroke-width="0.7"/>
+              <line x1="4" y1="66" x2="96" y2="66" stroke="#ff8a3d" stroke-width="0.7"/>
+              <circle cx="50" cy="50" r="2" fill="#ff8a3d"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="input-row" *ngIf="feedback === null">
+          <ion-input
+            class="guess-input"
+            type="text"
+            inputmode="decimal"
+            placeholder="z. B. 1,234"
+            [value]="guessInput"
+            (ionInput)="guessInput = $any($event.detail).value ?? ''"
+            (keyup.enter)="submit()"
+          ></ion-input>
+          <ion-button (click)="submit()">Ablesen</ion-button>
+        </div>
+
+        <div class="feedback-box" *ngIf="feedback !== null" [class.correct]="feedback === 'correct'" [class.wrong]="feedback === 'wrong'">
+          <strong>{{ feedback === 'correct' ? 'Richtig abgelesen!' : 'Daneben.' }}</strong>
+          <p>
+            Echter Wert: <span class="mono">{{ target.toFixed(3) }} m</span>
+            &middot; Abweichung: <span class="mono">{{ lastDiffMm }} mm</span>
+          </p>
+          <ion-button (click)="next()">Naechste Ablesung</ion-button>
+        </div>
+      </div>
+    </section>
+  </div>
+</ion-content>

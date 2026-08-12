@@ -105,6 +105,41 @@ abhaken, sobald geklärt.
   - Noch zu klären mit Tim: Highscore lokal (localStorage, wie der bestehende
     Fortschritt) oder erst nach Backend-Anbindung sinnvoll?
 
+  **Ideensammlung (offen fuer weitere Eintraege, noch keine umgesetzt):**
+  - **Nivellierlatte ablesen (Tim, 2026-08-11):** Foto/Grafik einer
+    Nivellierlatte mit Zeiger/Anschnittpunkt zeigen, Nutzer traegt den
+    abgelesenen Wert (Zahl, z. B. in mm oder m) ein. Toleranzbasierte
+    Auswertung: richtig, wenn der eingegebene Wert nah genug am echten Wert
+    liegt (Toleranzbreite noch festzulegen, z. B. ±5 mm). Passt direkt zum
+    Zusatzmodul Nivellieren (`modules/zusatz/nivellieren/`) und ist ein
+    eigener Uebungstyp neben Multiple-Choice — braucht generierte
+    Latten-Grafiken (SVG mit zufaelligem Wasserstand/Anschnitt waere
+    realistisch umsetzbar, kein Foto pro Wert noetig) statt vorgefertigter
+    Bilder.
+  - *(weitere Ideen hier ergaenzen, sobald Tim sie nennt)*
+
+## Bild-Feedback von Tim (2026-08-11, teils umgesetzt)
+
+Nach Live-Ansicht der App kam konkretes Feedback zu den Themenquiz-Bildern
+(siehe [[../../cline_cli_setup]]-Nachfolge-Notiz für Details). Umgesetzt:
+Spurweite (jetzt Gauge-Vergleichsfoto statt Kurve), Trassenplan (jetzt
+echtes Gleisplan-SVG statt Luftbild), Bildgroesse auf Kacheln kompakter.
+
+- [ ] **Messmittel und Vermessung**: aktuelles Foto (Gleismesswagen) wirkt
+  wie "einfach ein Zug" — Tim moechte etwas, das eindeutig als Messgeraet
+  erkennbar ist. Mehrfache Commons-Recherche (Spurweitenmessgeraet,
+  Nivelliergeraet, Messschieber) brachte keinen besseren Treffer mit freier
+  Lizenz. Noch offen.
+- [ ] **Schwellen**: Tim haette gerne mehrere verschiedene Schwellentypen
+  (Holz/Beton/Stahl) im Bild statt nur Betonschwellen wie aktuell. Noch
+  offen — evtl. als Recherche-Auftrag an Gwen (Bildkandidaten fuer die
+  restlichen Themen sind ohnehin schon Teil des erweiterten Auftrags in
+  `08-Recherche-Gwen/02-Erweiterter-Auftrag-2026-08-11.md`).
+- [ ] **Bilder fuer Lernfeld-Quizze**: Tim moechte auch bei den
+  Gleisbau-Lernfeldern (LF10-14, z. B. "Gleisboegen herstellen", "Weichen
+  montieren") und den Selbststudium/Quiz-Modulen passende Bilder — bisher
+  nur die 10 Themenquiz-Themen + Header + Materialrechner bebildert.
+
 ## Unbekannt / an Tim zu klären
 
 - [ ] Läuft das Backend/Docker-Compose-Setup aktuell produktiv irgendwo, oder

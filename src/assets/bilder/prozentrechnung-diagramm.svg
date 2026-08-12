@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#16242f"/>
+  <g stroke="#6fa8dc" stroke-opacity="0.15" stroke-width="1">
+    <line x1="0" y1="50" x2="400" y2="50"/>
+    <line x1="0" y1="100" x2="400" y2="100"/>
+    <line x1="0" y1="150" x2="400" y2="150"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+    <line x1="0" y1="250" x2="400" y2="250"/>
+    <line x1="50" y1="0" x2="50" y2="300"/>
+    <line x1="100" y1="0" x2="100" y2="300"/>
+    <line x1="150" y1="0" x2="150" y2="300"/>
+    <line x1="200" y1="0" x2="200" y2="300"/>
+    <line x1="250" y1="0" x2="250" y2="300"/>
+    <line x1="300" y1="0" x2="300" y2="300"/>
+    <line x1="350" y1="0" x2="350" y2="300"/>
+  </g>
+
+  <!-- Ringdiagramm: 68% gefuellt -->
+  <g transform="translate(150,155)">
+    <circle r="80" fill="none" stroke="#1c2e3b" stroke-width="22"/>
+    <circle r="80" fill="none" stroke="#ff8a3d" stroke-width="22"
+      stroke-dasharray="341.9 502.7" stroke-dashoffset="125.7" stroke-linecap="butt"
+      transform="rotate(-90)"/>
+    <text x="0" y="10" fill="#eaf2f5" font-family="JetBrains Mono, monospace" font-size="34" font-weight="700" text-anchor="middle">68%</text>
+  </g>
+
+  <!-- Rechenzeile -->
+  <g font-family="JetBrains Mono, monospace" font-size="15" fill="#eaf2f5">
+    <text x="255" y="110">Grundwert  G</text>
+    <text x="255" y="140">Prozentsatz  p %</text>
+    <text x="255" y="170">Prozentwert  W</text>
+    <line x1="255" y1="185" x2="385" y2="185" stroke="#6fa8dc" stroke-width="1"/>
+    <text x="255" y="205" fill="#ff8a3d">W = G · p / 100</text>
+  </g>
+
+  <text x="200" y="20" fill="#8ca3af" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1" text-anchor="middle">PROZENTRECHNUNG</text>
+</svg>

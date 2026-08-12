@@ -9,6 +9,7 @@ type QuizTile = {
   link: string;
   topicId?: string;
   questionCount?: number;
+  queryParams?: Record<string, string>;
   /**
    * Optionales Foto. Aktuell als Hotlink auf Wikimedia Commons (nicht lokal
    * gehostet) — siehe assets/bilder/bildnachweise.json fuer Lizenz/Quelle.
@@ -60,8 +61,8 @@ export class DashboardPage {
       link: '/themenquiz/spurweite',
       topicId: 'spurweite',
       questionCount: 20,
-      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Genshagener_Heide-Kurve.JPG?width=900',
-      imageCredit: 'Global Fish, CC BY-SA 3.0, via Wikimedia Commons',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Track_gauges_01.jpg?width=900',
+      imageCredit: 'Unnerving duck, CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'themenquiz-schiene',
@@ -84,8 +85,8 @@ export class DashboardPage {
       link: '/themenquiz/schwellen',
       topicId: 'schwellen',
       questionCount: 22,
-      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Eisenbahnschienen_mit_Betonschwellen.jpg?width=900',
-      imageCredit: 'Noebse, CC BY-SA 4.0, via Wikimedia Commons',
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/R%C3%A1kosrendez%C5%91_train_station%2C_sleepers%2C_2020_Zugl%C3%B3.jpg?width=900',
+      imageCredit: 'Globetrotter19, CC BY-SA 3.0, via Wikimedia Commons',
     },
     {
       id: 'themenquiz-bettung',
@@ -156,12 +157,18 @@ export class DashboardPage {
       link: '/themenquiz/trassenplan',
       topicId: 'trassenplan',
       questionCount: 23,
-      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Railway_bridge%2C_Fiesby_Curve%2C_aerial_2018_-_geograph.org.uk_-_5661711.jpg?width=900',
-      imageCredit: 'Chris (geograph.org.uk), CC BY-SA 2.0',
+      image: 'assets/bilder/trassenplan-diagramm.svg',
+      imageCredit: 'Eigene Grafik',
     },
   ];
 
-  readonly lernfeldTiles: QuizTile[] = [
+  /**
+   * Allgemeine Bauberufe-Lernfelder (LF01-09) — nicht Gleisbau-spezifisch,
+   * auf Tims Wunsch (2026-08-11) aus der Hauptnavigation genommen und in
+   * einen eigenen, weniger prominenten Bereich verschoben. Inhalte/Fortschritt
+   * bleiben erhalten, nur die Sortierung/Sichtbarkeit aendert sich.
+   */
+  readonly allgemeineBauberufeTiles: QuizTile[] = [
     {
       id: 'lernfeld-lf01',
       title: 'Baustellen einrichten',
@@ -252,6 +259,10 @@ export class DashboardPage {
       topicId: 'lf09',
       questionCount: 23,
     },
+  ];
+
+  /** Gleisbau-spezifische Lernfelder (LF10-14) — der Fokus der App. */
+  readonly lernfeldTiles: QuizTile[] = [
     {
       id: 'lernfeld-lf10',
       title: 'Gleisanlagen neu bauen',
@@ -304,45 +315,91 @@ export class DashboardPage {
     },
   ];
 
-  readonly extraTiles: QuizTile[] = [
+  /**
+   * Auf Tims Wunsch (2026-08-11): statt einer generischen "Zusatzmodule"-
+   * Sammelbox zwei eigene Dashboard-Sparten "Selbststudium" (Lesestoff) und
+   * "Quiz" (Wissen abfragen). Nivellieren/Volumen/Prozentrechnung bieten
+   * technisch beides auf derselben Seite (Lese-Bloecke + eingebettetes
+   * Quiz) — die Quiz-Kacheln verlinken mit `?view=quiz` dorthin und springen
+   * beim Laden automatisch zum Gesamtquiz-Abschnitt runter.
+   */
+  readonly selbststudiumTiles: QuizTile[] = [
     {
-      id: 'zusatz-nivellieren',
-      title: 'Zusatzmodul: Nivellieren im Gleisbau',
-      description: 'Leitfaden inkl. Quiz und Checklisten aus dem Nivellement-PDF.',
-      tag: 'Bonus',
+      id: 'selbststudium-nivellieren',
+      title: 'Nivellieren im Gleisbau',
+      description: 'Leitfaden inkl. Checklisten aus dem Nivellement-PDF, Schritt fuer Schritt zum Selbststudium.',
+      tag: 'Lesen',
       icon: 'trending-up-outline',
       link: '/zusatz/nivellieren',
     },
     {
-      id: 'zusatz-volumen',
-      title: 'Zusatzmodul: Volumen berechnen',
-      description: '10 Quizaufgaben zu Volumenberechnung im Gleisbau, inkl. Trapezprofilen und Aussparungen.',
-      tag: 'Bonus',
+      id: 'selbststudium-volumen',
+      title: 'Volumen berechnen',
+      description: 'Grundlagen zur Volumenberechnung im Gleisbau, inkl. Trapezprofilen und Aussparungen.',
+      tag: 'Lesen',
       icon: 'cube-outline',
       link: '/zusatz/volumen',
+      image: 'assets/bilder/volumen-trapezprofil.svg',
+      imageCredit: 'Eigene Grafik',
     },
     {
-      id: 'zusatz-prozentrechnung',
-      title: 'Zusatzmodul: Prozentrechnung',
-      description: 'Prozentwert, Rabatt, Erhoehung, Rueckrechnung und Toleranzen mit praxisnahen Aufgaben.',
-      tag: 'Bonus',
+      id: 'selbststudium-prozentrechnung',
+      title: 'Prozentrechnung',
+      description: 'Prozentwert, Rabatt, Erhoehung, Rueckrechnung und Toleranzen mit praxisnahen Erklaerungen.',
+      tag: 'Lesen',
       icon: 'calculator-outline',
       link: '/zusatz/prozentrechnung',
+      image: 'assets/bilder/prozentrechnung-diagramm.svg',
+      imageCredit: 'Eigene Grafik',
+    },
+  ];
+
+  readonly quizTiles: QuizTile[] = [
+    {
+      id: 'quiz-nivellieren',
+      title: 'Nivellieren im Gleisbau',
+      description: 'Wissen zum Nivellieren abfragen (springt direkt zum Gesamtquiz des Moduls).',
+      tag: 'Quiz',
+      icon: 'trending-up-outline',
+      link: '/zusatz/nivellieren',
+      queryParams: { view: 'quiz' },
     },
     {
-      id: 'zusatz-gesamtquiz',
-      title: 'Zusatzmodul: Gesamtquiz alle Module',
+      id: 'quiz-volumen',
+      title: 'Volumen berechnen',
+      description: '10 Quizaufgaben zu Volumenberechnung im Gleisbau.',
+      tag: 'Quiz',
+      icon: 'cube-outline',
+      link: '/zusatz/volumen',
+      queryParams: { view: 'quiz' },
+      image: 'assets/bilder/volumen-trapezprofil.svg',
+      imageCredit: 'Eigene Grafik',
+    },
+    {
+      id: 'quiz-prozentrechnung',
+      title: 'Prozentrechnung',
+      description: 'Prozentwert, Rabatt, Erhoehung, Rueckrechnung und Toleranzen als Quiz.',
+      tag: 'Quiz',
+      icon: 'calculator-outline',
+      link: '/zusatz/prozentrechnung',
+      queryParams: { view: 'quiz' },
+      image: 'assets/bilder/prozentrechnung-diagramm.svg',
+      imageCredit: 'Eigene Grafik',
+    },
+    {
+      id: 'quiz-gesamtquiz',
+      title: 'Gesamtquiz alle Module',
       description: 'Ein grosses Quiz mit allen Fragen aus den Zusatzmodulen.',
       icon: 'trophy-outline',
-      tag: 'Bonus',
+      tag: 'Quiz',
       link: '/zusatz/gesamtquiz',
     },
     {
-      id: 'zusatz-materialrechner',
-      title: 'Zusatzmodul: Materialrechner',
+      id: 'quiz-materialrechner',
+      title: 'Materialrechner',
       description: 'Unbegrenzt neue Rechenaufgaben zu Volumen, Materialgewicht und Schotterbedarf, in 3 Schwierigkeitsgraden.',
       icon: 'scale-outline',
-      tag: 'Bonus',
+      tag: 'Quiz',
       link: '/zusatz/materialrechner',
       image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Loading_bay_at_Hakkila_rail_yard_in_Vantaa%2C_Finland%2C_2021.jpg?width=900',
       imageCredit: 'Coen, CC BY-SA 4.0, via Wikimedia Commons',
@@ -366,24 +423,42 @@ export class DashboardPage {
     return this.filterTiles(this.quizTopics);
   }
 
-  get filteredExtraTiles(): QuizTile[] {
-    return this.filterTiles(this.extraTiles);
+  get filteredSelbststudiumTiles(): QuizTile[] {
+    return this.filterTiles(this.selbststudiumTiles);
+  }
+
+  get filteredQuizTiles(): QuizTile[] {
+    return this.filterTiles(this.quizTiles);
   }
 
   get filteredLernfeldTiles(): QuizTile[] {
     return this.filterTiles(this.lernfeldTiles);
   }
 
+  get filteredAllgemeineBauberufeTiles(): QuizTile[] {
+    return this.filterTiles(this.allgemeineBauberufeTiles);
+  }
+
   get totalVisibleTiles(): number {
     return (
       this.filteredQuizTopics.length +
       this.filteredLernfeldTiles.length +
-      this.filteredExtraTiles.length
+      this.filteredAllgemeineBauberufeTiles.length +
+      this.filteredSelbststudiumTiles.length +
+      this.filteredQuizTiles.length
     );
   }
 
   get hasActiveSearch(): boolean {
     return this.searchTerm.trim().length > 0;
+  }
+
+  tileImageStyle(tile: QuizTile): string {
+    if (!tile.image) return '';
+    // CSS url() interpretiert unquotierte Klammern im Pfad als Ende der
+    // Funktion (z. B. "...Schoenberg_(1).jpg") — deshalb den Pfad in der
+    // url()-Angabe in Anfuehrungszeichen setzen.
+    return `url('${tile.image}')`;
   }
 
   trackByTileId(_index: number, tile: QuizTile): string {
@@ -407,7 +482,7 @@ export class DashboardPage {
     let inProgress = 0;
     let planned = 0;
 
-    for (const tile of [...this.quizTopics, ...this.lernfeldTiles]) {
+    for (const tile of [...this.quizTopics, ...this.lernfeldTiles, ...this.allgemeineBauberufeTiles]) {
       const total = tile.questionCount ?? 0;
       if (!tile.topicId || total <= 0) continue;
 
@@ -419,7 +494,7 @@ export class DashboardPage {
       else planned += 1;
     }
 
-    planned += this.extraTiles.length;
+    planned += this.selbststudiumTiles.length + this.quizTiles.length;
     this.summary = { completed, inProgress, planned };
     this.tileProgressByLink = progressByLink;
   }

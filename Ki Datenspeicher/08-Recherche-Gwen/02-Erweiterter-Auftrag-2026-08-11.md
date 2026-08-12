@@ -62,6 +62,27 @@ Trag neue Bildkandidaten in eine neue Datei
 Tabellenformat wie die bestehende Datei) — nicht die bestehende Datei
 verändern, nur ergänzen bzw. eine neue anlegen.
 
+## Neuer Auftragsteil 3: Inhaltliche Vertiefung (Tims Feedback, 2026-08-11)
+
+Nach Live-Ansicht der App fand Tim zwei Themen zu allgemein/oberflächlich:
+
+1. **Gleisbögen herstellen und einmessen (LF11)**: braucht mehr fachliche
+   Tiefe, insbesondere zu **Ausrundungsbögen** und **Tangenten berechnen**
+   (Übergangsbögen, Bogenradien, Tangentenlänge — die eigentliche
+   Berechnungsseite des Bogen-Einmessens, nicht nur die Begriffe).
+2. **Trassenplan lesen**: welche konkreten Werte lassen sich aus einem
+   echten Trassenplan/Lageplan ablesen (Kilometrierung, Radien, Neigungen,
+   Symbole), und was lässt sich daraus berechnen? Auch: grundsätzlich, wie
+   liest man einen Trassenplan systematisch (Vorgehen, worauf achten).
+
+Recherchiere zu beiden Themen wie gewohnt mit Quellen (Fachliteratur,
+DB-Netz-Regelwerk, KMK-Rahmenlehrplan Gleisbauer, seriöse Fachportale) und
+trage die Ergebnisse in die jeweilige Datei unter `08-Recherche-Gwen/` ein
+(`11-Spurweite-und-Gleisgeometrie.md` deckt Gleisbögen bereits teilweise ab —
+prüfe zuerst, ob eine eigene Ergänzung dort sinnvoller ist als eine neue
+Datei). Gleiche Regeln wie immer: nur ergänzen, keine erfundenen
+Normen/Formeln, bei Unsicherheit klar kennzeichnen.
+
 ## Wie dieser Auftrag jetzt ausgeführt wird
 
 Seit 2026-08-11 kann Claude dich zusätzlich **headless per Kommandozeile**

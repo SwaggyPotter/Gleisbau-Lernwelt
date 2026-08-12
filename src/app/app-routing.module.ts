@@ -39,6 +39,11 @@ const routes: Routes = [
       .then(m => m.MaterialrechnerModule)
   },
   {
+    path: 'zusatz/nivellierlatte',
+    loadChildren: () => import('./modules/zusatz/nivellierlatte/nivellierlatte.module')
+      .then(m => m.NivellierlatteModule)
+  },
+  {
     path: 'bildnachweise',
     loadChildren: () => import('./bildnachweise/bildnachweise.module')
       .then(m => m.BildnachweisePageModule)

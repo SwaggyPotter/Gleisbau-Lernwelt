@@ -1,2 +1,83 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+// Design-System "Streckenplan" (2026-08-11, nach Tims Wahl aus zwei
+// Entwuerfen — siehe Ki Datenspeicher/07-Offene-Punkte fuer Kontext).
+// Technische-Zeichnung-Optik: Oswald (Ueberschriften), JetBrains Mono
+// (Zahlen/Labels/Eyebrows wie Messwerte auf einem Bauplan), Barlow (Fliesstext).
+
+@font-face {
+  font-family: "Oswald";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("/assets/fonts/oswald-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Oswald";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("/assets/fonts/oswald-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Barlow";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("/assets/fonts/barlow-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Barlow";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url("/assets/fonts/barlow-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("/assets/fonts/jetbrains-mono-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("/assets/fonts/jetbrains-mono-700.woff2") format("woff2");
+}
+
+:root {
+  --font-display: "Oswald", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  // Grundflaechen
+  --sp-bg: #0f1b24;
+  --sp-surface: #16242f;
+  --sp-surface-2: #1c2e3b;
+  --sp-surface-muted: #1a2833;
+
+  // Akzente
+  --sp-accent: #ff8a3d;
+  --sp-accent-2: #6fa8dc;
+  --sp-success: #6fbf73;
+  --sp-warn: #e0b64f;
+  --sp-danger: #e06f6f;
+
+  // Text
+  --sp-text: #eaf2f5;
+  --sp-text-muted: #8ca3af;
+
+  // Linien/Rahmen
+  --sp-border: rgba(111, 168, 220, 0.22);
+  --sp-border-strong: rgba(111, 168, 220, 0.4);
+
+  // Bewusst KEINE globalen --ion-*-Variablen (Hintergrund, Text, Primaerfarbe,
+  // Toolbar) gesetzt: mehrere Seiten (Quiz-Engines, Zusatzmodule) sind noch
+  // nicht auf das neue Theme umgestellt und nehmen eine helle Seite mit
+  // dunklem Text an — eine globale dunkle Grundfarbe machte dort Fragetexte
+  // unlesbar (per Screenshot auf der Themenquiz-Seite entdeckt). Das
+  // Streckenplan-Theme wird stattdessen Seite fuer Seite explizit im
+  // jeweiligen Component-SCSS angewandt (bisher: Dashboard). Sobald alle
+  // Seiten umgestellt sind, koennen diese Tokens hierher zurueckwandern.
+}

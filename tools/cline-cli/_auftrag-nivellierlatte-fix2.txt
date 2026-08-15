@@ -1,0 +1,21 @@
+Du bist Gwen. Bearbeite NUR diese Datei:
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.html
+
+Ausgangslage: Im Zielfernrohr-Panel (zweites <svg [attr.viewBox]="scopeViewBox" class="scope-svg">) ist die sichtbare Breite bei starkem Zoom manchmal nur 25 Einheiten. Die Dezimeter-Zahlen-Beschriftung sitzt aber bei x="40" (Text) bzw. x1="34" x2="38" (Strich) — das liegt bei starkem Zoom AUSSERHALB des sichtbaren Bereichs, die Zahlen werden also unsichtbar abgeschnitten. Die Latte selbst geht nur bis x="34".
+
+Fix: Rücke die Beschriftung naeher an die Latte heran. Suche im ZWEITEN Vorkommen (im Zielfernrohr-Panel, NICHT im ersten Kontext-Panel "Latte" — dort bleibt alles wie es ist) diesen Block:
+              <g *ngFor="let d of decimeterLabels">
+                <line x1="34" [attr.y1]="d.svgY" x2="38" [attr.y2]="d.svgY" stroke="#0b0e11" stroke-width="0.6"/>
+                <text x="40" [attr.y]="d.svgY + 2.6" fill="#eaf2f5" font-size="5.5" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ d.text }}</text>
+              </g>
+Ersetze NUR dieses eine Vorkommen (im Zielfernrohr-Panel) durch:
+              <g *ngFor="let d of decimeterLabels">
+                <line x1="34" [attr.y1]="d.svgY" x2="35.5" [attr.y2]="d.svgY" stroke="#0b0e11" stroke-width="0.5"/>
+                <text x="36" [attr.y]="d.svgY + 2" fill="#eaf2f5" font-size="4" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ d.text }}</text>
+              </g>
+
+Das erste Vorkommen im Kontext-Panel "Latte" (mit *ngFor="let m of meterLabels") bleibt UNVERAENDERT, das ist nicht betroffen.
+
+Danach: `npx ng build --configuration production` im Projekt-Root ausfuehren und pruefen, dass es fehlerfrei durchlaeuft.

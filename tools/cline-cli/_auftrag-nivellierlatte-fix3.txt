@@ -1,0 +1,16 @@
+Du bist Gwen. Bearbeite NUR diese Datei:
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.html
+
+Ausgangslage: Im Zielfernrohr-Panel gibt es einen Block mit den Dezimeter-Zahlen:
+              <g *ngFor="let d of decimeterLabels">
+                <line x1="34" [attr.y1]="d.svgY" x2="35.5" [attr.y2]="d.svgY" stroke="#0b0e11" stroke-width="0.5"/>
+                <text x="36" [attr.y]="d.svgY + 2" fill="#eaf2f5" font-size="4" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ d.text }}</text>
+              </g>
+Problem: Der Hintergrund des Zielfernrohrs ist hell/cremeweiss (Papierfarbe der Latte). Die Zahlen haben aber `fill="#eaf2f5"` (helles Creme) — heller Text auf hellem Hintergrund ist praktisch unlesbar.
+
+Fix: Aendere in GENAU diesem Block NUR das `fill="#eaf2f5"` beim `<text>`-Element zu `fill="#0b0e11"` (dunkel, wie die Lattenbloecke). Der Rest der Zeile (x, y, font-size, font-weight, font-family) bleibt unveraendert. Die `<line>` und alles andere im Block bleibt ebenfalls unveraendert.
+
+Aendere sonst NICHTS in der Datei. Insbesondere NICHT den `fill="#eaf2f5"` bei den `meterLabels` im Kontext-Panel "Latte" (Zeile mit `*ngFor="let m of meterLabels"`) — das ist korrekt und bleibt so, weil dort der Hintergrund dunkel ist.
+
+Danach: `npx ng build --configuration production` im Projekt-Root ausfuehren und pruefen, dass es fehlerfrei durchlaeuft.

@@ -11,6 +11,26 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+## 2026-08-12 — Nivellierlatte-Feinschliff erstmals per Code-Delegation an Gwen (Claude)
+
+Tim wollte künftig mehr Kleinarbeit an Gwen delegieren (Token sparen) —
+Claude spezifiziert präzise, Gwen implementiert, Claude prüft per Build +
+Playwright-Screenshot und gibt bei Bedarf Nachbesserungsaufträge, statt
+selbst zu coden. Erster echter Testlauf dieser Arbeitsweise, siehe
+[[../14-Gwen-Code-Aufgaben/01-Nivellierlatte-Feinschliff]] für das volle
+Protokoll (6 Läufe, 4 davon inhaltlich beim ersten Versuch korrekt).
+
+Inhaltlich: Latte zeigt jetzt ein Schachbrett-/E-Teilungs-Muster statt
+durchgehender Balken, Zielfernrohr-Zoom deutlich enger (Dezimeterzahlen
+zwischen den Distanzstrichen jetzt lesbar, vorher zu weit rausgezoomt),
+Ablesehöhen liegen jetzt meist im typischen Geräte-Horizont-Bereich
+1,2-1,7 m. Neues wiederverwendbares Skript
+`tools/cline-cli/run-gwen-code-task.cjs` für künftige Code-Delegationen
+(anders als das bestehende `run-gwen-task.cjs`, das fest auf
+Vault-Recherche-Markdown zugeschnitten ist).
+
+---
+
 ## 2026-07-26 — Fragen-Generierung für die 10 Wissenstests aufgesetzt (Claude)
 
 - Tim will alle Quizze ausgebaut haben ("so viel wie möglich rein").

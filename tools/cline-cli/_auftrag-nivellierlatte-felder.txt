@@ -1,0 +1,120 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts. Bearbeite NUR diese zwei Dateien:
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.ts
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.html
+
+Es gibt mehrere praezise vorgegebene Aenderungen. Halte dich EXAKT an die vorgegebenen Code-Bloecke, erfinde nichts dazu.
+
+AENDERUNG 1 — Interfaces (Datei .ts):
+Ersetze die drei Interfaces `RodCell` und `DecimeterLabel` (das Interface `MeterLabel` bleibt unveraendert) durch:
+
+interface RodCell {
+  svgY: number;
+  x: number;
+  width: number;
+  height: number;
+}
+
+interface DecimeterLabel {
+  svgY: number;
+  x: number;
+  text: string;
+}
+
+AENDERUNG 2 — Neue Property fuer Dezimeter-Trennlinien (Datei .ts):
+Suche die Zeile:
+  readonly decimeterLabels: DecimeterLabel[] = this.buildDecimeterLabels();
+Fuege DIREKT DARUNTER eine neue Zeile ein:
+  readonly decimeterTicks: number[] = this.buildDecimeterTicks();
+
+AENDERUNG 3 — buildRodCells() komplett ersetzen (Datei .ts):
+Ersetze die komplette Methode `buildRodCells()` durch:
+
+  private buildRodCells(): RodCell[] {
+    const fieldH = 2;
+    const fieldsPerDecimeter = 5;
+    const decimeterCount = (this.rodMaxM - this.rodMinM) * 10;
+    const toothWidth = 5.5;
+    const notchWidth = 8;
+    const notchHeight = fieldH / 3;
+    const cells: RodCell[] = [];
+
+    for (let d = 0; d < decimeterCount; d++) {
+      const activeLeft = d % 2 === 0;
+      const activeX = activeLeft ? 10 : 22;
+      const toothX = activeLeft ? 22 : 10;
+      const outerRedX = activeLeft ? 10 : 30;
+      const decBaseY = d * 10;
+
+      for (let f = 0; f < fieldsPerDecimeter; f++) {
+        const fieldBaseY = decBaseY + f * fieldH;
+
+        if (f === 0) {
+          cells.push({ svgY: fieldBaseY, x: toothX, width: toothWidth, height: fieldH * 0.15 });
+          const tooth2Y = fieldBaseY + fieldH * 0.5;
+          cells.push({ svgY: tooth2Y, x: toothX, width: toothWidth, height: fieldH * 0.33 });
+        } else {
+          const notchAtBottom = (f - 1) % 2 === 0;
+          if (notchAtBottom) {
+            cells.push({ svgY: fieldBaseY, x: outerRedX, width: 4, height: notchHeight });
+            cells.push({ svgY: fieldBaseY + notchHeight, x: activeX, width: 12, height: fieldH - notchHeight });
+          } else {
+            cells.push({ svgY: fieldBaseY, x: activeX, width: 12, height: fieldH - notchHeight });
+            cells.push({ svgY: fieldBaseY + fieldH - notchHeight, x: outerRedX, width: 4, height: notchHeight });
+          }
+        }
+      }
+    }
+    return cells;
+  }
+
+AENDERUNG 4 — buildDecimeterLabels() komplett ersetzen (Datei .ts):
+Ersetze die komplette Methode `buildDecimeterLabels()` durch:
+
+  private buildDecimeterLabels(): DecimeterLabel[] {
+    const decimeterCount = (this.rodMaxM - this.rodMinM) * 10;
+    const labels: DecimeterLabel[] = [];
+    for (let d = 0; d < decimeterCount; d++) {
+      const activeLeft = d % 2 === 0;
+      const decBaseY = d * 10;
+      const heightM = this.rodMaxM - (decBaseY + 10) / 100;
+      const value = Math.round(heightM * 10);
+      labels.push({ svgY: decBaseY + 1.4, x: activeLeft ? 16 : 28, text: String(value).padStart(2, '0') });
+    }
+    return labels;
+  }
+
+AENDERUNG 5 — Neue Methode buildDecimeterTicks() hinzufuegen (Datei .ts):
+Fuege DIREKT NACH der Methode `buildDecimeterLabels()` (also vor der abschliessenden `}` der Klasse) eine neue Methode ein:
+
+  private buildDecimeterTicks(): number[] {
+    const decimeterCount = (this.rodMaxM - this.rodMinM) * 10;
+    const ticks: number[] = [];
+    for (let d = 0; d <= decimeterCount; d++) {
+      ticks.push(d * 10);
+    }
+    return ticks;
+  }
+
+AENDERUNG 6 — HTML: Latten-Rechtecke jetzt mit dynamischer Hoehe (Datei .html):
+Es gibt ZWEI Vorkommen von:
+<rect *ngFor="let c of rodCells" [attr.x]="c.x" [attr.y]="c.svgY" [attr.width]="c.width" height="1" fill="#d0261b"/>
+Ersetze JEDES der beiden Vorkommen durch:
+<rect *ngFor="let c of rodCells" [attr.x]="c.x" [attr.y]="c.svgY" [attr.width]="c.width" [attr.height]="c.height" fill="#d0261b"/>
+
+AENDERUNG 7 — HTML: Zahlen- und Trennlinien-Block neu (Datei .html):
+Im Zielfernrohr-Panel gibt es diesen Block:
+              <g *ngFor="let d of decimeterLabels">
+                <line x1="10" [attr.y1]="d.svgY" x2="34" [attr.y2]="d.svgY" stroke="#d0261b" stroke-width="0.4"/>
+                <text x="16" [attr.y]="d.svgY - 0.7" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.4" style="paint-order: stroke" font-size="3" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ d.text }}</text>
+              </g>
+Ersetze GENAU diesen Block durch:
+              <g *ngFor="let d of decimeterLabels">
+                <text [attr.x]="d.x" [attr.y]="d.svgY" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.3" style="paint-order: stroke" font-size="1.7" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ d.text }}</text>
+              </g>
+              <line *ngFor="let t of decimeterTicks" x1="10" [attr.y1]="t" x2="34" [attr.y2]="t" stroke="#d0261b" stroke-width="0.3"/>
+
+Aendere sonst NICHTS an den Dateien.
+
+Danach: `npx ng build --configuration production` im Projekt-Root ausfuehren und pruefen, dass es fehlerfrei durchlaeuft. Falls Fehler auftreten, behebe sie exakt nach obiger Vorgabe (nichts Neues erfinden, keine Werte raten).

@@ -1,0 +1,43 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts. Bearbeite NUR die zwei genannten Dateien:
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.ts
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.html
+
+Lies zuerst beide Dateien komplett, bevor du etwas aenderst. Nimm dann genau diese drei Aenderungen vor, sonst nichts (keine Formatierung anfassen, keine anderen Werte, keine Kommentare loeschen):
+
+AENDERUNG 1 — Zoom verkleinern (Datei .ts):
+Aendere die Konstante `stadiaFraction` von 0.12 auf 0.3.
+Aendere die Konstante `maxDistanceM` von 45 auf 30.
+(`minDistanceM` bleibt 15, `distanceStepM` bleibt 5.)
+
+AENDERUNG 2 — Lattenmuster von durchgehenden Balken auf ein "Schachbrett"-Muster umstellen (Datei .ts + Datei .html):
+Aktuell gibt es ein Interface `DecimeterBlock` (Felder svgY, dark) und eine Methode `buildBlocks()`, die 25 Bloecke a 10cm Hoehe erzeugt, die dann im Template als volle Latten-Breite (24 breit) eingefaerbt werden ("dark ? rot : transparent"). Das soll ersetzt werden durch ein feineres Muster, das wie eine echte E-Teilung aussieht (kleine Zellen, abwechselnd links/rechts gefuellt, NICHT durchgehend ueber die volle Breite):
+
+1. In der .ts-Datei: Loesche das Interface `DecimeterBlock` und die Methode `buildBlocks()`. Erstelle stattdessen ein neues Interface:
+   interface RodCell { svgY: number; redX: number; }
+   und eine neue Methode:
+   private buildRodCells(): RodCell[] {
+     const heightCm = (this.rodMaxM - this.rodMinM) * 100;
+     const cellH = 2;
+     const count = heightCm / cellH;
+     const cells: RodCell[] = [];
+     for (let i = 0; i < count; i++) {
+       cells.push({ svgY: i * cellH, redX: i % 2 === 0 ? 10 : 22 });
+     }
+     return cells;
+   }
+   Ersetze die Zeile `readonly decimeterBlocks: DecimeterBlock[] = this.buildBlocks();` durch:
+   readonly rodCells: RodCell[] = this.buildRodCells();
+
+2. In der .html-Datei gibt es ZWEI Vorkommen von folgendem Muster (einmal im Kontext-Panel "Latte", einmal im Zielfernrohr-Panel "scope-svg") — beide muessen geaendert werden:
+   <rect *ngFor="let b of decimeterBlocks" x="10" [attr.y]="b.svgY" width="24" height="10"
+         [attr.fill]="b.dark ? '#d0261b' : 'transparent'"/>
+   Ersetze JEDES der beiden Vorkommen durch:
+   <rect *ngFor="let c of rodCells" [attr.x]="c.redX" [attr.y]="c.svgY" width="12" height="2" fill="#d0261b"/>
+
+AENDERUNG 3 — Typische Ablesehoehe (Datei .ts, Methode `next()`):
+Aktuell wird `target` in `next()` komplett zufaellig zwischen `low` und `high` gewuerfelt (voller Lattenbereich). Nivelliergeraete werden meist so aufgebaut, dass die Ablesung nahe der Geraetehoehe liegt (ueblich: 1,40-1,50 m). Aendere die Logik so:
+- Mit 80% Wahrscheinlichkeit: target zufaellig zwischen 1.2 und 1.7 (Meter), aber weiterhin begrenzt auf den technisch gueltigen Bereich (nicht ausserhalb von low/high aus der bestehenden Berechnung — falls das 1.2-1.7-Fenster ausserhalb von low/high liegt, auf low/high zurueckfallen).
+- Mit 20% Wahrscheinlichkeit: wie bisher voller Bereich zwischen low und high.
+- Weiterhin auf ganze Millimeter runden wie bisher (Math.round(... * 1000) / 1000).
+
+Nachdem du ALLE drei Aenderungen gemacht hast: fuehre im Projekt-Root den Befehl `npx ng build --configuration production` aus und pruefe, dass er ohne Fehler durchlaeuft. Falls Fehler auftreten, behebe sie (es sollten nur Tippfehler/Syntaxfehler sein, die Logik oben ist vollstaendig spezifiziert). Wenn du fertig bist oder nicht mehr weiterkommst, hoere auf und beschreibe kurz den Stand.

@@ -1,0 +1,48 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts. Bearbeite NUR diese zwei Dateien:
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.ts
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.html
+
+AENDERUNG 1 — Praezise Latten-Geometrie (Datei .ts):
+Ersetze die komplette Methode `buildRodCells()` durch:
+
+  private buildRodCells(): RodCell[] {
+    const decimeterCount = (this.rodMaxM - this.rodMinM) * 10;
+    const cells: RodCell[] = [];
+    for (let d = 0; d < decimeterCount; d++) {
+      const spineX = d % 2 === 1 ? 22 : 10;
+      const armX = d % 2 === 1 ? 10 : 22;
+      const baseY = d * 10;
+      cells.push({ svgY: baseY + 1, x: armX + 3.5, width: 5 });
+      cells.push({ svgY: baseY + 3, x: armX + 3.5, width: 5 });
+      cells.push({ svgY: baseY + 5, x: 10, width: 24 });
+      cells.push({ svgY: baseY + 6, x: spineX, width: 12 });
+      cells.push({ svgY: baseY + 7, x: 10, width: 24 });
+      cells.push({ svgY: baseY + 8, x: spineX, width: 12 });
+      cells.push({ svgY: baseY + 9, x: 10, width: 24 });
+    }
+    return cells;
+  }
+
+(Das Interface `RodCell` mit den Feldern `svgY`, `x`, `width` bleibt unveraendert stehen — nur der INHALT der Methode aendert sich. Jede Zelle ist jetzt 1cm hoch statt 2cm.)
+
+AENDERUNG 2 — HTML: Zellhoehe von 2 auf 1 (Datei .html):
+Es gibt ZWEI Vorkommen von:
+<rect *ngFor="let c of rodCells" [attr.x]="c.x" [attr.y]="c.svgY" [attr.width]="c.width" height="2" fill="#d0261b"/>
+Ersetze in JEDEM der beiden Vorkommen NUR `height="2"` durch `height="1"` (sonst nichts an der Zeile aendern).
+
+AENDERUNG 3 — Rote Trennlinien an den Dezimetergrenzen (Datei .html):
+Im Zielfernrohr-Panel gibt es diesen Block:
+              <g *ngFor="let d of decimeterLabels">
+                <text x="22" [attr.y]="d.svgY + 1.3" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.4" style="paint-order: stroke" font-size="3" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ d.text }}</text>
+              </g>
+Ersetze GENAU diesen Block durch (Zahl jetzt links positioniert, PLUS eine rote Trennlinie an jeder Dezimetergrenze):
+              <g *ngFor="let d of decimeterLabels">
+                <line x1="10" [attr.y1]="d.svgY" x2="34" [attr.y2]="d.svgY" stroke="#d0261b" stroke-width="0.4"/>
+                <text x="16" [attr.y]="d.svgY - 0.7" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.4" style="paint-order: stroke" font-size="3" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ d.text }}</text>
+              </g>
+
+Aendere sonst NICHTS an den Dateien.
+
+Danach: `npx ng build --configuration production` im Projekt-Root ausfuehren und pruefen, dass es fehlerfrei durchlaeuft.

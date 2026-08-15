@@ -1,0 +1,11 @@
+Du bist Gwen. Bearbeite NUR diese Datei:
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.ts
+
+Aufgabe: In der Methode `buildRodCells()` gibt es eine Konstante:
+    const cellH = 2;
+Aendere GENAU diese eine Zeile zu:
+    const cellH = 5;
+
+Sonst NICHTS an der Datei aendern (auch nicht Einrueckung, Kommentare oder andere Zahlen).
+
+Danach: `npx ng build --configuration production` im Projekt-Root ausfuehren und pruefen, dass es fehlerfrei durchlaeuft.

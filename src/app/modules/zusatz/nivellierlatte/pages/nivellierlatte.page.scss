@@ -247,3 +247,75 @@ ion-button {
     strong { color: var(--sp-danger); }
   }
 }
+
+.distance-task {
+  border-top: 1px dashed var(--sp-border);
+  margin-top: 4px;
+  padding-top: 14px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.task-label {
+  font-family: var(--font-mono);
+  color: var(--sp-accent-2);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+  font-size: 11px;
+  text-align: center;
+}
+
+.task-hint {
+  margin: 0 0 12px;
+  color: var(--sp-text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+
+  .mono {
+    font-family: var(--font-mono);
+    color: var(--sp-text);
+  }
+}
+
+.distance-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+
+  ion-input {
+    flex: 1;
+    min-width: 130px;
+  }
+}
+
+.distance-result {
+  text-align: center;
+
+  strong {
+    display: block;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: var(--sp-text);
+  }
+
+  p {
+    margin: 0 0 6px;
+    color: var(--sp-text-muted);
+    font-size: 13px;
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+    color: var(--sp-text);
+  }
+
+  &.correct strong { color: var(--sp-success); }
+  &.wrong strong { color: var(--sp-danger); }
+}

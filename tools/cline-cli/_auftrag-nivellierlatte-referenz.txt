@@ -1,0 +1,97 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts. Bearbeite NUR diese zwei Dateien:
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.ts
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.html
+
+Es gibt eine getestete Referenzimplementierung mit exakten Proportionen. Halte dich WORTGLEICH an die folgenden Code-Bloecke.
+
+AENDERUNG 1 — buildRodCells() komplett ersetzen (Datei .ts):
+Ersetze die komplette Methode `buildRodCells()` durch:
+
+  private buildRodCells(): RodCell[] {
+    const fieldH = 2;
+    const fieldsPerDecimeter = 5;
+    const decimeterCount = (this.rodMaxM - this.rodMinM) * 10;
+    const toothWidth = 5.4;
+    const notchOuterWidth = 6.6;
+    const cells: RodCell[] = [];
+
+    for (let d = 0; d < decimeterCount; d++) {
+      const activeLeft = d % 2 === 0;
+      const fullX = activeLeft ? 10 : 22;
+      const outerX = activeLeft ? 10 : 34 - notchOuterWidth;
+      const toothX = activeLeft ? 22 : 22 - toothWidth;
+      const decBaseY = d * 10;
+
+      for (let f = 0; f < fieldsPerDecimeter; f++) {
+        const fieldBaseY = decBaseY + f * fieldH;
+
+        if (f === 0) {
+          cells.push({ svgY: fieldBaseY, x: toothX, width: toothWidth, height: fieldH * 0.15 });
+          cells.push({ svgY: fieldBaseY + fieldH * 0.5, x: toothX, width: toothWidth, height: fieldH * 0.33 });
+        } else {
+          const notchLower = (f - 1) % 2 === 0;
+          if (notchLower) {
+            cells.push({ svgY: fieldBaseY, x: fullX, width: 12, height: fieldH * 0.55 });
+            cells.push({ svgY: fieldBaseY + fieldH * 0.55, x: outerX, width: notchOuterWidth, height: fieldH * 0.35 });
+            cells.push({ svgY: fieldBaseY + fieldH * 0.9, x: fullX, width: 12, height: fieldH * 0.1 });
+          } else {
+            cells.push({ svgY: fieldBaseY, x: fullX, width: 12, height: fieldH * 0.1 });
+            cells.push({ svgY: fieldBaseY + fieldH * 0.1, x: outerX, width: notchOuterWidth, height: fieldH * 0.35 });
+            cells.push({ svgY: fieldBaseY + fieldH * 0.45, x: fullX, width: 12, height: fieldH * 0.55 });
+          }
+        }
+      }
+    }
+    return cells;
+  }
+
+AENDERUNG 2 — buildDecimeterLabels() komplett ersetzen (Datei .ts):
+Ersetze die komplette Methode `buildDecimeterLabels()` durch:
+
+  private buildDecimeterLabels(): DecimeterLabel[] {
+    const decimeterCount = (this.rodMaxM - this.rodMinM) * 10;
+    const labels: DecimeterLabel[] = [];
+    for (let d = 0; d < decimeterCount; d++) {
+      const activeLeft = d % 2 === 0;
+      const decBaseY = d * 10;
+      const heightM = this.rodMaxM - (decBaseY + 10) / 100;
+      const value = Math.round(heightM * 10);
+      labels.push({ svgY: decBaseY + 1.44, x: activeLeft ? 16 : 28, text: String(value).padStart(2, '0') });
+    }
+    return labels;
+  }
+
+AENDERUNG 3 — buildDecimeterTicks() komplett ersetzen (Datei .ts):
+Ersetze die komplette Methode `buildDecimeterTicks()` durch (jetzt eine Trennlinie pro Feld alle 2cm statt nur pro Dezimeter):
+
+  private buildDecimeterTicks(): number[] {
+    const heightCm = (this.rodMaxM - this.rodMinM) * 100;
+    const fieldH = 2;
+    const ticks: number[] = [];
+    for (let y = 0; y <= heightCm; y += fieldH) {
+      ticks.push(y);
+    }
+    return ticks;
+  }
+
+AENDERUNG 4 — HTML: Rotton anpassen (Datei .html):
+Es gibt ZWEI Vorkommen von `fill="#d0261b"` (bei den rodCells-Rechtecken). Ersetze in BEIDEN Vorkommen `fill="#d0261b"` durch `fill="#e8281e"`.
+
+AENDERUNG 5 — HTML: Trennlinien schwarz statt rot, Zahl mit fester Breite (Datei .html):
+Im Zielfernrohr-Panel gibt es diesen Block:
+              <g *ngFor="let d of decimeterLabels">
+                <text [attr.x]="d.x" [attr.y]="d.svgY" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.3" style="paint-order: stroke" font-size="1.7" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ d.text }}</text>
+              </g>
+              <line *ngFor="let t of decimeterTicks" x1="10" [attr.y1]="t" x2="34" [attr.y2]="t" stroke="#d0261b" stroke-width="0.3"/>
+Ersetze GENAU diesen Block durch:
+              <line x1="22" y1="0" [attr.y2]="svgHeight" stroke="#111418" stroke-width="0.3"/>
+              <g *ngFor="let d of decimeterLabels">
+                <text [attr.x]="d.x" [attr.y]="d.svgY" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.25" style="paint-order: stroke" font-size="1.24" font-weight="700" textLength="9.6" lengthAdjust="spacingAndGlyphs"
+                      font-family="Arial, sans-serif">{{ d.text }}</text>
+              </g>
+              <line *ngFor="let t of decimeterTicks" x1="10" [attr.y1]="t" x2="34" [attr.y2]="t" stroke="#111418" stroke-width="0.15"/>
+
+Aendere sonst NICHTS an den Dateien.
+
+Danach: `npx ng build --configuration production` im Projekt-Root ausfuehren und pruefen, dass es fehlerfrei durchlaeuft. Falls Fehler auftreten, behebe sie exakt nach obiger Vorgabe (nichts Neues erfinden, keine Werte raten).

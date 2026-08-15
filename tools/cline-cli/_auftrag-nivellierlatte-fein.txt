@@ -1,0 +1,37 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts. Bearbeite NUR diese zwei Dateien:
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.ts
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.html
+
+Hintergrund: Der Vergleich mit einem echten Referenzfoto zeigt, dass unser aktuelles Muster viel zu dominant ist (volle Querbalken über die ganze Lattenbreite) und die Zahlen viel zu gross sind (nehmen fast den ganzen Kreis ein). Das Referenzfoto zeigt ein viel feineres, spaerlicheres Muster (kleine, duenne Zaehne, ueberwiegend weisser Hintergrund) und deutlich kleinere Zahlen.
+
+AENDERUNG 1 — Feineres Schachbrettmuster ohne volle Querbalken (Datei .ts):
+Ersetze die komplette Methode `buildRodCells()` durch:
+
+  private buildRodCells(): RodCell[] {
+    const heightCm = (this.rodMaxM - this.rodMinM) * 100;
+    const cellH = 2;
+    const count = heightCm / cellH;
+    const cells: RodCell[] = [];
+    for (let i = 0; i < count; i++) {
+      cells.push({ svgY: i * cellH, x: i % 2 === 0 ? 10 : 22, width: 12 });
+    }
+    return cells;
+  }
+
+(Das Interface `RodCell` mit den Feldern `svgY`, `x`, `width` bleibt unveraendert stehen — nur der INHALT der Methode aendert sich.)
+
+AENDERUNG 2 — Zahlen im Zielfernrohr deutlich verkleinern (Datei .html):
+Suche im Zielfernrohr-Panel diesen Block:
+              <g *ngFor="let d of decimeterLabels">
+                <text x="22" [attr.y]="d.svgY + 2" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.8" style="paint-order: stroke" font-size="5" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ d.text }}</text>
+              </g>
+Ersetze GENAU diesen Block durch (kleinere Schrift, duennerer Umriss):
+              <g *ngFor="let d of decimeterLabels">
+                <text x="22" [attr.y]="d.svgY + 1.3" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.4" style="paint-order: stroke" font-size="3" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ d.text }}</text>
+              </g>
+
+Aendere sonst NICHTS an den Dateien.
+
+Danach: `npx ng build --configuration production` im Projekt-Root ausfuehren und pruefen, dass es fehlerfrei durchlaeuft.

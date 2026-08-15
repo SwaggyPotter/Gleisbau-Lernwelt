@@ -1,0 +1,55 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts. Bearbeite NUR diese zwei Dateien:
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.ts
+- src/app/modules/zusatz/nivellierlatte/pages/nivellierlatte.page.html
+
+Hintergrund: Eine echte Nivellierlatte (E-Teilung) zeigt pro Dezimeter den Buchstaben "E": ein durchgehender senkrechter Steg auf EINER Seite, verbunden durch drei waagerechte Querstriche (oben, Mitte, unten). Beim naechsten Dezimeter ist das Ganze gespiegelt (Steg auf der ANDEREN Seite) — es wechselt also immer hin und her. Aktuell haben wir stattdessen ein einfaches Schachbrettmuster, das nicht wie ein "E" aussieht. Ausserdem sitzen die Dezimeter-Zahlen im Zielfernrohr aktuell AUSSERHALB der Latte (rechts daneben) statt AUF der Latte.
+
+AENDERUNG 1 — Echtes E-Muster (Datei .ts):
+Ersetze das Interface `RodCell` und die Methode `buildRodCells()` komplett durch:
+
+interface RodCell {
+  svgY: number;
+  x: number;
+  width: number;
+}
+
+  private buildRodCells(): RodCell[] {
+    const heightCm = (this.rodMaxM - this.rodMinM) * 100;
+    const decimeterCount = heightCm / 10;
+    const cells: RodCell[] = [];
+    for (let d = 0; d < decimeterCount; d++) {
+      const spineX = d % 2 === 1 ? 22 : 10;
+      const baseY = d * 10;
+      cells.push({ svgY: baseY, x: 10, width: 24 });
+      cells.push({ svgY: baseY + 2, x: spineX, width: 12 });
+      cells.push({ svgY: baseY + 4, x: 10, width: 24 });
+      cells.push({ svgY: baseY + 6, x: spineX, width: 12 });
+      cells.push({ svgY: baseY + 8, x: 10, width: 24 });
+    }
+    return cells;
+  }
+
+Die Zeile `readonly rodCells: RodCell[] = this.buildRodCells();` bleibt unveraendert stehen (nur der Typ RodCell und die Methode aendern sich inhaltlich).
+
+AENDERUNG 2 — HTML an das neue RodCell-Format anpassen (Datei .html):
+Es gibt ZWEI Vorkommen (Kontext-Panel "Latte" UND Zielfernrohr-Panel) von:
+<rect *ngFor="let c of rodCells" [attr.x]="c.redX" [attr.y]="c.svgY" width="12" height="2" fill="#d0261b"/>
+Ersetze JEDES der beiden Vorkommen durch:
+<rect *ngFor="let c of rodCells" [attr.x]="c.x" [attr.y]="c.svgY" [attr.width]="c.width" height="2" fill="#d0261b"/>
+
+AENDERUNG 3 — Dezimeter-Zahlen auf die Latte verschieben (Datei .html):
+Im Zielfernrohr-Panel gibt es diesen Block:
+              <g *ngFor="let d of decimeterLabels">
+                <line x1="34" [attr.y1]="d.svgY" x2="35.5" [attr.y2]="d.svgY" stroke="#0b0e11" stroke-width="0.5"/>
+                <text x="36" [attr.y]="d.svgY + 2" fill="#0b0e11" font-size="4" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ d.text }}</text>
+              </g>
+Ersetze GENAU diesen Block durch (Zahl jetzt zentriert AUF der Latte statt daneben, mit hellem Umriss fuer Lesbarkeit auf rot UND weiss):
+              <g *ngFor="let d of decimeterLabels">
+                <text x="22" [attr.y]="d.svgY + 2" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.8" style="paint-order: stroke" font-size="5" font-weight="700"
+                      font-family="JetBrains Mono, monospace">{{ d.text }}</text>
+              </g>
+
+Aendere sonst NICHTS an den Dateien (Kontext-Panel "Latte" mit `meterLabels` bleibt unveraendert, das ist nicht Teil dieses Auftrags).
+
+Danach: `npx ng build --configuration production` im Projekt-Root ausfuehren und pruefen, dass es fehlerfrei durchlaeuft. Falls Fehler auftreten, behebe sie exakt nach obiger Vorgabe (nichts Neues erfinden).

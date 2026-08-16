@@ -396,3 +396,16 @@ dem Foto eindeutig geworden. Umsetzung: `buildBars()` zeichnet die drei
 1-cm-Balken, der Steg kommt nur bei der oberen Hälfte dazu; `patternLeft =
 dm % 2 === 0` steuert beide Seiten gemeinsam. Production-Build fehlerfrei,
 per Playwright verifiziert — Muster und Zickzack entsprechen dem Foto.
+
+**17. Runde (2026-08-16) — untere Hälfte hat nur zwei Balken. FERTIG.**
+Letzte Korrektur von Tim: die untere Dezimeterhälfte hat nicht drei,
+sondern **zwei** rote Balken — die Abfolge ist `weiss/rot/weiss/rot/weiss`
+(Balken bei 1 und 3 cm), nicht `rot/weiss/rot/weiss/rot`. Nur das E in der
+oberen Hälfte hat drei Balken (bei 0, 2 und 4 cm). `buildBars()` nimmt die
+cm-Positionen jetzt als Parameter, damit beide Hälften dieselbe Methode
+nutzen. Production-Build fehlerfrei, per Playwright verifiziert.
+
+**Damit ist die Latte aus Tims Sicht fertig** ("so gut wie fertig, letzte
+Sache"). Für spätere Sessions: die Latten-Geometrie steckt komplett in
+`buildRod()`/`buildBars()` in `nivellierlatte.page.ts`, alle Masse in
+cm-Einheiten (1 cm = 10 SVG-Einheiten).

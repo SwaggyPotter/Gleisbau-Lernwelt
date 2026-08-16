@@ -220,8 +220,9 @@ export class NivellierlattePage {
       const patternLeft = dm % 2 === 0;
       const patternX = patternLeft ? 0 : HALF_W;
 
-      // Obere 5 cm: das "E" — Balken plus Steg am aeusseren Rand.
-      this.buildBars(dmTop, patternX);
+      // Obere 5 cm: das "E" — drei Balken (rot/weiss/rot/weiss/rot) plus
+      // Steg am aeusseren Rand.
+      this.buildBars(dmTop, patternX, [0, 2, 4]);
       this.rodRedCells.push({
         x: patternLeft ? patternX : patternX + HALF_W - SPINE_W,
         y: dmTop,
@@ -229,8 +230,9 @@ export class NivellierlattePage {
         h: E_HEIGHT,
       });
 
-      // Untere 5 cm: nur die Vierecke, ohne Steg.
-      this.buildBars(dmTop + E_HEIGHT, patternX);
+      // Untere 5 cm: nur zwei Vierecke, aussen jeweils weiss
+      // (weiss/rot/weiss/rot/weiss), kein Steg.
+      this.buildBars(dmTop + E_HEIGHT, patternX, [1, 3]);
 
       // Dezimeterwert auf der Gegenseite, direkt ueber seiner Dezimeterlinie.
       const value = dmCount - 1 - dm;
@@ -243,12 +245,12 @@ export class NivellierlattePage {
     this.rodFieldLines.push(dmCount * UNITS_PER_DM);
   }
 
-  /** Drei rote 1-cm-Balken bei 0, 2 und 4 cm — die Basis von E und Vierecken. */
-  private buildBars(y0: number, x: number): void {
-    for (let i = 0; i < 3; i++) {
+  /** Rote 1-cm-Balken an den angegebenen cm-Positionen innerhalb der 5 cm. */
+  private buildBars(y0: number, x: number, cmOffsets: number[]): void {
+    for (const cm of cmOffsets) {
       this.rodRedCells.push({
         x,
-        y: y0 + i * 2 * UNITS_PER_CM,
+        y: y0 + cm * UNITS_PER_CM,
         w: HALF_W,
         h: BAR_HEIGHT,
       });

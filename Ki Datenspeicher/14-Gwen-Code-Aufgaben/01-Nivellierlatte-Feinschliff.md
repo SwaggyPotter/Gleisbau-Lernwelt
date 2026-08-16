@@ -262,3 +262,38 @@ und konsistent breite Zahlen. Bisher das mit Abstand beste Ergebnis —
 Grundlage war diesmal ein tatsächlich im Browser getesteter Referenzcode
 statt einer verbalen Beschreibung, was die Trefferquote sichtbar erhöht
 hat.
+
+**13. Runde, gleicher Tag — letzter Feinschliff auf volle Deckungsgleichheit,
+diesmal direkt von Claude (kein Gwen-Lauf).** Tim schickte dieselbe
+Referenz-HTML nochmal mit der Bitte, die App-Latte "gegen die Referenz
+auszutauschen" ("so wie sie in der Referenz ist, ist sie perfekt"). Claude
+hat die `buildField()`-Formeln aus der Referenz Zeile für Zeile gegen die
+bereits umgesetzte Version (Runde 12) nachgerechnet — alle Werte
+(Zahnbreite 45%, Kerbenposition 55%/10%, Zahlengröße 62%, Kerb-
+Restbreite) stimmten bereits exakt überein, keine Diskrepanz gefunden. Ein
+architektonischer Unterschied bleibt bewusst bestehen: die Referenz
+verschiebt eine fixe-Skalierung-Latte per CSS `translateY` durch einen
+Kreis-Ausschnitt (kein Zoom), waehrend unser Spiel einen dynamischen
+SVG-`viewBox` nutzt, weil das Spiel zusaetzlich einen entfernungsabhaengigen
+Zoom simuliert (Distanzstriche/Fadenkonstante-Feature) — die Referenz hat
+dieses Feature gar nicht, ein 1:1-Uebernehmen des CSS-Transform-Ansatzes
+haette es kaputt gemacht, ohne die Latten-Geometrie selbst zu veraendern.
+
+Zwei echte Lücken gefunden und diesmal direkt von Claude selbst behoben
+(kein Gwen-Auftrag, da trivial und schon exakt spezifiziert):
+1. Rahmenfarbe der Latte war noch `#333` statt dem Referenz-Schwarz
+   `#111418`.
+2. Das Kontext-Panel "Latte" (kleine Übersicht links) hatte noch die
+   ALTE, grobe Meter-Beschriftung (`meterLabels`, nur 0/1/2) statt der
+   dichten `decimeterLabels` + schwarzen Mittelachse + Feldtrennlinien,
+   die im Zielfernrohr-Panel bereits seit Runde 11/12 vorhanden waren —
+   ein Rest aus einer frueheren Session-Runde, als beide Panels noch
+   unterschiedlich behandelt wurden. Jetzt zeigen beide Panels exakt
+   dasselbe Muster, nur unterschiedlich gezoomt/skaliert — wie in der
+   Referenz (`.latte-frame` zeigt denselben SVG-Inhalt wie `.latte-inner`,
+   nur per Height-Attribut verkleinert).
+
+Dabei `MeterLabel`-Interface, `meterLabels`-Property und
+`buildMeterLabels()`-Methode als jetzt unbenutzten Code entfernt.
+Build fehlerfrei, Screenshots (Playwright, 3x) zeigen beide Panels jetzt
+visuell deckungsgleich mit der Referenz-Ästhetik.

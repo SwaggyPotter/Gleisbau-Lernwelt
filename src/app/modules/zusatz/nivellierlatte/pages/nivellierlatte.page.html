@@ -33,16 +33,17 @@
       <div class="rod-row">
         <div class="rod-wrap">
           <p class="panel-label">Latte</p>
-          <svg [attr.viewBox]="'0 0 60 ' + svgHeight" preserveAspectRatio="xMidYMin meet" class="rod-svg">
-            <rect x="10" y="0" width="24" [attr.height]="svgHeight" fill="#f4f6f5"/>
+          <svg [attr.viewBox]="'7 0 9 ' + svgHeight" preserveAspectRatio="xMidYMin meet" class="rod-svg">
+            <rect x="10" y="0" width="2.8" [attr.height]="svgHeight" fill="#f4f6f5"/>
             <rect *ngFor="let c of rodCells" [attr.x]="c.x" [attr.y]="c.svgY" [attr.width]="c.width" [attr.height]="c.height" fill="#e8281e"/>
-            <rect x="10" y="0" width="24" [attr.height]="svgHeight" fill="none" stroke="#333" stroke-width="0.6"/>
-            <g *ngFor="let m of meterLabels">
-              <line x1="34" [attr.y1]="m.svgY" x2="38" [attr.y2]="m.svgY" stroke="#0b0e11" stroke-width="0.8"/>
-              <text x="40" [attr.y]="m.svgY + 2.6" fill="#eaf2f5" font-size="5.5" font-weight="700"
-                    font-family="JetBrains Mono, monospace">{{ m.value }}</text>
+            <rect x="10" y="0" width="2.8" [attr.height]="svgHeight" fill="none" stroke="#111418" stroke-width="0.15"/>
+            <line x1="11.4" y1="0" x2="11.4" [attr.y2]="svgHeight" stroke="#111418" stroke-width="0.1"/>
+            <g *ngFor="let d of decimeterLabels">
+              <text [attr.x]="d.x" [attr.y]="d.svgY" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.03" style="paint-order: stroke" font-size="1.24" font-weight="700" textLength="1.12" lengthAdjust="spacingAndGlyphs"
+                    font-family="Arial, sans-serif">{{ d.text }}</text>
             </g>
-            <line x1="0" [attr.y1]="crosshairY" x2="60" [attr.y2]="crosshairY" stroke="#ff8a3d" stroke-width="0.6" stroke-dasharray="1.5 1.5" opacity="0.7"/>
+            <line *ngFor="let t of decimeterTicks" x1="10" [attr.y1]="t" x2="12.8" [attr.y2]="t" stroke="#111418" stroke-width="0.05"/>
+            <line x1="7" [attr.y1]="crosshairY" x2="16" [attr.y2]="crosshairY" stroke="#ff8a3d" stroke-width="0.2" stroke-dasharray="0.5 0.5" opacity="0.7"/>
           </svg>
         </div>
 
@@ -50,15 +51,15 @@
           <p class="panel-label">Zielfernrohr</p>
           <div class="scope-circle">
             <svg [attr.viewBox]="scopeViewBox" class="scope-svg">
-              <rect x="10" y="0" width="24" [attr.height]="svgHeight" fill="#f4f6f5"/>
+              <rect x="10" y="0" width="2.8" [attr.height]="svgHeight" fill="#f4f6f5"/>
               <rect *ngFor="let c of rodCells" [attr.x]="c.x" [attr.y]="c.svgY" [attr.width]="c.width" [attr.height]="c.height" fill="#e8281e"/>
-              <rect x="10" y="0" width="24" [attr.height]="svgHeight" fill="none" stroke="#333" stroke-width="0.6"/>
-              <line x1="22" y1="0" x2="22" [attr.y2]="svgHeight" stroke="#111418" stroke-width="0.3"/>
+              <rect x="10" y="0" width="2.8" [attr.height]="svgHeight" fill="none" stroke="#111418" stroke-width="0.1"/>
+              <line x1="11.4" y1="0" x2="11.4" [attr.y2]="svgHeight" stroke="#111418" stroke-width="0.06"/>
               <g *ngFor="let d of decimeterLabels">
-                <text [attr.x]="d.x" [attr.y]="d.svgY" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.25" style="paint-order: stroke" font-size="1.24" font-weight="700" textLength="9.6" lengthAdjust="spacingAndGlyphs"
+                <text [attr.x]="d.x" [attr.y]="d.svgY" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.03" style="paint-order: stroke" font-size="1.24" font-weight="700" textLength="1.12" lengthAdjust="spacingAndGlyphs"
                       font-family="Arial, sans-serif">{{ d.text }}</text>
               </g>
-              <line *ngFor="let t of decimeterTicks" x1="10" [attr.y1]="t" x2="34" [attr.y2]="t" stroke="#111418" stroke-width="0.15"/>
+              <line *ngFor="let t of decimeterTicks" x1="10" [attr.y1]="t" x2="12.8" [attr.y2]="t" stroke="#111418" stroke-width="0.03"/>
             </svg>
             <svg class="reticle-svg" viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="47" fill="none" stroke="#ff8a3d" stroke-width="1.4"/>

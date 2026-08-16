@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
 
-interface MeterLabel {
-  svgY: number;
-  value: number;
-}
-
 interface RodCell {
   svgY: number;
   x: number;
@@ -60,8 +55,7 @@ export class NivellierlattePage {
   streak = 0;
 
   readonly rodCells: RodCell[] = this.buildRodCells();
-  readonly meterLabels: MeterLabel[] = this.buildMeterLabels();
-  /** Dichte Dezimeter-Beschriftung fuers Zielfernrohr — ein echtes Latten-Vorbild beschriftet jeden Dezimeter, nicht nur jeden Meter. */
+  /** Dichte Dezimeter-Beschriftung — ein echtes Latten-Vorbild beschriftet jeden Dezimeter, nicht nur jeden Meter. */
   readonly decimeterLabels: DecimeterLabel[] = this.buildDecimeterLabels();
   readonly decimeterTicks: number[] = this.buildDecimeterTicks();
 
@@ -96,7 +90,7 @@ export class NivellierlattePage {
   /** viewBox fuer die runde Zoom-Ansicht — zentriert die Ziellinie im Visier. */
   get scopeViewBox(): string {
     const half = this.scopeSpanCm / 2;
-    const x = 10 - (this.scopeSpanCm - 24) / 2;
+    const x = 11.4 - half; // 11.4 = Lattenmitte (rodLeft 10 + halfW 1.4)
     return `${x} ${this.crosshairY - half} ${this.scopeSpanCm} ${this.scopeSpanCm}`;
   }
 
@@ -169,15 +163,20 @@ export class NivellierlattePage {
     const fieldH = 2;
     const fieldsPerDecimeter = 5;
     const decimeterCount = (this.rodMaxM - this.rodMinM) * 10;
-    const toothWidth = 5.4;
-    const notchOuterWidth = 6.6;
+    // Lattenhaelfte im selben Verhaeltnis zur Feldhoehe wie in der Referenz
+    // (HALF_W 70 : FIELD_H 100 = 0.7) — sonst wirken die Felder gestaucht.
+    const rodLeft = 10;
+    const halfW = fieldH * 0.7;
+    const centerX = rodLeft + halfW;
+    const toothWidth = halfW * 0.45;
+    const notchOuterWidth = halfW * 0.55;
     const cells: RodCell[] = [];
 
     for (let d = 0; d < decimeterCount; d++) {
       const activeLeft = d % 2 === 0;
-      const fullX = activeLeft ? 10 : 22;
-      const outerX = activeLeft ? 10 : 34 - notchOuterWidth;
-      const toothX = activeLeft ? 22 : 22 - toothWidth;
+      const fullX = activeLeft ? rodLeft : centerX;
+      const outerX = activeLeft ? rodLeft : centerX + toothWidth;
+      const toothX = activeLeft ? centerX : centerX - toothWidth;
       const decBaseY = d * 10;
 
       for (let f = 0; f < fieldsPerDecimeter; f++) {
@@ -189,13 +188,13 @@ export class NivellierlattePage {
         } else {
           const notchLower = (f - 1) % 2 === 0;
           if (notchLower) {
-            cells.push({ svgY: fieldBaseY, x: fullX, width: 12, height: fieldH * 0.55 });
+            cells.push({ svgY: fieldBaseY, x: fullX, width: halfW, height: fieldH * 0.55 });
             cells.push({ svgY: fieldBaseY + fieldH * 0.55, x: outerX, width: notchOuterWidth, height: fieldH * 0.35 });
-            cells.push({ svgY: fieldBaseY + fieldH * 0.9, x: fullX, width: 12, height: fieldH * 0.1 });
+            cells.push({ svgY: fieldBaseY + fieldH * 0.9, x: fullX, width: halfW, height: fieldH * 0.1 });
           } else {
-            cells.push({ svgY: fieldBaseY, x: fullX, width: 12, height: fieldH * 0.1 });
+            cells.push({ svgY: fieldBaseY, x: fullX, width: halfW, height: fieldH * 0.1 });
             cells.push({ svgY: fieldBaseY + fieldH * 0.1, x: outerX, width: notchOuterWidth, height: fieldH * 0.35 });
-            cells.push({ svgY: fieldBaseY + fieldH * 0.45, x: fullX, width: 12, height: fieldH * 0.55 });
+            cells.push({ svgY: fieldBaseY + fieldH * 0.45, x: fullX, width: halfW, height: fieldH * 0.55 });
           }
         }
       }
@@ -203,23 +202,18 @@ export class NivellierlattePage {
     return cells;
   }
 
-  private buildMeterLabels(): MeterLabel[] {
-    const labels: MeterLabel[] = [];
-    for (let m = this.rodMinM; m <= this.rodMaxM; m++) {
-      labels.push({ svgY: (this.rodMaxM - m) * 100, value: m });
-    }
-    return labels;
-  }
-
   private buildDecimeterLabels(): DecimeterLabel[] {
     const decimeterCount = (this.rodMaxM - this.rodMinM) * 10;
+    const rodLeft = 10;
+    const halfW = 2 * 0.7;
     const labels: DecimeterLabel[] = [];
     for (let d = 0; d < decimeterCount; d++) {
       const activeLeft = d % 2 === 0;
       const decBaseY = d * 10;
       const heightM = this.rodMaxM - (decBaseY + 10) / 100;
       const value = Math.round(heightM * 10);
-      labels.push({ svgY: decBaseY + 1.44, x: activeLeft ? 16 : 28, text: String(value).padStart(2, '0') });
+      const x = activeLeft ? rodLeft + halfW / 2 : rodLeft + halfW + halfW / 2;
+      labels.push({ svgY: decBaseY + 1.44, x, text: String(value).padStart(2, '0') });
     }
     return labels;
   }

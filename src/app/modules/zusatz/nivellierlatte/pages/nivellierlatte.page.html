@@ -33,17 +33,16 @@
       <div class="rod-row">
         <div class="rod-wrap">
           <p class="panel-label">Latte</p>
-          <svg [attr.viewBox]="'7 0 9 ' + svgHeight" preserveAspectRatio="xMidYMin meet" class="rod-svg">
-            <rect x="10" y="0" width="2.8" [attr.height]="svgHeight" fill="#f4f6f5"/>
-            <rect *ngFor="let c of rodCells" [attr.x]="c.x" [attr.y]="c.svgY" [attr.width]="c.width" [attr.height]="c.height" fill="#e8281e"/>
-            <rect x="10" y="0" width="2.8" [attr.height]="svgHeight" fill="none" stroke="#111418" stroke-width="0.15"/>
-            <line x1="11.4" y1="0" x2="11.4" [attr.y2]="svgHeight" stroke="#111418" stroke-width="0.1"/>
-            <g *ngFor="let d of decimeterLabels">
-              <text [attr.x]="d.x" [attr.y]="d.svgY" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.03" style="paint-order: stroke" font-size="1.24" font-weight="700" textLength="1.12" lengthAdjust="spacingAndGlyphs"
-                    font-family="Arial, sans-serif">{{ d.text }}</text>
-            </g>
-            <line *ngFor="let t of decimeterTicks" x1="10" [attr.y1]="t" x2="12.8" [attr.y2]="t" stroke="#111418" stroke-width="0.05"/>
-            <line x1="7" [attr.y1]="crosshairY" x2="16" [attr.y2]="crosshairY" stroke="#ff8a3d" stroke-width="0.2" stroke-dasharray="0.5 0.5" opacity="0.7"/>
+          <svg [attr.viewBox]="rodViewBox" preserveAspectRatio="xMidYMid meet" class="rod-svg">
+            <rect x="0" y="0" [attr.width]="staffW" [attr.height]="svgHeight" fill="#ffffff"/>
+            <rect *ngFor="let c of rodRedCells" [attr.x]="c.x" [attr.y]="c.y" [attr.width]="c.w" [attr.height]="c.h" fill="#e8281e"/>
+            <line *ngFor="let y of rodFieldLines" x1="0" [attr.y1]="y" [attr.x2]="staffW" [attr.y2]="y" stroke="#111418" stroke-width="0.8"/>
+            <line x1="0" y1="0" x2="0" [attr.y2]="svgHeight" stroke="#111418" stroke-width="0.8"/>
+            <line [attr.x1]="staffW" y1="0" [attr.x2]="staffW" [attr.y2]="svgHeight" stroke="#111418" stroke-width="0.8"/>
+            <text *ngFor="let l of rodLabels" [attr.x]="l.x" [attr.y]="l.y" text-anchor="middle"
+                  font-family="Arial, sans-serif" font-weight="700" font-size="34" fill="#e8281e"
+                  textLength="26" lengthAdjust="spacingAndGlyphs">{{ l.text }}</text>
+            <line x1="0" [attr.y1]="crosshairY" [attr.x2]="staffW" [attr.y2]="crosshairY" stroke="#ff8a3d" stroke-width="3" stroke-dasharray="7 5"/>
           </svg>
         </div>
 
@@ -51,23 +50,21 @@
           <p class="panel-label">Zielfernrohr</p>
           <div class="scope-circle">
             <svg [attr.viewBox]="scopeViewBox" class="scope-svg">
-              <rect x="10" y="0" width="2.8" [attr.height]="svgHeight" fill="#f4f6f5"/>
-              <rect *ngFor="let c of rodCells" [attr.x]="c.x" [attr.y]="c.svgY" [attr.width]="c.width" [attr.height]="c.height" fill="#e8281e"/>
-              <rect x="10" y="0" width="2.8" [attr.height]="svgHeight" fill="none" stroke="#111418" stroke-width="0.1"/>
-              <line x1="11.4" y1="0" x2="11.4" [attr.y2]="svgHeight" stroke="#111418" stroke-width="0.06"/>
-              <g *ngFor="let d of decimeterLabels">
-                <text [attr.x]="d.x" [attr.y]="d.svgY" text-anchor="middle" fill="#0b0e11" stroke="#f4f6f5" stroke-width="0.03" style="paint-order: stroke" font-size="1.24" font-weight="700" textLength="1.12" lengthAdjust="spacingAndGlyphs"
-                      font-family="Arial, sans-serif">{{ d.text }}</text>
-              </g>
-              <line *ngFor="let t of decimeterTicks" x1="10" [attr.y1]="t" x2="12.8" [attr.y2]="t" stroke="#111418" stroke-width="0.03"/>
+              <rect x="0" y="0" [attr.width]="staffW" [attr.height]="svgHeight" fill="#ffffff"/>
+              <rect *ngFor="let c of rodRedCells" [attr.x]="c.x" [attr.y]="c.y" [attr.width]="c.w" [attr.height]="c.h" fill="#e8281e"/>
+              <line *ngFor="let y of rodFieldLines" x1="0" [attr.y1]="y" [attr.x2]="staffW" [attr.y2]="y" stroke="#111418" stroke-width="0.8"/>
+              <line x1="0" y1="0" x2="0" [attr.y2]="svgHeight" stroke="#111418" stroke-width="0.8"/>
+              <line [attr.x1]="staffW" y1="0" [attr.x2]="staffW" [attr.y2]="svgHeight" stroke="#111418" stroke-width="0.8"/>
+              <text *ngFor="let l of rodLabels" [attr.x]="l.x" [attr.y]="l.y" text-anchor="middle"
+                    font-family="Arial, sans-serif" font-weight="700" font-size="34" fill="#e8281e"
+                    textLength="26" lengthAdjust="spacingAndGlyphs">{{ l.text }}</text>
             </svg>
             <svg class="reticle-svg" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="47" fill="none" stroke="#ff8a3d" stroke-width="1.4"/>
-              <line x1="50" y1="4" x2="50" y2="96" stroke="#ff8a3d" stroke-width="0.7"/>
-              <line x1="4" y1="50" x2="96" y2="50" stroke="#ff8a3d" stroke-width="1.1"/>
-              <line x1="22" y1="38" x2="78" y2="38" stroke="#ff8a3d" stroke-width="0.6"/>
-              <line x1="22" y1="62" x2="78" y2="62" stroke="#ff8a3d" stroke-width="0.6"/>
-              <circle cx="50" cy="50" r="2" fill="#ff8a3d"/>
+              <line x1="50" y1="0" x2="50" y2="100" stroke="#111418" stroke-width="0.8"/>
+              <line x1="0" y1="50" x2="100" y2="50" stroke="#111418" stroke-width="0.8"/>
+              <line x1="30" y1="20" x2="70" y2="20" stroke="#111418" stroke-width="0.6"/>
+              <line x1="30" y1="80" x2="70" y2="80" stroke="#111418" stroke-width="0.6"/>
+              <circle cx="50" cy="50" r="1.4" fill="#111418"/>
             </svg>
           </div>
         </div>

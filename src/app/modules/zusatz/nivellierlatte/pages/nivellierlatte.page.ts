@@ -1,15 +1,42 @@
 import { Component } from '@angular/core';
 
-interface RodCell {
-  svgY: number;
+/**
+ * Geometrie der E-Teilung, nach dem echten Lattenvorbild.
+ *
+ * Masssystem: 1 cm = 10 SVG-Einheiten, ein Dezimeter also 100. Damit sind
+ * alle Balken exakt zentimetergenau — das ist der Sinn der E-Teilung, man
+ * kann die Zentimeter direkt abzaehlen.
+ *
+ * Aufteilung pro Dezimeter (wie auf dem Foto):
+ * - linker Bereich: zwei "E" a 5 cm, jedes aus drei 1-cm-Balken und einem
+ *   senkrechten Steg; der Steg wechselt bei jedem E die Seite (Zickzack).
+ * - rechter Bereich: die Dezimeterzahl, IMMER auf derselben Seite, sodass
+ *   alle Zahlen eine saubere Spalte bilden.
+ */
+const UNITS_PER_CM = 10;
+const UNITS_PER_DM = UNITS_PER_CM * 10;
+const UNITS_PER_M = UNITS_PER_DM * 10;
+
+/** Ein "E" ist 5 cm hoch, pro Dezimeter also zwei Stueck. */
+const E_HEIGHT = 5 * UNITS_PER_CM;
+const BAR_HEIGHT = UNITS_PER_CM;
+/** Breite des E-Bereichs bzw. der Zahlenspalte; zusammen die Lattenbreite. */
+const E_WIDTH = 30;
+const NUMBER_COL_W = 30;
+const STAFF_W = E_WIDTH + NUMBER_COL_W;
+const CENTER_X = E_WIDTH;
+const SPINE_W = 8;
+
+interface RodRect {
   x: number;
-  width: number;
-  height: number;
+  y: number;
+  w: number;
+  h: number;
 }
 
-interface DecimeterLabel {
-  svgY: number;
+interface RodLabel {
   x: number;
+  y: number;
   text: string;
 }
 
@@ -25,15 +52,19 @@ export class NivellierlattePage {
   readonly rodMinM = 0;
   readonly rodMaxM = 2.5;
   readonly toleranceMm = 5;
-  readonly svgHeight = (this.rodMaxM - this.rodMinM) * 100; // cm-Einheiten
 
-  /** Distanzkonstante (Fadenkonstante) des Instruments — Standardwert bei den meisten Nivelliergeraeten. */
+  /** Referenz-Konstanten, damit das Template dieselben Werte nutzt. */
+  readonly staffW = STAFF_W;
+  readonly centerX = CENTER_X;
+  readonly svgHeight = (this.rodMaxM - this.rodMinM) * UNITS_PER_M;
+
+  /** Distanzkonstante (Fadenkonstante) des Instruments — Standard bei Nivelliergeraeten. */
   readonly stadiaConstant = 100;
-  /** Abstand der beiden Distanzstriche von der Mittellinie im Visier, als Anteil des sichtbaren Ausschnitts (fix, wie beim echten Fadenkreuz). */
+  /** Abstand der Distanzstriche von der Ziellinie, als Anteil des sichtbaren Ausschnitts. */
   readonly stadiaFraction = 0.3;
-  readonly minDistanceM = 15;
-  readonly maxDistanceM = 30;
-  readonly distanceStepM = 5;
+  readonly minDistanceM = 14;
+  readonly maxDistanceM = 20;
+  readonly distanceStepM = 2;
   readonly distanceToleranceM = 3;
 
   target = 0;
@@ -54,18 +85,18 @@ export class NivellierlattePage {
   bestStreak = 0;
   streak = 0;
 
-  readonly rodCells: RodCell[] = this.buildRodCells();
-  /** Dichte Dezimeter-Beschriftung — ein echtes Latten-Vorbild beschriftet jeden Dezimeter, nicht nur jeden Meter. */
-  readonly decimeterLabels: DecimeterLabel[] = this.buildDecimeterLabels();
-  readonly decimeterTicks: number[] = this.buildDecimeterTicks();
+  readonly rodRedCells: RodRect[] = [];
+  readonly rodLabels: RodLabel[] = [];
+  readonly rodFieldLines: number[] = [];
 
   constructor() {
+    this.buildRod();
     this.bestStreak = Number(localStorage.getItem(STORAGE_KEY) ?? 0);
     this.next();
   }
 
   get crosshairY(): number {
-    return (this.rodMaxM - this.target) * 100;
+    return (this.rodMaxM - this.target) * UNITS_PER_M;
   }
 
   get halfIntervalM(): number {
@@ -82,16 +113,31 @@ export class NivellierlattePage {
     return this.target - this.halfIntervalM;
   }
 
-  /** Sichtbarer Hoehenausschnitt (cm) im runden Zielfernrohr — waechst mit der simulierten Entfernung, genau wie beim echten Fernrohr mit fixem Fadenkreuz. */
-  get scopeSpanCm(): number {
-    return this.distanceM / (2 * this.stadiaFraction);
+  /**
+   * Sichtbarer Ausschnitt im Zielfernrohr (SVG-Einheiten). Waechst mit der
+   * simulierten Entfernung: das Fadenkreuz sitzt fix im Okular, je weiter die
+   * Latte weg ist, desto mehr Lattenlaenge liegt zwischen den Distanzstrichen.
+   */
+  get scopeSpan(): number {
+    const spanCm = this.distanceM / (2 * this.stadiaFraction);
+    return spanCm * (UNITS_PER_M / 100);
   }
 
   /** viewBox fuer die runde Zoom-Ansicht — zentriert die Ziellinie im Visier. */
   get scopeViewBox(): string {
-    const half = this.scopeSpanCm / 2;
-    const x = 11.4 - half; // 11.4 = Lattenmitte (rodLeft 10 + halfW 1.4)
-    return `${x} ${this.crosshairY - half} ${this.scopeSpanCm} ${this.scopeSpanCm}`;
+    const span = this.scopeSpan;
+    return `${STAFF_W / 2 - span / 2} ${this.crosshairY - span / 2} ${span} ${span}`;
+  }
+
+  /**
+   * viewBox fuer das Kontext-Panel. Zeigt wie in der Referenz einen festen
+   * Ausschnitt der Latte (dort per `overflow:hidden`), nicht die volle Laenge —
+   * sonst waere der Streifen bei 2,5 m Lattenlaenge nur wenige Pixel breit.
+   */
+  get rodViewBox(): string {
+    const span = UNITS_PER_DM * 10;
+    const top = Math.min(Math.max(this.crosshairY - span / 2, 0), this.svgHeight - span);
+    return `0 ${top} ${STAFF_W} ${span}`;
   }
 
   submit(): void {
@@ -138,10 +184,10 @@ export class NivellierlattePage {
     const steps = Math.round((this.maxDistanceM - this.minDistanceM) / this.distanceStepM);
     this.distanceM = this.minDistanceM + this.distanceStepM * Math.floor(Math.random() * (steps + 1));
 
-    const half = this.distanceM / (2 * this.stadiaConstant);
-    const buffer = 0.05;
-    const low = this.rodMinM + half + buffer;
-    const high = this.rodMaxM - half - buffer;
+    // Rand so waehlen, dass der komplette Sichtausschnitt auf der Latte liegt.
+    const halfSpanM = this.scopeSpan / 2 / UNITS_PER_M;
+    const low = this.rodMinM + halfSpanM;
+    const high = this.rodMaxM - halfSpanM;
     let bandLow = Math.max(low, 1.2);
     let bandHigh = Math.min(high, 1.7);
     if (bandLow > bandHigh) {
@@ -159,72 +205,54 @@ export class NivellierlattePage {
     return parseFloat(raw.replace(',', '.').trim());
   }
 
-  private buildRodCells(): RodCell[] {
-    const fieldH = 2;
-    const fieldsPerDecimeter = 5;
-    const decimeterCount = (this.rodMaxM - this.rodMinM) * 10;
-    // Lattenhaelfte im selben Verhaeltnis zur Feldhoehe wie in der Referenz
-    // (HALF_W 70 : FIELD_H 100 = 0.7) — sonst wirken die Felder gestaucht.
-    const rodLeft = 10;
-    const halfW = fieldH * 0.7;
-    const centerX = rodLeft + halfW;
-    const toothWidth = halfW * 0.45;
-    const notchOuterWidth = halfW * 0.55;
-    const cells: RodCell[] = [];
+  /**
+   * Baut die komplette Latte auf: pro Dezimeter zwei "E" im linken Bereich und
+   * die Dezimeterzahl rechts daneben. Die Zahl steht in der unteren Haelfte des
+   * Dezimeters, also direkt ueber ihrer eigenen Dezimeterlinie.
+   */
+  private buildRod(): void {
+    const dmCount = Math.round((this.rodMaxM - this.rodMinM) * 10);
 
-    for (let d = 0; d < decimeterCount; d++) {
-      const activeLeft = d % 2 === 0;
-      const fullX = activeLeft ? rodLeft : centerX;
-      const outerX = activeLeft ? rodLeft : centerX + toothWidth;
-      const toothX = activeLeft ? centerX : centerX - toothWidth;
-      const decBaseY = d * 10;
+    for (let dm = 0; dm < dmCount; dm++) {
+      const dmTop = dm * UNITS_PER_DM;
+      this.rodFieldLines.push(dmTop);
 
-      for (let f = 0; f < fieldsPerDecimeter; f++) {
-        const fieldBaseY = decBaseY + f * fieldH;
-
-        if (f === 0) {
-          cells.push({ svgY: fieldBaseY, x: toothX, width: toothWidth, height: fieldH * 0.15 });
-          cells.push({ svgY: fieldBaseY + fieldH * 0.5, x: toothX, width: toothWidth, height: fieldH * 0.33 });
-        } else {
-          const notchLower = (f - 1) % 2 === 0;
-          if (notchLower) {
-            cells.push({ svgY: fieldBaseY, x: fullX, width: halfW, height: fieldH * 0.55 });
-            cells.push({ svgY: fieldBaseY + fieldH * 0.55, x: outerX, width: notchOuterWidth, height: fieldH * 0.35 });
-            cells.push({ svgY: fieldBaseY + fieldH * 0.9, x: fullX, width: halfW, height: fieldH * 0.1 });
-          } else {
-            cells.push({ svgY: fieldBaseY, x: fullX, width: halfW, height: fieldH * 0.1 });
-            cells.push({ svgY: fieldBaseY + fieldH * 0.1, x: outerX, width: notchOuterWidth, height: fieldH * 0.35 });
-            cells.push({ svgY: fieldBaseY + fieldH * 0.45, x: fullX, width: halfW, height: fieldH * 0.55 });
-          }
-        }
+      // Zwei E pro Dezimeter, der Steg wechselt jedes Mal die Seite.
+      for (let e = 0; e < 2; e++) {
+        const eTop = dmTop + e * E_HEIGHT;
+        this.buildE(eTop, (dm * 2 + e) % 2 === 0);
       }
+
+      // Dezimeterwert am UNTEREN Rand dieses Abschnitts.
+      const value = dmCount - 1 - dm;
+      this.rodLabels.push({
+        x: CENTER_X + NUMBER_COL_W / 2,
+        y: dmTop + UNITS_PER_DM * 0.75 + 12,
+        text: String(value).padStart(2, '0'),
+      });
     }
-    return cells;
+    this.rodFieldLines.push(dmCount * UNITS_PER_DM);
   }
 
-  private buildDecimeterLabels(): DecimeterLabel[] {
-    const decimeterCount = (this.rodMaxM - this.rodMinM) * 10;
-    const rodLeft = 10;
-    const halfW = 2 * 0.7;
-    const labels: DecimeterLabel[] = [];
-    for (let d = 0; d < decimeterCount; d++) {
-      const activeLeft = d % 2 === 0;
-      const decBaseY = d * 10;
-      const heightM = this.rodMaxM - (decBaseY + 10) / 100;
-      const value = Math.round(heightM * 10);
-      const x = activeLeft ? rodLeft + halfW / 2 : rodLeft + halfW + halfW / 2;
-      labels.push({ svgY: decBaseY + 1.44, x, text: String(value).padStart(2, '0') });
+  /**
+   * Ein "E": drei rote Balken von je 1 cm (bei 0, 2 und 4 cm) und ein
+   * senkrechter Steg, der sie auf einer Seite verbindet. Gespiegelt ergibt
+   * das ueber die Lattenlaenge den typischen Zickzack.
+   */
+  private buildE(y0: number, spineLeft: boolean): void {
+    for (let i = 0; i < 3; i++) {
+      this.rodRedCells.push({
+        x: 0,
+        y: y0 + i * 2 * UNITS_PER_CM,
+        w: E_WIDTH,
+        h: BAR_HEIGHT,
+      });
     }
-    return labels;
-  }
-
-  private buildDecimeterTicks(): number[] {
-    const heightCm = (this.rodMaxM - this.rodMinM) * 100;
-    const fieldH = 2;
-    const ticks: number[] = [];
-    for (let y = 0; y <= heightCm; y += fieldH) {
-      ticks.push(y);
-    }
-    return ticks;
+    this.rodRedCells.push({
+      x: spineLeft ? 0 : E_WIDTH - SPINE_W,
+      y: y0,
+      w: SPINE_W,
+      h: E_HEIGHT,
+    });
   }
 }

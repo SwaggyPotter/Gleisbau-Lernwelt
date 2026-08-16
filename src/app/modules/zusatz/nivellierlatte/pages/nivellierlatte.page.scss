@@ -135,8 +135,10 @@ ion-header ion-toolbar {
 }
 
 .rod-svg {
-  width: 90px;
-  height: 380px;
+  // Verhaeltnis passend zur viewBox (60 breit x 1000 hoch), damit das
+  // E-Teilungs-Muster nicht verzerrt wird.
+  width: 24px;
+  height: 400px;
   display: block;
 }
 
@@ -148,16 +150,17 @@ ion-header ion-toolbar {
 
 .scope-circle {
   position: relative;
-  width: 260px;
-  height: 260px;
+  width: 264px;
+  height: 264px;
+  margin: 10px;
   border-radius: 50%;
   overflow: hidden;
-  background: #f4f6f5;
-  border: 6px solid #14202a;
+  background: #ffffff;
+  // Ringfassung wie in der Referenz: duenner Signalring, darum die Fassung.
   box-shadow:
-    0 0 0 2px var(--sp-border),
-    inset 0 0 24px rgba(0, 0, 0, 0.45),
-    0 8px 24px rgba(0, 0, 0, 0.4);
+    0 0 0 3px var(--sp-accent),
+    0 0 0 10px #1c2432,
+    0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .scope-svg {

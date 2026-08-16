@@ -297,3 +297,82 @@ Dabei `MeterLabel`-Interface, `meterLabels`-Property und
 `buildMeterLabels()`-Methode als jetzt unbenutzten Code entfernt.
 Build fehlerfrei, Screenshots (Playwright, 3x) zeigen beide Panels jetzt
 visuell deckungsgleich mit der Referenz-Ästhetik.
+
+**14. Runde (2026-08-16) — Referenz wirklich 1:1, komplett von Claude
+selbst (Tim: "ohne Qwen").** Die Runden 12/13 hatten nur die Proportionen
+INNERHALB eines Feldes übernommen — der eigentliche Fehler saß eine Ebene
+höher und blieb dadurch unentdeckt:
+
+- Die Referenz hat **2 Kammfelder pro Zahl** (`COMBS_PER_NUMBER = 2`), also
+  **3 Felder pro Zahlengruppe**. Unsere Umsetzung hatte 5 Felder pro
+  Dezimeter → die Felder waren im Verhältnis zur Lattenbreite viel zu
+  flach, genau der "gedrückte" Eindruck, den Tim beschrieb.
+- Die Referenz koppelt außerdem `HALF_W` (70) fest an `FIELD_H` (100).
+  Unsere cm-basierten Koordinaten hatten dieses Verhältnis nie abgebildet.
+
+**Lösung:** Koordinatensystem komplett auf die Referenz-Einheiten
+umgestellt statt auf cm — `FIELD_H=100`, `HALF_W=70`, `STAFF_W=140`,
+`CENTER_X=70`, und eine Zahlengruppe (3 Felder = 300 Einheiten) entspricht
+genau einem Dezimeter, also `UNITS_PER_M = 3000`. Damit sind alle
+Referenz-Formeln wörtlich übernehmbar, und `crosshairY`/Ablesewert bleiben
+physikalisch korrekt gekoppelt. `buildNumberField()`/`buildCombField()`
+sind jetzt 1:1-Übersetzungen von `buildField()` inkl. Zeichenreihenfolge
+(Feldlinien VOR den Flächen, damit Rot die Linien überdeckt wie im
+Original; Mittelachse und Außenränder zuletzt).
+
+Weitere übernommene Referenz-Details, die vorher abwichen: Zahlen sind
+**rot** (`fill=RED`), nicht schwarz; weiße Kerben als eigene Ebene über den
+roten Flächen; Ringfassung des Zielfernrohrs als `box-shadow` (3px Signal-,
+10px Fassungsring) statt Border.
+
+**Zwei echte Bugs dabei gefunden und behoben:**
+1. **Distanzstriche saßen falsch.** Das Reticle zeichnete sie bei ±12 %
+   des Kreises, die Berechnung erwartet sie aber bei ±30 % (aus
+   `stadiaFraction = 0.3`). Die Entfernungsaufgabe war dadurch schlicht
+   nicht lösbar — abgelesene Werte konnten nie zum erwarteten Ergebnis
+   führen. Jetzt bei y=20/80, passend zur Formel.
+2. **Kontext-Panel unbrauchbar dünn.** Bei korrekten Proportionen ist die
+   volle 2,5-m-Latte 140:7500 = 1:54 — als Vollansicht nur ein paar Pixel
+   breit. Die Referenz löst das per `overflow:hidden` mit fester Höhe, also
+   als Ausschnitt; übernommen als `rodViewBox`-Getter (9 dm um die
+   Ziellinie, am Lattenende geklemmt), Panel-Maße 22×420 px passend zum
+   Seitenverhältnis, damit nichts verzerrt.
+
+Simulierte Entfernungen auf 8–14 m gesetzt (vorher 15–45 m): dadurch liegt
+der sichtbare Ausschnitt bei 1,3–2,3 dm, die Latte füllt ~20–35 % der
+Kreisbreite und es sind immer 2–3 Dezimeterzahlen sichtbar — wie auf Tims
+Referenzfotos. Größere Entfernungen hätten die Latte zum dünnen Band
+schrumpfen lassen. 8/10/12/14 m ergeben außerdem glatte Intervalle
+(8–14 cm) für die Rechenaufgabe.
+
+**Bewusste Abweichung von der Referenz:** Das Fadenkreuz ist schwarz statt
+orange — auf dem weißen Okularhintergrund deutlich besser lesbar und so
+auch auf allen echten Fotos, die Tim geschickt hat. Ebenso bleibt der
+Zoom-Mechanismus (dynamische `viewBox`) statt CSS-`translateY`, weil das
+Spiel anders als die Referenz einen entfernungsabhängigen Zoom braucht.
+
+**15. Runde (2026-08-16) — Foto einer echten Latte: Aufteilung korrigiert.**
+Tim schickte ein Nahfoto einer echten Latte (Zahlen 15/14/13/12) mit
+"jetzt muss nur noch die Aufteilung stimmen". Zwei Abweichungen zur
+Referenz-HTML wurden dadurch sichtbar — die Referenz ist eine *stilisierte*
+Nachbildung, das Foto zeigt die echte Norm:
+
+1. **Zahlen stehen alle in EINER Spalte**, immer auf derselben Seite. Die
+   Referenz (und damit unsere Runde 14) ließ die aktive Seite pro
+   Zahlengruppe springen, wodurch die Zahlen abwechselnd links/rechts
+   standen. Jetzt: linker Bereich = E-Muster, rechter Bereich = Zahlenspalte.
+2. **Balken sind exakt 1 cm**, ein "E" ist 5 cm hoch (drei 1-cm-Balken mit
+   je 1 cm Zwischenraum plus senkrechtem Steg), also **2 E pro Dezimeter** —
+   nicht 3 stilisierte Felder wie in der Referenz. Der Steg wechselt bei
+   jedem E die Seite, das ergibt den Zickzack.
+
+Das Maßsystem ist damit auf `1 cm = 10 Einheiten` umgestellt
+(`UNITS_PER_M = 1000`). Das ist nicht nur optisch richtiger, sondern macht
+die Latte **zentimetergenau abzählbar** — genau der Sinn der E-Teilung und
+damit auch fürs Ablesen im Spiel relevant (Toleranz 5 mm).
+
+Lattenbreite 60 Einheiten (6 cm: 30 E-Bereich + 30 Zahlenspalte);
+Zahlengröße 34 mit `textLength=26`, damit die Ziffern nicht gequetscht
+wirken. Entfernungen auf 14–20 m gesetzt: dadurch sind wie auf dem Foto
+2–3 Dezimeterzahlen gleichzeitig sichtbar und die Latte füllt ~20–26 % der
+Kreisbreite. Production-Build fehlerfrei, per Playwright (3x) verifiziert.

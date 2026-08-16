@@ -376,3 +376,23 @@ Zahlengröße 34 mit `textLength=26`, damit die Ziffern nicht gequetscht
 wirken. Entfernungen auf 14–20 m gesetzt: dadurch sind wie auf dem Foto
 2–3 Dezimeterzahlen gleichzeitig sichtbar und die Latte füllt ~20–26 % der
 Kreisbreite. Production-Build fehlerfrei, per Playwright (3x) verifiziert.
+
+**16. Runde (2026-08-16) — letzte zwei Korrekturen, damit passt es.** Tim
+schickte ein weiteres Nahfoto (19/18) und benannte zwei Punkte:
+
+1. **Das E steht nicht fest auf einer Seite**, sondern wechselt gemeinsam
+   mit der Zahl ("immer versetzt so wie die Zahl selber"). In Runde 15 war
+   die Aufteilung fest (Muster links, Zahlen rechts) — falsch. Jetzt liegen
+   Muster und Zahl auf gegenüberliegenden Hälften und tauschen bei jedem
+   Dezimeter die Seite.
+2. **Nur die obere Hälfte eines Dezimeters ist ein "E"** (Balken + Steg),
+   die untere Hälfte sind nur die Vierecke ohne Steg. Vorher waren es zwei
+   vollständige E pro Dezimeter. Das E markiert damit die oberen 5 cm des
+   Dezimeters.
+
+Beides deckt sich mit Tims früherer Beschreibung ("ab der Hälfte kommt
+immer wechselseitig dieses rote E") — die war korrekt, ist aber erst mit
+dem Foto eindeutig geworden. Umsetzung: `buildBars()` zeichnet die drei
+1-cm-Balken, der Steg kommt nur bei der oberen Hälfte dazu; `patternLeft =
+dm % 2 === 0` steuert beide Seiten gemeinsam. Production-Build fehlerfrei,
+per Playwright verifiziert — Muster und Zickzack entsprechen dem Foto.

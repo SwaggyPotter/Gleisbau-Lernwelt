@@ -8,23 +8,23 @@ import { Component } from '@angular/core';
  * kann die Zentimeter direkt abzaehlen.
  *
  * Aufteilung pro Dezimeter (wie auf dem Foto):
- * - linker Bereich: zwei "E" a 5 cm, jedes aus drei 1-cm-Balken und einem
- *   senkrechten Steg; der Steg wechselt bei jedem E die Seite (Zickzack).
- * - rechter Bereich: die Dezimeterzahl, IMMER auf derselben Seite, sodass
- *   alle Zahlen eine saubere Spalte bilden.
+ * - OBERE 5 cm: das "E" — drei 1-cm-Balken, verbunden durch einen
+ *   senkrechten Steg am aeusseren Rand.
+ * - UNTERE 5 cm: nur die drei Balken ("Vierecke"), ohne Steg.
+ * - Muster und Dezimeterzahl liegen auf gegenueberliegenden Haelften und
+ *   wechseln bei jedem Dezimeter gemeinsam die Seite (versetzt).
  */
 const UNITS_PER_CM = 10;
 const UNITS_PER_DM = UNITS_PER_CM * 10;
 const UNITS_PER_M = UNITS_PER_DM * 10;
 
-/** Ein "E" ist 5 cm hoch, pro Dezimeter also zwei Stueck. */
+/** Ein "E" ist 5 cm hoch, also genau die halbe Dezimeterhoehe. */
 const E_HEIGHT = 5 * UNITS_PER_CM;
 const BAR_HEIGHT = UNITS_PER_CM;
-/** Breite des E-Bereichs bzw. der Zahlenspalte; zusammen die Lattenbreite. */
-const E_WIDTH = 30;
-const NUMBER_COL_W = 30;
-const STAFF_W = E_WIDTH + NUMBER_COL_W;
-const CENTER_X = E_WIDTH;
+/** Die Latte ist in zwei gleich breite Haelften geteilt: Muster und Zahl. */
+const HALF_W = 30;
+const STAFF_W = HALF_W * 2;
+const CENTER_X = HALF_W;
 const SPINE_W = 8;
 
 interface RodRect {
@@ -206,9 +206,9 @@ export class NivellierlattePage {
   }
 
   /**
-   * Baut die komplette Latte auf: pro Dezimeter zwei "E" im linken Bereich und
-   * die Dezimeterzahl rechts daneben. Die Zahl steht in der unteren Haelfte des
-   * Dezimeters, also direkt ueber ihrer eigenen Dezimeterlinie.
+   * Baut die komplette Latte auf. Pro Dezimeter: oben das "E" (Balken + Steg),
+   * unten nur die Balken. Muster und Zahl liegen auf gegenueberliegenden
+   * Haelften und wechseln bei jedem Dezimeter die Seite.
    */
   private buildRod(): void {
     const dmCount = Math.round((this.rodMaxM - this.rodMinM) * 10);
@@ -217,16 +217,25 @@ export class NivellierlattePage {
       const dmTop = dm * UNITS_PER_DM;
       this.rodFieldLines.push(dmTop);
 
-      // Zwei E pro Dezimeter, der Steg wechselt jedes Mal die Seite.
-      for (let e = 0; e < 2; e++) {
-        const eTop = dmTop + e * E_HEIGHT;
-        this.buildE(eTop, (dm * 2 + e) % 2 === 0);
-      }
+      const patternLeft = dm % 2 === 0;
+      const patternX = patternLeft ? 0 : HALF_W;
 
-      // Dezimeterwert am UNTEREN Rand dieses Abschnitts.
+      // Obere 5 cm: das "E" — Balken plus Steg am aeusseren Rand.
+      this.buildBars(dmTop, patternX);
+      this.rodRedCells.push({
+        x: patternLeft ? patternX : patternX + HALF_W - SPINE_W,
+        y: dmTop,
+        w: SPINE_W,
+        h: E_HEIGHT,
+      });
+
+      // Untere 5 cm: nur die Vierecke, ohne Steg.
+      this.buildBars(dmTop + E_HEIGHT, patternX);
+
+      // Dezimeterwert auf der Gegenseite, direkt ueber seiner Dezimeterlinie.
       const value = dmCount - 1 - dm;
       this.rodLabels.push({
-        x: CENTER_X + NUMBER_COL_W / 2,
+        x: (patternLeft ? HALF_W : 0) + HALF_W / 2,
         y: dmTop + UNITS_PER_DM * 0.75 + 12,
         text: String(value).padStart(2, '0'),
       });
@@ -234,25 +243,15 @@ export class NivellierlattePage {
     this.rodFieldLines.push(dmCount * UNITS_PER_DM);
   }
 
-  /**
-   * Ein "E": drei rote Balken von je 1 cm (bei 0, 2 und 4 cm) und ein
-   * senkrechter Steg, der sie auf einer Seite verbindet. Gespiegelt ergibt
-   * das ueber die Lattenlaenge den typischen Zickzack.
-   */
-  private buildE(y0: number, spineLeft: boolean): void {
+  /** Drei rote 1-cm-Balken bei 0, 2 und 4 cm — die Basis von E und Vierecken. */
+  private buildBars(y0: number, x: number): void {
     for (let i = 0; i < 3; i++) {
       this.rodRedCells.push({
-        x: 0,
+        x,
         y: y0 + i * 2 * UNITS_PER_CM,
-        w: E_WIDTH,
+        w: HALF_W,
         h: BAR_HEIGHT,
       });
     }
-    this.rodRedCells.push({
-      x: spineLeft ? 0 : E_WIDTH - SPINE_W,
-      y: y0,
-      w: SPINE_W,
-      h: E_HEIGHT,
-    });
   }
 }

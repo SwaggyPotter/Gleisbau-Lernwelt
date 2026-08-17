@@ -1,0 +1,166 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts (NgModule-basiert, standalone: false).
+
+Ziel: Eine neue Seite anlegen, die je nach Route-Parameter eine von drei Kategorien anzeigt: Selbststudium, Quiz oder Spiele. Die Kacheldaten liegen bereits in src/app/shared/katalog.ts (Exporte: QuizTile, SELBSTSTUDIUM_TILES, QUIZ_TILES, SPIELE_TILES).
+
+Lege GENAU diese fuenf neuen Dateien an, mit exakt diesem Inhalt:
+
+=== DATEI 1: src/app/modules/kategorie/kategorie.routes.ts ===
+import { Routes } from '@angular/router';
+import { KategoriePage } from './pages/kategorie.page';
+
+export const KATEGORIE_ROUTES: Routes = [
+  {
+    path: '',
+    component: KategoriePage,
+  },
+];
+
+=== DATEI 2: src/app/modules/kategorie/kategorie.module.ts ===
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
+import { KATEGORIE_ROUTES } from './kategorie.routes';
+import { KategoriePage } from './pages/kategorie.page';
+
+@NgModule({
+  declarations: [KategoriePage],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild(KATEGORIE_ROUTES),
+  ],
+})
+export class KategorieModule {}
+
+=== DATEI 3: src/app/modules/kategorie/pages/kategorie.page.ts ===
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { QuizTile, SELBSTSTUDIUM_TILES, QUIZ_TILES, SPIELE_TILES } from '../../../shared/katalog';
+
+interface Kategorie {
+  id: string;
+  eyebrow: string;
+  title: string;
+  note: string;
+  tiles: QuizTile[];
+}
+
+const KATEGORIEN: Kategorie[] = [
+  {
+    id: 'selbststudium',
+    eyebrow: 'Zum Nachlesen',
+    title: 'Selbststudium',
+    note: 'Lesestoff zum Aneignen und Nachschlagen — kein Frage-Antwort-Format.',
+    tiles: SELBSTSTUDIUM_TILES,
+  },
+  {
+    id: 'quiz',
+    eyebrow: 'Wissen abfragen',
+    title: 'Quiz',
+    note: 'Wissen festigen und abklopfen — Fragen beantworten, sofort Rueckmeldung bekommen.',
+    tiles: QUIZ_TILES,
+  },
+  {
+    id: 'spiele',
+    eyebrow: 'Ausprobieren',
+    title: 'Spiele',
+    note: 'Lernspiele statt Frage-Antwort — nutzen dieselben Themen, andere Form.',
+    tiles: SPIELE_TILES,
+  },
+];
+
+@Component({
+  selector: 'app-kategorie',
+  templateUrl: './kategorie.page.html',
+  styleUrls: ['./kategorie.page.scss'],
+  standalone: false,
+})
+export class KategoriePage implements OnInit {
+  kategorie: Kategorie = KATEGORIEN[0];
+
+  constructor(private readonly route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      this.kategorie = KATEGORIEN.find((k) => k.id === id) ?? KATEGORIEN[0];
+    });
+  }
+
+  trackByTileId(_index: number, tile: QuizTile): string {
+    return tile.id;
+  }
+
+  tileImageStyle(tile: QuizTile): string | null {
+    return tile.image ? `url('${tile.image}')` : null;
+  }
+}
+
+=== DATEI 4: src/app/modules/kategorie/pages/kategorie.page.html ===
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{ kategorie.title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Start</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="kat-content">
+  <div class="kat-shell">
+    <section class="kat-head">
+      <p class="eyebrow">{{ kategorie.eyebrow }}</p>
+      <h1>{{ kategorie.title }}</h1>
+      <p class="lede">{{ kategorie.note }}</p>
+    </section>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of kategorie.tiles; trackBy: trackByTileId">
+          <ion-card class="tile-card" [routerLink]="tile.link" [queryParams]="tile.queryParams">
+            <div class="tile-image" *ngIf="tile.image" [style.background-image]="tileImageStyle(tile)">
+              <div class="tile-icon overlay">
+                <ion-icon [name]="tile.icon"></ion-icon>
+              </div>
+              <p class="image-credit" *ngIf="tile.imageCredit">{{ tile.imageCredit }}</p>
+            </div>
+            <div class="tile-icon" *ngIf="!tile.image">
+              <ion-icon [name]="tile.icon"></ion-icon>
+            </div>
+            <ion-card-header>
+              <div class="tile-top">
+                <ion-chip outline="true">
+                  <ion-label>{{ tile.tag }}</ion-label>
+                </ion-chip>
+              </div>
+              <ion-card-title>{{ tile.title }}</ion-card-title>
+              <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+=== DATEI 5: src/app/modules/kategorie/pages/kategorie.page.scss ===
+(Diese Datei zunaechst LEER anlegen — nur eine leere Datei erzeugen, kein Inhalt.)
+
+=== AUSSERDEM: src/app/app-routing.module.ts anpassen ===
+Fuege im Array `routes` einen neuen Eintrag ein, direkt VOR dem Eintrag mit `path: 'bildnachweise'`:
+
+  {
+    path: 'kategorie/:id',
+    loadChildren: () => import('./modules/kategorie/kategorie.module')
+      .then(m => m.KategorieModule)
+  },
+
+Aendere sonst NICHTS an app-routing.module.ts.
+
+Danach: `npx ng build --configuration production` im Projekt-Root ausfuehren und pruefen, dass es fehlerfrei durchlaeuft.

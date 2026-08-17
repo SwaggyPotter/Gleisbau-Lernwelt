@@ -11,6 +11,45 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+## 2026-08-17 — Schienenkopf-Verschleissmesser als Spiel (Claude)
+
+Zweites Spiel neben der Nivellierlatte: `/zusatz/schienenmesser`. Gerät auf
+das Profil einstellen (Fühlerlehre + Messlatte), Messfühler zustellen bis
+Kontakt, Höhen- und Seitenverschleiß ablesen. Bei falscher Profileinstellung
+sind die Messschieber gesperrt — ohne richtigen Bezugspunkt keine gültige
+Messung. Querschnitt mit vergrößerter Kopfansicht, damit der Verschleiß
+sichtbar wird. **Achtung Datenlage:** nur Nennhöhen und die 14-mm-Messtiefe
+sind belegt, die übrigen Profilmaße sind vereinfacht und dienen nur der
+Zeichnung; Verschleiß-Grenzwerte fehlen bewusst. Details:
+[[../14-Gwen-Code-Aufgaben/04-Schienenkopf-Verschleissmesser]].
+
+---
+
+## 2026-08-17 — Startseite entschlackt, App auf Quiz fokussiert (Claude)
+
+Die Startseite listet keine Einzelthemen mehr, sondern nur noch vier
+Bereiche (Wissenstests / Lernfelder / Rechentrainer / Spiele); die Suche
+arbeitet dafür jetzt bereichsübergreifend. Lernfelder sind in zwei
+Abschnitte geteilt (Gleisbau LF10-14 zuerst, dann Bauberufe LF01-09) und
+werden numerisch sortiert. Selbststudium ist vorerst komplett aus der
+Navigation raus (Daten bleiben für später erhalten). Details:
+[[../14-Gwen-Code-Aufgaben/03-Startseite-nur-Quiz]].
+
+---
+
+## 2026-08-17 — Eigene Menüs für Selbststudium / Quiz / Spiele (Claude + Gwen)
+
+Die drei Sparten sind nicht mehr Sektionen auf dem Dashboard, sondern eigene
+Seiten, erreichbar über eine neue Navigationsleiste im Header (Start /
+Selbststudium / Quiz / Spiele). Technisch EINE Seite mit Route-Parameter
+`/kategorie/:id` statt drei Modulen. Kacheldaten dafür aus
+`dashboard.page.ts` nach `src/app/shared/katalog.ts` ausgelagert, die
+Spiele-Kachel war vorher nur im HTML hartkodiert und ist jetzt ebenfalls
+Daten. Details und Gwen-Protokoll:
+[[../14-Gwen-Code-Aufgaben/02-Kategorie-Menues]].
+
+---
+
 ## 2026-08-12 — Nivellierlatte-Feinschliff erstmals per Code-Delegation an Gwen (Claude)
 
 Tim wollte künftig mehr Kleinarbeit an Gwen delegieren (Token sparen) —

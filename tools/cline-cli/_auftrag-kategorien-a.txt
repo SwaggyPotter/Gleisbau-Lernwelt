@@ -1,0 +1,54 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts.
+
+Ziel: Die Kacheldaten fuer "Selbststudium", "Quiz" und "Spiele" aus der Dashboard-Komponente in eine gemeinsame Datei auslagern, damit sie spaeter auch von einer zweiten Seite genutzt werden koennen.
+
+SCHRITT 1 — Neue Datei anlegen: src/app/shared/katalog.ts
+
+Lies zuerst src/app/dashboard/dashboard.page.ts. Uebernimm daraus WORTGLEICH (nichts umformulieren, nichts kuerzen, alle Kommentare mitnehmen):
+- den Typ `QuizTile` (steht ganz oben in der Datei, beginnt mit `type QuizTile = {`)
+- den Inhalt des Arrays `selbststudiumTiles`
+- den Inhalt des Arrays `quizTiles`
+
+Die neue Datei src/app/shared/katalog.ts soll danach genau so aufgebaut sein:
+
+export type QuizTile = {
+  ... hier der wortgleiche Inhalt des QuizTile-Typs aus dashboard.page.ts ...
+};
+
+export const SELBSTSTUDIUM_TILES: QuizTile[] = [
+  ... hier die wortgleichen Eintraege aus selbststudiumTiles ...
+];
+
+export const QUIZ_TILES: QuizTile[] = [
+  ... hier die wortgleichen Eintraege aus quizTiles ...
+];
+
+export const SPIELE_TILES: QuizTile[] = [
+  {
+    id: 'spiel-nivellierlatte',
+    title: 'Nivellierlatte ablesen',
+    description: 'Wert an der Latte ablesen und eintragen — richtig, wenn nah genug am echten Wert.',
+    tag: 'Spiel',
+    icon: 'analytics-outline',
+    link: '/zusatz/nivellierlatte',
+  },
+];
+
+SCHRITT 2 — src/app/dashboard/dashboard.page.ts anpassen:
+a) Ganz oben, direkt unter der Zeile `import { Component } from '@angular/core';`, diese Zeile einfuegen:
+import { QuizTile, SELBSTSTUDIUM_TILES, QUIZ_TILES, SPIELE_TILES } from '../shared/katalog';
+
+b) Die lokale Typdefinition `type QuizTile = { ... };` komplett LOESCHEN (sie kommt jetzt aus dem Import). Der Typ `TileProgress` bleibt unveraendert stehen.
+
+c) Die Zeile `readonly selbststudiumTiles: QuizTile[] = [` samt komplettem Array-Inhalt bis zur schliessenden Zeile `];` ersetzen durch genau eine Zeile:
+  readonly selbststudiumTiles: QuizTile[] = SELBSTSTUDIUM_TILES;
+
+d) Die Zeile `readonly quizTiles: QuizTile[] = [` samt komplettem Array-Inhalt bis zur schliessenden Zeile `];` ersetzen durch genau eine Zeile:
+  readonly quizTiles: QuizTile[] = QUIZ_TILES;
+
+e) Direkt unter der neuen quizTiles-Zeile zusaetzlich einfuegen:
+  readonly spieleTiles: QuizTile[] = SPIELE_TILES;
+
+Der Kommentarblock, der ueber `readonly selbststudiumTiles` steht, bleibt an Ort und Stelle stehen. Alle anderen Arrays (`quizTopics`, `lernfeldTiles`, `allgemeineBauberufeTiles`) und alle Methoden bleiben UNVERAENDERT.
+
+Danach: `npx ng build --configuration production` im Projekt-Root ausfuehren und pruefen, dass es fehlerfrei durchlaeuft. Falls Fehler auftreten, behebe sie exakt nach obiger Vorgabe.

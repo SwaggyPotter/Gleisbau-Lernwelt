@@ -44,6 +44,16 @@ const routes: Routes = [
       .then(m => m.NivellierlatteModule)
   },
   {
+    path: 'zusatz/schienenmesser',
+    loadChildren: () => import('./modules/zusatz/schienenmesser/schienenmesser.module')
+      .then(m => m.SchienenmesserModule)
+  },
+  {
+    path: 'kategorie/:id',
+    loadChildren: () => import('./modules/kategorie/kategorie.module')
+      .then(m => m.KategorieModule)
+  },
+  {
     path: 'bildnachweise',
     loadChildren: () => import('./bildnachweise/bildnachweise.module')
       .then(m => m.BildnachweisePageModule)

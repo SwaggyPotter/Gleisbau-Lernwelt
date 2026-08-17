@@ -5,6 +5,15 @@
       <span class="brand-sub">Lernwelt</span>
     </ion-title>
   </ion-toolbar>
+  <ion-toolbar class="nav-toolbar">
+    <nav class="main-nav">
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Start</a>
+      <a routerLink="/kategorie/wissenstests" routerLinkActive="active">Wissenstests</a>
+      <a routerLink="/kategorie/lernfelder" routerLinkActive="active">Lernfelder</a>
+      <a routerLink="/kategorie/rechentrainer" routerLinkActive="active">Rechentrainer</a>
+      <a routerLink="/kategorie/spiele" routerLinkActive="active">Spiele</a>
+    </nav>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="dash-content" [fullscreen]="true">
@@ -14,7 +23,7 @@
       <p class="eyebrow">Wissenstest</p>
       <h1>Frag dein Wissen ab</h1>
       <p class="lede">
-        Wähle ein Thema, beantworte die Fragen und sieh sofort, ob du richtig liegst.
+        Wähle einen Bereich, beantworte die Fragen und sieh sofort, ob du richtig liegst.
       </p>
       <div class="search-wrap">
         <ion-searchbar
@@ -43,238 +52,27 @@
     </div>
   </section>
 
-  <section class="grid-section" *ngIf="filteredQuizTopics.length > 0">
-    <div class="section-head">
-      <p class="eyebrow">Themen</p>
-      <h2>Wissenstests</h2>
-    </div>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of filteredQuizTopics; trackBy: trackByTileId">
-          <ion-card class="tile-card highlight" [routerLink]="tile.link">
-            <div class="tile-image" *ngIf="tile.image; else tileIconOnly" [style.background-image]="tileImageStyle(tile)">
-              <span class="corner c-tl" aria-hidden="true"></span>
-              <span class="corner c-br" aria-hidden="true"></span>
-              <div class="tile-icon overlay">
-                <ion-icon [name]="tile.icon"></ion-icon>
-              </div>
-              <p class="image-credit" *ngIf="tile.imageCredit">{{ tile.imageCredit }}</p>
-            </div>
-            <ng-template #tileIconOnly>
-              <div class="tile-icon">
-                <ion-icon [name]="tile.icon"></ion-icon>
-              </div>
-            </ng-template>
-            <ion-card-header>
-              <div class="tile-top">
-                <ion-chip outline="true">
-                  <ion-label>{{ tile.tag }}</ion-label>
-                </ion-chip>
-                <ion-badge *ngIf="tileProgressByLink[tile.link] as progress">
-                  {{ progress.answered }}/{{ progress.total }}
-                </ion-badge>
-              </div>
-              <ion-card-title>{{ tile.title }}</ion-card-title>
-              <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-              <div class="module-progress" *ngIf="tileProgressByLink[tile.link] as progress">
-                <ion-progress-bar color="success" [value]="progress.ratio"></ion-progress-bar>
-              </div>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </section>
-
-  <section class="grid-section" *ngIf="filteredLernfeldTiles.length > 0">
-    <div class="section-head">
-      <p class="eyebrow">Ausbildung</p>
-      <h2>Gleisbau-Lernfelder</h2>
-    </div>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of filteredLernfeldTiles; trackBy: trackByTileId">
-          <ion-card class="tile-card highlight" [routerLink]="tile.link">
-            <div class="tile-image" *ngIf="tile.image; else tileIconOnly" [style.background-image]="tileImageStyle(tile)">
-              <span class="corner c-tl" aria-hidden="true"></span>
-              <span class="corner c-br" aria-hidden="true"></span>
-              <div class="tile-icon overlay">
-                <ion-icon [name]="tile.icon"></ion-icon>
-              </div>
-              <p class="image-credit" *ngIf="tile.imageCredit">{{ tile.imageCredit }}</p>
-            </div>
-            <ng-template #tileIconOnly>
-              <div class="tile-icon">
-                <ion-icon [name]="tile.icon"></ion-icon>
-              </div>
-            </ng-template>
-            <ion-card-header>
-              <div class="tile-top">
-                <ion-chip outline="true">
-                  <ion-label>{{ tile.tag }}</ion-label>
-                </ion-chip>
-                <ion-badge *ngIf="tileProgressByLink[tile.link] as progress">
-                  {{ progress.answered }}/{{ progress.total }}
-                </ion-badge>
-              </div>
-              <ion-card-title>{{ tile.title }}</ion-card-title>
-              <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-              <div class="module-progress" *ngIf="tileProgressByLink[tile.link] as progress">
-                <ion-progress-bar color="success" [value]="progress.ratio"></ion-progress-bar>
-              </div>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </section>
-
-  <section class="grid-section muted-section" *ngIf="filteredAllgemeineBauberufeTiles.length > 0">
-    <div class="section-head">
-      <p class="eyebrow">Ausbildung (allgemein)</p>
-      <h2>Allgemeine Bauberufe</h2>
-      <p class="section-note">
-        Diese Lernfelder gehoeren zum Ausbildungsrahmenplan, sind aber nicht
-        Gleisbau-spezifisch (Mauern, Stahlbeton, Holzbau, Erdbau u. Ae.).
-        Der Schwerpunkt der App liegt auf Gleisbau — diese Themen bleiben
-        erreichbar, aber bewusst im Hintergrund.
-      </p>
-    </div>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of filteredAllgemeineBauberufeTiles; trackBy: trackByTileId">
-          <ion-card class="tile-card" [routerLink]="tile.link">
-            <div class="tile-icon">
-              <ion-icon [name]="tile.icon"></ion-icon>
-            </div>
-            <ion-card-header>
-              <div class="tile-top">
-                <ion-chip outline="true" class="chip-muted">
-                  <ion-label>{{ tile.tag }}</ion-label>
-                </ion-chip>
-                <ion-badge *ngIf="tileProgressByLink[tile.link] as progress">
-                  {{ progress.answered }}/{{ progress.total }}
-                </ion-badge>
-              </div>
-              <ion-card-title>{{ tile.title }}</ion-card-title>
-              <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-              <div class="module-progress" *ngIf="tileProgressByLink[tile.link] as progress">
-                <ion-progress-bar color="success" [value]="progress.ratio"></ion-progress-bar>
-              </div>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </section>
-
-  <section class="grid-section" *ngIf="filteredSelbststudiumTiles.length > 0">
-    <div class="section-head">
-      <p class="eyebrow">Zum Nachlesen</p>
-      <h2>Selbststudium</h2>
-      <p class="section-note">
-        Lesestoff zum Aneignen und Nachschlagen — kein Frage-Antwort-Format.
-      </p>
-    </div>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of filteredSelbststudiumTiles; trackBy: trackByTileId">
-          <ion-card class="tile-card highlight" [routerLink]="tile.link" [queryParams]="tile.queryParams">
-            <div class="tile-image" *ngIf="tile.image; else tileIconOnly" [style.background-image]="tileImageStyle(tile)">
-              <span class="corner c-tl" aria-hidden="true"></span>
-              <span class="corner c-br" aria-hidden="true"></span>
-              <div class="tile-icon overlay">
-                <ion-icon [name]="tile.icon"></ion-icon>
-              </div>
-              <p class="image-credit" *ngIf="tile.imageCredit">{{ tile.imageCredit }}</p>
-            </div>
-            <ng-template #tileIconOnly>
-              <div class="tile-icon">
-                <ion-icon [name]="tile.icon"></ion-icon>
-              </div>
-            </ng-template>
-            <ion-card-header>
-              <div class="tile-top">
-                <ion-chip outline="true">
-                  <ion-label>{{ tile.tag }}</ion-label>
-                </ion-chip>
-              </div>
-              <ion-card-title>{{ tile.title }}</ion-card-title>
-              <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
-            </ion-card-header>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </section>
-
-  <section class="grid-section" *ngIf="filteredQuizTiles.length > 0">
-    <div class="section-head">
-      <p class="eyebrow">Wissen abfragen</p>
-      <h2>Quiz</h2>
-      <p class="section-note">
-        Wissen festigen und abklopfen — Fragen beantworten, sofort Rueckmeldung bekommen.
-      </p>
-    </div>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of filteredQuizTiles; trackBy: trackByTileId">
-          <ion-card class="tile-card highlight" [routerLink]="tile.link" [queryParams]="tile.queryParams">
-            <div class="tile-image" *ngIf="tile.image; else tileIconOnly" [style.background-image]="tileImageStyle(tile)">
-              <span class="corner c-tl" aria-hidden="true"></span>
-              <span class="corner c-br" aria-hidden="true"></span>
-              <div class="tile-icon overlay">
-                <ion-icon [name]="tile.icon"></ion-icon>
-              </div>
-              <p class="image-credit" *ngIf="tile.imageCredit">{{ tile.imageCredit }}</p>
-            </div>
-            <ng-template #tileIconOnly>
-              <div class="tile-icon">
-                <ion-icon [name]="tile.icon"></ion-icon>
-              </div>
-            </ng-template>
-            <ion-card-header>
-              <div class="tile-top">
-                <ion-chip outline="true">
-                  <ion-label>{{ tile.tag }}</ion-label>
-                </ion-chip>
-              </div>
-              <ion-card-title>{{ tile.title }}</ion-card-title>
-              <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
-            </ion-card-header>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </section>
-
+  <!-- Ohne Suche: nur die Bereiche, keine Einzelthemen. -->
   <section class="grid-section" *ngIf="!hasActiveSearch">
     <div class="section-head">
-      <p class="eyebrow">Ausprobieren</p>
-      <h2>Spiele</h2>
-      <p class="section-note">
-        Lernspiele statt Frage-Antwort — nutzen dieselben Themen, andere Form. Erste Idee in Arbeit.
-      </p>
+      <p class="eyebrow">Bereiche</p>
+      <h2>Womit willst du üben?</h2>
     </div>
     <ion-grid>
       <ion-row>
-        <ion-col size="12" sizeMd="6" sizeLg="4">
-          <ion-card class="tile-card highlight" routerLink="/zusatz/nivellierlatte">
+        <ion-col size="12" sizeMd="6" *ngFor="let bereich of bereiche; trackBy: trackByBereichId">
+          <ion-card class="tile-card bereich-card" [routerLink]="bereich.link">
             <div class="tile-icon">
-              <ion-icon name="analytics-outline"></ion-icon>
+              <ion-icon [name]="bereich.icon"></ion-icon>
             </div>
             <ion-card-header>
               <div class="tile-top">
-                <ion-chip outline="true"><ion-label>Spiel</ion-label></ion-chip>
+                <ion-chip outline="true">
+                  <ion-label>{{ bereich.count }} {{ bereich.count === 1 ? 'Thema' : 'Themen' }}</ion-label>
+                </ion-chip>
               </div>
-              <ion-card-title>Nivellierlatte ablesen</ion-card-title>
-              <ion-card-subtitle>Wert an der Latte ablesen und eintragen — richtig, wenn nah genug am echten Wert.</ion-card-subtitle>
+              <ion-card-title>{{ bereich.title }}</ion-card-title>
+              <ion-card-subtitle>{{ bereich.description }}</ion-card-subtitle>
             </ion-card-header>
           </ion-card>
         </ion-col>
@@ -282,7 +80,45 @@
     </ion-grid>
   </section>
 
-  <section class="no-results" *ngIf="hasActiveSearch && totalVisibleTiles === 0">
+  <!-- Mit Suche: flache Trefferliste ueber alle Bereiche hinweg. -->
+  <section class="grid-section" *ngIf="hasActiveSearch && suchtreffer.length > 0">
+    <div class="section-head">
+      <p class="eyebrow">Suche</p>
+      <h2>Treffer</h2>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let tile of suchtreffer; trackBy: trackByTileId">
+          <ion-card class="tile-card highlight" [routerLink]="tile.link" [queryParams]="tile.queryParams">
+            <div class="tile-image" *ngIf="tile.image; else tileIconOnly" [style.background-image]="tileImageStyle(tile)">
+              <span class="corner c-tl" aria-hidden="true"></span>
+              <span class="corner c-br" aria-hidden="true"></span>
+              <div class="tile-icon overlay">
+                <ion-icon [name]="tile.icon"></ion-icon>
+              </div>
+              <p class="image-credit" *ngIf="tile.imageCredit">{{ tile.imageCredit }}</p>
+            </div>
+            <ng-template #tileIconOnly>
+              <div class="tile-icon">
+                <ion-icon [name]="tile.icon"></ion-icon>
+              </div>
+            </ng-template>
+            <ion-card-header>
+              <div class="tile-top">
+                <ion-chip outline="true">
+                  <ion-label>{{ tile.tag }}</ion-label>
+                </ion-chip>
+              </div>
+              <ion-card-title>{{ tile.title }}</ion-card-title>
+              <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <section class="no-results" *ngIf="hasActiveSearch && suchtreffer.length === 0">
     <ion-card class="tile-card">
       <ion-card-header>
         <ion-card-title>Keine Treffer</ion-card-title>

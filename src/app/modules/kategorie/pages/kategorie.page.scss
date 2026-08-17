@@ -3,32 +3,28 @@
   color: var(--sp-text);
 }
 
-.dash-header ion-toolbar {
+ion-header ion-toolbar {
   --background: var(--sp-bg);
   --color: var(--sp-text);
   --border-color: var(--sp-border);
   padding-inline: 16px;
 }
 
-.brand {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
+ion-title {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
 
-.brand-mark {
-  color: var(--sp-text);
+.toolbar-action-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.brand-sub {
-  color: var(--sp-accent);
-}
-
-.dash-content {
+.kat-content {
   --background: var(--sp-bg);
   padding: 20px clamp(16px, 4vw, 48px) 56px;
   background-image:
@@ -37,26 +33,17 @@
   background-size: 32px 32px;
 }
 
-.dash-shell {
+.kat-shell {
   max-width: 1240px;
   margin-inline: auto;
 }
 
-.welcome {
+.kat-head {
   border: 1px solid var(--sp-border);
   border-radius: 6px;
   padding: 22px;
   background: var(--sp-surface);
-  position: relative;
-}
-
-.welcome::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 6px;
-  padding: 1px;
-  pointer-events: none;
+  margin-bottom: 20px;
 }
 
 .eyebrow {
@@ -81,103 +68,10 @@ h1 {
 }
 
 .lede {
-  margin: 0 0 16px;
   color: var(--sp-text-muted);
+  margin: 0;
   font-size: 15px;
   line-height: 1.6;
-  max-width: 56ch;
-}
-
-.search-wrap {
-  margin: 0 0 14px;
-  max-width: 480px;
-}
-
-.search-wrap ion-searchbar {
-  --background: var(--sp-surface-2);
-  --color: var(--sp-text);
-  --placeholder-color: var(--sp-text-muted);
-  --icon-color: var(--sp-accent-2);
-  --border-radius: 4px;
-  padding: 0;
-}
-
-.search-hint {
-  margin: 6px 2px 0;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--sp-text-muted);
-}
-
-.pill-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.pill {
-  background: var(--sp-surface-2);
-  border: 1px solid var(--sp-border);
-  border-radius: 4px;
-  padding: 10px 14px;
-  min-width: 120px;
-}
-
-.pill span {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--sp-text-muted);
-}
-
-.pill strong {
-  display: block;
-  margin-top: 4px;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 20px;
-  color: var(--sp-text);
-}
-
-.grid-section {
-  margin-top: 32px;
-}
-
-.no-results {
-  margin-top: 24px;
-}
-
-.section-head {
-  border-bottom: 1px solid var(--sp-border);
-  padding-bottom: 10px;
-  margin-bottom: 18px;
-}
-
-.section-head h2 {
-  margin: 4px 0 0;
-  font-family: var(--font-display);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  font-size: 19px;
-  color: var(--sp-text);
-}
-
-.section-note {
-  margin: 6px 0 0;
-  max-width: 640px;
-  font-size: 0.85em;
-  color: var(--sp-text-muted);
-}
-
-.muted-section {
-  opacity: 0.82;
-
-  .tile-card {
-    box-shadow: none;
-  }
 }
 
 .tile-card {
@@ -188,20 +82,11 @@ h1 {
   box-shadow: none;
   cursor: pointer;
   transition: transform 0.16s ease, border-color 0.16s ease;
-}
 
-.tile-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--sp-accent-2);
-}
-
-.game-card {
-  cursor: default;
-  opacity: 0.85;
-}
-.game-card:hover {
-  transform: none;
-  border-color: var(--sp-border);
+  &:hover {
+    transform: translateY(-3px);
+    border-color: var(--sp-accent-2);
+  }
 }
 
 ion-card-title {
@@ -221,19 +106,6 @@ ion-card-subtitle {
   font-size: 13px;
   color: var(--sp-text-muted) !important;
   line-height: 1.5;
-}
-
-.app-footer {
-  text-align: center;
-  padding: 28px 0 12px;
-
-  a {
-    font-family: var(--font-mono);
-    color: var(--sp-text-muted);
-    font-size: 0.8em;
-    letter-spacing: 0.04em;
-    text-decoration: underline;
-  }
 }
 
 .tile-icon {
@@ -326,67 +198,10 @@ ion-chip {
   ion-label {
     color: var(--sp-accent-2) !important;
   }
-
-  &.chip-muted ion-label {
-    color: var(--sp-text-muted) !important;
-  }
 }
 
-ion-badge {
-  font-family: var(--font-mono);
-  --background: var(--sp-surface-2);
-  --color: var(--sp-accent);
-  border: 1px solid var(--sp-border);
-}
-
-.module-progress {
-  margin-top: 10px;
-
-  ion-progress-bar {
-    --background: var(--sp-surface-2);
-    --progress-background: var(--sp-success);
-    height: 3px;
-    border-radius: 2px;
-    overflow: hidden;
-  }
-}
-
-@media (max-width: 767px) {
-  .tile-top {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-@media (max-width: 1024px) {
-  .dash-header ion-toolbar {
-    padding-inline: 10px;
-  }
-
-  .brand {
-    font-size: 0.92rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .dash-content {
-    padding: 16px 18px 36px;
-    background-size: 24px 24px;
-  }
-
-  .welcome {
-    padding: 16px;
-  }
-
-  h1 {
-    font-size: 26px;
-  }
-}
-
-/* Hauptnavigation zu den Kategorien (Selbststudium / Quiz / Spiele).
-   Spezifitaet bewusst .dash-header .nav-toolbar, damit sie die allgemeine
-   Regel `.dash-header ion-toolbar` weiter oben sicher aussticht. */
-.dash-header .nav-toolbar {
+/* Hauptnavigation zu den Kategorien — gleiche Optik wie im Dashboard. */
+ion-header .nav-toolbar {
   --background: var(--sp-surface);
   --border-color: var(--sp-border);
   --min-height: 44px;
@@ -426,16 +241,30 @@ ion-badge {
   }
 }
 
-/* Bereichs-Kacheln auf der Startseite: etwas ruhiger als die Themenkacheln,
-   da sie nur weiterfuehren und kein eigenes Bild haben. */
-.bereich-card {
-  height: 100%;
+/* Abschnitte innerhalb einer Kategorie (z. B. Gleisbau vs. Bauberufe). */
+.kat-gruppe + .kat-gruppe {
+  margin-top: 26px;
+}
 
-  .tile-icon ion-icon {
-    font-size: 22px;
-  }
+.gruppe-head {
+  border-top: 1px solid var(--sp-border);
+  padding-top: 18px;
+  margin-bottom: 4px;
 
-  ion-card-title {
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
     font-size: 19px;
+    margin: 0 0 6px;
+    color: var(--sp-text);
   }
+}
+
+.gruppe-note {
+  margin: 0;
+  color: var(--sp-text-muted);
+  font-size: 13.5px;
+  line-height: 1.5;
 }

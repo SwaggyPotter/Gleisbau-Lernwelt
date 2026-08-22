@@ -7,71 +7,315 @@ autor: Claude
 
 Dieser Vault ist der zentrale Wissensspeicher für das Projekt **Gleisbau Lernwelt**
 (`E:\Gleisbau-Lernwelt`). Er ist für eine KI gedacht, die schnell verstehen soll:
-was das Projekt ist, wie es aufgebaut ist, was zuletzt passiert ist, und was offen ist.
+was das Projekt ist, wie es aufgebaut ist, was zuletzt passiert ist, was offen ist
+— und wie Gwen (das lokale KI-Modell) gesteuert wird.
+
+**Stand dieser Datei: 2026-08-22.** Sie wird bei größeren Änderungen aktualisiert,
+ist aber kein Ersatz für `git log` / `git status` — bei Zweifeln immer den echten
+Code-Stand prüfen.
 
 **Empfohlene Lesereihenfolge für eine neue KI-Session:**
 
-1. [[01-Projekt/Projektüberblick]] — Was ist Gleisbau Lernwelt, für wen, welcher Tech-Stack
-2. [[02-Architektur/Frontend-Architektur]] — Aktueller Aufbau der Angular/Ionic-App
-3. [[02-Architektur/Backend-Architektur]] — Node/Express/Postgres-Backend (Status: verwaist)
-4. [[02-Architektur/Datenmodell]] — Wie Inhalte/Fragen/Fortschritt modelliert sind
-5. [[03-Module/Übersicht]] — Alle Module im Detail (Dashboard, Themenquiz, Zusatz-Tools)
-6. [[04-Lernfelder/Lernfelder-Übersicht]] — Die 14 Lernfelder, aktueller Status
-7. [[05-Update-Log/Update-Log]] — Chronologie aller wichtigen Änderungen
-8. [[07-Offene-Punkte/Offene-Punkte]] — Was als Nächstes zu klären/entscheiden ist
-9. [[06-Fragen-und-Antworten/Fragenkatalog]] — Häufige Fragen zum Projekt + Antworten
-10. [[08-Recherche-Gwen/00-Rechercheauftrag-für-Gwen]] — Rechercheauftrag mit
-    Fragenkatalog zu 15 Fachthemen, für ein lokales Modell (Gwen/Qwen via
-    LM Studio) zur Bearbeitung
-11. [[09-Fachwissen-Fragenkatalog/00-Übersicht]] — von Claude aus Gwens
-    Rechercheergebnissen aufbereiteter Frage-Antwort-Katalog (aktuell 4 von
-    15 Themen)
-12. [[10-Gesamtquiz-Pruefung/00-Anweisung-für-Gwen]] — laufende fachliche
-    Prüfung aller 427 Gesamtquiz-Fragen durch Gwen (43 Batch-Dateien à 10
-    Fragen, ein Batch pro Session)
-13. [[11-Fragen-Generierung/00-Anweisung-für-Gwen]] — Ausbau der 10
-    Gleisbau-Wissenstests: Gwen erstellt pro Thema 15–25 neue, per Websuche
-    belegte Quizfragen (ein Auftrag pro Session)
+1. **Diese Datei ganz lesen** — enthält die Kurzfassung, den aktuellen App-Stand
+   und den kompletten Gwen-Steuerungs-Abschnitt.
+2. [[05-Update-Log/Update-Log]] — Chronologie aller wichtigen Änderungen,
+   neueste zuerst. Der schnellste Weg, "was ist zuletzt passiert" zu beantworten.
+3. [[07-Offene-Punkte/Offene-Punkte]] — was als Nächstes zu klären/entscheiden ist.
+4. [[01-Projekt/Projektüberblick]] — was ist Gleisbau Lernwelt, für wen, Tech-Stack.
+5. [[02-Architektur/Frontend-Architektur]] — Aufbau der Angular/Ionic-App
+   (**teils veraltet**, siehe Warnhinweis unten).
+6. [[02-Architektur/Backend-Architektur]] — Node/Express/Postgres (Status: verwaist,
+   bewusst nicht angebunden).
+7. [[03-Module/Übersicht]] — Module im Detail.
+8. [[04-Lernfelder/Lernfelder-Übersicht]] — die 14 Lernfelder.
+9. [[14-Gwen-Code-Aufgaben/01-Nivellierlatte-Feinschliff]] ff. — Protokolle aller
+   bisherigen Gwen-Code-Aufträge (Runden 01–13), inkl. jeweiliger Fehlerbilder.
+10. [[08-Recherche-Gwen/00-Rechercheauftrag-für-Gwen]],
+    [[10-Gesamtquiz-Pruefung/00-Anweisung-für-Gwen]],
+    [[11-Fragen-Generierung/00-Anweisung-für-Gwen]] — laufende
+    Vault-Rechercheaufträge für Gwen.
 
-## Kurzfassung (falls nur 30 Sekunden Zeit sind)
+⚠️ **`02-Architektur/Frontend-Architektur.md`, `03-Module/Übersicht.md` und
+`07-Offene-Punkte/Offene-Punkte.md` sind teilweise veraltet** (letzte große
+Überarbeitung vor den Runden ab 2026-08-11). Sie beschreiben noch nicht: das
+Streckenplan-Design, die neue Navigationsleiste/Kategorie-Seiten, die drei Spiele,
+den entschlackten Dashboard. Verlass dich für den **aktuellen** Stand auf diese
+Datei + das Update-Log, nicht blind auf die Architektur-/Modul-Dateien.
 
-- **Was**: Ionic/Angular-Lern-App für Gleisbau-Auszubildende (Bahnbau, Deutschland).
-  Enthält Themenquiz, Rechentrainer (Nivellieren, Volumen, Prozentrechnung) und
-  ehemals 14 "Lernfelder" (Ausbildungsinhalte Jahr 1–3).
-- **Aktueller Zustand (Stand 2026-07-18)**: Die App wurde am 18.07.2026 stark
-  vereinfacht. Admin-Panel, Login/Nutzerverwaltung, Profil und die alten
-  Lernfeld-Detailseiten wurden **aus dem Frontend entfernt**. Die App läuft jetzt
-  rein mit statischen JSON-Dateien (`src/assets/**`) + `localStorage` für
-  Fortschritt — **kein Backend-Zugriff mehr im laufenden Frontend**.
-- **Backend existiert weiterhin** (Express + Postgres, Login, Admin, Registrierungs-Keys,
-  Nutzerverwaltung) und läuft per Docker Compose, ist aber aktuell **nicht an das
-  Frontend angebunden** ("verwaist"/geparkt).
-- **Die kompletten alten Lernfeld-Inhalte** (Texte, Quizfragen, für LF1 auch
-  Puzzle/Szenarien) wurden vor dem Löschen komplett gesichert in
-  `LERNFELDER-BACKUP.txt` (Projekt-Root, ~940 KB, reine Datensicherung).
-- Dieser Vault wird von Tim gepflegt (bzw. von einer KI in seinem Auftrag) und soll
-  auch von einem lokal über LM Studio laufenden Modell (Codename **Gwen**, z. B.
-  Qwen) gelesen und bearbeitet werden können, um beim Projekt zu helfen —
-  konkret: fachliche/rechtliche Recherche zu Gleisbau-Themen, siehe
-  [[08-Recherche-Gwen/00-Rechercheauftrag-für-Gwen]].
+## Kurzfassung (falls nur 60 Sekunden Zeit sind)
+
+- **Was**: Ionic/Angular-Lern-App für Gleisbau-Auszubildende (Bahnbau,
+  Deutschland). Themenquiz, Rechentrainer (Nivellieren/Volumen/Prozentrechnung),
+  Gesamtquiz, 14 Lernfelder (LF01-09 Bauberufe + LF10-14 Gleisbau) und seit
+  2026-08-17 drei interaktive **Spiele**.
+- **Kein Backend im laufenden Betrieb**: rein statische App (`src/assets/**/*.json`
+  + `localStorage`). Das Express/Postgres-Backend (`backend/`) existiert, ist
+  aber bewusst (Tim-Entscheidung 2026-08-11) nicht angebunden.
+- **Navigation** (seit 2026-08-17): Kopfzeile mit Start / Wissenstests /
+  Lernfelder / Rechentrainer / Spiele, jede Kategorie eine eigene Seite
+  (`/kategorie/:id`, eine Komponente `modules/kategorie/`). Kachel-Daten dafür
+  zentral in `src/app/shared/katalog.ts` (`WISSENSTEST_TILES`,
+  `GLEISBAU_LERNFELD_TILES`, `BAUBERUFE_TILES`, `RECHENTRAINER_TILES`,
+  `SPIELE_TILES`, `SELBSTSTUDIUM_TILES`).
+- **Dashboard** (`/dashboard`) zeigt nur noch 4 Bereichs-Kacheln + eine
+  bereichsübergreifende Suche — **keine** Einzelthemen-Liste mehr.
+  **Selbststudium ist aktuell nirgends verlinkt** (Daten in `SELBSTSTUDIUM_TILES`
+  bleiben erhalten, Tim: "Das machen wir später" — nicht von selbst reaktivieren).
+- **Design**: eigenes "Streckenplan"-System (Blaupausen-Optik), CSS Custom
+  Properties `--sp-*`/`--font-*` in `src/theme/variables.scss`, Fonts Oswald/
+  Barlow/JetBrains Mono selbst gehostet als woff2. Neue Module binden sich
+  darüber ein (`:host { ... var(--sp-bg) ... }`), nicht über globale Ionic-Farben
+  (das hat schon zweimal andere Seiten heimlich kaputt gemacht, siehe Lehren
+  unten).
+- **Die vier Spiele** (alle unter `/kategorie/spiele`):
+  1. **Nivellierlatte ablesen** — Zielhöhe ablesen + Entfernungsmessung per
+     Distanzstrichen, mit Zielfernrohr-Optik.
+  2. **Schienenkopf-Verschleissmesser** — Simulation eines echten Messgeräts,
+     seit 2026-08-19 eine 1:1 aus einer Referenz-HTML übernommene Version mit
+     echter Zieh-Interaktion und Hebel-Kinematik (siehe Update-Log).
+  3. **Schienen erkennen** — 3 Modi: Form/Kategorie erkennen (alle 7 Formen
+     im direkten Vergleich), Profil anhand Maßen erraten, Maße selbst
+     eintragen. ~50 Schienenprofile in `src/app/shared/schienenprofile.ts`.
+  4. **Quiz-Duell** (`/zusatz/quizduell`, seit 2026-08-20, zweimal
+     umgebaut am 2026-08-22 — zuletzt nach Tims eigenem Referenz-Prototyp) —
+     6 Runden à 3 Fragen, Kategorie pro Runde abwechselnd aus 3 Optionen
+     wählen, 20 Sekunden Zeitlimit pro Frage. **Gegner ist immer ein
+     simulierter Bot** (Matchmaking "sucht" kurz, fällt dann zuverlässig
+     auf einen Trainings-Bot zurück — kein Geräte-Weiterreichen mehr
+     nötig, kein Backend für echte Mitspieler vorhanden). Eigenes,
+     unabhängiges "Steel/Signal"-Design (dunkle Stahl-Palette, orange
+     Schienen-Leiste) nur für dieses Feature, bewusst nicht das
+     Streckenplan-Theme. Login-Grundgerüst weiterhin lokal
+     (localStorage): Gäste dürfen ohne Konto spielen, nur eingeloggte
+     Nutzer sehen/sammeln Statistik (Elo-Rating/Siege/Streak/
+     Trefferquote/Emoji-Errungenschaften) unter
+     `/zusatz/quizduell/statistik`. Details:
+     [[14-Gwen-Code-Aufgaben/06-Quizduell-Login]] ff.,
+     [[14-Gwen-Code-Aufgaben/13-Quizduell-Referenz-Umbau]].
+- **Datenlage-Konvention**: bei allen drei Spielen ist im Code UND in der
+  Oberfläche klar markiert, welche Zahlen belegt sind und welche nur für die
+  Zeichnung vereinfacht/geschätzt wurden. Nie erfundene Grenzwerte
+  (Verschleiß, Toleranzen) ohne echte Quelle einbauen.
+- **Aktueller Uncommitted-Stand (Stand 2026-08-22, per `git status` prüfen!)**:
+  Schienen-erkennen-Spiel, Schienenmesser-Komplettaustausch UND das
+  Quiz-Duell-Feature (inkl. Umbau auf das echte Vorbild-Prinzip am
+  2026-08-22) waren zum Zeitpunkt dieser Notiz **noch nicht committet**.
+  Vor dem Weiterarbeiten `git status` / `git log` checken, nicht davon
+  ausgehen, dass der letzte Commit den vollen Stand zeigt.
+
+## Gwen/Qwen — was es ist und wie man es steuert
+
+**Gwen** ist der Projekt-Codename für ein lokal über **LM Studio** laufendes
+Modell (**`qwen/qwen3.5-9b`**, Thinking-Modell, 6,55 GB), angesteuert über
+**Cline** (KI-Coding-Assistent). Cline läuft für Tim interaktiv als VS-Code-
+Extension — Claude Code (also die KI, die diese Datei liest) kann Cline
+zusätzlich **headless per Bash/Terminal** ansteuern, ohne dass Tim etwas in
+VS Code tippen muss. Beide Wege teilen sich dieselbe Provider-Konfiguration.
+
+### Modell laden/prüfen (immer zuerst, vor jedem Gwen-Auftrag)
+
+Das Modell entlädt sich nach einer Weile / verliert seine große Kontextlänge
+(fällt auf LM Studios Default von 4096 Token zurück). **Vor jedem Dispatch
+prüfen und ggf. neu laden:**
+
+```
+%USERPROFILE%\.lmstudio\bin\lms.exe ps
+```
+
+Falls nicht geladen oder falscher Kontext — neu laden:
+
+```
+%USERPROFILE%\.lmstudio\bin\lms.exe unload --all
+%USERPROFILE%\.lmstudio\bin\lms.exe load qwen/qwen3.5-9b --context-length 131072 --identifier qwen3.5-9b -y
+```
+
+Alternativ existiert dafür bereits ein fertiges Skript: **`tools/gwen-modell-laden.cmd`**
+(im Projekt-Root). Die exakten Werte sind wichtig: **Identifier muss
+`qwen3.5-9b` sein (nicht `qwen/qwen3.5-9b`), Kontext muss 131072 sein** — bei
+Abweichung lädt LM Studio ein zweites Modell-Slot mit nur 4096 Token nach,
+Clines System-Prompt allein braucht >5000 Token, der Server lehnt sofort mit
+Kontext-Overflow ab, und Cline hängt sich an der Fehlerantwort auf statt sauber
+zu melden (bekannter Cline-Bug bei LM-Studio-Fehlern).
+
+### Zwei Dispatch-Skripte (beide im Projekt-Repo, per Bash aufrufbar)
+
+**1. `tools/cline-cli/run-gwen-task.cjs`** — für **Vault-Recherche-Aufträge**
+(Markdown-Dateien im `Ki Datenspeicher/`-Baum). Räumt vor/nach jedem Lauf auf
+(Hub-Lock, verwaiste Prozesse), prüft danach strukturell (Frontmatter/Fragen-
+Abschnitt/Überschrift unverändert, kein Absturz-Marker, keine offensichtlichen
+Satzabbrüche), wiederholt bei technischem Fehlschlag automatisch.
+
+```
+node tools/cline-cli/run-gwen-task.cjs "<Datei relativ zu Ki Datenspeicher>" [--retries N] [--timeout Sek] [--extra "..."]
+```
+
+**2. `tools/cline-cli/run-gwen-code-task.cjs`** — für **echte Code-Änderungen**
+im Projekt (cwd = Projekt-Root). Verifikation per Vorher/Nachher-Dateisnapshot
++ `ng build`.
+
+```
+node tools/cline-cli/run-gwen-code-task.cjs --files "a.ts,a.html" --prompt-file "auftrag.txt" [--retries N] [--timeout Sek]
+```
+
+Beide Skripte sind reine **technische** Verifikation (kein Absturz, Dateien
+angefasst, Build grün) — sie prüfen **nicht** inhaltliche Richtigkeit. Das
+bleibt Aufgabe der KI, die den Auftrag gegeben hat.
+
+### ⚠️ Wichtigster Fallstrick: "Build erfolgreich" beweist bei neuen Modulen nichts
+
+Ist Gwen zweimal genau so passiert (Kategorie-Menüs-Runde und Schienen-
+erkennen-Runde, siehe [[14-Gwen-Code-Aufgaben/02-Kategorie-Menues]] und
+[[14-Gwen-Code-Aufgaben/05-Schienen-erkennen]]): Wenn ein Auftrag ein **neues**
+Angular-Modul anlegt, das noch nirgends importiert ist (fehlender Eintrag in
+`app-routing.module.ts` oder `katalog.ts`), meldet `ng build` trotzdem Erfolg —
+Angular kompiliert ein nie referenziertes Lazy-Modul schlicht gar nicht erst.
+Gwen hatte beide Male nur einen Teil der beauftragten Dateien tatsächlich
+angelegt (einmal sogar eine HTML-Datei auf 26 Byte abgeschnitten), und der
+grüne Build hat das verschleiert.
+
+**Regel: Nach jedem Gwen-Auftrag, der ein neues Modul/neue Dateien anlegt,
+zusätzlich zum Build direkt per `find`/`ls`/`grep` prüfen:**
+1. Existieren alle beauftragten Dateien und sind sie nicht verdächtig klein?
+2. Ist der Routing-Eintrag in `app-routing.module.ts` wirklich da?
+3. Ist der Katalog-Eintrag in `katalog.ts` wirklich da?
+4. Erscheint im Build-Output tatsächlich ein eigener Chunk für das neue Modul
+   (`modules-zusatz-xyz-xyz-module | N kB`) — das ist der verlässliche Beweis,
+   dass es wirklich kompiliert wurde, nicht nur der Exit-Code.
+
+### ⚠️ Zweiter Fallstrick: Gwens `editor`-Tool kann eine Datei bei BOM-/Encoding-Problemen leerräumen statt sie unverändert zu lassen
+
+Neu beobachtet in der Quiz-Duell-Runde (2026-08-20, siehe
+[[14-Gwen-Code-Aufgaben/08-Quizduell-Statistik]]): Wenn eine Zieldatei bereits
+existiert (z. B. Claudes Platzhalter aus einer Phase-0-Vorbereitung) und einen
+BOM oder eine andere Encoding-Eigenheit hat, kann Gwens diff-basiertes
+`editor`-Tool wiederholt am exakten Alt-Text scheitern. Gwen weicht dann auf
+PowerShell-Here-Strings aus, scheitert dort oft an HTML-Sonderzeichen
+(`<`, `"`), und am Ende kann die Zieldatei **leer oder komplett gelöscht**
+sein — nicht nur unverändert (NO_CHANGE). Das ist gefährlicher, weil es
+echten Inhalt vernichtet statt nur nichts zu tun.
+
+**Regel: Nach jedem Gwen-Auftrag nicht nur bauen, sondern auch pruefen, dass
+jede betroffene Datei noch eine plausible Groesse hat (nicht 0 Byte, nicht
+verschwunden)** — zusaetzlich zu den Pruefpunkten oben. Bei zwei
+Fehlschlägen in Folge mit fortschreitender Datei-Zerstörung: nicht einen
+dritten Versuch riskieren, sondern direkt selbst schreiben.
+
+### ⚠️ Dritter Fallstrick: bei grossen, repetitiven Vorlagen kann Gwen Wiederholungen still durch `<br>` ersetzen
+
+Neu beobachtet beim Quiz-Duell-Umbau (2026-08-22, siehe
+[[14-Gwen-Code-Aufgaben/10-Quizduell-Umbau-Duell-Seite]]): bei einer großen
+HTML-Vorlage mit vielen fast identischen `(click)="fn()">Label</button>`-
+Zeilen hat Gwen an mehreren Stellen den Rest der Zeile durch ein
+wörtliches `<br>` ersetzt, statt treu zu kopieren — vermutlich eine
+Degenerations-/Abkürzungs-Neigung bei stark repetitivem Text. Der Build
+schlug dadurch laut fehl (kein stiller Fehler wie bei den anderen beiden
+Fallstricken), aber die Verifikationszeit war auffällig kurz (72s statt
+der 180–250s vergleichbar großer erfolgreicher Runden).
+
+**Regel: Bei ungewöhnlich kurzer Laufzeit für die Dateigröße immer den
+Inhalt gegen die Vorgabe diffen, nicht nur auf den Build-Erfolg
+verlassen.** Bei sehr großen/repetitiven Templates ist ein Fehlschlag
+wahrscheinlicher — ggf. in kleinere Auftraege (einzelne Zustaende/
+Abschnitte statt einer kompletten Seite) aufteilen, wenn es wieder
+vorkommt.
+
+### ⚠️ Vierter und fünfter Fallstrick: fehlendes Anführungszeichen bei eng am `>` stehenden Attributen; ausgelassene Zweitdatei trotz `SUCCESS_BUILD_OK`
+
+Beide neu beobachtet beim Quiz-Duell-Referenz-Umbau (2026-08-22, siehe
+[[14-Gwen-Code-Aufgaben/13-Quizduell-Referenz-Umbau]]):
+
+- **Fehlendes Anführungszeichen**: bei Attributwerten ohne Leerraum vor dem
+  schließenden `>` (z. B. `[translucent]="true">`, `#f="ngForm">`) kann
+  Gwen das erste `"` verlieren (`[translucent]=true">`). Kleiner, lokal
+  begrenzter Fehler, meist mit 1-2 gezielten Edits reparierbar statt
+  Neuschreiben.
+- **Ausgelassene Zweitdatei**: bei einem Auftrag mit zwei Dateien kann Gwen
+  eine davon (meist die zweite) komplett unangetastet lassen. Wenn die
+  alte Datei zufällig noch syntaktisch gültig ist (z. B. altes, aber
+  gültiges SCSS mit falschen Variablennamen), meldet das Skript trotzdem
+  `SUCCESS_BUILD_OK`, weil der Build nicht merkt, dass der INHALT nicht
+  aktualisiert wurde.
+
+**Regel: Bei jedem Mehrdatei-Auftrag im Skript-Log explizit prüfen, dass
+ALLE genannten Dateien unter "Veraenderte Dateien" auftauchen** — nicht nur
+den Gesamtstatus werten. Bei nur teilweise geänderten Dateien: die
+übersprungene(n) Datei(en) selbst nachtragen.
+
+### Gwens dokumentierte Unzuverlässigkeit (Kurzfassung)
+
+- Bei offener Web-Recherche: erfundene Normen/Quellen kommen vor (mehrfach
+  belegt, z. B. "RBT 9000"), Format-Regeln ("nur ergänzen, nie löschen") werden
+  trotz wiederholter expliziter Anweisung gelegentlich verletzt, Antworten
+  brechen manchmal mitten im Satz ab. Ergebnisse **immer** gegenprüfen, nie
+  blind übernehmen. Volles Protokoll mit allen Einzelfällen: `[[08-Recherche-Gwen/Kickoff-Prompt]]`
+  und die Memory-Datei `gwen_recherche_workflow` (siehe unten, "Wo die
+  Kollaborations-Historie liegt").
+- Bei Code-Aufträgen: deutlich zuverlässiger, wenn der Auftrag **präzise**
+  spezifiziert ist (exakte Werte/vollständiger Dateiinhalt statt nur ein
+  Konzept) — siehe nächster Abschnitt. Bei mehreren Dateien/Schritten in einem
+  Auftrag: eher unvollständig (Dateien werden ausgelassen) als inhaltlich
+  falsch.
+
+## Wo Aufträge/Anweisungen für Gwen abgelegt werden
+
+**Vault-Rechercheaufträge** (Markdown, Gwen bearbeitet sie direkt im Vault):
+- `08-Recherche-Gwen/` — Fachrecherche zu 15 Gleisbau-Themen.
+- `10-Gesamtquiz-Pruefung/` — Prüfung aller 427 Gesamtquiz-Fragen (43 Batches).
+- `11-Fragen-Generierung/` — neue Quizfragen pro Wissenstest-Thema.
+
+Jeder dieser drei Ordner hat eine `Chat-Prompt.md` bzw. `Kickoff-Prompt.md`,
+die **pro Session vollständig** in den Gwen-Chat eingefügt wird (Gwen liest
+verlinkte Regeln nicht zuverlässig nach — der Prompt muss in sich vollständig
+sein). Fortschritt jeweils über `status:`-Frontmatter-Feld pro Datei (nicht
+blind vertrauen, siehe oben) bzw. eine separate `Fortschritt.md`.
+
+**Code-Aufträge** (kein Vault-Text, sondern Klartext-Dateien mit vollständigem,
+wörtlichem Ziel-Dateiinhalt):
+- `tools/cline-cli/_auftrag-*.txt` — je ein Auftrag, enthält meist den
+  **kompletten Code** für jede zu ändernde/neue Datei (nicht nur ein Konzept).
+  Grund: bei offenen/konzeptionellen Aufträgen ist Gwens Fehlerquote spürbar
+  höher, siehe oben. Diese Dateien sind Wegwerf-Artefakte (bleiben aus
+  Nachvollziehbarkeit liegen, werden aber nicht gepflegt).
+- **Protokoll jeder Runde** (was beauftragt wurde, was Gwen davon geschafft
+  hat, was Claude nachbessern musste, Verifikationsergebnis):
+  `Ki Datenspeicher/14-Gwen-Code-Aufgaben/01` bis `05` (Stand 2026-08-20).
+  Neue Runden hier fortlaufend nummeriert ergänzen.
+
+## Wo die Kollaborations-Historie liegt (Claude Code Memory, nicht Teil des Vaults)
+
+Zusätzlich zu diesem Vault (der projektinhaltliches Wissen speichert) hat
+Claude Code ein **eigenes, vaultunabhängiges Erinnerungssystem** unter
+`C:\Users\timsp\.claude\projects\e--Gleisbau-Lernwelt\memory\` (Index:
+`MEMORY.md`). Das wird bei jeder neuen Claude-Code-Session automatisch geladen
+— in der Regel muss man hier nichts manuell nachschlagen. Falls doch (z. B.
+Gwen/ein anderes Tool braucht die Info, oder die Auto-Ladung fehlt aus
+irgendeinem Grund), liegen dort u. a.:
+- `cline_cli_setup.md` — technisches Cline-CLI-Setup, alle bisher gefundenen
+  Infrastruktur-Bugs (IPv6-Hang, Kontext-Mismatch, Hub-Lock, Windows-Quoting,
+  EBUSY) mit Fixes.
+- `gwen_recherche_workflow.md` — volle Chronik von Gwens Recherche-
+  Zuverlässigkeitsproblemen über mehrere Monate.
+- `obsidian_vault_wissensspeicher.md` — kurze Struktur-/Konventions-Notiz zu
+  diesem Vault (diese Datei hier ist die ausführlichere, aktuellere Version).
+- `feedback_cline_debugging_approach.md` — von Tim bestätigter Arbeitsstil.
+- `projekt_grosses_ziel_2026-08-11.md` — sehr ausführliche Chronik der
+  App-Ausbau-Runden vom 2026-08-11 (Quellen-Feld, Bilder, Design-System-
+  Einführung u. v. m.).
+
+Das Vault (diese Datei + Update-Log) ist die **primäre** Quelle für "was ist
+der aktuelle Projekt-/Code-Stand" — das Memory-System ist eher die **erzählte
+Historie**, wie man mit Tim zusammenarbeitet und welche Infrastruktur-Fallen
+schon bekannt sind.
 
 ## Autor-Kennzeichnung: Claude vs. Gwen
 
-Damit im Vault immer erkennbar ist, wer welche Information geschrieben hat:
-
-- Jede Datei trägt im Frontmatter ein Feld `autor: Claude` oder `autor: Gwen`.
-- Innerhalb gemeinsam genutzter Dateien (z. B. der Recherche-Dateien in
-  [[08-Recherche-Gwen/00-Rechercheauftrag-für-Gwen]]) markiert Gwen eigene
-  Beiträge zusätzlich mit einem `> [!gwen]`-Callout inklusive Datum und Quelle.
-- **Regel: Gwen ergänzt nur, verändert oder löscht keine bestehenden Inhalte.**
-  Details dazu stehen im Rechercheauftrag selbst.
-
-Wenn du als KI diesen Vault liest: Inhalte mit `autor: Claude` bzw. ohne
-`[!gwen]`-Callout wurden analytisch aus dem Code/Git-Verlauf abgeleitet und
-sind entsprechend verlässlich in Bezug auf den Code-Stand. Inhalte mit
-`autor: Gwen` bzw. in `[!gwen]`-Callouts stammen aus Web-Recherche und sind
-mit der jeweils angegebenen Quelle zu verifizieren, besonders bei
-Gesetzes-/Normangaben.
+- Jede Datei trägt im Frontmatter `autor: Claude` oder `autor: Gwen`.
+- Innerhalb gemeinsam genutzter Dateien (z. B. `08-Recherche-Gwen/`) markiert
+  Gwen eigene Beiträge zusätzlich mit `> [!gwen]`-Callouts (Datum + Quelle
+  Pflicht).
+- **Regel: Gwen ergänzt nur, verändert oder löscht keine bestehenden Inhalte**
+  (wird trotzdem gelegentlich verletzt, siehe oben — im Zweifel `git diff`
+  gegen den letzten Commit prüfen, was Gwen tatsächlich verändert hat).
 
 ## Struktur dieses Vaults
 
@@ -80,49 +324,52 @@ Ki Datenspeicher/
 ├── 00-Start-Hier.md              ← diese Datei
 ├── 01-Projekt/
 │   └── Projektüberblick.md
-├── 02-Architektur/
+├── 02-Architektur/                (teils veraltet, siehe Warnhinweis oben)
 │   ├── Frontend-Architektur.md
 │   ├── Backend-Architektur.md
 │   └── Datenmodell.md
-├── 03-Module/
-│   ├── Übersicht.md
-│   ├── Dashboard.md
-│   ├── Themenquiz.md
-│   ├── Zusatz-Nivellieren.md
-│   ├── Zusatz-Prozentrechnung.md
-│   ├── Zusatz-Volumen.md
-│   └── Zusatz-Gesamtquiz.md
+├── 03-Module/                     (teils veraltet)
+│   └── Übersicht.md + Einzeldateien
 ├── 04-Lernfelder/
 │   └── Lernfelder-Übersicht.md
 ├── 05-Update-Log/
-│   └── Update-Log.md
+│   └── Update-Log.md              ← aktuellster Überblick, zuerst lesen
 ├── 06-Fragen-und-Antworten/
 │   └── Fragenkatalog.md
 ├── 07-Offene-Punkte/
 │   └── Offene-Punkte.md
-├── 08-Recherche-Gwen/
-│   ├── 00-Rechercheauftrag-für-Gwen.md
-│   ├── Kickoff-Prompt.md
-│   └── 01…15  (je eine Recherche-Datei pro Fachthema)
-├── 09-Fachwissen-Fragenkatalog/
-│   ├── 00-Übersicht.md
-│   └── je eine Datei pro fertig recherchiertem Thema (von Claude aufbereitet)
-├── 10-Gesamtquiz-Pruefung/
-│   ├── 00-Anweisung-für-Gwen.md
-│   ├── Chat-Prompt.md      ← pro Session in den Gwen-Chat einfügen
-│   ├── Fortschritt.md      ← Abhak-Liste (nur Tim/Claude)
-│   └── Batch-01…43.md      ← je 10 Gesamtquiz-Fragen zur Prüfung
-└── 11-Fragen-Generierung/
-    ├── 00-Anweisung-für-Gwen.md
-    ├── Chat-Prompt.md      ← pro Session einfügen (AUFTRAG ersetzen)
-    └── Auftrag-<thema>.md  ← je Wissenstest-Thema ein Fragen-Auftrag
+├── 08-Recherche-Gwen/             ← Vault-Rechercheauftrag (15 Fachthemen)
+├── 09-Fachwissen-Fragenkatalog/   ← von Claude aus Gwens Funden aufbereitet
+├── 10-Gesamtquiz-Pruefung/        ← Prüfung aller 427 Gesamtquiz-Fragen
+├── 11-Fragen-Generierung/         ← neue Quizfragen je Wissenstest-Thema
+├── 12-Bildmaterial/               ← Bildkandidaten-Recherche (Wikimedia)
+├── 13-CLI-Testbereich/            ← Cline-CLI-Testdateien/-ergebnisse
+└── 14-Gwen-Code-Aufgaben/         ← Protokoll jeder Code-Delegation an Gwen
+    ├── 01-Nivellierlatte-Feinschliff.md
+    ├── 02-Kategorie-Menues.md
+    ├── 03-Startseite-nur-Quiz.md
+    ├── 04-Schienenkopf-Verschleissmesser.md
+    ├── 05-Schienen-erkennen.md
+    ├── 06-Quizduell-Login.md
+    ├── 07-Quizduell-Duell-Seite.md
+    ├── 08-Quizduell-Statistik.md
+    ├── 09-Quizduell-Frage-Komponente.md
+    ├── 10-Quizduell-Umbau-Duell-Seite.md
+    ├── 11-Quizduell-Umbau-Statistik-Seite.md
+    ├── 12-Quizduell-Umbau-Frage-Komponente.md
+    └── 13-Quizduell-Referenz-Umbau.md
 ```
 
 ## Pflegehinweis
 
-Wenn du (KI) an diesem Projekt arbeitest und etwas Wesentliches änderst, ergänze
-bitte einen neuen Eintrag in [[05-Update-Log/Update-Log]] (oben anfügen, neueste
-zuerst) und aktualisiere die betroffene Modul-/Architektur-Datei. Halte Einträge
-kurz und faktenorientiert (was geändert, warum, Datum). Keine Duplizierung von
-Informationen, die sich aus dem Code selbst ergeben — nur Kontext, Entscheidungen
-und Status, die man aus dem Code allein nicht sieht.
+Wenn du (KI) an diesem Projekt arbeitest und etwas Wesentliches änderst:
+1. Neuen Eintrag in [[05-Update-Log/Update-Log]] ergänzen (oben anfügen,
+   neueste zuerst).
+2. Bei Code-Delegation an Gwen: neue nummerierte Datei in
+   `14-Gwen-Code-Aufgaben/` mit Auftrag, Gwen-Protokoll (was hat gefehlt/
+   gestimmt), Verifikation.
+3. Diese Datei aktualisieren, wenn sich Navigation/Struktur/Design grundlegend
+   ändert (nicht bei jeder Kleinigkeit — dafür reicht das Update-Log).
+4. Keine Duplizierung von Informationen, die sich aus dem Code selbst ergeben
+   — nur Kontext, Entscheidungen und Status, die man aus dem Code allein nicht
+   sieht.

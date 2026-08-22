@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Quiz-Duell — Anmelden</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/zusatz/quizduell/duell" fill="clear">
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+        <span class="toolbar-action-label">Zum Duell</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="app-shell">
+    <div class="frame">
+      <div class="frame-rail"></div>
+      <div class="body-pad">
+
+        <ng-container *ngIf="isLoggedIn; else loginForm">
+          <p class="eyebrow">Konto</p>
+          <h1 class="screen-title">Angemeldet als {{ currentDisplayName }}</h1>
+          <p class="screen-sub">Deine Statistik wird jetzt gespeichert. Du kannst dich hier wieder abmelden.</p>
+          <button type="button" class="btn btn-ghost" (click)="logout()">Abmelden</button>
+        </ng-container>
+
+        <ng-template #loginForm>
+          <p class="eyebrow">Konto</p>
+          <h1 class="screen-title">{{ mode === 'login' ? 'Anmelden' : 'Registrieren' }}</h1>
+          <p class="screen-sub">
+            Ohne Konto kannst du trotzdem jederzeit als Gast ein Quiz-Duell spielen — nur deine
+            Statistik (Rating, Serie, Erfolge) wird dann nicht gespeichert.
+          </p>
+
+          <div class="mode-tabs">
+            <button type="button" [class.on]="mode === 'login'" (click)="setMode('login')">Anmelden</button>
+            <button type="button" [class.on]="mode === 'register'" (click)="setMode('register')">Registrieren</button>
+          </div>
+
+          <form (ngSubmit)="submit()" #f="ngForm">
+            <label class="field-label">E-Mail</label>
+            <input type="email" name="email" [(ngModel)]="email" required autocomplete="email" />
+
+            <ng-container *ngIf="mode === 'register'">
+              <label class="field-label">Anzeigename</label>
+              <input type="text" name="displayName" [(ngModel)]="displayName" required autocomplete="name" />
+            </ng-container>
+
+            <label class="field-label">Passwort</label>
+            <input type="password" name="password" [(ngModel)]="password" required autocomplete="current-password" minlength="8" />
+
+            <p class="form-error" *ngIf="error">{{ error }}</p>
+
+            <button type="submit" class="btn btn-primary" [disabled]="busy || f.invalid">
+              {{ busy ? 'Bitte warten…' : (mode === 'login' ? 'Anmelden' : 'Konto erstellen') }}
+            </button>
+          </form>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,384 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts (NgModule-basiert, standalone: false). Es gibt bereits eine fertige Datei src/app/modules/zusatz/quizduell/pages/duell/duell.page.ts (NICHT anfassen, nur als Kontext -- die Bindings in der HTML muessen zu deren Feldern/Methoden passen: state ('setup'|'match'), topics, spieler1Name, spieler2Name, setupError, ladeVorgang, istEingeloggt, match (QuizduellMatch|null, Felder: aktuelleRundeIndex, spielerNamen[0/1], phase, amZugSpielerIndex), aktuelleKategorieOptionen (Array mit .title/.description), aktuelleRunde, aktuelleFrage, antwortendeSpielerIndex, antwortenderSpielerName, waehlerName, naechsterSpielerName, zwischenstand ([number,number]), aktuelleFrageIndexInRunde, gewaehlterIndex, beantwortet, matchAuswertung (Felder: richtigProSpieler[0/1], gewinnerIndex), rundenGesamt, fragenProRunde, starteMatch(), waehleKategorie(topic), onAntwort($event), weiterZuSpieler2(), weiterZurNaechstenRunde(), nochEinMatch(). Es gibt ausserdem eine bereits fertige Kind-Komponente app-duell-frage mit Inputs [frage] [spielerName] [fragenNummer] [fragenGesamt] [gewaehlterIndex] [beantwortet] und Output (antwortGewaehlt) -- NICHT die Kind-Komponente selbst anfassen, nur wie unten verwenden.
+
+Ersetze GENAU diese zwei Dateien mit EXAKT diesem Inhalt (nichts umformulieren, nichts kuerzen, nichts ergaenzen, bestehenden Platzhalterinhalt komplett ersetzen):
+
+=== DATEI 1: src/app/modules/zusatz/quizduell/pages/duell/duell.page.html ===
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Quiz-Duell</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/zusatz/quizduell/statistik" fill="clear" *ngIf="istEingeloggt">
+        <ion-icon slot="start" name="trophy-outline"></ion-icon>
+        <span class="toolbar-action-label">Statistik</span>
+      </ion-button>
+      <ion-button routerLink="/zusatz/quizduell/login" fill="clear" *ngIf="!istEingeloggt">
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        <span class="toolbar-action-label">Anmelden</span>
+      </ion-button>
+      <ion-button routerLink="/kategorie/spiele" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Spiele</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="duell-content">
+  <div class="page-shell">
+
+    <ng-container *ngIf="state === 'setup'">
+      <section class="hero">
+        <p class="eyebrow">Spiel</p>
+        <h1>Quiz-Duell</h1>
+        <p class="lede">
+          6 Runden, je 3 Fragen. Abwechselnd waehlt ein Spieler die Kategorie aus drei Vorschlaegen,
+          danach beantworten beide dieselben Fragen — 20 Sekunden pro Frage. Wer am Ende insgesamt
+          mehr richtig hat, gewinnt.
+        </p>
+        <p class="guest-hint" *ngIf="!istEingeloggt">
+          Du spielst als Gast. <a routerLink="/zusatz/quizduell/login">Melde dich an</a>, um Rating,
+          Serie und Erfolge dauerhaft zu speichern.
+        </p>
+      </section>
+
+      <section class="panel">
+        <label class="field">
+          <span>Spieler 1</span>
+          <input type="text" [(ngModel)]="spieler1Name" placeholder="Name Spieler 1" />
+        </label>
+        <label class="field">
+          <span>Spieler 2</span>
+          <input type="text" [(ngModel)]="spieler2Name" placeholder="Name Spieler 2" />
+        </label>
+        <p class="form-error" *ngIf="setupError">{{ setupError }}</p>
+        <button type="button" class="btn-primary" (click)="starteMatch()">Duell starten</button>
+      </section>
+    </ng-container>
+
+    <ng-container *ngIf="state === 'match' && match as m">
+      <section class="hero">
+        <p class="eyebrow">Runde {{ m.aktuelleRundeIndex + 1 }} / {{ rundenGesamt }}</p>
+        <h1>{{ m.spielerNamen[0] }} vs. {{ m.spielerNamen[1] }}</h1>
+        <p class="zwischenstand" *ngIf="m.phase !== 'abgeschlossen'">
+          Zwischenstand: {{ zwischenstand[0] }} : {{ zwischenstand[1] }}
+        </p>
+      </section>
+
+      <section class="panel kategorie-wahl" *ngIf="m.phase === 'kategorie'">
+        <p class="eyebrow">{{ waehlerName }} ist dran</p>
+        <h2>Kategorie waehlen</h2>
+        <div class="kategorie-optionen">
+          <button
+            type="button"
+            class="kategorie-karte"
+            *ngFor="let topic of aktuelleKategorieOptionen"
+            [disabled]="ladeVorgang"
+            (click)="waehleKategorie(topic)"
+          >
+            <span class="kategorie-titel">{{ topic.title }}</span>
+            <span class="kategorie-beschreibung">{{ topic.description }}</span>
+          </button>
+        </div>
+        <p class="lade-hinweis" *ngIf="ladeVorgang">Fragen werden geladen…</p>
+      </section>
+
+      <section class="panel" *ngIf="m.phase === 'fragen' && aktuelleFrage as frage">
+        <app-duell-frage
+          [frage]="frage"
+          [spielerName]="antwortenderSpielerName"
+          [fragenNummer]="aktuelleFrageIndexInRunde + 1"
+          [fragenGesamt]="fragenProRunde"
+          [gewaehlterIndex]="gewaehlterIndex"
+          [beantwortet]="beantwortet"
+          (antwortGewaehlt)="onAntwort($event)"
+        ></app-duell-frage>
+      </section>
+
+      <section class="panel handoff" *ngIf="m.phase === 'uebergabe-spieler'">
+        <p class="eyebrow">Gerät weitergeben</p>
+        <h2>Jetzt ist {{ naechsterSpielerName }} dran</h2>
+        <p class="lede">Gleiche Kategorie, gleiche drei Fragen — Gerät weitergeben, dann weiter.</p>
+        <button type="button" class="btn-primary" (click)="weiterZuSpieler2()">Weiter</button>
+      </section>
+
+      <section class="panel handoff" *ngIf="m.phase === 'uebergabe-runde'">
+        <p class="eyebrow">Runde {{ m.aktuelleRundeIndex + 1 }} abgeschlossen</p>
+        <h2>Zwischenstand: {{ zwischenstand[0] }} : {{ zwischenstand[1] }}</h2>
+        <p class="lede">Weiter zu Runde {{ m.aktuelleRundeIndex + 2 }} von {{ rundenGesamt }}.</p>
+        <button type="button" class="btn-primary" (click)="weiterZurNaechstenRunde()">Nächste Runde</button>
+      </section>
+
+      <section class="panel ergebnis" *ngIf="m.phase === 'abgeschlossen' && matchAuswertung as auswertung">
+        <p class="eyebrow">Ergebnis</p>
+        <h2>Duell beendet</h2>
+
+        <div class="ergebnis-row" *ngFor="let name of m.spielerNamen; let i = index" [class.gewonnen]="auswertung.gewinnerIndex === i">
+          <span class="name">{{ name }}</span>
+          <span class="score">{{ auswertung.richtigProSpieler[i] }} / {{ rundenGesamt * fragenProRunde }}</span>
+          <span class="badge" *ngIf="auswertung.gewinnerIndex === i">Sieger</span>
+        </div>
+        <p class="unentschieden" *ngIf="auswertung.gewinnerIndex === null">Unentschieden!</p>
+
+        <p class="save-hint">
+          <ng-container *ngIf="istEingeloggt">Statistik &amp; Rating aktualisiert.</ng-container>
+          <ng-container *ngIf="!istEingeloggt">Als Gast gespielt — Ergebnis wird nicht dauerhaft gespeichert.</ng-container>
+        </p>
+
+        <button type="button" class="btn-primary" (click)="nochEinMatch()">Noch ein Duell</button>
+      </section>
+    </ng-container>
+
+  </div>
+</ion-content>
+
+=== DATEI 2: src/app/modules/zusatz/quizduell/pages/duell/duell.page.scss ===
+:host {
+  font-family: var(--font-body);
+  color: var(--sp-text);
+}
+
+ion-header ion-toolbar {
+  --background: var(--sp-surface);
+  --color: var(--sp-text);
+  --border-color: var(--sp-border);
+}
+
+ion-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.toolbar-action-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.duell-content {
+  --background: var(--sp-bg);
+  padding: 20px clamp(16px, 4vw, 40px) 48px;
+  background-image:
+    linear-gradient(var(--sp-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sp-border) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.page-shell {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.hero {
+  margin-bottom: 22px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  color: var(--sp-accent);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+  font-size: clamp(22px, 4vw, 30px);
+  color: var(--sp-text);
+}
+
+.lede {
+  color: var(--sp-text-muted);
+  margin: 0 0 16px;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 70ch;
+}
+
+.guest-hint {
+  font-size: 13px;
+  color: var(--sp-text-muted);
+}
+
+.guest-hint a {
+  color: var(--sp-accent-2);
+}
+
+.zwischenstand {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--sp-text-muted);
+  margin: 0;
+}
+
+.panel {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.panel h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--sp-text);
+  margin: 0;
+  font-size: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sp-text-muted);
+}
+
+.field input {
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--sp-border);
+  background: var(--sp-surface-2);
+  color: var(--sp-text);
+}
+
+.form-error {
+  color: var(--sp-danger);
+  font-size: 13px;
+  margin: 0;
+}
+
+.btn-primary {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 12px 18px;
+  border-radius: 4px;
+  border: 1px solid var(--sp-accent);
+  background: var(--sp-accent);
+  color: var(--sp-bg);
+  cursor: pointer;
+  transition: opacity 0.12s ease;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.kategorie-optionen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.kategorie-karte {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 4px;
+  border: 1px solid var(--sp-border);
+  background: var(--sp-surface-2);
+  color: var(--sp-text);
+  cursor: pointer;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+
+.kategorie-karte:hover:not(:disabled) {
+  border-color: var(--sp-accent);
+}
+
+.kategorie-karte:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.kategorie-titel {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.kategorie-beschreibung {
+  font-size: 12px;
+  color: var(--sp-text-muted);
+  line-height: 1.4;
+}
+
+.lade-hinweis {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--sp-text-muted);
+  margin: 0;
+}
+
+.ergebnis-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--sp-border);
+  background: var(--sp-surface-2);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.ergebnis-row.gewonnen {
+  border-color: var(--sp-accent);
+}
+
+.ergebnis-row .name {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--sp-text);
+}
+
+.ergebnis-row .score {
+  color: var(--sp-text-muted);
+}
+
+.ergebnis-row .badge {
+  background: var(--sp-accent);
+  color: var(--sp-bg);
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.unentschieden {
+  color: var(--sp-warn);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.save-hint {
+  color: var(--sp-text-muted);
+  font-size: 12px;
+  margin: 0;
+}
+
+WICHTIG: Schreibe beide Dateien exakt wie oben angegeben, mit allen Zeilenumbruechen. Melde am Ende kurz, welche Dateien du geschrieben hast.

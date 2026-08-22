@@ -1,6 +1,27 @@
+/*
+ * Eigenstaendige Farb-/Typo-Palette dieses Geraets (an :host gebunden, nicht
+ * an :root) — bewusst NICHT auf die App-weiten --sp-*-Tokens umgestellt,
+ * weil die Vorlage 1:1 uebernommen wurde. :host statt :root, weil Angular
+ * :root innerhalb eines gekapselten Komponenten-Stylesheets nicht sicher
+ * matched.
+ */
 :host {
-  font-family: var(--font-body);
-  color: var(--sp-text);
+  --bg: #0e151d;
+  --panel: #16202b;
+  --panel-2: #1c2836;
+  --line: #2a3a4c;
+  --ink: #dde8f2;
+  --dim: #8ba1b6;
+  --dimmer: #61758a;
+  --accent: #f0872f;
+  --brass: #d9b054;
+  --ok: #46bd85;
+  --warn: #e0574b;
+  --radius: 10px;
+  --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Roboto Mono', Menlo, Consolas, monospace;
+  --sans: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+
+  font-family: var(--sans);
 }
 
 ion-header ion-toolbar {
@@ -24,314 +45,364 @@ ion-title {
 }
 
 .skm-content {
-  --background: var(--sp-bg);
-  padding: 20px clamp(16px, 4vw, 40px) 48px;
-  background-image:
-    linear-gradient(var(--sp-border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--sp-border) 1px, transparent 1px);
-  background-size: 32px 32px;
+  --background: var(--bg);
 }
 
-.page-shell {
-  max-width: 1080px;
+.shell {
+  max-width: 1360px;
   margin: 0 auto;
-}
-
-.hero {
-  margin-bottom: 22px;
-}
-
-.eyebrow,
-.panel-label {
-  font-family: var(--font-mono);
-  color: var(--sp-accent);
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  margin: 0 0 8px;
-  font-size: 12px;
-}
-
-.panel-label {
-  color: var(--sp-text-muted);
-  letter-spacing: 0.1em;
-  font-size: 11px;
-}
-
-.hero h1 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
-  margin: 0 0 10px;
-  font-size: clamp(24px, 4vw, 32px);
-  color: var(--sp-text);
-}
-
-.lede {
-  color: var(--sp-text-muted);
-  margin: 0;
+  padding: 22px 20px 60px;
+  color: var(--ink);
+  font-family: var(--sans);
   font-size: 15px;
-  line-height: 1.6;
-  max-width: 70ch;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 }
 
-.werkbank {
+/* ---------- Kopfzeile ---------- */
+.shell header h1 {
+  margin: 0 0 6px;
+  font-size: clamp(22px, 3.4vw, 34px);
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.shell header p {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--dim);
+  font-size: 14.5px;
+}
+
+/* ---------- Layout ---------- */
+.grid {
   display: grid;
-  grid-template-columns: minmax(240px, 340px) 1fr;
-  gap: 20px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 18px;
+  margin-top: 22px;
 }
 
-@media (max-width: 800px) {
-  .werkbank {
+@media (max-width: 980px) {
+  .grid {
     grid-template-columns: 1fr;
   }
 }
 
-.panel {
-  background: var(--sp-surface);
-  border: 1px solid var(--sp-border);
-  border-radius: 6px;
-  padding: 16px;
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 16px 18px;
 }
 
-.schiene-svg {
-  width: 100%;
-  height: auto;
-  max-height: 340px;
-  display: block;
-}
-
-.detail-label {
+.card + .card {
   margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px solid var(--sp-border);
 }
 
-.detail-svg {
+.card h2 {
+  margin: 0 0 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.card h2 .num {
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+.card p.hint {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--dim);
+}
+
+/* ---------- Buehne ---------- */
+.stage {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 10px 6px;
+}
+
+.stage svg {
+  display: block;
   width: 100%;
   height: auto;
-  display: block;
+  touch-action: none;
+  user-select: none;
 }
 
-.fuehler {
-  stroke: var(--sp-accent);
-  fill: var(--sp-accent);
-  opacity: 0.75;
-  transition: opacity 0.12s ease;
-}
-
-.fuehler.kontakt {
-  stroke: var(--sp-success);
-  fill: var(--sp-success);
-  opacity: 1;
-}
-
-.bedien-panel {
+.stage-bar {
   display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.block {
-  border-top: 1px solid var(--sp-border);
-  padding-top: 14px;
-}
-
-.block:first-child {
-  border-top: none;
-  padding-top: 0;
-}
-
-.block.gesperrt {
-  opacity: 0.5;
-}
-
-.hint {
-  margin: 0 0 12px;
-  color: var(--sp-text-muted);
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.setting {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 10px;
-}
-
-.setting-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--sp-text-muted);
-}
-
-.seg {
-  display: flex;
-  gap: 4px;
-
-  button {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    padding: 6px 10px;
-    border-radius: 4px;
-    border: 1px solid var(--sp-border);
-    background: var(--sp-surface-2);
-    color: var(--sp-text-muted);
-    cursor: pointer;
-    transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
-
-    &:hover {
-      color: var(--sp-text);
-    }
-
-    &.on {
-      background: var(--sp-accent);
-      border-color: var(--sp-accent);
-      color: #0f1b24;
-      font-weight: 700;
-    }
-  }
-}
-
-.status {
-  margin: 10px 0 0;
-  font-size: 13px;
-  line-height: 1.5;
-
-  &.ok {
-    color: var(--sp-success);
-  }
-
-  &.warn {
-    color: var(--sp-danger);
-  }
-}
-
-.messung {
-  margin-bottom: 16px;
-
-  input[type='range'] {
-    width: 100%;
-    accent-color: var(--sp-accent);
-    cursor: pointer;
-  }
-
-  input[type='range']:disabled {
-    cursor: not-allowed;
-  }
-}
-
-.mess-kopf {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
+  align-items: center;
+  padding: 2px 6px 10px;
+  border-bottom: 1px solid var(--line);
   margin-bottom: 6px;
 }
 
-.wert {
-  font-family: var(--font-mono);
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--sp-text-muted);
+.stage-bar .tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dimmer);
+  margin-right: auto;
 }
 
-.wert.aktiv {
-  color: var(--sp-success);
+.detail {
+  margin-top: 6px;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
 }
 
-.kontakt-hinweis {
-  margin: 4px 0 0;
-  font-family: var(--font-mono);
+.detail .cap {
+  font-family: var(--mono);
   font-size: 10.5px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--sp-text-muted);
-
-  &.on {
-    color: var(--sp-success);
-  }
+  color: var(--dimmer);
+  margin-bottom: 2px;
 }
 
-.ergebnis {
-  margin-bottom: 12px;
-}
-
-.fakten {
-  margin: 0 0 12px;
-  display: grid;
-  gap: 6px;
-
-  div {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    border-bottom: 1px dotted var(--sp-border);
-    padding-bottom: 4px;
-  }
-
-  dt {
-    color: var(--sp-text-muted);
-    font-size: 13px;
-  }
-
-  dd {
-    margin: 0;
-    font-size: 13px;
-  }
-}
-
-.mono {
-  font-family: var(--font-mono);
-  color: var(--sp-text);
-}
-
-ion-button {
-  --background: var(--sp-accent);
-  --background-hover: #ff9954;
-  --color: #0f1b24;
-  --border-radius: 4px;
-  font-family: var(--font-display);
+/* ---------- Bedienelemente ---------- */
+.shell button {
+  font: inherit;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-ion-button[fill='outline'] {
-  --background: transparent;
-  --color: var(--sp-accent);
-  --border-color: var(--sp-accent);
-}
-
-.erklaerung {
-  margin-top: 22px;
-  background: var(--sp-surface);
-  border: 1px solid var(--sp-border);
+  color: var(--ink);
+  background: var(--panel-2);
+  border: 1px solid var(--line);
   border-radius: 6px;
-  padding: 16px;
+  padding: 7px 12px;
+  cursor: pointer;
+  transition: 0.14s border-color, 0.14s background;
+}
 
-  p {
-    margin: 0 0 10px;
-    color: var(--sp-text-muted);
-    font-size: 14px;
-    line-height: 1.6;
-    max-width: 80ch;
-  }
+.shell button:hover {
+  border-color: var(--accent);
+}
 
-  p:last-child {
-    margin-bottom: 0;
+.shell button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.shell button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1a1005;
+}
+
+.shell button.primary:hover {
+  filter: brightness(1.08);
+}
+
+.shell button.ghost[aria-pressed='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btnrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* ---------- Zeilen / Anzeigen ---------- */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.row:last-of-type {
+  border-bottom: 0;
+}
+
+.row .lbl {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.row .val {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.row .val.set {
+  color: var(--brass);
+}
+
+.row .val em {
+  font-style: normal;
+  font-size: 11px;
+  color: var(--dimmer);
+  margin-left: 6px;
+}
+
+.state {
+  margin-top: 12px;
+  border-radius: 6px;
+  padding: 8px 11px;
+  font-size: 13px;
+  border: 1px solid transparent;
+}
+
+.state.ok {
+  color: var(--ok);
+  background: rgba(70, 189, 133, 0.09);
+  border-color: rgba(70, 189, 133, 0.3);
+}
+
+.state.bad {
+  color: var(--warn);
+  background: rgba(224, 87, 75, 0.09);
+  border-color: rgba(224, 87, 75, 0.3);
+}
+
+.chip {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  color: var(--dimmer);
+  white-space: nowrap;
+}
+
+.chip.live {
+  color: var(--ok);
+  border-color: rgba(70, 189, 133, 0.45);
+}
+
+/* ---------- Ergebnis ---------- */
+.result {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.result .box {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.result .box .k {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.result .box .v {
+  font-family: var(--mono);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--accent);
+}
+
+.result .box .v.muted {
+  color: var(--dimmer);
+  font-size: 20px;
+}
+
+.result .box .t {
+  font-size: 11.5px;
+  color: var(--dimmer);
+  font-family: var(--mono);
+}
+
+.result .box .t.hit {
+  color: var(--ok);
+}
+
+.result .box .t.miss {
+  color: var(--warn);
+}
+
+@media (max-width: 420px) {
+  .result {
+    grid-template-columns: 1fr;
   }
 }
 
-.quelle {
-  font-size: 12.5px !important;
-  border-top: 1px dashed var(--sp-border);
-  padding-top: 10px;
+/* ---------- Infokasten ---------- */
+.info {
+  color: var(--dim);
+  font-size: 13.5px;
 }
+
+.info b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.info hr {
+  border: 0;
+  border-top: 1px dashed var(--line);
+  margin: 12px 0;
+}
+
+.info .small {
+  font-size: 12px;
+  color: var(--dimmer);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dimmer);
+}
+
+.legend i {
+  display: inline-block;
+  width: 14px;
+  height: 4px;
+  border-radius: 2px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/*
+ * Die Griff-Cursor fuer die ziehbaren Teile werden NICHT hier gesetzt,
+ * sondern direkt als inline style="cursor:grab" im generierten SVG-Markup
+ * (schienenmesser.page.ts) — Angulars Komponenten-Kapselung stempelt das
+ * per innerHTML eingefuegte SVG nicht mit dem Scoping-Attribut, wodurch
+ * eine CSS-Regel wie "svg [data-h]{cursor:grab}" diese Elemente nie
+ * treffen wuerde.
+ */

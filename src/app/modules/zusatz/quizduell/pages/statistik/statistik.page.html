@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Quiz-Duell — Statistik</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/zusatz/quizduell/duell" fill="clear">
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+        <span class="toolbar-action-label">Zum Duell</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="statistik-content">
+  <div class="app-shell">
+    <div class="frame">
+      <div class="frame-rail"></div>
+      <div class="body-pad">
+
+        <ng-container *ngIf="istEingeloggt; else loginHint">
+          <p class="eyebrow">Statistik</p>
+          <h1 class="screen-title">{{ displayName }}</h1>
+
+          <div class="stat-grid" *ngIf="stats as s">
+            <div class="stat-card highlight">
+              <span class="stat-label">Rating</span>
+              <strong class="stat-value">{{ s.rating }}</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Duelle</span>
+              <strong class="stat-value">{{ s.matches }}</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Siege</span>
+              <strong class="stat-value">{{ s.wins }}</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Niederlagen</span>
+              <strong class="stat-value">{{ s.losses }}</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Unentschieden</span>
+              <strong class="stat-value">{{ s.draws }}</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Aktuelle Serie</span>
+              <strong class="stat-value">{{ s.currentStreak }}</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Beste Serie</span>
+              <strong class="stat-value">{{ s.longestStreak }}</strong>
+            </div>
+            <div class="stat-card" *ngIf="trefferquote !== null">
+              <span class="stat-label">Trefferquote</span>
+              <strong class="stat-value">{{ trefferquote }}%</strong>
+            </div>
+          </div>
+
+          <p class="eyebrow">Errungenschaften</p>
+          <div class="achievement-grid">
+            <div class="achievement-karte" *ngFor="let a of freigeschaltet">
+              <span class="achievement-emoji">{{ a.emoji }}</span>
+              <span class="achievement-titel">{{ a.titel }}</span>
+              <span class="achievement-beschreibung">{{ a.beschreibung }}</span>
+            </div>
+            <div class="achievement-karte gesperrt" *ngFor="let a of gesperrt">
+              <span class="achievement-emoji">🔒</span>
+              <span class="achievement-titel">{{ a.titel }}</span>
+              <span class="achievement-beschreibung">{{ a.beschreibung }}</span>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #loginHint>
+          <p class="eyebrow">Statistik</p>
+          <h1 class="screen-title">Nicht angemeldet</h1>
+          <p class="screen-sub">Melde dich an, um Rating, Serie und Erfolge zu sehen und dauerhaft zu speichern.</p>
+          <a routerLink="/zusatz/quizduell/login" [queryParams]="{ returnUrl: '/zusatz/quizduell/statistik' }" class="btn btn-primary">Anmelden</a>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</ion-content>

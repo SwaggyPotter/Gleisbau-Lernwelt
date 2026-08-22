@@ -11,6 +11,170 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+## 2026-08-22 (2) — Quiz-Duell nach Tims Referenz-Prototyp umgebaut: Bot-Gegner statt Pass-and-Play, neues Steel/Signal-Design
+
+Tim hat einen selbst (bei einer anderen Claude-Instanz) beauftragten
+HTML-Prototyp (`gleisbau-quizduell.html`) als verbindliche Vorlage
+geliefert: "genau eins zu eins nachbauen". Umgesetzt, mit zwei
+kommunizierten Abweichungen — echte Themenquiz-Fragen statt des
+unbelegten Demo-Fragenpools der Vorlage, selbst gehostete Fonts
+(Barlow/JetBrains Mono) statt neuer Google-Fonts-Links fuer Inter/IBM
+Plex Mono (gleiche Rolle, passt zur bestehenden Font-Konvention).
+
+**Wichtigste Aenderung:** Der Gegner ist jetzt immer ein simulierter
+**Trainings-Bot** (Schwellen-Klaus, Weichen-Steller-Bot, Gleisbau-Trainer,
+Prellbock-Peter, Signal-Susi — feste Trefferquote 65 % pro Frage, keine
+echte KI) statt eines zweiten Menschen am selben Geraet. Simuliertes
+Matchmaking ("Gegner wird gesucht" → faellt nach ~3,6s zuverlaessig auf
+Bot zurueck) macht das Duell jetzt **allein spielbar**, kein
+Geraet-Weiterreichen mehr noetig. Neues, eigenstaendiges visuelles Design
+("Steel/Signal") nur fuer Quiz-Duell — dunkle Stahl-Palette, oranges
+Schienen-Leisten-Motiv oben im Rahmen, bewusst unabhaengig vom
+Streckenplan-Theme des restlichen App, weil Tim explizit diesen Look so
+wollte.
+
+**Gwen-Bilanz:** 3 Runden, siehe
+[[../14-Gwen-Code-Aufgaben/13-Quizduell-Referenz-Umbau]] — dabei zwei
+weitere, bisher nicht dokumentierte Fehlerbilder entdeckt (fehlendes
+Anfuehrungszeichen bei eng am `>` stehenden Attributwerten; eine von zwei
+Dateien in einem Mehrdatei-Auftrag komplett ausgelassen trotz
+`SUCCESS_BUILD_OK`, weil die alte Datei zufaellig weiter gueltiges CSS
+war). Die groesste Datei (Duell-Seite, State-Machine mit 7 Phasen) wurde
+diesmal direkt von Claude geschrieben, aus Vorsicht nach der
+`<br>`-Degenerations-Erfahrung der letzten Runde.
+
+Per Playwright zwei komplette Matches durchgespielt (Gast-Sieg 11:7 gegen
+Bot, eingeloggtes Match mit Statistik-/Rating-/Errungenschaften-Update) —
+alles bestaetigt korrekt, Screenshots zeigen eine sehr genaue optische
+Uebereinstimmung mit Tims Referenz-Prototyp.
+
+---
+
+## 2026-08-22 — Quiz-Duell komplett auf echtes Vorbild umgebaut (Claude + Gwen)
+
+Tim hat den echten Play-Store-Eintrag von "Quizduell" (MAG Interactive,
+`se.maginteractive.quizduel2`) gezeigt und bestätigt: **genau nach diesem
+Prinzip** bauen, nicht das Pass-and-Play-Provisorium vom 2026-08-20. Per
+Wikipedia/Testbericht-Recherche (siehe Quellen im Chat) verifiziertes
+Prinzip übernommen: **6 Runden à 3 Fragen**, pro Runde wählt abwechselnd
+ein Spieler die Kategorie aus **3 Vorschlägen**, **20 Sekunden Zeitlimit**
+pro Frage, Sieger = wer über alle 18 Fragen insgesamt mehr richtig hat.
+Ohne Werbung/VIP (interne Lern-App). Komplettes Datenmodell
+(`QuizduellMatch`/`QuizduellRunde`) neu, `QuizduellDataService` jetzt mit
+vereinfachtem Elo-Rating (Start 1000, K=32 — echter Quizduell-Algorithmus
+ist nicht offengelegt), erweiterten Statistiken (Rating, Duelle,
+Trefferquote) und einem Emoji-Errungenschaften-Katalog (9 Stück, u. a.
+"Perfektes Duell", "Blitzschnell", "Vielspieler"). Die Frage-Komponente hat
+jetzt einen echten Sekunden-Countdown mit automatischem "keine Antwort" bei
+Zeitablauf.
+
+**Weiterhin bewusst Pass-and-Play** (kein echtes Live-Multiplayer): ohne
+Backend gibt es keine Moeglichkeit, ein Duell wirklich über Tage/Geräte zu
+verteilen. Das `QuizduellMatch`-Datenmodell ist aber bereits so geformt,
+wie ein späterer Server es bräuchte (Runden/Züge/Kategoriewahl 1:1 wie beim
+Vorbild) — siehe Kommentar in `duell.page.ts`.
+
+**Gwen-Bilanz (3 Runden, [[../14-Gwen-Code-Aufgaben/10-Quizduell-Umbau-Duell-Seite]]
+bis [[../14-Gwen-Code-Aufgaben/12-Quizduell-Umbau-Frage-Komponente]]):**
+2 von 3 liefen sauber durch. Bei der größten, repetitivsten Datei
+(Duell-Seite, 5 Zustände) trat ein **drittes, neues Gwen-Fehlerbild** auf:
+Gwen ersetzte an mehreren wiederkehrenden Stellen (kurz vor dem
+schließenden `>` bei ähnlichen `(click)="...">`-Zeilen) den restlichen
+Inhalt durch ein wörtliches `<br>` — vermutlich eine Degenerations-
+Abkürzung bei stark repetitivem Text. Der Build schlug dadurch laut fehl
+(kein stiller Fehler), aber die Verifikationszeit war verdächtig kurz
+(72s statt der üblichen 180–250s) — ein neuer Frühwarn-Indikator. Claude
+hat die Datei direkt geschrieben statt einen Retry zu riskieren.
+
+Per Playwright zwei komplette 6-Runden-Matches durchgespielt (Gast + nach
+Registrierung eingeloggt): Kategoriewahl, Timer, Rundenwechsel, Übergabe-
+Screens, Ergebnis, Rating-/Statistik-/Erfolge-Update alles bestätigt
+korrekt (u. a. Elo-Draw bei Gleichstand = 0 Punkte Änderung, wie erwartet).
+
+---
+
+## 2026-08-20 — Viertes Spiel "Quiz-Duell" mit lokalem Login-Grundgerüst (Claude + Gwen)
+
+Neues Spiel unter `/zusatz/quizduell` (Kachel in `SPIELE_TILES`). Zwei
+Spieler treten **Pass-and-Play am selben Gerät** nacheinander gegen dieselben
+Fragen aus einem bestehenden Themenquiz-Thema an (Spieler 1 durch, Geraet-
+Übergabe-Screen, Spieler 2 durch, Ergebnisvergleich per Punkten/Zeit).
+**Ausdrücklich ein v1-Vorschlag** (Tim wollte die genaue Mechanik erst nach
+dieser Grundgerüst-Runde festlegen) — siehe Offene-Punkte.
+
+Dazu ein rein lokales (localStorage, kein Backend angebunden) Login-
+Grundgerüst: **Gäste dürfen ohne Konto spielen**, nur eingeloggte Nutzer
+sehen/sammeln Statistik (Siege/Niederlagen/Streak/einfache Erfolge unter
+`/zusatz/quizduell/statistik`). `AuthService` speichert Nutzer + Session
+lokal (SHA-256-Digest, keine echte Sicherheit ohne Server), Registrierung
+aktuell ohne Key — das Datenmodell hat aber schon ein Key-Feld-Skelett fürs
+später gewünschte Admin-Key-System vorbereitet (analog
+`backend/routes/registration.ts`).
+
+**Architektur-Entscheidung gegen die dokumentierte Silent-Skip-Falle:**
+Claude hat Modul, Routing, Katalog-Eintrag und **alle** `.ts`-Dateien (Auth-
+Service, Datenservice, alle 3 Seiten, die Frage-Komponente) sowie triviale-
+aber-echte Platzhalter-Templates selbst geschrieben und per `ng build`
+verifiziert (eigener Chunk vorhanden), **bevor** Gwen etwas anfasste — damit
+konnte kein unvollständiger Gwen-Auftrag mehr unbemerkt durchrutschen.
+
+**Gwen-Bilanz (4 Runden, Details [[../14-Gwen-Code-Aufgaben/06-Quizduell-Login]]
+bis [[../14-Gwen-Code-Aufgaben/09-Quizduell-Frage-Komponente]]):** 3 von 4
+HTML/SCSS-Runden liefen sauber durch. Runde "Statistik-Seite" scheiterte
+zweimal mit einem **neuen, bisher nicht dokumentierten Fehlerbild**: Gwens
+`editor`-Tool kam mit einem BOM in der Zieldatei nicht klar, wich auf
+PowerShell-Here-Strings aus, scheiterte auch dort an HTML-Sonderzeichen —
+am Ende war die Datei leer bzw. komplett gelöscht statt nur unverändert
+(gefährlicher als das bekannte NO_CHANGE-Verhalten). Claude hat die Datei
+danach direkt geschrieben. **Neue Regel für künftige Gwen-Code-Runden:**
+nach jedem Auftrag nicht nur bauen, sondern auch Dateigröße plausibel
+prüfen (nicht 0 Byte, nicht verschwunden).
+
+Per Playwright-QA (`browser-automation`-Skill) End-to-End bestätigt: Kachel
+sichtbar, Gast-Duell komplett spielbar mit korrektem Ergebnis-/Speicher-
+Hinweis, Registrierung + Redirect, Statistik-Karten nur eingeloggt sichtbar,
+Statistik aktualisiert sich nach einem zweiten Duell, Logout schaltet zurück
+auf Login-Aufforderung, keine Konsolenfehler.
+
+---
+
+## 2026-08-19 — Schienenkopf-Verschleissmesser komplett ersetzt durch Referenz-Simulation (Claude)
+
+Tim lieferte eine fertige, eigenstaendige HTML-Simulation mit echter
+Zieh-Interaktion und fester Geraete-Kinematik (fixer 43°-Fuehlerarm-Winkel,
+Pivot haengt von der tatsaechlichen Fussbreite ab). 1:1 in die
+Angular-Seite uebertragen — alte Regler-Version komplett ersetzt. Bei
+falscher Profileinstellung liefert das Geraet jetzt plausibel falsche
+Werte statt gesperrter Regler (realistischer). Nennhoehe 54E4 aendert sich
+dabei von 161 auf 154 mm (Wert aus der neuen Quelle). Technisch: DOM-Zugriffe
+auf das Komponenten-Root beschraenkt (Ionic haelt alte Seiten im DOM),
+globaler Keydown-Listener wird beim Verlassen der Seite entfernt. Per
+Playwright bestaetigt: abgelesener Verschleiss trifft bei korrekter
+Kalibrierung exakt den echten, zufaellig gewuerfelten Wert. Details:
+[[../14-Gwen-Code-Aufgaben/04-Schienenkopf-Verschleissmesser]].
+
+---
+
+## 2026-08-17 — "Schienen erkennen" als drittes Spiel (Claude + Gwen)
+
+Drittes Spiel unter `/zusatz/schienenraten`, drei Modi: Schienenform am
+Umriss erkennen (7 Kategorien), konkretes Profil anhand Maßen erraten
+(~50 Profile, Distraktoren bevorzugt aus derselben Kategorie), Maße zu
+einem gegebenen Profil selbst eintragen (Toleranz ±8 %, mind. 2 mm). Fünf
+Silhouetten-Familien je Schienenform (Vignol, Kran, Rille mit
+Führungslippe, Spurrille, Stromschiene) in `src/app/shared/schienenprofile.ts`.
+**Achtung Datenlage:** Werte von einem dichten Tabellenfoto abgetippt,
+Übertragungsfehler nicht auszuschließen; Silhouetten sind Schemazeichnungen
+(Kopf-/Fußhöhe geschätzt), Konstruktionsschienen nutzen vereinfachend die
+Vignol-Form. **Gwen-Protokoll:** Auftrag über 7 Dateien, nur 2 (Modul,
+Routes) tatsächlich angelegt — Build meldete trotzdem Erfolg, weil das
+unverlinkte Modul nie kompiliert wurde (gleicher Fehlermodus wie bei
+[[../14-Gwen-Code-Aufgaben/02-Kategorie-Menues]]). Claude hat die
+restlichen 5 Dateien direkt geschrieben. Details:
+[[../14-Gwen-Code-Aufgaben/05-Schienen-erkennen]].
+
+---
+
 ## 2026-08-17 — Schienenkopf-Verschleissmesser als Spiel (Claude)
 
 Zweites Spiel neben der Nivellierlatte: `/zusatz/schienenmesser`. Gerät auf

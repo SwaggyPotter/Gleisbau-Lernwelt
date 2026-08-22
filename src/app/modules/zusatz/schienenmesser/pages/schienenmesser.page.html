@@ -11,188 +11,112 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="skm-content">
-  <div class="page-shell">
-    <section class="hero">
-      <p class="eyebrow">Spiel</p>
+  <div class="shell">
+
+    <header>
       <h1>Schienenkopf-Verschleissmesser</h1>
-      <p class="lede">
-        Das Geraet wird am Schienenfuss angesetzt und ueber Fuehlerlehre und Messlatte auf das
-        Schienenprofil eingestellt. Erst dann stimmt der Bezug, und die beiden Messfuehler zeigen
-        Hoehen- und Seitenverschleiss am Schienenkopf.
-      </p>
-    </section>
+      <p>Das Geraet haengt sich am Schienenfuss ein. Fuehlerlehre und Messlatte stellen den Bezug auf
+        das verbaute Profil ein, danach werden die beiden Messfuehler an den Schienenkopf zugestellt.
+        Alle goldenen Teile lassen sich mit der Maus oder dem Finger ziehen.</p>
+    </header>
 
-    <section class="werkbank">
-      <!-- Schienenquerschnitt -->
-      <div class="panel schiene-panel">
-        <p class="panel-label">Schiene im Geraet</p>
-        <svg class="schiene-svg"
-             [attr.viewBox]="(-svgBreite / 2 - 48) + ' -24 ' + (svgBreite + 108) + ' ' + (svgHoehe + 40)">
-          <!-- Nennprofil als Referenz -->
-          <path [attr.d]="pfadNenn" fill="none" stroke="#6fa8dc" stroke-width="1.2"
-                stroke-dasharray="4 3" opacity="0.75"/>
-          <!-- Tatsaechliches, abgefahrenes Profil -->
-          <path [attr.d]="pfadVerschlissen" fill="#2a3a47" stroke="#eaf2f5" stroke-width="1.4"/>
+    <div class="grid">
 
-          <!-- Messtiefe fuer den Seitenverschleiss -->
-          <line [attr.x1]="-svgBreite / 2 - 10" [attr.y1]="messtiefeY"
-                [attr.x2]="svgBreite / 2 + 14" [attr.y2]="messtiefeY"
-                stroke="#6fa8dc" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.8"/>
-          <text [attr.x]="-svgBreite / 2 - 12" [attr.y]="messtiefeY - 3" text-anchor="end"
-                fill="#6fa8dc" font-size="8" font-family="JetBrains Mono, monospace">
-            {{ messtiefe }} mm
-          </text>
-
-          <!-- Hoehen-Messfuehler: kommt von oben auf die Fahrflaeche -->
-          <g class="fuehler" [class.kontakt]="kontaktHoehe">
-            <line x1="0" [attr.y1]="-22" x2="0" [attr.y2]="fuehlerHoeheY"
-                  stroke-width="2.4" stroke-linecap="round"/>
-            <circle cx="0" [attr.cy]="fuehlerHoeheY" r="2.6"/>
-          </g>
-
-          <!-- Seiten-Messfuehler: kommt von rechts auf die Fahrkante -->
-          <g class="fuehler" [class.kontakt]="kontaktSeite">
-            <line [attr.x1]="svgBreite / 2 + 26" [attr.y1]="messtiefeY"
-                  [attr.x2]="fuehlerSeiteX" [attr.y2]="messtiefeY"
-                  stroke-width="2.4" stroke-linecap="round"/>
-            <circle [attr.cx]="fuehlerSeiteX" [attr.cy]="messtiefeY" r="2.6"/>
-          </g>
-        </svg>
-
-        <p class="panel-label detail-label">Kopf vergroessert</p>
-        <svg class="detail-svg" [attr.viewBox]="detailViewBox">
-          <path [attr.d]="pfadNenn" fill="none" stroke="#6fa8dc" stroke-width="0.7"
-                stroke-dasharray="2.5 2" opacity="0.85"/>
-          <path [attr.d]="pfadVerschlissen" fill="#2a3a47" stroke="#eaf2f5" stroke-width="0.8"/>
-
-          <line [attr.x1]="-profil.kopfBreite / 2 - 12" [attr.y1]="messtiefeY"
-                [attr.x2]="profil.kopfBreite / 2 + 16" [attr.y2]="messtiefeY"
-                stroke="#6fa8dc" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.85"/>
-
-          <g class="fuehler" [class.kontakt]="kontaktHoehe">
-            <line x1="0" y1="-9" x2="0" [attr.y2]="fuehlerHoeheY"
-                  stroke-width="1.4" stroke-linecap="round"/>
-            <circle cx="0" [attr.cy]="fuehlerHoeheY" r="1.5"/>
-          </g>
-          <g class="fuehler" [class.kontakt]="kontaktSeite">
-            <line [attr.x1]="profil.kopfBreite / 2 + 16" [attr.y1]="messtiefeY"
-                  [attr.x2]="fuehlerSeiteX" [attr.y2]="messtiefeY"
-                  stroke-width="1.4" stroke-linecap="round"/>
-            <circle [attr.cx]="fuehlerSeiteX" [attr.cy]="messtiefeY" r="1.5"/>
-          </g>
-        </svg>
-      </div>
-
-      <!-- Bedienung -->
-      <div class="panel bedien-panel">
-        <div class="block">
-          <p class="panel-label">1 &middot; Geraet einstellen</p>
-          <p class="hint">
-            Fuehlerlehre am Steg und Messlatte am Kopf muessen auf dem Profil stehen, das
-            tatsaechlich verbaut ist.
-          </p>
-
-          <div class="setting">
-            <span class="setting-label">Fuehlerlehre (Steg)</span>
-            <div class="seg">
-              <button *ngFor="let id of profilIds" type="button"
-                      [class.on]="lehreEinstellung === id" (click)="onLehre(id)">{{ id }}</button>
-            </div>
+      <!-- ============================ BUEHNE ============================ -->
+      <section>
+        <div class="stage">
+          <div class="stage-bar">
+            <span class="tag" id="tagProfile">Verbaut: 60E2</span>
+            <button class="ghost" id="btnNominal" type="button" aria-pressed="true">Sollprofil</button>
+            <button class="ghost" id="btnBlind" type="button" aria-pressed="false">Profil verdeckt</button>
+            <button id="btnNew" type="button">Neue Schiene</button>
           </div>
-
-          <div class="setting">
-            <span class="setting-label">Messlatte (Kopf)</span>
-            <div class="seg">
-              <button *ngFor="let id of profilIds" type="button"
-                      [class.on]="latteEinstellung === id" (click)="onLatte(id)">{{ id }}</button>
-            </div>
+          <svg id="scene" viewBox="-180 -135 330 365" role="img"
+               aria-label="Schnitt durch Schiene mit angesetztem Verschleissmesser"></svg>
+          <div class="detail">
+            <div class="cap">Schienenkopf vergroessert</div>
+            <svg id="detail" viewBox="-56 -18 122 84" aria-hidden="true"></svg>
           </div>
+        </div>
+      </section>
 
-          <p class="status" [class.ok]="geraetPasst" [class.warn]="!geraetPasst">
-            <ng-container *ngIf="geraetPasst">
-              Bezug stimmt — du kannst messen.
-            </ng-container>
-            <ng-container *ngIf="!geraetPasst">
-              Einstellung passt noch nicht zum eingebauten Profil. Jede Ablesung waere falsch.
-            </ng-container>
-          </p>
+      <!-- ============================ PANEL ============================ -->
+      <aside>
+
+        <div class="card">
+          <h2><span class="num">1</span>Geraet einstellen</h2>
+          <p class="hint">Beide Messingbalken auf das Profil schieben, das tatsaechlich verbaut ist.
+            Erst dann sitzt der Bezugspunkt richtig.</p>
+          <div class="row">
+            <span class="lbl">Fuehlerlehre&nbsp;&middot;&nbsp;Steg</span>
+            <span class="val set" id="vSteg">60E2</span>
+          </div>
+          <div class="row">
+            <span class="lbl">Messlatte&nbsp;&middot;&nbsp;Kopf</span>
+            <span class="val set" id="vLatte">60E2</span>
+          </div>
+          <div class="state ok" id="refState">Bezug stimmt — du kannst messen.</div>
         </div>
 
-        <div class="block" [class.gesperrt]="!geraetPasst">
-          <p class="panel-label">2 &middot; Messfuehler zustellen</p>
-          <p class="hint">
-            Zustellen, bis der Fuehler die Schiene beruehrt — dann erst zeigt das Geraet einen Wert.
-          </p>
-
-          <div class="messung">
-            <div class="mess-kopf">
-              <span class="setting-label">Hoehenverschleiss (Fahrflaeche)</span>
-              <span class="wert" [class.aktiv]="kontaktHoehe">
-                {{ ablesungHoehe !== null ? (ablesungHoehe | number: '1.1-1') + ' mm' : '—' }}
-              </span>
-            </div>
-            <input type="range" min="0" [attr.max]="maxFuehlerweg" step="0.1"
-                   [value]="fuehlerHoehe" (input)="onFuehlerHoehe($event)"
-                   [disabled]="!geraetPasst" />
-            <p class="kontakt-hinweis" [class.on]="kontaktHoehe">
-              {{ kontaktHoehe ? 'Fuehler liegt an' : 'kein Kontakt' }}
-            </p>
+        <div class="card">
+          <h2><span class="num">2</span>Messfuehler zustellen</h2>
+          <p class="hint">Ziehen, bis der Fuehler die Schiene beruehrt. Der Fuehler bleibt am Material
+            stehen — dann steht der Wert.</p>
+          <div class="row">
+            <span class="lbl">Hoehenmesslatte</span>
+            <span><span class="val" id="vRod">—</span> <span class="chip" id="cRod">kein Kontakt</span></span>
           </div>
-
-          <div class="messung">
-            <div class="mess-kopf">
-              <span class="setting-label">Seitenverschleiss (Fahrkante)</span>
-              <span class="wert" [class.aktiv]="kontaktSeite">
-                {{ ablesungSeite !== null ? (ablesungSeite | number: '1.1-1') + ' mm' : '—' }}
-              </span>
-            </div>
-            <input type="range" min="0" [attr.max]="maxFuehlerweg" step="0.1"
-                   [value]="fuehlerSeite" (input)="onFuehlerSeite($event)"
-                   [disabled]="!geraetPasst" />
-            <p class="kontakt-hinweis" [class.on]="kontaktSeite">
-              {{ kontaktSeite ? 'Fuehler liegt an' : 'kein Kontakt' }}
-            </p>
+          <div class="row">
+            <span class="lbl">Seitenskala</span>
+            <span><span class="val" id="vArm">—</span> <span class="chip" id="cArm">kein Kontakt</span></span>
           </div>
         </div>
 
-        <div class="block">
-          <p class="panel-label">3 &middot; Ergebnis</p>
-          <div class="ergebnis" *ngIf="!aufgeloest">
-            <p class="hint">
-              Wenn beide Fuehler anliegen, hast du beide Werte. Zum Vergleich kannst du sie
-              aufdecken.
-            </p>
-            <ion-button size="small" (click)="aufloesen()">Werte aufdecken</ion-button>
+        <div class="card">
+          <h2><span class="num">3</span>Ergebnis</h2>
+          <div class="result">
+            <div class="box">
+              <div class="k">Hoehenverschleiss</div>
+              <div class="v muted" id="rHeight">—</div>
+              <div class="t" id="tHeight">Fahrflaeche</div>
+            </div>
+            <div class="box">
+              <div class="k">Seitenverschleiss</div>
+              <div class="v muted" id="rSide">—</div>
+              <div class="t" id="tSide">Fahrkante, 14 mm unter SOK</div>
+            </div>
           </div>
-          <div class="ergebnis" *ngIf="aufgeloest">
-            <dl class="fakten">
-              <div><dt>Eingebautes Profil</dt><dd class="mono">{{ schienenProfil }}</dd></div>
-              <div><dt>Nennhoehe</dt><dd class="mono">{{ profil.hoehe }} mm</dd></div>
-              <div><dt>Hoehenverschleiss</dt><dd class="mono">{{ hoehenverschleiss | number: '1.1-1' }} mm</dd></div>
-              <div><dt>Seitenverschleiss</dt><dd class="mono">{{ seitenverschleiss | number: '1.1-1' }} mm</dd></div>
-              <div><dt>Resthoehe</dt><dd class="mono">{{ restHoehe | number: '1.1-1' }} mm</dd></div>
-            </dl>
+          <div class="btnrow">
+            <button class="primary" id="btnReveal" type="button">Werte aufdecken</button>
+            <button id="btnReset" type="button">Fuehler zurueckziehen</button>
           </div>
-          <ion-button size="small" fill="outline" (click)="neueSchiene()">Neue Schiene</ion-button>
         </div>
-      </div>
-    </section>
 
-    <section class="erklaerung">
-      <p class="panel-label">Wozu das Ganze</p>
-      <p>
-        Der Schienenkopf nutzt sich im Betrieb ab: oben auf der Fahrflaeche (Hoehenverschleiss)
-        und seitlich an der Fahrkante, wo der Spurkranz anlaeuft (Seitenverschleiss). Der
-        Seitenverschleiss wird {{ messtiefe }} mm unter Schienenoberkante gemessen. Das Geraet
-        stuetzt sich am Schienenfuss ab, weil der praktisch nicht verschleisst — deshalb muessen
-        Fuehlerlehre und Messlatte zum Profil passen, sonst stimmt der Bezugspunkt nicht.
-      </p>
-      <p class="quelle">
-        Hinweis: Nennhoehen und die Messtiefe von {{ messtiefe }} mm sind belegt. Die uebrigen
-        Querschnittsmasse dienen hier nur der Darstellung und sind vereinfacht — Grenzwerte fuer
-        zulaessigen Verschleiss stehen bewusst nicht drin, die richten sich nach Regelwerk und
-        Streckenkategorie.
-      </p>
-    </section>
+        <div class="card info">
+          <h2>Wozu das Ganze</h2>
+          <p style="margin:0 0 10px">Der Schienenkopf nutzt sich im Betrieb an zwei Stellen ab: oben auf
+            der <b>Fahrflaeche</b> (Hoehenverschleiss) und seitlich an der <b>Fahrkante</b>, wo der
+            Spurkranz anlaeuft (Seitenverschleiss). Der Seitenverschleiss wird <b>14 mm unter
+            Schienenoberkante</b> gemessen.</p>
+          <p style="margin:0">Das Geraet stuetzt sich am <b>Schienenfuss</b> ab, weil der praktisch nicht
+            verschleisst. Die Hoehenmesslatte misst deshalb die <b>tatsaechliche Schienenhoehe</b> — der
+            Verschleiss ist die Differenz zur Sollhoehe des Profils. Stehen Fuehlerlehre und Messlatte
+            auf dem falschen Profil, sitzt der Messschlitten zu hoch, zu tief oder seitlich versetzt: die
+            Ablesung stimmt dann nicht.</p>
+          <div class="legend">
+            <span><i style="background:var(--brass)"></i>beweglich (ziehen)</span>
+            <span><i style="background:var(--accent)"></i>Indexmarke / Ablesung</span>
+            <span><i style="background:#79c8f2"></i>Sollprofil</span>
+          </div>
+          <hr>
+          <p class="small" style="margin:0">Nennhoehen, Kopf-, Fuss- und Stegmasse der Profile 49E5
+            (149 / 67 / 125 / 14 mm), 54E4 (154 / 67 / 125 / 16 mm) und 60E2 (172 / 72 / 150 / 16,5 mm)
+            sowie die Messtiefe von 14 mm sind belegt. Die uebrigen Querschnittsmasse und die Bauform des
+            Geraets sind fuer die Darstellung vereinfacht. Grenzwerte fuer zulaessigen Verschleiss stehen
+            bewusst nicht drin — die richten sich nach Regelwerk und Streckenkategorie.</p>
+        </div>
+
+      </aside>
+    </div>
   </div>
 </ion-content>

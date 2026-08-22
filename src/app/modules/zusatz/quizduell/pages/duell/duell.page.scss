@@ -1,0 +1,360 @@
+// "Steel/Signal"-Design nach Tims Referenz-Prototyp (gleisbau-quizduell.html).
+// Bewusst ein eigenes, vom Streckenplan-Theme unabhaengiges Farbschema nur
+// fuer das Quiz-Duell -- Schriften sind aber die bereits selbst gehosteten
+// (Oswald/Barlow/JetBrains Mono statt neuer Google-Fonts-Links fuer
+// Inter/IBM Plex Mono, siehe Vault-Notiz).
+:host {
+  --steel-900: #0f1417;
+  --steel-800: #171e22;
+  --steel-700: #212a2f;
+  --steel-600: #2e3a41;
+  --steel-500: #4a5a63;
+  --rail-200: #c7d0d3;
+  --rail-100: #e9edee;
+  --signal-orange: #e2622a;
+  --signal-orange-dim: #a8481e;
+  --signal-green: #3f9166;
+  --signal-red: #c5432f;
+  --warn-yellow: #f0b429;
+
+  display: block;
+  font-family: var(--font-body);
+  color: var(--rail-100);
+}
+
+ion-header ion-toolbar {
+  --background: var(--steel-800);
+  --color: var(--rail-100);
+  --border-color: var(--steel-600);
+}
+
+ion-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.toolbar-action-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.duell-content {
+  --background: radial-gradient(ellipse at top, #1b2327 0%, var(--steel-900) 60%);
+}
+
+.app-shell {
+  max-width: 560px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.frame {
+  background: linear-gradient(180deg, var(--steel-800) 0%, var(--steel-700) 100%);
+  border: 1px solid var(--steel-600);
+  border-radius: 6px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.frame-rail {
+  height: 5px;
+  background: repeating-linear-gradient(90deg, var(--signal-orange) 0 22px, var(--steel-700) 22px 26px);
+  opacity: 0.85;
+}
+
+.body-pad {
+  padding: 28px 26px 26px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  color: var(--signal-orange);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+.screen-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin: 0 0 6px;
+  color: var(--rail-100);
+}
+
+.screen-sub {
+  margin: 0 0 26px;
+  color: var(--rail-200);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.willkommen {
+  font-size: 14px;
+  color: var(--rail-200);
+  margin: 0 0 20px;
+}
+
+.willkommen strong {
+  color: var(--rail-100);
+}
+
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--rail-200);
+  opacity: 0.75;
+  display: block;
+  margin-bottom: 6px;
+}
+
+input[type='text'] {
+  width: 100%;
+  background: var(--steel-900);
+  border: 1px solid var(--steel-600);
+  color: var(--rail-100);
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 13px 14px;
+  border-radius: 4px;
+  outline: none;
+  margin-bottom: 8px;
+}
+
+input[type='text']:focus {
+  border-color: var(--signal-orange);
+}
+
+.form-error {
+  color: var(--signal-red);
+  font-size: 13px;
+  margin: 0 0 12px;
+}
+
+.btn {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease;
+  width: 100%;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, var(--signal-orange) 0%, var(--signal-orange-dim) 100%);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(226, 98, 42, 0.35);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--steel-500);
+  color: var(--rail-200);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mt-24 {
+  margin-top: 24px;
+}
+
+.center {
+  text-align: center;
+}
+
+.small-note {
+  font-size: 11.5px;
+  color: var(--rail-200);
+  opacity: 0.7;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+.small-note a {
+  color: var(--signal-orange);
+}
+
+// Lobby
+.pulse-track {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 24px;
+}
+
+.signal-lamp {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffb27a, var(--signal-orange) 55%, var(--signal-orange-dim));
+  box-shadow: 0 0 30px rgba(226, 98, 42, 0.5);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(226, 98, 42, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 34px rgba(226, 98, 42, 0.65);
+  }
+}
+
+// VS-Screen
+.vs-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--steel-900);
+  border: 1px solid var(--steel-600);
+  border-radius: 5px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+
+.player-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  background: var(--steel-700);
+  border: 2px solid var(--signal-orange);
+}
+
+.avatar.bot {
+  border-color: var(--signal-red);
+}
+
+.player-name {
+  font-size: 12px;
+  color: var(--rail-200);
+  font-family: var(--font-mono);
+}
+
+.vs-label {
+  font-family: var(--font-display);
+  color: var(--steel-500);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+
+// Kategoriewahl
+.round-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--rail-200);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.cat-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cat-card {
+  background: var(--steel-900);
+  border: 1px solid var(--steel-600);
+  border-radius: 5px;
+  padding: 16px 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  text-align: left;
+}
+
+.cat-card:hover:not(:disabled) {
+  border-color: var(--signal-orange);
+  background: #1c2528;
+  transform: translateX(2px);
+}
+
+.cat-card:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cat-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.02em;
+}
+
+.cat-icon {
+  font-size: 20px;
+  opacity: 0.85;
+}
+
+// Score
+.score-strip {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  background: var(--steel-900);
+  border: 1px solid var(--steel-600);
+  border-radius: 5px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+}
+
+.score-cell {
+  text-align: center;
+  flex: 1;
+}
+
+.score-num {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.score-lbl {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rail-200);
+  opacity: 0.7;
+}

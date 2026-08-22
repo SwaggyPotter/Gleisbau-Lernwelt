@@ -1,0 +1,18 @@
+<div class="timerbar-wrap">
+  <div class="timerbar" [style.width.%]="(restSek / zeitlimitSek) * 100"></div>
+</div>
+<div class="question-box">{{ frage.question }}</div>
+<div class="answers">
+  <button
+    type="button"
+    *ngFor="let choice of frage.choices; let i = index"
+    class="answer-btn"
+    [class.correct]="beantwortet && istKorrekt(i)"
+    [class.wrong]="istAusgewaehlt(i) && !istKorrekt(i)"
+    [disabled]="beantwortet"
+    (click)="waehle(i)"
+  >
+    {{ choice }}
+  </button>
+</div>
+

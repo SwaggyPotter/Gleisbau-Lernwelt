@@ -49,6 +49,16 @@ const routes: Routes = [
       .then(m => m.SchienenmesserModule)
   },
   {
+    path: 'zusatz/schienenraten',
+    loadChildren: () => import('./modules/zusatz/schienenraten/schienenraten.module')
+      .then(m => m.SchienenratenModule)
+  },
+  {
+    path: 'zusatz/quizduell',
+    loadChildren: () => import('./modules/zusatz/quizduell/quizduell.module')
+      .then(m => m.QuizduellModule)
+  },
+  {
     path: 'kategorie/:id',
     loadChildren: () => import('./modules/kategorie/kategorie.module')
       .then(m => m.KategorieModule)

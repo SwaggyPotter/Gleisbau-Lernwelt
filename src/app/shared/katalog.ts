@@ -127,6 +127,22 @@ export const SPIELE_TILES: QuizTile[] = [
     icon: 'git-compare-outline',
     link: '/zusatz/schienenmesser',
   },
+  {
+    id: 'spiel-schienenraten',
+    title: 'Schienen erkennen',
+    description: 'Schienenform und -profil am Querschnitt erkennen, dann die Masse selbst eintragen.',
+    tag: 'Spiel',
+    icon: 'shapes-outline',
+    link: '/zusatz/schienenraten',
+  },
+  {
+    id: 'spiel-quizduell',
+    title: 'Quiz-Duell',
+    description: 'Gegeneinander antreten: wer beantwortet die Fragen richtiger und schneller?',
+    tag: 'Spiel',
+    icon: 'people-outline',
+    link: '/zusatz/quizduell',
+  },
 ];
 
 /** Wissenstests — die zehn Themenquizze, didaktisch von Grundlagen zu Spezialthemen sortiert. */

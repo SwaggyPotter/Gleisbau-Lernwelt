@@ -1,0 +1,256 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts (NgModule-basiert, standalone: false). Es gibt bereits eine fertige Datei src/app/modules/zusatz/quizduell/pages/login/login.page.ts (NICHT anfassen, nur als Kontext -- die Bindings in der HTML muessen zu deren Feldern/Methoden passen: mode, email, password, displayName, error, busy, isLoggedIn, currentDisplayName, setMode(mode), submit(), logout()).
+
+Ersetze GENAU diese zwei Dateien mit EXAKT diesem Inhalt (nichts umformulieren, nichts kuerzen, nichts ergaenzen, bestehenden Inhalt komplett ersetzen):
+
+=== DATEI 1: src/app/modules/zusatz/quizduell/pages/login/login.page.html ===
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Quiz-Duell — Anmelden</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/zusatz/quizduell/duell" fill="clear">
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+        <span class="toolbar-action-label">Zum Duell</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="app-shell">
+    <div class="frame">
+      <div class="frame-rail"></div>
+      <div class="body-pad">
+
+        <ng-container *ngIf="isLoggedIn; else loginForm">
+          <p class="eyebrow">Konto</p>
+          <h1 class="screen-title">Angemeldet als {{ currentDisplayName }}</h1>
+          <p class="screen-sub">Deine Statistik wird jetzt gespeichert. Du kannst dich hier wieder abmelden.</p>
+          <button type="button" class="btn btn-ghost" (click)="logout()">Abmelden</button>
+        </ng-container>
+
+        <ng-template #loginForm>
+          <p class="eyebrow">Konto</p>
+          <h1 class="screen-title">{{ mode === 'login' ? 'Anmelden' : 'Registrieren' }}</h1>
+          <p class="screen-sub">
+            Ohne Konto kannst du trotzdem jederzeit als Gast ein Quiz-Duell spielen — nur deine
+            Statistik (Rating, Serie, Erfolge) wird dann nicht gespeichert.
+          </p>
+
+          <div class="mode-tabs">
+            <button type="button" [class.on]="mode === 'login'" (click)="setMode('login')">Anmelden</button>
+            <button type="button" [class.on]="mode === 'register'" (click)="setMode('register')">Registrieren</button>
+          </div>
+
+          <form (ngSubmit)="submit()" #f="ngForm">
+            <label class="field-label">E-Mail</label>
+            <input type="email" name="email" [(ngModel)]="email" required autocomplete="email" />
+
+            <ng-container *ngIf="mode === 'register'">
+              <label class="field-label">Anzeigename</label>
+              <input type="text" name="displayName" [(ngModel)]="displayName" required autocomplete="name" />
+            </ng-container>
+
+            <label class="field-label">Passwort</label>
+            <input type="password" name="password" [(ngModel)]="password" required autocomplete="current-password" minlength="8" />
+
+            <p class="form-error" *ngIf="error">{{ error }}</p>
+
+            <button type="submit" class="btn btn-primary" [disabled]="busy || f.invalid">
+              {{ busy ? 'Bitte warten…' : (mode === 'login' ? 'Anmelden' : 'Konto erstellen') }}
+            </button>
+          </form>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+=== DATEI 2: src/app/modules/zusatz/quizduell/pages/login/login.page.scss ===
+:host {
+  --steel-900: #0f1417;
+  --steel-800: #171e22;
+  --steel-700: #212a2f;
+  --steel-600: #2e3a41;
+  --steel-500: #4a5a63;
+  --rail-200: #c7d0d3;
+  --rail-100: #e9edee;
+  --signal-orange: #e2622a;
+  --signal-orange-dim: #a8481e;
+  --signal-red: #c5432f;
+
+  display: block;
+  font-family: var(--font-body);
+  color: var(--rail-100);
+}
+
+ion-header ion-toolbar {
+  --background: var(--steel-800);
+  --color: var(--rail-100);
+  --border-color: var(--steel-600);
+}
+
+ion-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.toolbar-action-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.login-content {
+  --background: radial-gradient(ellipse at top, #1b2327 0%, var(--steel-900) 60%);
+}
+
+.app-shell {
+  max-width: 480px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.frame {
+  background: linear-gradient(180deg, var(--steel-800) 0%, var(--steel-700) 100%);
+  border: 1px solid var(--steel-600);
+  border-radius: 6px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.frame-rail {
+  height: 5px;
+  background: repeating-linear-gradient(90deg, var(--signal-orange) 0 22px, var(--steel-700) 22px 26px);
+  opacity: 0.85;
+}
+
+.body-pad {
+  padding: 28px 26px 26px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  color: var(--signal-orange);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+.screen-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin: 0 0 6px;
+  color: var(--rail-100);
+}
+
+.screen-sub {
+  margin: 0 0 22px;
+  color: var(--rail-200);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.mode-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.mode-tabs button {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 10px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--steel-600);
+  background: var(--steel-900);
+  color: var(--rail-200);
+  cursor: pointer;
+  transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.mode-tabs button:hover {
+  color: var(--rail-100);
+}
+
+.mode-tabs button.on {
+  background: var(--signal-orange);
+  border-color: var(--signal-orange);
+  color: #fff;
+}
+
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--rail-200);
+  opacity: 0.75;
+  display: block;
+  margin: 0 0 6px;
+}
+
+form input {
+  width: 100%;
+  background: var(--steel-900);
+  border: 1px solid var(--steel-600);
+  color: var(--rail-100);
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 13px 14px;
+  border-radius: 4px;
+  outline: none;
+  margin-bottom: 14px;
+}
+
+form input:focus {
+  border-color: var(--signal-orange);
+}
+
+.form-error {
+  color: var(--signal-red);
+  font-size: 13px;
+  margin: 0 0 12px;
+}
+
+.btn {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: opacity 0.12s ease;
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, var(--signal-orange) 0%, var(--signal-orange-dim) 100%);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(226, 98, 42, 0.35);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--steel-500);
+  color: var(--rail-200);
+}
+
+WICHTIG: Schreibe beide Dateien exakt wie oben angegeben, mit allen Zeilenumbruechen. Melde am Ende kurz, welche Dateien du geschrieben hast.

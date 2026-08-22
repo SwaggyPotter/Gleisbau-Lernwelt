@@ -1,0 +1,207 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Quiz-Duell</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/zusatz/quizduell/statistik" fill="clear" *ngIf="istEingeloggt">
+        <ion-icon slot="start" name="trophy-outline"></ion-icon>
+        <span class="toolbar-action-label">Statistik</span>
+      </ion-button>
+      <ion-button routerLink="/zusatz/quizduell/login" fill="clear" *ngIf="!istEingeloggt">
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        <span class="toolbar-action-label">Anmelden</span>
+      </ion-button>
+      <ion-button routerLink="/kategorie/spiele" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Spiele</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="duell-content">
+  <div class="app-shell">
+    <div class="frame">
+      <div class="frame-rail"></div>
+
+      <!-- Setup -->
+      <div class="body-pad" *ngIf="state === 'setup'">
+        <p class="eyebrow">Quiz-Duell</p>
+        <h1 class="screen-title">Bereit fuers Duell?</h1>
+        <p class="screen-sub">
+          6 Runden, je 3 Fragen, 20 Sekunden pro Frage — abwechselnd waehlt eine Seite die
+          Kategorie. Ohne Mitspieler tritt ein Trainings-Bot an.
+        </p>
+
+        <ng-container *ngIf="istEingeloggt; else gastEingabe">
+          <p class="willkommen">Angemeldet als <strong>{{ angezeigterSpielerName }}</strong></p>
+        </ng-container>
+        <ng-template #gastEingabe>
+          <label class="field-label">Dein Name</label>
+          <input type="text" [(ngModel)]="gastName" placeholder="Spielername" />
+          <p class="small-note">
+            Als Gast wird deine Statistik nicht gespeichert.
+            <a routerLink="/zusatz/quizduell/login">Anmelden</a>, um Rating &amp; Erfolge zu sammeln.
+          </p>
+        </ng-template>
+
+        <p class="form-error" *ngIf="setupError">{{ setupError }}</p>
+        <button type="button" class="btn btn-primary" (click)="starteSuche()">Gegner suchen</button>
+      </div>
+
+      <ng-container *ngIf="state === 'match' && match as m">
+        <!-- Lobby -->
+        <div class="body-pad center" *ngIf="m.phase === 'lobby'">
+          <p class="eyebrow">Matchmaking</p>
+          <h1 class="screen-title">Gegner wird gesucht</h1>
+          <p class="screen-sub">Findet sich niemand, springt ein Trainings-Bot ein.</p>
+          <div class="pulse-track"><div class="signal-lamp"></div></div>
+        </div>
+
+        <!-- VS -->
+        <div class="body-pad" *ngIf="m.phase === 'vs'">
+          <p class="eyebrow">Duell startet</p>
+          <h1 class="screen-title">Los geht's!</h1>
+          <div class="vs-row">
+            <div class="player-badge">
+              <div class="avatar">{{ initialen(m.spielerName) }}</div>
+              <div class="player-name">{{ m.spielerName }}</div>
+            </div>
+            <div class="vs-label">VS</div>
+            <div class="player-badge">
+              <div class="avatar bot">🤖</div>
+              <div class="player-name">{{ m.gegnerName }}</div>
+            </div>
+          </div>
+          <p class="center small-note">
+            {{ rundenGesamt }} Runden · je {{ fragenProRunde }} Fragen pro Kategorie · abwechselnde Kategoriewahl
+          </p>
+        </div>
+
+        <!-- Kategoriewahl -->
+        <div class="body-pad" *ngIf="m.phase === 'kategorie'">
+          <div class="round-meta">
+            <span>Runde {{ m.aktuelleRundeIndex + 1 }} / {{ rundenGesamt }}</span>
+            <span>{{ aktuelleRunde?.spielerWaehlt ? 'Du waehlst' : m.gegnerName + ' waehlt' }}</span>
+          </div>
+          <div class="score-strip">
+            <div class="score-cell">
+              <div class="score-num">{{ zwischenstand.spieler }}</div>
+              <div class="score-lbl">{{ m.spielerName }}</div>
+            </div>
+            <div class="score-cell">
+              <div class="score-num">{{ zwischenstand.gegner }}</div>
+              <div class="score-lbl">{{ m.gegnerName }}</div>
+            </div>
+          </div>
+          <h1 class="screen-title">Themenfeld waehlen</h1>
+          <p class="screen-sub" *ngIf="!aktuelleRunde?.spielerWaehlt">{{ m.gegnerName }} waehlt gerade ein Themenfeld …</p>
+          <div class="cat-grid">
+            <button
+              type="button"
+              class="cat-card"
+              *ngFor="let topic of aktuelleKategorieOptionen"
+              [disabled]="!aktuelleRunde?.spielerWaehlt"
+              (click)="waehleKategorie(topic)"
+            >
+              <span class="cat-name">{{ topic.title }}</span>
+              <span class="cat-icon">{{ kategorieEmoji(topic.topicId) }}</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Fragen -->
+        <div class="body-pad" *ngIf="m.phase === 'fragen' && aktuelleFrage as frage">
+          <div class="round-meta">
+            <span>Runde {{ m.aktuelleRundeIndex + 1 }} / {{ rundenGesamt }}</span>
+            <span>{{ aktuelleRunde?.gewaehlteKategorie?.title }} · Frage {{ aktuelleFrageIndexInRunde + 1 }}/{{ fragenProRunde }}</span>
+          </div>
+          <app-duell-frage
+            [frage]="frage"
+            [zeitlimitSek]="20"
+            [gewaehlterIndex]="gewaehlterIndex"
+            [beantwortet]="beantwortet"
+            (antwortGewaehlt)="onAntwort($event)"
+          ></app-duell-frage>
+          <div class="score-strip">
+            <div class="score-cell">
+              <div class="score-num">{{ zwischenstand.spieler }}</div>
+              <div class="score-lbl">{{ m.spielerName }}</div>
+            </div>
+            <div class="score-cell">
+              <div class="score-num">{{ zwischenstand.gegner }}</div>
+              <div class="score-lbl">{{ m.gegnerName }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gegner antwortet -->
+        <div class="body-pad center" *ngIf="m.phase === 'gegner-antwortet'">
+          <div class="round-meta">
+            <span>Runde {{ m.aktuelleRundeIndex + 1 }} / {{ rundenGesamt }}</span>
+            <span>{{ aktuelleRunde?.gewaehlteKategorie?.title }}</span>
+          </div>
+          <div class="score-strip">
+            <div class="score-cell">
+              <div class="score-num">{{ zwischenstand.spieler }}</div>
+              <div class="score-lbl">{{ m.spielerName }}</div>
+            </div>
+            <div class="score-cell">
+              <div class="score-num">{{ zwischenstand.gegner }}</div>
+              <div class="score-lbl">{{ m.gegnerName }}</div>
+            </div>
+          </div>
+          <h1 class="screen-title">{{ m.gegnerName }} antwortet …</h1>
+          <div class="pulse-track"><div class="signal-lamp"></div></div>
+          <p class="small-note">
+            Der Gegner beantwortet die gleichen {{ fragenProRunde }} Fragen zum Thema
+            „{{ aktuelleRunde?.gewaehlteKategorie?.title }}".
+          </p>
+        </div>
+
+        <!-- Rundenwechsel -->
+        <div class="body-pad" *ngIf="m.phase === 'rundenwechsel'">
+          <p class="eyebrow">Runde {{ m.aktuelleRundeIndex + 1 }} abgeschlossen</p>
+          <div class="score-strip">
+            <div class="score-cell">
+              <div class="score-num">{{ zwischenstand.spieler }}</div>
+              <div class="score-lbl">{{ m.spielerName }}</div>
+            </div>
+            <div class="score-cell">
+              <div class="score-num">{{ zwischenstand.gegner }}</div>
+              <div class="score-lbl">{{ m.gegnerName }}</div>
+            </div>
+          </div>
+          <h1 class="screen-title">Weiter zu Runde {{ m.aktuelleRundeIndex + 2 }}</h1>
+          <button type="button" class="btn btn-primary" (click)="weiterZurNaechstenRunde()">Naechste Runde</button>
+        </div>
+
+        <!-- Ergebnis -->
+        <div class="body-pad" *ngIf="m.phase === 'abgeschlossen' && matchAuswertung as a">
+          <h1 class="screen-title" [ngSwitch]="a.gewinner">
+            <ng-container *ngSwitchCase="'spieler'">Sieg!</ng-container>
+            <ng-container *ngSwitchCase="'gegner'">Niederlage</ng-container>
+            <ng-container *ngSwitchDefault>Unentschieden</ng-container>
+          </h1>
+          <p class="screen-sub">Duell gegen {{ m.gegnerName }} beendet.</p>
+          <div class="score-strip">
+            <div class="score-cell">
+              <div class="score-num">{{ zwischenstand.spieler }}</div>
+              <div class="score-lbl">{{ m.spielerName }}</div>
+            </div>
+            <div class="score-cell">
+              <div class="score-num">{{ zwischenstand.gegner }}</div>
+              <div class="score-lbl">{{ m.gegnerName }}</div>
+            </div>
+          </div>
+          <div class="stack mt-24">
+            <button type="button" class="btn btn-primary" (click)="neuesDuell()">Neues Duell starten</button>
+            <button type="button" class="btn btn-ghost" (click)="zurueckZumStart()">Zur Startseite</button>
+          </div>
+          <p class="small-note" *ngIf="istEingeloggt">Rating &amp; Statistik aktualisiert.</p>
+          <p class="small-note" *ngIf="!istEingeloggt">Als Gast gespielt — Ergebnis wird nicht dauerhaft gespeichert.</p>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</ion-content>

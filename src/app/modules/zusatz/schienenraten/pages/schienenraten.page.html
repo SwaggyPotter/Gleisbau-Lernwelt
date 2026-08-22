@@ -1,0 +1,201 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Schienen erkennen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/kategorie/spiele" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Spiele</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="sr-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Spiel</p>
+      <h1>Schienen erkennen</h1>
+      <p class="lede">
+        Schienenformen und -profile anhand ihres Querschnitts unterscheiden lernen — drei Modi,
+        von der groben Form bis zu den genauen Massen.
+      </p>
+      <div class="modus-tabs">
+        <button type="button" [class.on]="modus === 'formen'" (click)="setModus('formen')">
+          1 &middot; Form erkennen
+        </button>
+        <button type="button" [class.on]="modus === 'profil'" (click)="setModus('profil')">
+          2 &middot; Profil erraten
+        </button>
+        <button type="button" [class.on]="modus === 'werte'" (click)="setModus('werte')">
+          3 &middot; Werte eintragen
+        </button>
+      </div>
+    </section>
+
+    <!-- Modus 1: Form erkennen -->
+    <section class="spiel-area" *ngIf="modus === 'formen'">
+      <div class="stat-row">
+        <div class="stat"><span>Richtig</span><strong>{{ punkte.formen.richtig }} / {{ punkte.formen.versuche }}</strong></div>
+      </div>
+
+      <div class="panel formen-panel">
+        <p class="panel-label">Alle Schienenformen im Vergleich — erst anklicken, dann zuordnen</p>
+        <div class="formen-grid">
+          <button *ngFor="let karte of formenRunde.karten; let i = index" type="button"
+                  class="formen-karte"
+                  [class.ausgewaehlt]="formenRunde.ausgewaehlteKarte === i"
+                  [class.korrekt]="karte.antwort && karte.antwort.id === karte.kategorie.id"
+                  [class.falsch]="karte.antwort && karte.antwort.id !== karte.kategorie.id"
+                  [disabled]="!!karte.antwort"
+                  (click)="waehleKarte(i)">
+            <svg class="schiene-svg-klein" [attr.viewBox]="formenViewBox">
+              <path [attr.d]="karte.pfad" fill="#2a3a47" stroke="#eaf2f5" stroke-width="1.4"/>
+            </svg>
+            <p class="karte-label" *ngIf="karte.antwort">
+              <ng-container *ngIf="karte.antwort.id === karte.kategorie.id">{{ karte.kategorie.name }}</ng-container>
+              <ng-container *ngIf="karte.antwort.id !== karte.kategorie.id">War: {{ karte.kategorie.name }}</ng-container>
+            </p>
+          </button>
+        </div>
+      </div>
+
+      <div class="panel antwort-panel formen-antwort-panel">
+        <p class="panel-label" *ngIf="formenRunde.ausgewaehlteKarte === null && !formenAlleFertig">Zuerst oben eine Schiene anklicken</p>
+        <p class="panel-label" *ngIf="formenRunde.ausgewaehlteKarte !== null">Welche Form ist die ausgewaehlte Schiene?</p>
+        <p class="panel-label" *ngIf="formenAlleFertig">Runde komplett!</p>
+
+        <div class="optionen optionen-zeile" *ngIf="!formenAlleFertig">
+          <button *ngFor="let option of formenRunde.optionen" type="button"
+                  class="option-btn"
+                  [disabled]="formenRunde.ausgewaehlteKarte === null"
+                  (click)="waehleFormOption(option)">
+            {{ option.name }}
+          </button>
+        </div>
+
+        <ion-button size="small" *ngIf="formenAlleFertig" (click)="neueFormenRunde()">Neue Runde</ion-button>
+      </div>
+    </section>
+
+    <!-- Modus 2: Profil erraten -->
+    <section class="spiel-area" *ngIf="modus === 'profil'">
+      <div class="stat-row">
+        <div class="stat"><span>Richtig</span><strong>{{ punkte.profil.richtig }} / {{ punkte.profil.versuche }}</strong></div>
+      </div>
+
+      <div class="werkbank">
+        <div class="panel schiene-panel">
+          <p class="panel-label">{{ kategorieName(profilRunde.profil.kategorie) }}</p>
+          <svg class="schiene-svg" [attr.viewBox]="profilRunde.viewBox">
+            <path [attr.d]="profilRunde.pfad" fill="#2a3a47" stroke="#eaf2f5" stroke-width="1.4"/>
+          </svg>
+          <dl class="masse">
+            <div><dt>Hoehe</dt><dd>{{ profilRunde.profil.hoeheMm }} mm</dd></div>
+            <div><dt>Fussbreite</dt><dd>{{ profilRunde.profil.fussbreiteMm }} mm</dd></div>
+            <div><dt>Kopfbreite</dt><dd>{{ profilRunde.profil.kopfbreiteMm }} mm</dd></div>
+            <div><dt>Stegstaerke</dt><dd>{{ profilRunde.profil.stegstaerkeMm }} mm</dd></div>
+          </dl>
+        </div>
+
+        <div class="panel antwort-panel">
+          <p class="panel-label">Welches Profil ist das?</p>
+          <div class="optionen">
+            <button *ngFor="let option of profilRunde.optionen" type="button"
+                    class="option-btn"
+                    [disabled]="!!profilAntwort"
+                    [class.korrekt]="profilAntwort && option.id === profilRunde.profil.id"
+                    [class.falsch]="profilAntwort === option && option.id !== profilRunde.profil.id"
+                    (click)="waehleProfil(option)">
+              {{ profilLabel(option) }}
+            </button>
+          </div>
+
+          <div class="feedback" *ngIf="profilAntwort">
+            <p [class.ok]="profilAntwort.id === profilRunde.profil.id" [class.warn]="profilAntwort.id !== profilRunde.profil.id">
+              <ng-container *ngIf="profilAntwort.id === profilRunde.profil.id">Richtig — {{ profilLabel(profilRunde.profil) }}.</ng-container>
+              <ng-container *ngIf="profilAntwort.id !== profilRunde.profil.id">Das war {{ profilLabel(profilRunde.profil) }}.</ng-container>
+            </p>
+            <ion-button size="small" (click)="neueProfilRunde()">Naechstes Profil</ion-button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modus 3: Werte eintragen -->
+    <section class="spiel-area" *ngIf="modus === 'werte'">
+      <div class="stat-row">
+        <div class="stat"><span>Richtig</span><strong>{{ punkte.werte.richtig }} / {{ punkte.werte.versuche }}</strong></div>
+      </div>
+
+      <div class="werkbank">
+        <div class="panel schiene-panel">
+          <p class="panel-label">{{ profilLabel(werteProfil) }} &middot; {{ kategorieName(werteProfil.kategorie) }}</p>
+          <svg class="schiene-svg" [attr.viewBox]="werteViewBox">
+            <path [attr.d]="wertePfad" fill="#2a3a47" stroke="#eaf2f5" stroke-width="1.4"/>
+          </svg>
+        </div>
+
+        <div class="panel antwort-panel">
+          <p class="panel-label">Masse eintragen (mm)</p>
+
+          <div class="werte-formular">
+            <label>
+              <span>Hoehe</span>
+              <input type="text" inputmode="decimal" [disabled]="werteAusgewertet"
+                     (input)="onWerteInput('hoehe', $event)"
+                     [class.korrekt]="werteAusgewertet && werteErgebnis.hoehe"
+                     [class.falsch]="werteAusgewertet && !werteErgebnis.hoehe"/>
+            </label>
+            <label>
+              <span>Fussbreite</span>
+              <input type="text" inputmode="decimal" [disabled]="werteAusgewertet"
+                     (input)="onWerteInput('fussbreite', $event)"
+                     [class.korrekt]="werteAusgewertet && werteErgebnis.fussbreite"
+                     [class.falsch]="werteAusgewertet && !werteErgebnis.fussbreite"/>
+            </label>
+            <label>
+              <span>Kopfbreite</span>
+              <input type="text" inputmode="decimal" [disabled]="werteAusgewertet"
+                     (input)="onWerteInput('kopfbreite', $event)"
+                     [class.korrekt]="werteAusgewertet && werteErgebnis.kopfbreite"
+                     [class.falsch]="werteAusgewertet && !werteErgebnis.kopfbreite"/>
+            </label>
+            <label>
+              <span>Stegstaerke</span>
+              <input type="text" inputmode="decimal" [disabled]="werteAusgewertet"
+                     (input)="onWerteInput('steg', $event)"
+                     [class.korrekt]="werteAusgewertet && werteErgebnis.steg"
+                     [class.falsch]="werteAusgewertet && !werteErgebnis.steg"/>
+            </label>
+          </div>
+
+          <ion-button size="small" *ngIf="!werteAusgewertet" (click)="pruefeWerte()">Pruefen</ion-button>
+
+          <div class="feedback" *ngIf="werteAusgewertet">
+            <p [class.ok]="werteAlleRichtig" [class.warn]="!werteAlleRichtig">
+              <ng-container *ngIf="werteAlleRichtig">Alle Masse richtig getroffen!</ng-container>
+              <ng-container *ngIf="!werteAlleRichtig">Nicht alles im Toleranzbereich (&plusmn;8&percnt;, mind. 2&nbsp;mm).</ng-container>
+            </p>
+            <dl class="masse">
+              <div><dt>Hoehe</dt><dd>{{ werteProfil.hoeheMm }} mm</dd></div>
+              <div><dt>Fussbreite</dt><dd>{{ werteProfil.fussbreiteMm }} mm</dd></div>
+              <div><dt>Kopfbreite</dt><dd>{{ werteProfil.kopfbreiteMm }} mm</dd></div>
+              <div><dt>Stegstaerke</dt><dd>{{ werteProfil.stegstaerkeMm }} mm</dd></div>
+            </dl>
+            <ion-button size="small" (click)="neueWerteRunde()">Naechstes Profil</ion-button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="erklaerung">
+      <p class="panel-label">Zur Datenlage</p>
+      <p>
+        Die Masse stammen aus einer Tabellenuebersicht und sind fuer dieses Quiz abgetippt — bei
+        rund 50 Profilen ist ein Uebertragungsfehler nicht auszuschliessen. Die Silhouetten sind
+        stilisierte Schemazeichnungen je Schienenform (Kopf- und Fusshoehe geschaetzt), keine
+        massstabsgetreuen Konstruktionszeichnungen.
+      </p>
+    </section>
+  </div>
+</ion-content>

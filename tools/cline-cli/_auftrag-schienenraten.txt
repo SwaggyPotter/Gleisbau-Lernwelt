@@ -1,0 +1,778 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts (NgModule-basiert, standalone: false). Es gibt bereits eine fertige Datendatei src/app/shared/schienenprofile.ts (NICHT anfassen, nur importieren).
+
+Lege GENAU diese Dateien mit EXAKT diesem Inhalt an (nichts umformulieren, nichts kuerzen, nichts ergaenzen):
+
+=== DATEI 1: src/app/modules/zusatz/schienenraten/schienenraten.routes.ts ===
+import { Routes } from '@angular/router';
+import { SchienenratenPage } from './pages/schienenraten.page';
+
+export const SCHIENENRATEN_ROUTES: Routes = [
+  {
+    path: '',
+    component: SchienenratenPage,
+  },
+];
+
+=== DATEI 2: src/app/modules/zusatz/schienenraten/schienenraten.module.ts ===
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
+import { SCHIENENRATEN_ROUTES } from './schienenraten.routes';
+import { SchienenratenPage } from './pages/schienenraten.page';
+
+@NgModule({
+  declarations: [SchienenratenPage],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild(SCHIENENRATEN_ROUTES),
+  ],
+})
+export class SchienenratenModule {}
+
+=== DATEI 3: src/app/modules/zusatz/schienenraten/pages/schienenraten.page.ts ===
+import { Component } from '@angular/core';
+import {
+  KATEGORIEN,
+  KategorieInfo,
+  SchienenKategorie,
+  PROFILE,
+  SchienenProfil,
+  schienenPfad,
+  schienenViewBox,
+  KATEGORIE_MUSTERMASSE,
+} from '../../../../shared/schienenprofile';
+
+type Modus = 'formen' | 'profil' | 'werte';
+
+interface FormenRunde {
+  kategorie: KategorieInfo;
+  pfad: string;
+  viewBox: string;
+  optionen: KategorieInfo[];
+}
+
+interface ProfilRunde {
+  profil: SchienenProfil;
+  pfad: string;
+  viewBox: string;
+  optionen: SchienenProfil[];
+}
+
+interface WerteEingabe {
+  hoehe: number | null;
+  fussbreite: number | null;
+  kopfbreite: number | null;
+  steg: number | null;
+}
+
+interface WerteErgebnis {
+  hoehe: boolean;
+  fussbreite: boolean;
+  kopfbreite: boolean;
+  steg: boolean;
+}
+
+@Component({
+  selector: 'app-schienenraten',
+  templateUrl: './schienenraten.page.html',
+  styleUrls: ['./schienenraten.page.scss'],
+  standalone: false,
+})
+export class SchienenratenPage {
+  readonly kategorien = KATEGORIEN;
+
+  modus: Modus = 'formen';
+
+  punkte: Record<Modus, { richtig: number; versuche: number }> = {
+    formen: { richtig: 0, versuche: 0 },
+    profil: { richtig: 0, versuche: 0 },
+    werte: { richtig: 0, versuche: 0 },
+  };
+
+  formenRunde!: FormenRunde;
+  formenAntwort: KategorieInfo | null = null;
+
+  profilRunde!: ProfilRunde;
+  profilAntwort: SchienenProfil | null = null;
+
+  werteProfil!: SchienenProfil;
+  wertePfad = '';
+  werteViewBox = '';
+  werteEingabe: WerteEingabe = { hoehe: null, fussbreite: null, kopfbreite: null, steg: null };
+  werteAusgewertet = false;
+  werteErgebnis: WerteErgebnis = { hoehe: false, fussbreite: false, kopfbreite: false, steg: false };
+
+  constructor() {
+    this.neueFormenRunde();
+    this.neueProfilRunde();
+    this.neueWerteRunde();
+  }
+
+  setModus(modus: Modus): void {
+    this.modus = modus;
+  }
+
+  // ---------------- Modus 1: Form erkennen ----------------
+
+  neueFormenRunde(): void {
+    const kategorie = this.kategorien[Math.floor(Math.random() * this.kategorien.length)];
+    const masse = KATEGORIE_MUSTERMASSE[kategorie.id];
+    this.formenRunde = {
+      kategorie,
+      pfad: schienenPfad(kategorie.id, masse.hoehe, masse.fussbreite, masse.kopfbreite, masse.steg),
+      viewBox: schienenViewBox(masse.hoehe, masse.fussbreite, masse.kopfbreite),
+      optionen: this.mische(this.kategorien),
+    };
+    this.formenAntwort = null;
+  }
+
+  waehleForm(option: KategorieInfo): void {
+    if (this.formenAntwort) return;
+    this.formenAntwort = option;
+    this.punkte.formen.versuche++;
+    if (option.id === this.formenRunde.kategorie.id) this.punkte.formen.richtig++;
+  }
+
+  // ---------------- Modus 2: Profil erraten ----------------
+
+  neueProfilRunde(): void {
+    const profil = PROFILE[Math.floor(Math.random() * PROFILE.length)];
+    const optionen = this.mische([profil, ...this.waehleProfilDistraktoren(profil)]);
+    this.profilRunde = {
+      profil,
+      pfad: schienenPfad(profil.kategorie, profil.hoeheMm, profil.fussbreiteMm, profil.kopfbreiteMm, profil.stegstaerkeMm),
+      viewBox: schienenViewBox(profil.hoeheMm, profil.fussbreiteMm, profil.kopfbreiteMm),
+      optionen,
+    };
+    this.profilAntwort = null;
+  }
+
+  waehleProfil(option: SchienenProfil): void {
+    if (this.profilAntwort) return;
+    this.profilAntwort = option;
+    this.punkte.profil.versuche++;
+    if (option.id === this.profilRunde.profil.id) this.punkte.profil.richtig++;
+  }
+
+  profilLabel(p: SchienenProfil): string {
+    return p.nameNeu ? `${p.nameAlt} (${p.nameNeu})` : p.nameAlt;
+  }
+
+  private waehleProfilDistraktoren(korrekt: SchienenProfil): SchienenProfil[] {
+    const gleicheKategorie = this.mische(PROFILE.filter((p) => p.kategorie === korrekt.kategorie && p.id !== korrekt.id));
+    const gewaehlt = gleicheKategorie.slice(0, 3);
+    if (gewaehlt.length < 3) {
+      const idsBelegt = new Set([korrekt.id, ...gewaehlt.map((p) => p.id)]);
+      const rest = this.mische(PROFILE.filter((p) => !idsBelegt.has(p.id)));
+      gewaehlt.push(...rest.slice(0, 3 - gewaehlt.length));
+    }
+    return gewaehlt;
+  }
+
+  // ---------------- Modus 3: Werte eintragen ----------------
+
+  neueWerteRunde(): void {
+    this.werteProfil = PROFILE[Math.floor(Math.random() * PROFILE.length)];
+    const p = this.werteProfil;
+    this.wertePfad = schienenPfad(p.kategorie, p.hoeheMm, p.fussbreiteMm, p.kopfbreiteMm, p.stegstaerkeMm);
+    this.werteViewBox = schienenViewBox(p.hoeheMm, p.fussbreiteMm, p.kopfbreiteMm);
+    this.werteEingabe = { hoehe: null, fussbreite: null, kopfbreite: null, steg: null };
+    this.werteAusgewertet = false;
+  }
+
+  pruefeWerte(): void {
+    if (this.werteAusgewertet) return;
+    const p = this.werteProfil;
+    const passt = (eingabe: number | null, real: number): boolean => {
+      if (eingabe === null || isNaN(eingabe)) return false;
+      const toleranz = Math.max(2, real * 0.08);
+      return Math.abs(eingabe - real) <= toleranz;
+    };
+    this.werteErgebnis = {
+      hoehe: passt(this.werteEingabe.hoehe, p.hoeheMm),
+      fussbreite: passt(this.werteEingabe.fussbreite, p.fussbreiteMm),
+      kopfbreite: passt(this.werteEingabe.kopfbreite, p.kopfbreiteMm),
+      steg: passt(this.werteEingabe.steg, p.stegstaerkeMm),
+    };
+    this.werteAusgewertet = true;
+    this.punkte.werte.versuche++;
+    if (this.werteAlleRichtig) this.punkte.werte.richtig++;
+  }
+
+  get werteAlleRichtig(): boolean {
+    return this.werteErgebnis.hoehe && this.werteErgebnis.fussbreite && this.werteErgebnis.kopfbreite && this.werteErgebnis.steg;
+  }
+
+  onWerteInput(feld: keyof WerteEingabe, event: Event): void {
+    const roh = (event.target as HTMLInputElement).value;
+    const zahl = parseFloat(roh.replace(',', '.'));
+    this.werteEingabe[feld] = isNaN(zahl) ? null : zahl;
+  }
+
+  kategorieName(id: SchienenKategorie): string {
+    return this.kategorien.find((k) => k.id === id)?.name ?? id;
+  }
+
+  private mische<T>(arr: readonly T[]): T[] {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+}
+
+=== DATEI 4: src/app/modules/zusatz/schienenraten/pages/schienenraten.page.html ===
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Schienen erkennen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/kategorie/spiele" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Spiele</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="sr-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Spiel</p>
+      <h1>Schienen erkennen</h1>
+      <p class="lede">
+        Schienenformen und -profile anhand ihres Querschnitts unterscheiden lernen — drei Modi,
+        von der groben Form bis zu den genauen Massen.
+      </p>
+      <div class="modus-tabs">
+        <button type="button" [class.on]="modus === 'formen'" (click)="setModus('formen')">
+          1 &middot; Form erkennen
+        </button>
+        <button type="button" [class.on]="modus === 'profil'" (click)="setModus('profil')">
+          2 &middot; Profil erraten
+        </button>
+        <button type="button" [class.on]="modus === 'werte'" (click)="setModus('werte')">
+          3 &middot; Werte eintragen
+        </button>
+      </div>
+    </section>
+
+    <!-- Modus 1: Form erkennen -->
+    <section class="spiel-area" *ngIf="modus === 'formen'">
+      <div class="stat-row">
+        <div class="stat"><span>Richtig</span><strong>{{ punkte.formen.richtig }} / {{ punkte.formen.versuche }}</strong></div>
+      </div>
+
+      <div class="werkbank">
+        <div class="panel schiene-panel">
+          <p class="panel-label">Welche Schienenform ist das?</p>
+          <svg class="schiene-svg" [attr.viewBox]="formenRunde.viewBox">
+            <path [attr.d]="formenRunde.pfad" fill="#2a3a47" stroke="#eaf2f5" stroke-width="1.4"/>
+          </svg>
+        </div>
+
+        <div class="panel antwort-panel">
+          <p class="panel-label">Antwort waehlen</p>
+          <div class="optionen">
+            <button *ngFor="let option of formenRunde.optionen" type="button"
+                    class="option-btn"
+                    [disabled]="!!formenAntwort"
+                    [class.korrekt]="formenAntwort && option.id === formenRunde.kategorie.id"
+                    [class.falsch]="formenAntwort === option && option.id !== formenRunde.kategorie.id"
+                    (click)="waehleForm(option)">
+              {{ option.name }}
+            </button>
+          </div>
+
+          <div class="feedback" *ngIf="formenAntwort">
+            <p [class.ok]="formenAntwort.id === formenRunde.kategorie.id" [class.warn]="formenAntwort.id !== formenRunde.kategorie.id">
+              <ng-container *ngIf="formenAntwort.id === formenRunde.kategorie.id">Richtig — {{ formenRunde.kategorie.name }}.</ng-container>
+              <ng-container *ngIf="formenAntwort.id !== formenRunde.kategorie.id">Das war {{ formenRunde.kategorie.name }}.</ng-container>
+            </p>
+            <p class="beschreibung">{{ formenRunde.kategorie.beschreibung }}</p>
+            <ion-button size="small" (click)="neueFormenRunde()">Naechste Form</ion-button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modus 2: Profil erraten -->
+    <section class="spiel-area" *ngIf="modus === 'profil'">
+      <div class="stat-row">
+        <div class="stat"><span>Richtig</span><strong>{{ punkte.profil.richtig }} / {{ punkte.profil.versuche }}</strong></div>
+      </div>
+
+      <div class="werkbank">
+        <div class="panel schiene-panel">
+          <p class="panel-label">{{ kategorieName(profilRunde.profil.kategorie) }}</p>
+          <svg class="schiene-svg" [attr.viewBox]="profilRunde.viewBox">
+            <path [attr.d]="profilRunde.pfad" fill="#2a3a47" stroke="#eaf2f5" stroke-width="1.4"/>
+          </svg>
+          <dl class="masse">
+            <div><dt>Hoehe</dt><dd>{{ profilRunde.profil.hoeheMm }} mm</dd></div>
+            <div><dt>Fussbreite</dt><dd>{{ profilRunde.profil.fussbreiteMm }} mm</dd></div>
+            <div><dt>Kopfbreite</dt><dd>{{ profilRunde.profil.kopfbreiteMm }} mm</dd></div>
+            <div><dt>Stegstaerke</dt><dd>{{ profilRunde.profil.stegstaerkeMm }} mm</dd></div>
+          </dl>
+        </div>
+
+        <div class="panel antwort-panel">
+          <p class="panel-label">Welches Profil ist das?</p>
+          <div class="optionen">
+            <button *ngFor="let option of profilRunde.optionen" type="button"
+                    class="option-btn"
+                    [disabled]="!!profilAntwort"
+                    [class.korrekt]="profilAntwort && option.id === profilRunde.profil.id"
+                    [class.falsch]="profilAntwort === option && option.id !== profilRunde.profil.id"
+                    (click)="waehleProfil(option)">
+              {{ profilLabel(option) }}
+            </button>
+          </div>
+
+          <div class="feedback" *ngIf="profilAntwort">
+            <p [class.ok]="profilAntwort.id === profilRunde.profil.id" [class.warn]="profilAntwort.id !== profilRunde.profil.id">
+              <ng-container *ngIf="profilAntwort.id === profilRunde.profil.id">Richtig — {{ profilLabel(profilRunde.profil) }}.</ng-container>
+              <ng-container *ngIf="profilAntwort.id !== profilRunde.profil.id">Das war {{ profilLabel(profilRunde.profil) }}.</ng-container>
+            </p>
+            <ion-button size="small" (click)="neueProfilRunde()">Naechstes Profil</ion-button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modus 3: Werte eintragen -->
+    <section class="spiel-area" *ngIf="modus === 'werte'">
+      <div class="stat-row">
+        <div class="stat"><span>Richtig</span><strong>{{ punkte.werte.richtig }} / {{ punkte.werte.versuche }}</strong></div>
+      </div>
+
+      <div class="werkbank">
+        <div class="panel schiene-panel">
+          <p class="panel-label">{{ profilLabel(werteProfil) }} &middot; {{ kategorieName(werteProfil.kategorie) }}</p>
+          <svg class="schiene-svg" [attr.viewBox]="werteViewBox">
+            <path [attr.d]="wertePfad" fill="#2a3a47" stroke="#eaf2f5" stroke-width="1.4"/>
+          </svg>
+        </div>
+
+        <div class="panel antwort-panel">
+          <p class="panel-label">Masse eintragen (mm)</p>
+
+          <div class="werte-formular">
+            <label>
+              <span>Hoehe</span>
+              <input type="text" inputmode="decimal" [disabled]="werteAusgewertet"
+                     (input)="onWerteInput('hoehe', $event)"
+                     [class.korrekt]="werteAusgewertet && werteErgebnis.hoehe"
+                     [class.falsch]="werteAusgewertet && !werteErgebnis.hoehe"/>
+            </label>
+            <label>
+              <span>Fussbreite</span>
+              <input type="text" inputmode="decimal" [disabled]="werteAusgewertet"
+                     (input)="onWerteInput('fussbreite', $event)"
+                     [class.korrekt]="werteAusgewertet && werteErgebnis.fussbreite"
+                     [class.falsch]="werteAusgewertet && !werteErgebnis.fussbreite"/>
+            </label>
+            <label>
+              <span>Kopfbreite</span>
+              <input type="text" inputmode="decimal" [disabled]="werteAusgewertet"
+                     (input)="onWerteInput('kopfbreite', $event)"
+                     [class.korrekt]="werteAusgewertet && werteErgebnis.kopfbreite"
+                     [class.falsch]="werteAusgewertet && !werteErgebnis.kopfbreite"/>
+            </label>
+            <label>
+              <span>Stegstaerke</span>
+              <input type="text" inputmode="decimal" [disabled]="werteAusgewertet"
+                     (input)="onWerteInput('steg', $event)"
+                     [class.korrekt]="werteAusgewertet && werteErgebnis.steg"
+                     [class.falsch]="werteAusgewertet && !werteErgebnis.steg"/>
+            </label>
+          </div>
+
+          <ion-button size="small" *ngIf="!werteAusgewertet" (click)="pruefeWerte()">Pruefen</ion-button>
+
+          <div class="feedback" *ngIf="werteAusgewertet">
+            <p [class.ok]="werteAlleRichtig" [class.warn]="!werteAlleRichtig">
+              <ng-container *ngIf="werteAlleRichtig">Alle Masse richtig getroffen!</ng-container>
+              <ng-container *ngIf="!werteAlleRichtig">Nicht alles im Toleranzbereich (&plusmn;8&percnt;, mind. 2&nbsp;mm).</ng-container>
+            </p>
+            <dl class="masse">
+              <div><dt>Hoehe</dt><dd>{{ werteProfil.hoeheMm }} mm</dd></div>
+              <div><dt>Fussbreite</dt><dd>{{ werteProfil.fussbreiteMm }} mm</dd></div>
+              <div><dt>Kopfbreite</dt><dd>{{ werteProfil.kopfbreiteMm }} mm</dd></div>
+              <div><dt>Stegstaerke</dt><dd>{{ werteProfil.stegstaerkeMm }} mm</dd></div>
+            </dl>
+            <ion-button size="small" (click)="neueWerteRunde()">Naechstes Profil</ion-button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="erklaerung">
+      <p class="panel-label">Zur Datenlage</p>
+      <p>
+        Die Masse stammen aus einer Tabellenuebersicht und sind fuer dieses Quiz abgetippt — bei
+        rund 50 Profilen ist ein Uebertragungsfehler nicht auszuschliessen. Die Silhouetten sind
+        stilisierte Schemazeichnungen je Schienenform (Kopf- und Fusshoehe geschaetzt), keine
+        massstabsgetreuen Konstruktionszeichnungen.
+      </p>
+    </section>
+  </div>
+</ion-content>
+
+=== DATEI 5: src/app/modules/zusatz/schienenraten/pages/schienenraten.page.scss ===
+:host {
+  font-family: var(--font-body);
+  color: var(--sp-text);
+}
+
+ion-header ion-toolbar {
+  --background: var(--sp-surface);
+  --color: var(--sp-text);
+  --border-color: var(--sp-border);
+}
+
+ion-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.toolbar-action-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sr-content {
+  --background: var(--sp-bg);
+  padding: 20px clamp(16px, 4vw, 40px) 48px;
+  background-image:
+    linear-gradient(var(--sp-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sp-border) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.page-shell {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.hero {
+  margin-bottom: 22px;
+}
+
+.eyebrow,
+.panel-label {
+  font-family: var(--font-mono);
+  color: var(--sp-accent);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+.panel-label {
+  color: var(--sp-text-muted);
+  letter-spacing: 0.1em;
+  font-size: 11px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+  font-size: clamp(24px, 4vw, 32px);
+  color: var(--sp-text);
+}
+
+.lede {
+  color: var(--sp-text-muted);
+  margin: 0 0 16px;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 70ch;
+}
+
+.modus-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+
+  button {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: 1px solid var(--sp-border);
+    background: var(--sp-surface-2);
+    color: var(--sp-text-muted);
+    cursor: pointer;
+    transition: color 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+
+    &:hover {
+      color: var(--sp-text);
+    }
+
+    &.on {
+      background: var(--sp-accent);
+      border-color: var(--sp-accent);
+      color: #0f1b24;
+      font-weight: 700;
+    }
+  }
+}
+
+.stat-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.stat {
+  background: var(--sp-surface-2);
+  border: 1px solid var(--sp-border);
+  border-radius: 4px;
+  padding: 8px 14px;
+
+  span {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sp-text-muted);
+  }
+
+  strong {
+    display: block;
+    margin-top: 2px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--sp-text);
+  }
+}
+
+.werkbank {
+  display: grid;
+  grid-template-columns: minmax(240px, 380px) 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .werkbank {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.schiene-svg {
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  display: block;
+}
+
+.masse {
+  margin: 14px 0 0;
+  display: grid;
+  gap: 6px;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px dotted var(--sp-border);
+    padding-bottom: 4px;
+  }
+
+  dt {
+    color: var(--sp-text-muted);
+    font-size: 13px;
+  }
+
+  dd {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--sp-text);
+  }
+}
+
+.optionen {
+  display: grid;
+  gap: 8px;
+}
+
+.option-btn {
+  font-family: var(--font-body);
+  font-size: 14px;
+  text-align: left;
+  padding: 10px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--sp-border);
+  background: var(--sp-surface-2);
+  color: var(--sp-text);
+  cursor: pointer;
+  transition: border-color 0.12s ease, background 0.12s ease;
+
+  &:hover:not(:disabled) {
+    border-color: var(--sp-accent-2);
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &.korrekt {
+    border-color: var(--sp-success);
+    background: rgba(111, 191, 115, 0.12);
+    color: var(--sp-success);
+  }
+
+  &.falsch {
+    border-color: var(--sp-danger);
+    background: rgba(224, 128, 111, 0.12);
+    color: var(--sp-danger);
+  }
+}
+
+.werte-formular {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 14px;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    span {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--sp-text-muted);
+    }
+
+    input {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      padding: 8px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--sp-border);
+      background: var(--sp-surface-2);
+      color: var(--sp-text);
+
+      &:focus {
+        outline: none;
+        border-color: var(--sp-accent-2);
+      }
+
+      &.korrekt {
+        border-color: var(--sp-success);
+        color: var(--sp-success);
+      }
+
+      &.falsch {
+        border-color: var(--sp-danger);
+        color: var(--sp-danger);
+      }
+    }
+  }
+}
+
+.feedback {
+  margin-top: 14px;
+
+  p {
+    margin: 0 0 8px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .ok {
+    color: var(--sp-success);
+    font-weight: 600;
+  }
+
+  .warn {
+    color: var(--sp-danger);
+    font-weight: 600;
+  }
+
+  .beschreibung {
+    color: var(--sp-text-muted);
+    font-weight: 400;
+    font-size: 13px;
+  }
+}
+
+ion-button {
+  --background: var(--sp-accent);
+  --background-hover: #ff9954;
+  --color: #0f1b24;
+  --border-radius: 4px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.erklaerung {
+  margin-top: 22px;
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  padding: 16px;
+
+  p:last-child {
+    margin: 0;
+    color: var(--sp-text-muted);
+    font-size: 13px;
+    line-height: 1.6;
+    max-width: 80ch;
+  }
+}
+
+=== AUSSERDEM: src/app/app-routing.module.ts anpassen ===
+Fuege im Array `routes` einen neuen Eintrag ein, direkt VOR dem Eintrag mit `path: 'kategorie/:id'`:
+
+  {
+    path: 'zusatz/schienenraten',
+    loadChildren: () => import('./modules/zusatz/schienenraten/schienenraten.module')
+      .then(m => m.SchienenratenModule)
+  },
+
+=== AUSSERDEM: src/app/shared/katalog.ts anpassen ===
+Suche das Ende des Arrays `SPIELE_TILES` (endet mit `link: '/zusatz/schienenmesser',\n  },\n];`). Fuege VOR der schliessenden Zeile `];` einen neuen Eintrag ein:
+
+  {
+    id: 'spiel-schienenraten',
+    title: 'Schienen erkennen',
+    description: 'Schienenform und -profil am Querschnitt erkennen, dann die Masse selbst eintragen.',
+    tag: 'Spiel',
+    icon: 'shapes-outline',
+    link: '/zusatz/schienenraten',
+  },
+
+Aendere sonst NICHTS an app-routing.module.ts oder katalog.ts.
+
+Danach: `npx ng build --configuration production` im Projekt-Root ausfuehren und pruefen, dass es fehlerfrei durchlaeuft. Falls Fehler auftreten, behebe sie exakt nach obiger Vorgabe (nichts Neues erfinden, keine Werte raten, keine Datei ausser den oben genannten anfassen).

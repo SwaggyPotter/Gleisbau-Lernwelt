@@ -1,0 +1,276 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts (NgModule-basiert, standalone: false). Es gibt bereits eine fertige Datei src/app/modules/zusatz/quizduell/pages/statistik/statistik.page.ts (NICHT anfassen, nur als Kontext -- die Bindings in der HTML muessen zu deren Feldern/Methoden passen: istEingeloggt, displayName, stats (Felder: rating, matches, wins, losses, draws, currentStreak, longestStreak), trefferquote (number|null, Prozentwert), freigeschaltet (Array mit .emoji .titel .beschreibung), gesperrt (Array mit .emoji .titel .beschreibung)).
+
+Ersetze GENAU diese zwei Dateien mit EXAKT diesem Inhalt (nichts umformulieren, nichts kuerzen, nichts ergaenzen, bestehenden Inhalt komplett ersetzen):
+
+=== DATEI 1: src/app/modules/zusatz/quizduell/pages/statistik/statistik.page.html ===
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Quiz-Duell — Statistik</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/zusatz/quizduell/duell" fill="clear">
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+        <span class="toolbar-action-label">Zum Duell</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="statistik-content">
+  <div class="app-shell">
+    <div class="frame">
+      <div class="frame-rail"></div>
+      <div class="body-pad">
+
+        <ng-container *ngIf="istEingeloggt; else loginHint">
+          <p class="eyebrow">Statistik</p>
+          <h1 class="screen-title">{{ displayName }}</h1>
+
+          <div class="stat-grid" *ngIf="stats as s">
+            <div class="stat-card highlight">
+              <span class="stat-label">Rating</span>
+              <strong class="stat-value">{{ s.rating }}</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Duelle</span>
+              <strong class="stat-value">{{ s.matches }}</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Siege</span>
+              <strong class="stat-value">{{ s.wins }}</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Niederlagen</span>
+              <strong class="stat-value">{{ s.losses }}</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Unentschieden</span>
+              <strong class="stat-value">{{ s.draws }}</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Aktuelle Serie</span>
+              <strong class="stat-value">{{ s.currentStreak }}</strong>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Beste Serie</span>
+              <strong class="stat-value">{{ s.longestStreak }}</strong>
+            </div>
+            <div class="stat-card" *ngIf="trefferquote !== null">
+              <span class="stat-label">Trefferquote</span>
+              <strong class="stat-value">{{ trefferquote }}%</strong>
+            </div>
+          </div>
+
+          <p class="eyebrow">Errungenschaften</p>
+          <div class="achievement-grid">
+            <div class="achievement-karte" *ngFor="let a of freigeschaltet">
+              <span class="achievement-emoji">{{ a.emoji }}</span>
+              <span class="achievement-titel">{{ a.titel }}</span>
+              <span class="achievement-beschreibung">{{ a.beschreibung }}</span>
+            </div>
+            <div class="achievement-karte gesperrt" *ngFor="let a of gesperrt">
+              <span class="achievement-emoji">🔒</span>
+              <span class="achievement-titel">{{ a.titel }}</span>
+              <span class="achievement-beschreibung">{{ a.beschreibung }}</span>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #loginHint>
+          <p class="eyebrow">Statistik</p>
+          <h1 class="screen-title">Nicht angemeldet</h1>
+          <p class="screen-sub">Melde dich an, um Rating, Serie und Erfolge zu sehen und dauerhaft zu speichern.</p>
+          <a routerLink="/zusatz/quizduell/login" [queryParams]="{ returnUrl: '/zusatz/quizduell/statistik' }" class="btn btn-primary">Anmelden</a>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+=== DATEI 2: src/app/modules/zusatz/quizduell/pages/statistik/statistik.page.scss ===
+:host {
+  --steel-900: #0f1417;
+  --steel-800: #171e22;
+  --steel-700: #212a2f;
+  --steel-600: #2e3a41;
+  --rail-200: #c7d0d3;
+  --rail-100: #e9edee;
+  --signal-orange: #e2622a;
+  --signal-orange-dim: #a8481e;
+
+  display: block;
+  font-family: var(--font-body);
+  color: var(--rail-100);
+}
+
+ion-header ion-toolbar {
+  --background: var(--steel-800);
+  --color: var(--rail-100);
+  --border-color: var(--steel-600);
+}
+
+ion-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.toolbar-action-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.statistik-content {
+  --background: radial-gradient(ellipse at top, #1b2327 0%, var(--steel-900) 60%);
+}
+
+.app-shell {
+  max-width: 640px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.frame {
+  background: linear-gradient(180deg, var(--steel-800) 0%, var(--steel-700) 100%);
+  border: 1px solid var(--steel-600);
+  border-radius: 6px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.frame-rail {
+  height: 5px;
+  background: repeating-linear-gradient(90deg, var(--signal-orange) 0 22px, var(--steel-700) 22px 26px);
+  opacity: 0.85;
+}
+
+.body-pad {
+  padding: 28px 26px 26px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  color: var(--signal-orange);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 22px 0 12px;
+  font-size: 12px;
+}
+
+.eyebrow:first-child {
+  margin-top: 0;
+}
+
+.screen-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin: 0 0 6px;
+  color: var(--rail-100);
+}
+
+.screen-sub {
+  margin: 0 0 22px;
+  color: var(--rail-200);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.stat-card {
+  background: var(--steel-900);
+  border: 1px solid var(--steel-600);
+  border-radius: 5px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-card.highlight {
+  border-color: var(--signal-orange);
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rail-200);
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--signal-orange);
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.achievement-karte {
+  background: var(--steel-900);
+  border: 1px solid var(--steel-600);
+  border-radius: 5px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.achievement-karte.gesperrt {
+  opacity: 0.4;
+}
+
+.achievement-emoji {
+  font-size: 26px;
+}
+
+.achievement-titel {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--rail-100);
+}
+
+.achievement-beschreibung {
+  font-size: 11px;
+  color: var(--rail-200);
+  line-height: 1.4;
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  padding: 14px 18px;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, var(--signal-orange) 0%, var(--signal-orange-dim) 100%);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(226, 98, 42, 0.35);
+}
+
+WICHTIG: Schreibe beide Dateien exakt wie oben angegeben, mit allen Zeilenumbruechen. Melde am Ende kurz, welche Dateien du geschrieben hast.

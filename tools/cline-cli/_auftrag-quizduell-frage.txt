@@ -1,0 +1,103 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts (NgModule-basiert, standalone: false). Es gibt bereits eine fertige Datei src/app/modules/zusatz/quizduell/components/duell-frage/duell-frage.component.ts (NICHT anfassen, nur als Kontext -- die Bindings in der HTML muessen zu deren Feldern/Methoden passen: frage (hat .question: string, .choices: string[]), zeitlimitSek, restSek (zaehlt intern herunter), beantwortet, gewaehlterIndex, waehle(index), istKorrekt(index), istAusgewaehlt(index)).
+
+Ersetze GENAU diese zwei Dateien mit EXAKT diesem Inhalt (nichts umformulieren, nichts kuerzen, nichts ergaenzen, bestehenden Inhalt komplett ersetzen):
+
+=== DATEI 1: src/app/modules/zusatz/quizduell/components/duell-frage/duell-frage.component.html ===
+<div class="timerbar-wrap">
+  <div class="timerbar" [style.width.%]="(restSek / zeitlimitSek) * 100"></div>
+</div>
+<div class="question-box">{{ frage.question }}</div>
+<div class="answers">
+  <button
+    type="button"
+    *ngFor="let choice of frage.choices; let i = index"
+    class="answer-btn"
+    [class.correct]="beantwortet && istKorrekt(i)"
+    [class.wrong]="istAusgewaehlt(i) && !istKorrekt(i)"
+    [disabled]="beantwortet"
+    (click)="waehle(i)"
+  >
+    {{ choice }}
+  </button>
+</div>
+
+=== DATEI 2: src/app/modules/zusatz/quizduell/components/duell-frage/duell-frage.component.scss ===
+:host {
+  --steel-900: #0f1417;
+  --steel-700: #212a2f;
+  --steel-600: #2e3a41;
+  --rail-100: #e9edee;
+  --signal-orange: #e2622a;
+  --signal-green: #3f9166;
+  --signal-red: #c5432f;
+
+  display: block;
+  font-family: var(--font-body);
+  color: var(--rail-100);
+}
+
+.timerbar-wrap {
+  height: 5px;
+  background: var(--steel-600);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.timerbar {
+  height: 100%;
+  background: var(--signal-orange);
+  transition: width 0.1s linear;
+}
+
+.question-box {
+  background: var(--steel-900);
+  border: 1px solid var(--steel-600);
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 18px;
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+}
+
+.answer-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--steel-700);
+  border: 1px solid var(--steel-600);
+  color: var(--rail-100);
+  padding: 14px 16px;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+}
+
+.answer-btn:hover:not(:disabled) {
+  border-color: var(--signal-orange);
+}
+
+.answer-btn:disabled {
+  cursor: default;
+}
+
+.answer-btn.correct {
+  background: rgba(63, 145, 102, 0.25);
+  border-color: var(--signal-green);
+}
+
+.answer-btn.wrong {
+  background: rgba(197, 67, 47, 0.25);
+  border-color: var(--signal-red);
+}
+
+WICHTIG: Schreibe beide Dateien exakt wie oben angegeben, mit allen Zeilenumbruechen. Melde am Ende kurz, welche Dateien du geschrieben hast.

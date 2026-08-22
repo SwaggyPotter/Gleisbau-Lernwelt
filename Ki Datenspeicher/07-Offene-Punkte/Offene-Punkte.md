@@ -86,37 +86,74 @@ abhaken, sobald geklärt.
   Vault-Zustand, keine Entscheidung aus dem Code ableitbar — echte Tim-Frage.
   Siehe [[08-Recherche-Gwen/Kickoff-Prompt]].
 
-## Spiele-Feature (aus Tims Gesamtziel-Vision, 2026-08-11 — noch nicht gebaut)
+## Spiele-Feature (aus Tims Gesamtziel-Vision, 2026-08-11 — inzwischen gebaut)
 
-- [ ] **Zusatz-Spielformen konzipieren und bauen.** Tim wünscht sich neben dem
-  reinen Quiz-Format noch spielerische Formate, hat sich für "Zusatz-
-  Spielformen" (statt reinem Punkte-/Abzeichen-System) entschieden. Grober
-  Vorschlag, noch nicht umgesetzt:
+- [x] **Drei interaktive Spiele umgesetzt** (nicht die urspruenglich
+  skizzierten Memory-/Zeitrennen-Modi, sondern gerätespezifische Simulationen
+  auf Tims konkrete Wuensche hin): Nivellierlatte ablesen (2026-08-11/12),
+  Schienenkopf-Verschleissmesser (2026-08-17, komplett ersetzt durch eine
+  1:1-Referenz-Simulation am 2026-08-19), Schienen erkennen (2026-08-17, 3
+  Modi). Details siehe [[00-Start-Hier]] "Kurzfassung" und
+  `14-Gwen-Code-Aufgaben/01`–`05`. Das urspruengliche Memory-/Zeitrennen-
+  Konzept unten ist NICHT umgesetzt und weiterhin nur eine Idee, falls Tim
+  spaeter noch ein viertes, quizbasiertes Spiel moechte.
+
+  **Nicht umgesetzte Ideensammlung (weiterhin offen):**
   - **Memory/Zuordnungsspiel**: Begriff ↔ Definition oder Bild ↔ Begriff,
-    gespeist aus den bestehenden `explanation`-Feldern der Themenquiz-Fragen
-    (kein neuer Inhalt nötig, nur neue Präsentationsform).
+    gespeist aus den bestehenden `explanation`-Feldern der Themenquiz-Fragen.
   - **Zeitrennen-Modus**: bestehende Fragen aus einem Thema/Gesamtquiz unter
-    Zeitdruck beantworten, z. B. als neuer Modus im `GesamtquizEngineComponent`
-    (dort existiert bereits Fragenpool + Shuffle, "nur" ein Timer + Highscore
-    fehlen).
-  - Beide Formate könnten dieselbe Fragen-Datenbasis wiederverwenden (kein
-    neuer Recherche-Aufwand), sind also primär Frontend-Arbeit: neues Modul
-    `modules/zusatz/spiele/` oder zwei separate kleine Module.
-  - Noch zu klären mit Tim: Highscore lokal (localStorage, wie der bestehende
-    Fortschritt) oder erst nach Backend-Anbindung sinnvoll?
+    Zeitdruck beantworten (Timer + Highscore im `GesamtquizEngineComponent`).
+  - Noch zu klären mit Tim: Highscore lokal (localStorage) oder erst nach
+    Backend-Anbindung sinnvoll?
 
-  **Ideensammlung (offen fuer weitere Eintraege, noch keine umgesetzt):**
-  - **Nivellierlatte ablesen (Tim, 2026-08-11):** Foto/Grafik einer
-    Nivellierlatte mit Zeiger/Anschnittpunkt zeigen, Nutzer traegt den
-    abgelesenen Wert (Zahl, z. B. in mm oder m) ein. Toleranzbasierte
-    Auswertung: richtig, wenn der eingegebene Wert nah genug am echten Wert
-    liegt (Toleranzbreite noch festzulegen, z. B. ±5 mm). Passt direkt zum
-    Zusatzmodul Nivellieren (`modules/zusatz/nivellieren/`) und ist ein
-    eigener Uebungstyp neben Multiple-Choice — braucht generierte
-    Latten-Grafiken (SVG mit zufaelligem Wasserstand/Anschnitt waere
-    realistisch umsetzbar, kein Foto pro Wert noetig) statt vorgefertigter
-    Bilder.
-  - *(weitere Ideen hier ergaenzen, sobald Tim sie nennt)*
+- [ ] **Datenlage der neuen Spiele gegenpruefen.** Sowohl bei "Schienen
+  erkennen" (~50 Profile aus einem Tabellenfoto abgetippt,
+  `src/app/shared/schienenprofile.ts`) als auch beim Schienenkopf-
+  Verschleissmesser (Profilmasse ausser Hoehe vereinfacht,
+  `schienenmesser.page.ts`) ist im Code/UI markiert, was belegt und was nur
+  fuer die Zeichnung geschaetzt ist — sollte bei Gelegenheit gegen echte
+  Quellen (Normtabellen, EN 13674) geprueft werden, bevor die Werte als
+  gepruefter Lehrinhalt gelten.
+- [ ] **Selbststudium-Wiedereinbindung.** Seit der Startseiten-Entschlackung
+  (2026-08-17) ist `SELBSTSTUDIUM_TILES` in `katalog.ts` nirgends mehr
+  verlinkt (Daten bleiben erhalten). Tim: "Das machen wir später" — nicht von
+  selbst reaktivieren, nur auf explizite Anfrage.
+
+## Quiz-Duell-Feature (2026-08-20 Grundgerüst, 2026-08-22 zweimal umgebaut)
+
+- [x] **Duell-Mechanik final geklärt und nach Tims eigenem Referenz-
+  Prototyp umgesetzt (2026-08-22).** Erst am echten "Quizduell" (MAG
+  Interactive) orientiert (6 Runden à 3 Fragen, Kategoriewahl aus 3
+  Optionen, 20s/Frage), dann per selbst gebautem HTML-Prototyp verfeinert:
+  **Gegner ist immer ein simulierter Bot** (kein Pass-and-Play mehr),
+  eigenes "Steel/Signal"-Design nur fuer dieses Feature. Siehe
+  [[../05-Update-Log/Update-Log]] (Einträge 2026-08-22) und
+  [[../14-Gwen-Code-Aufgaben/13-Quizduell-Referenz-Umbau]].
+- [ ] **Echte Mitspieler (Mensch statt Bot) über Geräte/Tage hinweg** sind
+  weiter NICHT möglich (kein Backend). Der Bot-Gegner loest das
+  UX-Problem elegant, ersetzt aber kein echtes Matchmaking. Das
+  `QuizduellMatch`-Datenmodell ist noch so geformt, wie ein späterer
+  Server es bräuchte (Runden/Kategoriewahl) — pruefen, ob es bei
+  Backend-Anbindung direkt uebernommen werden kann.
+- [ ] **Bot-Trefferquote (65 %, fest)** ist eine grobe Vereinfachung ohne
+  echte Schwierigkeitsgrade — bei Bedarf spaeter verfeinern (z. B.
+  unterschiedlich starke Bots, adaptive Schwierigkeit).
+- [ ] **Rating-Algorithmus ist eine Vereinfachung** (klassisches Elo,
+  K=32, Start 1000) — der echte Quizduell-Algorithmus (1–24 Punkte
+  Sieger, 0–9 Abzug Verlierer, nach Wikipedia-Angabe "je nach relativer
+  Rangliste-Position") ist nicht öffentlich dokumentiert und wurde bewusst
+  nicht nachgebaut. Bei Bedarf später verfeinern.
+- [ ] **Admin-Key-Registrierung** ist nur als Datenmodell-Platzhalter
+  vorbereitet (`registeredVia`/`keyUsed`-Felder, `RegistrationKey`-Interface
+  ungenutzt), keine funktionale Admin-Oberfläche. Tim möchte darüber später
+  sehen können, wer welche Fortschritte/Defizite hat — hängt an der
+  Backend-Anbindung (siehe "Backend reaktivieren oder entfernen?" oben) und
+  ist bewusst zurückgestellt.
+- [ ] **Login ist rein lokal/geräteweise** (localStorage, kein Server) —
+  kein Konto-Sync zwischen Browsern/Geräten, bis das Backend angebunden
+  wird. Sollte bei Gelegenheit klar kommuniziert werden (z. B. in der App
+  selbst), damit Nutzer nicht überrascht sind, wenn ihr Konto auf einem
+  anderen Gerät nicht existiert.
 
 ## Bild-Feedback von Tim (2026-08-11, teils umgesetzt)
 

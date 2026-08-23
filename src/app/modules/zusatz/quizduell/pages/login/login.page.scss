@@ -43,6 +43,9 @@ ion-title {
   max-width: 480px;
   margin: 24px auto;
   padding: 0 16px;
+  // Ionic setzt per ::slotted(*) eine eigene Standardfarbe auf das oberste
+  // projizierte Element -- explizit setzen statt auf Vererbung verlassen.
+  color: var(--rail-100);
 }
 
 .frame {

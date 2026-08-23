@@ -50,6 +50,11 @@ ion-title {
   max-width: 560px;
   margin: 24px auto;
   padding: 0 16px;
+  // Ionic setzt per ::slotted(*) eine eigene Standardfarbe auf das oberste
+  // projizierte Element (ueberschreibt sonst geerbtes --rail-100 vom :host
+  // fuer alles darunter, das keine eigene explizite Farbe hat) -- deshalb
+  // hier explizit setzen statt auf Vererbung zu verlassen.
+  color: var(--rail-100);
 }
 
 .frame {
@@ -305,6 +310,8 @@ input[type='text']:focus {
   justify-content: space-between;
   transition: border-color 0.15s, background 0.15s, transform 0.1s;
   text-align: left;
+  color: var(--rail-100);
+  font-family: var(--font-body);
 }
 
 .cat-card:hover:not(:disabled) {
@@ -327,6 +334,56 @@ input[type='text']:focus {
 .cat-icon {
   font-size: 20px;
   opacity: 0.85;
+}
+
+// Laufende Spiele
+.offene-spiele {
+  border-top: 1px solid var(--steel-600);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.offene-match-karte {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--steel-900);
+  border: 1px solid var(--steel-600);
+  border-radius: 5px;
+  padding: 12px 14px;
+}
+
+.offene-match-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--rail-100);
+}
+
+.offene-match-gegner {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.offene-match-stand {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--rail-200);
+}
+
+.offene-match-aktionen {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-klein {
+  width: auto;
+  padding: 8px 12px;
+  font-size: 11px;
 }
 
 // Score

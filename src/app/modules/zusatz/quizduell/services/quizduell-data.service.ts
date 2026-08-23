@@ -5,6 +5,7 @@ import {
   BOT_NAMEN,
   FRAGEN_PRO_RUNDE,
   GEGNER_TREFFERQUOTE,
+  KATEGORIE_OPTIONEN_ANZAHL,
   QuizduellMatch,
   QuizduellRunde,
   QuizduellStats,
@@ -12,6 +13,8 @@ import {
 } from '../models/quizduell.models';
 
 const STATS_PREFIX = 'quizduell-stats-';
+const GAST_NAME_KEY = 'quizduell-gast-name';
+const OFFENE_MATCHES_KEY = 'quizduell-offene-matches';
 const START_RATING = 1000;
 const K_FAKTOR = 32;
 
@@ -78,8 +81,22 @@ export class QuizduellDataService {
     return BOT_NAMEN[Math.floor(Math.random() * BOT_NAMEN.length)];
   }
 
+  /** Fallback-Name, falls beim Duell-Start kein Name eingetragen wurde (analog zu den Bot-Namen). */
+  zufaelligerGastName(): string {
+    return 'Gast_' + Math.floor(1000 + Math.random() * 9000);
+  }
+
+  ladeGespeichertenGastNamen(): string {
+    return localStorage.getItem(GAST_NAME_KEY) ?? '';
+  }
+
+  speichereGastNamen(name: string): void {
+    if (!name.trim()) return;
+    localStorage.setItem(GAST_NAME_KEY, name.trim());
+  }
+
   /** Bis zu `anzahl` zufaellige Themen mit genug Fragen, die in diesem Match noch nicht dran waren. */
-  waehleKategorieOptionen(alleThemen: ThemenquizTopic[], bereitsGenutzt: string[], anzahl = 3): ThemenquizTopic[] {
+  waehleKategorieOptionen(alleThemen: ThemenquizTopic[], bereitsGenutzt: string[], anzahl = KATEGORIE_OPTIONEN_ANZAHL): ThemenquizTopic[] {
     const genugFragen = alleThemen.filter((t) => t.questionCount >= FRAGEN_PRO_RUNDE);
     const nochNichtGenutzt = genugFragen.filter((t) => !bereitsGenutzt.includes(t.topicId));
     const pool = nochNichtGenutzt.length >= anzahl ? nochNichtGenutzt : genugFragen;
@@ -144,6 +161,40 @@ export class QuizduellDataService {
 
     this.aktualisiereAchievements(stats, { perfekteRunde, perfektesDuell, schnellsteRichtigeMs });
     this.saveStats(match.spielerUserId, stats);
+  }
+
+  /**
+   * Speichert den aktuellen Match-Stand lokal, damit ein angefangenes Duell
+   * spaeter fortgesetzt werden kann ("laufende Spiele"). Ein abgeschlossenes
+   * Match wird aus der Liste entfernt (der Verlauf steckt danach in der
+   * Statistik, nicht mehr im Match-Objekt selbst).
+   */
+  speichereMatch(match: QuizduellMatch): void {
+    const alle = this.ladeOffeneMatches();
+    const index = alle.findIndex((m) => m.id === match.id);
+    if (match.phase === 'abgeschlossen') {
+      if (index >= 0) alle.splice(index, 1);
+    } else if (index >= 0) {
+      alle[index] = match;
+    } else {
+      alle.push(match);
+    }
+    localStorage.setItem(OFFENE_MATCHES_KEY, JSON.stringify(alle));
+  }
+
+  ladeOffeneMatches(): QuizduellMatch[] {
+    const raw = localStorage.getItem(OFFENE_MATCHES_KEY);
+    if (!raw) return [];
+    try {
+      return JSON.parse(raw) as QuizduellMatch[];
+    } catch {
+      return [];
+    }
+  }
+
+  entferneMatch(matchId: string): void {
+    const alle = this.ladeOffeneMatches().filter((m) => m.id !== matchId);
+    localStorage.setItem(OFFENE_MATCHES_KEY, JSON.stringify(alle));
   }
 
   loadStats(userId: string): QuizduellStats {

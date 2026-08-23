@@ -18,6 +18,8 @@ export interface AuthUser {
 export const RUNDEN_PRO_MATCH = 6;
 export const FRAGEN_PRO_RUNDE = 3;
 export const ZEITLIMIT_SEK = 20;
+/** Anzahl Themen, aus denen bei der Kategoriewahl pro Runde ausgewaehlt werden kann. */
+export const KATEGORIE_OPTIONEN_ANZAHL = 4;
 /** Simulierte Trefferquote des Gegners -- siehe Klassendoku QuizduellDataService. */
 export const GEGNER_TREFFERQUOTE = 0.65;
 

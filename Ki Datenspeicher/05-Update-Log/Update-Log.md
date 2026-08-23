@@ -11,6 +11,70 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+## 2026-08-22 (4) — Quiz-Duell: Wiedereinstieg zeigt immer die Auswahl statt automatisch das letzte Match fortzusetzen
+
+Bug aus der vorigen Runde: Ionic haelt Seiten im Navigations-Cache am Leben
+-- beim erneuten Aufruf von `/zusatz/quizduell/duell` blieb die Komponente
+im zuletzt aktiven `state` ("mitten im Spiel") haengen, `ionViewWillEnter`
+aktualisierte die "Laufende Spiele"-Liste nur, wenn man zufaellig schon auf
+dem Setup-Screen war. Tim wollte stattdessen: raus und wieder rein soll
+immer zur Auswahl fuehren (neues Duell starten ODER eines der laufenden
+fortsetzen), nicht zwangslaeufig ins zuletzt gespielte Match. Fix:
+`ionViewWillEnter` setzt jetzt IMMER auf `state = 'setup'` zurueck (der
+Spielstand ist laengst in `localStorage` gesichert, geht also nichts
+verloren) und laedt die Liste neu.
+
+Damit funktioniert jetzt auch das eigentliche Ziel dahinter: **mehrere
+gleichzeitig laufende Duelle** (Tim: "wie eine Extrakarteikarte" -- passend
+zum Vorbild, wo man mit mehreren Leuten parallel offene Duelle haben kann,
+ohne zu wissen, wann wer antwortet). Die Datenschicht
+(`QuizduellDataService.speichereMatch`, Array in `localStorage`) hat das
+schon vorher unterstuetzt, nur der Navigations-Bug verhinderte es in der
+Praxis. Per Playwright bestaetigt: zwei parallele Matches (SpielerA/
+SpielerB, je gegen eigenen Bot) angefangen, beide erscheinen als eigene
+Karten, gezieltes Fortsetzen der ersten Karte laedt wirklich deren eigenen
+Stand (nicht den der zweiten).
+
+---
+
+## 2026-08-22 (3) — Quiz-Duell: Feinschliff nach erstem Live-Test (Gast-Namen, mehr Themen, laufende Spiele, Textfarben-Bugfix)
+
+Tim hat die Steel/Signal-Version live getestet und Nachbesserungen
+gewünscht — alle direkt von Claude umgesetzt (kleine, praezise Logik-/
+Config-Aenderungen an bestehenden Dateien, kein Gwen-Dispatch diese Runde):
+
+1. **Automatischer Gast-Name**: Klick auf "Gegner suchen" ohne Namenseingabe
+   erzeugt jetzt `Gast_XXXX` (analog zu den Bot-Namen), statt eine
+   Fehlermeldung zu zeigen.
+2. **Mehr Themenoptionen pro Runde**: 4 statt 3 Kategorie-Vorschläge
+   (`KATEGORIE_OPTIONEN_ANZAHL` in `quizduell.models.ts`). Der Themenpool
+   selbst war mit allen 24 `topics.json`-Einträgen (10 Wissenstest + 14
+   Lernfelder) schon vorher vollständig.
+3. **Name-Wiederverwendung**: Gast-Name wird in `localStorage`
+   (`quizduell-gast-name`) gemerkt und beim naechsten Besuch vorausgefuellt.
+4. **Laufende Spiele**: jedes angefangene, noch nicht abgeschlossene Match
+   wird nach jedem Schritt in `localStorage` (`quizduell-offene-matches`)
+   gespeichert. Die Setup-Seite zeigt eine "Laufende Spiele"-Liste mit
+   Gegner/Rundenstand, "Weiterspielen" stellt den exakten Punkt wieder her
+   (inkl. neu geladener Fragen anhand der gespeicherten Frage-IDs);
+   abgeschlossene Matches verschwinden automatisch aus der Liste.
+5. **Bugfix schwarzer Text auf dunklem Grund** (Kategoriewahl, Punktestand):
+   Ursache war eine bisher unbekannte Ionic-Eigenheit, nicht ein
+   Gwen-Fehler — `::slotted(*)` in `<ion-content>` überschreibt geerbte
+   `:host`-Farben fuer alles ohne eigene explizite `color`-Regel. Fix:
+   `color` zusätzlich explizit auf dem obersten `.app-shell`-Wrapper in
+   allen drei Quiz-Duell-Seiten gesetzt. Neue Vault-Notiz dazu in
+   [[../00-Start-Hier]] (Design-Abschnitt), da das jede künftige
+   eigenständig gestylte `ion-content`-Seite treffen könnte, nicht nur
+   Quiz-Duell.
+
+Alle fünf Punkte per Playwright end-to-end bestätigt (Auto-Name, 4
+Kategorien, Namens-Vorausfüllung nach Reload, Speichern/Fortsetzen/
+Verschwinden eines laufenden Matches, korrigierte Textfarbe per
+`getComputedStyle`-Check).
+
+---
+
 ## 2026-08-22 (2) — Quiz-Duell nach Tims Referenz-Prototyp umgebaut: Bot-Gegner statt Pass-and-Play, neues Steel/Signal-Design
 
 Tim hat einen selbst (bei einer anderen Claude-Instanz) beauftragten

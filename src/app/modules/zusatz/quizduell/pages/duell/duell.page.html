@@ -37,15 +37,30 @@
         </ng-container>
         <ng-template #gastEingabe>
           <label class="field-label">Dein Name</label>
-          <input type="text" [(ngModel)]="gastName" placeholder="Spielername" />
+          <input type="text" [(ngModel)]="gastName" placeholder="Spielername (sonst wird einer zugeteilt)" />
           <p class="small-note">
             Als Gast wird deine Statistik nicht gespeichert.
             <a routerLink="/zusatz/quizduell/login">Anmelden</a>, um Rating &amp; Erfolge zu sammeln.
           </p>
         </ng-template>
 
-        <p class="form-error" *ngIf="setupError">{{ setupError }}</p>
         <button type="button" class="btn btn-primary" (click)="starteSuche()">Gegner suchen</button>
+      </div>
+
+      <div class="body-pad offene-spiele" *ngIf="offeneMatches.length">
+        <p class="eyebrow">Laufende Spiele</p>
+        <div class="offene-match-karte" *ngFor="let m of offeneMatches">
+          <div class="offene-match-info">
+            <span class="offene-match-gegner">{{ m.spielerName }} vs. {{ m.gegnerName }}</span>
+            <span class="offene-match-stand">
+              Runde {{ m.aktuelleRundeIndex + 1 }} / {{ rundenGesamt }} · {{ zwischenstandFuer(m).spieler }} : {{ zwischenstandFuer(m).gegner }}
+            </span>
+          </div>
+          <div class="offene-match-aktionen">
+            <button type="button" class="btn btn-primary btn-klein" (click)="weiterspielen(m)">Weiterspielen</button>
+            <button type="button" class="btn btn-ghost btn-klein" (click)="matchVerwerfen(m)">Verwerfen</button>
+          </div>
+        </div>
       </div>
 
       <ng-container *ngIf="state === 'match' && match as m">

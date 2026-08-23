@@ -23,7 +23,9 @@ type PageState = 'setup' | 'match';
  * pro Frage. Der Gegner ist immer ein simulierter Bot -- ohne Backend gibt
  * es keine echten Mitspieler, das Matchmaking "sucht" deshalb kurz und
  * faellt dann zuverlaessig auf einen Bot zurueck (macht das Duell auch
- * allein spielbar).
+ * allein spielbar). Angefangene Matches werden lokal gespeichert
+ * (QuizduellDataService.speichereMatch) und koennen als "laufende Spiele"
+ * fortgesetzt werden, siehe weiterspielen().
  */
 @Component({
   selector: 'app-quizduell-duell',
@@ -36,7 +38,7 @@ export class DuellPage {
 
   // --- Setup ---
   gastName = '';
-  setupError: string | null = null;
+  offeneMatches: QuizduellMatch[] = [];
 
   // --- Match ---
   match: QuizduellMatch | null = null;
@@ -57,6 +59,24 @@ export class DuellPage {
     private readonly quizduellData: QuizduellDataService,
   ) {
     this.themenquiz.getTopics().subscribe((topics) => (this.topics = topics));
+    this.gastName = this.quizduellData.ladeGespeichertenGastNamen();
+  }
+
+  /**
+   * Ionic haelt Seiten im DOM am Leben (Navigations-Cache) -- ohne diesen
+   * Reset wuerde ein erneuter Besuch der Duell-Seite mitten im zuletzt
+   * gespielten Match wieder aufmachen, ohne Moeglichkeit, stattdessen ein
+   * neues zu starten. Der laufende Stand ist laengst in localStorage
+   * gesichert (persistiere() nach jedem Schritt), geht also nichts verloren
+   * -- beim Wiedereinstieg landet man immer auf der Auswahl (neues Duell
+   * ODER eines der "laufenden Spiele" fortsetzen), nie automatisch mitten
+   * im Spiel.
+   */
+  ionViewWillEnter(): void {
+    this.state = 'setup';
+    this.match = null;
+    this.matchAuswertung = null;
+    this.aktualisiereOffeneMatches();
   }
 
   get istEingeloggt(): boolean {
@@ -76,8 +96,12 @@ export class DuellPage {
   }
 
   get zwischenstand(): { spieler: number; gegner: number } {
-    if (!this.match) return { spieler: 0, gegner: 0 };
-    const a = this.quizduellData.wertMatchAus(this.match);
+    return this.zwischenstandFuer(this.match);
+  }
+
+  zwischenstandFuer(match: QuizduellMatch | null): { spieler: number; gegner: number } {
+    if (!match) return { spieler: 0, gegner: 0 };
+    const a = this.quizduellData.wertMatchAus(match);
     return { spieler: a.spielerRichtig, gegner: a.gegnerRichtig };
   }
 
@@ -90,17 +114,18 @@ export class DuellPage {
   }
 
   starteSuche(): void {
-    this.setupError = null;
     const user = this.auth.currentUser();
-    const name = user?.displayName ?? this.gastName.trim();
+    let name = user?.displayName ?? this.gastName.trim();
     if (!name) {
-      this.setupError = 'Bitte einen Namen eintragen oder anmelden.';
-      return;
+      name = this.quizduellData.zufaelligerGastName();
+      this.gastName = name;
     }
+    if (!user) this.quizduellData.speichereGastNamen(name);
 
     this.match = this.quizduellData.erstelleMatch(name, user?.id ?? null);
     this.matchAuswertung = null;
     this.state = 'match';
+    this.persistiere();
 
     // Simuliertes Matchmaking: es gibt keinen echten Mitspieler-Pool (kein
     // Backend) -- die Suche "laeuft" kurz an und faellt danach immer auf
@@ -108,6 +133,7 @@ export class DuellPage {
     window.setTimeout(() => {
       if (!this.match) return;
       this.match.phase = 'vs';
+      this.persistiere();
       window.setTimeout(() => this.starteKategoriewahl(), 1400);
     }, 2200);
   }
@@ -116,7 +142,9 @@ export class DuellPage {
     if (!this.match || !this.aktuelleRunde) return;
     const bereitsGenutzt = this.match.runden.filter((r) => r.gewaehlteKategorie).map((r) => r.gewaehlteKategorie!.topicId);
     this.aktuelleKategorieOptionen = this.quizduellData.waehleKategorieOptionen(this.topics, bereitsGenutzt);
+    this.aktuelleRunde.kategorieOptionen = this.aktuelleKategorieOptionen.map((t) => ({ topicId: t.topicId, title: t.title }));
     this.match.phase = 'kategorie';
+    this.persistiere();
 
     if (!this.aktuelleRunde.spielerWaehlt) {
       window.setTimeout(() => {
@@ -139,6 +167,7 @@ export class DuellPage {
     this.gewaehlterIndex = null;
     this.beantwortet = false;
     this.match.phase = 'fragen';
+    this.persistiere();
   }
 
   onAntwort(event: DuellAntwortEvent): void {
@@ -152,6 +181,7 @@ export class DuellPage {
     });
     this.gewaehlterIndex = event.index;
     this.beantwortet = true;
+    this.persistiere();
 
     window.setTimeout(() => this.naechsterSchritt(), 900);
   }
@@ -167,12 +197,14 @@ export class DuellPage {
     }
 
     this.match.phase = 'gegner-antwortet';
+    this.persistiere();
     window.setTimeout(() => {
       if (!this.match || !this.aktuelleRunde) return;
       this.aktuelleRunde.gegnerRichtigeAnzahl = this.quizduellData.simuliereGegnerRunde();
 
       if (this.match.aktuelleRundeIndex < RUNDEN_PRO_MATCH - 1) {
         this.match.phase = 'rundenwechsel';
+        this.persistiere();
       } else {
         this.schliesseMatchAb();
       }
@@ -193,6 +225,7 @@ export class DuellPage {
     this.match.phase = 'abgeschlossen';
     this.quizduellData.aktualisiereStatistikNachMatch(this.match, auswertung);
     this.matchAuswertung = auswertung;
+    this.persistiere();
   }
 
   neuesDuell(): void {
@@ -203,5 +236,78 @@ export class DuellPage {
     this.match = null;
     this.matchAuswertung = null;
     this.state = 'setup';
+    this.aktualisiereOffeneMatches();
+  }
+
+  /** Ein zuvor angefangenes, noch offenes Match wieder aufnehmen. */
+  async weiterspielen(match: QuizduellMatch): Promise<void> {
+    this.match = match;
+    this.matchAuswertung = null;
+    this.state = 'match';
+
+    const runde = match.runden[match.aktuelleRundeIndex];
+    if (!runde) return;
+
+    this.aktuelleKategorieOptionen = runde.kategorieOptionen
+      .map((opt) => this.topics.find((t) => t.topicId === opt.topicId))
+      .filter((t): t is ThemenquizTopic => !!t);
+
+    switch (match.phase) {
+      case 'lobby':
+      case 'vs':
+        this.starteKategoriewahl();
+        break;
+
+      case 'kategorie':
+        if (!runde.spielerWaehlt && this.aktuelleKategorieOptionen.length) {
+          window.setTimeout(() => {
+            const zufaellig = this.aktuelleKategorieOptionen[Math.floor(Math.random() * this.aktuelleKategorieOptionen.length)];
+            void this.waehleKategorie(zufaellig);
+          }, 1000);
+        }
+        break;
+
+      case 'fragen':
+        if (runde.gewaehlteKategorie) {
+          const quiz = await firstValueFrom(this.themenquiz.getQuiz(runde.gewaehlteKategorie.topicId));
+          this.aktuelleRundenFragen = runde.frageIds
+            .map((id) => quiz.questions.find((q) => q.id === id))
+            .filter((f): f is ThemenquizQuestion => !!f);
+        }
+        this.aktuelleFrageIndexInRunde = runde.spielerAntworten.length;
+        this.gewaehlterIndex = null;
+        this.beantwortet = false;
+        break;
+
+      case 'gegner-antwortet':
+      case 'rundenwechsel':
+        if (runde.gegnerRichtigeAnzahl === null) {
+          runde.gegnerRichtigeAnzahl = this.quizduellData.simuliereGegnerRunde();
+        }
+        if (match.aktuelleRundeIndex < RUNDEN_PRO_MATCH - 1) {
+          this.match.phase = 'rundenwechsel';
+        } else {
+          this.schliesseMatchAb();
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    this.persistiere();
+  }
+
+  matchVerwerfen(match: QuizduellMatch): void {
+    this.quizduellData.entferneMatch(match.id);
+    this.aktualisiereOffeneMatches();
+  }
+
+  private aktualisiereOffeneMatches(): void {
+    this.offeneMatches = this.quizduellData.ladeOffeneMatches();
+  }
+
+  private persistiere(): void {
+    if (this.match) this.quizduellData.speichereMatch(this.match);
   }
 }

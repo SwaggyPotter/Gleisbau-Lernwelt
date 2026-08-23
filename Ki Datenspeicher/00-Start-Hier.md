@@ -66,7 +66,19 @@ Datei + das Update-Log, nicht blind auf die Architektur-/Modul-Dateien.
   Barlow/JetBrains Mono selbst gehostet als woff2. Neue Module binden sich
   darüber ein (`:host { ... var(--sp-bg) ... }`), nicht über globale Ionic-Farben
   (das hat schon zweimal andere Seiten heimlich kaputt gemacht, siehe Lehren
-  unten).
+  unten). **Quiz-Duell** hat bewusst ein eigenes, unabhängiges Theme
+  ("Steel/Signal", Tims eigener Wunsch nach seinem Referenz-Prototyp), nicht
+  das Streckenplan-System.
+  ⚠️ **CSS-Falle bei eigenen `:host`-Farben in `ion-content`-Seiten**: eine
+  Farbe nur auf `:host { color: ... }` zu setzen reicht NICHT — Ionic setzt
+  intern per `::slotted(*)` eine eigene Textfarbe (`var(--ion-text-color)`,
+  meist Schwarz) auf das oberste in `<ion-content>` projizierte Element, die
+  die geerbte `:host`-Farbe für alles darunter überschreibt. Passiert genau
+  dann, wenn ein verschachteltes Element keine eigene explizite `color`-Regel
+  hat (beim Quiz-Duell-Umbau so entdeckt: `.score-num`/`.cat-card` waren
+  schwarz auf dunklem Grund). **Fix: die Textfarbe zusätzlich explizit auf
+  dem obersten Wrapper-Element direkt in `<ion-content>` setzen** (z. B.
+  `.app-shell { color: var(--rail-100); }`), nicht nur auf `:host`.
 - **Die vier Spiele** (alle unter `/kategorie/spiele`):
   1. **Nivellierlatte ablesen** — Zielhöhe ablesen + Entfernungsmessung per
      Distanzstrichen, mit Zielfernrohr-Optik.

@@ -1,0 +1,18 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-lf07-05.md",
+  "status": "RULE_VIOLATION",
+  "reasons": [
+    "Frontmatter (außer status) wurde verändert."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 69,
+      "status": "RULE_VIOLATION",
+      "reasons": [
+        "Frontmatter (außer status) wurde verändert."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T11-19-01-813Z_Batch-lf07-05.md.log"
+}

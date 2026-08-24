@@ -201,6 +201,27 @@ echtes Gleisplan-SVG statt Luftbild), Bildgroesse auf Kacheln kompakter.
   damaligen Auftrags). Bei Gelegenheit entweder loeschen oder wieder
   irgendwo einbinden.
 
+## Themenquiz-Quellenprüfung (2026-08-24, 99 % fertig)
+
+- [x] **Alle 645 Themenquiz-/Lernfeld-Fragen brauchen eine Quelle mit
+  Link — erledigt (636/645, 99 %).** Tims Wunsch, per Gwen (headless)
+  umgesetzt und von Claude per Vollprüfung aller 482 eingetragenen URLs
+  verifiziert (nicht nur Stichprobe). Dabei ein neues Gwen-Fehlerbild
+  gefunden: erfundene, plausibel klingende Domains statt "keine
+  gefunden" (45 Fälle entfernt) — Details, alle gefundenen Bugs und die
+  Format-Historie: [[../14-Gwen-Code-Aufgaben/15-Themenquiz-Quellenpruefung]].
+- [ ] **9 Fragen noch ohne Quelle** (waren fabriziert/tot, entfernt,
+  noch nicht neu recherchiert): LF03-Q26, LF09-Q1/Q2/Q3/Q5, LF11-Q22,
+  LF14-Q23, trassenplan tp-q4/trassenplan-g11. Kein Blocker (Feld
+  optional) — mit `node tools/themenquiz-quellenpruefung/run-batches.cjs 5`
+  wuerde der selbst-fortsetzende Workflow genau diese automatisch
+  nachziehen.
+- [ ] **FALSCH/UNSICHER-Funde aus der Quellenprüfung sind gesammelt, aber
+  noch nicht mit Tim besprochen.** Bisher u. a.: `bettung-g6`
+  (Lastausbreitungswinkel), `kleineisen-g6`/`kleingeraete-g11` und
+  einzelne LF01/LF05/LF13-Fragen. Bewusst nicht automatisch in der App
+  geändert — Quiz-Inhalt-Korrekturen sind eine separate Entscheidung.
+
 ## Unbekannt / an Tim zu klären
 
 - [ ] Läuft das Backend/Docker-Compose-Setup aktuell produktiv irgendwo, oder

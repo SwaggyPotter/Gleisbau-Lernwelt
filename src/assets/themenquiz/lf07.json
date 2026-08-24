@@ -12,7 +12,9 @@
         "hoeher als breit"
       ],
       "correctIndex": 0,
-      "explanation": "Graeben werden typischerweise als laengliche Aushuebe ausgefuehrt."
+      "explanation": "Graeben werden typischerweise als laengliche Aushuebe ausgefuehrt.",
+      "source": "Baugruben und Gräben - Definition, 20.08.2026",
+      "sourceUrl": "https://www.bfga.de/arbeitsschutz-lexikon-von-a-bis-z/fachbegriffe-a-b/baugruben-graeben-fachbegriff/"
     },
     {
       "id": "LF07-Q2",
@@ -24,7 +26,9 @@
         "Daecher"
       ],
       "correctIndex": 0,
-      "explanation": "Baugruben dienen vor allem der Herstellung von Bauwerken und deren Gruendung."
+      "explanation": "Baugruben dienen vor allem der Herstellung von Bauwerken und deren Gruendung.",
+      "source": "Baugrube - Lexikon - Bauprofessor, 20.08.2026",
+      "sourceUrl": "https://www.bauprofessor.de/baugrube/"
     },
     {
       "id": "LF07-Q3",
@@ -36,7 +40,9 @@
         "Hitze"
       ],
       "correctIndex": 0,
-      "explanation": "Die akute Lebensgefahr entsteht durch nachrutschenden Boden und Einsturz."
+      "explanation": "Die akute Lebensgefahr entsteht durch nachrutschenden Boden und Einsturz.",
+      "source": "Unfallgeschehen bei Baugruben und Gräben, 20.08.2026",
+      "sourceUrl": "https://bauportal.bgbau.de/bauportal-12020/thema/tiefbau/das-unfallgeschehen-beim-arbeiten-in-und-an-baugruben-und-graeben"
     },
     {
       "id": "LF07-Q4",
@@ -48,7 +54,9 @@
         "bei Asphalt"
       ],
       "correctIndex": 0,
-      "explanation": "Lockerer oder nasser Boden verliert Stabilitaet und braucht flachere Boeschungen."
+      "explanation": "Lockerer oder nasser Boden verliert Stabilitaet und braucht flachere Boeschungen.",
+      "source": "Böschungen - Hangsicherung - Baugrundingenieure Institut, 20.08.2026",
+      "sourceUrl": "http://bgi-do.de/?id=87"
     },
     {
       "id": "LF07-Q5",
@@ -60,7 +68,9 @@
         "freiwillig"
       ],
       "correctIndex": 0,
-      "explanation": "Kann die Boeschung die Sicherheit nicht gewaehrleisten, muss verbaut werden."
+      "explanation": "Kann die Boeschung die Sicherheit nicht gewaehrleisten, muss verbaut werden.",
+      "source": "Baugruben- und Gräben nach DIN 4124, 20.08.2026",
+      "sourceUrl": "https://sicherheitsingenieur.nrw/baugruben-und-graeben-nach-din-4124/"
     },
     {
       "id": "LF07-Q6",
@@ -72,7 +82,9 @@
         "nie"
       ],
       "correctIndex": 0,
-      "explanation": "Der Rueckbau erfolgt erst, wenn die Standsicherheit durch Verfuellung gesichert ist."
+      "explanation": "Der Rueckbau erfolgt erst, wenn die Standsicherheit durch Verfuellung gesichert ist.",
+      "source": "DGUV-Inform 201-052 (2017)",
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_052/4.htm"
     },
     {
       "id": "LF07-Q7",
@@ -84,7 +96,9 @@
         "ist egal"
       ],
       "correctIndex": 0,
-      "explanation": "Wasser schwemmt Boden aus und kann die Baugrubenwaende destabilisieren."
+      "explanation": "Wasser schwemmt Boden aus und kann die Baugrubenwaende destabilisieren.",
+      "source": "Darda-wissen.unterspuelung (2026)",
+      "sourceUrl": "https://www.darda.de/wissen/unterspuelung"
     },
     {
       "id": "LF07-Q8",
@@ -96,7 +110,9 @@
         "sie laut sind"
       ],
       "correctIndex": 0,
-      "explanation": "Zusatzlasten an der Kante erhoehen den Bodendruck und damit das Einsturzrisiko."
+      "explanation": "Zusatzlasten an der Kante erhoehen den Bodendruck und damit das Einsturzrisiko.",
+      "source": "BGHM-Merkblatt-064 (2026)",
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten//dguv/101_604/3_5.htm"
     },
     {
       "id": "LF07-Q9",
@@ -108,7 +124,9 @@
         "ueber den Rand klettern"
       ],
       "correctIndex": 0,
-      "explanation": "Sichere Zugaenge sind Pflicht, Improvisation ist unzulaessig."
+      "explanation": "Sichere Zugaenge sind Pflicht, Improvisation ist unzulaessig.",
+      "source": "GBGB (Gesetz Arbeitsschutz 2026)",
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten//dguv/101_604/3_5.htm"
     },
     {
       "id": "LF07-Q10",
@@ -120,7 +138,9 @@
         "messen"
       ],
       "correctIndex": 0,
-      "explanation": "Ungelesicherte Randbereiche duerfen nicht betreten oder unterarbeitet werden."
+      "explanation": "Ungelesicherte Randbereiche duerfen nicht betreten oder unterarbeitet werden.",
+      "source": "BGHM-Merkblatt-064 (2026)",
+      "sourceUrl": "https://www.darda.de/wissen/unterspuelung"
     },
     {
       "id": "LF07-Q11",
@@ -132,7 +152,9 @@
         "Gefahr besteht nur bei Regen"
       ],
       "correctIndex": 0,
-      "explanation": "Bereits bei geringeren Tiefen besteht akute Einsturz- und Verschuettungsgefahr."
+      "explanation": "Bereits bei geringeren Tiefen besteht akute Einsturz- und Verschuettungsgefahr.",
+      "source": "C469 2026",
+      "sourceUrl": "https://www.deutscher-bauzeiger.de/bauen/baugrube/erdaushub/abboeschung-oder-verbau/"
     },
     {
       "id": "LF07-Q12",
@@ -144,7 +166,9 @@
         "Nur vom Werkzeug"
       ],
       "correctIndex": 0,
-      "explanation": "Bodenart und Wasserverhaeltnisse beeinflussen die Stabilitaet direkt."
+      "explanation": "Bodenart und Wasserverhaeltnisse beeinflussen die Stabilitaet direkt.",
+      "source": "C469 2026",
+      "sourceUrl": "https://www.deutscher-bauzeiger.de/bauen/baugrube/erdaushub/abboeschung-oder-verbau/"
     },
     {
       "id": "LF07-Q13",
@@ -156,7 +180,9 @@
         "Boeschung ist immer Pflicht"
       ],
       "correctIndex": 0,
-      "explanation": "Wenn eine sichere Boeschung nicht moeglich ist, wird mit Verbau gesichert."
+      "explanation": "Wenn eine sichere Boeschung nicht moeglich ist, wird mit Verbau gesichert.",
+      "source": "baumazengrube.eu 2026",
+      "sourceUrl": "https://www.deutscher-bauzeiger.de/bauen/baugrube/erdaushub/abboeschung-oder-verbau/"
     },
     {
       "id": "LF07-Q14",
@@ -168,7 +194,9 @@
         "Es verhindert Randabbrueche"
       ],
       "correctIndex": 0,
-      "explanation": "Durch Wasser kann der Boden aufgeweicht oder ausgespuelt werden."
+      "explanation": "Durch Wasser kann der Boden aufgeweicht oder ausgespuelt werden.",
+      "source": "Bauzeiger 2026",
+      "sourceUrl": "https://www.deutscher-bauzeiger.de/bauen/baugrube/wasserhaltung/wasserhaltung-pumpensumpf/"
     },
     {
       "id": "LF07-Q15",
@@ -180,7 +208,9 @@
         "Nur bei trockenem Wetter an der Kante"
       ],
       "correctIndex": 0,
-      "explanation": "Abstand zur Kante reduziert zusaetzliche Lasten am kritischen Randbereich."
+      "explanation": "Abstand zur Kante reduziert zusaetzliche Lasten am kritischen Randbereich.",
+      "source": "BGV C22 §31 2026",
+      "sourceUrl": "https://vorschriften.bgn-branchenwissen.de/daten/dguv/38/31.htm"
     },
     {
       "id": "LF07-Q16",
@@ -192,7 +222,9 @@
         "Nach Rueckbau der Boeschung"
       ],
       "correctIndex": 0,
-      "explanation": "Der Verbau muss den Aushubschritt begleiten, um Sicherheit zu gewaehrleisten."
+      "explanation": "Der Verbau muss den Aushubschritt begleiten, um Sicherheit zu gewaehrleisten.",
+      "source": "waagerechter Verbau mit Aushub",
+      "sourceUrl": "https://grundrichtig.de/normverbau-waagerechter-und-senkrechter-verbau/"
     },
     {
       "id": "LF07-Q17",
@@ -204,7 +236,9 @@
         "nur bei Maschinenstillstand"
       ],
       "correctIndex": 0,
-      "explanation": "Der Verbau bleibt bis zur gesicherten Verfuellung wirksam."
+      "explanation": "Der Verbau bleibt bis zur gesicherten Verfuellung wirksam.",
+      "source": "Rückbau nur nach Verfüllen",
+      "sourceUrl": "https://www.unitracc.com/e-learning/skripte/d-02-einbau-von-wasser-und-abwasserleitungen-und-kanaelen-in-offener-bauweise-skript/course_ppt_view?uid=3b5af78dd280b4e8bd240941659a23e7"
     },
     {
       "id": "LF07-Q18",
@@ -216,7 +250,9 @@
         "Graben ist immer breiter als Baugrube"
       ],
       "correctIndex": 0,
-      "explanation": "Baugrube und Graben haben unterschiedliche Geometrie und Einsatzbereiche."
+      "explanation": "Baugrube und Graben haben unterschiedliche Geometrie und Einsatzbereiche.",
+      "source": "Baugrube vs Graben in DIN 4124",
+      "sourceUrl": "https://sicherheitsingenieur.nrw/baugruben-und-graeben-nach-din-4124/"
     },
     {
       "id": "LF07-Q19",
@@ -228,7 +264,9 @@
         "Mit improvisierten Brettern"
       ],
       "correctIndex": 0,
-      "explanation": "Sichere Zugaenge sind verbindliche Schutzmassnahmen."
+      "explanation": "Sichere Zugaenge sind verbindliche Schutzmassnahmen.",
+      "source": "sichere Treppen, Leiter nur Ausnahmen",
+      "sourceUrl": "https://bauportal.bgbau.de/bauportal-42021/thema/tiefbau/gestaltung-der-zugaenge-in-baugruben-oder-schaechte"
     },
     {
       "id": "LF07-Q20",
@@ -240,7 +278,9 @@
         "Einmal pro Monat"
       ],
       "correctIndex": 0,
-      "explanation": "Taegliche Kontrolle ist notwendig, weil sich Bedingungen schnell aendern."
+      "explanation": "Taegliche Kontrolle ist notwendig, weil sich Bedingungen schnell aendern.",
+      "source": "DGUV Sichtprüfung Baugruben",
+      "sourceUrl": "https://www.dguv.de/medien/fb-bauwesen/sachgebiete/tiefbau/baugruben/bauportal_06_18_sicheres-arbeiten-in-baugruben.pdf"
     },
     {
       "id": "LF07-Q21",
@@ -252,7 +292,9 @@
         "Keine Wasserhaltung"
       ],
       "correctIndex": 0,
-      "explanation": "Beim Pumpensumpf wird Wasser offen gesammelt und abgepumpt."
+      "explanation": "Beim Pumpensumpf wird Wasser offen gesammelt und abgepumpt.",
+      "source": "Offene Wasserhaltung sammelt Grund- und Niederschlagswasser in Gräben/Dränagen zu Pumpe…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Wasserhaltung_(Bauwesen)"
     },
     {
       "id": "LF07-Q22",
@@ -264,7 +306,9 @@
         "Ausschliesslich bei kleinen Graeben"
       ],
       "correctIndex": 0,
-      "explanation": "Spundwaende sind fuer hohe Tiefen und Wasserandrang geeignet."
+      "explanation": "Spundwaende sind fuer hohe Tiefen und Wasserandrang geeignet.",
+      "source": "Spundwände sichern temporär auch bei tiefer Lage unter dem Grundwasserspiegel und verhi…",
+      "sourceUrl": "https://www.darda.de/wissen/spundwand"
     },
     {
       "id": "LF07-Q23",
@@ -276,7 +320,9 @@
         "Nur Werkzeuge in der Tasche"
       ],
       "correctIndex": 0,
-      "explanation": "Maschinen, Material, Aushub und Fahrzeuge sind typische Randlasten."
+      "explanation": "Maschinen, Material, Aushub und Fahrzeuge sind typische Randlasten.",
+      "source": "Maschinen, Fahrzeuge und bewegliche Einwirkungen zählen als Nutzlast (Verkehrslast) am…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Bauwerkslasten"
     },
     {
       "id": "LF07-Q24",
@@ -288,7 +334,9 @@
         "Keine PSA bei kurzer Arbeit"
       ],
       "correctIndex": 0,
-      "explanation": "Mindestens Helm, Warnkleidung und Sicherheitsschuhe gehoeren zur Grundausstattung."
+      "explanation": "Mindestens Helm, Warnkleidung und Sicherheitsschuhe gehoeren zur Grundausstattung.",
+      "source": "Schutzhelm Pflicht bei Gefahr durch herabfallende Gegenstände oder Stöße im Baugrubenbe…",
+      "sourceUrl": "https://www.dguv.de/fb-psa/sachgebiete/sachgebiet-kopfschutz/index.jsp"
     },
     {
       "id": "LF07-Q25",
@@ -300,7 +348,9 @@
         "Verbau ist optional"
       ],
       "correctIndex": 0,
-      "explanation": "Arbeitssicherheit hat bei Baugruben und Graeben immer Prioritaet."
+      "explanation": "Arbeitssicherheit hat bei Baugruben und Graeben immer Prioritaet.",
+      "source": "DGUV/Arbeitsschutz: bei Baugruben Sicherheitsmaßnahmen VOR Aufnahme der Arbeiten umsetz…",
+      "sourceUrl": "https://bauportal.bgbau.de/bauportal-22025/anwendung-der-baustellenverordnung-bei-baugruben-und-graeben"
     }
   ]
 }

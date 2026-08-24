@@ -1,0 +1,14 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-trassenplan-05.md",
+  "status": "SUCCESS",
+  "reasons": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 52,
+      "status": "SUCCESS",
+      "reasons": []
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T16-36-24-224Z_Batch-trassenplan-05.md.log"
+}

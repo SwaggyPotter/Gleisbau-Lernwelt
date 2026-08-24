@@ -1,0 +1,18 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-messmittel-02.md",
+  "status": "NEEDS_REVIEW",
+  "reasons": [
+    "Verdacht auf Satzabbruch mitten im Wort/Satz (Heuristik, bitte manuell prüfen) — bekanntester historischer Gwen-Fehler."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 54,
+      "status": "NEEDS_REVIEW",
+      "reasons": [
+        "Verdacht auf Satzabbruch mitten im Wort/Satz (Heuristik, bitte manuell prüfen) — bekanntester historischer Gwen-Fehler."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T15-18-04-296Z_Batch-messmittel-02.md.log"
+}

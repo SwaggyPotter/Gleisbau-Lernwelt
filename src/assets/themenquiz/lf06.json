@@ -12,7 +12,9 @@
         "Abstecken"
       ],
       "correctIndex": 0,
-      "explanation": "Beschichten bedeutet das Aufbringen eines Materials als Schicht."
+      "explanation": "Beschichten bedeutet das Aufbringen eines Materials als Schicht.",
+      "source": "Beschichten: Aufbringen einer festhaftenden Schicht aus formlosem Stoff auf Werkstückob…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Beschichten"
     },
     {
       "id": "LF06-Q2",
@@ -24,7 +26,9 @@
         "Verdichten"
       ],
       "correctIndex": 0,
-      "explanation": "Beim Bekleiden werden fertige Elemente auf das Bauteil aufgebracht."
+      "explanation": "Beim Bekleiden werden fertige Elemente auf das Bauteil aufgebracht.",
+      "source": "Bekleiden bedeutet das Befestigen von Belägen oder Platten an Bauteilen\" – entspricht D…",
+      "sourceUrl": "https://www.duden.de/rechtschreibung/bekleiden"
     },
     {
       "id": "LF06-Q3",
@@ -36,7 +40,9 @@
         "Ist optional"
       ],
       "correctIndex": 0,
-      "explanation": "Haftung und Dauerhaftigkeit haengen direkt vom Untergrund ab."
+      "explanation": "Haftung und Dauerhaftigkeit haengen direkt vom Untergrund ab.",
+      "source": "Untergrundprüfung ist Pflicht, da falscher Untergrund zu Haftungsproblemen und Schäden…",
+      "sourceUrl": "https://www.dvs-regelwerk.de/"
     },
     {
       "id": "LF06-Q4",
@@ -48,7 +54,9 @@
         "Temperatur"
       ],
       "correctIndex": 0,
-      "explanation": "Das Benetzungsverhalten zeigt, wie stark der Untergrund Wasser aufnimmt."
+      "explanation": "Das Benetzungsverhalten zeigt, wie stark der Untergrund Wasser aufnimmt.",
+      "source": "Benetzungsprobe prüft primär das Saugverhalten des Untergrunds zur Feststellung der Gru…",
+      "sourceUrl": "https://www.maler-m.de/lexikon/beschichtung/"
     },
     {
       "id": "LF06-Q5",
@@ -60,7 +68,9 @@
         "Ersetzt Abdichtung"
       ],
       "correctIndex": 0,
-      "explanation": "Der Unterputz gleicht Unebenheiten aus und traegt den weiteren Aufbau."
+      "explanation": "Der Unterputz gleicht Unebenheiten aus und traegt den weiteren Aufbau.",
+      "source": "Der Unterputz dient der Ebenierung und als tragende Grundlage für das Putzsystem\" – ent…",
+      "sourceUrl": "https://lp.hpt.at/LP_25396.pdf"
     },
     {
       "id": "LF06-Q6",
@@ -72,7 +82,9 @@
         "BOStrab"
       ],
       "correctIndex": 0,
-      "explanation": "Diese Normen sind zentrale Grundlagen fuer Planung und Ausfuehrung von Putzen."
+      "explanation": "Diese Normen sind zentrale Grundlagen fuer Planung und Ausfuehrung von Putzen.",
+      "source": "DIN EN 13914-1, 2016-09",
+      "sourceUrl": "https://www.baunormenlexikon.de/norm/din-en-13914-1/cff29c84-868f-4d72-9106-99547519119a"
     },
     {
       "id": "LF06-Q7",
@@ -84,7 +96,9 @@
         "Nur wegen Ordnung"
       ],
       "correctIndex": 0,
-      "explanation": "Schleifstaub wirkt als Trennschicht und verschlechtert die Beschichtung."
+      "explanation": "Schleifstaub wirkt als Trennschicht und verschlechtert die Beschichtung.",
+      "source": "Staub beeinflusst Haftung",
+      "sourceUrl": "https://filab.fr/de/blog/2026/06/haftungsprobleme-und-oberflachenfehler-vielfaltige-ursachen/"
     },
     {
       "id": "LF06-Q8",
@@ -96,7 +110,9 @@
         "Harmlos"
       ],
       "correctIndex": 0,
-      "explanation": "Loesemittel koennen gesundheitsschaedlich sein und leicht entzuendbar wirken."
+      "explanation": "Loesemittel koennen gesundheitsschaedlich sein und leicht entzuendbar wirken.",
+      "source": "Brand-/Explosionsrisiko",
+      "sourceUrl": "https://www.bgetem.de/arbeitssicherheit-gesundheitsschutz/brancheninformationen1/druck-und-papierverarbeitung/flexo-und-tiefdruck/arbeits-und-gefahrstoffe-druckfarben-loesemittel/brand-und-explosionsschutz"
     },
     {
       "id": "LF06-Q9",
@@ -108,7 +124,9 @@
         "Loesungsmittel offen stehen lassen"
       ],
       "correctIndex": 0,
-      "explanation": "Das sind zentrale Schutzmassnahmen bei gefahrstoffhaltigen Beschichtungen."
+      "explanation": "Das sind zentrale Schutzmassnahmen bei gefahrstoffhaltigen Beschichtungen.",
+      "source": "PSA-Betriebsanweisungen",
+      "sourceUrl": "https://www.bghm.de/arbeitsschuetzer/praxishilfen/betriebsanweisungen/"
     },
     {
       "id": "LF06-Q10",
@@ -120,7 +138,9 @@
         "Grundieren"
       ],
       "correctIndex": 0,
-      "explanation": "Die Zahnung steuert Schichtdicke und Verteilung des Klebers."
+      "explanation": "Die Zahnung steuert Schichtdicke und Verteilung des Klebers.",
+      "source": "definierte Schichtdicke",
+      "sourceUrl": "https://hag-hagen.de/lexikon/zahnspachtel"
     },
     {
       "id": "LF06-Q11",
@@ -132,7 +152,9 @@
         "Nur schrauben"
       ],
       "correctIndex": 0,
-      "explanation": "Das Verfahren basiert auf einem gleichmaessigen, duennen Kleberbett."
+      "explanation": "Das Verfahren basiert auf einem gleichmaessigen, duennen Kleberbett.",
+      "source": "Dünnbettverlegung Wikipedia (Abruf Jan 2026)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/D%C3%BCnnbettverfahren"
     },
     {
       "id": "LF06-Q12",
@@ -144,7 +166,9 @@
         "Macht schneller trocken"
       ],
       "correctIndex": 0,
-      "explanation": "Die Abdichtung schuetzt den Untergrund vor Wassereintrag."
+      "explanation": "Die Abdichtung schuetzt den Untergrund vor Wassereintrag.",
+      "source": "Abdichtung Fliesen (Abruf 2026)",
+      "sourceUrl": "https://fci-fliesen.de/profi-tipps/abdichtung-unter-fliesen/"
     },
     {
       "id": "LF06-Q13",
@@ -156,7 +180,9 @@
         "Sie Abdichtung ersetzen"
       ],
       "correctIndex": 0,
-      "explanation": "Fugen nehmen Verformungen auf und vermeiden Zwangespannungen."
+      "explanation": "Fugen nehmen Verformungen auf und vermeiden Zwangespannungen.",
+      "source": "Bewegungsfuge ohne Risse (Abruf 2026)",
+      "sourceUrl": "https://www.fliesen-theis.de/glossar/bewegungsfuge/"
     },
     {
       "id": "LF06-Q14",
@@ -168,7 +194,9 @@
         "Zu viel Licht"
       ],
       "correctIndex": 0,
-      "explanation": "Haftungsstoerungen entstehen haeufig durch fehlerhaften Kontakt zwischen Fliese und Kleber."
+      "explanation": "Haftungsstoerungen entstehen haeufig durch fehlerhaften Kontakt zwischen Fliese und Kleber.",
+      "source": "Hohllage Definition (Abruf 2026)",
+      "sourceUrl": "https://www.fliesen-theis.de/glossar/hohllage/"
     },
     {
       "id": "LF06-Q15",
@@ -180,7 +208,9 @@
         "Zu viel Fugenmoertel"
       ],
       "correctIndex": 0,
-      "explanation": "Ungeeigneter Untergrund und Feuchte sind typische Ursachen fuer Haftungsversagen."
+      "explanation": "Ungeeigneter Untergrund und Feuchte sind typische Ursachen fuer Haftungsversagen.",
+      "source": "Abblätternd Anstrich Ursachen (Abruf 2026)",
+      "sourceUrl": "https://www.maler-m.de/lexikon/abblaettern/"
     },
     {
       "id": "LF06-Q16",
@@ -192,7 +222,9 @@
         "Nur neu gebaut"
       ],
       "correctIndex": 0,
-      "explanation": "Tragfaehigkeit bedeutet stabiler, haftgeeigneter Untergrund."
+      "explanation": "Tragfaehigkeit bedeutet stabiler, haftgeeigneter Untergrund.",
+      "source": "Kratzprobe zeigt, ob Untergrund tragfähig ist (Lösen sich Stücke ab oder Material trenn…",
+      "sourceUrl": "https://www.dinova.de/ratgeber/untergrundpruefung"
     },
     {
       "id": "LF06-Q17",
@@ -204,7 +236,9 @@
         "Nur Armierung"
       ],
       "correctIndex": 0,
-      "explanation": "Diese Schichten bilden den Grundaufbau bei vielen Putzsystemen."
+      "explanation": "Diese Schichten bilden den Grundaufbau bei vielen Putzsystemen.",
+      "source": "Putzaufbau besteht aus Grundputz, Unterputz, Armierungsputz mit Glasfasergewebe, Oberpu…",
+      "sourceUrl": "https://facadecolorizer.com/de/blog/fassadenputz-systeme-detailguide-2026"
     },
     {
       "id": "LF06-Q18",
@@ -216,7 +250,9 @@
         "Schweissen"
       ],
       "correctIndex": 0,
-      "explanation": "Beide Normen regeln wesentliche Punkte fuer Putzarbeiten."
+      "explanation": "Beide Normen regeln wesentliche Punkte fuer Putzarbeiten.",
+      "source": "DIN EN 13914 = Planung, Zubereitung und Ausführung von Außen- und Innenputzen; DIN 1855…",
+      "sourceUrl": "https://www.baunormenlexikon.de/norm/din-18550-1/176be22a-e617-4edb-89b0-03f6eb13233a"
     },
     {
       "id": "LF06-Q19",
@@ -228,7 +264,9 @@
         "Abdichtung ersetzen"
       ],
       "correctIndex": 0,
-      "explanation": "Viele Loesemittel sind entzuendlich und brauchen Schutzmassnahmen."
+      "explanation": "Viele Loesemittel sind entzuendlich und brauchen Schutzmassnahmen.",
+      "source": "Lösemittelhaltige Lacke führen zu Brand- und Explosionsrisiken (DGUV 209-046). Stand: 2…",
+      "sourceUrl": "https://www.bgbau.de/themen/sicherheit-und-gesundheit/gefahrstoffe/uebergeordnete-gefahrstoffthemen/brand-und-explosionsschutz"
     },
     {
       "id": "LF06-Q20",
@@ -240,7 +278,9 @@
         "Nur Entsorgung am Ende"
       ],
       "correctIndex": 0,
-      "explanation": "Sicherer Umgang basiert auf Beurteilung, Unterweisung und Nachweis."
+      "explanation": "Sicherer Umgang basiert auf Beurteilung, Unterweisung und Nachweis.",
+      "source": "TRGS 400: Gefährdungsbeurteilung, Betriebsanweisung, Dokumentation. Stand: 24.8.2026",
+      "sourceUrl": "https://www.bg-verkehr.de/arbeitssicherheit-gesundheit/themen/gefahrstoffe/umgang-und-dokumentation/gefaehrdungsbeurteilung-und-betriebsanweisungen"
     },
     {
       "id": "LF06-Q21",
@@ -252,7 +292,9 @@
         "Abdichtungsschicht"
       ],
       "correctIndex": 0,
-      "explanation": "Die Zahnung steuert die Klebermenge und Verteilung."
+      "explanation": "Die Zahnung steuert die Klebermenge und Verteilung.",
+      "source": "Wikipedia",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Zahnspachtel"
     },
     {
       "id": "LF06-Q22",
@@ -264,7 +306,9 @@
         "Nur punktuelle Verklebung"
       ],
       "correctIndex": 0,
-      "explanation": "Der Name beschreibt die geringe, gleichmaessige Kleberdicke."
+      "explanation": "Der Name beschreibt die geringe, gleichmaessige Kleberdicke.",
+      "source": "baunetzwissen.de",
+      "sourceUrl": "https://www.baunetzwissen.de/boden/fachwissen/steinbelaege/verlegung-dickbett---mittelbett---duennbett-958543"
     },
     {
       "id": "LF06-Q23",
@@ -276,7 +320,9 @@
         "Nur den Kleberverbrauch"
       ],
       "correctIndex": 0,
-      "explanation": "Sie verhindert Feuchteeintrag in empfindliche Untergruende."
+      "explanation": "Sie verhindert Feuchteeintrag in empfindliche Untergruende.",
+      "source": "baunetzwissen.de",
+      "sourceUrl": "https://www.baunetzwissen.de/fliesen-und-platten/fachwissen/untergruende/verbundabdichtungen-und-ihre-komponenten-5504014"
     },
     {
       "id": "LF06-Q24",
@@ -288,7 +334,9 @@
         "nur bei Bodenflaechen gelten"
       ],
       "correctIndex": 0,
-      "explanation": "Sie sind notwendig, um Bauteilbewegungen schadlos aufzunehmen."
+      "explanation": "Sie sind notwendig, um Bauteilbewegungen schadlos aufzunehmen.",
+      "source": "fussboden-gutachter.de",
+      "sourceUrl": "https://fussboden-gutachter.de/bewegungsfugen-im-untergrund-risiko-fuer-den-bodenleger/"
     },
     {
       "id": "LF06-Q25",
@@ -300,7 +348,9 @@
         "Trocknung stoppen"
       ],
       "correctIndex": 0,
-      "explanation": "Grundierungen stellen den Untergrund fuer den Folgeschritt ein."
+      "explanation": "Grundierungen stellen den Untergrund fuer den Folgeschritt ein.",
+      "source": "grundiert.de",
+      "sourceUrl": "https://grundiert.de/materialien-produkte/grundierung-fliesen/"
     },
     {
       "id": "LF06-Q26",
@@ -312,7 +362,9 @@
         "Nur bei Fliesen noetig"
       ],
       "correctIndex": 0,
-      "explanation": "Staub verhindert den direkten Verbund der Schichten."
+      "explanation": "Staub verhindert den direkten Verbund der Schichten.",
+      "source": "Schleifstaub entfernen - Haftungsicherung",
+      "sourceUrl": "https://www.hausjournal.net/schleifstaub-entfernen"
     },
     {
       "id": "LF06-Q27",
@@ -324,7 +376,9 @@
         "Holzverzug"
       ],
       "correctIndex": 0,
-      "explanation": "Das sind typische Oberflaechenmaengel bei Beschichtungen."
+      "explanation": "Das sind typische Oberflaechenmaengel bei Beschichtungen.",
+      "source": "Lackläufer & -nasen vermeiden und beheben",
+      "sourceUrl": "https://www.ppg.com/de-DE/automotive-refinish/laufer-und-nasen"
     },
     {
       "id": "LF06-Q28",
@@ -336,7 +390,9 @@
         "Wettereffekt ohne Relevanz"
       ],
       "correctIndex": 0,
-      "explanation": "Fehlende vollflaechige Benetzung ist eine haeufige Ursache."
+      "explanation": "Fehlende vollflaechige Benetzung ist eine haeufige Ursache.",
+      "source": "Hohllage - Fliesen-Glossar",
+      "sourceUrl": "https://www.fliesen-theis.de/glossar/hohllage"
     },
     {
       "id": "LF06-Q29",
@@ -348,7 +404,9 @@
         "Nur Raumtemperatur ueber 20 Grad"
       ],
       "correctIndex": 0,
-      "explanation": "Risse sind meist multikausal und oft systembedingt."
+      "explanation": "Risse sind meist multikausal und oft systembedingt.",
+      "source": "Putzrisse - Lexikon",
+      "sourceUrl": "https://www.bauprofessor.de/putzrisse/"
     },
     {
       "id": "LF06-Q30",
@@ -360,7 +418,9 @@
         "Nur am Ende kurz lueften"
       ],
       "correctIndex": 0,
-      "explanation": "Sichere Lagerung und Entsorgung sind Teil der Schutzkette."
+      "explanation": "Sichere Lagerung und Entsorgung sind Teil der Schutzkette.",
+      "source": "Entsorgung von Gefahrstoffen",
+      "sourceUrl": "https://www.wirtschaftswissen.de/arbeitssicherheit-datenschutz/gefahrstoffe-gefahrgut/entsorgung-von-gefahrstoffen/"
     }
   ]
 }

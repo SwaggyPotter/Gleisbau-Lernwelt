@@ -1,0 +1,14 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-lf12-04.md",
+  "status": "SUCCESS",
+  "reasons": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 131,
+      "status": "SUCCESS",
+      "reasons": []
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T13-46-57-535Z_Batch-lf12-04.md.log"
+}

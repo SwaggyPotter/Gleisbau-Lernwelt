@@ -1,0 +1,18 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-lf01-14.md",
+  "status": "NEEDS_REVIEW",
+  "reasons": [
+    "Verdacht auf Satzabbruch mitten im Wort/Satz (Heuristik, bitte manuell prüfen) — bekanntester historischer Gwen-Fehler."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 72,
+      "status": "NEEDS_REVIEW",
+      "reasons": [
+        "Verdacht auf Satzabbruch mitten im Wort/Satz (Heuristik, bitte manuell prüfen) — bekanntester historischer Gwen-Fehler."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T09-21-54-330Z_Batch-lf01-14.md.log"
+}

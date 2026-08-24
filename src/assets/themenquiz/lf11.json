@@ -12,7 +12,9 @@
         "Betonfundamente"
       ],
       "correctIndex": 0,
-      "explanation": "Diese Elemente bilden den eigentlichen Gleisoberbau."
+      "explanation": "Diese Elemente bilden den eigentlichen Gleisoberbau.",
+      "source": "Oberbau = Gleisbettung, Schotter und Schienenunterstützung mit Befestigungsmitteln (Sta…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)"
     },
     {
       "id": "LF11-Q2",
@@ -24,7 +26,9 @@
         "das Gewicht"
       ],
       "correctIndex": 0,
-      "explanation": "Die Spurweite ist ein zentraler Sicherheitsparameter des Gleises."
+      "explanation": "Die Spurweite ist ein zentraler Sicherheitsparameter des Gleises.",
+      "source": "den Abstand der Schieneninnenkanten\" (Stand: 2024-08)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Spurweite_(Schienenverkehr)"
     },
     {
       "id": "LF11-Q3",
@@ -36,7 +40,9 @@
         "Markierung"
       ],
       "correctIndex": 0,
-      "explanation": "Kleineisen halten Schiene und Spur in definierter Lage."
+      "explanation": "Kleineisen halten Schiene und Spur in definierter Lage.",
+      "source": "Befestigung der Schiene auf der Schwelle\" (Stand: 2024-08)",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/befestigungsmittel/kleineisen"
     },
     {
       "id": "LF11-Q4",
@@ -48,7 +54,9 @@
         "wegen Optik"
       ],
       "correctIndex": 0,
-      "explanation": "Stopfen verdichtet den Schotter unter der Schwelle und stellt die Lage ein."
+      "explanation": "Stopfen verdichtet den Schotter unter der Schwelle und stellt die Lage ein.",
+      "source": "um das Gleis lagegerecht zu fixieren\" / Stabilisieren und Positionieren des Schotters i…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Stopfen_(Gleisbau)"
     },
     {
       "id": "LF11-Q5",
@@ -60,7 +68,9 @@
         "wegen Optik"
       ],
       "correctIndex": 0,
-      "explanation": "Nur gemessene Gleislagen sind sicher und betrieblich belastbar."
+      "explanation": "Nur gemessene Gleislagen sind sicher und betrieblich belastbar.",
+      "source": "zur Kontrolle der Sicherheit und Qualität\" / Präzise Inspektion für maximale Effizienz…",
+      "sourceUrl": "https://www.petersrail.eu/gleisvermessung/"
     },
     {
       "id": "LF11-Q6",
@@ -72,7 +82,9 @@
         "Asphaltieren"
       ],
       "correctIndex": 0,
-      "explanation": "Nach Stopfarbeiten wird die Lage gemessen und gezielt nachgerichtet."
+      "explanation": "Nach Stopfarbeiten wird die Lage gemessen und gezielt nachgerichtet.",
+      "source": "2024-08-26",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Stopfen_(Gleisbau)"
     },
     {
       "id": "LF11-Q7",
@@ -84,7 +96,9 @@
         "Abkuerzungen"
       ],
       "correctIndex": 0,
-      "explanation": "Wirksame Sicherung gegen Zugverkehr hat absolute Prioritaet."
+      "explanation": "Wirksame Sicherung gegen Zugverkehr hat absolute Prioritaet.",
+      "source": "2024-08-26",
+      "sourceUrl": "https://www.uv-bund-bahn.de/praevention/fachthemen/bahn/projekte/safety-check-fuer-den-gleisbau"
     },
     {
       "id": "LF11-Q8",
@@ -96,7 +110,9 @@
         "Werkzeug"
       ],
       "correctIndex": 0,
-      "explanation": "Lage- und Befestigungsfehler betreffen direkt die Betriebssicherheit."
+      "explanation": "Lage- und Befestigungsfehler betreffen direkt die Betriebssicherheit.",
+      "source": "2024-08-26",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Gleisgeometrie"
     },
     {
       "id": "LF11-Q9",
@@ -108,7 +124,9 @@
         "Pflaster und Asphalt"
       ],
       "correctIndex": 0,
-      "explanation": "Diese Elemente bilden zusammen die tragende Gleisstruktur oben."
+      "explanation": "Diese Elemente bilden zusammen die tragende Gleisstruktur oben.",
+      "source": "2024-08-26",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)"
     },
     {
       "id": "LF11-Q10",
@@ -120,7 +138,9 @@
         "ist entbehrlich"
       ],
       "correctIndex": 0,
-      "explanation": "Ohne tragfaehigen Unterbau kann die Gleisstruktur nicht dauerhaft funktionieren."
+      "explanation": "Ohne tragfaehigen Unterbau kann die Gleisstruktur nicht dauerhaft funktionieren.",
+      "source": "2024-08-26",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Unterbau_(Eisenbahn)"
     },
     {
       "id": "LF11-Q11",
@@ -132,7 +152,9 @@
         "unwichtig"
       ],
       "correctIndex": 0,
-      "explanation": "Spurweitenfehler koennen unmittelbar zu Betriebsgefaehrdungen fuehren."
+      "explanation": "Spurweitenfehler koennen unmittelbar zu Betriebsgefaehrdungen fuehren.",
+      "source": "Wikipedia",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Spurweite_(Schienenverkehr)"
     },
     {
       "id": "LF11-Q12",
@@ -144,7 +166,9 @@
         "Lack aufzutragen"
       ],
       "correctIndex": 0,
-      "explanation": "Sie sorgen fuer die sichere Verbindung zwischen Schiene und Schwelle."
+      "explanation": "Sie sorgen fuer die sichere Verbindung zwischen Schiene und Schwelle.",
+      "source": "Trackopedia",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/befestigungsmittel/kleineisen"
     },
     {
       "id": "LF11-Q13",
@@ -156,7 +180,9 @@
         "nur Gewichtserhoehung"
       ],
       "correctIndex": 0,
-      "explanation": "Schotter sichert Lastabtrag, Lagehaltung und Wasserabfluss."
+      "explanation": "Schotter sichert Lastabtrag, Lagehaltung und Wasserabfluss.",
+      "source": "Trackopedia",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/schotter/"
     },
     {
       "id": "LF11-Q14",
@@ -168,7 +194,9 @@
         "der Optik"
       ],
       "correctIndex": 0,
-      "explanation": "Durch Stopfen wird Schotter gezielt unter die Schwellen eingebracht und verdichtet."
+      "explanation": "Durch Stopfen wird Schotter gezielt unter die Schwellen eingebracht und verdichtet.",
+      "source": "Wacker Neuson",
+      "sourceUrl": "https://www.wackerneuson.de/insights-ueberblick/was-ist-gleisbau-aufgaben-maschinen-und-loesungen-im-ueberblick"
     },
     {
       "id": "LF11-Q15",
@@ -180,7 +208,9 @@
         "kein Stopfen"
       ],
       "correctIndex": 0,
-      "explanation": "Je nach Baustelle kommen manuelle oder maschinelle Verfahren zum Einsatz."
+      "explanation": "Je nach Baustelle kommen manuelle oder maschinelle Verfahren zum Einsatz.",
+      "source": "Wikipedia",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Stopfen_(Gleisbau)"
     },
     {
       "id": "LF11-Q16",
@@ -192,7 +222,9 @@
         "nur fuer Statistiken"
       ],
       "correctIndex": 0,
-      "explanation": "Messdaten sind Grundlage fuer sichere und ruhige Fahrdynamik."
+      "explanation": "Messdaten sind Grundlage fuer sichere und ruhige Fahrdynamik.",
+      "source": "Gleisqualitaet sichert Fahrcomfort und Sicherheit`",
+      "sourceUrl": "https://www.sitech.de/ingenieurleistungen/gleisbauvermessung"
     },
     {
       "id": "LF11-Q17",
@@ -204,7 +236,9 @@
         "asphaltiert"
       ],
       "correctIndex": 0,
-      "explanation": "Kontrolle nach Stopfarbeiten ist fester Teil des Einbauprozesses."
+      "explanation": "Kontrolle nach Stopfarbeiten ist fester Teil des Einbauprozesses.",
+      "source": "Stopfen erfordert Kontrolle und Nachrichten`",
+      "sourceUrl": "https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/EI_9_2024_Phasen_des_Stopfprozesses.pdf"
     },
     {
       "id": "LF11-Q18",
@@ -216,7 +250,9 @@
         "Kunststoffschwellen"
       ],
       "correctIndex": 0,
-      "explanation": "Im Regeloberbau werden heute ueberwiegend Betonschwellen verwendet."
+      "explanation": "Im Regeloberbau werden heute ueberwiegend Betonschwellen verwendet.",
+      "source": "Betonschwellen sind heute Standard`",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Schwelle_(Bahn)"
     },
     {
       "id": "LF11-Q19",
@@ -228,7 +264,9 @@
         "nur fuer Tunnel"
       ],
       "correctIndex": 0,
-      "explanation": "Holzschwellen kommen meist in besonderen Bereichen zum Einsatz."
+      "explanation": "Holzschwellen kommen meist in besonderen Bereichen zum Einsatz.",
+      "source": "Holzschwellen nur in Sonderfällen`",
+      "sourceUrl": "https://www.holzschwellenoberbau.de/technische-infos/einsatzgebiete-der-holzschwelle-heute/"
     },
     {
       "id": "LF11-Q20",
@@ -240,7 +278,9 @@
         "normal"
       ],
       "correctIndex": 0,
-      "explanation": "Befestigungsfehler beeinflussen Spur- und Lagehaltung unmittelbar."
+      "explanation": "Befestigungsfehler beeinflussen Spur- und Lagehaltung unmittelbar.",
+      "source": "Lose Kleinteile sind gefährlich`",
+      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/mediastore/files/201-021.pdf"
     },
     {
       "id": "LF11-Q21",
@@ -252,7 +292,9 @@
         "leichter Regen"
       ],
       "correctIndex": 0,
-      "explanation": "Gegen Zugverkehr muss immer wirksam gesichert werden."
+      "explanation": "Gegen Zugverkehr muss immer wirksam gesichert werden.",
+      "source": "Gefahren des Bahnbetriebs (Züge mit hohen Geschwindigkeiten, großen bewegten Massen und…",
+      "sourceUrl": "https://www.uv-bund-bahn.de/praevention/fachthemen/bahn/arbeiten-im-gleisbereich"
     },
     {
       "id": "LF11-Q22",
@@ -276,7 +318,9 @@
         "Messungen sind optional"
       ],
       "correctIndex": 0,
-      "explanation": "Gerade im Gleisbereich hat sichere Ausfuehrung absolute Prioritaet."
+      "explanation": "Gerade im Gleisbereich hat sichere Ausfuehrung absolute Prioritaet.",
+      "source": "Sicherheit geht vor\" ist ein etablierter Arbeitsschutz-Grundsatz; im Gleisbau besonders…",
+      "sourceUrl": "https://www.bgbau.de/fileadmin/Medien-Objekte/Medien/Zeitschrift/BG_Bau_Aktuell_03_23_TB_bf.pdf"
     }
   ]
 }

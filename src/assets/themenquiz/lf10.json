@@ -12,7 +12,9 @@
         "nur dokumentieren"
       ],
       "correctIndex": 0,
-      "explanation": "Instandsetzung beseitigt bestehende Schaeden an Bauwerken oder Bauteilen."
+      "explanation": "Instandsetzung beseitigt bestehende Schaeden an Bauwerken oder Bauteilen.",
+      "source": "Die Instandsetzung beinhaltet alle Maßnahmen zur Beseitigung von Schäden an Produktions…",
+      "sourceUrl": "https://wirtschaftslexikon.gabler.de/definition/instandsetzung-39743"
     },
     {
       "id": "LF10-Q2",
@@ -24,7 +26,9 @@
         "Markierungen"
       ],
       "correctIndex": 0,
-      "explanation": "Wasser- und Frosteinwirkung gehoeren zu den haeufigsten Schadensausloesern."
+      "explanation": "Wasser- und Frosteinwirkung gehoeren zu den haeufigsten Schadensausloesern.",
+      "source": "Frost entsteht, wenn Wasser bei Temperaturen unter 0°C gefriert und sich ausdehnt. Dies…",
+      "sourceUrl": "https://www.bauschadeninstitut.de/bausubstanz-winter-schuetzen-frostschaeden/"
     },
     {
       "id": "LF10-Q3",
@@ -36,7 +40,9 @@
         "weil es alt ist"
       ],
       "correctIndex": 0,
-      "explanation": "Im Bestand sind Bauzustand, Leitungen und Lastreserven oft nicht voll bekannt."
+      "explanation": "Im Bestand sind Bauzustand, Leitungen und Lastreserven oft nicht voll bekannt.",
+      "source": "Bei Arbeiten im Bestande koennen unbekannte Risiken bestehen (z.B. Asbest), die Gesundh…",
+      "sourceUrl": "https://www.bgbau.de/service/angebote/medien-center-suche/medium/asbest-bauen-im-bestand-leitfaden-handwerksnahe-taetigkeiten"
     },
     {
       "id": "LF10-Q4",
@@ -48,7 +54,9 @@
         "kein Unterschied"
       ],
       "correctIndex": 0,
-      "explanation": "Rueckbau entfernt gezielt Teile, Abbruch beseitigt das Bauwerk insgesamt."
+      "explanation": "Rueckbau entfernt gezielt Teile, Abbruch beseitigt das Bauwerk insgesamt.",
+      "source": "Abbruch: Das Bauwerk soll moeglichst effizient beseitigt werden. Rueckbau: Das Bauwerk…",
+      "sourceUrl": "https://architektenwelt.com/abbruch-oder-rueckbau-wo-liegt-eigentlich-der-unterschied/"
     },
     {
       "id": "LF10-Q5",
@@ -60,7 +68,9 @@
         "egal"
       ],
       "correctIndex": 0,
-      "explanation": "Die Tragfaehigkeit der Reparatur haengt von der Untergrundqualitaet ab."
+      "explanation": "Die Tragfaehigkeit der Reparatur haengt von der Untergrundqualitaet ab.",
+      "source": "Eine ausreichende Tragfahigkeit des Untergrunds ist die Basis fuer den nachhaltigen und…",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/maschineller-gleisbau/untergrundsanierung"
     },
     {
       "id": "LF10-Q6",
@@ -72,7 +82,9 @@
         "normal"
       ],
       "correctIndex": 0,
-      "explanation": "Korrosion reduziert den wirksamen Stahlquerschnitt und kann Tragwirkung mindern."
+      "explanation": "Korrosion reduziert den wirksamen Stahlquerschnitt und kann Tragwirkung mindern.",
+      "source": "freiliegende Bewehrung gefaehrt die Statik [2024]",
+      "sourceUrl": "https://www.onlinebaugutachter.de/bewehrungsschaeden-im-fokus-warum-freiliegender-stahl-die-statik-gefaehrdet/"
     },
     {
       "id": "LF10-Q7",
@@ -84,7 +96,9 @@
         "Laenge der Baustelle"
       ],
       "correctIndex": 0,
-      "explanation": "Nur mit Dichtheit und korrektem Gefaelle ist die Entwaesserungsfunktion gesichert."
+      "explanation": "Nur mit Dichtheit und korrektem Gefaelle ist die Entwaesserungsfunktion gesichert.",
+      "source": "Dichtheitspr�fung nach DIN EN 1610 f�r Abwasserleitungen [2024]",
+      "sourceUrl": "https://www.canal-control.de/was-wir-machen/dichtheitspruefung"
     },
     {
       "id": "LF10-Q8",
@@ -96,7 +110,9 @@
         "egal"
       ],
       "correctIndex": 0,
-      "explanation": "Staub belastet Atemwege und Umgebung und muss aktiv reduziert werden."
+      "explanation": "Staub belastet Atemwege und Umgebung und muss aktiv reduziert werden.",
+      "source": "Staubminderung & Praeventionsmassnahmen BG BAU [2024]",
+      "sourceUrl": "https://www.bgbau.de/themen/sicherheit-und-gesundheit/staub/staubminderung-praeventionsmassnahmen"
     },
     {
       "id": "LF10-Q9",
@@ -108,7 +124,9 @@
         "optional"
       ],
       "correctIndex": 0,
-      "explanation": "Dokumentation macht Leistung, Pruefung und Verantwortung nachvollziehbar."
+      "explanation": "Dokumentation macht Leistung, Pruefung und Verantwortung nachvollziehbar.",
+      "source": "Nachweispflichten im Bau: �bersicht [2024]",
+      "sourceUrl": "https://baucockpit.app/blog/nachweispflichten-im-bau-ubersicht-und-umsetzung/"
     },
     {
       "id": "LF10-Q10",
@@ -120,7 +138,9 @@
         "nur streichen"
       ],
       "correctIndex": 0,
-      "explanation": "Der Kern der Instandsetzung ist die gezielte Schadensbeseitigung."
+      "explanation": "Der Kern der Instandsetzung ist die gezielte Schadensbeseitigung.",
+      "source": "DIN 276 Instandsetzung & Modernisierung [2024]",
+      "sourceUrl": "https://www.immobilienbewertung-steinlein.de/din-276-kosten-im-bauwesen/"
     },
     {
       "id": "LF10-Q11",
@@ -132,7 +152,9 @@
         "Beleuchtung"
       ],
       "correctIndex": 0,
-      "explanation": "Feuchte und Wasser greifen viele Baustoffe direkt oder indirekt an."
+      "explanation": "Feuchte und Wasser greifen viele Baustoffe direkt oder indirekt an.",
+      "source": "Wasser ist einer der häufigsten Gründe für spätere Schäden im Gleis (Eisenbahn-Bundesam…",
+      "sourceUrl": "https://www.eba.bund.de/SharedDocs/Fachmitteilungen/DE/2024/11_2024_Fachinformationen_fuer_die_Entwaesserung_von_Bahnanlagen.html"
     },
     {
       "id": "LF10-Q12",
@@ -144,7 +166,9 @@
         "mehr Beton vorhanden ist"
       ],
       "correctIndex": 0,
-      "explanation": "Unbekannte Leitungen, Bauteilzustand und Lastreserven erhoehen das Risiko."
+      "explanation": "Unbekannte Leitungen, Bauteilzustand und Lastreserven erhoehen das Risiko.",
+      "source": "Arbeiten im Bestand sind risikoreicher, da bestehende Infrastrukturen oft unbekannte Ra…",
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/faq/index.jsp"
     },
     {
       "id": "LF10-Q13",
@@ -156,7 +180,9 @@
         "Rueckbau braucht keine Sicherung"
       ],
       "correctIndex": 0,
-      "explanation": "Die Zielsetzung beider Verfahren ist grundlegend unterschiedlich."
+      "explanation": "Die Zielsetzung beider Verfahren ist grundlegend unterschiedlich.",
+      "source": "Rückbau ist gezielt und erfolgt in umgekehrter Reihenfolge zum Aufbau zur Materialtrenn…",
+      "sourceUrl": "https://handwerkslotse.de/teilabbruch-vollabbruch-rueckbau/"
     },
     {
       "id": "LF10-Q14",
@@ -168,7 +194,9 @@
         "grossen Maschinen"
       ],
       "correctIndex": 0,
-      "explanation": "Tragfaehigkeit im Bestand ist die Basis jeder dauerhaften Instandsetzung."
+      "explanation": "Tragfaehigkeit im Bestand ist die Basis jeder dauerhaften Instandsetzung.",
+      "source": "Reparaturen halten nur dauerhaft mit tragfähigem Untergrund, da ausreichende Tragfähigk…",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/maschineller-gleisbau/untergrundsanierung"
     },
     {
       "id": "LF10-Q15",
@@ -180,7 +208,9 @@
         "Markierungen"
       ],
       "correctIndex": 0,
-      "explanation": "Korrosion kann die Tragreserven des Bauteils deutlich reduzieren."
+      "explanation": "Korrosion kann die Tragreserven des Bauteils deutlich reduzieren.",
+      "source": "Freie Bewehrung mindert Schutzwirkung und Dauerhaftigkeit durch Korrosion, führt zu Sub…",
+      "sourceUrl": "https://www.baunetzwissen.de/beton/fachwissen/bewehrung/korrosionsschutz-150950"
     },
     {
       "id": "LF10-Q16",
@@ -192,7 +222,9 @@
         "ohne Pruefung bleiben"
       ],
       "correctIndex": 0,
-      "explanation": "Dichtheit ist Kernanforderung an jedes Entwaesserungssystem."
+      "explanation": "Dichtheit ist Kernanforderung an jedes Entwaesserungssystem.",
+      "source": "DVGW-Regelwerk zur Dichtheitsprüfung von Trinkwasserleitungen | Datum: 24.8.2026",
+      "sourceUrl": "https://www.dvgw-regelwerk.de/"
     },
     {
       "id": "LF10-Q17",
@@ -204,7 +236,9 @@
         "nur Markierung"
       ],
       "correctIndex": 0,
-      "explanation": "Funktion entsteht nur bei korrekter Lage und Hoehenfuehrung."
+      "explanation": "Funktion entsteht nur bei korrekter Lage und Hoehenfuehrung.",
+      "source": "DIN EN 806 (Trinkwasserinstallation) | Datum: 24.8.2026",
+      "sourceUrl": "https://www.dinmedia.de/de/norm-entwurf/din-en-806-1/382307072"
     },
     {
       "id": "LF10-Q18",
@@ -216,7 +250,9 @@
         "nur im Winter gefaehrlich"
       ],
       "correctIndex": 0,
-      "explanation": "Staubschutz gehoert zu den zentralen Schutzmassnahmen im Bestand."
+      "explanation": "Staubschutz gehoert zu den zentralen Schutzmassnahmen im Bestand.",
+      "source": "DGUV Informationsportal \"Gib dem Staub keine Chance\" | Datum: 24.8.2026",
+      "sourceUrl": "https://www.dguv.de/medien/staub-info/gold/download/vbg_fw-staub_2024-stand_2024_12.pdf"
     },
     {
       "id": "LF10-Q19",
@@ -228,7 +264,9 @@
         "nur bei Grossbaustellen"
       ],
       "correctIndex": 0,
-      "explanation": "Verkehrsteilnehmer und Personal muessen jederzeit gesichert gefuehrt werden."
+      "explanation": "Verkehrsteilnehmer und Personal muessen jederzeit gesichert gefuehrt werden.",
+      "source": "BAuA Baustelleneinrichtung | Datum: 24.8.2026",
+      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/pdf/Baustellensicherung.pdf?__blob=publicationFile&v=3"
     },
     {
       "id": "LF10-Q20",
@@ -240,7 +278,9 @@
         "in den Graben"
       ],
       "correctIndex": 0,
-      "explanation": "Getrennte Entsorgung ist Grundlage fuer Umwelt- und Rechtskonformitaet."
+      "explanation": "Getrennte Entsorgung ist Grundlage fuer Umwelt- und Rechtskonformitaet.",
+      "source": "§ 9 KrWG Getrennte Sammlung von Abfällen zur Verwertung | Datum: 24.8.2026",
+      "sourceUrl": "https://dejure.org/gesetze/KrWG/9.html"
     },
     {
       "id": "LF10-Q21",
@@ -252,7 +292,9 @@
         "nur fuer Fotos"
       ],
       "correctIndex": 0,
-      "explanation": "Ohne Abschlusskontrolle sind Funktion und Sicherheit nicht abgesichert."
+      "explanation": "Ohne Abschlusskontrolle sind Funktion und Sicherheit nicht abgesichert.",
+      "source": "DGUV Gleisbereich (24.8.2026): Kontrollen von Arbeitsschutz-Behörden (Eisenbahn-Bundesa…",
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/lern-und-infomaterial/index.jsp"
     },
     {
       "id": "LF10-Q22",
@@ -264,7 +306,9 @@
         "nur die Optik"
       ],
       "correctIndex": 0,
-      "explanation": "Sie belegt fachgerechte Arbeit und unterstuetzt Spaetnachweise."
+      "explanation": "Sie belegt fachgerechte Arbeit und unterstuetzt Spaetnachweise.",
+      "source": "Arbeitsunfallversicherungsbund-Bahn (24.8.2026): Die Dokumentation dient dem Schutz des…",
+      "sourceUrl": "https://www.uv-bund-bahn.de/praevention/fachthemen/bahn/arbeiten-im-gleisbereich"
     },
     {
       "id": "LF10-Q23",
@@ -276,7 +320,9 @@
         "nur kurzfristig zu flicken"
       ],
       "correctIndex": 0,
-      "explanation": "Fachgerechte Instandsetzung sichert Funktion und verlaengert die Nutzungszeit."
+      "explanation": "Fachgerechte Instandsetzung sichert Funktion und verlaengert die Nutzungszeit.",
+      "source": "hochbaulang (24.8.2026): Sanierung umfasst Maßnahmen zur Instandsetzung und Modernisier…",
+      "sourceUrl": "https://hochbaulang.de/sanierung-werterhalt-und-modernisierung-von-bauwerken/"
     },
     {
       "id": "LF10-Q24",
@@ -288,7 +334,9 @@
         "Dokumentation ist optional"
       ],
       "correctIndex": 0,
-      "explanation": "Gerade im Bestand hat sichere Ausfuehrung immer Prioritaet."
+      "explanation": "Gerade im Bestand hat sichere Ausfuehrung immer Prioritaet.",
+      "source": "BG BAU Arbeitsschutz (24.8.2026): \"Sicherheit geht vor\" ist ein grundlegender Grundsatz…",
+      "sourceUrl": "https://www.bgbau.de/themen/sicherheit-und-gesundheit/arbeitsschutz-organisieren"
     }
   ]
 }

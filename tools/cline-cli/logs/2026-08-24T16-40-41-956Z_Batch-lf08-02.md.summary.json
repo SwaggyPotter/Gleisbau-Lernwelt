@@ -1,0 +1,27 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-lf08-02.md",
+  "status": "RULE_VIOLATION",
+  "reasons": [
+    "Frontmatter (außer status) wurde verändert."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 137,
+      "status": "TECHNICAL_FAILURE",
+      "reasons": [
+        "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+        "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 101,
+      "status": "RULE_VIOLATION",
+      "reasons": [
+        "Frontmatter (außer status) wurde verändert."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T16-40-41-956Z_Batch-lf08-02.md.log"
+}

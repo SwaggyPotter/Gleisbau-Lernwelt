@@ -1,0 +1,26 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-handwerkzeuge-01.md",
+  "status": "NEEDS_REVIEW",
+  "reasons": [
+    "Verdacht auf Satzabbruch mitten im Wort/Satz (Heuristik, bitte manuell prüfen) — bekanntester historischer Gwen-Fehler."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 240,
+      "status": "TECHNICAL_FAILURE",
+      "reasons": [
+        "Timeout nach 240s."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 84,
+      "status": "NEEDS_REVIEW",
+      "reasons": [
+        "Verdacht auf Satzabbruch mitten im Wort/Satz (Heuristik, bitte manuell prüfen) — bekanntester historischer Gwen-Fehler."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T14-02-01-971Z_Batch-handwerkzeuge-01.md.log"
+}

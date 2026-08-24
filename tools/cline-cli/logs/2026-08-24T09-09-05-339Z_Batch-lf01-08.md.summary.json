@@ -1,0 +1,36 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-lf01-08.md",
+  "status": "NEEDS_REVIEW",
+  "reasons": [
+    "Verdacht auf Satzabbruch mitten im Wort/Satz (Heuristik, bitte manuell prüfen) — bekanntester historischer Gwen-Fehler."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 110,
+      "status": "TECHNICAL_FAILURE",
+      "reasons": [
+        "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+        "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 19,
+      "status": "TECHNICAL_FAILURE",
+      "reasons": [
+        "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+        "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+      ]
+    },
+    {
+      "attempt": 3,
+      "durationSec": 26,
+      "status": "NEEDS_REVIEW",
+      "reasons": [
+        "Verdacht auf Satzabbruch mitten im Wort/Satz (Heuristik, bitte manuell prüfen) — bekanntester historischer Gwen-Fehler."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T09-09-05-339Z_Batch-lf01-08.md.log"
+}

@@ -1,0 +1,26 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-kleineisen-02.md",
+  "status": "NEEDS_REVIEW",
+  "reasons": [
+    "Verdacht auf Satzabbruch mitten im Wort/Satz (Heuristik, bitte manuell prüfen) — bekanntester historischer Gwen-Fehler."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 42,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 62,
+      "status": "NEEDS_REVIEW",
+      "reasons": [
+        "Verdacht auf Satzabbruch mitten im Wort/Satz (Heuristik, bitte manuell prüfen) — bekanntester historischer Gwen-Fehler."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T08-42-43-254Z_Batch-kleineisen-02.md.log"
+}

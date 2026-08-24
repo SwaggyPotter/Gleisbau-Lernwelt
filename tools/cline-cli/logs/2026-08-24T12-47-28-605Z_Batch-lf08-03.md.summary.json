@@ -1,0 +1,22 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-lf08-03.md",
+  "status": "SUCCESS",
+  "reasons": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 240,
+      "status": "TECHNICAL_FAILURE",
+      "reasons": [
+        "Timeout nach 240s."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 70,
+      "status": "SUCCESS",
+      "reasons": []
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T12-47-28-605Z_Batch-lf08-03.md.log"
+}

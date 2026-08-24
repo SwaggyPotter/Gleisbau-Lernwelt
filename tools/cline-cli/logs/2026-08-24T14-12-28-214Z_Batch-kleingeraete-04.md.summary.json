@@ -1,0 +1,31 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-kleingeraete-04.md",
+  "status": "SUCCESS",
+  "reasons": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 41,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 45,
+      "status": "TECHNICAL_FAILURE",
+      "reasons": [
+        "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+        "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+      ]
+    },
+    {
+      "attempt": 3,
+      "durationSec": 16,
+      "status": "SUCCESS",
+      "reasons": []
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T14-12-28-214Z_Batch-kleingeraete-04.md.log"
+}

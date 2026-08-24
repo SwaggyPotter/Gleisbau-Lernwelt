@@ -12,7 +12,9 @@
         "Pausenplan"
       ],
       "correctIndex": 0,
-      "explanation": "Ohne klares Plan- und Bauteilverstaendnis sind korrekte Ausfuehrung und QS nicht moeglich."
+      "explanation": "Ohne klares Plan- und Bauteilverstaendnis sind korrekte Ausfuehrung und QS nicht moeglich.",
+      "source": "siehe Punktum-Betonbauteile.de: https://punktum-betonbauteile.de/positionen/die-planung…",
+      "sourceUrl": "https://punktum-betonbauteile.de/positionen/die-planung-muss-von-anfang-an-fertigteilgerecht-erfolgen/**"
     },
     {
       "id": "LF04-Q2",
@@ -24,7 +26,9 @@
         "Nur Schalungsaufbau"
       ],
       "correctIndex": 0,
-      "explanation": "Der Bewehrungsplan beschreibt die erforderliche Bewehrung fuer das Bauteil."
+      "explanation": "Der Bewehrungsplan beschreibt die erforderliche Bewehrung fuer das Bauteil.",
+      "source": "awad-ing.de –",
+      "sourceUrl": "https://www.awad-ing.de/blogs/bewehrungsplan/**"
     },
     {
       "id": "LF04-Q3",
@@ -36,7 +40,9 @@
         "Hat keinen Einfluss"
       ],
       "correctIndex": 0,
-      "explanation": "Zu viel Wasser veraendert den w/z-Wert und verschlechtert meist die Betoneigenschaften."
+      "explanation": "Zu viel Wasser veraendert den w/z-Wert und verschlechtert meist die Betoneigenschaften.",
+      "source": "tfb.ch – Bulletin TFB 2 2017 Wasserzugabe final 002.pdf",
+      "sourceUrl": "https://www.tfb.ch/Htdocs/Files/v/10854.pdf/Info/Bulletin-TFB-2-2017-Wasserzugabe-final-002.pdf**"
     },
     {
       "id": "LF04-Q4",
@@ -48,7 +54,9 @@
         "Lieferscheinnummer"
       ],
       "correctIndex": 0,
-      "explanation": "Expositionsklassen geben an, welchen Einwirkungen der Beton dauerhaft standhalten muss."
+      "explanation": "Expositionsklassen geben an, welchen Einwirkungen der Beton dauerhaft standhalten muss.",
+      "source": "baustoffradar.de –",
+      "sourceUrl": "https://baustoffradar.de/lexikon/expositionsklasse/**"
     },
     {
       "id": "LF04-Q5",
@@ -60,7 +68,9 @@
         "als Absturzsicherung allein"
       ],
       "correctIndex": 0,
-      "explanation": "Schalung formt das Bauteil und muss dicht und geometrisch korrekt sein."
+      "explanation": "Schalung formt das Bauteil und muss dicht und geometrisch korrekt sein.",
+      "source": "baunetzwissen.de –",
+      "sourceUrl": "https://www.baunetzwissen.de/gerueste-und-schalungen/fachwissen/grundlagen-schalungen/aufgaben-und-funktionen-von-schalungen-4812019/**"
     },
     {
       "id": "LF04-Q6",
@@ -72,7 +82,9 @@
         "Nur nach Wetterlage"
       ],
       "correctIndex": 0,
-      "explanation": "Die sichere Nutzung ergibt sich aus den Hersteller- und Systemangaben."
+      "explanation": "Die sichere Nutzung ergibt sich aus den Hersteller- und Systemangaben.",
+      "source": "DGUV Regel 101-014 Verwendung von Schalungen, 8. August 2026",
+      "sourceUrl": "https://publikationen.dguv.de/regelwerk/dguv-regeln/958"
     },
     {
       "id": "LF04-Q7",
@@ -84,7 +96,9 @@
         "Bewehrung ersetzen"
       ],
       "correctIndex": 0,
-      "explanation": "Abstandhalter halten die Bewehrung in der geplanten Lage und sichern die Deckung."
+      "explanation": "Abstandhalter halten die Bewehrung in der geplanten Lage und sichern die Deckung.",
+      "source": "Abstandhalter sichern Betondeckung beim Betonieren, 8. August 2026",
+      "sourceUrl": "https://www.maxfrank.com/intl-de/produkte/abstandhalter/"
     },
     {
       "id": "LF04-Q8",
@@ -96,7 +110,9 @@
         "man weniger verdichten muss"
       ],
       "correctIndex": 0,
-      "explanation": "Ausreichende Deckung schuetzt den Stahl vor schaedlichen Einwirkungen."
+      "explanation": "Ausreichende Deckung schuetzt den Stahl vor schaedlichen Einwirkungen.",
+      "source": "Betondeckung schützt Bewehrung vor Korrosion, 8. August 2026",
+      "sourceUrl": "https://www.baunetzwissen.de/beton/fachwissen/bewehrung/betondeckung-151002"
     },
     {
       "id": "LF04-Q9",
@@ -108,7 +124,9 @@
         "Schalung haelt dann besser"
       ],
       "correctIndex": 0,
-      "explanation": "Verdichtung entfernt eingeschlossene Luft und verbessert den Verbund."
+      "explanation": "Verdichtung entfernt eingeschlossene Luft und verbessert den Verbund.",
+      "source": "transportbeton.org",
+      "sourceUrl": "https://www.transportbeton.org/"
     },
     {
       "id": "LF04-Q10",
@@ -120,7 +138,9 @@
         "Nur am Rand ruetteln"
       ],
       "correctIndex": 0,
-      "explanation": "Zu kurze oder zu lange Verdichtung fuehrt zu technischen Maengeln."
+      "explanation": "Zu kurze oder zu lange Verdichtung fuehrt zu technischen Maengeln.",
+      "source": "Zu langes Rütteln führt zur Entmischung des Betons, 8. August 2026 (Quelle nicht direkt…",
+      "sourceUrl": "https://www.transportbeton.org/technik/richtig-betonieren/verdichten/"
     },
     {
       "id": "LF04-Q11",
@@ -132,7 +152,9 @@
         "man schneller ausschalen darf"
       ],
       "correctIndex": 0,
-      "explanation": "Nachbehandlung unterstuetzt die Erhaertung und reduziert Fruehschaeden."
+      "explanation": "Nachbehandlung unterstuetzt die Erhaertung und reduziert Fruehschaeden.",
+      "source": "DBV-Merkblatt Nachbehandlung",
+      "sourceUrl": "https://www.baunetzwissen.de/beton/tipps/planungshilfen/dbv-merkblatt-nachbehandlung-von-beton-7073388"
     },
     {
       "id": "LF04-Q12",
@@ -144,7 +166,9 @@
         "Bewehrung sparen"
       ],
       "correctIndex": 0,
-      "explanation": "Wenn die noetige Festigkeit fehlt, koennen Abplatzungen und Formfehler entstehen."
+      "explanation": "Wenn die noetige Festigkeit fehlt, koennen Abplatzungen und Formfehler entstehen.",
+      "source": "DBV-Info über Ausschalen",
+      "sourceUrl": "https://www.baunetzwissen.de/beton/fachwissen/herstellung/ausschalen-und-nachbehandeln-150928"
     },
     {
       "id": "LF04-Q13",
@@ -156,7 +180,9 @@
         "richtige Deckung"
       ],
       "correctIndex": 0,
-      "explanation": "Lunker und Kiesnester sind haeufige Folgen unzureichender Verdichtung."
+      "explanation": "Lunker und Kiesnester sind haeufige Folgen unzureichender Verdichtung.",
+      "source": "Vinawood Blog zu Lunkern",
+      "sourceUrl": "https://vinawoodltd.com/de/blog/lunker-im-beton"
     },
     {
       "id": "LF04-Q14",
@@ -168,7 +194,9 @@
         "nur Betonmischer"
       ],
       "correctIndex": 0,
-      "explanation": "Diese Punkte gehoeren zu den zentralen Freigabekriterien vor dem Betonieren."
+      "explanation": "Diese Punkte gehoeren zu den zentralen Freigabekriterien vor dem Betonieren.",
+      "source": "Checkliste Betongießfertigkeit",
+      "sourceUrl": "https://checklistguro.com/de/templates/construction/concrete-pour-readiness-checklist-formwork-reinforcement-quality-control"
     },
     {
       "id": "LF04-Q15",
@@ -180,7 +208,9 @@
         "nur mehr Leute hinstellen"
       ],
       "correctIndex": 0,
-      "explanation": "Sichere Montage und Nutzung setzen die Herstellerangaben voraus."
+      "explanation": "Sichere Montage und Nutzung setzen die Herstellerangaben voraus.",
+      "source": "DGUV 201-011 Gerüstplanung",
+      "sourceUrl": "https://www.blizzard-geruest.de/geruest-wissen/dguv-201-011-einfach-erklaert/"
     },
     {
       "id": "LF04-Q16",
@@ -192,7 +222,9 @@
         "gar nichts"
       ],
       "correctIndex": 0,
-      "explanation": "Frischbeton kann reizen oder veraetzend wirken und erfordert Schutzmassnahmen."
+      "explanation": "Frischbeton kann reizen oder veraetzend wirken und erfordert Schutzmassnahmen.",
+      "source": "bodner-bau.at – Gefahrenhinweise Sicherheitshinweise Frischbeton 10 2024.pdf)",
+      "sourceUrl": "https://www.bodner-bau.at/media/Gefahrenhinweise-Sicherheitshinweise-Frischbeton-10-2024.pdf"
     },
     {
       "id": "LF04-Q17",
@@ -204,7 +236,9 @@
         "nur Schalung traegt"
       ],
       "correctIndex": 0,
-      "explanation": "Das Tragprinzip kombiniert druckfesten Beton mit zugfestem Stahl."
+      "explanation": "Das Tragprinzip kombiniert druckfesten Beton mit zugfestem Stahl.",
+      "source": "prof.bht-berlin.de – Skript Stahlbeton1 und 2.pdf)",
+      "sourceUrl": "https://prof.bht-berlin.de/fileadmin/prof/fischer/Skript_Stahlbeton1_und_2.pdf"
     },
     {
       "id": "LF04-Q18",
@@ -216,7 +250,9 @@
         "duenne Schalhaut"
       ],
       "correctIndex": 0,
-      "explanation": "Abstandhalter halten den geplanten Abstand zwischen Bewehrung und Schalung."
+      "explanation": "Abstandhalter halten den geplanten Abstand zwischen Bewehrung und Schalung.",
+      "source": "bewehrungsstahl-deutschland.de – )",
+      "sourceUrl": "https://bewehrungsstahl-deutschland.de/abstandhalter-stosslaenge-und-uebergreifung/"
     },
     {
       "id": "LF04-Q19",
@@ -228,7 +264,9 @@
         "nur leicht sein"
       ],
       "correctIndex": 0,
-      "explanation": "Nur so werden Geometrie, Oberflaeche und Sicherheit eingehalten."
+      "explanation": "Nur so werden Geometrie, Oberflaeche und Sicherheit eingehalten.",
+      "source": "datexgmbh.com – )",
+      "sourceUrl": "https://www.datexgmbh.com/lexikon/schalung/"
     },
     {
       "id": "LF04-Q20",
@@ -240,7 +278,9 @@
         "Nachbehandlung"
       ],
       "correctIndex": 0,
-      "explanation": "Verdichtung sorgt fuer dichten Beton mit gutem Verbund."
+      "explanation": "Verdichtung sorgt fuer dichten Beton mit gutem Verbund.",
+      "source": "vinawoodltd.com – kiesnester im beton)",
+      "sourceUrl": "https://vinawoodltd.com/de/blog/kiesnester-im-beton"
     },
     {
       "id": "LF04-Q21",
@@ -252,7 +292,9 @@
         "Deckung automatisch erhoehen"
       ],
       "correctIndex": 0,
-      "explanation": "Ueberverdichtung kann die Kornverteilung unguenstig veraendern."
+      "explanation": "Ueberverdichtung kann die Kornverteilung unguenstig veraendern.",
+      "source": "Entmischung durch zu langes Rütteln, besonders bei flüssigeren Konsistenzen möglich. De…",
+      "sourceUrl": "https://de.readkong.com/page/fruhschwinden-von-beton-cemsuisse-3303587"
     },
     {
       "id": "LF04-Q22",
@@ -264,7 +306,9 @@
         "Transportkosten"
       ],
       "correctIndex": 0,
-      "explanation": "Sie reduziert Wasserverlust und unterstuetzt die gleichmaessige Erhaertung."
+      "explanation": "Sie reduziert Wasserverlust und unterstuetzt die gleichmaessige Erhaertung.",
+      "source": "Die Nachbehandlung verhindert Wasserverdunstung, schützt vor mechanischer Schädigung un…",
+      "sourceUrl": "https://www.vdz-online.de/fileadmin/wissensportal/publikationen/basiswissen/zement-merkblaetter/B8.pdf"
     },
     {
       "id": "LF04-Q23",
@@ -276,7 +320,9 @@
         "gar nicht"
       ],
       "correctIndex": 0,
-      "explanation": "Nach dem Betonieren sind Lagekorrekturen kaum noch moeglich."
+      "explanation": "Nach dem Betonieren sind Lagekorrekturen kaum noch moeglich.",
+      "source": "Vor-Ort-Prüfungen für Verankerungen erfolgen vor der Betonage, um Widerstand und Einhal…",
+      "sourceUrl": "https://www.hilti.group/content/hilti/CP/XX/de/services/quality-and-testing/anchor-site-testing.html"
     },
     {
       "id": "LF04-Q24",
@@ -288,7 +334,9 @@
         "sogar besser"
       ],
       "correctIndex": 0,
-      "explanation": "Ohne korrekte Deckung ist der Korrosionsschutz nicht gegeben."
+      "explanation": "Ohne korrekte Deckung ist der Korrosionsschutz nicht gegeben.",
+      "source": "Eine ausreichende Betondeckung ist erforderlich, um die Bewehrung vor Korrosion (passiv…",
+      "sourceUrl": "https://www.expertenforum-bau.de/forum/index.php?diskussion/7540-bewehrung-nicht-ausreichend-ueberdeckt/"
     },
     {
       "id": "LF04-Q25",
@@ -300,7 +348,9 @@
         "Werkzeuglager"
       ],
       "correctIndex": 0,
-      "explanation": "Sie legt die Anforderungen an den Beton fuer die Umgebungsbedingungen fest."
+      "explanation": "Sie legt die Anforderungen an den Beton fuer die Umgebungsbedingungen fest.",
+      "source": "Die Expositionsklasse ist ein Begriff aus dem Betonbau, um eine ausreichende Dauerhafti…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Expositionsklasse"
     },
     {
       "id": "LF04-Q26",
@@ -312,7 +362,9 @@
         "nur auf Zeit schauen"
       ],
       "correctIndex": 0,
-      "explanation": "Systeme duerfen nur bestimmungsgemaess montiert und genutzt werden."
+      "explanation": "Systeme duerfen nur bestimmungsgemaess montiert und genutzt werden.",
+      "source": "Herstellerangaben haben besondere Bedeutung (Datum: 24.8.2026)",
+      "sourceUrl": "https://www.zvei.org/fileadmin/user_upload/Presse_und_Medien/Publikationen/2021/Juli/Rechtliche_Bedeutung_technischer_Standards_und_technischer_Regelwerke/82025-2021-07-MB-rechtl-Bedeutung-techn-Standards-und-techn-Regelwerke.pdf"
     },
     {
       "id": "LF04-Q27",
@@ -324,7 +376,9 @@
         "nur den Kranstandort"
       ],
       "correctIndex": 0,
-      "explanation": "Diese Angaben sind Grundlage fuer den korrekten Bewehrungseinbau."
+      "explanation": "Diese Angaben sind Grundlage fuer den korrekten Bewehrungseinbau.",
+      "source": "Bewehrungsplan zeigt Durchmesser, Abstände und Lagen der Bewehrung (Datum: 24.8.2026)",
+      "sourceUrl": "https://alphabau-ing.de/blog/statik/bewehrungsplan-erklaert/"
     },
     {
       "id": "LF04-Q28",
@@ -336,7 +390,9 @@
         "durch Wasser ersetzen"
       ],
       "correctIndex": 0,
-      "explanation": "Zu viel oder falsch aufgetragenes Trennmittel verschlechtert Oberflaeche und Verbund."
+      "explanation": "Zu viel oder falsch aufgetragenes Trennmittel verschlechtert Oberflaeche und Verbund.",
+      "source": "Trennmittel sparsam und gleichmäßig auftragen (Datum: 24.8.2026)",
+      "sourceUrl": "https://beton.wiki/index.php?title=Trennmittel"
     },
     {
       "id": "LF04-Q29",
@@ -348,7 +404,9 @@
         "zu wenig Schalung"
       ],
       "correctIndex": 0,
-      "explanation": "Fehlstellen entstehen haeufig bei unzureichendem Verdichten und ungleichmaessigem Einbringen."
+      "explanation": "Fehlstellen entstehen haeufig bei unzureichendem Verdichten und ungleichmaessigem Einbringen.",
+      "source": "Kiesnester Ursache: schlechte Verdichtung oder ungünstiger Einbau (Datum: 24.8.2026)",
+      "sourceUrl": "https://vinawoodltd.com/de/blog/kiesnester-im-beton"
     },
     {
       "id": "LF04-Q30",
@@ -360,7 +418,9 @@
         "weniger QS-Bedarf"
       ],
       "correctIndex": 0,
-      "explanation": "Fehlende Tragfaehigkeit im jungen Beton kann zu sichtbaren Schaeden fuehren."
+      "explanation": "Fehlende Tragfaehigkeit im jungen Beton kann zu sichtbaren Schaeden fuehren.",
+      "source": "Frühzeitiges Ausschalen führt zu Abplatzungen und Verformungen (Datum: 24.8.2026)",
+      "sourceUrl": "https://helpcenter.einhornwerke.de/support/solutions/articles/206000068521-wann-soll-man-sichtbeton-ausschalen-"
     },
     {
       "id": "LF04-Q31",
@@ -372,7 +432,9 @@
         "nur Personalstand"
       ],
       "correctIndex": 0,
-      "explanation": "Dokumentation macht Ausfuehrung und Abweichungen nachvollziehbar."
+      "explanation": "Dokumentation macht Ausfuehrung und Abweichungen nachvollziehbar.",
+      "source": "GÜB DIN 1045-3 Überwachung ÜK2/3",
+      "sourceUrl": "https://www.gueb-online.de/uek-2-3-ueberwachung/"
     }
   ]
 }

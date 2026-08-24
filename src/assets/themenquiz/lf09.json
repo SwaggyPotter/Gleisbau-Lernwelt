@@ -48,7 +48,9 @@
         "ersetzt Verdichtung"
       ],
       "correctIndex": 0,
-      "explanation": "Die Bettung stuetzt das Rohr und reduziert schaedliche Punktlasten."
+      "explanation": "Die Bettung stuetzt das Rohr und reduziert schaedliche Punktlasten.",
+      "source": "Das Bauhandbuch Straßenbau bestätigt, dass Rohrbettung vor mechanischen Beschädigungen…",
+      "sourceUrl": "https://www.bauhandbuch.de/bhs/03-strassenbau/hl-leitungen.html"
     },
     {
       "id": "LF09-Q5",
@@ -72,7 +74,9 @@
         "als Fundament"
       ],
       "correctIndex": 0,
-      "explanation": "Schaechte sind zentrale Punkte fuer Betrieb, Reinigung und Leitungsfuehrung."
+      "explanation": "Schaechte sind zentrale Punkte fuer Betrieb, Reinigung und Leitungsfuehrung.",
+      "source": "Kontrollschacht-Wikipedia-DIN-Norm",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Kontrollschacht"
     },
     {
       "id": "LF09-Q7",
@@ -84,7 +88,9 @@
         "wegen Frost"
       ],
       "correctIndex": 0,
-      "explanation": "Seitliche Sicherung stabilisiert die Rohrlage vor weiterer Verdichtung."
+      "explanation": "Seitliche Sicherung stabilisiert die Rohrlage vor weiterer Verdichtung.",
+      "source": "HABA-Rohrverlegungscheckliste-DIN-Norm",
+      "sourceUrl": "https://www.haba-beton.com/daten/VOEB_Checkliste_Rohrverlegung.pdf"
     },
     {
       "id": "LF09-Q8",
@@ -96,7 +102,9 @@
         "Gefaelle eingehalten"
       ],
       "correctIndex": 0,
-      "explanation": "Gefaelle- und Dichtheitsfehler gehoeren zu den haeufigsten Ausfallursachen."
+      "explanation": "Gefaelle- und Dichtheitsfehler gehoeren zu den haeufigsten Ausfallursachen.",
+      "source": "Entwässerungsfehler-Praxis-DIN",
+      "sourceUrl": "https://kanal-greulich.de/blog/grundstuecksentwaesserung-hanglagen-planen/"
     },
     {
       "id": "LF09-Q9",
@@ -108,7 +116,9 @@
         "Staub"
       ],
       "correctIndex": 0,
-      "explanation": "Kontrollierte Ableitung verhindert Feuchte- und Frostschaeden."
+      "explanation": "Kontrollierte Ableitung verhindert Feuchte- und Frostschaeden.",
+      "source": "Entwässerung-Schutz-InternetFürArchitekten",
+      "sourceUrl": "https://internet-fuer-architekten.de/themen/entwaesserung/"
     },
     {
       "id": "LF09-Q10",
@@ -120,7 +130,9 @@
         "nichts"
       ],
       "correctIndex": 0,
-      "explanation": "Beim Trennsystem laufen beide Wasserarten in getrennten Leitungen."
+      "explanation": "Beim Trennsystem laufen beide Wasserarten in getrennten Leitungen.",
+      "source": "Trennsystem-Wikipedia-DIN-Regelwerk",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Trennsystem"
     },
     {
       "id": "LF09-Q11",
@@ -132,7 +144,9 @@
         "keine Schaechte noetig sind"
       ],
       "correctIndex": 0,
-      "explanation": "Ohne Gefaelle ist der sichere Abfluss nicht gewaehrleistet."
+      "explanation": "Ohne Gefaelle ist der sichere Abfluss nicht gewaehrleistet.",
+      "source": "techeld.de – gefaelle rechner",
+      "sourceUrl": "https://techeld.de/handwerksheld/shk-elektro/gefaelle-rechner/"
     },
     {
       "id": "LF09-Q12",
@@ -144,7 +158,9 @@
         "Belueftung"
       ],
       "correctIndex": 0,
-      "explanation": "Die Bettung verteilt Lasten und verhindert lokale Ueberbeanspruchung."
+      "explanation": "Die Bettung verteilt Lasten und verhindert lokale Ueberbeanspruchung.",
+      "source": "this-magazin.de – tis Kontrolle der Lastannahmen Rohrstatik Rohreinbau Teil 2 2891506",
+      "sourceUrl": "https://www.this-magazin.de/artikel/tis_Kontrolle_der_Lastannahmen_Rohrstatik_Rohreinbau_Teil_2-2891506.html"
     },
     {
       "id": "LF09-Q13",
@@ -156,7 +172,9 @@
         "nur Schrauben"
       ],
       "correctIndex": 0,
-      "explanation": "Dichtungen sorgen fuer dichte und funktionssichere Rohrverbindungen."
+      "explanation": "Dichtungen sorgen fuer dichte und funktionssichere Rohrverbindungen.",
+      "source": "hornbach.de – 1398136",
+      "sourceUrl": "https://www.hornbach.de/p/muffendichtung-30-50/1398136/"
     },
     {
       "id": "LF09-Q14",
@@ -168,7 +186,9 @@
         "nur als Lager"
       ],
       "correctIndex": 0,
-      "explanation": "Schaechte sind Betriebs- und Wartungspunkte im Netz."
+      "explanation": "Schaechte sind Betriebs- und Wartungspunkte im Netz.",
+      "source": "de.wikipedia.org – Kontrollschacht",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Kontrollschacht"
     },
     {
       "id": "LF09-Q15",
@@ -180,7 +200,9 @@
         "nur breit sein"
       ],
       "correctIndex": 0,
-      "explanation": "Grabensicherung ist Voraussetzung fuer sicheres Arbeiten."
+      "explanation": "Grabensicherung ist Voraussetzung fuer sicheres Arbeiten.",
+      "source": "fbs-beton.de – FBS Einbauanleitung Rohre ohne Fuss DEU Januar 2023",
+      "sourceUrl": "https://fbs-beton.de/wp-content/uploads/2021/07/FBS_Einbauanleitung_Rohre-ohne-Fuss_DEU_Januar_2023.pdf"
     },
     {
       "id": "LF09-Q16",
@@ -192,7 +214,9 @@
         "weniger Wartung"
       ],
       "correctIndex": 0,
-      "explanation": "Geringe Fliessgeschwindigkeit beguenstigt Ablagerungen und Verstopfung."
+      "explanation": "Geringe Fliessgeschwindigkeit beguenstigt Ablagerungen und Verstopfung.",
+      "source": "DWA M 153, Wasserstau bis 5 % Gefälle möglich (2025)",
+      "sourceUrl": "https://ag-sachverstaendige.de/wp-content/uploads/2025/03/03_Leissler_Vortrag-Entwaesserung_Handout.pdf"
     },
     {
       "id": "LF09-Q17",
@@ -204,7 +228,9 @@
         "Bettung unnoetig machen"
       ],
       "correctIndex": 0,
-      "explanation": "Ueberhoehte Fliessgeschwindigkeiten koennen Material ausspuelen."
+      "explanation": "Ueberhoehte Fliessgeschwindigkeiten koennen Material ausspuelen.",
+      "source": "BaustoffWissen, natürliche Gefälle für sichere Entwässerung (2023)",
+      "sourceUrl": "https://www.baustoffwissen.de/entwaesserungssysteme-fuer-strassenoberflaechen-31102023"
     },
     {
       "id": "LF09-Q18",
@@ -216,7 +242,9 @@
         "nur bei Trockenheit"
       ],
       "correctIndex": 0,
-      "explanation": "Lagenweiser Aufbau begrenzt Verformungen und sichert die Rohrlage."
+      "explanation": "Lagenweiser Aufbau begrenzt Verformungen und sichert die Rohrlage.",
+      "source": "DWA-M 153 Handlungsempfehlungen zum Umgang mit Regenwasser, vereinfachtes Bewertungsver…",
+      "sourceUrl": "https://orlis.difu.de/items/60f34cad-eba7-44b0-98a6-d3066e10ef5a"
     },
     {
       "id": "LF09-Q19",
@@ -228,7 +256,9 @@
         "Gefaelle zu erzeugen"
       ],
       "correctIndex": 0,
-      "explanation": "Der seitliche Einbau fixiert das Rohr gegen Verschiebung."
+      "explanation": "Der seitliche Einbau fixiert das Rohr gegen Verschiebung.",
+      "source": "bau.bi, seitliche Stützung durch Verfüllung (aktualisiert)",
+      "sourceUrl": "https://bau.bi/umweltbau/kanalbau-kanalbetrieb/kontrolle-der-erdarbeiten-verdichtung-fachgerecht-ausfuehren-und-pruefen-u14621"
     },
     {
       "id": "LF09-Q20",
@@ -240,7 +270,9 @@
         "Wartung"
       ],
       "correctIndex": 0,
-      "explanation": "Unzureichend verdichtete Bereiche setzen sich spaeter unter Last."
+      "explanation": "Unzureichend verdichtete Bereiche setzen sich spaeter unter Last.",
+      "source": "LGRBwissen, Setzungen bei unzureichender Verdichtung (aktualisiert)",
+      "sourceUrl": "https://lgrbwissen.lgrb-bw.de/ingenieurgeologie/setzungen"
     },
     {
       "id": "LF09-Q21",
@@ -252,7 +284,9 @@
         "geringerem Wartungsbedarf"
       ],
       "correctIndex": 0,
-      "explanation": "Defekte Dichtungen verlieren ihre Abdichtfunktion."
+      "explanation": "Defekte Dichtungen verlieren ihre Abdichtfunktion.",
+      "source": "ynfrubberproducts.com – common factors causing seal failure best replacement practices",
+      "sourceUrl": "https://www.ynfrubberproducts.com/de/common-factors-causing-seal-failure-best-replacement-practices/"
     },
     {
       "id": "LF09-Q22",
@@ -264,7 +298,9 @@
         "nur bei Regen"
       ],
       "correctIndex": 0,
-      "explanation": "Nach dem Verfuellen sind Korrekturen deutlich aufwendiger."
+      "explanation": "Nach dem Verfuellen sind Korrekturen deutlich aufwendiger.",
+      "source": "Die Baustellenverordnung umfasst verpflichtende Arbeitsschutzpflichten",
+      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/Baustellenverordnung_node"
     },
     {
       "id": "LF09-Q23",
@@ -276,7 +312,9 @@
         "nur Nebensache"
       ],
       "correctIndex": 0,
-      "explanation": "Fehler in der Entwaesserung beeintraechtigen dauerhaft Funktion und Sicherheit."
+      "explanation": "Fehler in der Entwaesserung beeintraechtigen dauerhaft Funktion und Sicherheit.",
+      "source": "eba.bund.de – 11 2024 Fachinformationen fuer die Entwaesserung von Bahnanlagen",
+      "sourceUrl": "https://www.eba.bund.de/SharedDocs/Fachmitteilungen/DE/2024/11_2024_Fachinformationen_fuer_die_Entwaesserung_von_Bahnanlagen.html"
     }
   ]
 }

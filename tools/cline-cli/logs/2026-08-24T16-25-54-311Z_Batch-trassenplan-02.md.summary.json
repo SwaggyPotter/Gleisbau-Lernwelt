@@ -1,0 +1,34 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-trassenplan-02.md",
+  "status": "NO_CHANGE",
+  "reasons": [
+    "Datei wurde nicht verändert."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 190,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 65,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 3,
+      "durationSec": 47,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T16-25-54-311Z_Batch-trassenplan-02.md.log"
+}

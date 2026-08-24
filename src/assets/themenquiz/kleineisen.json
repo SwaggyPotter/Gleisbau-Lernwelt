@@ -12,7 +12,9 @@
         "Werkzeuge zum Anheben der Schiene"
       ],
       "correctIndex": 0,
-      "explanation": "Kleineisen ist der Sammelbegriff fuer alle kleinteiligen Bauteile, mit denen die Schiene auf der Schwelle befestigt wird."
+      "explanation": "Kleineisen ist der Sammelbegriff fuer alle kleinteiligen Bauteile, mit denen die Schiene auf der Schwelle befestigt wird.",
+      "source": "Schienen, Schwellen und Kleineisen (das sind die Befestigungsteile der Schiene auf der…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Schiene_(Bahn)"
     },
     {
       "id": "ke-q2",
@@ -24,7 +26,9 @@
         "Sie daempft nur den Zugleraerm"
       ],
       "correctIndex": 0,
-      "explanation": "Die elastische Spannklemme druecke den Schienenfuss federnd auf die Unterlage und haelt die Schiene seitlich fest, laesst aber geringe Laengsbewegungen zu."
+      "explanation": "Die elastische Spannklemme druecke den Schienenfuss federnd auf die Unterlage und haelt die Schiene seitlich fest, laesst aber geringe Laengsbewegungen zu.",
+      "source": "Spannklemme ... die Aufgabe besitzt ... die Schiene auf die Rippenplatte zu pressen\" -…",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/befestigungsmittel"
     },
     {
       "id": "ke-q3",
@@ -36,7 +40,9 @@
         "Anzeige der Spurweite"
       ],
       "correctIndex": 0,
-      "explanation": "Die elastische Zwischenlage federt Stoesse ab, reduziert Verschleiss und Laerm und isoliert die Schiene elektrisch von der Unterlage."
+      "explanation": "Die elastische Zwischenlage federt Stoesse ab, reduziert Verschleiss und Laerm und isoliert die Schiene elektrisch von der Unterlage.",
+      "source": "Zwischenlagen ... dämpfen Stoß und Schwingungen, elektrische Isolierung durch Elastizit…",
+      "sourceUrl": "https://www.wirthwein.de/rail-infrastructure/zwischenlagen"
     },
     {
       "id": "ke-q4",
@@ -48,7 +54,9 @@
         "Ein Teil der Weichenzunge"
       ],
       "correctIndex": 0,
-      "explanation": "Die Rippenplatte liegt zwischen Schiene und Holzschwelle, verteilt die Last grossflaechig und kann die Schienenneigung sicherstellen."
+      "explanation": "Die Rippenplatte liegt zwischen Schiene und Holzschwelle, verteilt die Last grossflaechig und kann die Schienenneigung sicherstellen.",
+      "source": "Rippenplatte dient der Lagerung auf Schwellen, Lastverteilung\" + Wikipedia | \"Platte mi…",
+      "sourceUrl": "https://www.heinrich-krug.de/oberbau/rippenplatten/"
     },
     {
       "id": "ke-q5",
@@ -60,7 +68,9 @@
         "Zur Messung der Spurweite"
       ],
       "correctIndex": 0,
-      "explanation": "In Betonschwellen eingelassene Duebel nehmen die Schwellenschrauben auf, mit denen Klemmen bzw. Platten fest verschraubt werden."
+      "explanation": "In Betonschwellen eingelassene Duebel nehmen die Schwellenschrauben auf, mit denen Klemmen bzw. Platten fest verschraubt werden.",
+      "source": "Das Innengewinde dient der Aufnahme einer Schwellenschraube\" - bestätigt Funktion bei B…",
+      "sourceUrl": "https://www.wirthwein.de/rail-infrastructure/duebel-erstausstattung"
     },
     {
       "id": "ke-q6",
@@ -72,7 +82,9 @@
         "Um Gewicht einzusparen"
       ],
       "correctIndex": 0,
-      "explanation": "Eine elastische Zwischenlage nimmt dynamische Kraefte aus dem Zugverkehr auf und schont dadurch Schiene, Befestigung und Schwelle."
+      "explanation": "Eine elastische Zwischenlage nimmt dynamische Kraefte aus dem Zugverkehr auf und schont dadurch Schiene, Befestigung und Schwelle.",
+      "source": "elastische Zwischenlage dämpft Erschütterungen und verringert Verschleiß (Stand: 2024)",
+      "sourceUrl": "https://www.calenberg-ingenieure.de/anwendungsbereiche/bahn/elastische-schienenbefestigungen.htm"
     },
     {
       "id": "ke-q7",
@@ -84,7 +96,9 @@
         "Sie erhoeht die zulaessige Spurweite"
       ],
       "correctIndex": 0,
-      "explanation": "Elastische Befestigungssysteme daempfen Stoesse und Schwingungen, was Verschleiss und Laerm reduziert und die Lebensdauer der Gleisanlage erhoeht."
+      "explanation": "Elastische Befestigungssysteme daempfen Stoesse und Schwingungen, was Verschleiss und Laerm reduziert und die Lebensdauer der Gleisanlage erhoeht.",
+      "source": "Vorteile: geringerer Verschleiß, bessere Lastverteilung und Geräuschminderung (Stand: 2…",
+      "sourceUrl": "https://www.getzner.com/de/produkte/bahn/zwischenlagen"
     },
     {
       "id": "kleineisen-g1",
@@ -96,7 +110,9 @@
         "Der Duebel"
       ],
       "correctIndex": 2,
-      "explanation": "Zu den Befestigungsmitteln im Gleisbau zählen unter anderem die Kleineisen, die nötig sind, um die Gleise mit den Schwellen zu verbinden. Dazu gehören Schraubenmuttern, Federringe, Schwellenschrauben und Klemmplatten."
+      "explanation": "Zu den Befestigungsmitteln im Gleisbau zählen unter anderem die Kleineisen, die nötig sind, um die Gleise mit den Schwellen zu verbinden. Dazu gehören Schraubenmuttern, Federringe, Schwellenschrauben und Klemmplatten.",
+      "source": "Befestigungsmittel verbinden die Schiene über eine sogenannte Rippenplatte mit der Schw…",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/befestigungsmittel/kleineisen"
     },
     {
       "id": "kleineisen-g2",
@@ -108,7 +124,9 @@
         "Kupfer"
       ],
       "correctIndex": 2,
-      "explanation": "Federringe, sowie auch die sonstigen im Oberbau verwendeten Spannmittel, werden aus hochelastischem Federstahl gefertigt. Eine Spannklemme ist gut verspannt, wenn die Federringe soweit zusammengedrückt sind, dass ein Spielraum von etwa 1 mm bleibt."
+      "explanation": "Federringe, sowie auch die sonstigen im Oberbau verwendeten Spannmittel, werden aus hochelastischem Federstahl gefertigt. Eine Spannklemme ist gut verspannt, wenn die Federringe soweit zusammengedrückt sind, dass ein Spielraum von etwa 1 mm bleibt.",
+      "source": "Federstahl & Spannsysteme\" für Schienenklammern, also hochspannender Federstahl (Stand:…",
+      "sourceUrl": "https://railmate.de/Schienenklammern"
     },
     {
       "id": "kleineisen-g3",
@@ -120,7 +138,9 @@
         "Durch Aufpressen mit einer Presse"
       ],
       "correctIndex": 1,
-      "explanation": "Die Spannklemme Skl wird im Gleisoberbau Ks mit einer Hakenschraube, einer Unterlegscheibe und einer Mutter an der Rippenplatte verschraubt. Sie zeichnet sich durch ihre gute Klemmkraft und hohe Elastizität aus."
+      "explanation": "Die Spannklemme Skl wird im Gleisoberbau Ks mit einer Hakenschraube, einer Unterlegscheibe und einer Mutter an der Rippenplatte verschraubt. Sie zeichnet sich durch ihre gute Klemmkraft und hohe Elastizität aus.",
+      "source": "Eine Hakenschraube hält die Spannklemme in der richtigen Position fest und wird mit ein…",
+      "sourceUrl": "https://eti-industries.com/kleineisen-verschraubungen"
     },
     {
       "id": "kleineisen-g4",
@@ -132,7 +152,9 @@
         "15 kN/Klemme"
       ],
       "correctIndex": 2,
-      "explanation": "Die Federkraft der elastischen Schienenbefestigung SKL beträgt ca. 12 kN/Klemme. Diese Kraft ermöglicht eine dauerhafte federnde Verspannung mit gutem Durchschub- und Verdrehwiderstand."
+      "explanation": "Die Federkraft der elastischen Schienenbefestigung SKL beträgt ca. 12 kN/Klemme. Diese Kraft ermöglicht eine dauerhafte federnde Verspannung mit gutem Durchschub- und Verdrehwiderstand.",
+      "source": "voestalpine: \"Federkraft ca. 12kN/Klemme",
+      "sourceUrl": "https://www.voestalpine.com/railway-systems/de/produkte/elastische-schienenbefestigung-skl/"
     },
     {
       "id": "kleineisen-g5",
@@ -144,7 +166,9 @@
         "Kategorien F und G"
       ],
       "correctIndex": 2,
-      "explanation": "Die Spannklemmen gewährleisten eine dauerhafte federnde Verspannung für Befestigungskategorien A, B, C, D und E gemäß EN13481-Serie."
+      "explanation": "Die Spannklemmen gewährleisten eine dauerhafte federnde Verspannung für Befestigungskategorien A, B, C, D und E gemäß EN13481-Serie.",
+      "source": "voestalpine: \"Erfüllt EN13481-Serie für Befestigungskategorien A, B, C, D, E",
+      "sourceUrl": "https://www.voestalpine.com/railway-systems/de/produkte/elastische-schienenbefestigung-skl/"
     },
     {
       "id": "kleineisen-g6",
@@ -156,7 +180,9 @@
         "60 mm"
       ],
       "correctIndex": 1,
-      "explanation": "Für die Hakenschraube Hs 24 (Oberbau K) beträgt die Länge 40 mm mit einem Gewicht von 0,445 kg. Der Schaft ist halbkreisförmig am unteren Ende gestaltet."
+      "explanation": "Für die Hakenschraube Hs 24 (Oberbau K) beträgt die Länge 40 mm mit einem Gewicht von 0,445 kg. Der Schaft ist halbkreisförmig am unteren Ende gestaltet.",
+      "source": "Trackopedia: \"Hakenschraube Hs 24 Oberbau K; Länge 40mm\" (Datum: 24.8.2026)",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/befestigungsmittel/kleineisen"
     },
     {
       "id": "kleineisen-g7",
@@ -168,7 +194,9 @@
         "65 mm"
       ],
       "correctIndex": 2,
-      "explanation": "Die Hakenschraube Hs 32 für den Oberbau Ks hat eine Länge von 55 mm und wiegt 0,503 kg. Sie ist am unteren Ende halbkreisförmig ausgeformt und passt in den Schwalbenschwanz der Rippenplatte."
+      "explanation": "Die Hakenschraube Hs 32 für den Oberbau Ks hat eine Länge von 55 mm und wiegt 0,503 kg. Sie ist am unteren Ende halbkreisförmig ausgeformt und passt in den Schwalbenschwanz der Rippenplatte.",
+      "source": "Trackopedia: \"Hakenschraube Hs 32: Oberbau Ks; Länge 55 mm\" (Datum: 24.8.2026)",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/befestigungsmittel/kleineisen"
     },
     {
       "id": "kleineisen-g8",
@@ -180,7 +208,9 @@
         "250–300 Nm"
       ],
       "correctIndex": 2,
-      "explanation": "Mittels der Hakenschraube und einem Drehmoment von ca. 180–220 Nm kann die Schiene auf den Rippenplatten befestigt werden."
+      "explanation": "Mittels der Hakenschraube und einem Drehmoment von ca. 180–220 Nm kann die Schiene auf den Rippenplatten befestigt werden.",
+      "source": "Trackopedia: \"Drehmoment von ca. 180 – 220 Nm\" (Datum: 24.8.2026)",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/befestigungsmittel/kleineisen"
     },
     {
       "id": "kleineisen-g9",
@@ -192,7 +222,9 @@
         "180 mm"
       ],
       "correctIndex": 2,
-      "explanation": "Die Schwellenschraube Ss 5 hat eine Länge von 150 mm und ein Gewicht von 0,543 kg. Sie besitzt ein Gewinde aus Holz für Holz- und Betonschwellen."
+      "explanation": "Die Schwellenschraube Ss 5 hat eine Länge von 150 mm und ein Gewicht von 0,543 kg. Sie besitzt ein Gewinde aus Holz für Holz- und Betonschwellen.",
+      "source": "Schwellenschraube Ss5- 24x150mm nach Zeichnung Iotksch 218",
+      "sourceUrl": "https://www.goehmann.com/index.php?article_id=412&clang=1"
     },
     {
       "id": "kleineisen-g10",
@@ -204,7 +236,9 @@
         "200 mm"
       ],
       "correctIndex": 2,
-      "explanation": "Die Schwellenschraube Ss 7 hat eine Länge von 180 mm und ein Gewicht von 0,636 kg. Sie ist für größere Belastungen im Oberbau gedacht."
+      "explanation": "Die Schwellenschraube Ss 7 hat eine Länge von 180 mm und ein Gewicht von 0,636 kg. Sie ist für größere Belastungen im Oberbau gedacht.",
+      "source": "Schwellenschraube Ss7 24x180mm nach Zeichnung Iotksch 212",
+      "sourceUrl": "https://www.goehmann.com/index.php?article_id=412&clang=0"
     },
     {
       "id": "kleineisen-g11",
@@ -216,7 +250,9 @@
         "Zur Erhöhung der Drehbarkeit"
       ],
       "correctIndex": 1,
-      "explanation": "Durch die konische Form des Schaftes unterhalb des Kopfes presst sich das Gewinde des Schraubenhalses beim Eindrehen fest in die Löcher und die Holzfasern ein. Die Schwelle muss aber vorgebohrt werden."
+      "explanation": "Durch die konische Form des Schaftes unterhalb des Kopfes presst sich das Gewinde des Schraubenhalses beim Eindrehen fest in die Löcher und die Holzfasern ein. Die Schwelle muss aber vorgebohrt werden.",
+      "source": "Durch die konische Form des Schaftes unterhalb des Kopfes der Schraube presst sich das…",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/befestigungsmittel/kleineisen"
     },
     {
       "id": "kleineisen-g12",
@@ -228,7 +264,9 @@
         "Zur Vereinfachung der Montage"
       ],
       "correctIndex": 1,
-      "explanation": "Federringe sind so ausgebildet, dass jeder Gang eine zusätzliche Wölbung hat. Eine Schienenbefestigung ist gut verspannt, wenn die Federringe soweit zusammengedrückt sind, dass ein Spielraum von etwa 1 mm verbleibt."
+      "explanation": "Federringe sind so ausgebildet, dass jeder Gang eine zusätzliche Wölbung hat. Eine Schienenbefestigung ist gut verspannt, wenn die Federringe soweit zusammengedrückt sind, dass ein Spielraum von etwa 1 mm verbleibt.",
+      "source": "Eine Schienenbefestigung ist gut verspannt, wenn die Federringe soweit zusammengedrückt…",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/befestigungsmittel/kleineisen"
     },
     {
       "id": "kleineisen-g13",
@@ -240,7 +278,9 @@
         "Es ist nur ästhetischer Natur"
       ],
       "correctIndex": 1,
-      "explanation": "Für den Bereich der Zungenvorrichtung wird eine Kpo 3 eingebaut dort, wo sich keine Zwischenlagen zwischen Gleitstuhlplatten bzw. Rippenplatten und Fahrschiene befinden."
+      "explanation": "Für den Bereich der Zungenvorrichtung wird eine Kpo 3 eingebaut dort, wo sich keine Zwischenlagen zwischen Gleitstuhlplatten bzw. Rippenplatten und Fahrschiene befinden.",
+      "source": "Für den Bereich der Zungenvorrichtung (Gewicht / Stück = 0,620 kg), wird dort eine Kpo…",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/befestigungsmittel/kleineisen"
     },
     {
       "id": "kleineisen-g14",
@@ -252,7 +292,9 @@
         "Sie ist kostengünstiger in der Herstellung"
       ],
       "correctIndex": 0,
-      "explanation": "Ein wesentlicher Vorteil der elastischen Schienenbefestigung gegenüber einer starren Befestigung ist geringerer Verschleiß, bessere Lastverteilung und Geräuschminderung."
+      "explanation": "Ein wesentlicher Vorteil der elastischen Schienenbefestigung gegenüber einer starren Befestigung ist geringerer Verschleiß, bessere Lastverteilung und Geräuschminderung.",
+      "source": "Elastische Zwischenlagen reduzieren Verschleiß, Last wird auf mehrere Stützpunkte verte…",
+      "sourceUrl": "https://www.calenberg-ingenieure.de/anwendungsbereiche/bahn/elastische-schienenbefestigungen.htm"
     },
     {
       "id": "kleineisen-g15",
@@ -264,7 +306,9 @@
         "Weil es keine normative Vorgabe ist"
       ],
       "correctIndex": 0,
-      "explanation": "Der optimale Einbauzustand ist erreicht, wenn die Mittelschleife noch einen geringen Abstand zum Schienenfuß aufweist. Eine plastische Verformung der Federarme ist so nicht möglich."
+      "explanation": "Der optimale Einbauzustand ist erreicht, wenn die Mittelschleife noch einen geringen Abstand zum Schienenfuß aufweist. Eine plastische Verformung der Federarme ist so nicht möglich.",
+      "source": "Mittelschleife mit geringem Abstand zum Schienenfuß schützt Federarm vor Überlastung un…",
+      "sourceUrl": "https://cdnstorevoestalpine.blob.core.windows.net/documents/659686/original/railwaysystems_factsheet_Alternatives_Schienenbefestigungssystem_de.pdf"
     },
     {
       "id": "kleineisen-g16",
@@ -276,7 +320,9 @@
         "Kunststoff mit Stahlversteifungen"
       ],
       "correctIndex": 2,
-      "explanation": "Die Platten werden aus Baustahl, Sphäroguss GJS oder Stahlguss gefertigt. Für den Korrosionsschutz kann eine verzinkte Ausführung gewählt werden."
+      "explanation": "Die Platten werden aus Baustahl, Sphäroguss GJS oder Stahlguss gefertigt. Für den Korrosionsschutz kann eine verzinkte Ausführung gewählt werden.",
+      "source": "Klemmplatten aus Baustahl oder Sphäroguss GJS / Stahlguss.",
+      "sourceUrl": "https://cdnstorevoestalpine.blob.core.windows.net/documents/659686/original/railwaysystems_factsheet_Alternatives_Schienenbefestigungssystem_de.pdf"
     },
     {
       "id": "kleineisen-g17",
@@ -288,7 +334,9 @@
         "Nur temporäre Montageklemmen aus Holz"
       ],
       "correctIndex": 1,
-      "explanation": "Die Spannklemmen für den Gleisoberbau werden in vielen Varianten lagervorrätig gehalten, unter anderem Spannklemme Skl 12, Skl 14, Skl 2, Skl 3 sowie montierte Sätze."
+      "explanation": "Die Spannklemmen für den Gleisoberbau werden in vielen Varianten lagervorrätig gehalten, unter anderem Spannklemme Skl 12, Skl 14, Skl 2, Skl 3 sowie montierte Sätze.",
+      "source": "Für den Gleisoberbau Ks üblich: Skl 2, Skl 3, Skl 12, Skl 14.",
+      "sourceUrl": "https://cdnstorevoestalpine.blob.core.windows.net/documents/659629/original/railwaysystems_factsheet_Elastische_Schienenbefestigung_de.pdf"
     },
     {
       "id": "kleineisen-g18",
@@ -300,7 +348,9 @@
         "Nur um Gewicht einzusparen"
       ],
       "correctIndex": 2,
-      "explanation": "Der Korrosionsschutz wird gemäß Anforderung entsprechend den Umweltbedingungen geliefert, damit die Bauteile unter verschiedenen Bedingungen ihre Lebensdauer erhalten."
+      "explanation": "Der Korrosionsschutz wird gemäß Anforderung entsprechend den Umweltbedingungen geliefert, damit die Bauteile unter verschiedenen Bedingungen ihre Lebensdauer erhalten.",
+      "source": "Mit oder ohne Korrosionsschutz je nach Umweltbedingungen (z.B. Bahnübergänge, Tunnel),…",
+      "sourceUrl": "https://www.schubarth.ch/de/produkte/eisenbahn-oberbau/schienenbefestigungen/einzelteile-komponenten.html"
     }
   ]
 }

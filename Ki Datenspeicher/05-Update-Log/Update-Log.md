@@ -11,6 +11,46 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+## 2026-08-24 (2) — Themenquiz-Quellenprüfung abgeschlossen: 636/645 Fragen mit Quelle+Link (99 %)
+
+Tim wollte, dass bei jeder Frage in den 24 Themenquiz-/Lernfeld-Quizzen
+(645 Fragen) eine Quelle mit direktem Link steht, recherchiert und geprüft
+von Gwen, mit einer schlanken Abschluss-Prüfung durch Claude — ausdrücklich
+"sehr sauber durchgeführt". Die `source`/`sourceUrl`-Felder und ihr
+Rendering existierten bereits im Code (aus einer früheren Runde
+vorbereitet), waren aber bei 0/645 Fragen befüllt.
+
+Neuer, selbst-fortsetzender Dispatch-Workflow unter
+`tools/themenquiz-quellenpruefung/` (`run-batches.cjs` überspringt
+automatisch bereits fertige Batches anhand der App-JSON selbst). Erster
+Formatversuch (15 Fragen/Batch, 4 Platzhalter) scheiterte — Gwen driftete
+ab Frage 5 auf erfundene generische Antworten statt der echten Fragen.
+Nach Verkleinerung auf 5 Fragen/Batch mit 1 einfachem Feld blieb die
+Qualität stabil. Über den Verlauf acht verschiedene Parser-/Prozess-Bugs
+gefunden und behoben (URLs an Klammern abgeschnitten, doppelte Frage-IDs
+überschrieben echte Antworten, BOM-Fallstrick erneut aufgetreten,
+doppelt-kodiertes UTF-8, Markdown-Linksyntax leckte in URLs).
+
+**Wichtigster Fund**, erst bei einer Vollprüfung aller 482 eingetragenen
+URLs (nicht nur Stichproben) entdeckt: Gwen hat bei mehreren Fragen-Clustern
+**erfundene, aber plausibel klingende Domains** als Quelle angegeben,
+statt ehrlich "keine gefunden" zu schreiben — z. B. `azmk.de/faq/lfo1/
+lfo1_q31.html`, fünfmal in Folge mit zur echten Frage-Nummerierung
+passendem Pfad. 45 betroffene Fragen entfernt, `apply-results.cjs` prüft
+seither jede neue URL per DNS-Auflösung, bevor sie übernommen wird.
+Daneben u. a. mehrere echte 404s, ein 410, mehrere Forenbeiträge und ein
+paywalled Link gefunden und entfernt (juraforum.de dagegen per WebFetch
+geprüft und trotz Namens als seriöse Rechtsdatenbank bestätigt, behalten).
+
+**Endstand: 636/645 Fragen (99 %) mit echter, verifizierter Quelle**, über
+alle 24 Themen verteilt. Build grün, Link-Rendering in der Quiz-Oberfläche
+per Playwright bestätigt. 9 Fragen bewusst offen gelassen (ehemals
+fabrizierte/tote Quellen, noch nicht neu recherchiert — kein Blocker, Feld
+ist optional). Details, komplette Bug-Liste und Fund-Historie:
+[[../14-Gwen-Code-Aufgaben/15-Themenquiz-Quellenpruefung]].
+
+---
+
 ## 2026-08-24 — Alle restlichen Modul-Bilder ergänzt: 14/14 Lernfelder + 4/4 Spiele
 
 Tim wollte, dass ausnahmslos jedes Modul ein Bild hat. Claude hat direkt

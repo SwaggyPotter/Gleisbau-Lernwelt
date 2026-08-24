@@ -12,7 +12,9 @@
         "nur Beton"
       ],
       "correctIndex": 0,
-      "explanation": "Kernmerkmal ist der einschalige Aufbau ohne zweite Vormauerschale."
+      "explanation": "Kernmerkmal ist der einschalige Aufbau ohne zweite Vormauerschale.",
+      "source": "Einschalige Außenwände | BauNetz Wissen (Begründung: \"Einschaliges Mauerwerk besteht au…",
+      "sourceUrl": "https://www.baunetzwissen.de/mauerwerk/fachwissen/wand/einschalige-aussenwaende-162708"
     },
     {
       "id": "LF03-Q2",
@@ -24,7 +26,9 @@
         "nur aus Holz bestehen"
       ],
       "correctIndex": 0,
-      "explanation": "Bei monolithischen Loesungen wird die Wanddicke oft fuer den Waermeschutz vergroessert."
+      "explanation": "Bei monolithischen Loesungen wird die Wanddicke oft fuer den Waermeschutz vergroessert.",
+      "source": "Einschalige Außenwände | BauNetz Wissen (Begründung: \"Aus Wärmeschutzgründen sind die W…",
+      "sourceUrl": "https://www.baunetzwissen.de/mauerwerk/fachwissen/wand/einschalige-aussenwaende-162708"
     },
     {
       "id": "LF03-Q3",
@@ -36,7 +40,9 @@
         "irrelevant"
       ],
       "correctIndex": 0,
-      "explanation": "Die Stossfuge liegt zwischen den Stirnseiten benachbarter Steine und ist senkrecht."
+      "explanation": "Die Stossfuge liegt zwischen den Stirnseiten benachbarter Steine und ist senkrecht.",
+      "source": "Stoßfuge | BauNetz Wissen (Begründung: \"Die Stoßfuge befindet sich zwischen den Mauerst…",
+      "sourceUrl": "https://www.baunetzwissen.de/glossar/s/stossfuge-48133"
     },
     {
       "id": "LF03-Q4",
@@ -48,7 +54,9 @@
         "nur im Winter"
       ],
       "correctIndex": 0,
-      "explanation": "Duennbettmoertel braucht passgenaue Steine und systemgerechte Verarbeitung."
+      "explanation": "Duennbettmoertel braucht passgenaue Steine und systemgerechte Verarbeitung.",
+      "source": "Mauerwerk mit Dünnbettmörtel | BauNetz Wissen (Begründung: Dünnbettmörtel wird für Plan…",
+      "sourceUrl": "https://www.baunetzwissen.de/mauerwerk/tipps/planungshilfen/mauerwerk-mit-duennbettmoertel-5376246"
     },
     {
       "id": "LF03-Q5",
@@ -60,7 +68,9 @@
         "weniger Steine"
       ],
       "correctIndex": 0,
-      "explanation": "Der Verband steuert Lastverteilung, Fugenbild und Stabilitaet."
+      "explanation": "Der Verband steuert Lastverteilung, Fugenbild und Stabilitaet.",
+      "source": "Verbände und Verzahnung | BauNetz Wissen (Begründung: \"Mauerwerk muss zur Übertragung v…",
+      "sourceUrl": "https://www.baunetzwissen.de/mauerwerk/fachwissen/planungsgrundlagen/verbaende-und-verzahnung-162752"
     },
     {
       "id": "LF03-Q6",
@@ -72,7 +82,9 @@
         "Verband ist egal"
       ],
       "correctIndex": 0,
-      "explanation": "Laeufer liegen laengs zur Wandrichtung, Binder quer dazu."
+      "explanation": "Laeufer liegen laengs zur Wandrichtung, Binder quer dazu.",
+      "source": "Läufer ist längs vermauertes Ziegel, Binder quer",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Mauerwerksverband"
     },
     {
       "id": "LF03-Q7",
@@ -84,7 +96,9 @@
         "nur fuer Putz"
       ],
       "correctIndex": 0,
-      "explanation": "Fehler in der ersten Lage setzen sich ueber alle weiteren Lagen fort."
+      "explanation": "Fehler in der ersten Lage setzen sich ueber alle weiteren Lagen fort.",
+      "source": "erste Steinschicht sorgfältig ansetzen",
+      "sourceUrl": "https://www.perfektheimwerken.de/richtig-mauern/"
     },
     {
       "id": "LF03-Q8",
@@ -96,7 +110,9 @@
         "Gehoerschutz"
       ],
       "correctIndex": 0,
-      "explanation": "Das Lot prueft die Senkrechte, die Richtschnur die Flucht."
+      "explanation": "Das Lot prueft die Senkrechte, die Richtschnur die Flucht.",
+      "source": "Richtwaage oder Maurerwaage für horizontale oder vertikale Ausrichtung",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Wasserwaage"
     },
     {
       "id": "LF03-Q9",
@@ -108,7 +124,9 @@
         "nur Handschuhe"
       ],
       "correctIndex": 0,
-      "explanation": "Kontinuierliche Maß- und Lagekontrolle sichert die Qualitaet."
+      "explanation": "Kontinuierliche Maß- und Lagekontrolle sichert die Qualitaet.",
+      "source": "Qualität der Maurerarbeiten prüfen",
+      "sourceUrl": "https://heimzentrum.de/prufen-sie-die-qualitat-ihrer-maurerarbeiten-so-gehts-schritt-fur-schritt/"
     },
     {
       "id": "LF03-Q10",
@@ -120,7 +138,9 @@
         "Steine sonst reissen"
       ],
       "correctIndex": 0,
-      "explanation": "Die Ecksteine bilden die Bezugspunkte fuer den Wandlauf."
+      "explanation": "Die Ecksteine bilden die Bezugspunkte fuer den Wandlauf.",
+      "source": "Maurerschnur als Richtschnur",
+      "sourceUrl": "https://heimwerken.net/maurerschnur-die-verwendung-im-maurerhandwerk/"
     },
     {
       "id": "LF03-Q11",
@@ -132,7 +152,9 @@
         "immer aus Holz"
       ],
       "correctIndex": 0,
-      "explanation": "Nur mit ausreichendem Auflager kann der Sturz Lasten sicher in die Wand abtragen."
+      "explanation": "Nur mit ausreichendem Auflager kann der Sturz Lasten sicher in die Wand abtragen.",
+      "source": "Auflager Sturz Mauerwerk ist bauphysikalisch eine der kritischsten Stellen in der Außen…",
+      "sourceUrl": "https://www.baumeister.de/auflager-sturz-mauerwerk/"
     },
     {
       "id": "LF03-Q12",
@@ -144,7 +166,9 @@
         "Waermedaemmung ersetzen"
       ],
       "correctIndex": 0,
-      "explanation": "Die Sperrschicht unterbindet kapillaren Feuchteaufstieg aus dem Boden."
+      "explanation": "Die Sperrschicht unterbindet kapillaren Feuchteaufstieg aus dem Boden.",
+      "source": "Horizontalsperre oder Horizontalabdichtung hindert als Teil der Bauwerksabdichtung die…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Horizontalsperre"
     },
     {
       "id": "LF03-Q13",
@@ -156,7 +180,9 @@
         "Schnur"
       ],
       "correctIndex": 0,
-      "explanation": "Quarzfeinstaub ist gesundheitlich besonders gefaehrlich und muss minimiert werden."
+      "explanation": "Quarzfeinstaub ist gesundheitlich besonders gefaehrlich und muss minimiert werden.",
+      "source": "Quarzstaub kann nicht nur zu Silikose und Siliko-Tuberkulose, sondern sogar zu Lungenkr…",
+      "sourceUrl": "https://www.bgbau.de/themen/sicherheit-und-gesundheit/staub/gesundheitsgefahren-durch-staub"
     },
     {
       "id": "LF03-Q14",
@@ -168,7 +194,9 @@
         "nur im Buero messen"
       ],
       "correctIndex": 0,
-      "explanation": "Staubarmes Arbeiten reduziert die Exposition fuer alle auf der Baustelle."
+      "explanation": "Staubarmes Arbeiten reduziert die Exposition fuer alle auf der Baustelle.",
+      "source": "Das Reinigen des Arbeitsbereiches durch trockenes Kehren oder Abblasen von Staubablager…",
+      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/pdf/Staubarmes-Arbeiten.pdf"
     },
     {
       "id": "LF03-Q15",
@@ -180,7 +208,9 @@
         "nur Putz"
       ],
       "correctIndex": 0,
-      "explanation": "Zweischaliges Mauerwerk hat eine zweite Schale, einschaliges nicht."
+      "explanation": "Zweischaliges Mauerwerk hat eine zweite Schale, einschaliges nicht.",
+      "source": "Zweischaliges Mauerwerk hat eine zweite Vormauerschale/Luftschicht beim zweischaligen A…",
+      "sourceUrl": "https://www.baunetzwissen.de/daemmstoffe/fachwissen/wand/zweischaliges-mauerwerk-152234"
     },
     {
       "id": "LF03-Q16",
@@ -192,7 +222,9 @@
         "ohne Moertel"
       ],
       "correctIndex": 0,
-      "explanation": "Beim Laeuferverband zeigen die Laengsseiten in Wandrichtung."
+      "explanation": "Beim Laeuferverband zeigen die Laengsseiten in Wandrichtung.",
+      "source": "Läuferverband bedeutet, Steine mit ihrer Länge parallel zur Wandfläche liegen (20.8.2026)",
+      "sourceUrl": "https://www.baunetzwissen.de/glossar/l/laeuferverband-48057"
     },
     {
       "id": "LF03-Q17",
@@ -204,7 +236,9 @@
         "Baustellenmusik"
       ],
       "correctIndex": 0,
-      "explanation": "Diese Punkte sind fuer Tragverhalten und Rissvermeidung entscheidend."
+      "explanation": "Diese Punkte sind fuer Tragverhalten und Rissvermeidung entscheidend.",
+      "source": "Jeder Verband sorgt für Überdeckung der Stoßfugen und Verzahnung zur Vermeidung von Sol…",
+      "sourceUrl": "https://www.bauredakteur.de/mauerverbaende-richtig-mauern-und-wandstaerke-beachten/"
     },
     {
       "id": "LF03-Q18",
@@ -216,7 +250,9 @@
         "Fugentiefe"
       ],
       "correctIndex": 0,
-      "explanation": "Das Lot ist das klassische Werkzeug zur Kontrolle der Vertikalen."
+      "explanation": "Das Lot ist das klassische Werkzeug zur Kontrolle der Vertikalen.",
+      "source": "Lotrichtung definiert die Senkrechte (Vertikale), Wasserwaage zeigt Waagrechte (20.8.2026)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Lotrichtung"
     },
     {
       "id": "LF03-Q19",
@@ -228,7 +264,9 @@
         "Moertelmischung"
       ],
       "correctIndex": 0,
-      "explanation": "Die Richtschnur gibt den geraden Wandverlauf vor."
+      "explanation": "Die Richtschnur gibt den geraden Wandverlauf vor.",
+      "source": "Maurerschnur/Richtschnur dient zum Fluchten in einer geraden Linie, für schnurgerade Re…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Maurerschnur"
     },
     {
       "id": "LF03-Q20",
@@ -240,7 +278,9 @@
         "nur Dekoration"
       ],
       "correctIndex": 0,
-      "explanation": "Masse und tragendes Detail entscheiden ueber Funktion und Sicherheit."
+      "explanation": "Masse und tragendes Detail entscheiden ueber Funktion und Sicherheit.",
+      "source": "Öffnungen benötigen Stürze zur Lastabtragung, damit Mauerwerk nicht durchhängt oder abs…",
+      "sourceUrl": "https://www.baumeister.de/sturz-tragend/"
     },
     {
       "id": "LF03-Q21",
@@ -252,7 +292,9 @@
         "Laerm"
       ],
       "correctIndex": 0,
-      "explanation": "Sie wirkt als Barriere gegen kapillaren Feuchtetransport."
+      "explanation": "Sie wirkt als Barriere gegen kapillaren Feuchtetransport.",
+      "source": "Eine Horizontalsperre oder Horizontalabdichtung hindert als Teil der Bauwerksabdichtung…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Horizontalsperre"
     },
     {
       "id": "LF03-Q22",
@@ -264,7 +306,9 @@
         "immer offen"
       ],
       "correctIndex": 0,
-      "explanation": "Stossfugen liegen vertikal zwischen benachbarten Steinen."
+      "explanation": "Stossfugen liegen vertikal zwischen benachbarten Steinen.",
+      "source": "Die Stoßfuge befindet sich zwischen den Mauersteinen einer Lage, d.h. an der Stelle, an…",
+      "sourceUrl": "https://www.baunetzwissen.de/glossar/s/stossfuge-48133"
     },
     {
       "id": "LF03-Q23",
@@ -276,7 +320,9 @@
         "unwichtig"
       ],
       "correctIndex": 0,
-      "explanation": "Die Lagerfuge liegt horizontal zwischen zwei Steinlagen."
+      "explanation": "Die Lagerfuge liegt horizontal zwischen zwei Steinlagen.",
+      "source": "Lagerfugen befinden sich horizontal zwischen den Mauersteinschichten\" (BauNetz Wissen,…",
+      "sourceUrl": "https://www.baunetzwissen.de/glossar/l/lagerfuge-7527228"
     },
     {
       "id": "LF03-Q24",
@@ -288,7 +334,9 @@
         "nur am Ende messen"
       ],
       "correctIndex": 0,
-      "explanation": "Laufende Kontrolle vermeidet Fehlerfortschreibung ueber mehrere Lagen."
+      "explanation": "Laufende Kontrolle vermeidet Fehlerfortschreibung ueber mehrere Lagen.",
+      "source": "Ziel der Norm ist es, Grundlagen für Toleranzen ... festzulegen und Regeln für deren Pr…",
+      "sourceUrl": "https://www.bauindex-online.de/regelwerke/din-18202/"
     },
     {
       "id": "LF03-Q25",
@@ -300,7 +348,9 @@
         "weil Zwischensteine spaeter geliefert werden"
       ],
       "correctIndex": 0,
-      "explanation": "Ecken dienen als feste Bezugspunkte fuer die komplette Lage."
+      "explanation": "Ecken dienen als feste Bezugspunkte fuer die komplette Lage.",
+      "source": "Zuerst die Ecksteine (Steine an den Ecken der Mauer) setzen und exakt ausrichten. Dann…",
+      "sourceUrl": "https://diy-coach.de/howto/die-erste-steinschicht-kimmschicht-exakt-ausrichten"
     },
     {
       "id": "LF03-Q26",
@@ -324,7 +374,9 @@
         "nur bei Wind ausfuehren"
       ],
       "correctIndex": 0,
-      "explanation": "Staubarme Verfahren und Schutzmassnahmen reduzieren Gesundheitsrisiken."
+      "explanation": "Staubarme Verfahren und Schutzmassnahmen reduzieren Gesundheitsrisiken.",
+      "source": "staubarm ausführen, absaugen und Schutz beachten (GefStofV)",
+      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/pdf/Staubarmes-Arbeiten.pdf?__blob=publicationFile&v=1"
     },
     {
       "id": "LF03-Q28",
@@ -336,7 +388,9 @@
         "die beste Loesung"
       ],
       "correctIndex": 0,
-      "explanation": "Druckluft wirbelt Feinstaub auf und erhoeht die Belastung."
+      "explanation": "Druckluft wirbelt Feinstaub auf und erhoeht die Belastung.",
+      "source": "Druckluft zum Reinigen von Staub ist ungunstig und zu vermeiden",
+      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/pdf/Staubarmes-Arbeiten.pdf?__blob=publicationFile&v=1"
     },
     {
       "id": "LF03-Q29",
@@ -348,7 +402,9 @@
         "keine Beispiele"
       ],
       "correctIndex": 0,
-      "explanation": "Beide Verbandsarten sind klassische Mauerwerksverbaende."
+      "explanation": "Beide Verbandsarten sind klassische Mauerwerksverbaende.",
+      "source": "Blockverband, Kreuzverband sind gängige Mauerwerksverbände bei kleinformatigen Steinen…",
+      "sourceUrl": "https://www.bau-doch-selber.de/bautipps/mw-verband.html"
     },
     {
       "id": "LF03-Q30",
@@ -360,7 +416,9 @@
         "Fenster sonst nicht passen"
       ],
       "correctIndex": 0,
-      "explanation": "Monolithische Aussenwaende kombinieren Tragfunktion und Waermeschutz."
+      "explanation": "Monolithische Aussenwaende kombinieren Tragfunktion und Waermeschutz.",
+      "source": "Wärmeschutz bei monolithischer Bauweise berücksichtigt, dickere Mauerdicken ohne Dämmun…",
+      "sourceUrl": "https://www.baunetzwissen.de/mauerwerk/fachwissen/wand/einschalige-aussenwaende-162708"
     },
     {
       "id": "LF03-Q31",
@@ -372,7 +430,9 @@
         "nur Eckschutz montieren"
       ],
       "correctIndex": 0,
-      "explanation": "Ueberbindendes Ineinandergreifen verbessert Lastabtrag und Stabilitaet."
+      "explanation": "Ueberbindendes Ineinandergreifen verbessert Lastabtrag und Stabilitaet.",
+      "source": "Verbände und Verzahnung Mauerwerk – BauNetz Wissen (2024)",
+      "sourceUrl": "https://www.baunetzwissen.de/mauerwerk/fachwissen/planungsgrundlagen/verbaende-und-verzahnung-162752"
     },
     {
       "id": "LF03-Q32",
@@ -384,7 +444,9 @@
         "nur den Wandabschluss"
       ],
       "correctIndex": 0,
-      "explanation": "Fugenversatz verhindert durchlaufende Schwachstellen im Mauerwerk."
+      "explanation": "Fugenversatz verhindert durchlaufende Schwachstellen im Mauerwerk.",
+      "source": "Stoßfuge – Mauerwerk – BauNetz Wissen (2024)",
+      "sourceUrl": "https://www.baunetzwissen.de/glossar/s/stossfuge-48133"
     },
     {
       "id": "LF03-Q33",
@@ -396,7 +458,9 @@
         "nur die Temperatur des Eimers"
       ],
       "correctIndex": 0,
-      "explanation": "Falsche Konsistenz oder Topfzeit fuehrt zu Verarbeitungs- und Festigkeitsproblemen."
+      "explanation": "Falsche Konsistenz oder Topfzeit fuehrt zu Verarbeitungs- und Festigkeitsproblemen.",
+      "source": "Wie sollte die Konsistenz von Mörtel sein? – Kemox (2026)",
+      "sourceUrl": "https://www.kemoxcellulose.com/de/wie-sollte-die-konsistenz-von-mortel-sein/"
     },
     {
       "id": "LF03-Q34",
@@ -408,7 +472,9 @@
         "Schienenschweissen"
       ],
       "correctIndex": 0,
-      "explanation": "Diese Themen bilden den Kern des Lernfelds 3 fuer einschaliges Mauerwerk."
+      "explanation": "Diese Themen bilden den Kern des Lernfelds 3 fuer einschaliges Mauerwerk.",
+      "source": "Merkblatt zur Abdichtung von Mauerwerk – DGfM (2020)",
+      "sourceUrl": "https://mauerwerk.online/wp-content/uploads/2020/03/DGfM_Abdichtung-von-Mauerwerk.pdf"
     }
   ]
 }

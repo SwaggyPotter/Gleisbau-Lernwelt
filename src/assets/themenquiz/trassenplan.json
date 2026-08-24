@@ -12,7 +12,9 @@
         "Die Anzahl der Zugfahrten pro Tag"
       ],
       "correctIndex": 0,
-      "explanation": "Der Trassenplan stellt den Streckenverlauf in Lage (Draufsicht) und Hoehe (Laengsschnitt) dar."
+      "explanation": "Der Trassenplan stellt den Streckenverlauf in Lage (Draufsicht) und Hoehe (Laengsschnitt) dar.",
+      "source": "Höhenplan ist Teil der Entwurfs- und Ausführungsunterlagen im Eisenbahnbau.",
+      "sourceUrl": "https://de.wikipedia.org/wiki/H%C3%B6henplan"
     },
     {
       "id": "tp-q2",
@@ -24,7 +26,9 @@
         "Die Hoechstgeschwindigkeit auf der Strecke"
       ],
       "correctIndex": 0,
-      "explanation": "Kilometrierung bezeichnet die durchgehende Streckenkennzeichnung, mit der jeder Punkt der Strecke eindeutig lokalisiert werden kann."
+      "explanation": "Kilometrierung bezeichnet die durchgehende Streckenkennzeichnung, mit der jeder Punkt der Strecke eindeutig lokalisiert werden kann.",
+      "source": "Die Streckenkilometrierung dient der fortlaufenden Kennzeichnung von Eisenbahnstrecken…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Streckenkilometrierung"
     },
     {
       "id": "tp-q3",
@@ -36,7 +40,9 @@
         "Die Anzahl der Gleise nebeneinander"
       ],
       "correctIndex": 0,
-      "explanation": "Der Laengsschnitt stellt dar, wie sich die Hoehe der Trasse entlang der Strecke aendert, inklusive der Steigungen und Gefaelle."
+      "explanation": "Der Laengsschnitt stellt dar, wie sich die Hoehe der Trasse entlang der Strecke aendert, inklusive der Steigungen und Gefaelle.",
+      "source": "Der Höhenplan (auch Längsschnitt) zeigt den vertikalen Schnitt einer Trasse einschließl…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/H%C3%B6henplan"
     },
     {
       "id": "tp-q4",
@@ -60,7 +66,9 @@
         "Die Belastbarkeit der Schwellen"
       ],
       "correctIndex": 0,
-      "explanation": "Der Lageplan zeigt die Strecke von oben, also den Verlauf von Geraden und Boegen (Kurven)."
+      "explanation": "Der Lageplan zeigt die Strecke von oben, also den Verlauf von Geraden und Boegen (Kurven).",
+      "source": "Der Lageplan zeigt die Trasse in der Draufsicht mit allen geometrischen Elementen wie G…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Lageplan_(Verkehrsweg)"
     },
     {
       "id": "tp-q6",
@@ -72,7 +80,9 @@
         "Die Anzahl der Reisenden pro Zug"
       ],
       "correctIndex": 0,
-      "explanation": "In Trassenplaenen werden wichtige Bauwerke und Anlagen wie Bruecken, Tunnel, Bahnuebergaenge und Weichen eingezeichnet."
+      "explanation": "In Trassenplaenen werden wichtige Bauwerke und Anlagen wie Bruecken, Tunnel, Bahnuebergaenge und Weichen eingezeichnet.",
+      "source": "Neben der übergeordneten Koordinierung zählt zur Planung der Verkehrsanlage die Trassie…",
+      "sourceUrl": "https://www.bpr-consult.com/wp-content/uploads/2025/01/BroschuereEisenbahnverkehrsanlagen2025.pdf"
     },
     {
       "id": "tp-q7",
@@ -84,7 +94,9 @@
         "Sie legt die Schwellenart fest"
       ],
       "correctIndex": 0,
-      "explanation": "Die Neigung der Trasse wirkt sich auf Wasserabfluss, Bauablauf und die zulaessigen Geschwindigkeiten der Zuege aus."
+      "explanation": "Die Neigung der Trasse wirkt sich auf Wasserabfluss, Bauablauf und die zulaessigen Geschwindigkeiten der Zuege aus.",
+      "source": "Die Gradiente beschreibt im Straßen- und Eisenbahnbau den Höhenverlauf einer projektier…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Gradiente"
     },
     {
       "id": "trassenplan-g1",
@@ -96,7 +108,9 @@
         "Ril 883.0500"
       ],
       "correctIndex": 1,
-      "explanation": "Mit Trassenplan erstellen Sie gemäß DB Richtlinie 885.1102 einen Trassenplan auf Basis der Trassierung im Grund- und Aufriss."
+      "explanation": "Mit Trassenplan erstellen Sie gemäß DB Richtlinie 885.1102 einen Trassenplan auf Basis der Trassierung im Grund- und Aufriss.",
+      "source": "Erstellen Sie schnell und einfach einen Trassenplan gemäß DB Richtlinie 885.1102\" (AKG…",
+      "sourceUrl": "https://www.akgsoftware.de/docs/de/infravision/b63/acad/webhelp/topics/bahn_r_verm_trassenplan.html"
     },
     {
       "id": "trassenplan-g2",
@@ -108,7 +122,9 @@
         "Nach eigenem Ermessen des Planers"
       ],
       "correctIndex": 1,
-      "explanation": "Ein Trassenplan wird auf Basis der Trassierung im Grund- und Aufriss sowie vorhandener Gleisvermarkungspunkte erstellt."
+      "explanation": "Ein Trassenplan wird auf Basis der Trassierung im Grund- und Aufriss sowie vorhandener Gleisvermarkungspunkte erstellt.",
+      "source": "Erstellen des Trassenplans gemäß DB Richtlinie RIL 885.1102 auf Basis der Trassierung i…",
+      "sourceUrl": "https://www.akgsoftware.de/docs/de/infravision/b64/bcad/webhelp/topics/bahn_r_verm_trassenplan.html"
     },
     {
       "id": "trassenplan-g3",
@@ -120,7 +136,9 @@
         "Eine Liste aller verwendeten Symbole"
       ],
       "correctIndex": 2,
-      "explanation": "Der Grundriss zeigt den Streckenverlauf in der Draufsicht, inklusive Kurven und Geraden."
+      "explanation": "Der Grundriss zeigt den Streckenverlauf in der Draufsicht, inklusive Kurven und Geraden.",
+      "source": "Der Lageplan ist eine großmaßstäbliche Karte und zeigt die Trasse eines Verkehrswegs in…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Lageplan_(Verkehrsweg)"
     },
     {
       "id": "trassenplan-g4",
@@ -132,7 +150,9 @@
         "Eine Liste der verwendeten Materialien"
       ],
       "correctIndex": 1,
-      "explanation": "Der Aufriss ist ein vertikaler Schnitt entlang einer Trasse, als Höhenplan oder Längsschnitt bekannt."
+      "explanation": "Der Aufriss ist ein vertikaler Schnitt entlang einer Trasse, als Höhenplan oder Längsschnitt bekannt.",
+      "source": "Vertikaler Schnitt entlang einer Trasse (auch als Längsschnitt bezeichnet)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/H%C3%B6henplan"
     },
     {
       "id": "trassenplan-g5",
@@ -144,7 +164,9 @@
         "Gleisprofil und Schienenlänge"
       ],
       "correctIndex": 1,
-      "explanation": "Längsneigung und Bogenradius sind die entscheidenden Trassierungselemente einer Eisenbahnstrecke bei Neubauten."
+      "explanation": "Längsneigung und Bogenradius sind die entscheidenden Trassierungselemente einer Eisenbahnstrecke bei Neubauten.",
+      "source": "Längsneigung und Bogenradius (\"die größte Längsneigung und der kleinste Bogenradius\")",
+      "sourceUrl": "https://link.springer.com/content/pdf/10.1007/978-3-540-31707-4_1.pdf"
     },
     {
       "id": "trassenplan-g6",
@@ -156,7 +178,9 @@
         "Die Kostenplanung für das Bauvorhaben"
       ],
       "correctIndex": 1,
-      "explanation": "Das Absteckverzeichnis enthält die Trassierungsdokumentation einschließlich der Gleisvermarkungspunkte."
+      "explanation": "Das Absteckverzeichnis enthält die Trassierungsdokumentation einschließlich der Gleisvermarkungspunkte.",
+      "source": "Vollständige Trassierungsdokumentation (\"Abstecklisten und Gleisfestpunktverzeichnisse\")",
+      "sourceUrl": "https://www.geodigital.de/Attachment/download/Veroeffentlichungen/Geo_iA2-2012_Abstecklisten.pdf"
     },
     {
       "id": "trassenplan-g7",
@@ -168,7 +192,9 @@
         "Mit GPS-Messungen an 10 Punkten pro Kilometern"
       ],
       "correctIndex": 0,
-      "explanation": "Früher erforderten das Erzeugen digitaler Trassierungsdokumentationen mehrtägige und manuell sehr aufwendige Datenaufbereitungen."
+      "explanation": "Früher erforderten das Erzeugen digitaler Trassierungsdokumentationen mehrtägige und manuell sehr aufwendige Datenaufbereitungen.",
+      "source": "Manuelle Datenaufbereitung (\"mehrtägige und manuell sehr aufwendige Datenaufbereitungen\")",
+      "sourceUrl": "https://www.geodigital.de/Attachment/download/Veroeffentlichungen/Geo_iA2-2012_Abstecklisten.pdf"
     },
     {
       "id": "trassenplan-g8",
@@ -180,7 +206,9 @@
         "DB-Norm 100.234"
       ],
       "correctIndex": 1,
-      "explanation": "Für die Blattgrößen und Zeichenflächen ist vorzugsweise nach DIN EN ISO 5457 zu wählen."
+      "explanation": "Für die Blattgrößen und Zeichenflächen ist vorzugsweise nach DIN EN ISO 5457 zu wählen.",
+      "source": "DIN EN ISO 5457 regelt Blattgrößen und Zeichenflächen für technische Zeichnungen einsch…",
+      "sourceUrl": "https://www.dinmedia.de/de/norm/din-en-iso-5457/278410251"
     },
     {
       "id": "trassenplan-g9",
@@ -192,7 +220,9 @@
         "EN 12354"
       ],
       "correctIndex": 1,
-      "explanation": "Für die Faltung von Plänen gilt DIN 824."
+      "explanation": "Für die Faltung von Plänen gilt DIN 824.",
+      "source": "Faltungs-Norm DIN 824 regelt Fachzeichnungsfaltung zur Ablage (Wikipedia, durchsucht 2026)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/DIN_824"
     },
     {
       "id": "trassenplan-g10",
@@ -204,7 +234,9 @@
         "1:2500"
       ],
       "correctIndex": 2,
-      "explanation": "Der bautechnische Entwurf wird im allgemeinen im Lageplan im Maßstab 1:1000 dargestellt."
+      "explanation": "Der bautechnische Entwurf wird im allgemeinen im Lageplan im Maßstab 1:1000 dargestellt.",
+      "source": "Bautechnischer Entwurf von Lageplänen im Maßstab 1:1000 (Springer Nature Link, durchsuc…",
+      "sourceUrl": "https://link.springer.com/chapter/10.1007/978-3-658-17177-3_15"
     },
     {
       "id": "trassenplan-g11",
@@ -228,7 +260,9 @@
         "Die Spurweite in verschiedenen Abschnitten"
       ],
       "correctIndex": 1,
-      "explanation": "Der Höhenplan zeigt den Höhenverlauf sowie Neigungsverhältnisse und Bauwerke wie Brücken oder Tunnel."
+      "explanation": "Der Höhenplan zeigt den Höhenverlauf sowie Neigungsverhältnisse und Bauwerke wie Brücken oder Tunnel.",
+      "source": "Höhenplan zeigt vertikalen Schnitt mit Neigungslinien und Bauwerken (Wikipedia, durchsu…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/H%C3%B6henplan"
     },
     {
       "id": "trassenplan-g13",
@@ -240,7 +274,9 @@
         "Ein Maßstab für die Überhöhung in Kurven"
       ],
       "correctIndex": 0,
-      "explanation": "Der Neigungsmastab dient zur Darstellung von Längsneigungen und Steigungen im Trassenplan."
+      "explanation": "Der Neigungsmastab dient zur Darstellung von Längsneigungen und Steigungen im Trassenplan.",
+      "source": "Höhenpläne verwenden vergrößerten Mastab in der Höhe für Längsneigungsdarstellung (Wiki…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/H%C3%B6henplan"
     },
     {
       "id": "trassenplan-g14",
@@ -252,7 +288,9 @@
         "Ein Maßstab für die Überhöhungswerte"
       ],
       "correctIndex": 0,
-      "explanation": "Der Profilmaßstab dient zur Darstellung von Höhenprofilen im Längsschnitt des Trassenplans."
+      "explanation": "Der Profilmaßstab dient zur Darstellung von Höhenprofilen im Längsschnitt des Trassenplans.",
+      "source": "nicht sicher ermittelt (Profilmaßstab wird in Erdbau-Kontext erwähnt, aber Definition f…",
+      "sourceUrl": "https://link.springer.com/content/pdf/10.1007/978-3-662-24976-5_12.pdf"
     },
     {
       "id": "trassenplan-g15",
@@ -264,7 +302,9 @@
         "Nur die Topografie des Geländes"
       ],
       "correctIndex": 1,
-      "explanation": "Trassenpläne zeigen Bauwerke und Elemente wie Brücken, Tunnel, Bahnübergänge, Weichen und Signale."
+      "explanation": "Trassenpläne zeigen Bauwerke und Elemente wie Brücken, Tunnel, Bahnübergänge, Weichen und Signale.",
+      "source": "Trassenplan Definitionen Bauwerke (AKG Software)",
+      "sourceUrl": "https://www.akgsoftware.de/docs/de/infravision/b61/akgcad/webhelp/topics/bahn_r_verm_trassenplan_definitionen_bauwerke.html"
     },
     {
       "id": "trassenplan-g16",
@@ -276,7 +316,9 @@
         "Zur Planung der Baustellenlogistik"
       ],
       "correctIndex": 1,
-      "explanation": "Das Absteck- und Festpunktverzeichnis wird zur vollautomatischen Erzeugung von Trassenplänen verwendet."
+      "explanation": "Das Absteck- und Festpunktverzeichnis wird zur vollautomatischen Erzeugung von Trassenplänen verwendet.",
+      "source": "Abstecklisten und Gleisfestpunktverzeichnisse generieren (Geodigital, 2012) || https://…",
+      "sourceUrl": "https://www.geodigital.de/Attachment/download/Veroeffentlichungen/Geo_iA2-2012_Abstecklisten.pdf"
     }
   ]
 }

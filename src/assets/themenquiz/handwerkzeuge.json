@@ -12,7 +12,9 @@
         "Zum Verschweissen von Schienenenden"
       ],
       "correctIndex": 0,
-      "explanation": "Die Gleiswinde ist ein Hebel- bzw. Hydraulikwerkzeug, mit dem Gleisroste angehoben und seitlich gerueckt werden koennen."
+      "explanation": "Die Gleiswinde ist ein Hebel- bzw. Hydraulikwerkzeug, mit dem Gleisroste angehoben und seitlich gerueckt werden koennen.",
+      "source": "Gleishebewinde nach DIN 7355 zum Heben und Verschieben von Gleisen",
+      "sourceUrl": "https://www.ballschmidt-hebezeuge.de/gleishebewinden"
     },
     {
       "id": "hw-q2",
@@ -24,7 +26,9 @@
         "Eine Bezeichnung fuer den Schienenkopf"
       ],
       "correctIndex": 0,
-      "explanation": "Die Schottergabel hat besonders stabile, oft leicht gebogene Zinken, um Schotter im Gleisbett zu bewegen und zu verteilen."
+      "explanation": "Die Schottergabel hat besonders stabile, oft leicht gebogene Zinken, um Schotter im Gleisbett zu bewegen und zu verteilen.",
+      "source": "Werkzeuge für Gleisbau enthalten Schotterbearbeitungsgeräte (Ausbauhandwerkzeuge)",
+      "sourceUrl": "https://geismar.com/storage/2023/06/geismar-track-tools-catalogue-deu.pdf"
     },
     {
       "id": "hw-q3",
@@ -36,7 +40,9 @@
         "Zum Anzeichnen der Spurweite"
       ],
       "correctIndex": 0,
-      "explanation": "Der Schienenheber ermoeglicht ein gezieltes, kontrolliertes Anheben der Schiene fuer Wartungs- und Austauscharbeiten."
+      "explanation": "Der Schienenheber ermoeglicht ein gezieltes, kontrolliertes Anheben der Schiene fuer Wartungs- und Austauscharbeiten.",
+      "source": "Schienenhebegerät für Nivellierungs- und Stopfarbeiten im Eisenbahnbau",
+      "sourceUrl": "https://www.pandrol.com/de/product/schienen-hebegeraete/"
     },
     {
       "id": "hw-q4",
@@ -48,7 +54,9 @@
         "Trennschleifmaschine"
       ],
       "correctIndex": 0,
-      "explanation": "Schwellenschrauben werden mit einem passenden Schraubenschluessel oder Drehmomentschluessel fest und gleichmaessig angezogen."
+      "explanation": "Schwellenschrauben werden mit einem passenden Schraubenschluessel oder Drehmomentschluessel fest und gleichmaessig angezogen.",
+      "source": "Standardwerkzeuge für Befestigungsmittel im Gleisbau",
+      "sourceUrl": "https://www.pandrol.com/de/product/schienen-hebegeraete/"
     },
     {
       "id": "hw-q5",
@@ -60,7 +68,9 @@
         "Keine, da Handwerkzeuge ungefaehrlich sind"
       ],
       "correctIndex": 0,
-      "explanation": "Im Gleisbereich gilt grundsaetzlich Warnkleidung, dazu je nach Taetigkeit Sicherheitsschuhe und Handschuhe, um Verletzungen zu vermeiden."
+      "explanation": "Im Gleisbereich gilt grundsaetzlich Warnkleidung, dazu je nach Taetigkeit Sicherheitsschuhe und Handschuhe, um Verletzungen zu vermeiden.",
+      "source": "Persönliche Schutzbedarfsanalyse im Gleisbau (DIN 14032) schreibt PSA gemäß Arbeitsschu…",
+      "sourceUrl": "https://www.ballschmidt-hebezeuge.de/gleishebewinden"
     },
     {
       "id": "hw-q6",
@@ -72,7 +82,9 @@
         "Weil Handwerkzeuge sehr laut sind"
       ],
       "correctIndex": 0,
-      "explanation": "Neben dem allgemeinen Quetsch- und Verletzungsrisiko besteht im Gleisbereich zusaetzlich die Gefahr durch den laufenden Zugverkehr, daher sind Sicherungsmassnahmen zwingend."
+      "explanation": "Neben dem allgemeinen Quetsch- und Verletzungsrisiko besteht im Gleisbereich zusaetzlich die Gefahr durch den laufenden Zugverkehr, daher sind Sicherungsmassnahmen zwingend.",
+      "source": "Gefährdungen durch den Bahnbetrieb ergeben sich vorrangig aus Zug- und Rangierfahrten […",
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/index.jsp"
     },
     {
       "id": "handwerkzeuge-g1",
@@ -84,7 +96,9 @@
         "DIN 7355"
       ],
       "correctIndex": 3,
-      "explanation": "Gleishebewinden sind nach DIN 7355 als Spezialgeräte für den Einsatz im Gleisbau zugelassen."
+      "explanation": "Gleishebewinden sind nach DIN 7355 als Spezialgeräte für den Einsatz im Gleisbau zugelassen.",
+      "source": "Die Gleishebewinde nach DIN 7355 wird zum Heben von Gleisen und Weichen verwendet [2026…",
+      "sourceUrl": "https://www.ballschmidt-hebezeuge.de/gleishebewinden"
     },
     {
       "id": "handwerkzeuge-g2",
@@ -96,7 +110,9 @@
         "Ausführung Standard"
       ],
       "correctIndex": 0,
-      "explanation": "Die einfache Ausführung A ist mit seitlichen Streben ausgestattet, während Ausführung B eine Fußplatte hat."
+      "explanation": "Die einfache Ausführung A ist mit seitlichen Streben ausgestattet, während Ausführung B eine Fußplatte hat.",
+      "source": "Gleishebewinde in einfacher und verstärkter Ausführung, gefertigt nach DIN 7355 [2026-0…",
+      "sourceUrl": "https://www.boecker-hebezeuge.com/produkte/gleisbau/gleishebewinde/index.php"
     },
     {
       "id": "handwerkzeuge-g3",
@@ -108,7 +124,9 @@
         "Beide Ausführungen sind gleichwertig"
       ],
       "correctIndex": 1,
-      "explanation": "Die verstärkte Ausführung B wird aufgrund der zusätzlichen Fußplatte für mehr Stabilität empfohlen."
+      "explanation": "Die verstärkte Ausführung B wird aufgrund der zusätzlichen Fußplatte für mehr Stabilität empfohlen.",
+      "source": "Verstärkte Ausführung mit Fussplatte verfügbar [2026-08-XX]",
+      "sourceUrl": "https://www.godo-shop.de/Stahlwinde-BOECKER-Gleishebewinde-mit-speziell-geformter-Bodenplatte-TK5000kg"
     },
     {
       "id": "handwerkzeuge-g4",
@@ -120,7 +138,9 @@
         "Reduziert den Kraftaufwand beim Heben"
       ],
       "correctIndex": 1,
-      "explanation": "Die Sicherheitskurbel (Siku) sorgt dafür, dass die Last auf der Gleiswinde in jeder Höhe sicher gehalten wird."
+      "explanation": "Die Sicherheitskurbel (Siku) sorgt dafür, dass die Last auf der Gleiswinde in jeder Höhe sicher gehalten wird.",
+      "source": "Stahlwinden nach DIN 7355 mit Sicherheitskurbel zur sicheren Lastsicherung [2026-08-XX]",
+      "sourceUrl": "https://www.boecker-hebezeuge.com/produkte/winden/standard/index.php"
     },
     {
       "id": "handwerkzeuge-g5",
@@ -132,7 +152,9 @@
         "Die maximale Kurbelkraft"
       ],
       "correctIndex": 1,
-      "explanation": "Die Tragfähigkeit von 3.000 kg bezeichnet die maximale Hubkraft, die das Gerät sicher erheben kann."
+      "explanation": "Die Tragfähigkeit von 3.000 kg bezeichnet die maximale Hubkraft, die das Gerät sicher erheben kann.",
+      "source": "Hubkraft 3000 kg",
+      "sourceUrl": "https://www.godo-shop.de/Stahlwinde-BOECKER-Gleishebewinde-mit-Fussplatte-TK3000kg"
     },
     {
       "id": "handwerkzeuge-g6",
@@ -144,7 +166,9 @@
         "Sie benötigt weniger Wartung als andere Modelle"
       ],
       "correctIndex": 0,
-      "explanation": "Ein Eigengewicht von 43 kg kennzeichnet die verstärkte Ausführung B für die maximale Tragfähigkeit von 10.000 kg."
+      "explanation": "Ein Eigengewicht von 43 kg kennzeichnet die verstärkte Ausführung B für die maximale Tragfähigkeit von 10.000 kg.",
+      "source": "verstärkte Ausführung nach DIN 7355",
+      "sourceUrl": "https://www.boecker-hebezeuge.com/produkte/gleisbau/gleishebewinde/index.php"
     },
     {
       "id": "handwerkzeuge-g7",
@@ -156,7 +180,9 @@
         "Zum Verteilen von Schotter im Bett"
       ],
       "correctIndex": 2,
-      "explanation": "Das Schwellenhebegerät dient zum Anheben der Schwelle, damit die Befestigungsmittel zwischen Schiene und Schwelle angebracht werden können."
+      "explanation": "Das Schwellenhebegerät dient zum Anheben der Schwelle, damit die Befestigungsmittel zwischen Schiene und Schwelle angebracht werden können.",
+      "source": "Anheben Schwelle Befestigungsmittel-Anbringung",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/werkzeuge-und-kleinmaschinen/handwerkzeuge"
     },
     {
       "id": "handwerkzeuge-g8",
@@ -168,7 +194,9 @@
         "Durch Verwendung von Schmiermitteln"
       ],
       "correctIndex": 1,
-      "explanation": "Zur Vermeidung von Borstenabnutzung empfiehlt das Reinigen des Kunststoffkörpers nur behutsam auf der kleinsten Seitenfläche auszuklopfen."
+      "explanation": "Zur Vermeidung von Borstenabnutzung empfiehlt das Reinigen des Kunststoffkörpers nur behutsam auf der kleinsten Seitenfläche auszuklopfen.",
+      "source": "Kälte + Seitenfläche Klopfen",
+      "sourceUrl": "https://www.wimmer-buersten.de/de/produkte/weichenbesen"
     },
     {
       "id": "handwerkzeuge-g9",
@@ -180,7 +208,9 @@
         "Holz und Gummi"
       ],
       "correctIndex": 2,
-      "explanation": "Der Weichenbesenkörper besteht aus Kunststoff, in den Polypropylen-Fasern gestanzt sind."
+      "explanation": "Der Weichenbesenkörper besteht aus Kunststoff, in den Polypropylen-Fasern gestanzt sind.",
+      "source": "Kunststoffkörper mit Polypropylen-Fasern",
+      "sourceUrl": "https://www.wimmer-buersten.de/de/produkte/weichenbesen"
     },
     {
       "id": "handwerkzeuge-g10",
@@ -192,7 +222,9 @@
         "Damit sich kein Schnee am Besen festsetzt"
       ],
       "correctIndex": 1,
-      "explanation": "Da der Kunststoff bei Kälte spröder wird, ist eine unsachgemäße Belastung in Querrichtung zu vermeiden."
+      "explanation": "Da der Kunststoff bei Kälte spröder wird, ist eine unsachgemäße Belastung in Querrichtung zu vermeiden.",
+      "source": "Weichenbesen wimmer-buersten.de",
+      "sourceUrl": "https://www.wimmer-buersten.de/de/produkte/weichenbesen"
     },
     {
       "id": "handwerkzeuge-g11",
@@ -204,7 +236,9 @@
         "Zum Abbrechen eingedrossener Schraubbolzen"
       ],
       "correctIndex": 1,
-      "explanation": "Bei längerer Liegedauer verbinden sich die Hackenschrauben mit den Rippenplatten, so dass dieses Spezialwerkzeug das zerstörungsfreie Herausstoßen ermöglicht."
+      "explanation": "Bei längerer Liegedauer verbinden sich die Hackenschrauben mit den Rippenplatten, so dass dieses Spezialwerkzeug das zerstörungsfreie Herausstoßen ermöglicht.",
+      "source": "Trackopedia Handwerkzeuge",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/werkzeuge-und-kleinmaschinen/handwerkzeuge"
     },
     {
       "id": "handwerkzeuge-g12",
@@ -216,7 +250,9 @@
         "Zum Bohren in Stahlkonstruktionen"
       ],
       "correctIndex": 1,
-      "explanation": "Der Kaltschrotmeißel wird zum Abschlag von Schweißwulsten verwendet, besonders beim Entfernen von Hackenschrauben-Muttern."
+      "explanation": "Der Kaltschrotmeißel wird zum Abschlag von Schweißwulsten verwendet, besonders beim Entfernen von Hackenschrauben-Muttern.",
+      "source": "Trackopedia Handwerkzeuge",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/werkzeuge-und-kleinmaschinen/handwerkzeuge"
     },
     {
       "id": "handwerkzeuge-g13",
@@ -228,7 +264,9 @@
         "Zum Durchschlagen von festgeschweißten Muttern"
       ],
       "correctIndex": 1,
-      "explanation": "Bei Holzschwellen dient der Durchtreiber dazu, den Schraubenrest aus der Schwelle herauszuschlagen, wenn nur der Kopf abgedreht wurde."
+      "explanation": "Bei Holzschwellen dient der Durchtreiber dazu, den Schraubenrest aus der Schwelle herauszuschlagen, wenn nur der Kopf abgedreht wurde.",
+      "source": "Trackopedia Handwerkzeuge",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/werkzeuge-und-kleinmaschinen/handwerkzeuge"
     },
     {
       "id": "handwerkzeuge-g14",
@@ -240,7 +278,9 @@
         "Zum seitlichen Richten der Spurmitte nach Schottern"
       ],
       "correctIndex": 1,
-      "explanation": "Bei kleineren Richtungsfehlern kann das Gleis mit der Gleisschwungramme horizontal verschoben werden, wenn keine Stopf- und Richtmaschine verfügbar ist."
+      "explanation": "Bei kleineren Richtungsfehlern kann das Gleis mit der Gleisschwungramme horizontal verschoben werden, wenn keine Stopf- und Richtmaschine verfügbar ist.",
+      "source": "Trackopedia Heben Richten Verdichten",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/maschineller-gleisbau/heben-richten-verdichten"
     },
     {
       "id": "handwerkzeuge-g15",
@@ -252,7 +292,9 @@
         "Zum Bearbeiten von Metallschienenenden"
       ],
       "correctIndex": 1,
-      "explanation": "Der Dechsel entfernt durch äußere Einflüsse beschädigtes Holz, wodurch weniger witterungsbedingte Angriffsflächen entstehen."
+      "explanation": "Der Dechsel entfernt durch äußere Einflüsse beschädigtes Holz, wodurch weniger witterungsbedingte Angriffsflächen entstehen.",
+      "source": "Dechsel (2024)",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/werkzeuge-und-kleinmaschinen/handwerkzeuge"
     },
     {
       "id": "handwerkzeuge-g16",
@@ -264,7 +306,9 @@
         "Zum Bohren von Montageöffnungen in Holzschwellen"
       ],
       "correctIndex": 1,
-      "explanation": "Beim Weicheneinbau sind kleine, wendige Werkzeuge notwendig, die in den Zwischenräumen beim Antrieb oder bei den Zungen verwendet werden können."
+      "explanation": "Beim Weicheneinbau sind kleine, wendige Werkzeuge notwendig, die in den Zwischenräumen beim Antrieb oder bei den Zungen verwendet werden können.",
+      "source": "Weichenmontierhebel (2024)",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/werkzeuge-und-kleinmaschinen/handwerkzeuge"
     }
   ]
 }

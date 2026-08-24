@@ -1,0 +1,34 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-kleineisen-03.md",
+  "status": "NO_CHANGE",
+  "reasons": [
+    "Datei wurde nicht verändert."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 82,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 86,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 3,
+      "durationSec": 46,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T10-13-07-732Z_Batch-kleineisen-03.md.log"
+}

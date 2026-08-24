@@ -12,7 +12,9 @@
         "Rostschutz"
       ],
       "correctIndex": 0,
-      "explanation": "Das Schotterbett verteilt die Last auf das Planum, entwässert und bietet elastische Lagerung."
+      "explanation": "Das Schotterbett verteilt die Last auf das Planum, entwässert und bietet elastische Lagerung.",
+      "source": "Oberbau (Wikipedia)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)"
     },
     {
       "id": "t5q2",
@@ -24,7 +26,9 @@
         "Marmor"
       ],
       "correctIndex": 0,
-      "explanation": "Gleisschotter besteht aus festem Gestein wie Granit oder Basalt."
+      "explanation": "Gleisschotter besteht aus festem Gestein wie Granit oder Basalt.",
+      "source": "Basalt AG (Gleisschotter)",
+      "sourceUrl": "https://www.basalt.de/leistungen/naturstein/gleisschotter/"
     },
     {
       "id": "t5q3",
@@ -36,7 +40,9 @@
         "10/20 mm"
       ],
       "correctIndex": 0,
-      "explanation": "Die Standardkörnung ist 50/70 mm nach DIN EN 13450."
+      "explanation": "Die Standardkörnung ist 50/70 mm nach DIN EN 13450.",
+      "source": "Holcim (Gleisschotter)",
+      "sourceUrl": "https://www.holcim.de/gesteinskoernungen/produkttyp/gleisschotter"
     },
     {
       "id": "t5q4",
@@ -48,7 +54,9 @@
         "Ein Dach über dem Gleis"
       ],
       "correctIndex": 0,
-      "explanation": "Die Schotterdecke ist der verfestigte Schotterkörper unter und um die Schwelle."
+      "explanation": "Die Schotterdecke ist der verfestigte Schotterkörper unter und um die Schwelle.",
+      "source": "Oberbau (Wikipedia)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)"
     },
     {
       "id": "t5q5",
@@ -60,7 +68,9 @@
         "Leitet Strom ab"
       ],
       "correctIndex": 0,
-      "explanation": "Die Schotterschulter stützt das Gleis seitlich ab und trägt zur Spurhaltung bei."
+      "explanation": "Die Schotterschulter stützt das Gleis seitlich ab und trägt zur Spurhaltung bei.",
+      "source": "Trackopedia (Schotter)",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/schotter/"
     },
     {
       "id": "t5q6",
@@ -72,7 +82,9 @@
         "Gleisöl auftragen"
       ],
       "correctIndex": 0,
-      "explanation": "Beim Stopfen wird Schotter unter die Schwelle eingeführt, um Setzungen auszugleichen."
+      "explanation": "Beim Stopfen wird Schotter unter die Schwelle eingeführt, um Setzungen auszugleichen.",
+      "source": "Stopfen (Gleisbau) - Wikipedia – 2024-08",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Stopfen_(Gleisbau)"
     },
     {
       "id": "t5q7",
@@ -84,7 +96,9 @@
         "Verhindert Rost an der Schiene"
       ],
       "correctIndex": 0,
-      "explanation": "Stauwasser im Bett mindert die Tragfähigkeit und kann zum Setzen führen."
+      "explanation": "Stauwasser im Bett mindert die Tragfähigkeit und kann zum Setzen führen.",
+      "source": "Entwässerung - Unterbau :: Trackopedia – 2024",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/unterbau/entwaesserung"
     },
     {
       "id": "t5q8",
@@ -96,7 +110,9 @@
         "Die Schwelle"
       ],
       "correctIndex": 0,
-      "explanation": "Das Planum ist die planig ausgeformte und verdichtete Bodenlage unter dem Schotterbett."
+      "explanation": "Das Planum ist die planig ausgeformte und verdichtete Bodenlage unter dem Schotterbett.",
+      "source": "Das Einmaleins der Eisenbahn - System Bahn – 2024",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/system-bahn/das-einmaleins-der-eisenbahn"
     },
     {
       "id": "t5q9",
@@ -108,7 +124,9 @@
         "Leitet Strom"
       ],
       "correctIndex": 0,
-      "explanation": "Die Trennschicht aus Geotextilie oder Kies verhindert Schotterverlust und Feinmaterialaufwirbelung."
+      "explanation": "Die Trennschicht aus Geotextilie oder Kies verhindert Schotterverlust und Feinmaterialaufwirbelung.",
+      "source": "Reinigung von Schotter und Planum – Baustellenblog – 2024",
+      "sourceUrl": "https://korridorsanierung-nrw.deutschebahn.com/baustellen-blog/rpm.html"
     },
     {
       "id": "t5q10",
@@ -120,7 +138,9 @@
         "Fegen des Bahnhofs"
       ],
       "correctIndex": 0,
-      "explanation": "Bettungsreinigung entfernt Verschmutzung aus dem Schotter und stellt Tragfähigkeit wieder her."
+      "explanation": "Bettungsreinigung entfernt Verschmutzung aus dem Schotter und stellt Tragfähigkeit wieder her.",
+      "source": "Bettungsreinigung - Maschineller Gleisbau :: Trackopedia – 2024",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/maschineller-gleisbau/bettungsreinigung"
     },
     {
       "id": "bettung-g1",
@@ -132,7 +152,9 @@
         "35 cm"
       ],
       "correctIndex": 2,
-      "explanation": "Als wirksame Dicke gilt das Maß zwischen Schwellenunterkante und Planumsschutzschicht von mind. 30 cm, damit sich die Druckverteilungslinien benachbarter Schwellen über dem Unterbaukrone überschneiden können."
+      "explanation": "Als wirksame Dicke gilt das Maß zwischen Schwellenunterkante und Planumsschutzschicht von mind. 30 cm, damit sich die Druckverteilungslinien benachbarter Schwellen über dem Unterbaukrone überschneiden können.",
+      "source": "Trackopedia Lexikon, Abrufdatum 24.8.2026.",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/schotter/"
     },
     {
       "id": "bettung-g2",
@@ -144,7 +166,9 @@
         "6 bis 8 % (1:17 bis 1:13)"
       ],
       "correctIndex": 2,
-      "explanation": "Ein gerade geschnittenes Planum mit vorgegebener Neigung von ca. 4 bis 5 % (1:25 bis 1:20) gewährleistet den Abfluss des Wassers und vermeidet Staubildungen in der Bettung (Wassersäcke)."
+      "explanation": "Ein gerade geschnittenes Planum mit vorgegebener Neigung von ca. 4 bis 5 % (1:25 bis 1:20) gewährleistet den Abfluss des Wassers und vermeidet Staubildungen in der Bettung (Wassersäcke).",
+      "source": "Wikipedia, Abrufdatum 24.8.2026.",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Unterbau_(Eisenbahn)"
     },
     {
       "id": "bettung-g3",
@@ -156,7 +180,9 @@
         "25°"
       ],
       "correctIndex": 2,
-      "explanation": "Bei der Schotterstärke von 22 cm ergibt sich ein mittlerer Lastausbreitungswinkel von 20°. Vertikale Kräfte werden nahezu vertikal nach unten abgeleitet (65 % der Last werden direkt unter der Schwelle abgetragen)."
+      "explanation": "Bei der Schotterstärke von 22 cm ergibt sich ein mittlerer Lastausbreitungswinkel von 20°. Vertikale Kräfte werden nahezu vertikal nach unten abgeleitet (65 % der Last werden direkt unter der Schwelle abgetragen).",
+      "source": "Plasser & Theurer Technology, Abrufdatum 24.8.2026.",
+      "sourceUrl": "https://technology.plassertheurer.com/de/bettungsreinigung/das-planum-die-auflage-f%C3%BCr-das-schotterbett"
     },
     {
       "id": "bettung-g4",
@@ -168,7 +194,9 @@
         "Recycling-Material aus Altbau-Schotter"
       ],
       "correctIndex": 1,
-      "explanation": "Am besten eignen sich Hartgesteine wie Basalt, Diabas oder Granit. Weichgesteine wie Kalk, Dolomit, Sedimentgestein etc. sind weniger brauchbar für Oberbauschotter."
+      "explanation": "Am besten eignen sich Hartgesteine wie Basalt, Diabas oder Granit. Weichgesteine wie Kalk, Dolomit, Sedimentgestein etc. sind weniger brauchbar für Oberbauschotter.",
+      "source": "Plasser & Theurer Publikation PDF34_41_Klotzinger, Abrufdatum 24.8.2026.",
+      "sourceUrl": "https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/etr_070102.pdf"
     },
     {
       "id": "bettung-g5",
@@ -180,7 +208,9 @@
         "80 % werden horizontal abgeleitet, 20 % senkrecht"
       ],
       "correctIndex": 2,
-      "explanation": "Aktuelle Untersuchungen zeigen, dass vertikale Kräfte nahezu vertikal nach unten abgeleitet werden – 65 % der Last wird direkt unter der Schwelle abgetragen."
+      "explanation": "Aktuelle Untersuchungen zeigen, dass vertikale Kräfte nahezu vertikal nach unten abgeleitet werden – 65 % der Last wird direkt unter der Schwelle abgetragen.",
+      "source": "Plasser & Theurer Technology, Abrufdatum 24.8.2026.",
+      "sourceUrl": "https://technology.plassertheurer.com/de/bettungsreinigung/das-planum-die-auflage-f%C3%BCr-das-schotterbett"
     },
     {
       "id": "bettung-g6",
@@ -192,7 +222,9 @@
         "25°"
       ],
       "correctIndex": 1,
-      "explanation": "Belastungsversuche mit einer Schotterstärke von 32 cm zeigen einen mittleren Lastausbreitungswinkel von 17°. Die größere Schotterdicke führt zu einem flacheren Winkel der Drucklinie."
+      "explanation": "Belastungsversuche mit einer Schotterstärke von 32 cm zeigen einen mittleren Lastausbreitungswinkel von 17°. Die größere Schotterdicke führt zu einem flacheren Winkel der Drucklinie.",
+      "source": "Plasser & Theurer Planum (2024)",
+      "sourceUrl": "https://technology.plassertheurer.com/de/bettungsreinigung/das-planum-die-auflage-f%C3%BCr-das-schotterbett"
     },
     {
       "id": "bettung-g7",
@@ -204,7 +236,9 @@
         "Die Fähigkeit der Schienen, sich auf Hitzespannung auszudehnen"
       ],
       "correctIndex": 1,
-      "explanation": "Als \"Memoryeffekt\" bezeichnet man die Eigenschaft des Gleises, sich im Zuge der Liegezeit in Längsrichtung des Planums anzupassen – Fehler im Untergrund werden so auf das Gleis übertragen."
+      "explanation": "Als \"Memoryeffekt\" bezeichnet man die Eigenschaft des Gleises, sich im Zuge der Liegezeit in Längsrichtung des Planums anzupassen – Fehler im Untergrund werden so auf das Gleis übertragen.",
+      "source": "Plasser & Theurer Planum (2024)",
+      "sourceUrl": "https://technology.plassertheurer.com/de/bettungsreinigung/das-planum-die-auflage-f%C3%BCr-das-schotterbett"
     },
     {
       "id": "bettung-g8",
@@ -216,7 +250,9 @@
         "Der Schotter wird elastischer und das Gleis wird stabiler"
       ],
       "correctIndex": 2,
-      "explanation": "Verunreinigungen im Schotterbett senken die Reibung zwischen Korngrößen, verkleinern den Druckausbreitungswinkel und erhöhen so den Druck auf den Untergrund. Dies sinkt die Elastizität des Gleises und gefährdet die Haltbarkeit der Gleislage."
+      "explanation": "Verunreinigungen im Schotterbett senken die Reibung zwischen Korngrößen, verkleinern den Druckausbreitungswinkel und erhöhen so den Druck auf den Untergrund. Dies sinkt die Elastizität des Gleises und gefährdet die Haltbarkeit der Gleislage.",
+      "source": "Trackopedia Schotter (Datum unbekannt)",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/schotter/"
     },
     {
       "id": "bettung-g9",
@@ -228,7 +264,9 @@
         "Sie macht Stopfarbeiten überflüssig"
       ],
       "correctIndex": 1,
-      "explanation": "Eine homogene Schicht des Schotterbettes ist für die Qualität des Gleises ausschlaggebend. Lagenweise Verdichtung und Stabilisierung führen zu einer Erhöhung der Lagestabilität des Gleises und Dauerhaftigkeit der Gleislage."
+      "explanation": "Eine homogene Schicht des Schotterbettes ist für die Qualität des Gleises ausschlaggebend. Lagenweise Verdichtung und Stabilisierung führen zu einer Erhöhung der Lagestabilität des Gleises und Dauerhaftigkeit der Gleislage.",
+      "source": "Trackopedia Schotter (Datum unbekannt)",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/schotter/"
     },
     {
       "id": "bettung-g10",
@@ -240,7 +278,9 @@
         "Um Wasser besser abfließen zu lassen"
       ],
       "correctIndex": 1,
-      "explanation": "Ein optimaler Querverschiebewiderstand wird erreicht, wenn eine dynamische Stabilisierung des Gleises nach der Stopfung und Vorkopfverdichtung erfolgt ist. Das verhindert seitliche Verschiebungen der Schwellen unter Last."
+      "explanation": "Ein optimaler Querverschiebewiderstand wird erreicht, wenn eine dynamische Stabilisierung des Gleises nach der Stopfung und Vorkopfverdichtung erfolgt ist. Das verhindert seitliche Verschiebungen der Schwellen unter Last.",
+      "source": "Plasser & Theurer Begriffserklärungen (2023)",
+      "sourceUrl": "https://technology.plassertheurer.com/de/dynamischeGleisstabilisation/begriffserklaerungen"
     },
     {
       "id": "bettung-g11",
@@ -252,7 +292,9 @@
         "Bis maximal 100 M.-% Durchgang bei beiden Größengruppen"
       ],
       "correctIndex": 3,
-      "explanation": "Gemäß DBS 918 061 ist bei 50 und 63 mm jeweils ein Siebdurchgang bis 100 M.-% zulässig, was bedeutet, dass das gesamte Material innerhalb der angegebenen Korngrößen liegen muss."
+      "explanation": "Gemäß DBS 918 061 ist bei 50 und 63 mm jeweils ein Siebdurchgang bis 100 M.-% zulässig, was bedeutet, dass das gesamte Material innerhalb der angegebenen Korngrößen liegen muss.",
+      "source": "Prüfbericht Nr. 28252590G (Feess, Datum: Mai 2026)",
+      "sourceUrl": "https://feess.de/wp-content/uploads/2026/05/Pruefbericht-Gleisschotter.pdf"
     },
     {
       "id": "bettung-g12",
@@ -264,7 +306,9 @@
         "Anforderungen an Weichenkonstruktionen"
       ],
       "correctIndex": 1,
-      "explanation": "Die Norm DIN EN 13450 legt Anforderungen an ungebundene Gesteinskörnungen aus gebrochenem Naturstein für die Verwendung beim Bau von Bahnkörpern fest und bezeichnet diese als Gleisschotter."
+      "explanation": "Die Norm DIN EN 13450 legt Anforderungen an ungebundene Gesteinskörnungen aus gebrochenem Naturstein für die Verwendung beim Bau von Bahnkörpern fest und bezeichnet diese als Gleisschotter.",
+      "source": "DIN EN 13450 (Baunormenlexikon, Datum: 2003-06)",
+      "sourceUrl": "https://www.baunormenlexikon.de/norm/din-en-13450/a3cadcb4-1539-4c21-98de-46b8362ed461"
     },
     {
       "id": "bettung-g13",
@@ -276,7 +320,9 @@
         "Sie dient ausschließlich als Wasserableitungsschicht"
       ],
       "correctIndex": 1,
-      "explanation": "Die Planumsschutzschicht wirkt wie ein \"Schutzschild\" für das darunter liegende Planum. Bei der Deutschen Bahn werden in der Regel PSS aus einem Mineralstoffgemisch mit bestimmter Sieblinie (Korngemisch KG 1 oder KG 2) eingesetzt."
+      "explanation": "Die Planumsschutzschicht wirkt wie ein \"Schutzschild\" für das darunter liegende Planum. Bei der Deutschen Bahn werden in der Regel PSS aus einem Mineralstoffgemisch mit bestimmter Sieblinie (Korngemisch KG 1 oder KG 2) eingesetzt.",
+      "source": "Wikipedia (Abruf: 2026)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Planumsschutzschicht"
     },
     {
       "id": "bettung-g14",
@@ -288,7 +334,9 @@
         "Eine geringere Bettungshöhe spart Kosten ohne nachteilige Auswirkung"
       ],
       "correctIndex": 2,
-      "explanation": "Das Schotterbett muss zwei wesentlichen Anforderungen genügen: die Ausführung des Schotterprofils und die Bettungshöhe sollen den Anforderungen entsprechen."
+      "explanation": "Das Schotterbett muss zwei wesentlichen Anforderungen genügen: die Ausführung des Schotterprofils und die Bettungshöhe sollen den Anforderungen entsprechen.",
+      "source": "Gleisschotter Produktseite OHU (Oberrhein-Handels-Union, Datum: 2026)",
+      "sourceUrl": "https://www.ohu-iffezheim.de/produkte/schotter/gleisschotter/"
     },
     {
       "id": "bettung-g15",
@@ -300,7 +348,9 @@
         "Das Reinigen der Weichenbereich"
       ],
       "correctIndex": 1,
-      "explanation": "Die Arbeit der Räumkette hat dabei wesentliche Auswirkungen. Das Planum trägt das Schotterbett und hat damit wesentlichen Einfluss auf die Gleisgeometrie und Dauerhaftigkeit der Gleislage. Fehler im Planum breiten sich sehr rasch durch den Schotter hindurch aus."
+      "explanation": "Die Arbeit der Räumkette hat dabei wesentliche Auswirkungen. Das Planum trägt das Schotterbett und hat damit wesentlichen Einfluss auf die Gleisgeometrie und Dauerhaftigkeit der Gleislage. Fehler im Planum breiten sich sehr rasch durch den Schotter hindurch aus.",
+      "source": "Deutsche Bahn Arbeitsanweisungen (Datum: 2026)",
+      "sourceUrl": "https://www.deutschebahn.com/de/geschaefte/infrastruktur/informationen-fuer-planer-und-bauunternehmer/arbeitsanweisungen-und-leitfaeden-12685116"
     },
     {
       "id": "bettung-g16",
@@ -312,7 +362,9 @@
         "Möglichst flaches Planum für größere Kontaktfläche"
       ],
       "correctIndex": 1,
-      "explanation": "Eine gute und vor allem gleichmäßige Lastausbreitung im Schotterbett ist anzustreben. Harte Stellen im Schotterbett führen zu größeren Kräften im Schotter und beschleunigen Lageabweichungen der Schotterkörner – dies führt zu häufigeren Stopfeinsätzen."
+      "explanation": "Eine gute und vor allem gleichmäßige Lastausbreitung im Schotterbett ist anzustreben. Harte Stellen im Schotterbett führen zu größeren Kräften im Schotter und beschleunigen Lageabweichungen der Schotterkörner – dies führt zu häufigeren Stopfeinsätzen.",
+      "source": "Lastausbreitung im Schotterbett`",
+      "sourceUrl": "https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/etr_070102.pdf"
     },
     {
       "id": "bettung-g17",
@@ -324,7 +376,9 @@
         "Die Bettungsreinigung ist gesetzlich vorgeschrieben ohne technische Begründung"
       ],
       "correctIndex": 1,
-      "explanation": "Ein wesentlicher Bestandteil für die Haltbarkeit des Schotterbettes ist die Bettungsreinigung. Infolge von Verschmutzung im Schotterbett sinkt die Elastizität des Gleises und damit die andauernde Haltbarkeit der Gleislage."
+      "explanation": "Ein wesentlicher Bestandteil für die Haltbarkeit des Schotterbettes ist die Bettungsreinigung. Infolge von Verschmutzung im Schotterbett sinkt die Elastizität des Gleises und damit die andauernde Haltbarkeit der Gleislage.",
+      "source": "Wie verschmutzt der Schotter?`",
+      "sourceUrl": "https://technology.plassertheurer.com/de/bettungsreinigung/wie-verschmutzt-der-schotter"
     },
     {
       "id": "bettung-g18",
@@ -336,7 +390,9 @@
         "Der Austausch der alten Schwellen durch neue Betonbauteile"
       ],
       "correctIndex": 1,
-      "explanation": "Die Stopfung (Verdichten oder Stabilisieren) des Schotterbettes erfolgt mit Maschinen, dabei wird gleichzeitig der Schotter vor den Schwellenköpfen mit verdichtet. Ein optimaler Querverschiebewiderstand wird erreicht wenn eine dynamische Stabilisierung nach der Stopfung und Vorkopfverdichtung erfolgt ist."
+      "explanation": "Die Stopfung (Verdichten oder Stabilisieren) des Schotterbettes erfolgt mit Maschinen, dabei wird gleichzeitig der Schotter vor den Schwellenköpfen mit verdichtet. Ein optimaler Querverschiebewiderstand wird erreicht wenn eine dynamische Stabilisierung nach der Stopfung und Vorkopfverdichtung erfolgt ist.",
+      "source": "Stopfen im Gleisbau`",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Stopfen_(Gleisbau)"
     },
     {
       "id": "bettung-g19",
@@ -348,7 +404,9 @@
         "Es muss porös sein, damit Wasser besser ablaufen kann"
       ],
       "correctIndex": 0,
-      "explanation": "Das Rohgestein für Oberbauschotter muss folgende Bedingungen erfüllen: Wetterbeständigkeit, große Zähigkeit, große Druckfestigkeit (durch Druck- und Schlagversuche), keine Beimengungen von Lehm oder Erde, das Gestein muss scharfkantig brechen."
+      "explanation": "Das Rohgestein für Oberbauschotter muss folgende Bedingungen erfüllen: Wetterbeständigkeit, große Zähigkeit, große Druckfestigkeit (durch Druck- und Schlagversuche), keine Beimengungen von Lehm oder Erde, das Gestein muss scharfkantig brechen.",
+      "source": "Anforderungen an Oberbauschotter`",
+      "sourceUrl": "https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/etr_070102.pdf"
     },
     {
       "id": "bettung-g20",
@@ -360,7 +418,9 @@
         "Sie reduziert den Bedarf an Schottermaterial auf der Strecke"
       ],
       "correctIndex": 1,
-      "explanation": "Da sich Lockergesteine am besten durch horizontale Schwingungen verdichten lassen, wurde diese Eigenschaft beim dynamischen Gleisstabilisator (DGS) benutzt – das trägt zur Verdichtung und Stabilisierung des Gleiskörpers bei."
+      "explanation": "Da sich Lockergesteine am besten durch horizontale Schwingungen verdichten lassen, wurde diese Eigenschaft beim dynamischen Gleisstabilisator (DGS) benutzt – das trägt zur Verdichtung und Stabilisierung des Gleiskörpers bei.",
+      "source": "Funktionsweise des DGS`",
+      "sourceUrl": "https://technology.plassertheurer.com/de/dynamischeGleisstabilisation/funktionsweise-des-dgs"
     }
   ]
 }

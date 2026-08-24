@@ -1,0 +1,28 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-bettung-04.md",
+  "status": "TECHNICAL_FAILURE",
+  "reasons": [
+    "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+    "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 94,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 91,
+      "status": "TECHNICAL_FAILURE",
+      "reasons": [
+        "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+        "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T06-38-59-353Z_Batch-bettung-04.md.log"
+}

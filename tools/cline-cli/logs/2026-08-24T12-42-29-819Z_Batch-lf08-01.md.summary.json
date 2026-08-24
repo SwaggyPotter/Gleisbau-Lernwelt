@@ -1,0 +1,36 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-lf08-01.md",
+  "status": "TECHNICAL_FAILURE",
+  "reasons": [
+    "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+    "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 25,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 66,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 3,
+      "durationSec": 82,
+      "status": "TECHNICAL_FAILURE",
+      "reasons": [
+        "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+        "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T12-42-29-819Z_Batch-lf08-01.md.log"
+}

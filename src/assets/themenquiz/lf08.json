@@ -12,7 +12,9 @@
         "nur der Baustelleneinrichtung"
       ],
       "correctIndex": 0,
-      "explanation": "Verkehrsflaechen muessen sichere Nutzung unter Verkehrslast ermoeglichen."
+      "explanation": "Verkehrsflaechen muessen sichere Nutzung unter Verkehrslast ermoeglichen.",
+      "source": "laut Wikipedia ist das Planum die technisch bearbeitete Oberfläche für Verkehrszwecke",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Verkehrsteilnehmer"
     },
     {
       "id": "LF08-Q2",
@@ -24,7 +26,9 @@
         "Es ersetzt Verdichtung"
       ],
       "correctIndex": 0,
-      "explanation": "Fehler im Planum setzen sich durch den gesamten Schichtenaufbau fort."
+      "explanation": "Fehler im Planum setzen sich durch den gesamten Schichtenaufbau fort.",
+      "source": "laut TBSoft: \"Das Planum bildet die unmittelbare Auflage für nachfolgende Schichten, et…",
+      "sourceUrl": "https://tbsoft.de/glossar/tiefbau-erdbau/planum/"
     },
     {
       "id": "LF08-Q3",
@@ -36,7 +40,9 @@
         "Randstein"
       ],
       "correctIndex": 0,
-      "explanation": "Trag- und Frostschutzschichten verteilen Lasten in den Untergrund."
+      "explanation": "Trag- und Frostschutzschichten verteilen Lasten in den Untergrund.",
+      "source": "laut Wikipedia ist die Tragschicht als unterste Schicht die Hauptfunktion hat, Lasten z…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Tragschicht"
     },
     {
       "id": "LF08-Q4",
@@ -48,7 +54,9 @@
         "es ist egal"
       ],
       "correctIndex": 0,
-      "explanation": "Lagenweise Verdichtung erzeugt einen gleichmaessigen und tragfaehigen Aufbau."
+      "explanation": "Lagenweise Verdichtung erzeugt einen gleichmaessigen und tragfaehigen Aufbau.",
+      "source": "laut Springer: Der Einbau und die Verdichtung erfolgen lagenweise oberhalb des Grundwas…",
+      "sourceUrl": "https://link.springer.com/chapter/10.1007/978-3-658-32893-1_11"
     },
     {
       "id": "LF08-Q5",
@@ -60,7 +68,9 @@
         "sie ersetzen die Tragschicht"
       ],
       "correctIndex": 0,
-      "explanation": "Randbefestigungen halten das Pflaster im Verband und verhindern Ausweichen."
+      "explanation": "Randbefestigungen halten das Pflaster im Verband und verhindern Ausweichen.",
+      "source": "laut Rinn Einbauhinweise: Rand- und Bindersteine so setzen, dass einseitliches Ausweich…",
+      "sourceUrl": "https://www.rinn.net/fileadmin/media/rinn/Mein_Garten/Service_Kontakt/Blaetterkataloge/Einbauhinweise-Rinn/Rinn_Einbauhinweise_Rand_Binder_Baenderungssteine_2024.pdf"
     },
     {
       "id": "LF08-Q6",
@@ -72,7 +82,9 @@
         "wegen Staub"
       ],
       "correctIndex": 0,
-      "explanation": "Nur bei ausreichender Temperatur laesst sich Asphalt korrekt verdichten."
+      "explanation": "Nur bei ausreichender Temperatur laesst sich Asphalt korrekt verdichten.",
+      "source": "Einbautemperatur Verdichtbarkeit (Stand 2025)",
+      "sourceUrl": "https://fliegl-baukom.de/fileadmin/user_upload/2019_Baukom/Produkte/Forschung_Asphaltbau/Schlussbericht_MA28_Asphalttemperatur_11122015.pdf"
     },
     {
       "id": "LF08-Q7",
@@ -84,7 +96,9 @@
         "es ist freiwillig"
       ],
       "correctIndex": 0,
-      "explanation": "Stehendes Wasser fuehrt zu Frost- und Substanzschaeden."
+      "explanation": "Stehendes Wasser fuehrt zu Frost- und Substanzschaeden.",
+      "source": "Straßenentwässerung Gefälle Aufgabe (Stand 2025)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Stra%C3%9Fenentw%C3%A4sserung"
     },
     {
       "id": "LF08-Q8",
@@ -96,7 +110,9 @@
         "Geruch"
       ],
       "correctIndex": 0,
-      "explanation": "Mangelnde Verdichtung reduziert die Tragfaehigkeit und fuehrt zu Verformungen."
+      "explanation": "Mangelnde Verdichtung reduziert die Tragfaehigkeit und fuehrt zu Verformungen.",
+      "source": "Setzungen Spurrinnen schlechte Verdichtung (Stand 2025)",
+      "sourceUrl": "https://fliegl-baukom.de/aktuelles/aktuelle-news/news-detail/massnahmen-und-technische-anforderungen-zur-vermeidung-von-verformungen-und-schaeden-an-verkehrsflaechen/"
     },
     {
       "id": "LF08-Q9",
@@ -108,7 +124,9 @@
         "nur markiert sein"
       ],
       "correctIndex": 0,
-      "explanation": "Die zentrale technische Funktion ist die sichere Lastaufnahme."
+      "explanation": "Die zentrale technische Funktion ist die sichere Lastaufnahme.",
+      "source": "Lastenaufnahme Tragschichten Funktion (Stand 2025)",
+      "sourceUrl": "https://www.braun-steine.de/objektplanung/verarbeitung-service/normen-regelwerke/gestaltung-ausfuehrung-verkehrsflaechenbefestigung.php"
     },
     {
       "id": "LF08-Q10",
@@ -120,7 +138,9 @@
         "Es wird nicht verdichtet"
       ],
       "correctIndex": 0,
-      "explanation": "Das Planum traegt den gesamten weiteren Schichtenaufbau."
+      "explanation": "Das Planum traegt den gesamten weiteren Schichtenaufbau.",
+      "source": "Planum Grundlage Unterbau Oberfläche (Stand 2025)",
+      "sourceUrl": "https://lemming-rammtechnik.de/glossar/planum/"
     },
     {
       "id": "LF08-Q11",
@@ -132,7 +152,9 @@
         "nur der Entwaesserung"
       ],
       "correctIndex": 0,
-      "explanation": "Sie tragen die Verkehrsbelastung und schuetzen den Aufbau vor Frostwirkung."
+      "explanation": "Sie tragen die Verkehrsbelastung und schuetzen den Aufbau vor Frostwirkung.",
+      "source": "darda.de – tragschicht",
+      "sourceUrl": "https://www.darda.de/wissen/tragschicht"
     },
     {
       "id": "LF08-Q12",
@@ -144,7 +166,9 @@
         "gar nicht"
       ],
       "correctIndex": 0,
-      "explanation": "Nur lagenweise Verdichtung erzeugt eine gleichmaessige Tragstruktur."
+      "explanation": "Nur lagenweise Verdichtung erzeugt eine gleichmaessige Tragstruktur.",
+      "source": "meyer-mauern.de – verlegehinweise pflaster",
+      "sourceUrl": "https://www.meyer-mauern.de/technik-infos/verlegehinweise-pflaster/"
     },
     {
       "id": "LF08-Q13",
@@ -156,7 +180,9 @@
         "keine Folgen"
       ],
       "correctIndex": 0,
-      "explanation": "Unzureichende Verdichtung fuehrt zu Nachverdichtungen unter Verkehrslast."
+      "explanation": "Unzureichende Verdichtung fuehrt zu Nachverdichtungen unter Verkehrslast.",
+      "source": "yundh.de – aufbau pflasterflaeche schichten unterbau gefaelle",
+      "sourceUrl": "https://yundh.de/wissensdatenbank/aufbau-pflasterflaeche-schichten-unterbau-gefaelle"
     },
     {
       "id": "LF08-Q14",
@@ -168,7 +194,9 @@
         "kein Gefaelle gebraucht wird"
       ],
       "correctIndex": 0,
-      "explanation": "Randbefestigungen halten den Verband unter Last stabil."
+      "explanation": "Randbefestigungen halten den Verband unter Last stabil.",
+      "source": "selbst.de – pflaster rand randeinfassung selber pflastern 44715",
+      "sourceUrl": "https://www.selbst.de/pflaster-rand-randeinfassung-selber-pflastern-44715.html"
     },
     {
       "id": "LF08-Q15",
@@ -180,7 +208,9 @@
         "sie Wasser dauerhaft stauen"
       ],
       "correctIndex": 0,
-      "explanation": "Fugen sichern Lastabtrag, Verzahnung und Anpassung im Verband."
+      "explanation": "Fugen sichern Lastabtrag, Verzahnung und Anpassung im Verband.",
+      "source": "<kurze Bezeichnung>`",
+      "sourceUrl": "https://www.darda.de/wissen/pflasterfuge"
     },
     {
       "id": "LF08-Q16",
@@ -192,7 +222,9 @@
         "nur handwarm"
       ],
       "correctIndex": 0,
-      "explanation": "Die Einbautemperatur ist Voraussetzung fuer Verdichtbarkeit und Verbund."
+      "explanation": "Die Einbautemperatur ist Voraussetzung fuer Verdichtbarkeit und Verbund.",
+      "source": "Heißasphalt Einbau (24.08.2026)",
+      "sourceUrl": "https://www.asphaltall.com/de/blog/industry-blog/what-should-be-paid-attention-to-in-temperature-control-during-asphalt-pavement-construction.html"
     },
     {
       "id": "LF08-Q17",
@@ -204,7 +236,9 @@
         "Wasser"
       ],
       "correctIndex": 0,
-      "explanation": "Walzen stellen die erforderliche Dichte und Ebenheit der Asphaltschicht her."
+      "explanation": "Walzen stellen die erforderliche Dichte und Ebenheit der Asphaltschicht her.",
+      "source": "Asphaltverdichtung mit Walzen (24.08.2026)",
+      "sourceUrl": "https://www.darda.de/wissen/planierwalze"
     },
     {
       "id": "LF08-Q18",
@@ -216,7 +250,9 @@
         "Es ist nur fuer Optik"
       ],
       "correctIndex": 0,
-      "explanation": "Ohne Gefaelle bleibt Wasser stehen und belastet den Aufbau."
+      "explanation": "Ohne Gefaelle bleibt Wasser stehen und belastet den Aufbau.",
+      "source": "Straßenentwässerung verhindert Aquaplaning (24.08.2026)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Stra%C3%9Fenentw%C3%A4sserung"
     },
     {
       "id": "LF08-Q19",
@@ -228,7 +264,9 @@
         "gar nicht"
       ],
       "correctIndex": 0,
-      "explanation": "Quergefaelle fuehrt Oberflaechenwasser zur Seite in die Entwaesserung."
+      "explanation": "Quergefaelle fuehrt Oberflaechenwasser zur Seite in die Entwaesserung.",
+      "source": "Quergefälle leitet Wasser seitlich ab (24.08.2026)",
+      "sourceUrl": "https://hofkontur.com/entwaesserung/gefaelle-planen/"
     },
     {
       "id": "LF08-Q20",
@@ -240,7 +278,9 @@
         "nur an den Raendern"
       ],
       "correctIndex": 0,
-      "explanation": "Die Bettung bildet das Auflager fuer die Pflastersteine."
+      "explanation": "Die Bettung bildet das Auflager fuer die Pflastersteine.",
+      "source": "Pflasterbettung zwischen Tragschicht und Pflaster (24.08.2026)",
+      "sourceUrl": "https://www.darda.de/wissen/pflasterbett"
     },
     {
       "id": "LF08-Q21",
@@ -252,7 +292,9 @@
         "sind nur optisch"
       ],
       "correctIndex": 0,
-      "explanation": "Mangel im unteren Aufbau fuehrt spaeter oft zu sichtbaren Schaeden oben."
+      "explanation": "Mangel im unteren Aufbau fuehrt spaeter oft zu sichtbaren Schaeden oben.",
+      "source": "deutscher-bauzeiger.de – erdarbeiten",
+      "sourceUrl": "https://www.deutscher-bauzeiger.de/bauen/baugrube/erdarbeiten/"
     },
     {
       "id": "LF08-Q22",
@@ -264,7 +306,9 @@
         "zu viel Randbefestigung"
       ],
       "correctIndex": 0,
-      "explanation": "Spurrinnen entstehen oft durch unzureichende Tragfaehigkeit und Verdichtung."
+      "explanation": "Spurrinnen entstehen oft durch unzureichende Tragfaehigkeit und Verdichtung.",
+      "source": "Die Norm TP Asphalt-StB Teil 22, DIN EN 12697-22 definiert die Spurrinnentiefe als Kenn…",
+      "sourceUrl": "https://www.ise.kit.edu/1251.php"
     },
     {
       "id": "LF08-Q23",
@@ -276,7 +320,9 @@
         "nur fuer Dokumentation"
       ],
       "correctIndex": 0,
-      "explanation": "Nur konsequente Kontrolle sichert Funktion und Dauerhaftigkeit der Flaeche."
+      "explanation": "Nur konsequente Kontrolle sichert Funktion und Dauerhaftigkeit der Flaeche.",
+      "source": "bup.de – )",
+      "sourceUrl": "https://bup.de/veroeffentlichungen/leitfaden/2-qualitaetssicherung-im-strassenbau/)"
     }
   ]
 }

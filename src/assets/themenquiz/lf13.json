@@ -12,7 +12,9 @@
         "Zur Stromversorgung"
       ],
       "correctIndex": 0,
-      "explanation": "Weichen verbinden Gleise und ermoeglichen das sichere Abzweigen von Fahrzeugen."
+      "explanation": "Weichen verbinden Gleise und ermoeglichen das sichere Abzweigen von Fahrzeugen.",
+      "source": "Weiche (Wikipedia)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Weiche_(Schienenverkehr)"
     },
     {
       "id": "LF13-Q2",
@@ -24,7 +26,9 @@
         "Schotterart"
       ],
       "correctIndex": 0,
-      "explanation": "Bauform und Geometrie bestimmen Funktion und Einsatzbereich der Weiche."
+      "explanation": "Bauform und Geometrie bestimmen Funktion und Einsatzbereich der Weiche.",
+      "source": "Weichenarten :: Trackopedia",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/weiche/weichenarten"
     },
     {
       "id": "LF13-Q3",
@@ -36,7 +40,9 @@
         "Schwellen"
       ],
       "correctIndex": 0,
-      "explanation": "Die Zungen sind beweglich und legen den Fahrweg fest."
+      "explanation": "Die Zungen sind beweglich und legen den Fahrweg fest.",
+      "source": "Weiche (Wikipedia)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Weiche_(Schienenverkehr)"
     },
     {
       "id": "LF13-Q4",
@@ -48,7 +54,9 @@
         "Das ist egal"
       ],
       "correctIndex": 0,
-      "explanation": "Fehlende Zungenanlage fuehrt zu einer sicherheitskritischen Fehlleitung des Radsatzes."
+      "explanation": "Fehlende Zungenanlage fuehrt zu einer sicherheitskritischen Fehlleitung des Radsatzes.",
+      "source": "Weichenstörungen",
+      "sourceUrl": "https://www.gartenbahn-toffeholz.ch/weichenstoerungen.html"
     },
     {
       "id": "LF13-Q5",
@@ -60,7 +68,9 @@
         "Lackieren"
       ],
       "correctIndex": 0,
-      "explanation": "Nach dem Stopfen folgt die geometrische Kontrolle und die korrekte Einstellung."
+      "explanation": "Nach dem Stopfen folgt die geometrische Kontrolle und die korrekte Einstellung.",
+      "source": "Instandhaltung Gleisen/Weichen",
+      "sourceUrl": "https://aktiv-gleisbau.de/instandhaltung-von-gleisen-und-weichen/"
     },
     {
       "id": "LF13-Q6",
@@ -72,7 +82,9 @@
         "Wegen ihrer Lage"
       ],
       "correctIndex": 0,
-      "explanation": "Mechanik und konzentrierte Lasten erzeugen mehr Verschleiss und mehr Einstellbedarf."
+      "explanation": "Mechanik und konzentrierte Lasten erzeugen mehr Verschleiss und mehr Einstellbedarf.",
+      "source": "Bewegliche Herzstücke stark belastet durch Züge, regelmäßige Wartung notwendig für sich…",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Weiche_(Schienenverkehr)"
     },
     {
       "id": "LF13-Q7",
@@ -84,7 +96,9 @@
         "Korrekte Lage"
       ],
       "correctIndex": 0,
-      "explanation": "Eine nicht anliegende Zunge kann unmittelbar zur Entgleisung fuehren."
+      "explanation": "Eine nicht anliegende Zunge kann unmittelbar zur Entgleisung fuehren.",
+      "source": "Nicht anliegende Zunge\" nicht blockiert, Entgleisungsgefahr bei stumpf einfahrendem Fah…",
+      "sourceUrl": "https://www.swetzel.ch/fahrztech/schiewei/schiewei.html"
     },
     {
       "id": "LF13-Q8",
@@ -96,7 +110,9 @@
         "Wegen des Schotters"
       ],
       "correctIndex": 0,
-      "explanation": "Stellbewegungen, Quetschstellen und betriebliche Wirkung machen Weichenarbeiten besonders kritisch."
+      "explanation": "Stellbewegungen, Quetschstellen und betriebliche Wirkung machen Weichenarbeiten besonders kritisch.",
+      "source": "Bewegliche Teile erfordern besondere Aufmerksamkeit wegen hoher Sicherheitsrelevanz",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Weiche_(Schienenverkehr)"
     },
     {
       "id": "LF13-Q9",
@@ -108,7 +124,9 @@
         "Nur Schwellen"
       ],
       "correctIndex": 0,
-      "explanation": "Diese Pruefpunkte gehoeren zu den zentralen sicherheitsrelevanten Kontrollen."
+      "explanation": "Diese Pruefpunkte gehoeren zu den zentralen sicherheitsrelevanten Kontrollen.",
+      "source": "Zungenlage, Spurweite und Herzstueckbereich sind zentrale Prüfpunkte",
+      "sourceUrl": "https://bharatforge.eu/artikel/aufbau-einer-weiche-praezision-und-sicherheit-in-jedem-bauteil/"
     },
     {
       "id": "LF13-Q10",
@@ -120,7 +138,9 @@
         "Weichen ersetzen Signale"
       ],
       "correctIndex": 0,
-      "explanation": "Die Hauptfunktion ist das sichere Fuehren in unterschiedliche Fahrwege."
+      "explanation": "Die Hauptfunktion ist das sichere Fuehren in unterschiedliche Fahrwege.",
+      "source": "Weichen ermöglichen Richtungswechsel vom Haupt- auf das Nebengleis",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/weiche/weichenfahrbahn"
     },
     {
       "id": "LF13-Q11",
@@ -132,7 +152,9 @@
         "Zungen sind nur Deko"
       ],
       "correctIndex": 0,
-      "explanation": "Zungen bewegen sich in Endlagen und bestimmen den gewaehlten Fahrweg."
+      "explanation": "Zungen bewegen sich in Endlagen und bestimmen den gewaehlten Fahrweg.",
+      "source": "Weiche-Aufbau",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Weiche_(Schienenverkehr)"
     },
     {
       "id": "LF13-Q12",
@@ -144,7 +166,9 @@
         "Sie haben nur optische Funktion"
       ],
       "correctIndex": 0,
-      "explanation": "Im Herzstueckbereich wirken hohe dynamische Lasten und Kontaktbeanspruchungen."
+      "explanation": "Im Herzstueckbereich wirken hohe dynamische Lasten und Kontaktbeanspruchungen.",
+      "source": "Weichenkomponenten",
+      "sourceUrl": "https://www.vossloh.com/de/produkte/weichenkomponenten"
     },
     {
       "id": "LF13-Q13",
@@ -156,7 +180,9 @@
         "Frischer Schotter"
       ],
       "correctIndex": 0,
-      "explanation": "Nicht anliegende Zungen sind ein klassischer Entgleisungsgrund."
+      "explanation": "Nicht anliegende Zungen sind ein klassischer Entgleisungsgrund.",
+      "source": "Weiche-Aufbau",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Weiche_(Schienenverkehr)"
     },
     {
       "id": "LF13-Q14",
@@ -168,7 +194,9 @@
         "Wartung ist nur bei Neubau noetig"
       ],
       "correctIndex": 0,
-      "explanation": "Bewegliche Teile und Lastwechsel erfordern engmaschige Pflege."
+      "explanation": "Bewegliche Teile und Lastwechsel erfordern engmaschige Pflege.",
+      "source": "Instandhaltung-Weichen",
+      "sourceUrl": "https://www.dzsf.bund.de/SharedDocs/Standardartikel/DZSF/Projekte/Projekt_174_Weichen.html"
     },
     {
       "id": "LF13-Q15",
@@ -180,7 +208,9 @@
         "Sie dient nur der Beleuchtung"
       ],
       "correctIndex": 0,
-      "explanation": "Die Stellvorrichtung stellt die Endlage her und fixiert den Fahrweg."
+      "explanation": "Die Stellvorrichtung stellt die Endlage her und fixiert den Fahrweg.",
+      "source": "Weiche-Aufbau",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Weiche_(Schienenverkehr)"
     },
     {
       "id": "LF13-Q16",
@@ -192,7 +222,9 @@
         "Der Betrieb wird beschleunigt"
       ],
       "correctIndex": 0,
-      "explanation": "Stopfarbeiten stabilisieren Tragverhalten und Geometrie der Weiche."
+      "explanation": "Stopfarbeiten stabilisieren Tragverhalten und Geometrie der Weiche.",
+      "source": "Wikipedia - Stopfen Gleisbau (2024)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Stopfen_(Gleisbau)"
     },
     {
       "id": "LF13-Q17",
@@ -204,7 +236,9 @@
         "Sie sind rein optisch"
       ],
       "correctIndex": 0,
-      "explanation": "Fehler an Weichen haben direkte Auswirkung auf Betriebssicherheit und Verfuegbarkeit."
+      "explanation": "Fehler an Weichen haben direkte Auswirkung auf Betriebssicherheit und Verfuegbarkeit.",
+      "source": "BEU - Bundesstelle für Eisenbahnunfalluntersuchung (2026)",
+      "sourceUrl": "https://www.eisenbahn-unfalluntersuchung.de/"
     },
     {
       "id": "LF13-Q18",
@@ -216,7 +250,9 @@
         "Nur bei Regen sichern"
       ],
       "correctIndex": 0,
-      "explanation": "Arbeiten an Weichen duerfen nur mit wirksamer Sicherung ausgefuehrt werden."
+      "explanation": "Arbeiten an Weichen duerfen nur mit wirksamer Sicherung ausgefuehrt werden.",
+      "source": "DGUV - Regelwerk Gleisbau (2026)",
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/regelwerk_gleisbau/index.jsp"
     },
     {
       "id": "LF13-Q19",
@@ -228,7 +264,9 @@
         "Sie hat keine Wirkung"
       ],
       "correctIndex": 0,
-      "explanation": "Messwerte und Protokolle sichern Nachweis, Rueckverfolgbarkeit und Abnahme."
+      "explanation": "Messwerte und Protokolle sichern Nachweis, Rueckverfolgbarkeit und Abnahme.",
+      "source": "DGUV - Arbeiten im Bereich von Gleisen (2026)",
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/index.jsp"
     },
     {
       "id": "LF13-Q20",
@@ -240,7 +278,9 @@
         "Sie bewegen die Zungen"
       ],
       "correctIndex": 0,
-      "explanation": "Radlenker fuehren die Radsatzlage im kritischen Bereich der Weiche."
+      "explanation": "Radlenker fuehren die Radsatzlage im kritischen Bereich der Weiche.",
+      "source": "Wikipedia - Weichen-Radlenker Funktion (2026)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Weiche_(Schienenverkehr)"
     },
     {
       "id": "LF13-Q21",
@@ -252,7 +292,9 @@
         "Sie sind gewollt"
       ],
       "correctIndex": 0,
-      "explanation": "Lockere Befestigungen koennen Lagefehler und weitere Schaeden verursachen."
+      "explanation": "Lockere Befestigungen koennen Lagefehler und weitere Schaeden verursachen.",
+      "source": "lueke-gleisbau.de",
+      "sourceUrl": "https://www.lueke-gleisbau.de/"
     },
     {
       "id": "LF13-Q22",
@@ -264,7 +306,9 @@
         "Nur fotografieren"
       ],
       "correctIndex": 0,
-      "explanation": "Ohne geometrische und funktionale Pruefung ist keine sichere Inbetriebnahme moeglich."
+      "explanation": "Ohne geometrische und funktionale Pruefung ist keine sichere Inbetriebnahme moeglich.",
+      "source": "petersrail.eu – weicheninspektion",
+      "sourceUrl": "https://www.petersrail.eu/weicheninspektion/"
     },
     {
       "id": "LF13-Q23",
@@ -276,7 +320,9 @@
         "Sie sind nur Theorie"
       ],
       "correctIndex": 0,
-      "explanation": "Betrieb, Zeitdruck und Bewegungen der Weiche erhoehen das Risiko deutlich."
+      "explanation": "Betrieb, Zeitdruck und Bewegungen der Weiche erhoehen das Risiko deutlich.",
+      "source": "dguv.de – index",
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/faq/index.jsp"
     },
     {
       "id": "LF13-Q24",
@@ -288,7 +334,9 @@
         "Dokumentation ist verzichtbar"
       ],
       "correctIndex": 0,
-      "explanation": "Sicherheitsregeln haben Vorrang vor Zeitdruck und Produktionszielen."
+      "explanation": "Sicherheitsregeln haben Vorrang vor Zeitdruck und Produktionszielen.",
+      "source": "bharatforge.eu – aufbau einer weiche praezision und sicherheit in jedem bauteil",
+      "sourceUrl": "https://bharatforge.eu/artikel/aufbau-einer-weiche-praezision-und-sicherheit-in-jedem-bauteil/"
     }
   ]
 }

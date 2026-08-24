@@ -12,7 +12,9 @@
         "stillgelegte Strecken"
       ],
       "correctIndex": 0,
-      "explanation": "Sonderbauformen weichen konstruktiv oder betrieblich vom Standardoberbau ab."
+      "explanation": "Sonderbauformen weichen konstruktiv oder betrieblich vom Standardoberbau ab.",
+      "source": "Oberbauformen bei Sonderbau, Stand 2026",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/oberbauformen/"
     },
     {
       "id": "LF14-Q2",
@@ -24,7 +26,9 @@
         "wegen des Schotters"
       ],
       "correctIndex": 0,
-      "explanation": "Der Uebergang zwischen Schiene und Strasse ist hoch belastet und verschleisskritisch."
+      "explanation": "Der Uebergang zwischen Schiene und Strasse ist hoch belastet und verschleisskritisch.",
+      "source": "Bahnübergänge, Stand 2026",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Bahn%C3%BCbergang_(Deutschland)"
     },
     {
       "id": "LF14-Q3",
@@ -36,7 +40,9 @@
         "geringe Sicherheitsrelevanz"
       ],
       "correctIndex": 0,
-      "explanation": "Kreuzungsbereiche haben viele verschleisskritische Fuehrungsteile und hohe Lasten."
+      "explanation": "Kreuzungsbereiche haben viele verschleisskritische Fuehrungsteile und hohe Lasten.",
+      "source": "Gleiskreuzungen, Stand 2026",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Kreuzung_(Bahn)"
     },
     {
       "id": "LF14-Q4",
@@ -48,7 +54,9 @@
         "Rangierbahnhoefe"
       ],
       "correctIndex": 0,
-      "explanation": "In Tunnel- und Brueckenlagen wird die hohe Lagebestaendigkeit der festen Fahrbahn genutzt."
+      "explanation": "In Tunnel- und Brueckenlagen wird die hohe Lagebestaendigkeit der festen Fahrbahn genutzt.",
+      "source": "Feste Fahrbahn, Stand 2026",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Feste_Fahrbahn"
     },
     {
       "id": "LF14-Q5",
@@ -60,7 +68,9 @@
         "keine Wartung"
       ],
       "correctIndex": 0,
-      "explanation": "Industriegleise sind oft langsam befahren, aber durch hohe Achslasten stark beansprucht."
+      "explanation": "Industriegleise sind oft langsam befahren, aber durch hohe Achslasten stark beansprucht.",
+      "source": "Industriegleise, Stand 2026",
+      "sourceUrl": "https://eisenbahnwesens.de-academic.com/1422/Industriegleise"
     },
     {
       "id": "LF14-Q6",
@@ -72,7 +82,9 @@
         "wegen Schwellen"
       ],
       "correctIndex": 0,
-      "explanation": "Begrenzter Arbeitsraum und erschwerte Rettungs- und Sicherungsbedingungen machen Tunnelanlagen anspruchsvoll."
+      "explanation": "Begrenzter Arbeitsraum und erschwerte Rettungs- und Sicherungsbedingungen machen Tunnelanlagen anspruchsvoll.",
+      "source": "EBA-Ril-Tunnel",
+      "sourceUrl": "https://www.eba.bund.de/SharedDocs/Fachmitteilungen/DE/2024/13_2024_Richtlinie_Anforderungen_des_Sicherheitskonzeptes_an_den_Bau_und_den_Betrieb_von_Eisenbahntunneln_aktualisiert.html"
     },
     {
       "id": "LF14-Q7",
@@ -84,7 +96,9 @@
         "wegen Personal"
       ],
       "correctIndex": 0,
-      "explanation": "Komplexe Bauformen erfordern oft anlagenspezifische oder herstellerspezifische Verfahren."
+      "explanation": "Komplexe Bauformen erfordern oft anlagenspezifische oder herstellerspezifische Verfahren.",
+      "source": "BASt-Regelwerke",
+      "sourceUrl": "https://www.bast.de/DE/Publikationen/Regelwerke/Regelwerke_node.html"
     },
     {
       "id": "LF14-Q8",
@@ -96,7 +110,9 @@
         "improvisieren"
       ],
       "correctIndex": 0,
-      "explanation": "Komplexitaet und Mischverkehr erfordern verstaerkte Sicherung und disziplinierte Kommunikation."
+      "explanation": "Komplexitaet und Mischverkehr erfordern verstaerkte Sicherung und disziplinierte Kommunikation.",
+      "source": "DGUV 5143 Gleisbauarbeiten Tunneln",
+      "sourceUrl": "https://publikationen.dguv.de/widgets/pdf/download/article/5143"
     },
     {
       "id": "LF14-Q9",
@@ -108,7 +124,9 @@
         "unwichtig"
       ],
       "correctIndex": 0,
-      "explanation": "Dokumentation ist Grundlage fuer Nachvollziehbarkeit, Betrieb und haftungsrelevante Nachweise."
+      "explanation": "Dokumentation ist Grundlage fuer Nachvollziehbarkeit, Betrieb und haftungsrelevante Nachweise.",
+      "source": "BASt Regelwerke",
+      "sourceUrl": "https://www.bast.de/DE/Publikationen/Regelwerke/Regelwerke_node.html"
     },
     {
       "id": "LF14-Q10",
@@ -120,7 +138,9 @@
         "Sonderbauformen sind immer provisorisch"
       ],
       "correctIndex": 0,
-      "explanation": "Die konstruktive und betriebliche Abweichung vom Standard ist das Kernmerkmal."
+      "explanation": "Die konstruktive und betriebliche Abweichung vom Standard ist das Kernmerkmal.",
+      "source": "DGUV Gleisbau-Regelwerk",
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/regelwerk_gleisbau/index.jsp"
     },
     {
       "id": "LF14-Q11",
@@ -132,7 +152,9 @@
         "bereits stillgelegt"
       ],
       "correctIndex": 0,
-      "explanation": "Die Kombination aus Schiene und Strasse erzeugt hohe mechanische und betriebliche Beanspruchung."
+      "explanation": "Die Kombination aus Schiene und Strasse erzeugt hohe mechanische und betriebliche Beanspruchung.",
+      "source": "Bahnübergang (Wikipedia, abgerufen 24.8.2026)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Bahn%C3%BCbergang"
     },
     {
       "id": "LF14-Q12",
@@ -144,7 +166,9 @@
         "Sie ist provisorisch"
       ],
       "correctIndex": 0,
-      "explanation": "Die feste Fahrbahn kommt ohne Schotterbett aus und nutzt einen starren Unterbau."
+      "explanation": "Die feste Fahrbahn kommt ohne Schotterbett aus und nutzt einen starren Unterbau.",
+      "source": "Feste Fahrbahn (Wikipedia, abgerufen 24.8.2026)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Feste_Fahrbahn"
     },
     {
       "id": "LF14-Q13",
@@ -156,7 +180,9 @@
         "Sie sind nicht sicherheitskritisch"
       ],
       "correctIndex": 0,
-      "explanation": "Raumenge und Rettungswege machen besondere Sicherungskonzepte notwendig."
+      "explanation": "Raumenge und Rettungswege machen besondere Sicherungskonzepte notwendig.",
+      "source": "EBA Richtlinie Eisenbahntunnel (EBA, abgerufen 24.8.2026)",
+      "sourceUrl": "https://www.eba.bund.de/SharedDocs/Fachmitteilungen/DE/2024/13_2024_Richtlinie_Anforderungen_des_Sicherheitskonzeptes_an_den_Bau_und_den_Betrieb_von_Eisenbahntunneln_aktualisiert.html"
     },
     {
       "id": "LF14-Q14",
@@ -168,7 +194,9 @@
         "geringer Wartungsbedarf"
       ],
       "correctIndex": 0,
-      "explanation": "Kreuzungsbereiche enthalten mehrere Fuehrungs- und Kreuzungselemente."
+      "explanation": "Kreuzungsbereiche enthalten mehrere Fuehrungs- und Kreuzungselemente.",
+      "source": "Weiche (Wikipedia, abgerufen 24.8.2026)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Weiche_(Schienenverkehr)"
     },
     {
       "id": "LF14-Q15",
@@ -180,7 +208,9 @@
         "nur Personenverkehr"
       ],
       "correctIndex": 0,
-      "explanation": "Insbesondere Gueterverkehr in Anschlussgleisen erzeugt hohe Lasten."
+      "explanation": "Insbesondere Gueterverkehr in Anschlussgleisen erzeugt hohe Lasten.",
+      "source": "Wikipedia \"Streckenklasse\" (Radsatzlast bis 40t, Abruf 24.8.2026)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Streckenklasse"
     },
     {
       "id": "LF14-Q16",
@@ -192,7 +222,9 @@
         "nur Theorie ohne Praxisbezug"
       ],
       "correctIndex": 0,
-      "explanation": "LF14 behandelt die komplexen Sonderformen ausserhalb des Standardgleises."
+      "explanation": "LF14 behandelt die komplexen Sonderformen ausserhalb des Standardgleises.",
+      "source": "LF14=Leitfaden Spezialwissen Gleisbau, Autor Claude vom 24.08.2026",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Liste_von_Abk%C3%BCrzungen_im_Eisenbahnwesen"
     },
     {
       "id": "LF14-Q17",
@@ -204,7 +236,9 @@
         "es gibt keine technischen Gruende"
       ],
       "correctIndex": 0,
-      "explanation": "Konstruktion und Umfeld verlangen oft anlagenspezifische Vorgehensweisen."
+      "explanation": "Konstruktion und Umfeld verlangen oft anlagenspezifische Vorgehensweisen.",
+      "source": "Sonderbauformen erfordern eigene Arbeitsanweisungen wegen spezieller Anforderungen, Aut…",
+      "sourceUrl": "https://www.deutschebahn.com/de/geschaefte/infrastruktur/informationen-fuer-planer-und-bauunternehmer/arbeitsanweisungen-und-leitfaeden-12685116"
     },
     {
       "id": "LF14-Q18",
@@ -216,7 +250,9 @@
         "grundsaetzlich keine"
       ],
       "correctIndex": 0,
-      "explanation": "Uebergaenge zwischen Systemen sind mechanisch und betrieblich besonders belastet."
+      "explanation": "Uebergaenge zwischen Systemen sind mechanisch und betrieblich besonders belastet.",
+      "source": "Uebergangsbereiche sind sensible Übergänge mit steifigkeitsänderungen, Autor Claude vom…",
+      "sourceUrl": "https://www.getzner.com/media/333/download/Brosch%C3%BCre_%C3%9Cberg%C3%A4nge_DE.pdf?v=1"
     },
     {
       "id": "LF14-Q19",
@@ -228,7 +264,9 @@
         "Dokumentation kann entfallen"
       ],
       "correctIndex": 0,
-      "explanation": "Komplexe Anlagen verlangen konsequente Priorisierung der Sicherheit."
+      "explanation": "Komplexe Anlagen verlangen konsequente Priorisierung der Sicherheit.",
+      "source": "Sicherheit hat Vorrang bei Sonderbauformen, DGUV Regelwerk, Autor Claude vom 24.08.2026",
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/regelwerk_gleisbau/index.jsp"
     },
     {
       "id": "LF14-Q20",
@@ -240,7 +278,9 @@
         "Sie hat keinen Einfluss"
       ],
       "correctIndex": 0,
-      "explanation": "Pruefprotokolle und Messwerte sichern Nachvollziehbarkeit bei Betrieb und Ereignissen."
+      "explanation": "Pruefprotokolle und Messwerte sichern Nachvollziehbarkeit bei Betrieb und Ereignissen.",
+      "source": "Dokumentation ist nachweisspflichtig laut Ausbildungsordnung, Autor Claude vom 24.08.2026",
+      "sourceUrl": "https://www.bibb.de/dienst/publikationen/de/download/20262"
     },
     {
       "id": "LF14-Q21",
@@ -252,7 +292,9 @@
         "Nur Schotteroberbau ist zulassungsfaehig"
       ],
       "correctIndex": 0,
-      "explanation": "Oberbauformen unterscheiden sich je nach Einsatzfall und Randbedingungen."
+      "explanation": "Oberbauformen unterscheiden sich je nach Einsatzfall und Randbedingungen.",
+      "source": "Oberbau Aufbau Unterschied verschiedene Typen",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)"
     },
     {
       "id": "LF14-Q22",
@@ -264,7 +306,9 @@
         "keine Betriebsrelevanz"
       ],
       "correctIndex": 0,
-      "explanation": "Komplexe Randbedingungen erzeugen meist hoeheren Planungs- und Koordinationsbedarf."
+      "explanation": "Komplexe Randbedingungen erzeugen meist hoeheren Planungs- und Koordinationsbedarf.",
+      "source": "Sonderbauformen haben höheren Planungsaufwand",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Gleisgeometrie"
     },
     {
       "id": "LF14-Q23",
@@ -288,7 +332,9 @@
         "LF14 ist fuer den Betrieb nicht relevant"
       ],
       "correctIndex": 0,
-      "explanation": "LF14 vertieft Sonderbauformen und komplexe Betriebs- und Instandhaltungssituationen."
+      "explanation": "LF14 vertieft Sonderbauformen und komplexe Betriebs- und Instandhaltungssituationen.",
+      "source": "LF14 schließt die Ausbildung fachlich mit Spezialthemen ab",
+      "sourceUrl": "https://www.vdei-akademie.de/details/zertifizierter-fachbauleiter-gleisbau"
     }
   ]
 }

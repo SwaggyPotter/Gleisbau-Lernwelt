@@ -1,0 +1,34 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-grundlagen-05.md",
+  "status": "NO_CHANGE",
+  "reasons": [
+    "Datei wurde nicht verändert."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 49,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 28,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 3,
+      "durationSec": 38,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T08-31-44-164Z_Batch-grundlagen-05.md.log"
+}

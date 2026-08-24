@@ -71,6 +71,15 @@ Datei + das Update-Log, nicht blind auf die Architektur-/Modul-Dateien.
   — Gwen konnte das nicht liefern, siehe siebter Fallstrick unten.
   Fehlende/unpassende Fotomotive sind eigene SVGs im Streckenplan-Stil
   (`src/assets/bilder/*.svg`). Details: [[14-Gwen-Code-Aufgaben/14-Rechentrainer-Umbau]].
+- **Quellen bei Themenquiz-/Lernfeld-Fragen: seit 2026-08-24 zu 99 %
+  fertig** (636/645, `source`/`sourceUrl`, mit klickbarem Link in der
+  Quiz-Oberfläche). Ueber einen selbst-fortsetzenden, headless
+  Gwen-Dispatch-Workflow (`tools/themenquiz-quellenpruefung/
+  run-batches.cjs`) erledigt — dabei ein wichtiges neues Gwen-Fehlerbild
+  gefunden (erfundene, plausibel klingende Domains, siehe achter
+  Fallstrick unten). 9 Fragen bewusst offen (entfernte
+  Fehl-Quellen, noch nicht neu recherchiert). Details:
+  [[14-Gwen-Code-Aufgaben/15-Themenquiz-Quellenpruefung]].
 - **Design**: eigenes "Streckenplan"-System (Blaupausen-Optik), CSS Custom
   Properties `--sp-*`/`--font-*` in `src/theme/variables.scss`, Fonts Oswald/
   Barlow/JetBrains Mono selbst gehostet als woff2. Neue Module binden sich
@@ -313,6 +322,40 @@ weiterhin sinnvoll für Aufgaben, die keinen Commons-Fetch brauchen (reine
 Fachtext-Recherche, Formeln, Normen-Zusammenfassungen — wie der LF11-Teil
 derselben Runde, der inhaltlich brauchbar war).
 
+### ⚠️ Achter Fallstrick: erfundene, aber plausibel klingende Domains statt "keine Quelle gefunden"
+
+Neu beobachtet bei der Themenquiz-Quellenprüfung (2026-08-24, siehe
+[[14-Gwen-Code-Aufgaben/15-Themenquiz-Quellenpruefung]]): das gefährlichste
+bisher gefundene Fehlerbild, weil es die bestehenden Sicherheitsnetze
+(Urteil muss `RICHTIG` sein, Quelle muss ein `https://`-Link sein)
+unterläuft, ohne dagegen zu verstoßen. Wenn Gwen für eine Frage keine
+echte Quelle fand, hat es in mehreren Fällen **eine erfundene, aber
+sprachlich plausible Domain samt Pfad** ausgegeben, statt ehrlich
+`UNSICHER`/„keine gefunden" zu schreiben — z. B. `azmk.de/faq/lfo1/
+lfo1_q31.html` (fünfmal in Folge, mit Pfad passend zur echten
+Frage-ID-Nummerierung!), `rohrverschrau.de`, `esiv-online.de`,
+`risse-fugen.de`. Diese URLs haben eine gültige `https://`-Form, bestehen
+also jede rein syntaktische Prüfung — sie lösen aber schlicht nicht per
+DNS auf (`ENOTFOUND`), weil die Domain nicht existiert. Bei einer
+Vollprüfung aller 482 eingetragenen Link-Ziele (nicht nur Stichproben!)
+fielen so 45 von 645 Fragen auf, verteilt über mehrere Themen, oft in
+Gruppen von 3–5 aufeinanderfolgenden Fragen im selben Batch (vermutlich:
+sobald Gwen bei einer Frage keine echte Quelle mehr fand, "driftete" es
+für den Rest des Batches in dieses Muster ab).
+
+**Regel: Bei Aufträgen, die reale externe Quellen liefern sollen, reicht
+eine Stichprobe NICHT — jede eingetragene URL muss geprüft werden**,
+mindestens per DNS-Auflösung (schnell, `dns.lookup(hostname)`, fängt das
+Kernmuster zuverlässig ab), idealerweise zusätzlich per HTTP-Statuscode.
+Der Themenquiz-Quellenprüfung-Workflow prüft das seitdem automatisch in
+`apply-results.cjs`, bevor eine Quelle in die App-Daten übernommen wird.
+**Vorsicht bei URL-Checks per Skript**: bereits prozent-kodierte URLs
+(z. B. `%C3%BC` für ü) nicht nochmal durch `encodeURI()` schicken — das
+erzeugt doppelt kodierte, fälschlich als „404" erscheinende URLs
+(`%25C3%25BC`), obwohl die echte Seite existiert. Roh verwenden oder nur
+den unkodierten Ausgangsstring encodieren, nicht das bereits kodierte
+Ergebnis.
+
 ### Gwens dokumentierte Unzuverlässigkeit (Kurzfassung)
 
 - Bei offener Web-Recherche: erfundene Normen/Quellen kommen vor (mehrfach
@@ -430,7 +473,8 @@ Ki Datenspeicher/
     ├── 11-Quizduell-Umbau-Statistik-Seite.md
     ├── 12-Quizduell-Umbau-Frage-Komponente.md
     ├── 13-Quizduell-Referenz-Umbau.md
-    └── 14-Rechentrainer-Umbau.md
+    ├── 14-Rechentrainer-Umbau.md
+    └── 15-Themenquiz-Quellenpruefung.md
 ```
 
 ## Pflegehinweis

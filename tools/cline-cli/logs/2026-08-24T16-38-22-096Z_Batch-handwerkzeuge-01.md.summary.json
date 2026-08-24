@@ -1,0 +1,38 @@
+{
+  "relFile": "15-Themenquiz-Quellenpruefung/Batch-handwerkzeuge-01.md",
+  "status": "TECHNICAL_FAILURE",
+  "reasons": [
+    "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+    "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 48,
+      "status": "TECHNICAL_FAILURE",
+      "reasons": [
+        "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+        "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 58,
+      "status": "TECHNICAL_FAILURE",
+      "reasons": [
+        "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+        "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+      ]
+    },
+    {
+      "attempt": 3,
+      "durationSec": 23,
+      "status": "TECHNICAL_FAILURE",
+      "reasons": [
+        "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+        "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-24T16-38-22-096Z_Batch-handwerkzeuge-01.md.log"
+}

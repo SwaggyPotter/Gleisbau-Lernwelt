@@ -79,5 +79,103 @@
     "license": "CC BY-SA 4.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Loading_bay_at_Hakkila_rail_yard_in_Vantaa,_Finland,_2021.jpg",
     "localFile": "assets/bilder/materialrechner.jpg"
+  },
+  {
+    "key": "lf03",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Bricklayer_J4.jpg?width=900",
+    "credit": "Jamain, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bricklayer_J4.jpg"
+  },
+  {
+    "key": "lf04",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/BGJ_Lernfeld_4_-_Stahlbeton_W%C3%A4nde_Rahmenschalung_Baustelle_Am_Oberwiesenfeld_002.jpg?width=900",
+    "credit": "Patrick Oberdoerfer, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:BGJ_Lernfeld_4_-_Stahlbeton_W%C3%A4nde_Rahmenschalung_Baustelle_Am_Oberwiesenfeld_002.jpg"
+  },
+  {
+    "key": "lf08",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Dresden%2C_Fritz-L%C3%B6ffler-Gymnasium%2C_Baugrube_031.jpg?width=900",
+    "credit": "Bybbisch94 und Christian Gebhardt, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dresden,_Fritz-L%C3%B6ffler-Gymnasium,_Baugrube_031.jpg"
+  },
+  {
+    "key": "lf09",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Paving_being_laid_arp.jpg?width=900",
+    "credit": "Adrian Pingstone (Arpingstone), gemeinfrei",
+    "license": "Public Domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Paving_being_laid_arp.jpg"
+  },
+  {
+    "key": "lf12",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/New_point_motor.jpg?width=900",
+    "credit": "Phil Sangwell, CC BY 2.0, via Wikimedia Commons",
+    "license": "CC BY 2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:New_point_motor.jpg"
+  },
+  {
+    "key": "lf01",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Baustelle_HafenCity_2101-0036.jpg?width=900",
+    "credit": "Mozzihh (Henning Sidow), CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Baustelle_HafenCity_2101-0036.jpg"
+  },
+  {
+    "key": "lf02",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Baugrube_mit_B%C3%B6schung_und_Arbeitsraum.jpg?width=900",
+    "credit": "Patrick Oberdoerfer, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Baugrube_mit_B%C3%B6schung_und_Arbeitsraum.jpg"
+  },
+  {
+    "key": "lf05",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Fachwerk_Abbund.jpg?width=900",
+    "credit": "Georg Hefter (georghefter.de), CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fachwerk_Abbund.jpg"
+  },
+  {
+    "key": "lf06",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/W%C3%A4rmed%C3%A4mmverbundsystem_(WDVS)_teilweise_auf_Altbau..JPG?width=900",
+    "credit": "Handwerker, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:W%C3%A4rmed%C3%A4mmverbundsystem_(WDVS)_teilweise_auf_Altbau..JPG"
+  },
+  {
+    "key": "lf07",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Ramm-_und_Rammkernsondierung.jpg?width=900",
+    "credit": "Jonas Boerje Lundin, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ramm-_und_Rammkernsondierung.jpg"
+  },
+  {
+    "key": "lf10",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Gleisbau_in_Probsteierhagen_(1).jpg?width=900",
+    "credit": "Siegbert Brey (Snoopy1964), CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gleisbau_in_Probsteierhagen_(1).jpg"
+  },
+  {
+    "key": "lf13",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Weichenheizung.JPG?width=900",
+    "credit": "Fabian Grunder, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Weichenheizung.JPG"
+  },
+  {
+    "key": "spiel-nivellierlatte",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Nivellierlatte-einfach.JPG?width=900",
+    "credit": "Wurzeltee, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nivellierlatte-einfach.JPG"
+  },
+  {
+    "key": "spiel-schienenraten",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Schienenformen_der_Stra%C3%9Fenbahn_Leipzig.jpg?width=900",
+    "credit": "Falk2, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Schienenformen_der_Stra%C3%9Fenbahn_Leipzig.jpg"
   }
 ]

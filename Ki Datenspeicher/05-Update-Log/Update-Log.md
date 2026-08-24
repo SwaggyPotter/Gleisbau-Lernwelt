@@ -11,6 +11,122 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+## 2026-08-24 — Alle restlichen Modul-Bilder ergänzt: 14/14 Lernfelder + 4/4 Spiele
+
+Tim wollte, dass ausnahmslos jedes Modul ein Bild hat. Claude hat direkt
+weiterrecherchiert (WebSearch/WebFetch, kein erneuter Gwen-Versuch — siehe
+Eintrag unten zum siebten Fallstrick) und alle verbleibenden Luecken
+geschlossen:
+
+**7 weitere Lernfeld-Fotos** (jedes einzeln ueber die Commons-Dateiseite
+verifiziert, Hotlink getestet): LF01 Baustellen einrichten (HafenCity-
+Baustelle, Mozzihh), LF02 Bauwerke erschliessen (Baugrube mit Böschung,
+Patrick Oberdoerfer), LF05 Holzkonstruktionen (Fachwerk-Abbund, Georg
+Hefter), LF06 Beschichten/Bekleiden (Wärmedämmverbundsystem, Handwerker),
+LF07 Baugruende erkunden (Rammkernsondierung, Jonas Boerje Lundin), LF10
+Gleisanlagen neu bauen (Gleisbau in Probsteierhagen, Siegbert Brey), LF13
+Weichen instand halten (Weichenheizung, Fabian Grunder) — alle CC BY-SA
+3.0/4.0.
+
+**2 neue Eigen-Grafiken** fuer LF11 (Gleisboegen herstellen und einmessen)
+und LF14 (Sonderbauformen), da beide zu abstrakt/unspezifisch fuer ein
+passendes Foto sind: `gleisbogen-diagramm.svg` (Bogenradius mit
+Mittelpunkt und Winkel) und `sonderbauformen-diagramm.svg`
+(Schotteroberbau vs. Feste Fahrbahn + Andreaskreuz). **Damit haben jetzt
+alle 14 Lernfelder ein Bild.**
+
+**Spiele-Kacheln nachgezogen**: fiel dabei auf, dass alle 4 Spiele
+(Nivellierlatte ablesen, Schienenkopf-Verschleissmesser, Schienen
+erkennen, Quiz-Duell) bisher komplett ohne Bild waren. Nivellierlatte
+ablesen bekam ein echtes Foto einer Nivellierlatte (Wurzeltee), Schienen
+erkennen ein Foto mit vier verschiedenen Schienenprofilen im direkten
+Vergleich (Falk2) — fast wörtlich das Spielprinzip. Fuer
+Schienenkopf-Verschleissmesser (Nischen-Messgeraet, keine freie
+Foto-Quelle auffindbar) und Quiz-Duell (abstraktes App-Feature) je eine
+eigene SVG.
+
+**Ergebnis: alle 33 Katalog-Kacheln der App haben jetzt ein Bild** (10
+Wissenstests, 14 Lernfelder, 5 Rechentrainer, 4 Spiele). Build gruen,
+Playwright bestaetigt alle 11 neuen Bilder rendern korrekt, keine
+Konsolenfehler. Details: [[../14-Gwen-Code-Aufgaben/14-Rechentrainer-Umbau]].
+
+---
+
+## 2026-08-23 (2) — Fünf Lernfeld-Bilder recherchiert und eingebaut (LF03/04/08/09/12)
+
+Fortsetzung des Bild-Auftrags aus dem Eintrag unten. Der ueber Gwen
+angestossene Recherche-Dispatch ist **gescheitert**: in den ersten beiden
+von drei Versuchen missverstand Gwen die Aufgabe komplett (hielt die
+Auftragsdatei selbst fuer das Bearbeitungsziel), im dritten Versuch verstand
+Gwen die Aufgabe richtig und recherchierte tatsaechlich — bekam aber bei
+**jedem** Versuch, eine Wikimedia-Commons-Seite zu laden, HTTP 403 vom
+eigenen Fetch-Tool zurueck (ein neues, siebtes Gwen-Fehlerbild, diesmal
+strukturell/infrastrukturell statt inhaltlich — siehe [[../00-Start-Hier]]).
+Gwen wich deshalb auf Pixabay/Pexels aus, was der vorgegebenen
+Commons-Praeferenz widerspricht; der Prozess stuerzte zudem direkt beim
+Versuch, die Ergebnisdatei zu schreiben, mit dem bekannten Jinja-Fehler ab
+— nichts wurde gespeichert.
+
+Claude hat die erste Bild-Batch daraufhin selbst per WebSearch/WebFetch
+recherchiert (Commons ist fuer Claudes Fetch-Zugriff normal erreichbar).
+**5 Bilder gefunden, einzeln ueber die echte Commons-Dateiseite verifiziert
+(Lizenzbox, Autor, exakte Attribution) und der Hotlink per `curl` auf HTTP
+200 getestet**, dann in `katalog.ts` und `bildnachweise.json` eingetragen:
+
+- **LF03 Mauern**: Bricklayer J4.jpg (Jamain, CC BY-SA 3.0)
+- **LF04 Stahlbeton**: BGJ Lernfeld 4 – Stahlbeton Waende Rahmenschalung...jpg (Patrick Oberdoerfer, CC BY-SA 4.0)
+- **LF08 Erdbau**: Dresden, Fritz-Loeffler-Gymnasium, Baugrube 031.jpg (Bybbisch94 & Christian Gebhardt, CC BY-SA 4.0)
+- **LF09 Pflaster**: Paving being laid arp.jpg (Adrian Pingstone/Arpingstone, gemeinfrei)
+- **LF12 Weichen**: New point motor.jpg (Phil Sangwell, CC BY 2.0)
+
+Per Playwright bestaetigt: alle 5 Kacheln auf `/kategorie/lernfelder`
+zeigen das richtige Bild, Bildnachweise-Seite listet alle 5 Eintraege
+korrekt, keine Konsolenfehler, Build gruen. Damit sind 5 von 14
+Lernfeldern bebildert. Offen: LF10/LF13 (keine ueberzeugenden Treffer bei
+der ersten Suche) sowie LF01/02/05/06/07/11/14 (noch nicht recherchiert).
+Details: [[../14-Gwen-Code-Aufgaben/14-Rechentrainer-Umbau]].
+
+---
+
+## 2026-08-23 — Rechentrainer auf Streckenplan umgestellt, Selbstlern-Texte raus, zwei neue Bilder
+
+Der komplette Rechentrainer-Bereich (Nivellieren, Volumen, Prozentrechnung,
+Gesamtquiz, Materialrechner) war als letzter Teil der App noch im alten
+weiss/hellblauen Ionic-Standarddesign. Jetzt durchgehend Streckenplan-Design
+(dunkel, `--sp-*`-Tokens). Bei Nivellieren/Volumen/Prozentrechnung wurden
+zusaetzlich die ausfuehrlichen Selbstlern-Texte (Leitfaden-Bloecke,
+"Erledigt"-Tracking, Block-Navigation) komplett entfernt — Tim vermittelt
+die Inhalte selbst, die App soll nur noch abfragen. Alle drei Seiten sind
+jetzt strukturell wie Gesamtquiz: Hero + volle Quiz-Engine, sonst nichts.
+Das seit 2026-08-17 bereits tote `SELBSTSTUDIUM_TILES`-Array in
+`katalog.ts` wurde mit geloescht (verwies genau auf die jetzt entfernten
+Texte). Zwei neue selbst gezeichnete SVG-Grafiken (Nivellieren-Geraet-
+Diagramm, Gesamtquiz-Netz-Motiv) schliessen die letzten Bild-Luecken im
+Rechentrainer-Bereich, im gleichen Stil wie die bestehenden
+Volumen/Prozentrechnung/Trassenplan-SVGs.
+
+**Gwen-Bilanz:** durchwachsen — die globale Cline-Installation war zu
+Sitzungsbeginn tatsaechlich kaputt (`npm install -g cline` hat es
+behoben, siehe [[../14-Gwen-Code-Aufgaben/14-Rechentrainer-Umbau]]), und
+danach trat ein **neues, sechstes Gwen-Fehlerbild** auf: neuer Inhalt wurde
+an den alten angehaengt statt ihn zu ersetzen — technisch gueltiges SCSS,
+gruener Build, aber die alten (falschen) Regeln haetten dank CSS-Kaskade
+gewonnen. Nur durch vollstaendiges Lesen der Datei entdeckt, nicht durch
+den Diff allein. Von 6 fuer Gwen vorgesehenen Reskin-Dateien wurde am Ende
+nur 1 tatsaechlich brauchbar von Gwen geliefert, der Rest von Claude direkt
+geschrieben.
+
+Die Recherche fuer die noch fehlenden 14 Lernfelder-Bilder wurde ueber
+Gwen angestossen — Ergebnis siehe Eintrag oben ("Fuenf Lernfeld-Bilder
+recherchiert und eingebaut"): der Gwen-Dispatch scheiterte strukturell,
+Claude hat die erste Batch stattdessen selbst recherchiert.
+
+Per Playwright bestaetigt: alle 5 Rechentrainer-Seiten + die
+Rechentrainer-Kategorieseite durchgehend im neuen Design, keine
+Konsolenfehler, neue Bilder rendern korrekt.
+
+---
+
 ## 2026-08-22 (4) — Quiz-Duell: Wiedereinstieg zeigt immer die Auswahl statt automatisch das letzte Match fortzusetzen
 
 Bug aus der vorigen Runde: Ionic haelt Seiten im Navigations-Cache am Leben

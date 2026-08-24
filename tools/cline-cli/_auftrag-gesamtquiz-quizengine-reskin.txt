@@ -1,3 +1,8 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts (NgModule-basiert, standalone: false). Es gibt bereits eine fertige, funktionierende Datei src/app/modules/zusatz/gesamtquiz/components/quiz-engine.component.html (NICHT anfassen). Du sollst NUR das dazugehoerige SCSS ersetzen -- reines Farb-/Schrift-Reskin, keine Strukturaenderung.
+
+Ersetze GENAU diese eine Datei mit EXAKT diesem Inhalt (nichts umformulieren, nichts kuerzen, nichts ergaenzen, bestehenden Inhalt komplett ersetzen):
+
+=== DATEI: src/app/modules/zusatz/gesamtquiz/components/quiz-engine.component.scss ===
 :host {
   display: block;
 }
@@ -91,6 +96,57 @@ ion-item.selected {
   border: 1px solid var(--sp-accent-2);
 }
 
+.instant-feedback {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--sp-border);
+  font-family: var(--font-body);
+}
+
+.instant-feedback strong {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.instant-feedback p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--sp-text);
+}
+
+.instant-feedback .source {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--sp-text-muted);
+}
+
+.instant-feedback .source a {
+  color: var(--sp-accent-2);
+}
+
+.instant-feedback.correct {
+  background: rgba(111, 191, 115, 0.1);
+  border-color: rgba(111, 191, 115, 0.35);
+}
+
+.instant-feedback.correct strong {
+  color: var(--sp-success);
+}
+
+.instant-feedback.wrong {
+  background: rgba(224, 128, 111, 0.1);
+  border-color: rgba(224, 128, 111, 0.35);
+}
+
+.instant-feedback.wrong strong {
+  color: var(--sp-danger);
+}
+
 .nav-row {
   display: flex;
   align-items: center;
@@ -137,3 +193,5 @@ ion-button {
   color: var(--sp-text);
   margin: 0 0 10px;
 }
+
+WICHTIG: Schreibe die Datei exakt wie oben angegeben, mit allen Zeilenumbruechen. Melde am Ende kurz, welche Datei du geschrieben hast.

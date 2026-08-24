@@ -114,10 +114,14 @@ abhaken, sobald geklärt.
   fuer die Zeichnung geschaetzt ist — sollte bei Gelegenheit gegen echte
   Quellen (Normtabellen, EN 13674) geprueft werden, bevor die Werte als
   gepruefter Lehrinhalt gelten.
-- [ ] **Selbststudium-Wiedereinbindung.** Seit der Startseiten-Entschlackung
-  (2026-08-17) ist `SELBSTSTUDIUM_TILES` in `katalog.ts` nirgends mehr
-  verlinkt (Daten bleiben erhalten). Tim: "Das machen wir später" — nicht von
-  selbst reaktivieren, nur auf explizite Anfrage.
+- [x] **Selbststudium-Wiedereinbindung — erledigt sich anders als gedacht
+  (2026-08-23).** Tim wollte die Selbstlern-Texte NICHT zurueck, sondern
+  komplett entfernt haben (er vermittelt die Inhalte selbst, die App soll
+  nur noch Quiz sein). `SELBSTSTUDIUM_TILES` und die zugehoerigen
+  Leitfaden-Inhalte (content.json, Lesson-Renderer, Block-Navigation) bei
+  Nivellieren/Volumen/Prozentrechnung sind jetzt geloescht, nicht nur
+  unverlinkt. Siehe [[../05-Update-Log/Update-Log]] (2026-08-23) und
+  [[../14-Gwen-Code-Aufgaben/14-Rechentrainer-Umbau]].
 
 ## Quiz-Duell-Feature (2026-08-20 Grundgerüst, 2026-08-22 zweimal umgebaut)
 
@@ -172,10 +176,30 @@ echtes Gleisplan-SVG statt Luftbild), Bildgroesse auf Kacheln kompakter.
   offen — evtl. als Recherche-Auftrag an Gwen (Bildkandidaten fuer die
   restlichen Themen sind ohnehin schon Teil des erweiterten Auftrags in
   `08-Recherche-Gwen/02-Erweiterter-Auftrag-2026-08-11.md`).
-- [ ] **Bilder fuer Lernfeld-Quizze**: Tim moechte auch bei den
-  Gleisbau-Lernfeldern (LF10-14, z. B. "Gleisboegen herstellen", "Weichen
-  montieren") und den Selbststudium/Quiz-Modulen passende Bilder — bisher
-  nur die 10 Themenquiz-Themen + Header + Materialrechner bebildert.
+- [x] **Bilder fuer die 14 Lernfelder (LF01-14) — erledigt (2026-08-24).**
+  Alle 14 haben jetzt ein Bild: 12 per Commons-Foto (von Claude direkt
+  per WebSearch/WebFetch recherchiert, jedes einzeln ueber die echte
+  Commons-Dateiseite verifiziert), 2 (LF11 Gleisboegen, LF14
+  Sonderbauformen) als eigene SVG, da zu abstrakt/rechnerisch bzw. zu
+  unspezifisch fuer ein passendes Foto. Der urspruengliche Gwen-Dispatch
+  dafuer war gescheitert (Gwens Fetch-Tool bekommt bei Commons-Seiten
+  durchgehend HTTP 403, siehe siebter Fallstrick in [[../00-Start-Hier]]).
+  Details: [[../14-Gwen-Code-Aufgaben/14-Rechentrainer-Umbau]].
+- [x] **Bilder fuer die 4 Spiele-Kacheln — erledigt (2026-08-24).** Waren
+  bisher komplett ohne Bild (uebersehen bei der urspruenglichen
+  Bild-Recherche). Nivellierlatte ablesen und Schienen erkennen haben
+  jetzt ein Commons-Foto, Schienenkopf-Verschleissmesser und Quiz-Duell
+  eine eigene SVG (kein brauchbares Foto fuer das Nischenmessgeraet bzw.
+  fuer das abstrakte App-Feature auffindbar). Damit haben jetzt **alle
+  33 Katalog-Kacheln der App** (10 Wissenstests + 14 Lernfelder + 5
+  Rechentrainer + 4 Spiele) ein Bild.
+- [ ] **Verwaister `dashboard-header`-Eintrag in `bildnachweise.json`**
+  (Cogload-Junction-Foto) wird von keinem Code mehr referenziert — Relikt
+  aus der Zeit vor dem Dashboard-Redesign 2026-08-17, das die
+  Einzelthemen-Liste von der Startseite entfernt hat. Aufgefallen bei der
+  Bild-Vervollstaendigung 2026-08-24, nicht angefasst (ausserhalb des
+  damaligen Auftrags). Bei Gelegenheit entweder loeschen oder wieder
+  irgendwo einbinden.
 
 ## Unbekannt / an Tim zu klären
 

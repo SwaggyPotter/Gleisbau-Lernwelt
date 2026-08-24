@@ -10,7 +10,7 @@ Dieser Vault ist der zentrale Wissensspeicher für das Projekt **Gleisbau Lernwe
 was das Projekt ist, wie es aufgebaut ist, was zuletzt passiert ist, was offen ist
 — und wie Gwen (das lokale KI-Modell) gesteuert wird.
 
-**Stand dieser Datei: 2026-08-22.** Sie wird bei größeren Änderungen aktualisiert,
+**Stand dieser Datei: 2026-08-24.** Sie wird bei größeren Änderungen aktualisiert,
 ist aber kein Ersatz für `git log` / `git status` — bei Zweifeln immer den echten
 Code-Stand prüfen.
 
@@ -29,7 +29,7 @@ Code-Stand prüfen.
 7. [[03-Module/Übersicht]] — Module im Detail.
 8. [[04-Lernfelder/Lernfelder-Übersicht]] — die 14 Lernfelder.
 9. [[14-Gwen-Code-Aufgaben/01-Nivellierlatte-Feinschliff]] ff. — Protokolle aller
-   bisherigen Gwen-Code-Aufträge (Runden 01–13), inkl. jeweiliger Fehlerbilder.
+   bisherigen Gwen-Code-Aufträge (Runden 01–14), inkl. jeweiliger Fehlerbilder.
 10. [[08-Recherche-Gwen/00-Rechercheauftrag-für-Gwen]],
     [[10-Gesamtquiz-Pruefung/00-Anweisung-für-Gwen]],
     [[11-Fragen-Generierung/00-Anweisung-für-Gwen]] — laufende
@@ -56,11 +56,21 @@ Datei + das Update-Log, nicht blind auf die Architektur-/Modul-Dateien.
   (`/kategorie/:id`, eine Komponente `modules/kategorie/`). Kachel-Daten dafür
   zentral in `src/app/shared/katalog.ts` (`WISSENSTEST_TILES`,
   `GLEISBAU_LERNFELD_TILES`, `BAUBERUFE_TILES`, `RECHENTRAINER_TILES`,
-  `SPIELE_TILES`, `SELBSTSTUDIUM_TILES`).
+  `SPIELE_TILES`).
 - **Dashboard** (`/dashboard`) zeigt nur noch 4 Bereichs-Kacheln + eine
   bereichsübergreifende Suche — **keine** Einzelthemen-Liste mehr.
-  **Selbststudium ist aktuell nirgends verlinkt** (Daten in `SELBSTSTUDIUM_TILES`
-  bleiben erhalten, Tim: "Das machen wir später" — nicht von selbst reaktivieren).
+  **Selbststudium/Lesestoff existiert seit 2026-08-23 nicht mehr** (Tim
+  wollte es nicht zurück, sondern ganz weg — `SELBSTSTUDIUM_TILES` und die
+  zugehörigen Leitfaden-Inhalte sind gelöscht, nicht nur unverlinkt, siehe
+  Update-Log 2026-08-23). Rechentrainer (Nivellieren/Volumen/
+  Prozentrechnung) ist seitdem reine Quiz-Abfrage, keine Lesetexte mehr.
+- **Bilder in der App: Stand 2026-08-24 hat JEDE Katalog-Kachel ein
+  Bild** (10 Wissenstests + 14 Lernfelder + 5 Rechentrainer + 4 Spiele =
+  33/33). Die meisten Fotos hat Claude direkt per WebSearch/WebFetch
+  recherchiert und einzeln über die echte Commons-Dateiseite verifiziert
+  — Gwen konnte das nicht liefern, siehe siebter Fallstrick unten.
+  Fehlende/unpassende Fotomotive sind eigene SVGs im Streckenplan-Stil
+  (`src/assets/bilder/*.svg`). Details: [[14-Gwen-Code-Aufgaben/14-Rechentrainer-Umbau]].
 - **Design**: eigenes "Streckenplan"-System (Blaupausen-Optik), CSS Custom
   Properties `--sp-*`/`--font-*` in `src/theme/variables.scss`, Fonts Oswald/
   Barlow/JetBrains Mono selbst gehostet als woff2. Neue Module binden sich
@@ -253,6 +263,56 @@ ALLE genannten Dateien unter "Veraenderte Dateien" auftauchen** — nicht nur
 den Gesamtstatus werten. Bei nur teilweise geänderten Dateien: die
 übersprungene(n) Datei(en) selbst nachtragen.
 
+### ⚠️ Sechster Fallstrick: neuer Inhalt wird an den alten angehängt statt ihn zu ersetzen
+
+Neu beobachtet beim Rechentrainer-Umbau (2026-08-23, siehe
+[[14-Gwen-Code-Aufgaben/14-Rechentrainer-Umbau]]): bei einem reinen
+Reskin-Auftrag für eine bereits existierende Datei hat Gwen den neuen
+Inhalt ans Ende der Datei **angehängt**, statt den alten zu ersetzen — die
+Datei enthielt danach beide Regelsätze hintereinander. Technisch gültiges
+SCSS, `SUCCESS_BUILD_OK`, aber durch CSS-Kaskade hätten die weiter unten
+stehenden ALTEN (falschen) Regeln gewonnen — die Seite wäre optisch
+unverändert geblieben, trotz "erfolgreichem" Auftrag. Nur durch
+vollständiges Lesen der Datei entdeckt, der kurze `git diff --stat` allein
+(nur Zeilenzahl) hätte das nicht gezeigt.
+
+**Regel: Bei jedem Reskin/Ersetz-Auftrag für eine bereits existierende
+Datei die geschriebene Datei einmal komplett lesen, nicht nur die
+Diff-Zeilenzahl** — prüfen, ob am Ende noch ein alter, eigentlich zu
+ersetzender Regelblock übrig geblieben ist.
+
+Bei derselben Runde zusätzlich beobachtet (kein Gwen-Fehler, aber relevant
+fürs nächste Mal): die globale `cline`-Installation
+(`%APPDATA%\npm\node_modules\cline`) war zwischenzeitlich korrupt (Ordner
+nur noch mit leerem `node_modules`, keine eigenen Paketdateien mehr) —
+äußerte sich als Kaskade aus Jinja-Template-Crash → `EBUSY` beim
+Neustart → `Cannot find module '...\cline\bin\cline'` über drei
+Retry-Versuche hinweg. Fix: `npm install -g cline` neu installieren. Falls
+alle drei Versuche eines Dispatches mit unterschiedlichen, eskalierenden
+Fehlern durchfallen (nicht dieselbe Fehlermeldung wiederholt): zuerst
+`ls %APPDATA%\npm\node_modules\cline\bin\` prüfen, bevor man an einem
+vermeintlichen Gwen-Inhaltsproblem sucht.
+
+### ⚠️ Siebter Fallstrick: Gwens Fetch-Tool erreicht Wikimedia Commons strukturell nicht (HTTP 403)
+
+Neu beobachtet bei der Lernfelder-Bild-Recherche (2026-08-23, siehe
+[[14-Gwen-Code-Aufgaben/14-Rechentrainer-Umbau]]): Anders als die bisherigen
+sechs Fallstricke ist das kein Zuverlässigkeits-, sondern ein
+Infrastrukturproblem. Wenn Gwen im dritten Retry-Versuch die Aufgabe
+inhaltlich richtig verstanden hatte und tatsächlich zu recherchieren
+begann, bekam **jeder** Versuch, eine `commons.wikimedia.org`-Seite per
+Fetch-Tool zu laden, HTTP 403 zurück — nicht gelegentlich, sondern
+durchgehend. Gwen wich daraufhin unaufgefordert auf Pixabay/Pexels aus,
+was der im Auftrag festgelegten Commons-Präferenz widerspricht.
+
+**Regel: Für Bild-Recherche mit Wikimedia Commons als bevorzugter Quelle
+ist Gwen aktuell strukturell ungeeignet — das übernimmt Claude direkt per
+WebSearch/WebFetch** (dort funktioniert der Commons-Zugriff normal, siehe
+die 5 in dieser Runde recherchierten Lernfeld-Bilder). Gwen bleibt
+weiterhin sinnvoll für Aufgaben, die keinen Commons-Fetch brauchen (reine
+Fachtext-Recherche, Formeln, Normen-Zusammenfassungen — wie der LF11-Teil
+derselben Runde, der inhaltlich brauchbar war).
+
 ### Gwens dokumentierte Unzuverlässigkeit (Kurzfassung)
 
 - Bei offener Web-Recherche: erfundene Normen/Quellen kommen vor (mehrfach
@@ -369,7 +429,8 @@ Ki Datenspeicher/
     ├── 10-Quizduell-Umbau-Duell-Seite.md
     ├── 11-Quizduell-Umbau-Statistik-Seite.md
     ├── 12-Quizduell-Umbau-Frage-Komponente.md
-    └── 13-Quizduell-Referenz-Umbau.md
+    ├── 13-Quizduell-Referenz-Umbau.md
+    └── 14-Rechentrainer-Umbau.md
 ```
 
 ## Pflegehinweis

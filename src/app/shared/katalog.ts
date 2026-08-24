@@ -20,53 +20,17 @@ export type QuizTile = {
   imageCredit?: string;
 };
 
-/**
- * Lesestoff zum Selbststudium. AKTUELL BEWUSST NICHT VERLINKT (Tim,
- * 2026-08-17: "die Seite so umgebaut wird das man nur noch Quiz hat, nichts
- * zum selbst lernen — das machen wir spaeter"). Die Daten bleiben hier
- * stehen, damit der Bereich spaeter ohne Neuaufbau wieder eingehaengt werden
- * kann; die Zielseiten (/zusatz/...) existieren unveraendert weiter.
- */
-export const SELBSTSTUDIUM_TILES: QuizTile[] = [
-  {
-    id: 'selbststudium-nivellieren',
-    title: 'Nivellieren im Gleisbau',
-    description: 'Leitfaden inkl. Checklisten aus dem Nivellement-PDF, Schritt fuer Schritt zum Selbststudium.',
-    tag: 'Lesen',
-    icon: 'trending-up-outline',
-    link: '/zusatz/nivellieren',
-  },
-  {
-    id: 'selbststudium-volumen',
-    title: 'Volumen berechnen',
-    description: 'Grundlagen zur Volumenberechnung im Gleisbau, inkl. Trapezprofilen und Aussparungen.',
-    tag: 'Lesen',
-    icon: 'cube-outline',
-    link: '/zusatz/volumen',
-    image: 'assets/bilder/volumen-trapezprofil.svg',
-    imageCredit: 'Eigene Grafik',
-  },
-  {
-    id: 'selbststudium-prozentrechnung',
-    title: 'Prozentrechnung',
-    description: 'Prozentwert, Rabatt, Erhoehung, Rueckrechnung und Toleranzen mit praxisnahen Erklaerungen.',
-    tag: 'Lesen',
-    icon: 'calculator-outline',
-    link: '/zusatz/prozentrechnung',
-    image: 'assets/bilder/prozentrechnung-diagramm.svg',
-    imageCredit: 'Eigene Grafik',
-  },
-];
 
 export const RECHENTRAINER_TILES: QuizTile[] = [
   {
     id: 'quiz-nivellieren',
     title: 'Nivellieren im Gleisbau',
-    description: 'Wissen zum Nivellieren abfragen (springt direkt zum Gesamtquiz des Moduls).',
+    description: 'Wissen zum Nivellieren im Gleisbau abfragen — Aufbau, Messen und Kontrolle.',
     tag: 'Quiz',
     icon: 'trending-up-outline',
     link: '/zusatz/nivellieren',
-    queryParams: { view: 'quiz' },
+    image: 'assets/bilder/nivellieren-diagramm.svg',
+    imageCredit: 'Eigene Grafik',
   },
   {
     id: 'quiz-volumen',
@@ -75,7 +39,6 @@ export const RECHENTRAINER_TILES: QuizTile[] = [
     tag: 'Quiz',
     icon: 'cube-outline',
     link: '/zusatz/volumen',
-    queryParams: { view: 'quiz' },
     image: 'assets/bilder/volumen-trapezprofil.svg',
     imageCredit: 'Eigene Grafik',
   },
@@ -86,7 +49,6 @@ export const RECHENTRAINER_TILES: QuizTile[] = [
     tag: 'Quiz',
     icon: 'calculator-outline',
     link: '/zusatz/prozentrechnung',
-    queryParams: { view: 'quiz' },
     image: 'assets/bilder/prozentrechnung-diagramm.svg',
     imageCredit: 'Eigene Grafik',
   },
@@ -97,6 +59,8 @@ export const RECHENTRAINER_TILES: QuizTile[] = [
     icon: 'trophy-outline',
     tag: 'Quiz',
     link: '/zusatz/gesamtquiz',
+    image: 'assets/bilder/gesamtquiz-diagramm.svg',
+    imageCredit: 'Eigene Grafik',
   },
   {
     id: 'quiz-materialrechner',
@@ -118,6 +82,8 @@ export const SPIELE_TILES: QuizTile[] = [
     tag: 'Spiel',
     icon: 'analytics-outline',
     link: '/zusatz/nivellierlatte',
+    image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Nivellierlatte-einfach.JPG?width=900',
+    imageCredit: 'Wurzeltee, CC BY-SA 3.0, via Wikimedia Commons',
   },
   {
     id: 'spiel-schienenmesser',
@@ -126,6 +92,8 @@ export const SPIELE_TILES: QuizTile[] = [
     tag: 'Spiel',
     icon: 'git-compare-outline',
     link: '/zusatz/schienenmesser',
+    image: 'assets/bilder/schienenmesser-diagramm.svg',
+    imageCredit: 'Eigene Grafik',
   },
   {
     id: 'spiel-schienenraten',
@@ -134,6 +102,8 @@ export const SPIELE_TILES: QuizTile[] = [
     tag: 'Spiel',
     icon: 'shapes-outline',
     link: '/zusatz/schienenraten',
+    image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Schienenformen_der_Stra%C3%9Fenbahn_Leipzig.jpg?width=900',
+    imageCredit: 'Falk2, CC BY-SA 3.0, via Wikimedia Commons',
   },
   {
     id: 'spiel-quizduell',
@@ -142,6 +112,8 @@ export const SPIELE_TILES: QuizTile[] = [
     tag: 'Spiel',
     icon: 'people-outline',
     link: '/zusatz/quizduell',
+    image: 'assets/bilder/quizduell-diagramm.svg',
+    imageCredit: 'Eigene Grafik',
   },
 ];
 
@@ -280,6 +252,8 @@ export const GLEISBAU_LERNFELD_TILES: QuizTile[] = [
       link: '/themenquiz/lf10',
       topicId: 'lf10',
       questionCount: 24,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Gleisbau_in_Probsteierhagen_(1).jpg?width=900',
+      imageCredit: 'Siegbert Brey (Snoopy1964), CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'lernfeld-lf11',
@@ -290,6 +264,8 @@ export const GLEISBAU_LERNFELD_TILES: QuizTile[] = [
       link: '/themenquiz/lf11',
       topicId: 'lf11',
       questionCount: 23,
+      image: 'assets/bilder/gleisbogen-diagramm.svg',
+      imageCredit: 'Eigene Grafik',
     },
     {
       id: 'lernfeld-lf12',
@@ -300,6 +276,8 @@ export const GLEISBAU_LERNFELD_TILES: QuizTile[] = [
       link: '/themenquiz/lf12',
       topicId: 'lf12',
       questionCount: 23,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/New_point_motor.jpg?width=900',
+      imageCredit: 'Phil Sangwell, CC BY 2.0, via Wikimedia Commons',
     },
     {
       id: 'lernfeld-lf13',
@@ -310,6 +288,8 @@ export const GLEISBAU_LERNFELD_TILES: QuizTile[] = [
       link: '/themenquiz/lf13',
       topicId: 'lf13',
       questionCount: 24,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Weichenheizung.JPG?width=900',
+      imageCredit: 'Fabian Grunder, CC BY-SA 3.0, via Wikimedia Commons',
     },
     {
       id: 'lernfeld-lf14',
@@ -320,6 +300,8 @@ export const GLEISBAU_LERNFELD_TILES: QuizTile[] = [
       link: '/themenquiz/lf14',
       topicId: 'lf14',
       questionCount: 24,
+      image: 'assets/bilder/sonderbauformen-diagramm.svg',
+      imageCredit: 'Eigene Grafik',
     },
 ];
 
@@ -334,6 +316,8 @@ export const BAUBERUFE_TILES: QuizTile[] = [
       link: '/themenquiz/lf01',
       topicId: 'lf01',
       questionCount: 72,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Baustelle_HafenCity_2101-0036.jpg?width=900',
+      imageCredit: 'Mozzihh (Henning Sidow), CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'lernfeld-lf02',
@@ -344,6 +328,8 @@ export const BAUBERUFE_TILES: QuizTile[] = [
       link: '/themenquiz/lf02',
       topicId: 'lf02',
       questionCount: 30,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Baugrube_mit_B%C3%B6schung_und_Arbeitsraum.jpg?width=900',
+      imageCredit: 'Patrick Oberdoerfer, CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'lernfeld-lf03',
@@ -354,6 +340,8 @@ export const BAUBERUFE_TILES: QuizTile[] = [
       link: '/themenquiz/lf03',
       topicId: 'lf03',
       questionCount: 34,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Bricklayer_J4.jpg?width=900',
+      imageCredit: 'Jamain, CC BY-SA 3.0, via Wikimedia Commons',
     },
     {
       id: 'lernfeld-lf04',
@@ -364,6 +352,8 @@ export const BAUBERUFE_TILES: QuizTile[] = [
       link: '/themenquiz/lf04',
       topicId: 'lf04',
       questionCount: 31,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/BGJ_Lernfeld_4_-_Stahlbeton_W%C3%A4nde_Rahmenschalung_Baustelle_Am_Oberwiesenfeld_002.jpg?width=900',
+      imageCredit: 'Patrick Oberdoerfer, CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'lernfeld-lf05',
@@ -374,6 +364,8 @@ export const BAUBERUFE_TILES: QuizTile[] = [
       link: '/themenquiz/lf05',
       topicId: 'lf05',
       questionCount: 31,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Fachwerk_Abbund.jpg?width=900',
+      imageCredit: 'Georg Hefter (georghefter.de), CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'lernfeld-lf06',
@@ -384,6 +376,8 @@ export const BAUBERUFE_TILES: QuizTile[] = [
       link: '/themenquiz/lf06',
       topicId: 'lf06',
       questionCount: 30,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/W%C3%A4rmed%C3%A4mmverbundsystem_(WDVS)_teilweise_auf_Altbau..JPG?width=900',
+      imageCredit: 'Handwerker, CC BY-SA 3.0, via Wikimedia Commons',
     },
     {
       id: 'lernfeld-lf07',
@@ -394,6 +388,8 @@ export const BAUBERUFE_TILES: QuizTile[] = [
       link: '/themenquiz/lf07',
       topicId: 'lf07',
       questionCount: 25,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Ramm-_und_Rammkernsondierung.jpg?width=900',
+      imageCredit: 'Jonas Boerje Lundin, CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'lernfeld-lf08',
@@ -404,6 +400,8 @@ export const BAUBERUFE_TILES: QuizTile[] = [
       link: '/themenquiz/lf08',
       topicId: 'lf08',
       questionCount: 23,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Dresden%2C_Fritz-L%C3%B6ffler-Gymnasium%2C_Baugrube_031.jpg?width=900',
+      imageCredit: 'Bybbisch94 und Christian Gebhardt, CC BY-SA 4.0, via Wikimedia Commons',
     },
     {
       id: 'lernfeld-lf09',
@@ -414,5 +412,7 @@ export const BAUBERUFE_TILES: QuizTile[] = [
       link: '/themenquiz/lf09',
       topicId: 'lf09',
       questionCount: 23,
+      image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Paving_being_laid_arp.jpg?width=900',
+      imageCredit: 'Adrian Pingstone (Arpingstone), gemeinfrei',
     },
 ];

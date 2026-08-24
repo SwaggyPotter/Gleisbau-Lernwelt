@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, shareReplay } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { BlockProgress, ContentBlock, QuizFile } from '../models/lf02.models';
+import { BlockProgress, QuizFile } from '../models/lf02.models';
 
 const STORAGE_KEY = 'nivellieren-progress';
 
@@ -10,20 +10,9 @@ const STORAGE_KEY = 'nivellieren-progress';
 export class NivellierenDataService {
   private readonly base = 'assets/zusatz/nivellieren/';
 
-  private content$?: Observable<ContentBlock[]>;
   private quiz$?: Observable<QuizFile>;
 
   constructor(private readonly http: HttpClient) {}
-
-  getContent(): Observable<ContentBlock[]> {
-    if (!this.content$) {
-      this.content$ = this.http.get<{ blocks: ContentBlock[] }>(`${this.base}content.json`).pipe(
-        map(res => res.blocks ?? []),
-        shareReplay(1),
-      );
-    }
-    return this.content$;
-  }
 
   getQuiz(): Observable<QuizFile> {
     if (!this.quiz$) {
@@ -35,13 +24,13 @@ export class NivellierenDataService {
   loadProgress(): BlockProgress {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
-      return { completedBlocks: [], quizStats: {} };
+      return { quizStats: {} };
     }
     try {
       return JSON.parse(raw) as BlockProgress;
     } catch (e) {
       console.warn('nivellieren progress parse failed', e);
-      return { completedBlocks: [], quizStats: {} };
+      return { quizStats: {} };
     }
   }
 
@@ -49,15 +38,6 @@ export class NivellierenDataService {
     const merged: BlockProgress = { ...this.loadProgress(), ...next };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
     return merged;
-  }
-
-  toggleBlockCompleted(blockId: string): BlockProgress {
-    const state = this.loadProgress();
-    const exists = state.completedBlocks.includes(blockId);
-    const completedBlocks = exists
-      ? state.completedBlocks.filter(id => id !== blockId)
-      : [...state.completedBlocks, blockId];
-    return this.saveProgress({ completedBlocks });
   }
 
   recordQuizResult(questionId: string, correct: boolean): BlockProgress {

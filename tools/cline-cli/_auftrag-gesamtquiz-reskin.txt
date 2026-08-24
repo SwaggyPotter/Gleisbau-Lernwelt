@@ -1,3 +1,8 @@
+Du bist Gwen und arbeitest im Projekt-Root eines Angular/Ionic-Projekts (NgModule-basiert, standalone: false). Es gibt bereits eine fertige, funktionierende Datei src/app/modules/zusatz/gesamtquiz/pages/gesamtquiz.page.html (NICHT anfassen). Du sollst NUR das dazugehoerige SCSS ersetzen -- reines Farb-/Schrift-Reskin, keine Strukturaenderung.
+
+Ersetze GENAU diese eine Datei mit EXAKT diesem Inhalt (nichts umformulieren, nichts kuerzen, nichts ergaenzen, bestehenden Inhalt komplett ersetzen):
+
+=== DATEI: src/app/modules/zusatz/gesamtquiz/pages/gesamtquiz.page.scss ===
 :host {
   font-family: var(--font-body);
   color: var(--sp-text);
@@ -139,3 +144,5 @@ ion-spinner {
     flex-direction: column;
   }
 }
+
+WICHTIG: Schreibe die Datei exakt wie oben angegeben, mit allen Zeilenumbruechen. Melde am Ende kurz, welche Datei du geschrieben hast.

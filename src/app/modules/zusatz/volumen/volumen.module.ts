@@ -5,15 +5,11 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { VOLUMEN_ROUTES } from './volumen.routes';
 import { VolumenPage } from './pages/volumen.page';
-import { VolumenNavComponent } from './components/volumen-nav.component';
-import { VolumenLessonRendererComponent } from './components/lesson-renderer.component';
 import { VolumenQuizEngineComponent } from './components/quiz-engine.component';
 
 @NgModule({
   declarations: [
     VolumenPage,
-    VolumenNavComponent,
-    VolumenLessonRendererComponent,
     VolumenQuizEngineComponent,
   ],
   imports: [

@@ -68,6 +68,11 @@ const routes: Routes = [
     loadChildren: () => import('./bildnachweise/bildnachweise.module')
       .then(m => m.BildnachweisePageModule)
   },
+  {
+    path: 'quellenverzeichnis',
+    loadChildren: () => import('./quellenverzeichnis/quellenverzeichnis.module')
+      .then(m => m.QuellenverzeichnisPageModule)
+  },
   { path: '**', redirectTo: 'dashboard' }
 ];
 

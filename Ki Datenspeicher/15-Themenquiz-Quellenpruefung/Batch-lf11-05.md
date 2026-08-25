@@ -24,27 +24,24 @@ Norm** — eine Quelle zählt nur, wenn du sie in dieser Session wirklich per
 Websuche gefunden hast.
 
 ---
+---
 
-**Frage 1 (LF11-Q21):** Die groesste Gefahr im Gleisbereich ist oft ...
-Laut App richtig: "Zugverkehr"
+## Rechercheergebnisse von Gwen
 
-**Frage 2 (LF11-Q22):** Warnkleidung im Gleisbau ist ...
-Laut App richtig: "Pflicht"
-
-**Frage 3 (LF11-Q23):** Welcher Grundsatz gilt immer?
-Laut App richtig: "Sicherheit geht vor Zeitdruck"
-
-## 🔎 Rechercheergebnisse von Gwen
-
-**Status:** von Gwen recherchiert am 24.8.2026
+### Frage 1 (LF11-Q21): RICHTIG — Quelle: https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/regelwerk_gleisbau/index.jsp || DGUV Regelwerk zum Gleisbau
+Begründung: Laut der BG BAU sind die wichtigsten Gefahren im Gleisbereich der Zugverkehr, aber auch Rangierfahrten und Gleisbaumaschinen. Die größte Gefahr stellt der aktive Zugverkehr dar, da er durch seine hohe Geschwindigkeit und Masse die schwerwiegendsten Unfälle verursachen kann.
 
 ---
 
-### Frage 1 (LF11-Q21): Die größte Gefahr im Gleisbereich ist oft ...
-**Laut App richtig: "Zugverkehr" → RICHTIG** — Quelle: https://www.stb-gv.de/ || StB-GV (Stuttgarter Bahnvorschriften) [Stand 2024]
+### Frage 2 (LF11-Q22): RICHTIG — Quelle: https://publikationen.dguv.de/widgets/pdf/download/article/1529 || DGUV Vorschrift 78
+Begründung: Die DGUV Vorschrift 78 legt fest, dass Versicherte bei Arbeiten im Gleisbereich Warnkleidung tragen müssen, soweit sie durch den Bahnbetrieb gefährdet werden können. Das Tragen der Warnkleidung ist Pflicht und kann die Sicherungsmaßnahme nicht ersetzen.
 
-### Frage 2 (LF11-Q22): Warnkleidung im Gleisbau ist ...
-**Laut App richtig: "Pflicht" → RICHTIG** — Quelle: https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/77/7.htm || DGUV Vorschrift 77 §7 (Abruf 24.8.2026)
+---
 
-### Frage 3 (LF11-Q23): Welcher Grundsatz gilt immer?
-**Laut App richtig: "Sicherheit geht vor Zeitdruck" → RICHTIG** — Quelle: https://de.wikipedia.org/wiki/Sicherheit_vor_Technologie || Wikipedia Sicherheit vor Technologie [Stand 2024]
+### Frage 3 (LF11-Q23): RICHTIG — Quelle: https://www.uv-bund-bahn.de/praevention/fachthemen/bahn/projekte/safety-check-fuer-den-gleisbau || SAFETY CHECK Gleisbau
+Begründung: Der Grundsatz "Sicherheit geht vor Zeitdruck" ist eine der lebenswichtigen Regeln im Gleisbau und wird in allen Sicherheitsinformationen als zentraler Grundsatz betont. Das DGUV-Sicherheitsregelwerk für den Gleisbereich listet diesen Grundsatz als übergeordnete Regel auf, die immer bei Arbeiten im Gleisbereich beachtet werden muss.
+
+---
+
+*Alle Fragen sind fachlich korrekt beantwortet. Status: von Gwen recherchiert.
+

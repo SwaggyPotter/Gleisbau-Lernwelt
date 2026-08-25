@@ -12,7 +12,9 @@
         "wegen Laerm"
       ],
       "correctIndex": 0,
-      "explanation": "Entwaesserung schuetzt Bauwerke und Flaechen vor Wasser- und Frostschaeden."
+      "explanation": "Entwaesserung schuetzt Bauwerke und Flaechen vor Wasser- und Frostschaeden.",
+      "source": "Straßenentwässerung",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Stra%C3%9Fenentw%C3%A4sserung"
     },
     {
       "id": "LF09-Q2",
@@ -24,7 +26,9 @@
         "billiger Beton"
       ],
       "correctIndex": 0,
-      "explanation": "Getrennte Leitungen verbessern Betrieb und Behandlung der Wasserarten."
+      "explanation": "Getrennte Leitungen verbessern Betrieb und Behandlung der Wasserarten.",
+      "source": "Trennsystem",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Trennsystem"
     },
     {
       "id": "LF09-Q3",
@@ -36,7 +40,9 @@
         "als Abstandhalter"
       ],
       "correctIndex": 0,
-      "explanation": "Dichtungen verhindern das Austreten oder Eindringen von Wasser."
+      "explanation": "Dichtungen verhindern das Austreten oder Eindringen von Wasser.",
+      "source": "Muffenabdichtung",
+      "sourceUrl": "https://www.wasser-wissen.de/abwasserlexikon/m/muffenabdichtung.htm"
     },
     {
       "id": "LF09-Q4",
@@ -49,8 +55,8 @@
       ],
       "correctIndex": 0,
       "explanation": "Die Bettung stuetzt das Rohr und reduziert schaedliche Punktlasten.",
-      "source": "Das Bauhandbuch Straßenbau bestätigt, dass Rohrbettung vor mechanischen Beschädigungen…",
-      "sourceUrl": "https://www.bauhandbuch.de/bhs/03-strassenbau/hl-leitungen.html"
+      "source": "Berlin Regenwasserableitung",
+      "sourceUrl": "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/regenwasser/regenwasserableitung"
     },
     {
       "id": "LF09-Q5",
@@ -62,7 +68,9 @@
         "nichts"
       ],
       "correctIndex": 0,
-      "explanation": "Bei zu wenig Gefaelle sinkt die Fliessgeschwindigkeit und Material lagert sich ab."
+      "explanation": "Bei zu wenig Gefaelle sinkt die Fliessgeschwindigkeit und Material lagert sich ab.",
+      "source": "Baustellenklempnerarbeiten",
+      "sourceUrl": "https://www.wasser-wissen.de/abwasserlexikon/b/baustellenklempnerarbeiten.htm"
     },
     {
       "id": "LF09-Q6",
@@ -285,8 +293,8 @@
       ],
       "correctIndex": 0,
       "explanation": "Defekte Dichtungen verlieren ihre Abdichtfunktion.",
-      "source": "ynfrubberproducts.com – common factors causing seal failure best replacement practices",
-      "sourceUrl": "https://www.ynfrubberproducts.com/de/common-factors-causing-seal-failure-best-replacement-practices/"
+      "source": "Abdichtungsfehler führen zu Bauschäden (Datum: 25.8.2026)",
+      "sourceUrl": "https://www.bauschadeninstitut.de/bauschaeden-fehlerhafte-abdichtungen-ursachen-loesungen/"
     },
     {
       "id": "LF09-Q22",
@@ -299,8 +307,8 @@
       ],
       "correctIndex": 0,
       "explanation": "Nach dem Verfuellen sind Korrekturen deutlich aufwendiger.",
-      "source": "Die Baustellenverordnung umfasst verpflichtende Arbeitsschutzpflichten",
-      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/Baustellenverordnung_node"
+      "source": "Kontrollpflicht des Bauherrn (Datum: 25.8.2026)",
+      "sourceUrl": "https://www.haufe.de/id/beitrag/bauarbeiten-verkehrssicherung-13-kontrollpflicht-des-bauherrn-HI7538045.html"
     },
     {
       "id": "LF09-Q23",
@@ -313,8 +321,8 @@
       ],
       "correctIndex": 0,
       "explanation": "Fehler in der Entwaesserung beeintraechtigen dauerhaft Funktion und Sicherheit.",
-      "source": "eba.bund.de – 11 2024 Fachinformationen fuer die Entwaesserung von Bahnanlagen",
-      "sourceUrl": "https://www.eba.bund.de/SharedDocs/Fachmitteilungen/DE/2024/11_2024_Fachinformationen_fuer_die_Entwaesserung_von_Bahnanlagen.html"
+      "source": "Baustellenentwässerung Bedeutung (Datum: 25.8.2026)",
+      "sourceUrl": "https://www.deutscher-bauzeiger.de/bauen/baubeginn/wasserhaltung/baustellenentwaesserung/"
     }
   ]
 }

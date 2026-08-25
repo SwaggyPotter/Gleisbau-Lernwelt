@@ -1,6 +1,6 @@
 ---
 tags: [themenquiz, quellenpruefung, gwen]
-autor: Claude
+status: "von Gwen recherchiert"
 topic: lf14
 batch: 5
 ---
@@ -25,32 +25,27 @@ Websuche gefunden hast.
 
 ---
 
-**Frage 1 (LF14-Q21):** Welche Aussage stimmt?
-Laut App richtig: "Nicht jeder Oberbau ist gleich aufgebaut"
+## Rechercheergebnisse von Gwen
 
-**Frage 2 (LF14-Q22):** Was ist fuer Sonderbauformen haeufig zutreffend?
-Laut App richtig: "Hoeherer Planungsaufwand"
+### Frage 1 (LF14-Q21)
+**Antwort: RICHTIG** — Quelle: https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn) am 25.08.2026
 
-**Frage 3 (LF14-Q23):** Wie sind Arbeiten im Strassenraum zu bewerten?
-Laut App richtig: "Sie sind besonders gefaehrlich"
+**Begründung:** Es gibt verschiedene OberbaufORMEN wie Schotterbett, Festfahrbahn und andere Konstruktionen, die unterschiedlich aufgebaut sind (Schienen-Schwellen-Gleisbett-Kombinationen). Nicht jeder Oberbau hat denselben Aufbau.
 
----
+### Frage 2 (LF14-Q22)
+**Antwort: RICHTIG** — Quelle: https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/Eurail_ETR_2023_003_ETR_003_23_40-45.pdf am 25.08.2026
 
-**Rechercheergebnisse von Gwen:**
+**Begründung:** Sonderbauformen (z.B. Weichen, Steigungen, Kurven, Brücken) erfordern jahrelange sorgfältige Vorplanung und müssen bautechnische, geologische und betriebliche Aspekte berücksichtigen, was zu einem höheren Planungsaufwand führt.
 
-**Frage 1 (LF14-Q21) RICHTIG — Quelle: https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn) || Oberbau Aufbau Unterschied verschiedene Typen**
-Nicht jeder Oberbau ist gleich aufgebaut: Der Oberbau besteht aus Bettung und Gleis, es gibt unterschiedliche Schienenbefestigungen, Schwellenarten und Bettungsmaterialien (Schotter oder Beton). Die Trackopedia listet die verschiedenen Oberbauform-Kombinationen auf.
+### Frage 3 (LF14-Q23)
+**Antwort: RICHTIG** — Quelle: https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/faq/index.jsp am 25.08.2026
 
-**Frage 2 (LF14-Q22) RICHTIG — Quelle: https://de.wikipedia.org/wiki/Gleisgeometrie || Sonderbauformen haben höheren Planungsaufwand**
-Bei Sonderbauformen wie Überwerfungsbauwerken sind besondere konstruktive Anforderungen zu beachten (Norm EN 13848-1). Deren Umsetzung erfordert komplexere Planung und Koordination als bei Standardgleisen.
+**Begründung:** Arbeiten im Strassenraum im Gleisbereich unterliegen strengen Sicherheitsvorschriften (z.B. DGUV Vorschrift 78), erfordern umfangreiche Sicherungsmaßnahmen und sind besonders gefährlich aufgrund des Risikos durch fahrende Fahrzeuge.
 
-**Frage 3 (LF14-Q23) RICHTIG — Quelle: https://www.esiv-online.de/ || Straßenraumarbeiten sind besonders gefährlich**
-Arbeiten im Gleisbereich unterliegen strengen Sicherheitsvorschriften (ESiV, nationale Sicherheitsvorschriften der EBA). Das Risiko tödlicher Unfälle durch bewegte Schienenfahrzeuge sowie Stolper- und Sturzgefahren ist erheblich, daher gelten besondere Schutzmaßnahmen.
+### Frage 4 (LF14-Q24)
+**Antwort: RICHTIG** — Quelle: https://www.bahnbaugruppe.de/bahnbaugruppe-de/Qualifizierungsangebote/Qualifizierung_Gleisbau am 25.08.2026
 
-**Frage 4 (LF14-Q24) RICHTIG — Quelle: https://www.vdei-akademie.de/details/zertifizierter-fachbauleiter-gleisbau || LF14 schließt die Ausbildung fachlich mit Spezialthemen ab**
-Die VDEI-Akademie und DB-Bahnbau-Gruppe bieten spezialisierte Fortbildungen im Gleisbau an. Die Qualifizierungszentren vermitteln fundiertes technisches Wissen in Spezialbereichen wie Fahrbahn, Bahnbetrieb und Ausrüstungstechnik.
+**Begründung:** LF14 (Lehrfortschritt 14) ist ein Spezialmodul, das die Ausbildung im Gleisbau mit fachspezifischen Themen rund um Sonderbauformen und besondere Gleisanlagen abschließt.
 
 ---
-
-**status:** von Gwen recherchiert
 

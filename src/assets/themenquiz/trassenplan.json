@@ -13,8 +13,8 @@
       ],
       "correctIndex": 0,
       "explanation": "Der Trassenplan stellt den Streckenverlauf in Lage (Draufsicht) und Hoehe (Laengsschnitt) dar.",
-      "source": "Höhenplan ist Teil der Entwurfs- und Ausführungsunterlagen im Eisenbahnbau.",
-      "sourceUrl": "https://de.wikipedia.org/wiki/H%C3%B6henplan"
+      "source": "de.wikipedia.org – Lageplan (Verkehrsweg)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Lageplan_(Verkehrsweg)"
     },
     {
       "id": "tp-q2",
@@ -27,7 +27,7 @@
       ],
       "correctIndex": 0,
       "explanation": "Kilometrierung bezeichnet die durchgehende Streckenkennzeichnung, mit der jeder Punkt der Strecke eindeutig lokalisiert werden kann.",
-      "source": "Die Streckenkilometrierung dient der fortlaufenden Kennzeichnung von Eisenbahnstrecken…",
+      "source": "de.wikipedia.org – Streckenkilometrierung",
       "sourceUrl": "https://de.wikipedia.org/wiki/Streckenkilometrierung"
     },
     {
@@ -41,7 +41,7 @@
       ],
       "correctIndex": 0,
       "explanation": "Der Laengsschnitt stellt dar, wie sich die Hoehe der Trasse entlang der Strecke aendert, inklusive der Steigungen und Gefaelle.",
-      "source": "Der Höhenplan (auch Längsschnitt) zeigt den vertikalen Schnitt einer Trasse einschließl…",
+      "source": "de.wikipedia.org – Höhenplan",
       "sourceUrl": "https://de.wikipedia.org/wiki/H%C3%B6henplan"
     },
     {
@@ -54,7 +54,9 @@
         "Zur Anzeige der Anzahl Weichen im Bahnhof"
       ],
       "correctIndex": 0,
-      "explanation": "Streckenkilometer erlauben es, jeden Ort entlang der Strecke praezise anzugeben, etwa fuer Bauarbeiten, Instandhaltung oder im Stoerungsfall."
+      "explanation": "Streckenkilometer erlauben es, jeden Ort entlang der Strecke praezise anzugeben, etwa fuer Bauarbeiten, Instandhaltung oder im Stoerungsfall.",
+      "source": "de.wikipedia.org – Streckenkilometrierung",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Streckenkilometrierung"
     },
     {
       "id": "tp-q5",
@@ -67,7 +69,7 @@
       ],
       "correctIndex": 0,
       "explanation": "Der Lageplan zeigt die Strecke von oben, also den Verlauf von Geraden und Boegen (Kurven).",
-      "source": "Der Lageplan zeigt die Trasse in der Draufsicht mit allen geometrischen Elementen wie G…",
+      "source": "de.wikipedia.org – Lageplan (Verkehrsweg)",
       "sourceUrl": "https://de.wikipedia.org/wiki/Lageplan_(Verkehrsweg)"
     },
     {
@@ -221,7 +223,7 @@
       ],
       "correctIndex": 1,
       "explanation": "Für die Faltung von Plänen gilt DIN 824.",
-      "source": "Faltungs-Norm DIN 824 regelt Fachzeichnungsfaltung zur Ablage (Wikipedia, durchsucht 2026)",
+      "source": "DIN 824 ist die Norm für das Falten technischer Zeichnungen auf Ablageformat (Ablagenorm)",
       "sourceUrl": "https://de.wikipedia.org/wiki/DIN_824"
     },
     {

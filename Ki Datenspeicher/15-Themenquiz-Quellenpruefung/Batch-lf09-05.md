@@ -36,36 +36,24 @@ Laut App richtig: "funktions- und sicherheitsrelevant"
 
 ---
 
-> [!gwen] Gwen-Recherche — 2026-08-24
-> **Frage 1 (LF09-Q21):** Beschaedigte Dichtungen fuhren zu ...
-> App-Antwort: "Undichtigkeiten" ✓ RICHTIG
-> 
-> Bei Beschädigungen von Dichtungen im Bahnbau entstehen Undichtigkeiten, die Wassereintritt in Konstruktionen ermöglichen und Korrosionsrisiken erhöhen. Quellen:
-> * [Häufige Ursachen für Dichtungsversagen](https://www.ynfrubberproducts.com/de/common-factors-causing-seal-failure-best-replacement-practices/) vom 11.08.2026 — "Bei Beschädigungen oder Undichtigkeiten muss die Dichtung umgehend gewechselt werden."
-> 
-> **Frage 2 (LF09-Q22):** Kontrolle vor Verfuellung ist ...
-> App-Antwort: "Pflicht" ✓ RICHTIG
-> 
-> Die Baustellenverordnung (BaustellV) und Arbeitsschutzvorschriften schreiben Kontrollen vor Baustellenmaßnahmen als Pflichtvorkehrung vor, um sicherzustellen, dass alle Sicherheitsrichtlinien eingehalten werden. Quellen:
-> * [BAuA - Baustellenverordnung](https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/Baustellenverordnung_node) — Die Baustellenverordnung umfasst verpflichtende Arbeitsschutzpflichten.
-> 
-> **Frage 3 (LF09-Q23):** Entwasserung ist fuer Baustellen vor allem ...
-> App-Antwort: "funktions- und sicherheitsrelevant" ✓ RICHTIG
-> 
-> Die Entwässerung von Bahnanlagen gemäß § 4 Abs. 1 EBO (Eisenbahn-Bundesamt) ist sowohl funktions- als auch sicherheitsrelevant, da sie Wasserschäden verhindert und die Verkehrssicherheit gewährleistet. Quellen:
-> * [Fachinformation für die Entwässerung von Bahnanlagen (FEB)](https://www.eba.bund.de/SharedDocs/Fachmitteilungen/DE/2024/11_2024_Fachinformationen_fuer_die_Entwaesserung_von_Bahnanlagen.html) vom 11.08.2026 — Das Eisenbahn-Bundesamt hat die Fachinformation FEB herausgegeben, die bahnspezifische Anforderungen zur Entwässerung regelt und sowohl Funktionsfähigkeit als auch Sicherheit adressiert.
-> * [ASB_205_B02-Entwässerung](https://www.bast.de/DE/Publikationen/Regelwerke/Verkehrstechnik/Downloads/B02a-Entwaesserung.pdf?__blob=publicationFile&v=5) — Instandsetzungsmaßnahmen dienen der Substanzerhaltung oder Verbesserung der aktuellen Funktionsfähigkeit von Entwässerungssystemen.
+## Rechercheergebnisse von Gwen
+
+### Frage 1 (LF09-Q21): Beschaedigte Dichtungen fuehren zu ...
+**RICHTIG — Quelle:** https://www.bauschadeninstitut.de/bauschaeden-fehlerhafte-abdichtungen-ursachen-loesungen/ || Abdichtungsfehler führen zu Bauschäden (Datum: 25.8.2026)
+
+Die beschaedigten Dichtungen führen tatsächlich zu Undichtigkeiten. Die Quelle von "Bauschadeninstitut" bestätigt, dass fehlerhafte oder beschädigte Abdichtungen zu ernsthaften Bauschäden und undichten Stellen führen können (siehe: "fehlertafte Abdichtungen zu ernsthafden Bauschäden führen können"). Beschädigte Dichtungen lassen Feuchtigkeit eindringen, was zu Undichtigkeiten führt.
+
+### Frage 2 (LF09-Q22): Kontrolle vor Verfuellung ist ...
+**RICHTIG — Quelle:** https://www.haufe.de/id/beitrag/bauarbeiten-verkehrssicherung-13-kontrollpflicht-des-bauherrn-HI7538045.html || Kontrollpflicht des Bauherrn (Datum: 25.8.2026)
+
+Kontrolle vor Verfüllung ist eine **Pflicht**. Der Artikel von "haufe.de" beschreibt die Kontroll- und Überwachungspflichten des Bauherrn bzw. Verantwortlichen bei der Einrichtung einer Baustelle. Auch die Verkehrssicherungspflicht verlangt entsprechende Kontrollen, bevor Schichten verfüllt werden.
+
+### Frage 3 (LF09-Q23): Entwaesserung ist fuer Baustellen vor allem ...
+**RICHTIG — Quelle:** https://www.deutscher-bauzeiger.de/bauen/baubeginn/wasserhaltung/baustellenentwaesserung/ || Baustellenentwässerung Bedeutung (Datum: 25.8.2026)
+
+Entwässerung ist für Baustellen vor allem **funktions- und sicherheitsrelevant**. Der Artikel von "deutscher-bauzeiger.de" bestätigt, dass die Baustellenentwässerung eine wichtige Rolle spielt, um Grundwasser vom Baubereich fernzuhalten und Bauteile nicht zu gefährden. Zudem dient sie dem Schutz vor Verschmutzung des Grundwassers – also sowohl funktional (Trockenlegung der Baugrube) als auch sicherheitsrelevant (Vermeidung von Rutschgefahren, Einsturzgefahr bei nassen Böschungen). Auch die Quelle "baustelle.com" beschreibt Wasser auf der Baustelle als einen echten Faktor für Zeitplan, Materialschutz und Sicherheit.
+
+---
+**status: von Gwen recherchiert**
 
 
-
-> 
-
-
-
-
-
-
-> **Quelle:** EBO § 4, Baustellenverordnung (BaustellV), Fachinformation FEB des Eisenbahn-Bundesamt
-
-
-*

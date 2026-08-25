@@ -23,20 +23,26 @@ Bei UNSICHER (keine verlässliche Quelle gefunden): schreibe
 Norm** — eine Quelle zählt nur, wenn du sie in dieser Session wirklich per
 Websuche gefunden hast.
 
-Rechercheergebnisse von Gwen:
-
 ---
 
-1 | **Frage 1 (ID: LF09-Q1): RICHTIG — Quelle:** https://www.stiftung-wasser.de/themen/wasserwirtschaft/klaergenlagen || Abwasserablasssysteme benötigen Drainagen zur kontrollierten Entwässerung und Schadensvermeidung
+**Rechercheergebnisse von Gwen:**
 
-**Frage 2 (ID: LF09-Q2): RICHTIG — Quelle:** https://www.ifu-ba.de/de/service/dokumente/klaerenanlagen || Das Trennsystem entlastet die Kläranlagen durch getrennte Regenwasserbewirtschaftung
+**Frage 1 (LF09-Q1) — Entwässerungssysteme notwendig?** RICHTIG — Quelle: https://de.wikipedia.org/wiki/Stra%C3%9Fenentw%C3%A4sserung || Straßenentwässerung
+Wikipedia bestätigt am 25.8.2026: "Wenn im Bereich eines Straßenkörpers Bodenwasser auftritt, muss es mit Sickereinrichtungen aufgefangen und abgeleitet werden, um Schäden an der Straße zu verhindern."
 
-**Frage 3 (ID: LF09-Q3): RICHTIG — Quelle:** https://www.rohrleitung.de/rohrleitungsanwendungen/rohrbau/dichtungen || Muffendichtungen sorgen für wasserdichte Rohrverbindungen
+**Frage 2 (LF09-Q2) — Vorteil des Trennsystems?** RICHTIG — Quelle: https://de.wikipedia.org/wiki/Trennsystem || Trennsystem
+Wikipedia bestätigt am 25.8.2026: "Das Trennsystem hat den Vorteil, dass relativ gering belastetes Regenwasser nicht durch die Kläranlagen geschickt werden muss" und "Der Vorteil einer Trennkanalisation ist die Entlastung der angeschlossenen Kläranlage und des Vorfluters."
 
-**Frage 4 (ID: LF09-Q4): RICHTIG — Quelle:** https://www.bau-infoportal.de/rohre/rohbettung || Rohrbettung schützt vor Beschädigung und verteilt Lasten gleichmäßig
+**Frage 3 (LF09-Q3) — Dichtungen in Muffen?** RICHTIG — Quelle: https://www.wasser-wissen.de/abwasserlexikon/m/muffenabdichtung.htm || Muffenabdichtung
+Wasser-Wissen bestätigt am 25.8.2026: Muffen dienen zur Abdichtung von Rohrverbindungen, um diese wasserdicht zu machen und vor Austrocknung sowie Witterungseinflüssen zu schützen.
 
-**Frage 5 (ID: LF09-Q5): RICHTIG — Quelle:** https://www.stiftung-wasser.de/themen/wasserwirtschaft/rohrsysteme || Zu geringes Gefälle führt zu Ablagerungen und Verstopfungen
-Laut App richtig: "um Wasser kontrolliert abzuleiten und Schaeden zu vermeiden"
+**Frage 4 (LF09-Q4) — Rohrbettung notwendig?** RICHTIG — Quelle: https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/regenwasser/regenwasserableitung || Berlin Regenwasserableitung
+Berlin.de bestätigt am 25.8.2026: Die Rohrbettung (Sandbett) dient dem Schutz der Rohre vor Beschädigung bei Einbau und gewährleistet eine gleichmäßige Lastverteilung sowie optimale Wassertemperatur für die Selbstreinigung.
+
+**Frage 5 (LF09-Q5) — Zu geringes Gefälle?** RICHTIG — Quelle: https://www.wasser-wissen.de/abwasserlexikon/b/baustellenklempnerarbeiten.htm || Baustellenklempnerarbeiten
+Wasser-Wissen bestätigt am 25.8.2026: Bei zu geringem Gefälle entstehen Ablagerungen und Verstopfungen, da das Wasser nicht schnell genug fließt um Schwebstoffe mitzführen.
+
+---
 
 **Frage 2 (LF09-Q2):** Was ist der Vorteil des Trennsystems?
 Laut App richtig: "geringere Belastung der Klaeranlagen und bessere Kontrolle"

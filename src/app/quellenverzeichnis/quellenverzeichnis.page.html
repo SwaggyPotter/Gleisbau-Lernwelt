@@ -1,0 +1,71 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Quellenverzeichnis</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="qv-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Transparenz</p>
+      <h1>Quellenverzeichnis</h1>
+      <p class="lede">
+        Alle Fragen und Antworten aus den Wissenstests und Lernfeldern an
+        einem Ort — mit der Quelle, die jede Antwort belegt, und einem
+        direkten Link dorthin. So kann jede Antwort nachvollzogen werden.
+      </p>
+      <p class="stat" *ngIf="!loading && !error">
+        {{ gesamtMitQuelle }} von {{ gesamtFragen }} Fragen mit hinterlegter
+        Quelle ({{ gesamtFragen ? ((gesamtMitQuelle / gesamtFragen) * 100 | number:'1.0-0') : 0 }}%)
+      </p>
+    </section>
+
+    <div class="search-row" *ngIf="!loading && !error">
+      <ion-searchbar
+        [(ngModel)]="suchbegriff"
+        placeholder="Frage, Antwort oder Quelle durchsuchen…"
+        [debounce]="150"
+      ></ion-searchbar>
+    </div>
+
+    <div class="loading" *ngIf="loading">Lade Fragen…</div>
+    <div class="error" *ngIf="error">{{ error }}</div>
+
+    <section
+      class="thema"
+      *ngFor="let gruppe of gruppen; trackBy: trackByTopic"
+      [class.hidden-by-search]="suchbegriff.trim().length > 0 && !hatTreffer(gruppe)"
+    >
+      <button class="thema-head" (click)="toggle(gruppe)" [attr.aria-expanded]="istOffen(gruppe)">
+        <div class="thema-titel">
+          <h2>{{ gruppe.topic.title }}</h2>
+          <p class="thema-desc">{{ gruppe.topic.description }}</p>
+        </div>
+        <div class="thema-meta">
+          <ion-chip [class.voll]="gruppe.mitQuelle === gruppe.questions.length">
+            <ion-label>{{ gruppe.mitQuelle }}/{{ gruppe.questions.length }} Quellen</ion-label>
+          </ion-chip>
+          <ion-icon [name]="istOffen(gruppe) ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+        </div>
+      </button>
+
+      <div class="frage-liste" *ngIf="istOffen(gruppe)">
+        <article class="frage" *ngFor="let q of gefilterteFragen(gruppe); trackBy: trackByQuestion">
+          <p class="frage-text">{{ q.question }}</p>
+          <p class="antwort"><span class="antwort-label">Antwort:</span> {{ richtigeAntwort(q) }}</p>
+          <p class="quelle" *ngIf="q.source && q.sourceUrl">
+            <span class="quelle-label">Quelle:</span>
+            <a [href]="q.sourceUrl" target="_blank" rel="noopener">{{ q.source }}</a>
+          </p>
+          <p class="quelle keine" *ngIf="!q.source">Noch keine Quelle hinterlegt.</p>
+        </article>
+        <p class="keine-treffer" *ngIf="gefilterteFragen(gruppe).length === 0">
+          Keine Treffer in diesem Thema.
+        </p>
+      </div>
+    </section>
+  </div>
+</ion-content>

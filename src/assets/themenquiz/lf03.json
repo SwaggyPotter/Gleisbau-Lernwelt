@@ -362,7 +362,9 @@
         "masshaltige Oeffnung"
       ],
       "correctIndex": 0,
-      "explanation": "Fehlende Verzahnung schwaecht den Wandanschluss."
+      "explanation": "Fehlende Verzahnung schwaecht den Wandanschluss.",
+      "source": "fehlende Verzahnung an 90°-Ecken (Datum: 25.8.2026)",
+      "sourceUrl": "https://bau.de/forum/neubau/13069.php"
     },
     {
       "id": "LF03-Q27",
@@ -375,8 +377,8 @@
       ],
       "correctIndex": 0,
       "explanation": "Staubarme Verfahren und Schutzmassnahmen reduzieren Gesundheitsrisiken.",
-      "source": "staubarm ausführen, absaugen und Schutz beachten (GefStofV)",
-      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/pdf/Staubarmes-Arbeiten.pdf?__blob=publicationFile&v=1"
+      "source": "Staubarmes Arbeiten PDF BAuA (Datum: 25.8.2026)",
+      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/pdf/Staubarmes-Arbeiten.pdf?__blob=publicationFile&v=3"
     },
     {
       "id": "LF03-Q28",
@@ -389,8 +391,8 @@
       ],
       "correctIndex": 0,
       "explanation": "Druckluft wirbelt Feinstaub auf und erhoeht die Belastung.",
-      "source": "Druckluft zum Reinigen von Staub ist ungunstig und zu vermeiden",
-      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/pdf/Staubarmes-Arbeiten.pdf?__blob=publicationFile&v=1"
+      "source": "Druckluftverordnung Arbeiten in Druckluft BAuA (Datum: 25.8.2026)",
+      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/Druckluftverordnung"
     },
     {
       "id": "LF03-Q29",
@@ -403,8 +405,8 @@
       ],
       "correctIndex": 0,
       "explanation": "Beide Verbandsarten sind klassische Mauerwerksverbaende.",
-      "source": "Blockverband, Kreuzverband sind gängige Mauerwerksverbände bei kleinformatigen Steinen…",
-      "sourceUrl": "https://www.bau-doch-selber.de/bautipps/mw-verband.html"
+      "source": "Mauerwerksverband Wikipedia (Datum: 25.8.2026)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Mauerwerksverband"
     },
     {
       "id": "LF03-Q30",
@@ -417,7 +419,7 @@
       ],
       "correctIndex": 0,
       "explanation": "Monolithische Aussenwaende kombinieren Tragfunktion und Waermeschutz.",
-      "source": "Wärmeschutz bei monolithischer Bauweise berücksichtigt, dickere Mauerdicken ohne Dämmun…",
+      "source": "Einschalige Außenwände Wärmeschutz BauNetz (Datum: 25.8.2026)",
       "sourceUrl": "https://www.baunetzwissen.de/mauerwerk/fachwissen/wand/einschalige-aussenwaende-162708"
     },
     {

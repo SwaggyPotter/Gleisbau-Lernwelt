@@ -226,6 +226,9 @@ ion-card-subtitle {
 .app-footer {
   text-align: center;
   padding: 28px 0 12px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
 
   a {
     font-family: var(--font-mono);

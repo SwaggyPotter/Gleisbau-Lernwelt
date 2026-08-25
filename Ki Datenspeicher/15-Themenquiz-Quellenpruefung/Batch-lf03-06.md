@@ -40,3 +40,26 @@ Laut App richtig: "Blockverband, Kreuzverband"
 **Frage 5 (LF03-Q30):** Einschalige Aussenwanddicken sind oft groesser, weil ...
 Laut App richtig: "Waermeschutz bei monolithischer Bauweise mitberuecksichtigt wird"
 
+---
+
+## Rechercheergebnisse von Gwen
+
+**Frage 1 (LF03-Q26):** Was ist ein haeufiges Fehlerbild?
+- **Antwort:** RICHTIG — Quelle: https://bau.de/forum/neubau/13069.php || fehlende Verzahnung an 90°-Ecken (Datum: 25.8.2026)
+
+**Frage 2 (LF03-Q27):** Staubige Arbeiten moeglichst ...
+- **Antwort:** RICHTIG — Quelle: https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/pdf/Staubarmes-Arbeiten.pdf?__blob=publicationFile&v=3 || Staubarmes Arbeiten PDF BAuA (Datum: 25.8.2026)
+
+**Frage 3 (LF03-Q28):** Druckluft zum Reinigen von Staub ist ...
+- **Antwort:** RICHTIG — Quelle: https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/Druckluftverordnung || Druckluftverordnung Arbeiten in Druckluft BAuA (Datum: 25.8.2026)
+
+**Frage 4 (LF03-Q29):** Mauerwerksverbaende: Beispiele sind ...
+- **Antwort:** RICHTIG — Quelle: https://de.wikipedia.org/wiki/Mauerwerksverband || Mauerwerksverband Wikipedia (Datum: 25.8.2026)
+
+**Frage 5 (LF03-Q30):** Einschalige Aussenwanddicken sind oft groesser, weil ...
+- **Antwort:** RICHTIG — Quelle: https://www.baunetzwissen.de/mauerwerk/fachwissen/wand/einschalige-aussenwaende-162708 || Einschalige Außenwände Wärmeschutz BauNetz (Datum: 25.8.2026)
+
+---
+
+**Status:** von Gwen recherchiert
+

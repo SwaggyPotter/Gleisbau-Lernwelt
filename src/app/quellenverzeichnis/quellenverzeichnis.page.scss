@@ -1,0 +1,244 @@
+:host {
+  font-family: var(--font-body);
+  color: var(--sp-text);
+}
+
+ion-header ion-toolbar {
+  --background: var(--sp-bg);
+  --color: var(--sp-text);
+  --border-color: var(--sp-border);
+  padding-inline: 16px;
+}
+
+ion-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.qv-content {
+  --background: var(--sp-bg);
+  color: var(--sp-text);
+  padding: 20px clamp(16px, 4vw, 48px) 56px;
+  background-image:
+    linear-gradient(var(--sp-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sp-border) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.page-shell {
+  max-width: 900px;
+  margin-inline: auto;
+  color: var(--sp-text);
+}
+
+.hero {
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  padding: 22px;
+  background: var(--sp-surface);
+  margin-bottom: 16px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  color: var(--sp-accent);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  font-size: 12px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-size: clamp(24px, 4vw, 34px);
+  margin: 0 0 10px;
+  color: var(--sp-text);
+  line-height: 1.1;
+}
+
+.lede {
+  color: var(--sp-text-muted);
+  margin: 0 0 12px;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.stat {
+  font-family: var(--font-mono);
+  color: var(--sp-accent-2);
+  font-size: 13px;
+  margin: 0;
+}
+
+.search-row {
+  margin-bottom: 18px;
+
+  ion-searchbar {
+    --background: var(--sp-surface);
+    --color: var(--sp-text);
+    --placeholder-color: var(--sp-text-muted);
+    --icon-color: var(--sp-text-muted);
+    --border-radius: 6px;
+    padding: 0;
+  }
+}
+
+.loading,
+.error {
+  color: var(--sp-text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 20px 0;
+}
+
+.thema {
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  background: var(--sp-surface);
+  margin-bottom: 10px;
+  overflow: hidden;
+
+  &.hidden-by-search {
+    display: none;
+  }
+}
+
+.thema-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: transparent;
+  border: none;
+  color: var(--sp-text);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+
+  ion-icon {
+    color: var(--sp-text-muted);
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+}
+
+.thema-titel {
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    font-size: 16px;
+    margin: 0 0 4px;
+    color: var(--sp-text);
+  }
+}
+
+.thema-desc {
+  margin: 0;
+  color: var(--sp-text-muted);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+.thema-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+ion-chip {
+  --background: transparent;
+  border: 1px solid var(--sp-border);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  height: 24px;
+
+  ion-label {
+    color: var(--sp-text-muted) !important;
+  }
+
+  &.voll {
+    border-color: var(--sp-accent);
+
+    ion-label {
+      color: var(--sp-accent) !important;
+    }
+  }
+}
+
+.frage-liste {
+  border-top: 1px solid var(--sp-border);
+  padding: 4px 16px 12px;
+}
+
+.frage {
+  padding: 12px 0;
+
+  & + .frage {
+    border-top: 1px solid var(--sp-border);
+  }
+}
+
+.frage-text {
+  margin: 0 0 6px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--sp-text);
+}
+
+.antwort {
+  margin: 0 0 6px;
+  font-size: 13.5px;
+  color: var(--sp-text);
+}
+
+.antwort-label {
+  color: var(--sp-text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
+.quelle {
+  margin: 0;
+  font-size: 12.5px;
+
+  &.keine {
+    color: var(--sp-text-muted);
+    font-style: italic;
+  }
+}
+
+.quelle-label {
+  color: var(--sp-text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
+.quelle a {
+  color: var(--sp-accent-2);
+  word-break: break-word;
+}
+
+.keine-treffer {
+  color: var(--sp-text-muted);
+  font-size: 13px;
+  padding: 10px 0;
+  margin: 0;
+}

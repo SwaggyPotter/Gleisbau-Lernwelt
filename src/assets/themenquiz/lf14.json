@@ -293,7 +293,7 @@
       ],
       "correctIndex": 0,
       "explanation": "Oberbauformen unterscheiden sich je nach Einsatzfall und Randbedingungen.",
-      "source": "Oberbau Aufbau Unterschied verschiedene Typen",
+      "source": "de.wikipedia.org – Oberbau (Eisenbahn)",
       "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)"
     },
     {
@@ -307,8 +307,8 @@
       ],
       "correctIndex": 0,
       "explanation": "Komplexe Randbedingungen erzeugen meist hoeheren Planungs- und Koordinationsbedarf.",
-      "source": "Sonderbauformen haben höheren Planungsaufwand",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Gleisgeometrie"
+      "source": "plassertheurer.com – Eurail ETR 2023 003 ETR 003 23 40 45",
+      "sourceUrl": "https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/Eurail_ETR_2023_003_ETR_003_23_40-45.pdf"
     },
     {
       "id": "LF14-Q23",
@@ -320,7 +320,9 @@
         "Sie haben keine Verkehrseinfluesse"
       ],
       "correctIndex": 0,
-      "explanation": "Mischverkehr und begrenzter Raum erhoehen das Unfall- und Fehlerrisiko."
+      "explanation": "Mischverkehr und begrenzter Raum erhoehen das Unfall- und Fehlerrisiko.",
+      "source": "dguv.de – index",
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/faq/index.jsp"
     },
     {
       "id": "LF14-Q24",
@@ -333,8 +335,8 @@
       ],
       "correctIndex": 0,
       "explanation": "LF14 vertieft Sonderbauformen und komplexe Betriebs- und Instandhaltungssituationen.",
-      "source": "LF14 schließt die Ausbildung fachlich mit Spezialthemen ab",
-      "sourceUrl": "https://www.vdei-akademie.de/details/zertifizierter-fachbauleiter-gleisbau"
+      "source": "bahnbaugruppe.de – Qualifizierung Gleisbau",
+      "sourceUrl": "https://www.bahnbaugruppe.de/bahnbaugruppe-de/Qualifizierungsangebote/Qualifizierung_Gleisbau"
     }
   ]
 }

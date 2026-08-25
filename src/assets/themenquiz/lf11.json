@@ -293,8 +293,8 @@
       ],
       "correctIndex": 0,
       "explanation": "Gegen Zugverkehr muss immer wirksam gesichert werden.",
-      "source": "Gefahren des Bahnbetriebs (Züge mit hohen Geschwindigkeiten, großen bewegten Massen und…",
-      "sourceUrl": "https://www.uv-bund-bahn.de/praevention/fachthemen/bahn/arbeiten-im-gleisbereich"
+      "source": "DGUV Regelwerk zum Gleisbau",
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/regelwerk_gleisbau/index.jsp"
     },
     {
       "id": "LF11-Q22",
@@ -306,7 +306,9 @@
         "nur fuer Gaeste"
       ],
       "correctIndex": 0,
-      "explanation": "Sichtbarkeit ist eine zentrale Schutzmassnahme im Gleisbereich."
+      "explanation": "Sichtbarkeit ist eine zentrale Schutzmassnahme im Gleisbereich.",
+      "source": "DGUV Vorschrift 78",
+      "sourceUrl": "https://publikationen.dguv.de/widgets/pdf/download/article/1529"
     },
     {
       "id": "LF11-Q23",
@@ -319,8 +321,8 @@
       ],
       "correctIndex": 0,
       "explanation": "Gerade im Gleisbereich hat sichere Ausfuehrung absolute Prioritaet.",
-      "source": "Sicherheit geht vor\" ist ein etablierter Arbeitsschutz-Grundsatz; im Gleisbau besonders…",
-      "sourceUrl": "https://www.bgbau.de/fileadmin/Medien-Objekte/Medien/Zeitschrift/BG_Bau_Aktuell_03_23_TB_bf.pdf"
+      "source": "SAFETY CHECK Gleisbau",
+      "sourceUrl": "https://www.uv-bund-bahn.de/praevention/fachthemen/bahn/projekte/safety-check-fuer-den-gleisbau"
     }
   ]
 }

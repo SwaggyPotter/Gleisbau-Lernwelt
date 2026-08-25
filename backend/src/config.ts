@@ -19,6 +19,8 @@ const configSchema = z.object({
   rateLimitWindowMs: z.coerce.number().int().positive().default(60000),
   rateLimitMax: z.coerce.number().int().positive().default(120),
   logLevel: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent']).default('info'),
+  adminEmail: z.string().min(1, 'ADMIN_EMAIL is required'),
+  adminPassword: z.string().min(12, 'ADMIN_PASSWORD must be at least 12 characters'),
 });
 
 const parsed = configSchema.safeParse({
@@ -30,6 +32,8 @@ const parsed = configSchema.safeParse({
   rateLimitWindowMs: process.env.RATE_LIMIT_WINDOW_MS,
   rateLimitMax: process.env.RATE_LIMIT_MAX,
   logLevel: process.env.LOG_LEVEL ?? 'info',
+  adminEmail: process.env.ADMIN_EMAIL,
+  adminPassword: process.env.ADMIN_PASSWORD,
 });
 
 if (!parsed.success) {

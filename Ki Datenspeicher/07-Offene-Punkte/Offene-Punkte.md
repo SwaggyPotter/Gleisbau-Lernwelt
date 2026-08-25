@@ -12,17 +12,40 @@ abhaken, sobald geklärt.
 
 ## Architektur-Entscheidungen
 
-- [ ] **Backend reaktivieren oder entfernen?** Das Express/Postgres-Backend
-  (`backend/`) ist voll funktionsfähig (Login, Admin, Registrierungs-Keys,
-  Nutzerfortschritt), aber seit 18.07.2026 nicht mehr ans Frontend angebunden.
-  Es liegt totes Gewicht im Repo, falls es dauerhaft nicht gebraucht wird.
-  Siehe [[02-Architektur/Backend-Architektur]]. **Update 2026-08-11:** Tim hat
-  im Rahmen der Gesamtziel-Planung entschieden, das Backend vorerst NICHT
-  anzubinden — App bleibt statisch, Backend/Deployment-Doku nur startklar
-  halten. Die neue Melde-Funktion (`question-report.service.ts`) speichert
-  deshalb bewusst nur lokal (localStorage), ist aber so strukturiert, dass ein
-  echter HTTP-Aufruf ans Backend später ohne Änderung der aufrufenden
-  Komponenten nachgerüstet werden kann.
+- [x] **Backend reaktivieren oder entfernen? — reaktiviert (2026-08-25).**
+  Tim wollte einen passwortgeschützten, von überall erreichbaren Zugang zur
+  App und "alles, was bisher nur für die Probe war, fertig gemacht" haben.
+  Das Express/Postgres-Backend läuft jetzt produktiv auf Tims eigenem
+  Heimserver (`michiserver`, Docker Compose), der hartcodierte Admin-Zugang
+  wurde vorher durch Pflicht-Umgebungsvariablen ersetzt. **Weiterhin NICHT**
+  vom Frontend aus genutzt — die App liest Inhalte weiterhin rein statisch
+  aus JSON, das war nicht Teil dieser Runde. Details:
+  [[02-Architektur/Backend-Architektur]].
+- [ ] **DNS + Portweiterleitung/Tunnel für gleisbau-digital.org noch
+  offen.** Server + Docker-Stack + Passwort-Gate sind fertig und
+  verifiziert (2026-08-25), aber `app.`/`api.gleisbau-digital.org` lösen
+  öffentlich noch nicht auf. Tim muss entweder (a) einen A-Record bei
+  Cloudflare auf die öffentliche IP (95.89.229.237, Stand 2026-08-25,
+  kann sich ändern) anlegen UND Port 80/443 am Router auf 192.168.0.102
+  weiterleiten, oder (b) einen Cloudflare Tunnel einrichten (vermeidet
+  Router-Änderungen, Claude hat dafür seit dieser Runde die passenden
+  Cloudflare-Skills verfügbar, bräuchte aber ein API-Token oder Tims
+  eigene `cloudflared tunnel login`-Aktion). Siehe [[../../deploy/README]]
+  Schritt 2/2b.
+- [ ] **Frontend nicht containerisiert.** Wird lokal gebaut (`ng build`)
+  und die `www/`-Ausgabe manuell/per Skript auf den Server kopiert, nicht
+  in einem eigenen Docker-Image. Funktioniert, ist aber kein
+  automatisierter CI-Pfad — bei Bedarf später ein eigenes Frontend-
+  Dockerfile (multi-stage, Caddy/nginx als Runtime-Stage) nachziehen.
+- [ ] **Serverseitige-KI-Idee (2026-08-25, von Tim angestoßen, noch
+  unklar):** Tim hat überlegt, ob eine KI auf `michiserver` laufen könnte,
+  die den Server überwacht und später Meldungen aus der "Frage melden"-
+  Funktion der App verarbeitet (aktuell landen diese Meldungen nur im
+  Browser-localStorage, siehe `question-report.service.ts`). Explizit als
+  "ggf." formuliert, keine konkrete Anforderung — braucht erst eine Klärung,
+  was genau überwacht/verarbeitet werden soll, bevor daran gebaut wird.
+  Ein lokales LLM wie das Gwen-Setup auf Tims Windows-PC ist auf dem
+  Heimserver mangels GPU vermutlich nicht sinnvoll machbar.
 - [ ] **Was passiert mit den 14 Lernfeld-Inhalten?** Aktuell nur als Rohtext in
   `LERNFELDER-BACKUP.txt` archiviert. Wenn sie zurückkommen sollen, müsste
   entschieden werden, in welchem Format (eigene Module wie bei "Zusatz", oder
@@ -235,12 +258,28 @@ echtes Gleisplan-SVG statt Luftbild), Bildgroesse auf Kacheln kompakter.
   einzelne LF01/LF05/LF13-Fragen. Bewusst nicht automatisch in der App
   geändert — Quiz-Inhalt-Korrekturen sind eine separate Entscheidung.
 
+## Trassenplan-Erweiterung (2026-08-25, laufend)
+
+- [ ] **Volle "Schwierigkeit wählen"-Filterfunktion in der Quiz-UI.**
+  Aktuell nur ein sichtbares Badge pro Frage (`difficulty`-Feld), keine
+  Möglichkeit, gezielt nur "Profi"-Fragen zu üben. Bewusst nicht gebaut,
+  da das eine echte Navigations-/UX-Entscheidung ist, die Tim bisher
+  immer über konkrete Optionen mitentschieden hat. Siehe
+  [[../14-Gwen-Code-Aufgaben/19-Trassenplan-Erweiterung]].
+- [ ] **Weitere verifizierte, aber noch nicht ausgewertete Quellen** für
+  eine mögliche zweite Erweiterungsrunde: Fehmarnbelt-Präsentation mit
+  Farbcodierung, TU-Graz- und HS-Karlsruhe-Abschlussarbeiten, Basel-
+  Stadt-Lageplan mit Bohrpunkt-Legende. Liste:
+  [[../16-Trassenplan-Ausbau/01-Verifizierte-Quellen]].
+- [ ] **Weitere Bild-Ideen vorbereitet, nicht umgesetzt**: eigene SVG zur
+  Weichenbezeichnung ("EW 60-300-1:9") und zum Höhenplan-
+  Neigungsbrechpunkt (Ausrundungsbeginn Wanne/-ende Kuppe) — Quellenlage
+  dafür bereits vorhanden.
+
 ## Unbekannt / an Tim zu klären
 
-- [ ] Läuft das Backend/Docker-Compose-Setup aktuell produktiv irgendwo, oder
-  ist es rein lokal/geparkt? (Technisches Setup ist produktionsreif
-  ausgebaut, siehe Detailanalyse in [[06-Fragen-und-Antworten/Fragenkatalog]]
-  — das beantwortet aber nicht, ob es tatsächlich läuft.)
+- [x] **Beantwortet (2026-08-25): läuft jetzt produktiv** auf Tims eigenem
+  Heimserver (`michiserver`), siehe Backend-Reaktivierung oben.
 - [ ] Ist eine App-Store-Veröffentlichung (Capacitor iOS/Android) geplant oder
   bereits erfolgt? (Code-Stand 2026-07-21: bisher nie erfolgt, es existiert
   kein natives Plattform-Projekt im Repo — Details in

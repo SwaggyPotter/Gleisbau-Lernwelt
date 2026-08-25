@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   db:
     image: postgres:16
@@ -30,6 +28,8 @@ services:
       RATE_LIMIT_WINDOW_MS: ${RATE_LIMIT_WINDOW_MS:-60000}
       RATE_LIMIT_MAX: ${RATE_LIMIT_MAX:-120}
       LOG_LEVEL: info
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     depends_on:
       db:
         condition: service_healthy
@@ -41,10 +41,15 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      DOMAIN: ${API_DOMAIN}
+      API_DOMAIN: ${API_DOMAIN}
+      APP_DOMAIN: ${APP_DOMAIN}
+      ROOT_DOMAIN: ${ROOT_DOMAIN}
       CADDY_EMAIL: ${CADDY_EMAIL}
+      BASIC_AUTH_USER: ${BASIC_AUTH_USER}
+      BASIC_AUTH_HASH: ${BASIC_AUTH_HASH}
     volumes:
       - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./deploy/frontend-dist:/srv/frontend:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on:

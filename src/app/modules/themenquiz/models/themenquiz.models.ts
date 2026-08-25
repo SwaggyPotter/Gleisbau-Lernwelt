@@ -1,3 +1,5 @@
+export type ThemenquizDifficulty = 'einfach' | 'mittel' | 'schwer' | 'profi';
+
 export interface ThemenquizQuestion {
   id: string;
   question: string;
@@ -8,6 +10,10 @@ export interface ThemenquizQuestion {
   source?: string;
   /** Optionaler Link zur Quelle (Norm-Datenbank, Gesetzestext, Fachartikel). */
   sourceUrl?: string;
+  /** Optionaler Schwierigkeitsgrad. Fehlt er, wird die Frage in der Oberflaeche ohne Badge angezeigt. */
+  difficulty?: ThemenquizDifficulty;
+  /** Optionaler Bildpfad (z. B. eigene SVG-Grafik unter assets/bilder/), zur Veranschaulichung der Frage. */
+  image?: string;
 }
 
 export interface ThemenquizFile {

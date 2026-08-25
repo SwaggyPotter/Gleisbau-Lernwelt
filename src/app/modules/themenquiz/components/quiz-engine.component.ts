@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
-import { ThemenquizQuestion } from '../models/themenquiz.models';
+import { ThemenquizDifficulty, ThemenquizQuestion } from '../models/themenquiz.models';
 import { QuestionReportService } from '../../../services/question-report.service';
 
 type ShuffledChoice = { text: string; originalIndex: number };
@@ -121,6 +121,16 @@ export class ThemenquizEngineComponent implements OnChanges {
 
   trackByChoice(_index: number, choice: ShuffledChoice): number {
     return choice.originalIndex;
+  }
+
+  difficultyLabel(d: ThemenquizDifficulty): string {
+    const labels: Record<ThemenquizDifficulty, string> = {
+      einfach: 'Einfach',
+      mittel: 'Mittel',
+      schwer: 'Schwer',
+      profi: 'Profi',
+    };
+    return labels[d];
   }
 
   private prepareCurrentChoices(): void {

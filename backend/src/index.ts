@@ -6,8 +6,6 @@ import { pool } from './db/pool';
 import { purgeDueDeletedUsers } from './user-deletion';
 
 const app = createServer();
-const ADMIN_EMAIL = 'admin';
-const ADMIN_PASSWORD = '1234';
 
 const runStartupMigrations = async () => {
   try {
@@ -23,7 +21,7 @@ const runStartupMigrations = async () => {
     await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS deletion_due_at timestamptz');
     await pool.query('CREATE INDEX IF NOT EXISTS idx_users_deletion_due_at ON users(deletion_due_at)');
 
-    const adminPasswordHash = await bcrypt.hash(ADMIN_PASSWORD, 10);
+    const adminPasswordHash = await bcrypt.hash(config.adminPassword, 10);
     await pool.query(
       `INSERT INTO users (full_name, email, password_hash, role, key_used)
        VALUES ('Administrator', $1, $2, 'admin', NULL)
@@ -32,7 +30,7 @@ const runStartupMigrations = async () => {
            password_hash = EXCLUDED.password_hash,
            role = EXCLUDED.role,
            key_used = EXCLUDED.key_used`,
-      [ADMIN_EMAIL, adminPasswordHash],
+      [config.adminEmail, adminPasswordHash],
     );
 
     // Delete known demo keys and normalise any legacy multi-use keys

@@ -5,7 +5,16 @@
   }
 }
 
-{$DOMAIN} {
+# Nackte Domain (ohne Subdomain) leitet auf die App weiter, damit
+# https://gleisbau-digital.org/ auch ohne "app."-Praefix funktioniert.
+{$ROOT_DOMAIN} {
+  redir https://{$APP_DOMAIN}{uri} permanent
+}
+
+# API (Express/Postgres-Backend) — kein Passwortschutz noetig, das Backend
+# hat sein eigenes Login. Nur ueber HTTPS erreichbar, Rate-Limiting greift
+# serverseitig im Node-Prozess.
+{$API_DOMAIN} {
   encode zstd gzip
 
   header {
@@ -18,4 +27,25 @@
   reverse_proxy api:3000 {
     flush_interval -1
   }
+}
+
+# Frontend (Angular/Ionic-App als statische Dateien) — mit Sitewide-
+# Passwortschutz, solange die App nicht oeffentlich sein soll.
+{$APP_DOMAIN} {
+  encode zstd gzip
+
+  header {
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "DENY"
+    Referrer-Policy "no-referrer"
+  }
+
+  basic_auth {
+    {$BASIC_AUTH_USER} {$BASIC_AUTH_HASH}
+  }
+
+  root * /srv/frontend
+  try_files {path} /index.html
+  file_server
 }

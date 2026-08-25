@@ -1,6 +1,16 @@
-# Backend Deployment (Ubuntu + Cloudflare)
+# Deployment (Ubuntu + Cloudflare)
 
-Secure-by-default stack: Postgres + Node API + Caddy (TLS) via Docker Compose.
+Secure-by-default stack: Postgres + Node API + Angular-Frontend + Caddy (TLS)
+via Docker Compose. Caddy dient zwei Domains aus einer Config: `API_DOMAIN`
+(Reverse-Proxy zur Node-API) und `APP_DOMAIN` (statische Angular-Dateien aus
+`deploy/frontend-dist/`, per HTTP-Basic-Auth passwortgeschützt, solange die
+App nicht öffentlich sein soll).
+
+**Stand 2026-08-25**: läuft produktiv auf `michiserver`
+(192.168.0.102, per SSH als `swaggypotter` erreichbar, Docker bereits
+installiert). Öffentliche IP: `95.89.229.237` (IPv4). Domain
+`gleisbau-digital.org` (Cloudflare) — DNS/Portweiterleitung stehen noch aus,
+siehe Schritt 2/2b.
 
 ## 1) Server prep
 - Update/patch: `sudo apt update && sudo apt upgrade -y`
@@ -16,17 +26,52 @@ Secure-by-default stack: Postgres + Node API + Caddy (TLS) via Docker Compose.
 - Home network: forward ports 80/443 from your router to the Ubuntu server.
 
 ## 2) DNS (Cloudflare)
-- Create A-record `api` pointing to your public IP. During first certificate issuance set proxy to “DNS only” (grey cloud). You can re-enable proxy later if desired.
-- If IP is dynamic, add a small Cloudflare DDNS updater or use a Cloudflare Tunnel.
+- Create an **A-record** for both `API_DOMAIN` and `APP_DOMAIN` (e.g. `api`
+  and `app` on `gleisbau-digital.org`) pointing to the server's public IPv4
+  (`curl -4 https://ifconfig.me` on the server to check it — IPs can change,
+  ISPs commonly rotate them, so check before assuming it's still correct).
+- During first certificate issuance, set the Cloudflare proxy to **"DNS
+  only" (grey cloud)** — Caddy needs direct HTTP-01/TLS-ALPN-01 validation.
+  Can be switched to proxied (orange cloud) afterwards if desired, but note
+  that proxied mode changes how the origin IP is exposed and may need
+  Cloudflare's own TLS mode adjusted (Full/Strict) to keep working.
+- If the IP is dynamic, add a Cloudflare DDNS updater or switch to a
+  **Cloudflare Tunnel** (avoids router port-forwarding entirely, keeps the
+  home IP hidden — the `cloudflare-one` setup covers this if wanted later).
+
+## 2b) Router / firewall (only needed for the plain port-forward path above)
+- Forward TCP 80 and 443 from the router to the server's LAN IP
+  (`192.168.0.102` as of 2026-08-25).
+- This step needs router admin access and can't be done remotely by an
+  agent — has to happen on the router itself.
 
 ## 3) Configure
 - Copy template: `cp deploy/.env.example deploy/.env`
 - Fill `deploy/.env`:
-  - `API_DOMAIN`: e.g. `api.example.com`
-  - `CADDY_EMAIL`: email for Let’s Encrypt
+  - `API_DOMAIN` / `APP_DOMAIN`: e.g. `api.example.com` / `app.example.com`
+  - `CADDY_EMAIL`: email for Let's Encrypt
   - `POSTGRES_USER/POSTGRES_PASSWORD/POSTGRES_DB`: DB creds
   - `CORS_ORIGIN`: frontend origin, e.g. `https://app.example.com`
+  - `ADMIN_EMAIL`/`ADMIN_PASSWORD`: bootstrap admin account for the backend
+    (**required**, no default — server refuses to start without them,
+    password must be 12+ chars)
+  - `BASIC_AUTH_USER`/`BASIC_AUTH_HASH`: sitewide password gate for the
+    frontend. Generate the hash with:
+    `docker run --rm caddy:2 caddy hash-password --plaintext '<password>'`
+    — **important**: escape every literal `$` in the resulting hash as `$$`
+    when writing it into `deploy/.env`, otherwise Docker Compose's variable
+    interpolation silently mangles the hash (a real incident during the
+    2026-08-25 setup — Compose read a `$Xyz...` fragment inside the hash as
+    an unset variable reference and blanked it out, corrupting the hash
+    without any obvious error besides a `"...variable is not set"` warning).
   - `RATE_LIMIT_*` and `API_PORT` normally stay as-is
+- Build the frontend locally and place it on the server at
+  `deploy/frontend-dist/` (relative to this repo's root on the server):
+  `npx ng build --configuration production` (outputs to `www/`, per
+  `angular.json`), then copy the contents of `www/` into
+  `deploy/frontend-dist/` on the server (e.g. via `scp`/`rsync`, or a tar
+  pipe over `ssh` for many small files — plain `scp -r` also works, just
+  slower for the many small JS chunk files).
 
 ## 4) Deploy
 ```bash
@@ -39,12 +84,28 @@ docker compose --env-file deploy/.env ps
 - Check logs: `docker compose --env-file deploy/.env logs -f proxy` and `logs -f api`
 - Health: `curl -I https://api.example.com/health`
 - API sample: `curl https://api.example.com/api/fields`
+- Frontend + password gate: `curl -u '<user>:<password>' -I https://app.example.com/`
+  (expect `401` without credentials, `200` with correct ones)
+- Sanity-check the compiled Caddy config directly (catches any credential
+  corruption before it becomes a live problem):
+  `docker exec <proxy-container> caddy adapt --config /etc/caddy/Caddyfile`
+  and check the `http_basic` account's `username`/`password` match what you
+  generated.
 
 ## 6) Backups & updates
 - DB data lives in `db_data` volume; take `pg_dump` regularly.
 - Update app/images: `docker compose --env-file deploy/.env pull && docker compose --env-file deploy/.env up -d --build`
 - Host patches: `sudo apt upgrade`
+- Redeploying the frontend after a content/code change: rebuild locally
+  (`ng build --configuration production`), re-sync `www/` to
+  `deploy/frontend-dist/` on the server — no container rebuild needed,
+  Caddy serves the files directly from that mounted directory.
 
 Notes:
 - The DB port is not published externally; only the proxy exposes 80/443.
 - Caddy auto-manages TLS. Ensure port 80 stays reachable for HTTP-01 challenges unless you switch to DNS-01.
+- The deploying user needs to be in the `docker` group (passwordless
+  `docker` commands) — `sudo` itself does **not** need to be passwordless
+  for this deployment, since nothing here requires host-level `sudo`
+  (firewall/`ufw` rules from step 1 are the only exception, and those are a
+  one-time manual step anyway).

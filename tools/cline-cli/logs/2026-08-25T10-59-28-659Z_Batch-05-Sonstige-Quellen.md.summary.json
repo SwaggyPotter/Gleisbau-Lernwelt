@@ -1,0 +1,22 @@
+{
+  "relFile": "16-Trassenplan-Ausbau/Batch-05-Sonstige-Quellen.md",
+  "status": "SUCCESS",
+  "reasons": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 108,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 80,
+      "status": "SUCCESS",
+      "reasons": []
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-25T10-59-28-659Z_Batch-05-Sonstige-Quellen.md.log"
+}

@@ -11,6 +11,83 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+## 2026-08-25 (4) — Backend reaktiviert, App auf echtem Server deployt, Passwort-Gate eingerichtet
+
+Tim wollte Zugriff auf die App von der Arbeit aus, ohne sie öffentlich zu
+machen, und "alles was bisher nur für die Probe war" beim Backend fertig
+haben. Nach Klärung per Rückfrage (einfaches Sitewide-Passwort statt volles
+Konten-System; Server+Domain bereits vorhanden) SSH-Zugang zu Tims eigenem
+Heimserver (`michiserver`, 192.168.0.102, Ubuntu, Docker bereits
+installiert) erhalten und das Deployment durchgeführt.
+
+**Sicherheitsfix zuerst**: der fest im Code stehende Admin-Zugang
+(`admin`/`1234`) wurde entfernt — `ADMIN_EMAIL`/`ADMIN_PASSWORD` sind jetzt
+Pflicht-Umgebungsvariablen ohne Default (`backend/src/config.ts`), der
+Server startet ohne sie gar nicht erst.
+
+**Deployment-Setup erweitert**: das bisherige `deploy/`-Setup deckte nur
+die API ab — neuer `APP_DOMAIN`-Site-Block im Caddyfile serviert jetzt
+zusätzlich das gebaute Angular-Frontend (statische Dateien aus
+`deploy/frontend-dist/`) mit HTTP-Basic-Auth-Passwortschutz. Kompletter
+Stack (Postgres + API + Caddy) läuft jetzt auf `michiserver` unter Docker
+Compose, verifiziert per `caddy adapt` (kompilierte Config direkt geprüft,
+nicht nur auf Fehlerfreiheit der Logs vertraut).
+
+**Bug unterwegs gefunden und behoben**: ein `$`-Zeichen im generierten
+Bcrypt-Passwort-Hash wurde von Docker Compose als Variablenreferenz
+fehlinterpretiert und stillschweigend durch einen Leerstring ersetzt (nur
+eine unauffällige `"...variable is not set"`-Warnung, kein Fehler) — das
+Passwort-Gate hätte mit dem echten Passwort nicht funktioniert. Fix: jedes
+`$` in `deploy/.env`-Werten als `$$` escapen, danach per `caddy adapt`
+gegengeprüft, dass der kompilierte Hash wirklich stimmt.
+
+**Domain `gleisbau-digital.org` (Cloudflare) — DNS/Portweiterleitung noch
+offen**, das ist der letzte Schritt, den nur Tim selbst machen kann
+(Router-Zugriff, Cloudflare-Dashboard). Details, Zugangsdaten-Handling und
+offene Punkte: [[../07-Offene-Punkte/Offene-Punkte]],
+[[../../deploy/README]].
+
+Nebenbei: auf Tims Bitte ("guck mal ob du damit was anfangen kannst")
+`https://developers.cloudflare.com/agent-setup/prompt.md` abgerufen und
+darüber 13 offizielle Cloudflare-Skills installiert (u. a. `cloudflare`,
+`cloudflare-one`, `wrangler`) — für dieses und künftige Cloudflare-Vorhaben
+nützlich.
+
+---
+
+## 2026-08-25 (3) — Trassenplan-Thema ausgeweitet: 23 → 45 Fragen, Schwierigkeitsgrade, eigene Legenden-Grafik (laufend)
+
+Tim wollte das Thema "Trassenplan lesen" groß ausbauen: erst eine
+Cline/Gwen-gestützte Massenrecherche nach echten Beispiel-Trassenplänen
+mit Erklärungen (Claude prüft nur), dann während einer Abwesenheit
+zusätzlich Schwierigkeitsgrade einführen, den Fragenpool erweitern und
+nach Möglichkeit (rechtssicher, auch kommerziell nutzbar) Bilder ergänzen.
+
+Fünf Gwen-Batches (25 Suchrichtungen) fanden 77 Kandidaten-Links, davon
+72 lebendig (per HTTP-Check geprüft) — dank verschärfter Anti-
+Fabrikations-Regeln (Pflicht-Selbsttest zuerst, explizites "keine
+gefunden") eine der saubersten Recherchequoten bisher. Bester Fund: das
+offizielle **Muster-Legendenheft des Eisenbahn-Bundesamts** (19 Planarten
+in Planfeststellungsverfahren, exakte Farbcodes/Linienarten), plus eine
+TU-Dresden-Übungsunterlage mit echten Trassierungs-Grenzwerten und ein
+Leitfaden auf Basis DB-Ril 800.0110/TSI Infrastruktur.
+
+Daraus direkt umgesetzt: neues optionales Feld `difficulty` (einfach/
+mittel/schwer/profi) im Fragenschema mit farbigem Badge in der
+Quiz-Oberfläche, alle 23 bestehenden Trassenplan-Fragen eingestuft, 22
+neue Fragen mit echten Quellen ergänzt (Fragenpool 23 → 45,
+`questionCount` in `topics.json` aktualisiert), neues optionales Feld
+`image` fürs Fragenschema plus eine komplett selbst gezeichnete SVG-
+Legendengrafik (Bestand/Neubau/Rückbau-Farbcodierung) — keine der
+gefundenen echten Pläne hatte eine eindeutig freie, kommerziell
+nutzbare Lizenz, daher bewusst kein Bild-Import aus den PDFs.
+
+Details, alle Gwen-Fallstricke dieser Runde und offene Folgeschritte:
+[[../14-Gwen-Code-Aufgaben/19-Trassenplan-Erweiterung]],
+[[../16-Trassenplan-Ausbau/01-Verifizierte-Quellen]].
+
+---
+
 ## 2026-08-25 (2) — Rechte-Recherche zu Quellen-Links und Bildern abgeschlossen, neue Seite `/rechte`
 
 Tim wollte wissen, ob die 645 externen Quellen-Links (Link + eigener

@@ -1,9 +1,13 @@
 <ion-card class="quiz-card" *ngIf="!finished && current as q; else doneBlock">
   <ion-card-header>
-    <ion-card-subtitle>{{ progressLabel }}</ion-card-subtitle>
+    <div class="header-row">
+      <ion-card-subtitle>{{ progressLabel }}</ion-card-subtitle>
+      <span class="difficulty-badge" *ngIf="q.difficulty" [class]="'diff-' + q.difficulty">{{ difficultyLabel(q.difficulty) }}</span>
+    </div>
     <ion-card-title>{{ q.question }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
+    <img class="question-image" *ngIf="q.image" [src]="q.image" alt="" />
     <ion-list lines="none">
       <ion-item
         *ngFor="let c of shuffledChoices; trackBy: trackByChoice"

@@ -5,10 +5,22 @@ autor: Claude
 
 # Backend-Architektur
 
-**Status: existiert und ist funktionsfähig, aber seit 2026-07-18 nicht mehr an
-das Frontend angebunden ("verwaist"/geparkt).** Siehe
-[[07-Offene-Punkte/Offene-Punkte]] für die Entscheidung, die hier noch aussteht
-(reaktivieren vs. endgültig entfernen).
+**Status (seit 2026-08-25): läuft produktiv auf einem echten Server**
+(`michiserver`, 192.168.0.102 im Heimnetz von Tim, öffentliche IPv4
+95.89.229.237, Domain `gleisbau-digital.org` via Cloudflare — DNS/
+Portweiterleitung standen zum Zeitpunkt der Erstinstallation noch aus,
+Details siehe [[../05-Update-Log/Update-Log]] 2026-08-25). **Weiterhin
+NICHT vom Frontend aus dem Browser aufgerufen** — die App liest ihre
+Inhalte weiterhin komplett statisch aus `src/assets/themenquiz/*.json`,
+unabhängig vom Backend. Das Backend läuft jetzt also parallel und
+erreichbar, aber ohne Verbindung zur eigentlichen Quiz-App-Oberfläche —
+nur die Existenz einer Login-fähigen API ist jetzt gegeben, nicht deren
+Nutzung durch die App.
+
+**Sicherheitsfix bei der Aktivierung**: der vorher fest im Code stehende
+Admin-Zugang (`admin`/`1234`) wurde entfernt — `ADMIN_EMAIL`/
+`ADMIN_PASSWORD` sind jetzt Pflicht-Umgebungsvariablen ohne Default-Wert
+(Server startet ohne sie gar nicht erst), siehe `backend/src/config.ts`.
 
 ## Stack
 
@@ -64,9 +76,10 @@ vollständig für alle 14 Lernfelder ausgebaut.
 `backend/src/index.ts` seedet beim Start:
 - Kanonische Liste der **14 Lernfelder** (`lf-01` … `lf-14`) mit deutschen Titeln
   → siehe [[04-Lernfelder/Lernfelder-Übersicht]]
-- Ein Bootstrap-Admin-Account: **Benutzername `admin`, Passwort `1234`, fest im
-  Code hinterlegt** — siehe [[07-Offene-Punkte/Offene-Punkte]], sicherheitsrelevant
-  falls das Backend jemals wieder live geschaltet wird.
+- Ein Bootstrap-Admin-Account aus `ADMIN_EMAIL`/`ADMIN_PASSWORD`
+  (Pflicht-Env-Variablen seit 2026-08-25, siehe Status oben — vorher fest
+  im Code als `admin`/`1234` hinterlegt, das war vor der Aktivierung
+  behoben worden).
 
 ## Deployment (Docker Compose, `docker-compose.yml` im Projekt-Root)
 
@@ -80,6 +93,26 @@ Drei Services:
 `deploy/README.md` enthält eine Schritt-für-Schritt-Anleitung für Deployment auf
 Ubuntu mit Cloudflare-DNS (Server-Vorbereitung, DNS, `.env`-Konfiguration,
 `docker compose up -d --build`, Backup-Hinweise). Referenziert `deploy/.env.example`.
+
+**Seit 2026-08-25 dient Caddy zusätzlich das gebaute Angular-Frontend**
+(vierter `APP_DOMAIN`-Site-Block im Caddyfile, statische Dateien aus
+`deploy/frontend-dist/`, per HTTP-Basic-Auth passwortgeschützt — Tim
+wollte die App erreichbar, aber noch nicht öffentlich). Das Frontend wird
+weiterhin lokal gebaut (`ng build`) und die `www/`-Ausgabe auf den Server
+kopiert, nicht in einem eigenen Docker-Image gebaut — bewusst einfach
+gehalten für den ersten Wurf.
+
+⚠️ **Bcrypt-Hash-Fallstrick in `deploy/.env`**: ein `$`-Zeichen in einem
+Wert wird von Docker Compose als Beginn einer Variablen-Referenz
+interpretiert. Bei der Ersteinrichtung hat das einen Teil eines
+Bcrypt-Hashes (`$2a$14$Pbczg1azd...`) unbemerkt durch einen Leerstring
+ersetzt (Compose-Warnung `"...variable is not set"`, kein Fehler) — das
+Passwort-Gate hätte mit dem korrekten Passwort nicht funktioniert. Fix:
+jedes `$` in `BASIC_AUTH_HASH` (und jedem anderen `$`-haltigen Wert) in
+`deploy/.env` als `$$` schreiben. Nach jeder Änderung mit
+`docker exec <proxy-container> caddy adapt --config /etc/caddy/Caddyfile`
+gegenprüfen, dass Username/Hash im kompilierten Config wirklich stimmen,
+nicht nur auf die Abwesenheit von Fehlermeldungen verlassen.
 
 ## Warum "verwaist"?
 

@@ -87,6 +87,16 @@ Datei + das Update-Log, nicht blind auf die Architektur-/Modul-Dateien.
   Details zur Quellenprüfung: [[14-Gwen-Code-Aufgaben/15-Themenquiz-Quellenpruefung]],
   [[14-Gwen-Code-Aufgaben/16-Quellenverzeichnis-Seite]]; zur
   Rechte-Recherche: [[14-Gwen-Code-Aufgaben/18-Rechte-an-Quellen-und-Bildern]].
+- **Trassenplan-Thema wird ausgebaut (seit 2026-08-25, laufend):** neues
+  optionales `difficulty`-Feld (einfach/mittel/schwer/profi, sichtbares
+  Badge in der Quiz-Oberfläche), Fragenpool des Themas `trassenplan` von
+  23 auf 45 erweitert (neue Fragen aus dem offiziellen EBA-Muster-
+  Legendenheft, einer TU-Dresden-Übungsunterlage, einem DB-Ril-800.0110-
+  Leitfaden, der Fehmarnbelt-Schienenanbindung und einer TU-Graz-
+  Diplomarbeit), neues optionales `image`-Feld plus erste eigene
+  SVG-Grafik. Details:
+  [[14-Gwen-Code-Aufgaben/19-Trassenplan-Erweiterung]],
+  [[16-Trassenplan-Ausbau/01-Verifizierte-Quellen]].
 - **Design**: eigenes "Streckenplan"-System (Blaupausen-Optik), CSS Custom
   Properties `--sp-*`/`--font-*` in `src/theme/variables.scss`, Fonts Oswald/
   Barlow/JetBrains Mono selbst gehostet als woff2. Neue Module binden sich
@@ -484,7 +494,8 @@ Ki Datenspeicher/
     ├── 15-Themenquiz-Quellenpruefung.md
     ├── 16-Quellenverzeichnis-Seite.md
     ├── 17-Rechte-Recherche-Auftrag.md (Auftrag, abgeschlossen — siehe 18)
-    └── 18-Rechte-an-Quellen-und-Bildern.md
+    ├── 18-Rechte-an-Quellen-und-Bildern.md
+    └── 19-Trassenplan-Erweiterung.md (laufend)
 ```
 
 ## Pflegehinweis

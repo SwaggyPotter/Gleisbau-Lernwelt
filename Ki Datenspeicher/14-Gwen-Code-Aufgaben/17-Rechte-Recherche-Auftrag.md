@@ -1,7 +1,7 @@
 ---
 tags: [rechte, lizenzen, quellen, bilder, auftrag]
 autor: Claude
-status: Auftrag vorbereitet, Recherche noch nicht begonnen
+status: abgeschlossen (2026-08-25), siehe [[18-Rechte-an-Quellen-und-Bildern]]
 ---
 
 # Runde 17 — Auftrag: Rechte-Recherche zu Quellen-Links und Bildern

@@ -1,0 +1,150 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Rechte an Quellen und Bildern</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="rechte-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Transparenz</p>
+      <h1>Rechte an Quellen und Bildern</h1>
+      <p class="lede">
+        Diese Seite dokumentiert, wie die {{ gesamtQuellen }} externen Quellen-Links im
+        Themenquiz ({{ gesamtDomains }} verschiedene Domains) rechtlich eingeordnet wurden
+        und wie die {{ bilder.length || 25 }} Wikimedia-Commons-Bildlizenzen dieser App
+        neu verifiziert wurden.
+      </p>
+    </section>
+
+    <section class="disclaimer">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <p>
+        <strong>Keine Rechtsberatung.</strong> Diese Einschätzung ist eine KI-gestützte
+        Recherche zur eigenen Orientierung, kein anwaltliches Gutachten. Bevor die App
+        kommerziell oder öffentlich in größerem Umfang genutzt wird, sollte im Zweifel
+        ein Anwalt für Urheber-/Medienrecht konsultiert werden.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Grundprinzip: Link + eigener Text statt Zitat</h2>
+      <p>
+        Für jede Quiz-Frage steht in der App ausschließlich ein Hyperlink auf die Originalseite
+        plus ein kurzer, selbst formulierter Bezeichnungstext – nie ein wörtliches
+        Volltext-Zitat der Quelle. Das ist rechtlich der sicherste Weg:
+      </p>
+      <ul>
+        <li>
+          <strong>Reines Verlinken ist urheberrechtlich unbedenklich.</strong> Nach der
+          Rechtsprechung des EuGH (u. a. "Svensson", C-466/12) ist ein Hyperlink auf einen
+          Inhalt, der auf der Zielseite frei und mit Zustimmung des Rechteinhabers
+          zugänglich ist, keine eigene "öffentliche Wiedergabe" und braucht daher keine
+          Erlaubnis. Nur bei Links auf erkennbar rechtswidrig veröffentlichte Inhalte kann
+          das anders sein (EuGH "GS Media", C-160/15) – dafür gab es bei keiner der 645
+          Quellen einen Anhaltspunkt.
+        </li>
+        <li>
+          <strong>Fakten selbst sind nicht geschützt.</strong> Urheberrecht schützt nur die
+          konkrete sprachliche oder gestalterische Ausdrucksform (§ 2 UrhG), nicht die
+          dahinterliegende Information. Dass eine Spannklemme die Schiene auf die
+          Rippenplatte presst, ist eine Tatsache – wer das in eigenen Worten wiedergibt,
+          übernimmt keine geschützte Formulierung.
+        </li>
+        <li>
+          <strong>Titel- und Begriffsnennungen sind unproblematisch.</strong> Einen
+          Artikeltitel, Normnamen oder Fachbegriff als Bezeichnung zu nennen (z. B.
+          "Wikipedia, Artikel Stopfen (Gleisbau)"), ist ein reiner Herkunftsnachweis, keine
+          Übernahme eines geschützten Textes – ähnlich einer bibliografischen Angabe.
+        </li>
+      </ul>
+      <p>
+        Bei der Prüfung aller 645 Quellen fielen <strong>35 Fragen</strong> auf, deren
+        <code>source</code>-Feld noch einen echten Wortlaut-Ausschnitt der Zielseite in
+        Anführungszeichen enthielt (z. B. eine konkrete Produktspezifikation oder einen
+        Definitionssatz) statt nur einen Titel oder Fachbegriff zu nennen. Diese 35
+        Bezeichnungstexte wurden in dieser Runde durch eigenständige Kurzformulierungen
+        ersetzt – der Link selbst blieb unverändert, da die referenzierte Tatsache dieselbe
+        bleibt. Die übrigen 18 quellenmarkierten Texte (Artikeltitel, Normbezeichnungen wie
+        "§ 5 EBO", Produktnamen) waren bereits reine Titel-/Begriffsnennungen und blieben
+        unverändert.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>Domain-Kategorien</h2>
+      <p class="block-intro">
+        Bei {{ gesamtDomains }} verschiedenen verlinkten Domains ist eine Einzelprüfung
+        jeder einzelnen nicht praktikabel. Stattdessen wurden alle Domains nach Art des
+        Betreibers kategorisiert und pro Kategorie rechtlich eingeordnet:
+      </p>
+
+      <article class="kategorie" *ngFor="let k of kategorien">
+        <header>
+          <h3>{{ k.name }}</h3>
+          <span class="kat-zahl">{{ k.domains }} Domains &middot; {{ k.verwendungen }} Verwendungen</span>
+        </header>
+        <p class="kat-beispiele">{{ k.beispiele }}</p>
+        <p class="kat-text">{{ k.einordnung }}</p>
+      </article>
+    </section>
+
+    <section class="block">
+      <h2>Die zehn häufigsten Domains im Detail</h2>
+      <p class="block-intro">
+        Diese zehn Domains decken zusammen {{ 117 + 53 + 24 + 22 + 10 + 10 + 9 + 8 + 8 + 7 }}
+        der 645 Quellen-Verwendungen ab und wurden deshalb einzeln geprüft (Impressum/
+        Nutzungsbedingungen der jeweiligen Seite).
+      </p>
+      <article class="top-domain" *ngFor="let t of topDomains">
+        <header>
+          <h3>{{ t.domain }}</h3>
+          <span class="kat-zahl">{{ t.verwendungen }}&times; verwendet</span>
+        </header>
+        <p class="kat-text">{{ t.einordnung }}</p>
+      </article>
+    </section>
+
+    <section class="block">
+      <h2>Bildrechte: Neu-Verifikation</h2>
+      <p class="block-intro">
+        Alle {{ bilder.length || 25 }} in <code>bildnachweise.json</code> dokumentierten
+        Wikimedia-Commons-Lizenzen wurden erneut direkt auf der jeweiligen Commons-
+        Dateiseite geprüft (Lizenzbox, Autor, Attribution-Text) – nicht nur aus der
+        bisherigen Recherche übernommen.
+      </p>
+      <p class="error" *ngIf="ladeFehler">Bildnachweise konnten nicht geladen werden.</p>
+
+      <div class="bild-liste" *ngIf="!ladeFehler">
+        <article class="bild-eintrag" *ngFor="let b of bilder; trackBy: trackByKey">
+          <div class="bild-kopf">
+            <span class="bild-key">{{ b.key }}</span>
+            <span
+              class="status-chip"
+              [class.korrigiert]="pruefstatus(b.key).status === 'korrigiert'"
+            >{{ pruefstatus(b.key).status === 'korrigiert' ? 'korrigiert' : 'bestätigt' }}</span>
+          </div>
+          <p class="credit">{{ b.credit }}</p>
+          <p class="meta">
+            Lizenz: {{ b.license }} &middot;
+            <a [href]="b.sourceUrl" target="_blank" rel="noopener">Original-Dateiseite auf Wikimedia Commons</a>
+          </p>
+          <p class="notiz" *ngIf="pruefstatus(b.key).notiz">{{ pruefstatus(b.key).notiz }}</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Verwandte Seiten</h2>
+      <p class="block-intro">
+        <a [routerLink]="'/quellenverzeichnis'">Quellenverzeichnis</a> – alle 645 Fragen mit
+        Quelle im Detail.
+        <a [routerLink]="'/bildnachweise'">Bildnachweise</a> – kompakte Liste aller
+        Bildlizenzen.
+      </p>
+    </section>
+  </div>
+</ion-content>

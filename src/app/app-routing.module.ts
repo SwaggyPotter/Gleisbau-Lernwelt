@@ -73,6 +73,11 @@ const routes: Routes = [
     loadChildren: () => import('./quellenverzeichnis/quellenverzeichnis.module')
       .then(m => m.QuellenverzeichnisPageModule)
   },
+  {
+    path: 'rechte',
+    loadChildren: () => import('./rechte/rechte.module')
+      .then(m => m.RechtePageModule)
+  },
   { path: '**', redirectTo: 'dashboard' }
 ];
 

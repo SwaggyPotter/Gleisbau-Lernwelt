@@ -11,6 +11,40 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+## 2026-08-25 (2) — Rechte-Recherche zu Quellen-Links und Bildern abgeschlossen, neue Seite `/rechte`
+
+Tim wollte wissen, ob die 645 externen Quellen-Links (Link + eigener
+Kurztext) rechtlich unbedenklich sind, und alle Wikimedia-Commons-
+Bildlizenzen komplett neu verifiziert haben (nicht nur aus der alten
+Recherche übernommen) — explizit als KI-Einschätzung, keine Rechtsberatung.
+
+Alle 258 verlinkten Domains in 7 Kategorien eingeordnet (Wikipedia,
+amtliche Gesetzestexte, öffentliche Stellen/BGs, bahnnahe Unternehmen,
+kommerzielle Fachlexika, Herstellerseiten, kleine Fachseiten/Foren), die
+10 häufigsten einzeln per Impressum/Nutzungsbedingungen geprüft. Ergebnis:
+kein einziger Fall mit explizitem Link-/Zitierverbot; reines Verlinken +
+eigener Kurztext ist nach EuGH-Rechtsprechung (Svensson/GS Media) und
+§ 2/§ 5 UrhG rechtlich unbedenklich. Von 53 `source`-Feldern mit
+Anführungszeichen (Verdacht auf Wortlaut-Zitat) waren 18 bereits reine
+Titel-/Begriffsnennungen (unproblematisch) und **35 enthielten echten,
+zitierten Wortlaut** — diese wurden direkt umgeschrieben auf eigenständige
+Kurzformulierungen (Link unverändert).
+
+Alle 25 Wikimedia-Commons-Bildlizenzen einzeln neu gegen die aktuelle
+Commons-Dateiseite geprüft: 24 vollständig bestätigt, 1 Korrektur
+(`handwerkzeuge`-Bild — Fotograf/Behörde war ungenau als "NARA"
+zugeordnet, tatsächlich Jim Pickerell für die EPA; gemeinfreier Status
+unverändert korrekt).
+
+Neue Seite `/rechte` (Modul `src/app/rechte/`, gleiches Streckenplan-
+Design wie `/bildnachweise` und `/quellenverzeichnis`, dritter
+Footer-Link im Dashboard) fasst alles zusammen, inkl. gut sichtbarem
+Disclaimer ("Keine Rechtsberatung"). `ng build` grün mit eigenem Chunk,
+Playwright-Check ohne Konsolenfehler. Details:
+[[../14-Gwen-Code-Aufgaben/18-Rechte-an-Quellen-und-Bildern]].
+
+---
+
 ## 2026-08-24 (2) — Themenquiz-Quellenprüfung abgeschlossen: 645/645 Fragen mit Quelle+Link (100 %)
 
 Tim wollte, dass bei jeder Frage in den 24 Themenquiz-/Lernfeld-Quizzen

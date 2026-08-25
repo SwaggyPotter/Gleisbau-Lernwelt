@@ -10,7 +10,7 @@ Dieser Vault ist der zentrale Wissensspeicher für das Projekt **Gleisbau Lernwe
 was das Projekt ist, wie es aufgebaut ist, was zuletzt passiert ist, was offen ist
 — und wie Gwen (das lokale KI-Modell) gesteuert wird.
 
-**Stand dieser Datei: 2026-08-24.** Sie wird bei größeren Änderungen aktualisiert,
+**Stand dieser Datei: 2026-08-25.** Sie wird bei größeren Änderungen aktualisiert,
 ist aber kein Ersatz für `git log` / `git status` — bei Zweifeln immer den echten
 Code-Stand prüfen.
 
@@ -78,12 +78,15 @@ Datei + das Update-Log, nicht blind auf die Architektur-/Modul-Dateien.
   Gwen-Dispatch-Workflow (`tools/themenquiz-quellenpruefung/
   run-batches.cjs`) erledigt — dabei ein wichtiges neues Gwen-Fehlerbild
   gefunden (erfundene, plausibel klingende Domains, siehe achter
-  Fallstrick unten). **Naechster Schritt (Auftrag vorbereitet, noch nicht
-  begonnen):** Rechte-Recherche zu den 258 verlinkten externen Domains +
-  komplette Neu-Verifikation aller Bildlizenzen, siehe
-  [[14-Gwen-Code-Aufgaben/17-Rechte-Recherche-Auftrag]]. Details zur
-  Quellenprüfung: [[14-Gwen-Code-Aufgaben/15-Themenquiz-Quellenpruefung]],
-  [[14-Gwen-Code-Aufgaben/16-Quellenverzeichnis-Seite]].
+  Fallstrick unten). **Rechte-Recherche ebenfalls abgeschlossen
+  (2026-08-25):** alle 258 verlinkten Domains rechtlich kategorisiert
+  (EuGH-Hyperlink-Rechtsprechung, § 5 UrhG amtliche Werke), 35 Fragen mit
+  echtem Wortlaut-Zitat im `source`-Feld umgeschrieben, alle 25
+  Wikimedia-Bildlizenzen neu verifiziert (1 Korrektur). Neue Seite
+  `/rechte` fasst das zusammen (mit "keine Rechtsberatung"-Hinweis).
+  Details zur Quellenprüfung: [[14-Gwen-Code-Aufgaben/15-Themenquiz-Quellenpruefung]],
+  [[14-Gwen-Code-Aufgaben/16-Quellenverzeichnis-Seite]]; zur
+  Rechte-Recherche: [[14-Gwen-Code-Aufgaben/18-Rechte-an-Quellen-und-Bildern]].
 - **Design**: eigenes "Streckenplan"-System (Blaupausen-Optik), CSS Custom
   Properties `--sp-*`/`--font-*` in `src/theme/variables.scss`, Fonts Oswald/
   Barlow/JetBrains Mono selbst gehostet als woff2. Neue Module binden sich
@@ -480,7 +483,8 @@ Ki Datenspeicher/
     ├── 14-Rechentrainer-Umbau.md
     ├── 15-Themenquiz-Quellenpruefung.md
     ├── 16-Quellenverzeichnis-Seite.md
-    └── 17-Rechte-Recherche-Auftrag.md (Auftrag fuer naechste Session, noch offen)
+    ├── 17-Rechte-Recherche-Auftrag.md (Auftrag, abgeschlossen — siehe 18)
+    └── 18-Rechte-an-Quellen-und-Bildern.md
 ```
 
 ## Pflegehinweis

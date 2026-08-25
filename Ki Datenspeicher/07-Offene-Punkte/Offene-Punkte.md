@@ -213,12 +213,22 @@ echtes Gleisplan-SVG statt Luftbild), Bildgroesse auf Kacheln kompakter.
 - [x] **Neue Seite `/quellenverzeichnis`** zeigt alle Fragen, Antworten
   und Quellen an einem Ort, mit Volltextsuche — siehe
   [[../14-Gwen-Code-Aufgaben/16-Quellenverzeichnis-Seite]].
-- [ ] **Rechte-Recherche zu den 641 externen Quellen-Links noch offen**
-  (Tim moechte pruefen/dokumentieren lassen, ob Verlinken + kurze
-  Begruendungstexte rechtlich unproblematisch sind, sonst umschreiben) —
-  bewusst in einer neuen Chat-Session, Prompt dafuer vorbereitet. Siehe
-  [[../14-Gwen-Code-Aufgaben/17-Rechte-Recherche-Auftrag]] (Auftrag,
-  Recherche selbst noch nicht begonnen).
+- [x] **Rechte-Recherche zu den 645 externen Quellen-Links — erledigt
+  (2026-08-25).** Alle 258 Domains kategorisiert und rechtlich eingeordnet,
+  35 Fragen mit echtem Wortlaut-Zitat im `source`-Feld auf eigenständige
+  Kurzformulierungen umgeschrieben, alle 25 Wikimedia-Commons-Bildlizenzen
+  neu verifiziert (1 Korrektur: Fotograf/Behörde bei `handwerkzeuge`
+  präzisiert). Neue Seite `/rechte`. Details:
+  [[../14-Gwen-Code-Aufgaben/18-Rechte-an-Quellen-und-Bildern]].
+- [ ] **Datenqualität: einige `source`-Felder enden mitten im Wort/Satz mit
+  "…".** Nebenfund der Rechte-Recherche (2026-08-25), NICHT Teil des
+  damaligen Auftrags (Scope war explizit auf Rechtsrisiko begrenzt) und
+  deshalb bewusst nicht mit-repariert. Vermutlich stammt es aus der
+  90-Zeichen-Kürzung in `apply-results.cjs` (Runde 15), die gelegentlich
+  mitten im Wortlaut statt an einer Wortgrenze abschneidet. Betrifft u. a.
+  `t2q2`/`t2q5` (spurweite.json), `spurweite-g7`/`spurweite-g8`,
+  `LF10-Q24` (Text bricht sichtbar ab). Kein Rechtsrisiko (reine
+  Kürzungs-/Lesbarkeitsfrage), aber bei Gelegenheit hübsch nachziehen.
 - [ ] **FALSCH/UNSICHER-Funde aus der Quellenprüfung sind gesammelt, aber
   noch nicht mit Tim besprochen.** Bisher u. a.: `bettung-g6`
   (Lastausbreitungswinkel), `kleineisen-g6`/`kleingeraete-g11` und

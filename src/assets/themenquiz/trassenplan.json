@@ -111,7 +111,7 @@
       ],
       "correctIndex": 1,
       "explanation": "Mit Trassenplan erstellen Sie gemäß DB Richtlinie 885.1102 einen Trassenplan auf Basis der Trassierung im Grund- und Aufriss.",
-      "source": "Erstellen Sie schnell und einfach einen Trassenplan gemäß DB Richtlinie 885.1102\" (AKG…",
+      "source": "AKG Software, Dokumentation Trassenplan-Funktion (eigene Zusammenfassung)",
       "sourceUrl": "https://www.akgsoftware.de/docs/de/infravision/b63/acad/webhelp/topics/bahn_r_verm_trassenplan.html"
     },
     {
@@ -167,7 +167,7 @@
       ],
       "correctIndex": 1,
       "explanation": "Längsneigung und Bogenradius sind die entscheidenden Trassierungselemente einer Eisenbahnstrecke bei Neubauten.",
-      "source": "Längsneigung und Bogenradius (\"die größte Längsneigung und der kleinste Bogenradius\")",
+      "source": "Springer Fachbuch, Kapitel Trassierungselemente (eigene Zusammenfassung)",
       "sourceUrl": "https://link.springer.com/content/pdf/10.1007/978-3-540-31707-4_1.pdf"
     },
     {
@@ -181,7 +181,7 @@
       ],
       "correctIndex": 1,
       "explanation": "Das Absteckverzeichnis enthält die Trassierungsdokumentation einschließlich der Gleisvermarkungspunkte.",
-      "source": "Vollständige Trassierungsdokumentation (\"Abstecklisten und Gleisfestpunktverzeichnisse\")",
+      "source": "geodigital, Fachartikel Abstecklisten/Gleisfestpunktverzeichnisse (eigene Zusammenfassung)",
       "sourceUrl": "https://www.geodigital.de/Attachment/download/Veroeffentlichungen/Geo_iA2-2012_Abstecklisten.pdf"
     },
     {
@@ -195,7 +195,7 @@
       ],
       "correctIndex": 0,
       "explanation": "Früher erforderten das Erzeugen digitaler Trassierungsdokumentationen mehrtägige und manuell sehr aufwendige Datenaufbereitungen.",
-      "source": "Manuelle Datenaufbereitung (\"mehrtägige und manuell sehr aufwendige Datenaufbereitungen\")",
+      "source": "geodigital, Fachartikel zur digitalen Trassierungsdokumentation (eigene Zusammenfassung)",
       "sourceUrl": "https://www.geodigital.de/Attachment/download/Veroeffentlichungen/Geo_iA2-2012_Abstecklisten.pdf"
     },
     {

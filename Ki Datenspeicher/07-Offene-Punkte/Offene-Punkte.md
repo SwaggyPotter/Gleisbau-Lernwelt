@@ -201,21 +201,24 @@ echtes Gleisplan-SVG statt Luftbild), Bildgroesse auf Kacheln kompakter.
   damaligen Auftrags). Bei Gelegenheit entweder loeschen oder wieder
   irgendwo einbinden.
 
-## Themenquiz-Quellenprüfung (2026-08-24, 99 % fertig)
+## Themenquiz-Quellenprüfung (2026-08-24/25, 100 % fertig)
 
-- [x] **Alle 645 Themenquiz-/Lernfeld-Fragen brauchen eine Quelle mit
-  Link — erledigt (636/645, 99 %).** Tims Wunsch, per Gwen (headless)
-  umgesetzt und von Claude per Vollprüfung aller 482 eingetragenen URLs
-  verifiziert (nicht nur Stichprobe). Dabei ein neues Gwen-Fehlerbild
-  gefunden: erfundene, plausibel klingende Domains statt "keine
-  gefunden" (45 Fälle entfernt) — Details, alle gefundenen Bugs und die
-  Format-Historie: [[../14-Gwen-Code-Aufgaben/15-Themenquiz-Quellenpruefung]].
-- [ ] **9 Fragen noch ohne Quelle** (waren fabriziert/tot, entfernt,
-  noch nicht neu recherchiert): LF03-Q26, LF09-Q1/Q2/Q3/Q5, LF11-Q22,
-  LF14-Q23, trassenplan tp-q4/trassenplan-g11. Kein Blocker (Feld
-  optional) — mit `node tools/themenquiz-quellenpruefung/run-batches.cjs 5`
-  wuerde der selbst-fortsetzende Workflow genau diese automatisch
-  nachziehen.
+- [x] **Alle 645 Themenquiz-/Lernfeld-Fragen haben eine Quelle mit Link
+  (100 %).** Tims Wunsch, per Gwen (headless) umgesetzt und von Claude
+  per Vollprüfung aller URLs verifiziert (nicht nur Stichprobe). Dabei
+  ein neues Gwen-Fehlerbild gefunden: erfundene, plausibel klingende
+  Domains statt "keine gefunden" (45 Fälle entfernt und neu belegt) —
+  Details, alle gefundenen Bugs und die Format-Historie:
+  [[../14-Gwen-Code-Aufgaben/15-Themenquiz-Quellenpruefung]].
+- [x] **Neue Seite `/quellenverzeichnis`** zeigt alle Fragen, Antworten
+  und Quellen an einem Ort, mit Volltextsuche — siehe
+  [[../14-Gwen-Code-Aufgaben/16-Quellenverzeichnis-Seite]].
+- [ ] **Rechte-Recherche zu den 641 externen Quellen-Links noch offen**
+  (Tim moechte pruefen/dokumentieren lassen, ob Verlinken + kurze
+  Begruendungstexte rechtlich unproblematisch sind, sonst umschreiben) —
+  bewusst in einer neuen Chat-Session, Prompt dafuer vorbereitet. Siehe
+  [[../14-Gwen-Code-Aufgaben/17-Rechte-Recherche-Auftrag]] (Auftrag,
+  Recherche selbst noch nicht begonnen).
 - [ ] **FALSCH/UNSICHER-Funde aus der Quellenprüfung sind gesammelt, aber
   noch nicht mit Tim besprochen.** Bisher u. a.: `bettung-g6`
   (Lastausbreitungswinkel), `kleineisen-g6`/`kleingeraete-g11` und

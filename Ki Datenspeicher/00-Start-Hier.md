@@ -71,15 +71,19 @@ Datei + das Update-Log, nicht blind auf die Architektur-/Modul-Dateien.
   — Gwen konnte das nicht liefern, siehe siebter Fallstrick unten.
   Fehlende/unpassende Fotomotive sind eigene SVGs im Streckenplan-Stil
   (`src/assets/bilder/*.svg`). Details: [[14-Gwen-Code-Aufgaben/14-Rechentrainer-Umbau]].
-- **Quellen bei Themenquiz-/Lernfeld-Fragen: seit 2026-08-24 zu 99 %
-  fertig** (636/645, `source`/`sourceUrl`, mit klickbarem Link in der
-  Quiz-Oberfläche). Ueber einen selbst-fortsetzenden, headless
+- **Quellen bei Themenquiz-/Lernfeld-Fragen: seit 2026-08-25 zu 100 %
+  fertig** (645/645, `source`/`sourceUrl`, mit klickbarem Link in der
+  Quiz-Oberfläche, zusaetzlich zentral einsehbar auf der neuen Seite
+  `/quellenverzeichnis`). Ueber einen selbst-fortsetzenden, headless
   Gwen-Dispatch-Workflow (`tools/themenquiz-quellenpruefung/
   run-batches.cjs`) erledigt — dabei ein wichtiges neues Gwen-Fehlerbild
   gefunden (erfundene, plausibel klingende Domains, siehe achter
-  Fallstrick unten). 9 Fragen bewusst offen (entfernte
-  Fehl-Quellen, noch nicht neu recherchiert). Details:
-  [[14-Gwen-Code-Aufgaben/15-Themenquiz-Quellenpruefung]].
+  Fallstrick unten). **Naechster Schritt (Auftrag vorbereitet, noch nicht
+  begonnen):** Rechte-Recherche zu den 258 verlinkten externen Domains +
+  komplette Neu-Verifikation aller Bildlizenzen, siehe
+  [[14-Gwen-Code-Aufgaben/17-Rechte-Recherche-Auftrag]]. Details zur
+  Quellenprüfung: [[14-Gwen-Code-Aufgaben/15-Themenquiz-Quellenpruefung]],
+  [[14-Gwen-Code-Aufgaben/16-Quellenverzeichnis-Seite]].
 - **Design**: eigenes "Streckenplan"-System (Blaupausen-Optik), CSS Custom
   Properties `--sp-*`/`--font-*` in `src/theme/variables.scss`, Fonts Oswald/
   Barlow/JetBrains Mono selbst gehostet als woff2. Neue Module binden sich
@@ -474,7 +478,9 @@ Ki Datenspeicher/
     ├── 12-Quizduell-Umbau-Frage-Komponente.md
     ├── 13-Quizduell-Referenz-Umbau.md
     ├── 14-Rechentrainer-Umbau.md
-    └── 15-Themenquiz-Quellenpruefung.md
+    ├── 15-Themenquiz-Quellenpruefung.md
+    ├── 16-Quellenverzeichnis-Seite.md
+    └── 17-Rechte-Recherche-Auftrag.md (Auftrag fuer naechste Session, noch offen)
 ```
 
 ## Pflegehinweis

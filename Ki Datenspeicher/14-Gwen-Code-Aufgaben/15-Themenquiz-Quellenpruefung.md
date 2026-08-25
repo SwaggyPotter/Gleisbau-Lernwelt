@@ -107,18 +107,20 @@ echte Seite existiert. Kostete eine Korrekturrunde, bis erkannt.
 
 ## Endstand
 
-**636 von 645 Fragen (99 %) mit echter, verifizierter Quelle.** Alle 24
+**645 von 645 Fragen (100 %) mit echter, verifizierter Quelle.** Alle 24
 Themen (10 Wissenstests + 14 Lernfelder) sind vertreten, die meisten zu
 100 %. Build grün, Quellen-Link-Rendering in der Quiz-Oberfläche per
 Playwright bestätigt (klickbarer Link in der Antwort-Rückmeldung).
 
-**Bewusst offen gelassen** (9 Fragen — die als fabriziert/tot entfernten
-Einträge, noch nicht neu recherchiert): LF03-Q26, LF09-Q1/Q2/Q3/Q5,
-LF11-Q22, LF14-Q23, trassenplan tp-q4/trassenplan-g11. Kein Blocker für
-den App-Betrieb (Feld ist optional, Fragen funktionieren ohne Quelle
-normal) — kann in einer späteren, kleinen Runde nachgezogen werden
-(`node tools/themenquiz-quellenpruefung/run-batches.cjs 5` würde exakt
-diese 9 automatisch aufgreifen, da der Workflow selbst-fortsetzend ist).
+**Update 2026-08-25: alle 645 Fragen haben jetzt eine Quelle (100 %).**
+Die letzten 9 Lücken (LF03-Q26, LF09-Q1/Q2/Q3/Q5/Q22, LF11-Q22, LF14-Q23,
+trassenplan tp-q4/trassenplan-g11) wurden in einer zweiten Runde
+geschlossen. Dabei erneut die kaputte `cline`-Installation angetroffen
+(zweites Mal, siehe [[16-Quellenverzeichnis-Seite]]) — diesmal am
+Muster "alle 3 Versuche scheitern in 0 Sekunden" erkannt, `npm install -g
+cline` behoben. Alle neuen URLs stichprobenartig per curl/WebFetch
+geprüft; ein zusätzlicher 403 (baua.de-Unterseite) gefunden und entfernt,
+dann erneut ersetzt.
 
 ## Verifikationsmethode (relevant für künftige ähnliche Aufträge)
 

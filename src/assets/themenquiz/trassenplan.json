@@ -223,7 +223,7 @@
       ],
       "correctIndex": 1,
       "explanation": "Für die Faltung von Plänen gilt DIN 824.",
-      "source": "DIN 824 ist die Norm für das Falten technischer Zeichnungen auf Ablageformat (Ablagenorm)",
+      "source": "DIN 824 regelt Faltung technischer Zeichnungen`",
       "sourceUrl": "https://de.wikipedia.org/wiki/DIN_824"
     },
     {
@@ -237,8 +237,8 @@
       ],
       "correctIndex": 2,
       "explanation": "Der bautechnische Entwurf wird im allgemeinen im Lageplan im Maßstab 1:1000 dargestellt.",
-      "source": "Bautechnischer Entwurf von Lageplänen im Maßstab 1:1000 (Springer Nature Link, durchsuc…",
-      "sourceUrl": "https://link.springer.com/chapter/10.1007/978-3-658-17177-3_15"
+      "source": "§9 EBEV vorschreibt Maßstäbe 1:500 oder 1:1000 für Lagepläne`",
+      "sourceUrl": "https://www.jusline.at/gesetz/ebev/paragraf/9"
     },
     {
       "id": "trassenplan-g11",
@@ -250,7 +250,9 @@
         "Ein Punkt mit erhöhtem Verschleiß der Schiene"
       ],
       "correctIndex": 1,
-      "explanation": "Gleisvermarkungspunkte sind festgelegte Referenzpunkte zur Identifikation und Absteckung entlang einer Bahnstrecke."
+      "explanation": "Gleisvermarkungspunkte sind festgelegte Referenzpunkte zur Identifikation und Absteckung entlang einer Bahnstrecke.",
+      "source": "Gleisvermarkungspunkte sind DB-Vermessungspunkte neben der Strecke zur Identifikation",
+      "sourceUrl": "https://www.akgsoftware.de/docs/de/infravision/b59/akgcad/webhelp/glossary/gl_vestra_begriffe.html"
     },
     {
       "id": "trassenplan-g12",
@@ -263,7 +265,7 @@
       ],
       "correctIndex": 1,
       "explanation": "Der Höhenplan zeigt den Höhenverlauf sowie Neigungsverhältnisse und Bauwerke wie Brücken oder Tunnel.",
-      "source": "Höhenplan zeigt vertikalen Schnitt mit Neigungslinien und Bauwerken (Wikipedia, durchsu…",
+      "source": "Höhenplan (Längsschnitt) zeigt vertikalen Schnitt, Längsneigung und Bauwerke`",
       "sourceUrl": "https://de.wikipedia.org/wiki/H%C3%B6henplan"
     },
     {
@@ -277,8 +279,8 @@
       ],
       "correctIndex": 0,
       "explanation": "Der Neigungsmastab dient zur Darstellung von Längsneigungen und Steigungen im Trassenplan.",
-      "source": "Höhenpläne verwenden vergrößerten Mastab in der Höhe für Längsneigungsdarstellung (Wiki…",
-      "sourceUrl": "https://de.wikipedia.org/wiki/H%C3%B6henplan"
+      "source": "Neigungsmaßstab darstellt Längsneigungen in Promille als Maßstab für Steigungsdarstellung`",
+      "sourceUrl": "https://de.wikipedia.org/wiki/Gradiente"
     },
     {
       "id": "trassenplan-g14",

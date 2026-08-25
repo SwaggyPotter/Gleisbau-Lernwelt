@@ -11,7 +11,7 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
-## 2026-08-24 (2) — Themenquiz-Quellenprüfung abgeschlossen: 636/645 Fragen mit Quelle+Link (99 %)
+## 2026-08-24 (2) — Themenquiz-Quellenprüfung abgeschlossen: 645/645 Fragen mit Quelle+Link (100 %)
 
 Tim wollte, dass bei jeder Frage in den 24 Themenquiz-/Lernfeld-Quizzen
 (645 Fragen) eine Quelle mit direktem Link steht, recherchiert und geprüft
@@ -42,12 +42,39 @@ Daneben u. a. mehrere echte 404s, ein 410, mehrere Forenbeiträge und ein
 paywalled Link gefunden und entfernt (juraforum.de dagegen per WebFetch
 geprüft und trotz Namens als seriöse Rechtsdatenbank bestätigt, behalten).
 
-**Endstand: 636/645 Fragen (99 %) mit echter, verifizierter Quelle**, über
-alle 24 Themen verteilt. Build grün, Link-Rendering in der Quiz-Oberfläche
-per Playwright bestätigt. 9 Fragen bewusst offen gelassen (ehemals
-fabrizierte/tote Quellen, noch nicht neu recherchiert — kein Blocker, Feld
-ist optional). Details, komplette Bug-Liste und Fund-Historie:
+**Endstand (nach einer zweiten Runde am 2026-08-25): 645/645 Fragen
+(100 %) mit echter, verifizierter Quelle**, über alle 24 Themen verteilt.
+Build grün, Link-Rendering in der Quiz-Oberfläche per Playwright
+bestätigt. Details, komplette Bug-Liste und Fund-Historie:
 [[../14-Gwen-Code-Aufgaben/15-Themenquiz-Quellenpruefung]].
+
+---
+
+## 2026-08-25 — Neue Seite "Quellenverzeichnis" + Rechte-Recherche-Auftrag vorbereitet
+
+Tim wollte eine zentrale Seite mit allen Fragen, Antworten und Quellen
+für volle Transparenz. Die Quellen-Anzeige direkt im Quiz (per Frage
+nach dem Beantworten) existierte bereits aus einer früheren Runde. Neue
+Seite `/quellenverzeichnis` gebaut: alle 24 Themen einklappbar, pro Frage
+Fragetext/Antwort/Quelle mit Link, Volltextsuche über Fragen/Antworten/
+Quellen, Link im Dashboard-Footer neben "Bildnachweise". Details:
+[[../14-Gwen-Code-Aufgaben/16-Quellenverzeichnis-Seite]].
+
+Dabei zum zweiten Mal die kaputte `cline`-Installation angetroffen
+(`npm install -g cline` behoben) — diesmal am verlässlichen Muster "alle
+3 Versuche scheitern in 0 Sekunden" erkannt statt an wechselnden
+Fehlermeldungen. Die letzten 9 fehlenden Quellen aus der Vortagesrunde
+wurden dabei auch geschlossen (siehe Eintrag oben, jetzt 100 %).
+
+Anschließend wollte Tim eine **Rechte-Recherche** in einer neuen
+Chat-Session: prüfen, ob das Verlinken + kurze Begründen mit den 641
+externen Quellen-Domains rechtlich unproblematisch ist (oder ob Texte
+umgeschrieben werden müssen), plus eine komplette Neu-Prüfung aller
+Bildlizenzen (Wikimedia Commons) — Ergebnis soll auf einer neuen Seite
+"Rechte an Quellen und Bildern" landen. Auftrag/Prompt dafür vorbereitet
+und dokumentiert: [[../14-Gwen-Code-Aufgaben/17-Rechte-Recherche-Auftrag]].
+Die Recherche selbst ist noch nicht gestartet — das ist Aufgabe der
+nächsten Session.
 
 ---
 

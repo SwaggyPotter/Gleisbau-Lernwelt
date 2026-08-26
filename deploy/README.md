@@ -55,16 +55,19 @@ siehe Schritt 2/2b.
   - `ADMIN_EMAIL`/`ADMIN_PASSWORD`: bootstrap admin account for the backend
     (**required**, no default — server refuses to start without them,
     password must be 12+ chars)
-  - `BASIC_AUTH_USER`/`BASIC_AUTH_HASH`: sitewide password gate for the
-    frontend. Generate the hash with:
-    `docker run --rm caddy:2 caddy hash-password --plaintext '<password>'`
-    — **important**: escape every literal `$` in the resulting hash as `$$`
-    when writing it into `deploy/.env`, otherwise Docker Compose's variable
-    interpolation silently mangles the hash (a real incident during the
-    2026-08-25 setup — Compose read a `$Xyz...` fragment inside the hash as
-    an unset variable reference and blanked it out, corrupting the hash
-    without any obvious error besides a `"...variable is not set"` warning).
   - `RATE_LIMIT_*` and `API_PORT` normally stay as-is
+  - Sitewide password gate: **not** a Caddy/HTTP-Basic-Auth thing anymore
+    (removed 2026-08-26 — the native browser Basic-Auth dialog didn't work
+    from a corporate network). The login now lives inside the Angular app
+    itself (`src/app/core/site-gate/`): a plain login form checks the
+    entered password's SHA-256 against a hash baked into the JS bundle, and
+    on success remembers it in that browser's `localStorage` so the form
+    doesn't reappear. This is a soft gate only — `deploy/frontend-dist/`
+    (JS/JSON/assets) is served with no server-side auth, just `noindex` +
+    `robots.txt` to keep it out of search engines. To change the site
+    password, edit `SITE_PASSWORD_SHA256` in `site-gate.component.ts`
+    (compute with e.g. `node -e "console.log(require('crypto').createHash('sha256').update('newpassword','utf8').digest('hex'))"`)
+    and rebuild/redeploy the frontend.
 - Build the frontend locally and place it on the server at
   `deploy/frontend-dist/` (relative to this repo's root on the server):
   `npx ng build --configuration production` (outputs to `www/`, per
@@ -84,13 +87,8 @@ docker compose --env-file deploy/.env ps
 - Check logs: `docker compose --env-file deploy/.env logs -f proxy` and `logs -f api`
 - Health: `curl -I https://api.example.com/health`
 - API sample: `curl https://api.example.com/api/fields`
-- Frontend + password gate: `curl -u '<user>:<password>' -I https://app.example.com/`
-  (expect `401` without credentials, `200` with correct ones)
-- Sanity-check the compiled Caddy config directly (catches any credential
-  corruption before it becomes a live problem):
-  `docker exec <proxy-container> caddy adapt --config /etc/caddy/Caddyfile`
-  and check the `http_basic` account's `username`/`password` match what you
-  generated.
+- Frontend: `curl -I https://app.example.com/` (expect `200` — no server-side
+  auth anymore, the login form is inside the app, see above)
 
 ## 6) Backups & updates
 - DB data lives in `db_data` volume; take `pg_dump` regularly.

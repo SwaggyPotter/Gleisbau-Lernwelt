@@ -350,7 +350,8 @@
       "correctIndex": 0,
       "explanation": "Grundierungen stellen den Untergrund fuer den Folgeschritt ein.",
       "source": "grundiert.de",
-      "sourceUrl": "https://grundiert.de/materialien-produkte/grundierung-fliesen/"
+      "sourceUrl": "https://grundiert.de/materialien-produkte/grundierung-fliesen/",
+      "imageKey": "q-lf06-powder-coating-aluminium-extrusions"
     },
     {
       "id": "LF06-Q26",
@@ -364,7 +365,8 @@
       "correctIndex": 0,
       "explanation": "Staub verhindert den direkten Verbund der Schichten.",
       "source": "Schleifstaub entfernen - Haftungsicherung",
-      "sourceUrl": "https://www.hausjournal.net/schleifstaub-entfernen"
+      "sourceUrl": "https://www.hausjournal.net/schleifstaub-entfernen",
+      "imageKey": "q-lf06-powder-coating-aluminium-extrusions"
     },
     {
       "id": "LF06-Q27",
@@ -378,7 +380,8 @@
       "correctIndex": 0,
       "explanation": "Das sind typische Oberflaechenmaengel bei Beschichtungen.",
       "source": "Lackläufer & -nasen vermeiden und beheben",
-      "sourceUrl": "https://www.ppg.com/de-DE/automotive-refinish/laufer-und-nasen"
+      "sourceUrl": "https://www.ppg.com/de-DE/automotive-refinish/laufer-und-nasen",
+      "imageKey": "q-lf06-powder-coating-aluminium-extrusions"
     },
     {
       "id": "LF06-Q28",
@@ -392,7 +395,8 @@
       "correctIndex": 0,
       "explanation": "Fehlende vollflaechige Benetzung ist eine haeufige Ursache.",
       "source": "Hohllage - Fliesen-Glossar",
-      "sourceUrl": "https://www.fliesen-theis.de/glossar/hohllage"
+      "sourceUrl": "https://www.fliesen-theis.de/glossar/hohllage",
+      "imageKey": "q-lf06-powder-coating-aluminium-extrusions"
     },
     {
       "id": "LF06-Q29",
@@ -406,7 +410,8 @@
       "correctIndex": 0,
       "explanation": "Risse sind meist multikausal und oft systembedingt.",
       "source": "Putzrisse - Lexikon",
-      "sourceUrl": "https://www.bauprofessor.de/putzrisse/"
+      "sourceUrl": "https://www.bauprofessor.de/putzrisse/",
+      "imageKey": "q-lf06-powder-coating-aluminium-extrusions"
     },
     {
       "id": "LF06-Q30",
@@ -420,7 +425,8 @@
       "correctIndex": 0,
       "explanation": "Sichere Lagerung und Entsorgung sind Teil der Schutzkette.",
       "source": "Entsorgung von Gefahrstoffen",
-      "sourceUrl": "https://www.wirtschaftswissen.de/arbeitssicherheit-datenschutz/gefahrstoffe-gefahrgut/entsorgung-von-gefahrstoffen/"
+      "sourceUrl": "https://www.wirtschaftswissen.de/arbeitssicherheit-datenschutz/gefahrstoffe-gefahrgut/entsorgung-von-gefahrstoffen/",
+      "imageKey": "q-lf06-powder-coating-aluminium-extrusions"
     }
   ]
 }

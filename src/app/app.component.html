@@ -1,3 +1,4 @@
-<ion-app>
+<app-site-gate *ngIf="!unlocked" (unlocked)="unlocked = true"></app-site-gate>
+<ion-app *ngIf="unlocked">
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

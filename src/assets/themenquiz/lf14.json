@@ -14,7 +14,8 @@
       "correctIndex": 0,
       "explanation": "Sonderbauformen weichen konstruktiv oder betrieblich vom Standardoberbau ab.",
       "source": "Oberbauformen bei Sonderbau, Stand 2026",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/oberbauformen/"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/oberbauformen/",
+      "imageKey": "q-lf14-schwentinebruecke-der-kiel-schoenberger-"
     },
     {
       "id": "LF14-Q2",
@@ -28,7 +29,8 @@
       "correctIndex": 0,
       "explanation": "Der Uebergang zwischen Schiene und Strasse ist hoch belastet und verschleisskritisch.",
       "source": "Bahnübergänge, Stand 2026",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Bahn%C3%BCbergang_(Deutschland)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Bahn%C3%BCbergang_(Deutschland)",
+      "imageKey": "q-lf14-main-lahn-bahn-eppsteiner-tunnel"
     },
     {
       "id": "LF14-Q3",
@@ -42,7 +44,8 @@
       "correctIndex": 0,
       "explanation": "Kreuzungsbereiche haben viele verschleisskritische Fuehrungsteile und hohe Lasten.",
       "source": "Gleiskreuzungen, Stand 2026",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Kreuzung_(Bahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Kreuzung_(Bahn)",
+      "imageKey": "q-lf14-sinnbild-eisenbahn"
     },
     {
       "id": "LF14-Q4",
@@ -56,7 +59,8 @@
       "correctIndex": 0,
       "explanation": "In Tunnel- und Brueckenlagen wird die hohe Lagebestaendigkeit der festen Fahrbahn genutzt.",
       "source": "Feste Fahrbahn, Stand 2026",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Feste_Fahrbahn"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Feste_Fahrbahn",
+      "imageKey": "q-lf14-main-lahn-bahn-eppsteiner-tunnel"
     },
     {
       "id": "LF14-Q5",
@@ -70,7 +74,8 @@
       "correctIndex": 0,
       "explanation": "Industriegleise sind oft langsam befahren, aber durch hohe Achslasten stark beansprucht.",
       "source": "Industriegleise, Stand 2026",
-      "sourceUrl": "https://eisenbahnwesens.de-academic.com/1422/Industriegleise"
+      "sourceUrl": "https://eisenbahnwesens.de-academic.com/1422/Industriegleise",
+      "imageKey": "q-lf14-schwentinebruecke-der-kiel-schoenberger-"
     },
     {
       "id": "LF14-Q6",
@@ -84,7 +89,8 @@
       "correctIndex": 0,
       "explanation": "Begrenzter Arbeitsraum und erschwerte Rettungs- und Sicherungsbedingungen machen Tunnelanlagen anspruchsvoll.",
       "source": "EBA-Ril-Tunnel",
-      "sourceUrl": "https://www.eba.bund.de/SharedDocs/Fachmitteilungen/DE/2024/13_2024_Richtlinie_Anforderungen_des_Sicherheitskonzeptes_an_den_Bau_und_den_Betrieb_von_Eisenbahntunneln_aktualisiert.html"
+      "sourceUrl": "https://www.eba.bund.de/SharedDocs/Fachmitteilungen/DE/2024/13_2024_Richtlinie_Anforderungen_des_Sicherheitskonzeptes_an_den_Bau_und_den_Betrieb_von_Eisenbahntunneln_aktualisiert.html",
+      "imageKey": "q-lf14-schwentinebruecke-der-kiel-schoenberger-"
     },
     {
       "id": "LF14-Q7",
@@ -98,7 +104,8 @@
       "correctIndex": 0,
       "explanation": "Komplexe Bauformen erfordern oft anlagenspezifische oder herstellerspezifische Verfahren.",
       "source": "BASt-Regelwerke",
-      "sourceUrl": "https://www.bast.de/DE/Publikationen/Regelwerke/Regelwerke_node.html"
+      "sourceUrl": "https://www.bast.de/DE/Publikationen/Regelwerke/Regelwerke_node.html",
+      "imageKey": "q-lf14-obb-abfertigungssignal-sonderbauform"
     },
     {
       "id": "LF14-Q8",
@@ -112,7 +119,8 @@
       "correctIndex": 0,
       "explanation": "Komplexitaet und Mischverkehr erfordern verstaerkte Sicherung und disziplinierte Kommunikation.",
       "source": "DGUV 5143 Gleisbauarbeiten Tunneln",
-      "sourceUrl": "https://publikationen.dguv.de/widgets/pdf/download/article/5143"
+      "sourceUrl": "https://publikationen.dguv.de/widgets/pdf/download/article/5143",
+      "imageKey": "q-lf14-obb-abfertigungssignal-sonderbauform"
     },
     {
       "id": "LF14-Q9",
@@ -126,7 +134,8 @@
       "correctIndex": 0,
       "explanation": "Dokumentation ist Grundlage fuer Nachvollziehbarkeit, Betrieb und haftungsrelevante Nachweise.",
       "source": "BASt Regelwerke",
-      "sourceUrl": "https://www.bast.de/DE/Publikationen/Regelwerke/Regelwerke_node.html"
+      "sourceUrl": "https://www.bast.de/DE/Publikationen/Regelwerke/Regelwerke_node.html",
+      "imageKey": "q-lf14-obb-abfertigungssignal-sonderbauform"
     },
     {
       "id": "LF14-Q10",
@@ -140,7 +149,8 @@
       "correctIndex": 0,
       "explanation": "Die konstruktive und betriebliche Abweichung vom Standard ist das Kernmerkmal.",
       "source": "DGUV Gleisbau-Regelwerk",
-      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/regelwerk_gleisbau/index.jsp"
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/regelwerk_gleisbau/index.jsp",
+      "imageKey": "q-lf14-eisenbahn-schwingbrucke-oldenburg"
     },
     {
       "id": "LF14-Q11",
@@ -154,7 +164,8 @@
       "correctIndex": 0,
       "explanation": "Die Kombination aus Schiene und Strasse erzeugt hohe mechanische und betriebliche Beanspruchung.",
       "source": "Bahnübergang (Wikipedia, abgerufen 24.8.2026)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Bahn%C3%BCbergang"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Bahn%C3%BCbergang",
+      "imageKey": "q-lf14-bahnubergang-de"
     },
     {
       "id": "LF14-Q12",
@@ -182,7 +193,8 @@
       "correctIndex": 0,
       "explanation": "Raumenge und Rettungswege machen besondere Sicherungskonzepte notwendig.",
       "source": "EBA Richtlinie Eisenbahntunnel (EBA, abgerufen 24.8.2026)",
-      "sourceUrl": "https://www.eba.bund.de/SharedDocs/Fachmitteilungen/DE/2024/13_2024_Richtlinie_Anforderungen_des_Sicherheitskonzeptes_an_den_Bau_und_den_Betrieb_von_Eisenbahntunneln_aktualisiert.html"
+      "sourceUrl": "https://www.eba.bund.de/SharedDocs/Fachmitteilungen/DE/2024/13_2024_Richtlinie_Anforderungen_des_Sicherheitskonzeptes_an_den_Bau_und_den_Betrieb_von_Eisenbahntunneln_aktualisiert.html",
+      "imageKey": "q-lf14-main-lahn-bahn-eppsteiner-tunnel"
     },
     {
       "id": "LF14-Q14",
@@ -196,7 +208,8 @@
       "correctIndex": 0,
       "explanation": "Kreuzungsbereiche enthalten mehrere Fuehrungs- und Kreuzungselemente.",
       "source": "Weiche (Wikipedia, abgerufen 24.8.2026)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Weiche_(Schienenverkehr)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Weiche_(Schienenverkehr)",
+      "imageKey": "q-lf14-sinnbild-eisenbahn"
     },
     {
       "id": "LF14-Q15",
@@ -224,7 +237,8 @@
       "correctIndex": 0,
       "explanation": "LF14 behandelt die komplexen Sonderformen ausserhalb des Standardgleises.",
       "source": "LF14=Leitfaden Spezialwissen Gleisbau, Autor Claude vom 24.08.2026",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Liste_von_Abk%C3%BCrzungen_im_Eisenbahnwesen"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Liste_von_Abk%C3%BCrzungen_im_Eisenbahnwesen",
+      "imageKey": "q-lf14-sinnbild-eisenbahn"
     },
     {
       "id": "LF14-Q17",
@@ -238,7 +252,8 @@
       "correctIndex": 0,
       "explanation": "Konstruktion und Umfeld verlangen oft anlagenspezifische Vorgehensweisen.",
       "source": "Sonderbauformen erfordern eigene Arbeitsanweisungen wegen spezieller Anforderungen, Aut…",
-      "sourceUrl": "https://www.deutschebahn.com/de/geschaefte/infrastruktur/informationen-fuer-planer-und-bauunternehmer/arbeitsanweisungen-und-leitfaeden-12685116"
+      "sourceUrl": "https://www.deutschebahn.com/de/geschaefte/infrastruktur/informationen-fuer-planer-und-bauunternehmer/arbeitsanweisungen-und-leitfaeden-12685116",
+      "imageKey": "q-lf14-obb-abfertigungssignal-sonderbauform"
     },
     {
       "id": "LF14-Q18",
@@ -266,7 +281,8 @@
       "correctIndex": 0,
       "explanation": "Komplexe Anlagen verlangen konsequente Priorisierung der Sicherheit.",
       "source": "Sicherheit hat Vorrang bei Sonderbauformen, DGUV Regelwerk, Autor Claude vom 24.08.2026",
-      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/regelwerk_gleisbau/index.jsp"
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/regelwerk_gleisbau/index.jsp",
+      "imageKey": "q-lf14-obb-abfertigungssignal-sonderbauform"
     },
     {
       "id": "LF14-Q20",
@@ -294,7 +310,8 @@
       "correctIndex": 0,
       "explanation": "Oberbauformen unterscheiden sich je nach Einsatzfall und Randbedingungen.",
       "source": "de.wikipedia.org – Oberbau (Eisenbahn)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)",
+      "imageKey": "q-lf14-eisenbahn-schwingbrucke-oldenburg"
     },
     {
       "id": "LF14-Q22",
@@ -308,7 +325,8 @@
       "correctIndex": 0,
       "explanation": "Komplexe Randbedingungen erzeugen meist hoeheren Planungs- und Koordinationsbedarf.",
       "source": "plassertheurer.com – Eurail ETR 2023 003 ETR 003 23 40 45",
-      "sourceUrl": "https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/Eurail_ETR_2023_003_ETR_003_23_40-45.pdf"
+      "sourceUrl": "https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/Eurail_ETR_2023_003_ETR_003_23_40-45.pdf",
+      "imageKey": "q-lf14-bahnubergang-de"
     },
     {
       "id": "LF14-Q23",
@@ -322,7 +340,8 @@
       "correctIndex": 0,
       "explanation": "Mischverkehr und begrenzter Raum erhoehen das Unfall- und Fehlerrisiko.",
       "source": "dguv.de – index",
-      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/faq/index.jsp"
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/faq/index.jsp",
+      "imageKey": "q-lf14-eisenbahn-schwingbrucke-oldenburg"
     },
     {
       "id": "LF14-Q24",
@@ -336,7 +355,8 @@
       "correctIndex": 0,
       "explanation": "LF14 vertieft Sonderbauformen und komplexe Betriebs- und Instandhaltungssituationen.",
       "source": "bahnbaugruppe.de – Qualifizierung Gleisbau",
-      "sourceUrl": "https://www.bahnbaugruppe.de/bahnbaugruppe-de/Qualifizierungsangebote/Qualifizierung_Gleisbau"
+      "sourceUrl": "https://www.bahnbaugruppe.de/bahnbaugruppe-de/Qualifizierungsangebote/Qualifizierung_Gleisbau",
+      "imageKey": "q-lf14-sinnbild-eisenbahn"
     }
   ]
 }

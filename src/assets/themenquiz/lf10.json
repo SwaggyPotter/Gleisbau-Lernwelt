@@ -84,7 +84,8 @@
       "correctIndex": 0,
       "explanation": "Korrosion reduziert den wirksamen Stahlquerschnitt und kann Tragwirkung mindern.",
       "source": "freiliegende Bewehrung gefaehrt die Statik [2024]",
-      "sourceUrl": "https://www.onlinebaugutachter.de/bewehrungsschaeden-im-fokus-warum-freiliegender-stahl-die-statik-gefaehrdet/"
+      "sourceUrl": "https://www.onlinebaugutachter.de/bewehrungsschaeden-im-fokus-warum-freiliegender-stahl-die-statik-gefaehrdet/",
+      "imageKey": "q-lf10-baustelle-doppersberg"
     },
     {
       "id": "LF10-Q7",
@@ -210,7 +211,8 @@
       "correctIndex": 0,
       "explanation": "Korrosion kann die Tragreserven des Bauteils deutlich reduzieren.",
       "source": "Freie Bewehrung mindert Schutzwirkung und Dauerhaftigkeit durch Korrosion, führt zu Sub…",
-      "sourceUrl": "https://www.baunetzwissen.de/beton/fachwissen/bewehrung/korrosionsschutz-150950"
+      "sourceUrl": "https://www.baunetzwissen.de/beton/fachwissen/bewehrung/korrosionsschutz-150950",
+      "imageKey": "q-lf10-baustelle-doppersberg"
     },
     {
       "id": "LF10-Q16",
@@ -266,7 +268,8 @@
       "correctIndex": 0,
       "explanation": "Verkehrsteilnehmer und Personal muessen jederzeit gesichert gefuehrt werden.",
       "source": "BAuA Baustelleneinrichtung | Datum: 24.8.2026",
-      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/pdf/Baustellensicherung.pdf?__blob=publicationFile&v=3"
+      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/pdf/Baustellensicherung.pdf?__blob=publicationFile&v=3",
+      "imageKey": "q-lf10-baustelle-doppersberg"
     },
     {
       "id": "LF10-Q20",
@@ -294,7 +297,8 @@
       "correctIndex": 0,
       "explanation": "Ohne Abschlusskontrolle sind Funktion und Sicherheit nicht abgesichert.",
       "source": "DGUV Gleisbereich (24.8.2026): Kontrollen von Arbeitsschutz-Behörden (Eisenbahn-Bundesa…",
-      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/lern-und-infomaterial/index.jsp"
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/lern-und-infomaterial/index.jsp",
+      "imageKey": "q-lf10-bewehrung"
     },
     {
       "id": "LF10-Q22",
@@ -308,7 +312,8 @@
       "correctIndex": 0,
       "explanation": "Sie belegt fachgerechte Arbeit und unterstuetzt Spaetnachweise.",
       "source": "Arbeitsunfallversicherungsbund-Bahn (24.8.2026): Die Dokumentation dient dem Schutz des…",
-      "sourceUrl": "https://www.uv-bund-bahn.de/praevention/fachthemen/bahn/arbeiten-im-gleisbereich"
+      "sourceUrl": "https://www.uv-bund-bahn.de/praevention/fachthemen/bahn/arbeiten-im-gleisbereich",
+      "imageKey": "q-lf10-bewehrung"
     },
     {
       "id": "LF10-Q23",
@@ -322,7 +327,8 @@
       "correctIndex": 0,
       "explanation": "Fachgerechte Instandsetzung sichert Funktion und verlaengert die Nutzungszeit.",
       "source": "hochbaulang (24.8.2026): Sanierung umfasst Maßnahmen zur Instandsetzung und Modernisier…",
-      "sourceUrl": "https://hochbaulang.de/sanierung-werterhalt-und-modernisierung-von-bauwerken/"
+      "sourceUrl": "https://hochbaulang.de/sanierung-werterhalt-und-modernisierung-von-bauwerken/",
+      "imageKey": "q-lf10-zeichen-123-baustelle-stvo-1992"
     },
     {
       "id": "LF10-Q24",
@@ -336,7 +342,8 @@
       "correctIndex": 0,
       "explanation": "Gerade im Bestand hat sichere Ausfuehrung immer Prioritaet.",
       "source": "BG BAU Arbeitsschutz (24.8.2026): \"Sicherheit geht vor\" ist ein grundlegender Grundsatz…",
-      "sourceUrl": "https://www.bgbau.de/themen/sicherheit-und-gesundheit/arbeitsschutz-organisieren"
+      "sourceUrl": "https://www.bgbau.de/themen/sicherheit-und-gesundheit/arbeitsschutz-organisieren",
+      "imageKey": "q-lf10-baustelle-doppersberg"
     }
   ]
 }

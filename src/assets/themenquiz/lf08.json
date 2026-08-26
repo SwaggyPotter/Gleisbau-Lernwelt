@@ -14,7 +14,8 @@
       "correctIndex": 0,
       "explanation": "Verkehrsflaechen muessen sichere Nutzung unter Verkehrslast ermoeglichen.",
       "source": "laut Wikipedia ist das Planum die technisch bearbeitete Oberfläche für Verkehrszwecke",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Verkehrsteilnehmer"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Verkehrsteilnehmer",
+      "imageKey": "q-lf08-stra-enbau"
     },
     {
       "id": "LF08-Q2",
@@ -28,7 +29,8 @@
       "correctIndex": 0,
       "explanation": "Fehler im Planum setzen sich durch den gesamten Schichtenaufbau fort.",
       "source": "TBSoft, Glossareintrag Planum (eigene Zusammenfassung)",
-      "sourceUrl": "https://tbsoft.de/glossar/tiefbau-erdbau/planum/"
+      "sourceUrl": "https://tbsoft.de/glossar/tiefbau-erdbau/planum/",
+      "imageKey": "q-lf08-bestandteile-stra-enquerschnitt-"
     },
     {
       "id": "LF08-Q3",
@@ -56,7 +58,8 @@
       "correctIndex": 0,
       "explanation": "Lagenweise Verdichtung erzeugt einen gleichmaessigen und tragfaehigen Aufbau.",
       "source": "laut Springer: Der Einbau und die Verdichtung erfolgen lagenweise oberhalb des Grundwas…",
-      "sourceUrl": "https://link.springer.com/chapter/10.1007/978-3-658-32893-1_11"
+      "sourceUrl": "https://link.springer.com/chapter/10.1007/978-3-658-32893-1_11",
+      "imageKey": "q-lf08-walze7469b"
     },
     {
       "id": "LF08-Q5",
@@ -196,7 +199,8 @@
       "correctIndex": 0,
       "explanation": "Randbefestigungen halten den Verband unter Last stabil.",
       "source": "selbst.de – pflaster rand randeinfassung selber pflastern 44715",
-      "sourceUrl": "https://www.selbst.de/pflaster-rand-randeinfassung-selber-pflastern-44715.html"
+      "sourceUrl": "https://www.selbst.de/pflaster-rand-randeinfassung-selber-pflastern-44715.html",
+      "imageKey": "q-lf08-pflaster-verfestigte-fugen"
     },
     {
       "id": "LF08-Q15",
@@ -252,7 +256,8 @@
       "correctIndex": 0,
       "explanation": "Ohne Gefaelle bleibt Wasser stehen und belastet den Aufbau.",
       "source": "Straßenentwässerung verhindert Aquaplaning (24.08.2026)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Stra%C3%9Fenentw%C3%A4sserung"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Stra%C3%9Fenentw%C3%A4sserung",
+      "imageKey": "q-lf08-asphaltbinderschicht"
     },
     {
       "id": "LF08-Q19",
@@ -266,7 +271,8 @@
       "correctIndex": 0,
       "explanation": "Quergefaelle fuehrt Oberflaechenwasser zur Seite in die Entwaesserung.",
       "source": "Quergefälle leitet Wasser seitlich ab (24.08.2026)",
-      "sourceUrl": "https://hofkontur.com/entwaesserung/gefaelle-planen/"
+      "sourceUrl": "https://hofkontur.com/entwaesserung/gefaelle-planen/",
+      "imageKey": "q-lf08-freising-die-stra-e-unterer-graben"
     },
     {
       "id": "LF08-Q20",
@@ -280,7 +286,8 @@
       "correctIndex": 0,
       "explanation": "Die Bettung bildet das Auflager fuer die Pflastersteine.",
       "source": "Pflasterbettung zwischen Tragschicht und Pflaster (24.08.2026)",
-      "sourceUrl": "https://www.darda.de/wissen/pflasterbett"
+      "sourceUrl": "https://www.darda.de/wissen/pflasterbett",
+      "imageKey": "q-lf08-asphaltbinderschicht"
     },
     {
       "id": "LF08-Q21",
@@ -294,7 +301,8 @@
       "correctIndex": 0,
       "explanation": "Mangel im unteren Aufbau fuehrt spaeter oft zu sichtbaren Schaeden oben.",
       "source": "deutscher-bauzeiger.de – erdarbeiten",
-      "sourceUrl": "https://www.deutscher-bauzeiger.de/bauen/baugrube/erdarbeiten/"
+      "sourceUrl": "https://www.deutscher-bauzeiger.de/bauen/baugrube/erdarbeiten/",
+      "imageKey": "q-lf08-asphaltbinderschicht"
     },
     {
       "id": "LF08-Q22",
@@ -308,7 +316,8 @@
       "correctIndex": 0,
       "explanation": "Spurrinnen entstehen oft durch unzureichende Tragfaehigkeit und Verdichtung.",
       "source": "Die Norm TP Asphalt-StB Teil 22, DIN EN 12697-22 definiert die Spurrinnentiefe als Kenn…",
-      "sourceUrl": "https://www.ise.kit.edu/1251.php"
+      "sourceUrl": "https://www.ise.kit.edu/1251.php",
+      "imageKey": "q-lf08-asphaltbinderschicht"
     },
     {
       "id": "LF08-Q23",
@@ -322,7 +331,8 @@
       "correctIndex": 0,
       "explanation": "Nur konsequente Kontrolle sichert Funktion und Dauerhaftigkeit der Flaeche.",
       "source": "bup.de – )",
-      "sourceUrl": "https://bup.de/veroeffentlichungen/leitfaden/2-qualitaetssicherung-im-strassenbau/)"
+      "sourceUrl": "https://bup.de/veroeffentlichungen/leitfaden/2-qualitaetssicherung-im-strassenbau/)",
+      "imageKey": "q-lf08-asphaltbinderschicht"
     }
   ]
 }

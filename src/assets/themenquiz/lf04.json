@@ -14,7 +14,8 @@
       "correctIndex": 0,
       "explanation": "Ohne klares Plan- und Bauteilverstaendnis sind korrekte Ausfuehrung und QS nicht moeglich.",
       "source": "siehe Punktum-Betonbauteile.de: https://punktum-betonbauteile.de/positionen/die-planung…",
-      "sourceUrl": "https://punktum-betonbauteile.de/positionen/die-planung-muss-von-anfang-an-fertigteilgerecht-erfolgen/**"
+      "sourceUrl": "https://punktum-betonbauteile.de/positionen/die-planung-muss-von-anfang-an-fertigteilgerecht-erfolgen/**",
+      "imageKey": "q-lf04-herstellung-zement-beton"
     },
     {
       "id": "LF04-Q2",
@@ -28,7 +29,8 @@
       "correctIndex": 0,
       "explanation": "Der Bewehrungsplan beschreibt die erforderliche Bewehrung fuer das Bauteil.",
       "source": "awad-ing.de –",
-      "sourceUrl": "https://www.awad-ing.de/blogs/bewehrungsplan/**"
+      "sourceUrl": "https://www.awad-ing.de/blogs/bewehrungsplan/**",
+      "imageKey": "q-lf04-bewehrungsplan"
     },
     {
       "id": "LF04-Q3",
@@ -70,7 +72,8 @@
       "correctIndex": 0,
       "explanation": "Schalung formt das Bauteil und muss dicht und geometrisch korrekt sein.",
       "source": "baunetzwissen.de –",
-      "sourceUrl": "https://www.baunetzwissen.de/gerueste-und-schalungen/fachwissen/grundlagen-schalungen/aufgaben-und-funktionen-von-schalungen-4812019/**"
+      "sourceUrl": "https://www.baunetzwissen.de/gerueste-und-schalungen/fachwissen/grundlagen-schalungen/aufgaben-und-funktionen-von-schalungen-4812019/**",
+      "imageKey": "q-lf04-gussform-verso"
     },
     {
       "id": "LF04-Q6",
@@ -98,7 +101,8 @@
       "correctIndex": 0,
       "explanation": "Abstandhalter halten die Bewehrung in der geplanten Lage und sichern die Deckung.",
       "source": "Abstandhalter sichern Betondeckung beim Betonieren, 8. August 2026",
-      "sourceUrl": "https://www.maxfrank.com/intl-de/produkte/abstandhalter/"
+      "sourceUrl": "https://www.maxfrank.com/intl-de/produkte/abstandhalter/",
+      "imageKey": "q-lf04-abstandshalter-beton-bewehrung"
     },
     {
       "id": "LF04-Q8",
@@ -392,7 +396,8 @@
       "correctIndex": 0,
       "explanation": "Zu viel oder falsch aufgetragenes Trennmittel verschlechtert Oberflaeche und Verbund.",
       "source": "Trennmittel sparsam und gleichmäßig auftragen (Datum: 24.8.2026)",
-      "sourceUrl": "https://beton.wiki/index.php?title=Trennmittel"
+      "sourceUrl": "https://beton.wiki/index.php?title=Trennmittel",
+      "imageKey": "q-lf04-herstellung-zement-beton"
     },
     {
       "id": "LF04-Q29",
@@ -406,7 +411,8 @@
       "correctIndex": 0,
       "explanation": "Fehlstellen entstehen haeufig bei unzureichendem Verdichten und ungleichmaessigem Einbringen.",
       "source": "Kiesnester Ursache: schlechte Verdichtung oder ungünstiger Einbau (Datum: 24.8.2026)",
-      "sourceUrl": "https://vinawoodltd.com/de/blog/kiesnester-im-beton"
+      "sourceUrl": "https://vinawoodltd.com/de/blog/kiesnester-im-beton",
+      "imageKey": "q-lf04-herstellung-zement-beton"
     },
     {
       "id": "LF04-Q30",
@@ -420,7 +426,8 @@
       "correctIndex": 0,
       "explanation": "Fehlende Tragfaehigkeit im jungen Beton kann zu sichtbaren Schaeden fuehren.",
       "source": "Frühzeitiges Ausschalen führt zu Abplatzungen und Verformungen (Datum: 24.8.2026)",
-      "sourceUrl": "https://helpcenter.einhornwerke.de/support/solutions/articles/206000068521-wann-soll-man-sichtbeton-ausschalen-"
+      "sourceUrl": "https://helpcenter.einhornwerke.de/support/solutions/articles/206000068521-wann-soll-man-sichtbeton-ausschalen-",
+      "imageKey": "q-lf04-herstellung-zement-beton"
     },
     {
       "id": "LF04-Q31",
@@ -434,7 +441,8 @@
       "correctIndex": 0,
       "explanation": "Dokumentation macht Ausfuehrung und Abweichungen nachvollziehbar.",
       "source": "GÜB DIN 1045-3 Überwachung ÜK2/3",
-      "sourceUrl": "https://www.gueb-online.de/uek-2-3-ueberwachung/"
+      "sourceUrl": "https://www.gueb-online.de/uek-2-3-ueberwachung/",
+      "imageKey": "q-lf04-herstellung-zement-beton"
     }
   ]
 }

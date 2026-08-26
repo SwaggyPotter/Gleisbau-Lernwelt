@@ -1,0 +1,36 @@
+{
+  "relFile": "17-Bilder-fuer-Fragen/Batch-lf08.md",
+  "status": "TECHNICAL_FAILURE",
+  "reasons": [
+    "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+    "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 157,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 101,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 3,
+      "durationSec": 117,
+      "status": "TECHNICAL_FAILURE",
+      "reasons": [
+        "Absturz-Marker im Log gefunden: \"Error rendering prompt with jinja template\"",
+        "Absturz-Marker im Log gefunden: \"Cannot apply filter\""
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-25T21-03-33-979Z_Batch-lf08.md.log"
+}

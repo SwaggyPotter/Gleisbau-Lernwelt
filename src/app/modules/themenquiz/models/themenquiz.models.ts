@@ -12,8 +12,10 @@ export interface ThemenquizQuestion {
   sourceUrl?: string;
   /** Optionaler Schwierigkeitsgrad. Fehlt er, wird die Frage in der Oberflaeche ohne Badge angezeigt. */
   difficulty?: ThemenquizDifficulty;
-  /** Optionaler Bildpfad (z. B. eigene SVG-Grafik unter assets/bilder/), zur Veranschaulichung der Frage. */
-  image?: string;
+  /** Optionaler Schluessel in assets/bilder/bildnachweise.json, zur Veranschaulichung der Frage.
+   *  Kein direkter Bildpfad, damit Quelle/Lizenz zentral (und wiederverwendbar fuer mehrere
+   *  Fragen mit demselben Bild) gepflegt werden, genau wie bei den Themen-Kachelbildern. */
+  imageKey?: string;
 }
 
 export interface ThemenquizFile {

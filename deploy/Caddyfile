@@ -29,8 +29,10 @@
   }
 }
 
-# Frontend (Angular/Ionic-App als statische Dateien) — mit Sitewide-
-# Passwortschutz, solange die App nicht oeffentlich sein soll.
+# Frontend (Angular/Ionic-App als statische Dateien) — der Login liegt in
+# der App selbst (client-seitiges Gate, Passwort im localStorage gemerkt),
+# nicht mehr in Caddy. Kein HTTP-Basic-Auth mehr, weil der native Browser-
+# Auth-Dialog von einem Firmennetzwerk aus nicht funktioniert hat.
 {$APP_DOMAIN} {
   encode zstd gzip
 
@@ -39,10 +41,6 @@
     X-Content-Type-Options "nosniff"
     X-Frame-Options "DENY"
     Referrer-Policy "no-referrer"
-  }
-
-  basic_auth {
-    {$BASIC_AUTH_USER} {$BASIC_AUTH_HASH}
   }
 
   root * /srv/frontend

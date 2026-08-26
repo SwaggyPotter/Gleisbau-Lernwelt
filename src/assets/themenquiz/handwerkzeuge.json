@@ -42,7 +42,8 @@
       "correctIndex": 0,
       "explanation": "Der Schienenheber ermoeglicht ein gezieltes, kontrolliertes Anheben der Schiene fuer Wartungs- und Austauscharbeiten.",
       "source": "Schienenhebegerät für Nivellierungs- und Stopfarbeiten im Eisenbahnbau",
-      "sourceUrl": "https://www.pandrol.com/de/product/schienen-hebegeraete/"
+      "sourceUrl": "https://www.pandrol.com/de/product/schienen-hebegeraete/",
+      "imageKey": "q-handwerkzeuge-schraube"
     },
     {
       "id": "hw-q4",
@@ -56,7 +57,8 @@
       "correctIndex": 0,
       "explanation": "Schwellenschrauben werden mit einem passenden Schraubenschluessel oder Drehmomentschluessel fest und gleichmaessig angezogen.",
       "source": "Standardwerkzeuge für Befestigungsmittel im Gleisbau",
-      "sourceUrl": "https://www.pandrol.com/de/product/schienen-hebegeraete/"
+      "sourceUrl": "https://www.pandrol.com/de/product/schienen-hebegeraete/",
+      "imageKey": "q-handwerkzeuge-schraube"
     },
     {
       "id": "hw-q5",
@@ -70,7 +72,8 @@
       "correctIndex": 0,
       "explanation": "Im Gleisbereich gilt grundsaetzlich Warnkleidung, dazu je nach Taetigkeit Sicherheitsschuhe und Handschuhe, um Verletzungen zu vermeiden.",
       "source": "Persönliche Schutzbedarfsanalyse im Gleisbau (DIN 14032) schreibt PSA gemäß Arbeitsschu…",
-      "sourceUrl": "https://www.ballschmidt-hebezeuge.de/gleishebewinden"
+      "sourceUrl": "https://www.ballschmidt-hebezeuge.de/gleishebewinden",
+      "imageKey": "q-handwerkzeuge-senkschraube"
     },
     {
       "id": "hw-q6",
@@ -196,7 +199,8 @@
       "correctIndex": 1,
       "explanation": "Zur Vermeidung von Borstenabnutzung empfiehlt das Reinigen des Kunststoffkörpers nur behutsam auf der kleinsten Seitenfläche auszuklopfen.",
       "source": "Kälte + Seitenfläche Klopfen",
-      "sourceUrl": "https://www.wimmer-buersten.de/de/produkte/weichenbesen"
+      "sourceUrl": "https://www.wimmer-buersten.de/de/produkte/weichenbesen",
+      "imageKey": "q-handwerkzeuge-verschiedene-handgefertigte-bursten-und-"
     },
     {
       "id": "handwerkzeuge-g9",

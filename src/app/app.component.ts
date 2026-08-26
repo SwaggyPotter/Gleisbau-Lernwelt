@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { hasStoredSiteAuth } from './core/site-gate/site-gate.component';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Gleisbau Lernwelt';
+  unlocked = hasStoredSiteAuth();
 }

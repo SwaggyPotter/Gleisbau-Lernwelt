@@ -11,6 +11,44 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+## 2026-08-26 — HTTP-Basic-Auth durch App-internes Login-Gate ersetzt
+
+Tim konnte von seinem Arbeits-PC aus nicht auf die App zugreifen (der
+native Browser-Basic-Auth-Dialog aus dem Firmennetzwerk heraus). Auf seinen
+Wunsch wurde der Sitewide-Passwortschutz von der Caddy-Ebene (HTTP Basic
+Auth, `deploy/Caddyfile`) in die App selbst verlagert.
+
+**Neu**: `src/app/core/site-gate/` — ein einfaches Login-Formular
+(Nutzername/Passwort), das `<ion-app>` umschließt. Bei korrekter Eingabe
+(SHA-256-Vergleich gegen einen im Bundle liegenden Hash) wird das Ergebnis
+in `localStorage` (`glw-site-auth`) gemerkt, sodass das Formular bei
+späteren Besuchen im selben Browser nicht mehr erscheint. Zugangsdaten:
+Nutzername `gleisbau`, neues Passwort `Bohle-6100-Schwelle` (Tim
+mitgeteilt).
+
+**Bewusster Trade-off**: `basic_auth` wurde komplett aus dem Caddyfile
+entfernt — die statischen Dateien (JS/JSON/Assets) sind serverseitig jetzt
+ungeschützt, nur noch `robots.txt` (Disallow: /) und ein
+`<meta name="robots" content="noindex,nofollow">` verhindern die
+Auffindbarkeit über Suchmaschinen. Das ist bewusst ein reines Soft-Gate
+("muss ja nicht so sicher sein, soll nur noch nicht öffentlich öffentlich
+sein") — wer die direkte Asset-URL kennt, kommt technisch auch ohne Login
+an die Rohdaten. Für Tims aktuellen Zweck (Bilder/Inhalte noch nicht final)
+ausreichend.
+
+Verifiziert lokal per Playwright (`serve -s` mit SPA-Fallback): Gate
+erscheint vor Login, falsches Passwort wird abgelehnt, richtiges Passwort
+schaltet frei und übersteht einen Seiten-Reload. Live-Deployment auf
+`michiserver` per `docker compose up -d` (Proxy-Container neu erstellt,
+Caddy sauber ohne `basic_auth`-Direktive gestartet) — `curl` bestätigt
+`200` statt `401` auf `https://app.gleisbau-digital.org/`.
+
+**Offen**: Der Zugriffsfehler vom Arbeits-PC könnte auch ein
+Netzwerk-/Firewall-Block gewesen sein (nicht Basic-Auth-spezifisch) — das
+lässt sich nur durch einen erneuten Test von dort aus klären.
+
+---
+
 ## 2026-08-25 (4) — Backend reaktiviert, App auf echtem Server deployt, Passwort-Gate eingerichtet
 
 Tim wollte Zugriff auf die App von der Arbeit aus, ohne sie öffentlich zu
@@ -52,6 +90,47 @@ Nebenbei: auf Tims Bitte ("guck mal ob du damit was anfangen kannst")
 darüber 13 offizielle Cloudflare-Skills installiert (u. a. `cloudflare`,
 `cloudflare-one`, `wrangler`) — für dieses und künftige Cloudflare-Vorhaben
 nützlich.
+
+---
+
+## 2026-08-26 (1) — Bilder für Themenquiz-Fragen: 207/667 mit verifiziertem, kommerziell nutzbarem Bild (erste Runde)
+
+Tim wollte spät abends vor dem Schlafengehen: zu möglichst jeder Frage im
+Themenquiz ein Bild mit kommerziell nutzbaren Rechten, Quellenverweis und
+Lizenznachweis; Fragen ohne passendes Bild explizit auflisten statt leer
+lassen; Cline soll den Großteil der Recherche übernehmen.
+
+Neues Architekturmuster: Fragen referenzieren einen `imageKey`, der in
+`bildnachweise.json` aufgelöst wird (dasselbe zentrale Register wie für
+die Themen-Kachelbilder) — ein Bild kann so mehrere ähnliche Fragen
+abdecken, ohne Quelle/Lizenz zu duplizieren, und `/bildnachweise` zeigt
+automatisch alles mit an.
+
+24 automatisch generierte Gwen-Rechercheaufträge (einer pro Thema, volle
+Fragenliste eingebettet), mit einer nach Kalibrierung entstandenen
+mechanischen Regel ("nur Bild, wenn Ergebnistitel mit File: beginnt oder
+URL auf Bildformat endet") — Gwen hatte anfangs wiederholt normale
+Webseiten als "Bild" ausgegeben und dabei sogar falsche Lizenzen
+zugeschrieben. Verifikation über die Wikimedia-Commons-API (Batch-Abfrage
+für 130 Kandidaten in 4 statt 130 Anfragen) statt Einzel-WebFetch —
+dabei zwei eigene Bugs gefunden und behoben (Lizenz-Regex erkannte "CC
+BY-SA" mit Leerzeichen nicht, wodurch fälschlich fast alle als "nicht
+kommerziell" markiert wurden; Titel-Abgleich schlug bei Dateinamen mit
+Leerzeichen fehl, da URL-dekodierte Namen Unterstriche behalten). Nach
+beiden Fixes: alle 129 gültigen Commons-Kandidaten hatten tatsächlich
+eine kommerziell nutzbare Lizenz. Zusätzlich 14 inhaltliche Fehltreffer
+per Titel-Durchsicht aussortiert (u. a. ein Verkehrsschild "Splitt,
+Schotter" statt Gleisschotter, ein Matcha-Tee-Besen statt Weichenbesen,
+ein mechanisches Zahnrad "Spur gear" statt Spurweite, ein Nachtzug-
+Angebot "European Sleeper" statt Bahnschwelle — alles Wortspiel-
+Fehltreffer trotz technisch korrekter Lizenz).
+
+Ergebnis: 76 neue Bildnachweise (jetzt 102 gesamt), 204 Fragen neu
+verknüpft (plus 3 aus Runde 19 → 207/667 = 31 % Gesamtabdeckung). 460
+Fragen noch ohne Bild, vollständig mit Fragetext gelistet für Tims
+eigene Bildproduktion oder eine Fortsetzungsrunde. Details:
+[[../14-Gwen-Code-Aufgaben/20-Bilder-fuer-Fragen]],
+[[../17-Bilder-fuer-Fragen/00-Fragen-ohne-Bild]].
 
 ---
 

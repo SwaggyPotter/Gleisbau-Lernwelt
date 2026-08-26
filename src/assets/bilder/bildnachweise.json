@@ -177,5 +177,544 @@
     "credit": "Falk2, CC BY-SA 3.0, via Wikimedia Commons",
     "license": "CC BY-SA 3.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Schienenformen_der_Stra%C3%9Fenbahn_Leipzig.jpg"
+  },
+  {
+    "key": "trassenplan-legende-bnr",
+    "file": "assets/bilder/trassenplan-legende-bnr.svg",
+    "credit": "Eigene Grafik (Gleisbau Lernwelt), Farbwerte nach EBA Muster-Legendenheft",
+    "license": "Eigenes Werk (CC0 / gemeinfrei, beliebig nutzbar)",
+    "sourceUrl": "https://www.eba.bund.de/SharedDocs/Downloads/DE/PF/LFAntragsunterlagen/Anhang_III/51_III_Muster-Legendenheft.html"
+  },
+  {
+    "key": "q-bettung-schotter",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Schotter.jpg?width=900",
+    "credit": "Pazzee, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Schotter.jpg"
+  },
+  {
+    "key": "q-bettung-vereinsmitglieder-beim-schottern-des-gle",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Vereinsmitglieder_beim_Schottern_des_Gleises_an_der_Guerickestra%C3%9Fe.jpg?width=900",
+    "credit": "Mascheck, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vereinsmitglieder_beim_Schottern_des_Gleises_an_der_Guerickestraße.jpg"
+  },
+  {
+    "key": "q-bettung-gleisplan-bad-ischl",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Gleisplan_Bad_Ischl.png?width=900",
+    "credit": "Presse03, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gleisplan_Bad_Ischl.png"
+  },
+  {
+    "key": "q-grundlagen-schienenstuck-vom-gleis-jever-harle-im-e",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Schienenst%C3%BCck_vom_Gleis_Jever%E2%80%93Harle_im_ehemaligen_Bahnhof_Harle.jpg?width=900",
+    "credit": "Aagnverglaser, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Schienenstück_vom_Gleis_Jever–Harle_im_ehemaligen_Bahnhof_Harle.jpg"
+  },
+  {
+    "key": "q-grundlagen-2016-aartalbahn-bleidenstadt-schwellen-t",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/2016_Aartalbahn_Bleidenstadt_Schwellen_Thyssen_1928.jpg?width=900",
+    "credit": "Kreuzschnabel, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2016_Aartalbahn_Bleidenstadt_Schwellen_Thyssen_1928.jpg"
+  },
+  {
+    "key": "q-grundlagen-bahnhof-braunschweig-gliesmarode-gesamta",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Bahnhof_Braunschweig-Gliesmarode_-_Gesamtansicht_Gleis_2%2C_6._August_2022.jpg?width=900",
+    "credit": "Till-André Diegeler, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bahnhof_Braunschweig-Gliesmarode_-_Gesamtansicht_Gleis_2,_6._August_2022.jpg"
+  },
+  {
+    "key": "q-grundlagen-schwellen-rheda",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Schwellen_Rheda.jpg?width=900",
+    "credit": "Sebastian Terfloth, CC BY-SA 2.5, via Wikimedia Commons",
+    "license": "CC BY-SA 2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Schwellen_Rheda.jpg"
+  },
+  {
+    "key": "q-grundlagen-maintal-ost-von-gleis1",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Maintal_Ost_von_Gleis1.jpg?width=900",
+    "credit": "Josef Beimel, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maintal_Ost_von_Gleis1.jpg"
+  },
+  {
+    "key": "q-grundlagen-gleis-97b",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Gleis_97b.jpg?width=900",
+    "credit": "unbekannt, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gleis_97b.jpg"
+  },
+  {
+    "key": "q-handwerkzeuge-schraube",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Schraube.jpg?width=900",
+    "credit": "Hermann A. Wiese, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Schraube.jpg"
+  },
+  {
+    "key": "q-handwerkzeuge-senkschraube",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Senkschraube.jpg?width=900",
+    "credit": "S.Wetzel, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Senkschraube.jpg"
+  },
+  {
+    "key": "q-handwerkzeuge-verschiedene-handgefertigte-bursten-und-",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Verschiedene_handgefertigte_B%C3%BCrsten_und_Besen.JPG?width=900",
+    "credit": "4028mdk09, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Verschiedene_handgefertigte_Bürsten_und_Besen.JPG"
+  },
+  {
+    "key": "q-kleineisen-rippenplatte2",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Rippenplatte2.jpg?width=900",
+    "credit": "S.Wetzel (Beruf: Ingenieur ), CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rippenplatte2.jpg"
+  },
+  {
+    "key": "q-kleineisen-pandrol-clip-statue",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Pandrol_clip_statue.jpg?width=900",
+    "credit": "Alex Peterson, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pandrol_clip_statue.jpg"
+  },
+  {
+    "key": "q-lf01-bauzaun1",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Bauzaun1.jpg?width=900",
+    "credit": "Johann H. Addicks, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bauzaun1.jpg"
+  },
+  {
+    "key": "q-lf01-warnweste-gelb",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Warnweste_gelb.jpg?width=900",
+    "credit": "Magnus Mertens, CC BY-SA 2.0 de, via Wikimedia Commons",
+    "license": "CC BY-SA 2.0 de",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Warnweste_gelb.jpg"
+  },
+  {
+    "key": "q-lf01-piktogramm-baustelle",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Piktogramm_Baustelle.svg?width=900",
+    "credit": "de:Bundesministerium für Verkehr, Bau- und Wohnungswesen, Public domain, via Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Piktogramm_Baustelle.svg"
+  },
+  {
+    "key": "q-lf02-aushub-des-rohrgrabens-mit-uber-dem-verb",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Aushub_des_Rohrgrabens_mit_%C3%BCber_dem_Verbau_stehendem_Bauger%C3%A4t_in_getakteter_Bauweise.jpg?width=900",
+    "credit": "Olaf Stolzenburg (LOGIC Logistic Engineering GmbH), CC BY-SA 3.0 de, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0 de",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aushub_des_Rohrgrabens_mit_über_dem_Verbau_stehendem_Baugerät_in_getakteter_Bauweise.jpg"
+  },
+  {
+    "key": "q-lf02-historisches-archiv-der-stadt-koln-verei",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Historisches_Archiv_der_Stadt_K%C3%B6ln_-_vereiste_Schlitzwand_Baugrube_Waidmarkt-0387.jpg?width=900",
+    "credit": "Raimond Spekking, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Historisches_Archiv_der_Stadt_Köln_-_vereiste_Schlitzwand_Baugrube_Waidmarkt-0387.jpg"
+  },
+  {
+    "key": "q-lf02-baugrubenwand-dscf5299",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Baugrubenwand_DSCF5299.jpg?width=900",
+    "credit": "Johann H. Addicks - addicks@gmx.net, GFDL 1.2, via Wikimedia Commons",
+    "license": "GFDL 1.2",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Baugrubenwand_DSCF5299.jpg"
+  },
+  {
+    "key": "q-lf02-gurtung-baugrubenverbau",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Gurtung_Baugrubenverbau.svg?width=900",
+    "credit": "Petflo2000, CC BY 4.0, via Wikimedia Commons",
+    "license": "CC BY 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gurtung_Baugrubenverbau.svg"
+  },
+  {
+    "key": "q-lf02-baustelle-breitengu-bach-p2066976",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Baustelle-Breiteng%C3%BC%C3%9Fbach-P2066976.jpg?width=900",
+    "credit": "ermell, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Baustelle-Breitengüßbach-P2066976.jpg"
+  },
+  {
+    "key": "q-lf03-steinwerk-dielinger-schnitt",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Steinwerk_dielinger_schnitt.png?width=900",
+    "credit": "Dietmar Walberg, CC BY-SA 2.5, via Wikimedia Commons",
+    "license": "CC BY-SA 2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Steinwerk_dielinger_schnitt.png"
+  },
+  {
+    "key": "q-lf03-steinenschloss-mauer",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Steinenschloss_mauer.jpg?width=900",
+    "credit": "The original uploader was Dokape at German Wikipedia., CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Steinenschloss_mauer.jpg"
+  },
+  {
+    "key": "q-lf04-herstellung-zement-beton",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Herstellung_Zement_Beton.svg?width=900",
+    "credit": "Sundance Raphael 16:43, 23. Nov. 2006 (CET). Original uploader was Sundance Raphael at de.wikibooks, Public domain, via Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Herstellung_Zement_Beton.svg"
+  },
+  {
+    "key": "q-lf04-bewehrungsplan",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Bewehrungsplan.JPG?width=900",
+    "credit": "Michael Kleerbaum, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bewehrungsplan.JPG"
+  },
+  {
+    "key": "q-lf04-gussform-verso",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Gussform_verso.JPG?width=900",
+    "credit": "Warburg, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gussform_verso.JPG"
+  },
+  {
+    "key": "q-lf04-abstandshalter-beton-bewehrung",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Abstandshalter_Beton_Bewehrung.JPG?width=900",
+    "credit": "Cschirp, CC BY-SA 3.0 de, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0 de",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Abstandshalter_Beton_Bewehrung.JPG"
+  },
+  {
+    "key": "q-lf05-wood-framed-house",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Wood-framed_house.jpg?width=900",
+    "credit": "Jaksmata, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wood-framed_house.jpg"
+  },
+  {
+    "key": "q-lf05-shear-plate-timber-connector",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Shear_plate_timber_connector.jpg?width=900",
+    "credit": "Hab044, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shear_plate_timber_connector.jpg"
+  },
+  {
+    "key": "q-lf05-stadthalle-memmingen",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Stadthalle_Memmingen.jpg?width=900",
+    "credit": "Wald-Burger8, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Stadthalle_Memmingen.jpg"
+  },
+  {
+    "key": "q-lf06-powder-coating-aluminium-extrusions",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Powder_Coating_Aluminium_Extrusions.jpg?width=900",
+    "credit": "Euro Quality Coatings, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Powder_Coating_Aluminium_Extrusions.jpg"
+  },
+  {
+    "key": "q-lf07-wasserhaltung-pumpe-1",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Wasserhaltung_Pumpe_1.JPG?width=900",
+    "credit": "btr, CC BY-SA 2.5, via Wikimedia Commons",
+    "license": "CC BY-SA 2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wasserhaltung_Pumpe_1.JPG"
+  },
+  {
+    "key": "q-lf07-baugrubenwand-dscf5299",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Baugrubenwand_DSCF5299.jpg?width=900",
+    "credit": "Johann H. Addicks - addicks@gmx.net, GFDL 1.2, via Wikimedia Commons",
+    "license": "GFDL 1.2",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Baugrubenwand_DSCF5299.jpg"
+  },
+  {
+    "key": "q-lf07-bohlenwand",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Bohlenwand.png?width=900",
+    "credit": "UlrichAAB, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bohlenwand.png"
+  },
+  {
+    "key": "q-lf07-d-6-73-174-4-gartenmauer",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/D-6-73-174-4_Gartenmauer.jpg?width=900",
+    "credit": "Stephan van Helden, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:D-6-73-174-4_Gartenmauer.jpg"
+  },
+  {
+    "key": "q-lf08-asphaltbinderschicht",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Asphaltbinderschicht.jpg?width=900",
+    "credit": "Mailtosap at de.wikipedia, Public domain, via Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Asphaltbinderschicht.jpg"
+  },
+  {
+    "key": "q-lf08-freising-die-stra-e-unterer-graben",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Freising%2C_die_Stra%C3%9Fe_Unterer_Graben.jpg?width=900",
+    "credit": "Dguendel, CC BY 3.0, via Wikimedia Commons",
+    "license": "CC BY 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Freising,_die_Straße_Unterer_Graben.jpg"
+  },
+  {
+    "key": "q-lf08-stra-enbau",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Stra%C3%9Fenbau.jpg?width=900",
+    "credit": "Wendebaum, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Straßenbau.jpg"
+  },
+  {
+    "key": "q-lf08-bestandteile-stra-enquerschnitt-",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Bestandteile_Stra%C3%9Fenquerschnitt_.svg?width=900",
+    "credit": "Mailtosap, Copyrighted free use, via Wikimedia Commons",
+    "license": "Copyrighted free use",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bestandteile_Straßenquerschnitt_.svg"
+  },
+  {
+    "key": "q-lf08-walze7469b",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Walze7469b.jpg?width=900",
+    "credit": "Lung, CC BY-SA 2.0 de, via Wikimedia Commons",
+    "license": "CC BY-SA 2.0 de",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Walze7469b.jpg"
+  },
+  {
+    "key": "q-lf08-pflaster-verfestigte-fugen",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Pflaster_verfestigte_Fugen.svg?width=900",
+    "credit": "Mailtosap, Copyrighted free use, via Wikimedia Commons",
+    "license": "Copyrighted free use",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pflaster_verfestigte_Fugen.svg"
+  },
+  {
+    "key": "q-lf09-concrete-wall-drainage",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Concrete_wall_drainage.jpg?width=900",
+    "credit": "Eurico Zimbres, CC BY-SA 2.5, via Wikimedia Commons",
+    "license": "CC BY-SA 2.5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Concrete_wall_drainage.jpg"
+  },
+  {
+    "key": "q-lf09-bundesarchiv-bild-183-1985-0320-003-lpg-",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Bundesarchiv_Bild_183-1985-0320-003%2C_LPG_Herpf%2C_Melioration%2C_Entw%C3%A4sserung%2C_Drainage.jpg?width=900",
+    "credit": "Helmut Schaar, CC BY-SA 3.0 de, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0 de",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-1985-0320-003,_LPG_Herpf,_Melioration,_Entwässerung,_Drainage.jpg"
+  },
+  {
+    "key": "q-lf09-driven-pipe-piles",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Driven_pipe_piles.jpg?width=900",
+    "credit": "Mondayis, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Driven_pipe_piles.jpg"
+  },
+  {
+    "key": "q-lf09-polyethelene-corrugated-drainage-pipe",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Polyethelene_corrugated_drainage_pipe.JPG?width=900",
+    "credit": "Dwight Burdette, CC BY 3.0, via Wikimedia Commons",
+    "license": "CC BY 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Polyethelene_corrugated_drainage_pipe.JPG"
+  },
+  {
+    "key": "q-lf09-fotothek-df-tg-0000387-bergwerk-bergbau-",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Fotothek_df_tg_0000387_Bergwerk_%5E_Bergbau_%5E_Tretrad_%5E_Entw%C3%A4sserung_%5E_Taschen.jpg?width=900",
+    "credit": "unbekannt, Public domain, via Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fotothek_df_tg_0000387_Bergwerk_^_Bergbau_^_Tretrad_^_Entwässerung_^_Taschen.jpg"
+  },
+  {
+    "key": "q-lf09-pipes",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Pipes.jpg?width=900",
+    "credit": "uberculture, CC BY 2.0, via Wikimedia Commons",
+    "license": "CC BY 2.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pipes.jpg"
+  },
+  {
+    "key": "q-lf09-infiltration",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Infiltration.jpg?width=900",
+    "credit": "F Ceragioli, Public domain, via Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Infiltration.jpg"
+  },
+  {
+    "key": "q-lf10-bewehrung",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Bewehrung.jpg?width=900",
+    "credit": "Zister at de:Wp, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bewehrung.jpg"
+  },
+  {
+    "key": "q-lf10-zeichen-123-baustelle-stvo-1992",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Zeichen_123_-_Baustelle%2C_StVO_1992.svg?width=900",
+    "credit": "Ttog~commonswiki, Konrad Conrad (= User:Xavax), Mediatus, Public domain, via Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zeichen_123_-_Baustelle,_StVO_1992.svg"
+  },
+  {
+    "key": "q-lf10-baustelle-doppersberg",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Baustelle_D%C3%B6ppersberg.jpg?width=900",
+    "credit": "Pwagenblast, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Baustelle_Döppersberg.jpg"
+  },
+  {
+    "key": "q-lf11-rail-track",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Rail_track.jpg?width=900",
+    "credit": "Alain Caraco at French Wikipedia Later versions were uploaded by Symac at fr.wikipedia., CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rail_track.jpg"
+  },
+  {
+    "key": "q-lf12-eisenbahnweiche-detail",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Eisenbahnweiche_detail.jpg?width=900",
+    "credit": "unbekannt, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Eisenbahnweiche_detail.jpg"
+  },
+  {
+    "key": "q-lf12-schienenkreuz-mit-weichen",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Schienenkreuz_mit_Weichen.jpg?width=900",
+    "credit": "Andreas Lippold, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Schienenkreuz_mit_Weichen.jpg"
+  },
+  {
+    "key": "q-lf12-eisenbahnweiche-mit-betonschwellen",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Eisenbahnweiche_mit_Betonschwellen.jpg?width=900",
+    "credit": "Noebse, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Eisenbahnweiche_mit_Betonschwellen.jpg"
+  },
+  {
+    "key": "q-lf13-railway-signals-and-switches-in-cianjur",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Railway_signals_and_switches_in_Cianjur.jpg?width=900",
+    "credit": "Gupt24, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Railway_signals_and_switches_in_Cianjur.jpg"
+  },
+  {
+    "key": "q-lf13-railway-switches",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Railway_Switches.svg?width=900",
+    "credit": "Дмитрий Сутягин, Public domain, via Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Railway_Switches.svg"
+  },
+  {
+    "key": "q-lf14-eisenbahn-schwingbrucke-oldenburg",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Eisenbahn-Schwingbr%C3%BCcke_Oldenburg.JPG?width=900",
+    "credit": "Jacek Rużyczka, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Eisenbahn-Schwingbrücke_Oldenburg.JPG"
+  },
+  {
+    "key": "q-lf14-sinnbild-eisenbahn",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Sinnbild_Eisenbahn.svg?width=900",
+    "credit": "Bundesministerium für Verkehr (German Federal Ministry of Traffic, Building and Housing), Public domain, via Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sinnbild_Eisenbahn.svg"
+  },
+  {
+    "key": "q-lf14-schwentinebruecke-der-kiel-schoenberger-",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Schwentinebruecke_der_Kiel-Schoenberger_Eisenbahn.jpg?width=900",
+    "credit": "Oellermann, CC BY-SA 2.0 de, via Wikimedia Commons",
+    "license": "CC BY-SA 2.0 de",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Schwentinebruecke_der_Kiel-Schoenberger_Eisenbahn.jpg"
+  },
+  {
+    "key": "q-lf14-obb-abfertigungssignal-sonderbauform",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96BB-Abfertigungssignal_Sonderbauform.jpg?width=900",
+    "credit": "JustFUZEit, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:ÖBB-Abfertigungssignal_Sonderbauform.jpg"
+  },
+  {
+    "key": "q-lf14-main-lahn-bahn-eppsteiner-tunnel",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Main-Lahn-Bahn_Eppsteiner_Tunnel.jpg?width=900",
+    "credit": "MdE, CC BY-SA 3.0 de, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0 de",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Main-Lahn-Bahn_Eppsteiner_Tunnel.jpg"
+  },
+  {
+    "key": "q-lf14-bahnubergang-de",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Bahn%C3%BCbergang-de.jpg?width=900",
+    "credit": "User Melkom on de.wikipedia, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bahnübergang-de.jpg"
+  },
+  {
+    "key": "q-messmittel-railway-loading-gauge-uic-and-containers",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Railway_Loading_gauge_UIC_and_containers_profile_-ISO.png?width=900",
+    "credit": "Cheminvento (msg), CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Railway_Loading_gauge_UIC_and_containers_profile_-ISO.png"
+  },
+  {
+    "key": "q-messmittel-rail-gauge-world-with-legend",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Rail_gauge_world_with_legend.svg?width=900",
+    "credit": "Wikkiwonkk, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rail_gauge_world_with_legend.svg"
+  },
+  {
+    "key": "q-messmittel-rail-gauge-world",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Rail_gauge_world.svg?width=900",
+    "credit": "I, the copyright holder of this work, hereby publish it under the following license:, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rail_gauge_world.svg"
+  },
+  {
+    "key": "q-messmittel-rail-profile",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Rail_profile.svg?width=900",
+    "credit": "SVG version: Chris McKenna (Thryduulf) GIF version: Amos Wolfe (AmosWolfe), CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rail_profile.svg"
+  },
+  {
+    "key": "q-messmittel-level-instrument-",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Level_(instrument).jpg?width=900",
+    "credit": "Kskhh, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Level_(instrument).jpg"
+  },
+  {
+    "key": "q-messmittel-track-gauge",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Track_gauge.svg?width=900",
+    "credit": "HTML2011, Public domain, via Wikimedia Commons",
+    "license": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Track_gauge.svg"
+  },
+  {
+    "key": "q-messmittel-world-rr-gauge-map-agr",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/World_RR_Gauge_Map.agr.png?width=900",
+    "credit": "OpenStreetMap contributors, user:ArnoldReinhold \"I release my contributions under CC0\"--agr (talk) 14:52, 12 September 2022 (UTC)OpenStreetMap contrib, ODbL, via Wikimedia Commons",
+    "license": "ODbL",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:World_RR_Gauge_Map.agr.png"
+  },
+  {
+    "key": "q-messmittel-africa-railway-map-gauge",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Africa_railway_map_gauge.jpg?width=900",
+    "credit": "Bucsky, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Africa_railway_map_gauge.jpg"
+  },
+  {
+    "key": "q-schwellen-db-museum-rail-and-concrete-sleeper-cros",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/DB_Museum_rail_and_concrete_sleeper_cross_section_2.jpg?width=900",
+    "credit": "Arnoldius, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:DB_Museum_rail_and_concrete_sleeper_cross_section_2.jpg"
+  },
+  {
+    "key": "q-spurweite-comparison-of-british-track-gauges",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Comparison_of_British_track_gauges.svg?width=900",
+    "credit": "Goran_tek-en, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Comparison_of_British_track_gauges.svg"
+  },
+  {
+    "key": "q-spurweite-rail-track",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Rail_track.jpg?width=900",
+    "credit": "Alain Caraco at French Wikipedia Later versions were uploaded by Symac at fr.wikipedia., CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rail_track.jpg"
+  },
+  {
+    "key": "q-spurweite-spurweiten-vierschienengleis",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Spurweiten_Vierschienengleis.png?width=900",
+    "credit": "Pubert at German Wikipedia, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Spurweiten_Vierschienengleis.png"
   }
 ]

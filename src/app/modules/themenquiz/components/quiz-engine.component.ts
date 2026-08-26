@@ -1,9 +1,18 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ThemenquizDifficulty, ThemenquizQuestion } from '../models/themenquiz.models';
 import { QuestionReportService } from '../../../services/question-report.service';
 
 type ShuffledChoice = { text: string; originalIndex: number };
+
+interface Bildnachweis {
+  key: string;
+  file: string;
+  credit: string;
+  license: string;
+  sourceUrl: string;
+}
 
 @Component({
   selector: 'app-themenquiz-engine',
@@ -11,7 +20,7 @@ type ShuffledChoice = { text: string; originalIndex: number };
   styleUrls: ['./quiz-engine.component.scss'],
   standalone: false,
 })
-export class ThemenquizEngineComponent implements OnChanges {
+export class ThemenquizEngineComponent implements OnChanges, OnInit {
   @Input() questions: ThemenquizQuestion[] = [];
   @Input() topicId = '';
   @Output() answered = new EventEmitter<{ id: string; correct: boolean }>();
@@ -19,8 +28,26 @@ export class ThemenquizEngineComponent implements OnChanges {
   constructor(
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
-    private reportSvc: QuestionReportService
+    private reportSvc: QuestionReportService,
+    private http: HttpClient
   ) {}
+
+  private bildnachweise: Record<string, Bildnachweis> = {};
+
+  ngOnInit(): void {
+    this.http.get<Bildnachweis[]>('assets/bilder/bildnachweise.json').subscribe({
+      next: (list) => {
+        this.bildnachweise = Object.fromEntries(list.map((b) => [b.key, b]));
+      },
+      error: () => (this.bildnachweise = {}),
+    });
+  }
+
+  currentImage(): Bildnachweis | null {
+    const key = this.current?.imageKey;
+    if (!key) return null;
+    return this.bildnachweise[key] ?? null;
+  }
 
   order: ThemenquizQuestion[] = [];
   currentIndex = 0;

@@ -14,7 +14,8 @@
       "correctIndex": 0,
       "explanation": "Graeben werden typischerweise als laengliche Aushuebe ausgefuehrt.",
       "source": "Baugruben und Gräben - Definition, 20.08.2026",
-      "sourceUrl": "https://www.bfga.de/arbeitsschutz-lexikon-von-a-bis-z/fachbegriffe-a-b/baugruben-graeben-fachbegriff/"
+      "sourceUrl": "https://www.bfga.de/arbeitsschutz-lexikon-von-a-bis-z/fachbegriffe-a-b/baugruben-graeben-fachbegriff/",
+      "imageKey": "q-lf07-d-6-73-174-4-gartenmauer"
     },
     {
       "id": "LF07-Q2",
@@ -56,7 +57,8 @@
       "correctIndex": 0,
       "explanation": "Lockerer oder nasser Boden verliert Stabilitaet und braucht flachere Boeschungen.",
       "source": "Böschungen - Hangsicherung - Baugrundingenieure Institut, 20.08.2026",
-      "sourceUrl": "http://bgi-do.de/?id=87"
+      "sourceUrl": "http://bgi-do.de/?id=87",
+      "imageKey": "q-lf07-bohlenwand"
     },
     {
       "id": "LF07-Q5",
@@ -98,7 +100,8 @@
       "correctIndex": 0,
       "explanation": "Wasser schwemmt Boden aus und kann die Baugrubenwaende destabilisieren.",
       "source": "Darda-wissen.unterspuelung (2026)",
-      "sourceUrl": "https://www.darda.de/wissen/unterspuelung"
+      "sourceUrl": "https://www.darda.de/wissen/unterspuelung",
+      "imageKey": "q-lf07-baugrubenwand-dscf5299"
     },
     {
       "id": "LF07-Q8",
@@ -294,7 +297,8 @@
       "correctIndex": 0,
       "explanation": "Beim Pumpensumpf wird Wasser offen gesammelt und abgepumpt.",
       "source": "Offene Wasserhaltung sammelt Grund- und Niederschlagswasser in Gräben/Dränagen zu Pumpe…",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Wasserhaltung_(Bauwesen)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Wasserhaltung_(Bauwesen)",
+      "imageKey": "q-lf07-wasserhaltung-pumpe-1"
     },
     {
       "id": "LF07-Q22",
@@ -308,7 +312,8 @@
       "correctIndex": 0,
       "explanation": "Spundwaende sind fuer hohe Tiefen und Wasserandrang geeignet.",
       "source": "Spundwände sichern temporär auch bei tiefer Lage unter dem Grundwasserspiegel und verhi…",
-      "sourceUrl": "https://www.darda.de/wissen/spundwand"
+      "sourceUrl": "https://www.darda.de/wissen/spundwand",
+      "imageKey": "q-lf07-wasserhaltung-pumpe-1"
     },
     {
       "id": "LF07-Q23",
@@ -322,7 +327,8 @@
       "correctIndex": 0,
       "explanation": "Maschinen, Material, Aushub und Fahrzeuge sind typische Randlasten.",
       "source": "Maschinen, Fahrzeuge und bewegliche Einwirkungen zählen als Nutzlast (Verkehrslast) am…",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Bauwerkslasten"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Bauwerkslasten",
+      "imageKey": "q-lf07-wasserhaltung-pumpe-1"
     },
     {
       "id": "LF07-Q24",
@@ -336,7 +342,8 @@
       "correctIndex": 0,
       "explanation": "Mindestens Helm, Warnkleidung und Sicherheitsschuhe gehoeren zur Grundausstattung.",
       "source": "Schutzhelm Pflicht bei Gefahr durch herabfallende Gegenstände oder Stöße im Baugrubenbe…",
-      "sourceUrl": "https://www.dguv.de/fb-psa/sachgebiete/sachgebiet-kopfschutz/index.jsp"
+      "sourceUrl": "https://www.dguv.de/fb-psa/sachgebiete/sachgebiet-kopfschutz/index.jsp",
+      "imageKey": "q-lf07-wasserhaltung-pumpe-1"
     },
     {
       "id": "LF07-Q25",
@@ -350,7 +357,8 @@
       "correctIndex": 0,
       "explanation": "Arbeitssicherheit hat bei Baugruben und Graeben immer Prioritaet.",
       "source": "DGUV/Arbeitsschutz: bei Baugruben Sicherheitsmaßnahmen VOR Aufnahme der Arbeiten umsetz…",
-      "sourceUrl": "https://bauportal.bgbau.de/bauportal-22025/anwendung-der-baustellenverordnung-bei-baugruben-und-graeben"
+      "sourceUrl": "https://bauportal.bgbau.de/bauportal-22025/anwendung-der-baustellenverordnung-bei-baugruben-und-graeben",
+      "imageKey": "q-lf07-wasserhaltung-pumpe-1"
     }
   ]
 }

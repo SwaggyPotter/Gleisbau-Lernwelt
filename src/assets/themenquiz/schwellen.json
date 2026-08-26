@@ -84,7 +84,8 @@
       "correctIndex": 2,
       "explanation": "Die Betonschwelle B70 ist laut Herstellerdatenblatt für Achslasten bis 25 t (rund 250 kN) ausgelegt und damit für hohe Betriebsbeanspruchungen geeignet.",
       "source": "Zulässige Achslast 25 t`",
-      "sourceUrl": "https://www.railone.de/produkte-loesungen/fern-gueterverkehr/schotteroberbau/betonschwelle-b70/"
+      "sourceUrl": "https://www.railone.de/produkte-loesungen/fern-gueterverkehr/schotteroberbau/betonschwelle-b70/",
+      "imageKey": "q-schwellen-db-museum-rail-and-concrete-sleeper-cros"
     },
     {
       "id": "schwellen-g2",
@@ -98,7 +99,8 @@
       "correctIndex": 2,
       "explanation": "Die Betonschwelle B70 hat eine Standardlänge von 2600 mm, was als typische Länge für Schotteroberbau gilt.",
       "source": "Länge 2600 mm`",
-      "sourceUrl": "https://www.railone.de/produkte-loesungen/fern-gueterverkehr/schotteroberbau/betonschwelle-b70/"
+      "sourceUrl": "https://www.railone.de/produkte-loesungen/fern-gueterverkehr/schotteroberbau/betonschwelle-b70/",
+      "imageKey": "q-schwellen-db-museum-rail-and-concrete-sleeper-cros"
     },
     {
       "id": "schwellen-g3",
@@ -112,7 +114,8 @@
       "correctIndex": 0,
       "explanation": "C 50/60 bezeichnet die Druckfestigkeit des Betons (Zylinderdruckfestigkeit) mit 50 N/mm² und den würfelförmigen Bruchwert von 60 N/mm².",
       "source": "Betongüte C 50/60`",
-      "sourceUrl": "https://www.railone.de/produkte-loesungen/fern-gueterverkehr/schotteroberbau/betonschwelle-b70/"
+      "sourceUrl": "https://www.railone.de/produkte-loesungen/fern-gueterverkehr/schotteroberbau/betonschwelle-b70/",
+      "imageKey": "q-schwellen-db-museum-rail-and-concrete-sleeper-cros"
     },
     {
       "id": "schwellen-g4",
@@ -126,7 +129,8 @@
       "correctIndex": 2,
       "explanation": "Die Betonschwelle B70 ist für eine maximale Geschwindigkeit von 250 km/h zugelassen und wird auf Hochgeschwindigkeitsstrecken eingesetzt.",
       "source": "Max. Geschwindigkeit 250 km/h`",
-      "sourceUrl": "https://www.railone.de/produkte-loesungen/fern-gueterverkehr/schotteroberbau/betonschwelle-b70/"
+      "sourceUrl": "https://www.railone.de/produkte-loesungen/fern-gueterverkehr/schotteroberbau/betonschwelle-b70/",
+      "imageKey": "q-schwellen-db-museum-rail-and-concrete-sleeper-cros"
     },
     {
       "id": "schwellen-g5",
@@ -140,7 +144,8 @@
       "correctIndex": 2,
       "explanation": "Eine B70-Betonschwelle wiegt laut Herstellerdatenblatt ca. 280 kg ohne Befestigungselemente (Betonvolumen 114 Liter).",
       "source": "Gewicht ohne Befestigung 280 kg`",
-      "sourceUrl": "https://www.railone.de/produkte-loesungen/fern-gueterverkehr/schotteroberbau/betonschwelle-b70/"
+      "sourceUrl": "https://www.railone.de/produkte-loesungen/fern-gueterverkehr/schotteroberbau/betonschwelle-b70/",
+      "imageKey": "q-schwellen-db-museum-rail-and-concrete-sleeper-cros"
     },
     {
       "id": "schwellen-g6",
@@ -196,7 +201,8 @@
       "correctIndex": 2,
       "explanation": "Im Schotteroberbau werden Schwellen im Abstand von ca. 60 cm verlegt, was dem Standardabstand entspricht.",
       "source": "trackopedia.com – oberbauformen",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/oberbauformen/"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/oberbauformen/",
+      "imageKey": "q-schwellen-db-museum-rail-and-concrete-sleeper-cros"
     },
     {
       "id": "schwellen-g10",
@@ -224,7 +230,8 @@
       "correctIndex": 2,
       "explanation": "Die Betonschwelle B70 hat eine Breite von 300 mm und eine Höhe von 234 mm.",
       "source": "B70-Betonschwelle Breite 300 mm",
-      "sourceUrl": "https://www.railone.de/produkte-loesungen/fern-gueterverkehr/schotteroberbau/betonschwelle-b70/"
+      "sourceUrl": "https://www.railone.de/produkte-loesungen/fern-gueterverkehr/schotteroberbau/betonschwelle-b70/",
+      "imageKey": "q-schwellen-db-museum-rail-and-concrete-sleeper-cros"
     },
     {
       "id": "schwellen-g12",
@@ -238,7 +245,8 @@
       "correctIndex": 0,
       "explanation": "Die Auflagerfläche (gesamt) von 6801 cm² ist entscheidend für die Lastverteilung auf das Bettungsmaterial und sorgt für geringe Flächenpressung.",
       "source": "Lastverteilung durch Bettung aus gebrochenem Hartgestein gewährleistet gleichmäßige Kra…",
-      "sourceUrl": "https://www.lok-report.de/news/deutschland/industrie/60851-steiner-consult-fachbericht-instandhaltung-des-eisenbahnoberbaus.html"
+      "sourceUrl": "https://www.lok-report.de/news/deutschland/industrie/60851-steiner-consult-fachbericht-instandhaltung-des-eisenbahnoberbaus.html",
+      "imageKey": "q-schwellen-db-museum-rail-and-concrete-sleeper-cros"
     },
     {
       "id": "schwellen-g13",
@@ -294,7 +302,8 @@
       "correctIndex": 0,
       "explanation": "Beim Schotteroberbau liegen die Schwellen im Schotterbett, während bei der Festen Fahrbahn das Gleis direkt auf bzw. in einer Beton- oder Asphalttragschicht befestigt ist.",
       "source": "Oberbaumform Schotteroberbau vs Feste Fahrbahn",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)",
+      "imageKey": "q-schwellen-db-museum-rail-and-concrete-sleeper-cros"
     },
     {
       "id": "schwellen-g17",
@@ -308,7 +317,8 @@
       "correctIndex": 0,
       "explanation": "Die Schwelle ist Träger und Spurhalter zugleich – sie fixiert die Schienen in der richtigen Position (Spurweite) und überträgt die Kräfte auf das Bettungsmaterial.",
       "source": "https://de-academic.com/dic.nsf/dewiki/381085 || Schwellen-Funktion Spurweite",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Schwelle_(Bahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Schwelle_(Bahn)",
+      "imageKey": "q-schwellen-db-museum-rail-and-concrete-sleeper-cros"
     }
   ]
 }

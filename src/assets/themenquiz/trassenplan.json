@@ -361,7 +361,7 @@
       "explanation": "Im EBA-Legendenheft steht Grau für den Bestand, Rot für Neubau/Änderung und Gelb/Orange für den Rückbau – dieses Farbschema wiederholt sich einheitlich in Lageplan, Höhenplan und Querschnitt.",
       "source": "Eisenbahn-Bundesamt, Anhang III Muster-Legendenheft (eigene Zusammenfassung)",
       "sourceUrl": "https://www.eba.bund.de/SharedDocs/Downloads/DE/PF/LFAntragsunterlagen/Anhang_III/51_III_Muster-Legendenheft.pdf?__blob=publicationFile&v=2",
-      "image": "assets/bilder/trassenplan-legende-bnr.svg"
+      "imageKey": "trassenplan-legende-bnr"
     },
     {
       "id": "trassenplan-n2",
@@ -377,7 +377,7 @@
       "explanation": "Rot steht im offiziellen Farbschema für Neubau/Änderung, Grau für Bestand, Gelb/Orange für Rückbau.",
       "source": "Eisenbahn-Bundesamt, Anhang III Muster-Legendenheft (eigene Zusammenfassung)",
       "sourceUrl": "https://www.eba.bund.de/SharedDocs/Downloads/DE/PF/LFAntragsunterlagen/Anhang_III/51_III_Muster-Legendenheft.pdf?__blob=publicationFile&v=2",
-      "image": "assets/bilder/trassenplan-legende-bnr.svg"
+      "imageKey": "trassenplan-legende-bnr"
     },
     {
       "id": "trassenplan-n3",
@@ -603,7 +603,7 @@
       "explanation": "Lageplan, Höhenplan und Querschnitt unterscheiden im EBA-Legendenheft einheitlich zwischen Bestand (grau), Neubau/Änderung (rot) und Rückbau (gelb/orange).",
       "source": "Eisenbahn-Bundesamt, Anhang III Muster-Legendenheft (eigene Zusammenfassung)",
       "sourceUrl": "https://www.eba.bund.de/SharedDocs/Downloads/DE/PF/LFAntragsunterlagen/Anhang_III/51_III_Muster-Legendenheft.pdf?__blob=publicationFile&v=2",
-      "image": "assets/bilder/trassenplan-legende-bnr.svg"
+      "imageKey": "trassenplan-legende-bnr"
     },
     {
       "id": "trassenplan-n18",

@@ -14,7 +14,8 @@
       "correctIndex": 1,
       "explanation": "Baustelleneinrichtung umfasst Flaechen, Wege, Lager, Sicherung und Information – nicht nur einen Container.",
       "source": "baua.de – Verkehrsflaechen Transportwege",
-      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/pdf/Verkehrsflaechen-Transportwege.pdf?__blob=publicationFile&v=3"
+      "sourceUrl": "https://www.baua.de/DE/Themen/Arbeitsgestaltung/Arbeitsstaetten/Bauwirtschaft/pdf/Verkehrsflaechen-Transportwege.pdf?__blob=publicationFile&v=3",
+      "imageKey": "q-lf01-bauzaun1"
     },
     {
       "id": "LF01-Q2",
@@ -42,7 +43,8 @@
       "correctIndex": 1,
       "explanation": "Bereitstellung durch Arbeitgeber, Nutzung durch jede Person – Verantwortung wird nicht delegiert.",
       "source": "dguv.de – index",
-      "sourceUrl": "https://www.dguv.de/fb-psa/psa-regelwerke/index.jsp"
+      "sourceUrl": "https://www.dguv.de/fb-psa/psa-regelwerke/index.jsp",
+      "imageKey": "q-lf01-warnweste-gelb"
     },
     {
       "id": "LF01-Q4",
@@ -140,7 +142,8 @@
       "correctIndex": 1,
       "explanation": "Dokumentation zeigt, was besprochen wurde, und erfuellt rechtliche Anforderungen.",
       "source": "amusa.de – unterweisung",
-      "sourceUrl": "https://amusa.de/arbeitsschutz/unterweisung/"
+      "sourceUrl": "https://amusa.de/arbeitsschutz/unterweisung/",
+      "imageKey": "q-lf01-piktogramm-baustelle"
     },
     {
       "id": "LF01-Q11",
@@ -980,7 +983,8 @@
       "correctIndex": 2,
       "explanation": "Beschaedigte PSA verliert Schutzwirkung und muss ersetzt werden.",
       "source": "Arbeitsschutz online (aktuell)",
-      "sourceUrl": "https://arbeitsschutz-online.de/wann-muss-ein-schutzhelm-ausgetauscht-werden/"
+      "sourceUrl": "https://arbeitsschutz-online.de/wann-muss-ein-schutzhelm-ausgetauscht-werden/",
+      "imageKey": "q-lf01-bauzaun1"
     },
     {
       "id": "LF01-Q71",
@@ -994,7 +998,8 @@
       "correctIndex": 1,
       "explanation": "Alte oder widerspruechliche Beschilderung fuehrt zu Unsicherheit und Fehlverhalten.",
       "source": "ra-kotz.de – verkehrssicherungspflicht mobiler verkehrsschilder nach beendigung baustelle",
-      "sourceUrl": "https://www.ra-kotz.de/verkehrssicherungspflicht-mobiler-verkehrsschilder-nach-beendigung-baustelle.htm"
+      "sourceUrl": "https://www.ra-kotz.de/verkehrssicherungspflicht-mobiler-verkehrsschilder-nach-beendigung-baustelle.htm",
+      "imageKey": "q-lf01-bauzaun1"
     },
     {
       "id": "LF01-Q72",
@@ -1008,7 +1013,8 @@
       "correctIndex": 2,
       "explanation": "Der fuer Zugfahrten benoetigte Raum ist strikt freizuhalten.",
       "source": "gesetze-im-internet.de –   18",
-      "sourceUrl": "https://www.gesetze-im-internet.de/strabbo_1987/__18.html"
+      "sourceUrl": "https://www.gesetze-im-internet.de/strabbo_1987/__18.html",
+      "imageKey": "q-lf01-bauzaun1"
     }
   ]
 }

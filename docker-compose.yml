@@ -45,8 +45,6 @@ services:
       APP_DOMAIN: ${APP_DOMAIN}
       ROOT_DOMAIN: ${ROOT_DOMAIN}
       CADDY_EMAIL: ${CADDY_EMAIL}
-      BASIC_AUTH_USER: ${BASIC_AUTH_USER}
-      BASIC_AUTH_HASH: ${BASIC_AUTH_HASH}
     volumes:
       - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./deploy/frontend-dist:/srv/frontend:ro

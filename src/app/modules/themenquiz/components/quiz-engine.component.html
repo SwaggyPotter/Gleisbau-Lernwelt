@@ -7,7 +7,13 @@
     <ion-card-title>{{ q.question }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <img class="question-image" *ngIf="q.image" [src]="q.image" alt="" />
+    <figure class="question-image" *ngIf="currentImage() as img">
+      <img [src]="img.file" alt="" />
+      <figcaption>
+        {{ img.credit }} &middot; {{ img.license }}
+        <a [href]="img.sourceUrl" target="_blank" rel="noopener">Quelle</a>
+      </figcaption>
+    </figure>
     <ion-list lines="none">
       <ion-item
         *ngFor="let c of shuffledChoices; trackBy: trackByChoice"

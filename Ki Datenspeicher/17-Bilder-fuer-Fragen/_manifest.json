@@ -1,0 +1,146 @@
+[
+  {
+    "topicId": "bettung",
+    "title": "Bettung und Schotter",
+    "count": 30,
+    "file": "Batch-bettung.md"
+  },
+  {
+    "topicId": "grundlagen",
+    "title": "Gleisbau-Grundlagen",
+    "count": 26,
+    "file": "Batch-grundlagen.md"
+  },
+  {
+    "topicId": "handwerkzeuge",
+    "title": "Handwerkzeuge im Gleisbau",
+    "count": 22,
+    "file": "Batch-handwerkzeuge.md"
+  },
+  {
+    "topicId": "kleineisen",
+    "title": "Schienenbefestigung und Kleineisen",
+    "count": 25,
+    "file": "Batch-kleineisen.md"
+  },
+  {
+    "topicId": "kleingeraete",
+    "title": "Kleingeraete und Maschinen",
+    "count": 20,
+    "file": "Batch-kleingeraete.md"
+  },
+  {
+    "topicId": "lf01",
+    "title": "Baustellen einrichten",
+    "count": 72,
+    "file": "Batch-lf01.md"
+  },
+  {
+    "topicId": "lf02",
+    "title": "Bauwerke erschliessen und gruenden",
+    "count": 30,
+    "file": "Batch-lf02.md"
+  },
+  {
+    "topicId": "lf03",
+    "title": "Einschalige Baukoerper mauern",
+    "count": 34,
+    "file": "Batch-lf03.md"
+  },
+  {
+    "topicId": "lf04",
+    "title": "Stahlbetonbauteile herstellen",
+    "count": 31,
+    "file": "Batch-lf04.md"
+  },
+  {
+    "topicId": "lf05",
+    "title": "Holzkonstruktionen herstellen",
+    "count": 31,
+    "file": "Batch-lf05.md"
+  },
+  {
+    "topicId": "lf06",
+    "title": "Bauteile beschichten und bekleiden",
+    "count": 30,
+    "file": "Batch-lf06.md"
+  },
+  {
+    "topicId": "lf07",
+    "title": "Baugruende erkunden",
+    "count": 25,
+    "file": "Batch-lf07.md"
+  },
+  {
+    "topicId": "lf08",
+    "title": "Erdbauwerke errichten",
+    "count": 23,
+    "file": "Batch-lf08.md"
+  },
+  {
+    "topicId": "lf09",
+    "title": "Verkehrsflaechen aus Pflaster- und Plattenbelaegen herstellen",
+    "count": 23,
+    "file": "Batch-lf09.md"
+  },
+  {
+    "topicId": "lf10",
+    "title": "Gleisanlagen neu bauen",
+    "count": 24,
+    "file": "Batch-lf10.md"
+  },
+  {
+    "topicId": "lf11",
+    "title": "Gleisboegen herstellen und einmessen",
+    "count": 23,
+    "file": "Batch-lf11.md"
+  },
+  {
+    "topicId": "lf12",
+    "title": "Weichen montieren und einmessen",
+    "count": 23,
+    "file": "Batch-lf12.md"
+  },
+  {
+    "topicId": "lf13",
+    "title": "Weichen bauen und instand halten",
+    "count": 24,
+    "file": "Batch-lf13.md"
+  },
+  {
+    "topicId": "lf14",
+    "title": "Sonderbauformen und besondere Gleisanlagen",
+    "count": 24,
+    "file": "Batch-lf14.md"
+  },
+  {
+    "topicId": "messmittel",
+    "title": "Messmittel und Vermessung",
+    "count": 21,
+    "file": "Batch-messmittel.md"
+  },
+  {
+    "topicId": "schiene",
+    "title": "Schienen",
+    "count": 19,
+    "file": "Batch-schiene.md"
+  },
+  {
+    "topicId": "schwellen",
+    "title": "Schwellen",
+    "count": 22,
+    "file": "Batch-schwellen.md"
+  },
+  {
+    "topicId": "spurweite",
+    "title": "Spurweite und Gleisgeometrie",
+    "count": 20,
+    "file": "Batch-spurweite.md"
+  },
+  {
+    "topicId": "trassenplan",
+    "title": "Trassenplan lesen",
+    "count": 45,
+    "file": "Batch-trassenplan.md"
+  }
+]

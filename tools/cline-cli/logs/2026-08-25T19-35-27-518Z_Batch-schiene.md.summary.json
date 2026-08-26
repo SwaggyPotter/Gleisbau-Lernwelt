@@ -1,0 +1,34 @@
+{
+  "relFile": "17-Bilder-fuer-Fragen/Batch-schiene.md",
+  "status": "NO_CHANGE",
+  "reasons": [
+    "Datei wurde nicht verändert."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 166,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 18,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 3,
+      "durationSec": 56,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-25T19-35-27-518Z_Batch-schiene.md.log"
+}

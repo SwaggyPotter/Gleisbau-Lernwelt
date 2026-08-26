@@ -14,7 +14,8 @@
       "correctIndex": 0,
       "explanation": "Entwaesserung schuetzt Bauwerke und Flaechen vor Wasser- und Frostschaeden.",
       "source": "Straßenentwässerung",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Stra%C3%9Fenentw%C3%A4sserung"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Stra%C3%9Fenentw%C3%A4sserung",
+      "imageKey": "q-lf09-driven-pipe-piles"
     },
     {
       "id": "LF09-Q2",
@@ -56,7 +57,8 @@
       "correctIndex": 0,
       "explanation": "Die Bettung stuetzt das Rohr und reduziert schaedliche Punktlasten.",
       "source": "Berlin Regenwasserableitung",
-      "sourceUrl": "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/regenwasser/regenwasserableitung"
+      "sourceUrl": "https://www.berlin.de/sen/uvk/umwelt/wasser-und-geologie/regenwasser/regenwasserableitung",
+      "imageKey": "q-lf09-polyethelene-corrugated-drainage-pipe"
     },
     {
       "id": "LF09-Q5",
@@ -70,7 +72,8 @@
       "correctIndex": 0,
       "explanation": "Bei zu wenig Gefaelle sinkt die Fliessgeschwindigkeit und Material lagert sich ab.",
       "source": "Baustellenklempnerarbeiten",
-      "sourceUrl": "https://www.wasser-wissen.de/abwasserlexikon/b/baustellenklempnerarbeiten.htm"
+      "sourceUrl": "https://www.wasser-wissen.de/abwasserlexikon/b/baustellenklempnerarbeiten.htm",
+      "imageKey": "q-lf09-infiltration"
     },
     {
       "id": "LF09-Q6",
@@ -98,7 +101,8 @@
       "correctIndex": 0,
       "explanation": "Seitliche Sicherung stabilisiert die Rohrlage vor weiterer Verdichtung.",
       "source": "HABA-Rohrverlegungscheckliste-DIN-Norm",
-      "sourceUrl": "https://www.haba-beton.com/daten/VOEB_Checkliste_Rohrverlegung.pdf"
+      "sourceUrl": "https://www.haba-beton.com/daten/VOEB_Checkliste_Rohrverlegung.pdf",
+      "imageKey": "q-lf09-fotothek-df-tg-0000387-bergwerk-bergbau-"
     },
     {
       "id": "LF09-Q8",
@@ -126,7 +130,8 @@
       "correctIndex": 0,
       "explanation": "Kontrollierte Ableitung verhindert Feuchte- und Frostschaeden.",
       "source": "Entwässerung-Schutz-InternetFürArchitekten",
-      "sourceUrl": "https://internet-fuer-architekten.de/themen/entwaesserung/"
+      "sourceUrl": "https://internet-fuer-architekten.de/themen/entwaesserung/",
+      "imageKey": "q-lf09-pipes"
     },
     {
       "id": "LF09-Q10",
@@ -154,7 +159,8 @@
       "correctIndex": 0,
       "explanation": "Ohne Gefaelle ist der sichere Abfluss nicht gewaehrleistet.",
       "source": "techeld.de – gefaelle rechner",
-      "sourceUrl": "https://techeld.de/handwerksheld/shk-elektro/gefaelle-rechner/"
+      "sourceUrl": "https://techeld.de/handwerksheld/shk-elektro/gefaelle-rechner/",
+      "imageKey": "q-lf09-polyethelene-corrugated-drainage-pipe"
     },
     {
       "id": "LF09-Q12",
@@ -252,7 +258,8 @@
       "correctIndex": 0,
       "explanation": "Lagenweiser Aufbau begrenzt Verformungen und sichert die Rohrlage.",
       "source": "DWA-M 153 Handlungsempfehlungen zum Umgang mit Regenwasser, vereinfachtes Bewertungsver…",
-      "sourceUrl": "https://orlis.difu.de/items/60f34cad-eba7-44b0-98a6-d3066e10ef5a"
+      "sourceUrl": "https://orlis.difu.de/items/60f34cad-eba7-44b0-98a6-d3066e10ef5a",
+      "imageKey": "q-lf09-concrete-wall-drainage"
     },
     {
       "id": "LF09-Q19",
@@ -266,7 +273,8 @@
       "correctIndex": 0,
       "explanation": "Der seitliche Einbau fixiert das Rohr gegen Verschiebung.",
       "source": "bau.bi, seitliche Stützung durch Verfüllung (aktualisiert)",
-      "sourceUrl": "https://bau.bi/umweltbau/kanalbau-kanalbetrieb/kontrolle-der-erdarbeiten-verdichtung-fachgerecht-ausfuehren-und-pruefen-u14621"
+      "sourceUrl": "https://bau.bi/umweltbau/kanalbau-kanalbetrieb/kontrolle-der-erdarbeiten-verdichtung-fachgerecht-ausfuehren-und-pruefen-u14621",
+      "imageKey": "q-lf09-concrete-wall-drainage"
     },
     {
       "id": "LF09-Q20",
@@ -280,7 +288,8 @@
       "correctIndex": 0,
       "explanation": "Unzureichend verdichtete Bereiche setzen sich spaeter unter Last.",
       "source": "LGRBwissen, Setzungen bei unzureichender Verdichtung (aktualisiert)",
-      "sourceUrl": "https://lgrbwissen.lgrb-bw.de/ingenieurgeologie/setzungen"
+      "sourceUrl": "https://lgrbwissen.lgrb-bw.de/ingenieurgeologie/setzungen",
+      "imageKey": "q-lf09-concrete-wall-drainage"
     },
     {
       "id": "LF09-Q21",
@@ -294,7 +303,8 @@
       "correctIndex": 0,
       "explanation": "Defekte Dichtungen verlieren ihre Abdichtfunktion.",
       "source": "Abdichtungsfehler führen zu Bauschäden (Datum: 25.8.2026)",
-      "sourceUrl": "https://www.bauschadeninstitut.de/bauschaeden-fehlerhafte-abdichtungen-ursachen-loesungen/"
+      "sourceUrl": "https://www.bauschadeninstitut.de/bauschaeden-fehlerhafte-abdichtungen-ursachen-loesungen/",
+      "imageKey": "q-lf09-concrete-wall-drainage"
     },
     {
       "id": "LF09-Q22",
@@ -308,7 +318,8 @@
       "correctIndex": 0,
       "explanation": "Nach dem Verfuellen sind Korrekturen deutlich aufwendiger.",
       "source": "Kontrollpflicht des Bauherrn (Datum: 25.8.2026)",
-      "sourceUrl": "https://www.haufe.de/id/beitrag/bauarbeiten-verkehrssicherung-13-kontrollpflicht-des-bauherrn-HI7538045.html"
+      "sourceUrl": "https://www.haufe.de/id/beitrag/bauarbeiten-verkehrssicherung-13-kontrollpflicht-des-bauherrn-HI7538045.html",
+      "imageKey": "q-lf09-bundesarchiv-bild-183-1985-0320-003-lpg-"
     },
     {
       "id": "LF09-Q23",
@@ -322,7 +333,8 @@
       "correctIndex": 0,
       "explanation": "Fehler in der Entwaesserung beeintraechtigen dauerhaft Funktion und Sicherheit.",
       "source": "Baustellenentwässerung Bedeutung (Datum: 25.8.2026)",
-      "sourceUrl": "https://www.deutscher-bauzeiger.de/bauen/baubeginn/wasserhaltung/baustellenentwaesserung/"
+      "sourceUrl": "https://www.deutscher-bauzeiger.de/bauen/baubeginn/wasserhaltung/baustellenentwaesserung/",
+      "imageKey": "q-lf09-bundesarchiv-bild-183-1985-0320-003-lpg-"
     }
   ]
 }

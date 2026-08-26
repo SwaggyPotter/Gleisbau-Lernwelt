@@ -1,0 +1,27 @@
+<div class="gate-shell">
+  <div class="frame">
+    <div class="frame-rail"></div>
+    <div class="body-pad">
+      <p class="eyebrow">Nicht oeffentlich</p>
+      <h1 class="screen-title">Gleisbau Lernwelt</h1>
+      <p class="screen-sub">
+        Die App ist noch nicht fertig (Bilder &amp; Inhalte werden geprueft). Bitte
+        Zugangsdaten eingeben.
+      </p>
+
+      <form (ngSubmit)="submit()" #f="ngForm">
+        <label class="field-label">Nutzername</label>
+        <input type="text" name="user" [(ngModel)]="user" required autocomplete="username" />
+
+        <label class="field-label">Passwort</label>
+        <input type="password" name="password" [(ngModel)]="password" required autocomplete="current-password" />
+
+        <p class="form-error" *ngIf="error">{{ error }}</p>
+
+        <button type="submit" class="btn btn-primary" [disabled]="busy || f.invalid">
+          {{ busy ? 'Bitte warten...' : 'Anmelden' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

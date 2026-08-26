@@ -56,7 +56,8 @@
       "correctIndex": 0,
       "explanation": "Duennbettmoertel braucht passgenaue Steine und systemgerechte Verarbeitung.",
       "source": "Mauerwerk mit Dünnbettmörtel | BauNetz Wissen (Begründung: Dünnbettmörtel wird für Plan…",
-      "sourceUrl": "https://www.baunetzwissen.de/mauerwerk/tipps/planungshilfen/mauerwerk-mit-duennbettmoertel-5376246"
+      "sourceUrl": "https://www.baunetzwissen.de/mauerwerk/tipps/planungshilfen/mauerwerk-mit-duennbettmoertel-5376246",
+      "imageKey": "q-lf03-steinenschloss-mauer"
     },
     {
       "id": "LF03-Q5",
@@ -308,7 +309,8 @@
       "correctIndex": 0,
       "explanation": "Stossfugen liegen vertikal zwischen benachbarten Steinen.",
       "source": "Die Stoßfuge befindet sich zwischen den Mauersteinen einer Lage, d.h. an der Stelle, an…",
-      "sourceUrl": "https://www.baunetzwissen.de/glossar/s/stossfuge-48133"
+      "sourceUrl": "https://www.baunetzwissen.de/glossar/s/stossfuge-48133",
+      "imageKey": "q-lf03-steinwerk-dielinger-schnitt"
     },
     {
       "id": "LF03-Q23",

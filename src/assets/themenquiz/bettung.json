@@ -14,7 +14,8 @@
       "correctIndex": 0,
       "explanation": "Das Schotterbett verteilt die Last auf das Planum, entwässert und bietet elastische Lagerung.",
       "source": "Oberbau (Wikipedia)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)",
+      "imageKey": "q-bettung-vereinsmitglieder-beim-schottern-des-gle"
     },
     {
       "id": "t5q2",
@@ -28,7 +29,8 @@
       "correctIndex": 0,
       "explanation": "Gleisschotter besteht aus festem Gestein wie Granit oder Basalt.",
       "source": "Basalt AG (Gleisschotter)",
-      "sourceUrl": "https://www.basalt.de/leistungen/naturstein/gleisschotter/"
+      "sourceUrl": "https://www.basalt.de/leistungen/naturstein/gleisschotter/",
+      "imageKey": "q-bettung-vereinsmitglieder-beim-schottern-des-gle"
     },
     {
       "id": "t5q3",
@@ -42,7 +44,8 @@
       "correctIndex": 0,
       "explanation": "Die Standardkörnung ist 50/70 mm nach DIN EN 13450.",
       "source": "Holcim (Gleisschotter)",
-      "sourceUrl": "https://www.holcim.de/gesteinskoernungen/produkttyp/gleisschotter"
+      "sourceUrl": "https://www.holcim.de/gesteinskoernungen/produkttyp/gleisschotter",
+      "imageKey": "q-bettung-vereinsmitglieder-beim-schottern-des-gle"
     },
     {
       "id": "t5q4",
@@ -84,7 +87,8 @@
       "correctIndex": 0,
       "explanation": "Beim Stopfen wird Schotter unter die Schwelle eingeführt, um Setzungen auszugleichen.",
       "source": "Stopfen (Gleisbau) - Wikipedia – 2024-08",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Stopfen_(Gleisbau)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Stopfen_(Gleisbau)",
+      "imageKey": "q-bettung-vereinsmitglieder-beim-schottern-des-gle"
     },
     {
       "id": "t5q7",
@@ -98,7 +102,8 @@
       "correctIndex": 0,
       "explanation": "Stauwasser im Bett mindert die Tragfähigkeit und kann zum Setzen führen.",
       "source": "Entwässerung - Unterbau :: Trackopedia – 2024",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/unterbau/entwaesserung"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/unterbau/entwaesserung",
+      "imageKey": "q-bettung-gleisplan-bad-ischl"
     },
     {
       "id": "t5q8",
@@ -112,7 +117,8 @@
       "correctIndex": 0,
       "explanation": "Das Planum ist die planig ausgeformte und verdichtete Bodenlage unter dem Schotterbett.",
       "source": "Das Einmaleins der Eisenbahn - System Bahn – 2024",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/system-bahn/das-einmaleins-der-eisenbahn"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/system-bahn/das-einmaleins-der-eisenbahn",
+      "imageKey": "q-bettung-gleisplan-bad-ischl"
     },
     {
       "id": "t5q9",
@@ -154,7 +160,8 @@
       "correctIndex": 2,
       "explanation": "Als wirksame Dicke gilt das Maß zwischen Schwellenunterkante und Planumsschutzschicht von mind. 30 cm, damit sich die Druckverteilungslinien benachbarter Schwellen über dem Unterbaukrone überschneiden können.",
       "source": "Trackopedia Lexikon, Abrufdatum 24.8.2026.",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/schotter/"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/schotter/",
+      "imageKey": "q-bettung-vereinsmitglieder-beim-schottern-des-gle"
     },
     {
       "id": "bettung-g2",
@@ -196,7 +203,8 @@
       "correctIndex": 1,
       "explanation": "Am besten eignen sich Hartgesteine wie Basalt, Diabas oder Granit. Weichgesteine wie Kalk, Dolomit, Sedimentgestein etc. sind weniger brauchbar für Oberbauschotter.",
       "source": "Plasser & Theurer Publikation PDF34_41_Klotzinger, Abrufdatum 24.8.2026.",
-      "sourceUrl": "https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/etr_070102.pdf"
+      "sourceUrl": "https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/etr_070102.pdf",
+      "imageKey": "q-bettung-gleisplan-bad-ischl"
     },
     {
       "id": "bettung-g5",
@@ -308,7 +316,8 @@
       "correctIndex": 1,
       "explanation": "Die Norm DIN EN 13450 legt Anforderungen an ungebundene Gesteinskörnungen aus gebrochenem Naturstein für die Verwendung beim Bau von Bahnkörpern fest und bezeichnet diese als Gleisschotter.",
       "source": "DIN EN 13450 (Baunormenlexikon, Datum: 2003-06)",
-      "sourceUrl": "https://www.baunormenlexikon.de/norm/din-en-13450/a3cadcb4-1539-4c21-98de-46b8362ed461"
+      "sourceUrl": "https://www.baunormenlexikon.de/norm/din-en-13450/a3cadcb4-1539-4c21-98de-46b8362ed461",
+      "imageKey": "q-bettung-gleisplan-bad-ischl"
     },
     {
       "id": "bettung-g13",
@@ -322,7 +331,8 @@
       "correctIndex": 1,
       "explanation": "Die Planumsschutzschicht wirkt wie ein \"Schutzschild\" für das darunter liegende Planum. Bei der Deutschen Bahn werden in der Regel PSS aus einem Mineralstoffgemisch mit bestimmter Sieblinie (Korngemisch KG 1 oder KG 2) eingesetzt.",
       "source": "Wikipedia (Abruf: 2026)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Planumsschutzschicht"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Planumsschutzschicht",
+      "imageKey": "q-bettung-gleisplan-bad-ischl"
     },
     {
       "id": "bettung-g14",
@@ -350,7 +360,8 @@
       "correctIndex": 1,
       "explanation": "Die Arbeit der Räumkette hat dabei wesentliche Auswirkungen. Das Planum trägt das Schotterbett und hat damit wesentlichen Einfluss auf die Gleisgeometrie und Dauerhaftigkeit der Gleislage. Fehler im Planum breiten sich sehr rasch durch den Schotter hindurch aus.",
       "source": "Deutsche Bahn Arbeitsanweisungen (Datum: 2026)",
-      "sourceUrl": "https://www.deutschebahn.com/de/geschaefte/infrastruktur/informationen-fuer-planer-und-bauunternehmer/arbeitsanweisungen-und-leitfaeden-12685116"
+      "sourceUrl": "https://www.deutschebahn.com/de/geschaefte/infrastruktur/informationen-fuer-planer-und-bauunternehmer/arbeitsanweisungen-und-leitfaeden-12685116",
+      "imageKey": "q-bettung-gleisplan-bad-ischl"
     },
     {
       "id": "bettung-g16",
@@ -406,7 +417,8 @@
       "correctIndex": 0,
       "explanation": "Das Rohgestein für Oberbauschotter muss folgende Bedingungen erfüllen: Wetterbeständigkeit, große Zähigkeit, große Druckfestigkeit (durch Druck- und Schlagversuche), keine Beimengungen von Lehm oder Erde, das Gestein muss scharfkantig brechen.",
       "source": "Anforderungen an Oberbauschotter`",
-      "sourceUrl": "https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/etr_070102.pdf"
+      "sourceUrl": "https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/etr_070102.pdf",
+      "imageKey": "q-bettung-gleisplan-bad-ischl"
     },
     {
       "id": "bettung-g20",
@@ -420,7 +432,8 @@
       "correctIndex": 1,
       "explanation": "Da sich Lockergesteine am besten durch horizontale Schwingungen verdichten lassen, wurde diese Eigenschaft beim dynamischen Gleisstabilisator (DGS) benutzt – das trägt zur Verdichtung und Stabilisierung des Gleiskörpers bei.",
       "source": "Funktionsweise des DGS`",
-      "sourceUrl": "https://technology.plassertheurer.com/de/dynamischeGleisstabilisation/funktionsweise-des-dgs"
+      "sourceUrl": "https://technology.plassertheurer.com/de/dynamischeGleisstabilisation/funktionsweise-des-dgs",
+      "imageKey": "q-bettung-schotter"
     }
   ]
 }

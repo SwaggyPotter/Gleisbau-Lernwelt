@@ -14,7 +14,8 @@
       "correctIndex": 0,
       "explanation": "Ein Eisenbahngleis setzt sich zusammen aus Oberbau (Schiene, Schwelle, Befestigung, Bettung), Unterbau (Planum, Bodenrampe) und eventuellen Bauwerken wie Brücken.",
       "source": "Bahnkörper besteht aus Oberbau und Unterbau; Bauwerke gehören als Kunstbauten ebenfalls…",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Bahnk%C3%B6rper"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Bahnk%C3%B6rper",
+      "imageKey": "q-grundlagen-schienenstuck-vom-gleis-jever-harle-im-e"
     },
     {
       "id": "t1q2",
@@ -28,7 +29,8 @@
       "correctIndex": 0,
       "explanation": "Schwellen halten die Schienen in der Spurweite und leiten Radlasten flächig auf das Bett ab.",
       "source": "Schwelle trägt die Schienen und verteilt deren Belastungen auf die Gleisbettung; fixier…",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Schwelle_(Bahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Schwelle_(Bahn)",
+      "imageKey": "q-grundlagen-2016-aartalbahn-bleidenstadt-schwellen-t"
     },
     {
       "id": "t1q3",
@@ -42,7 +44,8 @@
       "correctIndex": 0,
       "explanation": "Der Unterbau umfasst Planum, Bodenrampe und Entwässerung. Das Schotterbett gehört zum Oberbau.",
       "source": "Planum ist Grenzschicht zwischen Schotterfahrweg und Unterbau; Bodenrampe gehört als Er…",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Unterbau_(Eisenbahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Unterbau_(Eisenbahn)",
+      "imageKey": "q-grundlagen-bahnhof-braunschweig-gliesmarode-gesamta"
     },
     {
       "id": "t1q4",
@@ -56,7 +59,8 @@
       "correctIndex": 0,
       "explanation": "Das Schotterbett verteilt die Radlasten auf den Unterbau, sorgt für Entwässerung und elastische Lagerung.",
       "source": "Schotterbett ist elastisch und überträgt Kräfte auf den Unterbau; dient der Lastverteil…",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)",
+      "imageKey": "q-grundlagen-schwellen-rheda"
     },
     {
       "id": "t1q5",
@@ -70,7 +74,8 @@
       "correctIndex": 0,
       "explanation": "Gleisbauer errichten, warten und erneuern Eisenbahngleise einschließlich Ober- und Unterbau.",
       "source": "Gleisbauer errichten, warten und instandhalten Gleisanlagen (bauen, warten und erneuern).",
-      "sourceUrl": "https://berufsbild.com/details/gleisbauer-in"
+      "sourceUrl": "https://berufsbild.com/details/gleisbauer-in",
+      "imageKey": "q-grundlagen-schwellen-rheda"
     },
     {
       "id": "t1q6",
@@ -84,7 +89,8 @@
       "correctIndex": 0,
       "explanation": "Das Planum gehört zum Unterbau. Schiene, Schwelle und Bettung sind Oberbauteile.",
       "source": "Wikipedia definiert Oberbau als bestehend aus Gleisen und Bettung; Planum gehört zum Un…",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Bahnk%C3%B6rper"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Bahnk%C3%B6rper",
+      "imageKey": "q-grundlagen-schwellen-rheda"
     },
     {
       "id": "grundlagen-g1",
@@ -98,7 +104,8 @@
       "correctIndex": 1,
       "explanation": "Als wirksame Dicke der Bettung gilt das Maß zwischen Schwellenunterkante und Planumschutzschicht (PSS) von mindestens 30 cm, wie in der Trackopedia zur Schotterbettung beschrieben.",
       "source": "Als wirksame Dicke der Bettung gilt das Maß zwischen Schwellenunterkante und PSS, mind.…",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/system-bahn/das-einmal-eins-der-eisenbahn/?id=141"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/system-bahn/das-einmal-eins-der-eisenbahn/?id=141",
+      "imageKey": "q-grundlagen-maintal-ost-von-gleis1"
     },
     {
       "id": "grundlagen-g2",
@@ -112,7 +119,8 @@
       "correctIndex": 1,
       "explanation": "Hartgesteine wie Basalt, Diabas oder Granit sind am besten geeignet, da sie große Druckfestigkeit und Zähigkeit besitzen. Weichgesteine wie Kalk, Dolomit oder Sedimentgestein sind weniger brauchbar.",
       "source": "Gleisschotter besteht aus festem Naturgestein wie Granit, Basalt oder Kalkstein (Stand…",
-      "sourceUrl": "https://www.holcim.de/gesteinskoernungen/produkttyp/gleisschotter"
+      "sourceUrl": "https://www.holcim.de/gesteinskoernungen/produkttyp/gleisschotter",
+      "imageKey": "q-grundlagen-maintal-ost-von-gleis1"
     },
     {
       "id": "grundlagen-g3",
@@ -126,7 +134,8 @@
       "correctIndex": 1,
       "explanation": "Für Hauptgleise ist gebrochener Schotter im Kornbereich von rund 22,4 bis 63 mm üblich (Siebreihe nach DIN EN 13450). Korngröße und Kornverteilung müssen der Siebkurve bzw. Sieblinie entsprechen.",
       "source": "Korngröße liegt zwischen 31,5 und 63 mm nach DBS-Norm (Stand 24.08.2026)",
-      "sourceUrl": "https://www.basalt-union.de/produkte/unsere-leistungen/gleisbauprodukte/gleisschotter/"
+      "sourceUrl": "https://www.basalt-union.de/produkte/unsere-leistungen/gleisbauprodukte/gleisschotter/",
+      "imageKey": "q-grundlagen-schwellen-rheda"
     },
     {
       "id": "grundlagen-g4",
@@ -140,7 +149,8 @@
       "correctIndex": 0,
       "explanation": "Der klassische Eisenbahnoberbau besteht aus dem Gleis (Schiene, Schwelle mit Befestigungsmitteln), der Bettung und den Schutzschichten. Diese Komponenten bilden den gleitfähigen Oberbau auf dem Unterbau.",
       "source": "Wesentliche Bestandteile des Oberbaus sind Schienen, Schwellen und Bettung (Stand 24.08…",
-      "sourceUrl": "https://link.springer.com/chapter/10.1007/978-3-658-44591-1_11"
+      "sourceUrl": "https://link.springer.com/chapter/10.1007/978-3-658-44591-1_11",
+      "imageKey": "q-grundlagen-schienenstuck-vom-gleis-jever-harle-im-e"
     },
     {
       "id": "grundlagen-g5",
@@ -154,7 +164,8 @@
       "correctIndex": 1,
       "explanation": "Das Schotterbett leitet vertikale und horizontale Kräfte in den Untergrund ab, verleiht Elastizität und ermöglicht Entwässerung. Die elektrische Isolierung der Schienen gehört nicht zu den Aufgaben des Schotterbetts.",
       "source": "Wikipedia Oberbau (2024-08)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Oberbau_(Eisenbahn)",
+      "imageKey": "q-grundlagen-schwellen-rheda"
     },
     {
       "id": "grundlagen-g6",
@@ -168,7 +179,8 @@
       "correctIndex": 1,
       "explanation": "Lagenweise Verdichtung und Stabilisierung führen zu einer Erhöhung der Lagestabilität des Gleises und seiner Dauerhaftigkeit. Ein optimaler Querverschiebewiderstand wird durch dynamische Stabilisierung erreicht.",
       "source": "Trackopedia \"Schotter - Oberbau\" (2024-08)",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/schotter/"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/schotter/",
+      "imageKey": "q-grundlagen-schwellen-rheda"
     },
     {
       "id": "grundlagen-g7",
@@ -182,7 +194,8 @@
       "correctIndex": 1,
       "explanation": "Das Schotterbett muss dem Oberflächenwasser (Regen) standhalten können. Eine gute Entwässerung ist essentiell, damit sich das Gleis nicht aufquellen kann und die Elastizität bleibt.",
       "source": "Rail Grinding Wheel \"Gleischotter-Funktionen\" (2024-08)",
-      "sourceUrl": "https://www.railgrindingwheel.com/de/der-ultimative-leitfaden-zu-den-funktionen-materialien-und-der-instandhaltung-von-gleischotter/"
+      "sourceUrl": "https://www.railgrindingwheel.com/de/der-ultimative-leitfaden-zu-den-funktionen-materialien-und-der-instandhaltung-von-gleischotter/",
+      "imageKey": "q-grundlagen-schwellen-rheda"
     },
     {
       "id": "grundlagen-g8",
@@ -196,7 +209,8 @@
       "correctIndex": 0,
       "explanation": "Mit dem Begriff Unterbau bezeichnet man die Gesamtheit der Konstruktionen, die die Kräfte aus dem Oberbau bzw. dem Gleisbett aufnehmen und in den natürlichen Untergrund ableiten. Er bildet die feste Unterlage für den Oberbau.",
       "source": "Wikipedia \"Unterbau\" (2024-08)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Unterbau_(Eisenbahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Unterbau_(Eisenbahn)",
+      "imageKey": "q-grundlagen-bahnhof-braunschweig-gliesmarode-gesamta"
     },
     {
       "id": "grundlagen-g9",
@@ -210,7 +224,8 @@
       "correctIndex": 1,
       "explanation": "Die Planumsschutzschicht (PSS) liegt zwischen Bettung und Erdplanum. Sie begrenzt die wirksame Bettungsdicke nach unten, verbessert die Lastverteilung, schützt das Planum vor eindringendem Schotter und dient Entwässerung und Frostschutz.",
       "source": "baulexikon.de \"Planumsschutzschicht\" (2024-08)",
-      "sourceUrl": "https://baulexikon.de-academic.com/3190/Planumsschutzschicht"
+      "sourceUrl": "https://baulexikon.de-academic.com/3190/Planumsschutzschicht",
+      "imageKey": "q-grundlagen-bahnhof-braunschweig-gliesmarode-gesamta"
     },
     {
       "id": "grundlagen-g10",
@@ -224,7 +239,8 @@
       "correctIndex": 0,
       "explanation": "Der Unterbau bildet die feste Unterlage für den Oberbau, indem er Höhenunterschiede des Geländes durch Dammschüttungen, Einschnitte oder Kunstbauwerke wie Brücken oder Tunnel ausgleicht.",
       "source": "Wikipedia",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Unterbau_(Eisenbahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Unterbau_(Eisenbahn)",
+      "imageKey": "q-grundlagen-maintal-ost-von-gleis1"
     },
     {
       "id": "grundlagen-g11",
@@ -238,7 +254,8 @@
       "correctIndex": 0,
       "explanation": "Bei einer Tragschicht aus Beton oder Asphalt statt Schotter, auch zwischen den Schwellen, handelt es sich um eine Feste Fahrbahn. Diese Alternative bietet höhere Stabilität bei höheren Geschwindigkeiten.",
       "source": "Wikipedia",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Feste_Fahrbahn"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Feste_Fahrbahn",
+      "imageKey": "q-grundlagen-gleis-97b"
     },
     {
       "id": "grundlagen-g12",
@@ -308,7 +325,8 @@
       "correctIndex": 0,
       "explanation": "Zu den Befestigungsmitteln im Gleisbau zählen die Kleineisen. Diese sind nötig, um die Gleise mit den Schwellen zu verbinden und halten Schiene und Schwelle in ihrer geometrischen Lage gegeneinander (z.B. Spannklemmen, Rippenplatten).",
       "source": "Kleineisen verbinden die Gleise mit den Schwellen und halten die Gleislage sicher (Trac…",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/befestigungsmittel/kleineisen"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/befestigungsmittel/kleineisen",
+      "imageKey": "q-grundlagen-2016-aartalbahn-bleidenstadt-schwellen-t"
     },
     {
       "id": "grundlagen-g17",
@@ -322,7 +340,8 @@
       "correctIndex": 0,
       "explanation": "Spannklemmen (z.B. SB4) verbinden mechanisch die Schiene mit der Schwelle und erzeugen Vorspannung, um die Gleislage zu halten und Längskräfte aufzunehmen. Moderne Systeme haben beschichtete Bauteile zum Korrosionsschutz.",
       "source": "Spannklemmen sorgen für sichere Verbindung zwischen Schiene und Schwelle und gewährleis…",
-      "sourceUrl": "https://tracktec.eu/de/schienenbefestigungssysteme/"
+      "sourceUrl": "https://tracktec.eu/de/schienenbefestigungssysteme/",
+      "imageKey": "q-grundlagen-schienenstuck-vom-gleis-jever-harle-im-e"
     },
     {
       "id": "grundlagen-g18",
@@ -364,7 +383,8 @@
       "correctIndex": 0,
       "explanation": "Über den klassischen Oberbau hinaus zählen auch Weichen, Kreuzungen sowie spezielle Bauelemente wie Isolierschienen oder Übergangskonstruktionen zum Oberbau.",
       "source": "Gleisen, Weichen und Kreuzungen sind Bestandteil des Oberbaus (Stand: 2026)",
-      "sourceUrl": "https://www.gleistrasse.de/oberbau.htm"
+      "sourceUrl": "https://www.gleistrasse.de/oberbau.htm",
+      "imageKey": "q-grundlagen-gleis-97b"
     }
   ]
 }

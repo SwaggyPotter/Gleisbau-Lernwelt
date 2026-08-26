@@ -70,7 +70,8 @@
       "correctIndex": 0,
       "explanation": "Diese Bauteile bilden den grundlegenden Rahmen einer Holzrahmenwand.",
       "source": "Holzrahmenbau BauNetz am 24.08.2026",
-      "sourceUrl": "https://www.baunetzwissen.de/holz/fachwissen/holzbausysteme/tafelbau-rahmenbau-6983558"
+      "sourceUrl": "https://www.baunetzwissen.de/holz/fachwissen/holzbausysteme/tafelbau-rahmenbau-6983558",
+      "imageKey": "q-lf05-wood-framed-house"
     },
     {
       "id": "LF05-Q6",
@@ -84,7 +85,8 @@
       "correctIndex": 0,
       "explanation": "Pfetten sind tragende Bauteile in typischen Dachsystemen.",
       "source": "Pfette - Wikipedia (24.08.2026)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Pfette"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Pfette",
+      "imageKey": "q-lf05-shear-plate-timber-connector"
     },
     {
       "id": "LF05-Q7",
@@ -126,7 +128,8 @@
       "correctIndex": 0,
       "explanation": "Diese Verbindungsmittel leiten Kraefte ueber stabfoermige Elemente ein.",
       "source": "DIN EN 14592 - Baunormenlexikon (24.08.2026)",
-      "sourceUrl": "https://www.baunormenlexikon.de/norm/din-en-14592/ae2b6360-83b0-40a5-a847-c298e05d02d5"
+      "sourceUrl": "https://www.baunormenlexikon.de/norm/din-en-14592/ae2b6360-83b0-40a5-a847-c298e05d02d5",
+      "imageKey": "q-lf05-stadthalle-memmingen"
     },
     {
       "id": "LF05-Q10",
@@ -154,7 +157,8 @@
       "correctIndex": 0,
       "explanation": "Aussteifung sichert die Form und Lastweiterleitung der Konstruktion.",
       "source": "derix.de – aussteifung",
-      "sourceUrl": "https://derix.de/services-ingenieurholzbau/lexikon/aussteifung/"
+      "sourceUrl": "https://derix.de/services-ingenieurholzbau/lexikon/aussteifung/",
+      "imageKey": "q-lf05-stadthalle-memmingen"
     },
     {
       "id": "LF05-Q12",
@@ -392,7 +396,8 @@
       "correctIndex": 0,
       "explanation": "Konstruktive Details sind die erste und wichtigste Schutzstufe.",
       "source": "Holzschutz.com via DHV, 24.8.2026",
-      "sourceUrl": "https://holzschutz.com/holzschutz/konstruktiver-holzschutz/"
+      "sourceUrl": "https://holzschutz.com/holzschutz/konstruktiver-holzschutz/",
+      "imageKey": "q-lf05-wood-framed-house"
     },
     {
       "id": "LF05-Q29",
@@ -406,7 +411,8 @@
       "correctIndex": 0,
       "explanation": "Kapillar eingetragene Feuchte schaedigt Holzbauteile langfristig.",
       "source": "Heimwerk.org, 24.8.2026",
-      "sourceUrl": "https://heimwerk.org/ubergang-holz-beton-abdichten"
+      "sourceUrl": "https://heimwerk.org/ubergang-holz-beton-abdichten",
+      "imageKey": "q-lf05-wood-framed-house"
     },
     {
       "id": "LF05-Q30",
@@ -420,7 +426,8 @@
       "correctIndex": 0,
       "explanation": "Diagonalen sind ein schneller und zuverlaessiger Winkligkeitscheck.",
       "source": "HobbyholzWuermer.de, 24.8.2026",
-      "sourceUrl": "https://www.hobbyholzwuermer.de/tipps-tricks/rechtwinkligkeit-pruefen-ohne-winkel-der-diagonalentrick/"
+      "sourceUrl": "https://www.hobbyholzwuermer.de/tipps-tricks/rechtwinkligkeit-pruefen-ohne-winkel-der-diagonalentrick/",
+      "imageKey": "q-lf05-wood-framed-house"
     },
     {
       "id": "LF05-Q31",
@@ -434,7 +441,8 @@
       "correctIndex": 0,
       "explanation": "Beide Bauteile sind typische Elemente tragender Dachsysteme.",
       "source": "Pfette und Sparren sind zentrale Bauelemente jeder traditionell gezimmerten Dachkonstru…",
-      "sourceUrl": "https://steingutverein.de/pfetten-und-sparren/"
+      "sourceUrl": "https://steingutverein.de/pfetten-und-sparren/",
+      "imageKey": "q-lf05-wood-framed-house"
     }
   ]
 }

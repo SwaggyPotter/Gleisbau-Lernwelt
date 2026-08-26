@@ -21,17 +21,20 @@ abhaken, sobald geklärt.
   vom Frontend aus genutzt — die App liest Inhalte weiterhin rein statisch
   aus JSON, das war nicht Teil dieser Runde. Details:
   [[02-Architektur/Backend-Architektur]].
-- [ ] **DNS + Portweiterleitung/Tunnel für gleisbau-digital.org noch
-  offen.** Server + Docker-Stack + Passwort-Gate sind fertig und
-  verifiziert (2026-08-25), aber `app.`/`api.gleisbau-digital.org` lösen
-  öffentlich noch nicht auf. Tim muss entweder (a) einen A-Record bei
-  Cloudflare auf die öffentliche IP (95.89.229.237, Stand 2026-08-25,
-  kann sich ändern) anlegen UND Port 80/443 am Router auf 192.168.0.102
-  weiterleiten, oder (b) einen Cloudflare Tunnel einrichten (vermeidet
-  Router-Änderungen, Claude hat dafür seit dieser Runde die passenden
-  Cloudflare-Skills verfügbar, bräuchte aber ein API-Token oder Tims
-  eigene `cloudflared tunnel login`-Aktion). Siehe [[../../deploy/README]]
-  Schritt 2/2b.
+- [x] **DNS + Portweiterleitung für gleisbau-digital.org — erledigt
+  (2026-08-25).** `app.`/`api.gleisbau-digital.org` lösen auf, TLS läuft,
+  von Tims iPhone bestätigt erreichbar. Ein NAT-Hairpin-Problem (Zugriff aus
+  dem Heimnetz selbst) wurde per Windows-Hosts-Datei umgangen.
+- [x] **Sitewide-Login von HTTP-Basic-Auth auf App-internes Gate
+  umgestellt (2026-08-26).** Tim kam von seinem Arbeits-PC nicht auf die
+  Seite (vermutlich der native Basic-Auth-Dialog im Firmennetzwerk). Login
+  liegt jetzt in der App selbst (`src/app/core/site-gate/`), Passwort wird
+  nach erfolgreichem Login im `localStorage` des Browsers gemerkt. Caddy
+  schützt die statischen Dateien serverseitig nicht mehr — bewusster
+  Soft-Gate-Trade-off, siehe Update-Log 2026-08-26. **Falls der Zugriff vom
+  Arbeits-PC immer noch nicht klappt**, war es kein Basic-Auth-Problem
+  sondern ein Netzwerk-/Firewall-Block dort — das lässt sich nur durch
+  erneutes Testen von dort klären.
 - [ ] **Frontend nicht containerisiert.** Wird lokal gebaut (`ng build`)
   und die `www/`-Ausgabe manuell/per Skript auf den Server kopiert, nicht
   in einem eigenen Docker-Image. Funktioniert, ist aber kein
@@ -257,6 +260,24 @@ echtes Gleisplan-SVG statt Luftbild), Bildgroesse auf Kacheln kompakter.
   (Lastausbreitungswinkel), `kleineisen-g6`/`kleingeraete-g11` und
   einzelne LF01/LF05/LF13-Fragen. Bewusst nicht automatisch in der App
   geändert — Quiz-Inhalt-Korrekturen sind eine separate Entscheidung.
+
+## Bilder für Themenquiz-Fragen (2026-08-26, laufend)
+
+- [ ] **460 von 667 Fragen noch ohne Bild.** Vollständige Liste mit
+  Fragetext: [[../17-Bilder-fuer-Fragen/00-Fragen-ohne-Bild]]. Tim wollte
+  explizit diese Liste, um ggf. selbst Bilder zu produzieren. Siehe
+  [[../14-Gwen-Code-Aufgaben/20-Bilder-fuer-Fragen]] für den vollen
+  Rechercheprozess (wiederverwendbar für eine Fortsetzungsrunde).
+- [ ] **Thema "schiene" hat 0 brauchbare Bild-Kandidaten** (alle 8
+  Gwen-Funde waren normale Webseiten statt Bilddateien) — braucht
+  gezielte Neu-Recherche.
+- [ ] **Thema "kleingeraete" hat 7 lizenzgeprüfte Bilder, aber ohne
+  Frage-Zuordnung** (Rechercheformat wich vom Rest ab) — Bilder liegen
+  in `Batch-kleingeraete.md`, müssten nur noch manuell verknüpft werden.
+- [ ] **Bild→Frage-Zuordnung basiert auf einer Textnähe-Heuristik**, nicht
+  auf strukturierten Daten — Stichproben ohne offensichtliche Fehler,
+  aber keine lückenlose Einzelprüfung aller 204 verknüpften Fragen. Bei
+  Gelegenheit stichprobenartig in der echten App gegenprüfen.
 
 ## Trassenplan-Erweiterung (2026-08-25, laufend)
 

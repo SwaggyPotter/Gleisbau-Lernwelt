@@ -14,7 +14,8 @@
       "correctIndex": 0,
       "explanation": "Instandhaltung soll den sicheren und verfuegbaren Bahnbetrieb sichern.",
       "source": "2026",
-      "sourceUrl": "https://spontanereisen.de/hinter-den-kulissen-warum-die-instandhaltung-der-eisenbahn-fur-die-sicherheit-entscheidend-ist/"
+      "sourceUrl": "https://spontanereisen.de/hinter-den-kulissen-warum-die-instandhaltung-der-eisenbahn-fur-die-sicherheit-entscheidend-ist/",
+      "imageKey": "q-lf12-schienenkreuz-mit-weichen"
     },
     {
       "id": "LF12-Q2",
@@ -70,7 +71,8 @@
       "correctIndex": 0,
       "explanation": "Nachstopfen ist eine klassische Massnahme zur Wiederherstellung der Gleislage.",
       "source": "2026",
-      "sourceUrl": "https://www.deutschlandtakt.de/blog/auf-die-gleise-fertig-los-wie-die-instandhaltung-von-gleisen-ablaeuft/"
+      "sourceUrl": "https://www.deutschlandtakt.de/blog/auf-die-gleise-fertig-los-wie-die-instandhaltung-von-gleisen-ablaeuft/",
+      "imageKey": "q-lf12-eisenbahnweiche-mit-betonschwellen"
     },
     {
       "id": "LF12-Q6",
@@ -252,7 +254,8 @@
       "correctIndex": 0,
       "explanation": "Betrieb, Zeitfenster und Bestandseinfluss erhoehen das Risiko.",
       "source": "Bauarbeiten im Bestand - Sanierung & Rückbau",
-      "sourceUrl": "https://www.darda.de/wissen/bauarbeiten-im-bestand"
+      "sourceUrl": "https://www.darda.de/wissen/bauarbeiten-im-bestand",
+      "imageKey": "q-lf12-eisenbahnweiche-detail"
     },
     {
       "id": "LF12-Q19",
@@ -266,7 +269,8 @@
       "correctIndex": 0,
       "explanation": "Sie sind elementarer Bestandteil der Sicherung gegen Zugverkehr.",
       "source": "Aufgaben eines Sicherungspostens im Gleisbereich",
-      "sourceUrl": "https://goldmannbahndienste.de/aufgaben-eines-sicherungspostens/"
+      "sourceUrl": "https://goldmannbahndienste.de/aufgaben-eines-sicherungspostens/",
+      "imageKey": "q-lf12-eisenbahnweiche-detail"
     },
     {
       "id": "LF12-Q20",
@@ -280,7 +284,8 @@
       "correctIndex": 0,
       "explanation": "Sie liefert Nachweis und Nachvollziehbarkeit bei Betrieb und Abnahme.",
       "source": "Sicherheit im Eisenbahnbetrieb",
-      "sourceUrl": "https://www.uv-bund-bahn.de/praevention/fachthemen/bahn/eisenbahnbetrieb"
+      "sourceUrl": "https://www.uv-bund-bahn.de/praevention/fachthemen/bahn/eisenbahnbetrieb",
+      "imageKey": "q-lf12-eisenbahnweiche-detail"
     },
     {
       "id": "LF12-Q21",
@@ -294,7 +299,8 @@
       "correctIndex": 0,
       "explanation": "Sie beeintraechtigen Spur- und Lagehaltung direkt.",
       "source": "Quelle: https://bgbauaktuell.bgbau.de/bg-bau-aktuell-4-2024/schutz-gegen-herabfallendes…",
-      "sourceUrl": "https://bgbauaktuell.bgbau.de/bg-bau-aktuell-4-2024/schutz-gegen-herabfallendes"
+      "sourceUrl": "https://bgbauaktuell.bgbau.de/bg-bau-aktuell-4-2024/schutz-gegen-herabfallendes",
+      "imageKey": "q-lf12-eisenbahnweiche-detail"
     },
     {
       "id": "LF12-Q22",
@@ -308,7 +314,8 @@
       "correctIndex": 0,
       "explanation": "Verschmutzter Schotter verliert Entwaesserungs- und Tragfunktion.",
       "source": "Quelle: https://landtreff.de/entwasserungsrinne-schotterweg-hang-landwirtschaftsflache-…",
-      "sourceUrl": "https://landtreff.de/entwasserungsrinne-schotterweg-hang-landwirtschaftsflache-t141898.html"
+      "sourceUrl": "https://landtreff.de/entwasserungsrinne-schotterweg-hang-landwirtschaftsflache-t141898.html",
+      "imageKey": "q-lf12-eisenbahnweiche-detail"
     },
     {
       "id": "LF12-Q23",
@@ -322,7 +329,8 @@
       "correctIndex": 0,
       "explanation": "Auch bei engen Sperrpausen bleibt Sicherheit das oberste Prinzip.",
       "source": "Quelle: https://blog.primeros.de/sicherheit-geht-vor-warum-arbeitsschutz-unverzichtbar-…",
-      "sourceUrl": "https://blog.primeros.de/sicherheit-geht-vor-warum-arbeitsschutz-unverzichtbar-ist"
+      "sourceUrl": "https://blog.primeros.de/sicherheit-geht-vor-warum-arbeitsschutz-unverzichtbar-ist",
+      "imageKey": "q-lf12-schienenkreuz-mit-weichen"
     }
   ]
 }

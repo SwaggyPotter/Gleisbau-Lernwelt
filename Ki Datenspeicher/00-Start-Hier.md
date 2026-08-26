@@ -10,7 +10,7 @@ Dieser Vault ist der zentrale Wissensspeicher für das Projekt **Gleisbau Lernwe
 was das Projekt ist, wie es aufgebaut ist, was zuletzt passiert ist, was offen ist
 — und wie Gwen (das lokale KI-Modell) gesteuert wird.
 
-**Stand dieser Datei: 2026-08-25.** Sie wird bei größeren Änderungen aktualisiert,
+**Stand dieser Datei: 2026-08-26.** Sie wird bei größeren Änderungen aktualisiert,
 ist aber kein Ersatz für `git log` / `git status` — bei Zweifeln immer den echten
 Code-Stand prüfen.
 
@@ -97,6 +97,14 @@ Datei + das Update-Log, nicht blind auf die Architektur-/Modul-Dateien.
   SVG-Grafik. Details:
   [[14-Gwen-Code-Aufgaben/19-Trassenplan-Erweiterung]],
   [[16-Trassenplan-Ausbau/01-Verifizierte-Quellen]].
+- **Bilder für Themenquiz-Fragen: 207/667 (31 %) mit verifiziertem,
+  kommerziell nutzbarem Bild (seit 2026-08-26, laufend).** Neues
+  `imageKey`-Feld pro Frage, aufgelöst über das zentrale
+  `bildnachweise.json`-Register (102 Einträge, vorher 26). 460 Fragen
+  noch ohne Bild, vollständig gelistet für Fortsetzung oder Tims eigene
+  Bildproduktion. Details:
+  [[14-Gwen-Code-Aufgaben/20-Bilder-fuer-Fragen]],
+  [[17-Bilder-fuer-Fragen/00-Fragen-ohne-Bild]].
 - **Design**: eigenes "Streckenplan"-System (Blaupausen-Optik), CSS Custom
   Properties `--sp-*`/`--font-*` in `src/theme/variables.scss`, Fonts Oswald/
   Barlow/JetBrains Mono selbst gehostet als woff2. Neue Module binden sich
@@ -495,7 +503,8 @@ Ki Datenspeicher/
     ├── 16-Quellenverzeichnis-Seite.md
     ├── 17-Rechte-Recherche-Auftrag.md (Auftrag, abgeschlossen — siehe 18)
     ├── 18-Rechte-an-Quellen-und-Bildern.md
-    └── 19-Trassenplan-Erweiterung.md (laufend)
+    ├── 19-Trassenplan-Erweiterung.md (laufend)
+    └── 20-Bilder-fuer-Fragen.md (laufend)
 ```
 
 ## Pflegehinweis

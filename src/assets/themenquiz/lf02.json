@@ -42,7 +42,8 @@
       "correctIndex": 0,
       "explanation": "Wasser kann Boeschungen aufweichen und bestimmt, ob du Wasserhaltung/Verbau anpassen musst.",
       "source": "Darda GmbH, Fachartikel Grundwasserabsenkung (eigene Zusammenfassung)",
-      "sourceUrl": "https://www.darda.de/wissen/grundwasserabsenkung"
+      "sourceUrl": "https://www.darda.de/wissen/grundwasserabsenkung",
+      "imageKey": "q-lf02-historisches-archiv-der-stadt-koln-verei"
     },
     {
       "id": "LF02-Q4",
@@ -98,7 +99,8 @@
       "correctIndex": 0,
       "explanation": "Wasserhaltung ist nur noetig, wenn Wasser den Bauablauf oder die Standsicherheit gefaehrdet.",
       "source": "Wikipedia Wasserhaltung Bauwesen (Abruf 24.8.2026)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Wasserhaltung_(Bauwesen)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Wasserhaltung_(Bauwesen)",
+      "imageKey": "q-lf02-historisches-archiv-der-stadt-koln-verei"
     },
     {
       "id": "LF02-Q8",
@@ -112,7 +114,8 @@
       "correctIndex": 0,
       "explanation": "Offenes Abpumpen kann den Boden auswaschen oder aufweichen und so die Standsicherheit senken.",
       "source": "grundrichtig.de offene Wasserhaltung (Abruf 24.8.2026)",
-      "sourceUrl": "https://grundrichtig.de/offene-wasserhaltung/"
+      "sourceUrl": "https://grundrichtig.de/offene-wasserhaltung/",
+      "imageKey": "q-lf02-baugrubenwand-dscf5299"
     },
     {
       "id": "LF02-Q9",
@@ -154,7 +157,8 @@
       "correctIndex": 0,
       "explanation": "Das Schnurgeruest haelt Achsen und Hoehen ausserhalb des Aushubs, damit sie beim Baggern bestehen bleiben.",
       "source": "Das Schnurgerüst dient zur Absteckung und Positionierung der Außenkanten eines Gebäudes",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Schnurgerüst"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Schnurgerüst",
+      "imageKey": "q-lf02-baustelle-breitengu-bach-p2066976"
     },
     {
       "id": "LF02-Q12",
@@ -182,7 +186,8 @@
       "correctIndex": 0,
       "explanation": "Nur lagenweise Verdichtung stellt eine gleichmaessige Tragfaehigkeit sicher.",
       "source": "Der Boden ist lagenweise einzubauen und zu verdichten",
-      "sourceUrl": "https://bau.bi/umweltbau/kanalbau-kanalbetrieb/kontrolle-der-erdarbeiten-verdichtung-fachgerecht-ausfuehren-und-pruefen-u14621"
+      "sourceUrl": "https://bau.bi/umweltbau/kanalbau-kanalbetrieb/kontrolle-der-erdarbeiten-verdichtung-fachgerecht-ausfuehren-und-pruefen-u14621",
+      "imageKey": "q-lf02-aushub-des-rohrgrabens-mit-uber-dem-verb"
     },
     {
       "id": "LF02-Q14",
@@ -196,7 +201,8 @@
       "correctIndex": 0,
       "explanation": "Arbeitsschutz und Arbeitsraum sind Pflichtpruefpunkte laut RLP.",
       "source": "Schutzmaßnahmen gegen UV-Strahlung und Hitze sowie bauliche Voraussetzungen an Arbeitsr…",
-      "sourceUrl": "https://www.bgbau.de/themen/sicherheit-und-gesundheit/uv-strahlung-hitze"
+      "sourceUrl": "https://www.bgbau.de/themen/sicherheit-und-gesundheit/uv-strahlung-hitze",
+      "imageKey": "q-lf02-aushub-des-rohrgrabens-mit-uber-dem-verb"
     },
     {
       "id": "LF02-Q15",
@@ -210,7 +216,8 @@
       "correctIndex": 0,
       "explanation": "LF2 betrachtet alle typischen Ver- und Entsorgungsleitungen auf der Baustelle.",
       "source": "Versorgungsleitungen transportieren elektrische Energie, Trinkwasser, Gas und Daten sow…",
-      "sourceUrl": "https://www.darda.de/wissen/versorgungsleitung"
+      "sourceUrl": "https://www.darda.de/wissen/versorgungsleitung",
+      "imageKey": "q-lf02-gurtung-baugrubenverbau"
     },
     {
       "id": "LF02-Q16",
@@ -224,7 +231,8 @@
       "correctIndex": 0,
       "explanation": "Korrektes Gefaelle sichert Funktion und ist zentraler Kontrollpunkt.",
       "source": "Beim typischen Qualitätscheck bei Entwässerungsleitungen ist das Gefälle zu prüfen (Min…",
-      "sourceUrl": "https://www.baunetzwissen.de/gebaeudetechnik/fachwissen/entwaesserung/abwasserleitungen-dimensionierung-und-nennweiten-2495529"
+      "sourceUrl": "https://www.baunetzwissen.de/gebaeudetechnik/fachwissen/entwaesserung/abwasserleitungen-dimensionierung-und-nennweiten-2495529",
+      "imageKey": "q-lf02-gurtung-baugrubenverbau"
     },
     {
       "id": "LF02-Q17",
@@ -238,7 +246,8 @@
       "correctIndex": 0,
       "explanation": "Randsteine/Borde verhindern Verschiebungen und stabilisieren den Belag.",
       "source": "Randeinfassungen bei Pflasterflächen sichern den Rand und halten die Fläche formstabil,…",
-      "sourceUrl": "https://www.beton-hartmann.de/?technik=randeinfassung-der-pflasterflaeche"
+      "sourceUrl": "https://www.beton-hartmann.de/?technik=randeinfassung-der-pflasterflaeche",
+      "imageKey": "q-lf02-baustelle-breitengu-bach-p2066976"
     },
     {
       "id": "LF02-Q18",
@@ -252,7 +261,8 @@
       "correctIndex": 0,
       "explanation": "RLP fordert Kenntnisse zu Aufbau, Belag und Einfassungen von Verkehrsfl�chen.",
       "source": "Im LF02 ist explizit der Schichtenaufbau von Zufahrten, Belägen und Einfassungen enthal…",
-      "sourceUrl": "https://matdb.sachsen.schule/p/sbs.materialdatenbank/node/show?node%5B__identity%5D=42ea6c16-df44-4fce-8745-0db8d5111829"
+      "sourceUrl": "https://matdb.sachsen.schule/p/sbs.materialdatenbank/node/show?node%5B__identity%5D=42ea6c16-df44-4fce-8745-0db8d5111829",
+      "imageKey": "q-lf02-baustelle-breitengu-bach-p2066976"
     },
     {
       "id": "LF02-Q19",
@@ -266,7 +276,8 @@
       "correctIndex": 0,
       "explanation": "Erschliessung stellt Zugaenge und Medienanschluesse fuer das Bauwerk her.",
       "source": "Bauwerke erschließen' bedeutet vor allem: Anschlüsse/Leitungen/Zufahrt/Entwässerung her…",
-      "sourceUrl": "https://matdb.sachsen.schule/p/sbs.materialdatenbank/node/show?node%5B__identity%5D=42ea6c16-df44-4fce-8745-0db8d5111829"
+      "sourceUrl": "https://matdb.sachsen.schule/p/sbs.materialdatenbank/node/show?node%5B__identity%5D=42ea6c16-df44-4fce-8745-0db8d5111829",
+      "imageKey": "q-lf02-baustelle-breitengu-bach-p2066976"
     },
     {
       "id": "LF02-Q20",
@@ -294,7 +305,8 @@
       "correctIndex": 0,
       "explanation": "Sicherung und Boeschung sind explizite RLP-Inhalte fuer Baugruben.",
       "source": "Technische Baubestimmungen RLP |",
-      "sourceUrl": "https://mkbwk.rlp.de/themen/baurecht-und-bautechnik/technische-baubestimmungen-1"
+      "sourceUrl": "https://mkbwk.rlp.de/themen/baurecht-und-bautechnik/technische-baubestimmungen-1",
+      "imageKey": "q-lf02-baugrubenwand-dscf5299"
     },
     {
       "id": "LF02-Q22",
@@ -308,7 +320,8 @@
       "correctIndex": 0,
       "explanation": "Der Entwaesserungsplan gibt Verlauf, Werkstoffe und Schaechte vor.",
       "source": "Entwässerungsplan |",
-      "sourceUrl": "https://www.sanier.de/bauen/bauantrag/entwaesserungsplan-fuer-gebaeude-und-grundstueck"
+      "sourceUrl": "https://www.sanier.de/bauen/bauantrag/entwaesserungsplan-fuer-gebaeude-und-grundstueck",
+      "imageKey": "q-lf02-gurtung-baugrubenverbau"
     },
     {
       "id": "LF02-Q23",
@@ -322,7 +335,8 @@
       "correctIndex": 0,
       "explanation": "DIN 4124 zu Boeschungen/Verbau wird als Stand der Technik anerkannt.",
       "source": "DGUV FAQ |",
-      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/tiefbau/baugruben/faq_baugruben/index.jsp"
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/tiefbau/baugruben/faq_baugruben/index.jsp",
+      "imageKey": "q-lf02-baugrubenwand-dscf5299"
     },
     {
       "id": "LF02-Q24",
@@ -350,7 +364,8 @@
       "correctIndex": 0,
       "explanation": "RLP listet Achsen, Hoehenuebertragung und Schnurgeruest als Aufgaben.",
       "source": "bauliche Vermessung |",
-      "sourceUrl": "https://neu-west.com/bauwissen/vermessung-am-bau/"
+      "sourceUrl": "https://neu-west.com/bauwissen/vermessung-am-bau/",
+      "imageKey": "q-lf02-baustelle-breitengu-bach-p2066976"
     },
     {
       "id": "LF02-Q26",
@@ -364,7 +379,8 @@
       "correctIndex": 0,
       "explanation": "Planum ist die fertige, tragfaehige Ebene fuer weitere Schichten/Fundamente.",
       "source": "Planum ist eine hergestellte, höhen- und profilgerechte Oberfläche des Untergrunds (Sta…",
-      "sourceUrl": "https://www.baulinks.ch/baulexikon/planum/"
+      "sourceUrl": "https://www.baulinks.ch/baulexikon/planum/",
+      "imageKey": "q-lf02-aushub-des-rohrgrabens-mit-uber-dem-verb"
     },
     {
       "id": "LF02-Q27",
@@ -378,7 +394,8 @@
       "correctIndex": 0,
       "explanation": "RLP fordert Kontrollen von Arbeitssicherheit, Gefaellen und Lagen der Bauteile.",
       "source": "Arbeitsraumkontrollen nach Technischem Arbeitsschutzgesetz in RLP (Stand: 2026)",
-      "sourceUrl": "https://lfu.rlp.de/bevoelkerung/unterstuetzung-der-gewerbeaufsicht/technischer-arbeitsschutz"
+      "sourceUrl": "https://lfu.rlp.de/bevoelkerung/unterstuetzung-der-gewerbeaufsicht/technischer-arbeitsschutz",
+      "imageKey": "q-lf02-aushub-des-rohrgrabens-mit-uber-dem-verb"
     },
     {
       "id": "LF02-Q28",
@@ -392,7 +409,8 @@
       "correctIndex": 0,
       "explanation": "Belastetes Material muss getrennt erfasst und entsorgt werden, um Umwelt zu schuetzen.",
       "source": "Belasteter Aushub erfordert umweltgerechte Entsorgung zum Schutz von Boden und Grundwas…",
-      "sourceUrl": "https://www.lampersberger.de/aushub-entsorgen-unbelastet-vs-belastet-der-unterschied/"
+      "sourceUrl": "https://www.lampersberger.de/aushub-entsorgen-unbelastet-vs-belastet-der-unterschied/",
+      "imageKey": "q-lf02-historisches-archiv-der-stadt-koln-verei"
     },
     {
       "id": "LF02-Q29",
@@ -406,7 +424,8 @@
       "correctIndex": 0,
       "explanation": "Es beschreibt, ob Schmutz- und Regenwasser gemeinsam oder getrennt gefuehrt werden.",
       "source": "Misch- und Trennsysteme sind Systeme der Entwässerung/Kanalisation (Stand: 2026)",
-      "sourceUrl": "https://www.baunetzwissen.de/gebaeudetechnik/fachwissen/entwaesserung/abwasserarten-und-entwaesserungssysteme-160248"
+      "sourceUrl": "https://www.baunetzwissen.de/gebaeudetechnik/fachwissen/entwaesserung/abwasserarten-und-entwaesserungssysteme-160248",
+      "imageKey": "q-lf02-baugrubenwand-dscf5299"
     },
     {
       "id": "LF02-Q30",
@@ -420,7 +439,8 @@
       "correctIndex": 0,
       "explanation": "Grundwasserstand, Boden und Wasserandrang bestimmen, ob offen oder geschlossen abgehalten wird.",
       "source": "Wasserhaltungsverfahren (offen/geschlossen) werden von Bodendurchlässigkeit, Baugrubeng…",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Wasserhaltung_(Bauwesen)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Wasserhaltung_(Bauwesen)",
+      "imageKey": "q-lf02-baugrubenwand-dscf5299"
     }
   ]
 }

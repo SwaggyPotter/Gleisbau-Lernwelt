@@ -1,0 +1,14 @@
+{
+  "relFile": "17-Bilder-fuer-Fragen/Batch-lf12.md",
+  "status": "SUCCESS",
+  "reasons": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 175,
+      "status": "SUCCESS",
+      "reasons": []
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-08-25T21-21-50-764Z_Batch-lf12.md.log"
+}

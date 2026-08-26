@@ -14,7 +14,8 @@
       "correctIndex": 0,
       "explanation": "Die Regelspur beträgt 1435 mm und ist in Europa und vielen anderen Ländern der Standard.",
       "source": "de.wikipedia.org – Normalspur",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Normalspur"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Normalspur",
+      "imageKey": "q-spurweite-comparison-of-british-track-gauges"
     },
     {
       "id": "t2q2",
@@ -56,7 +57,8 @@
       "correctIndex": 0,
       "explanation": "Bei höheren Fahrgeschwindigkeiten muss der Gleisbogenradius größer sein, um die Zentrifugalkraft zu begrenzen.",
       "source": "de.wikipedia.org – Kurvenradius",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Kurvenradius"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Kurvenradius",
+      "imageKey": "q-spurweite-spurweiten-vierschienengleis"
     },
     {
       "id": "t2q5",
@@ -98,7 +100,8 @@
       "correctIndex": 1,
       "explanation": "Nach § 5 EBO ist die Spurweite der kleinste Abstand der Innenflächen der Schienenköpfe im Bereich von 0 bis 14 mm unter Schienenoberkante (SO).",
       "source": "§ 5 Abs. 1 Satz 1 EBO (Stand: 2026)",
-      "sourceUrl": "https://www.gesetze-im-internet.de/ebo/__5.html"
+      "sourceUrl": "https://www.gesetze-im-internet.de/ebo/__5.html",
+      "imageKey": "q-spurweite-rail-track"
     },
     {
       "id": "spurweite-g2",
@@ -112,7 +115,8 @@
       "correctIndex": 1,
       "explanation": "Das Grundmaß der Spurweite beträgt nach § 5 EBO 1.435 mm. Dies ist der Standard für normalspurige Eisenbahnen in Deutschland und Europa.",
       "source": "§ 5 Abs. 1 Satz 2 EBO (Stand: 2026)",
-      "sourceUrl": "https://www.gesetze-im-internet.de/ebo/__5.html"
+      "sourceUrl": "https://www.gesetze-im-internet.de/ebo/__5.html",
+      "imageKey": "q-spurweite-rail-track"
     },
     {
       "id": "spurweite-g3",
@@ -126,7 +130,8 @@
       "correctIndex": 2,
       "explanation": "Nach § 5 EBO darf die Spurweite in Hauptgleisen nicht größer sein als 1.465 mm. Diese Toleranzgrenze ist gesetzlich festgelegt.",
       "source": "§ 5 Abs. 1 Satz 3 EBO (Stand: 2026)",
-      "sourceUrl": "https://www.juraforum.de/gesetze/ebo/5-spurweite"
+      "sourceUrl": "https://www.juraforum.de/gesetze/ebo/5-spurweite",
+      "imageKey": "q-spurweite-rail-track"
     },
     {
       "id": "spurweite-g4",
@@ -140,7 +145,8 @@
       "correctIndex": 2,
       "explanation": "Nach § 6 EBO soll der Bogenradius in durchgehenden Hauptgleisen bei Neubauten nicht weniger als 300 m betragen, um einen sicheren Fahrbetrieb zu gewährleisten.",
       "source": "§ 6 Abs. 1 Satz 1 EBO (Stand: 2026)",
-      "sourceUrl": "https://www.buzer.de/gesetz/1420/a170178.htm"
+      "sourceUrl": "https://www.buzer.de/gesetz/1420/a170178.htm",
+      "imageKey": "q-spurweite-comparison-of-british-track-gauges"
     },
     {
       "id": "spurweite-g5",
@@ -154,7 +160,8 @@
       "correctIndex": 2,
       "explanation": "Für Gleisbögen mit Radien unter 175 m schreibt § 5 EBO Mindestwerte für die Spurweite vor, die über dem Grundmaß liegen (Spurerweiterung) — je enger der Bogen, desto größer die Erweiterung.",
       "source": "TU Dresden G-02 Spurerweiterung unter 175 m (aktualisiert 2024)",
-      "sourceUrl": "https://tu-dresden.de/bu/verkehr/ibv/gvb/ressourcen/dateien/download_gvb/lehrmaterialien/Grundl_G/G-02.pdf"
+      "sourceUrl": "https://tu-dresden.de/bu/verkehr/ibv/gvb/ressourcen/dateien/download_gvb/lehrmaterialien/Grundl_G/G-02.pdf",
+      "imageKey": "q-spurweite-comparison-of-british-track-gauges"
     },
     {
       "id": "spurweite-g6",
@@ -196,7 +203,8 @@
       "correctIndex": 1,
       "explanation": "Wo erforderlich, sind nach § 6 EBO Übergangsbogen anzulegen, um die Richtung durchgehender Hauptgleise stetig ändern zu können und Fahrkomfort zu verbessern.",
       "source": "Wikipedia \"Übergangsbogen\" (Stand: 2024), § 6 EBO Abs. 2 erwähnt Übergangsbogen bei ste…",
-      "sourceUrl": "https://de.wikipedia.org/wiki/%C3%9Cbergangsbogen"
+      "sourceUrl": "https://de.wikipedia.org/wiki/%C3%9Cbergangsbogen",
+      "imageKey": "q-spurweite-spurweiten-vierschienengleis"
     },
     {
       "id": "spurweite-g9",
@@ -252,7 +260,8 @@
       "correctIndex": 1,
       "explanation": "Nach § 6 EBO dürfen sich durchgehende Hauptgleise in der Regel nur stetig ändern. Wo erforderlich, sind Übergangsbogen anzulegen, um Fahrkomfort zu verbessern.",
       "source": "Stetigkeit der Gleisrichtung",
-      "sourceUrl": "https://www.ipwiki.de/bundesrecht:esbo:gleisbogen_stetigkeit_der_gleisrichtung_und_uebergangsbogen"
+      "sourceUrl": "https://www.ipwiki.de/bundesrecht:esbo:gleisbogen_stetigkeit_der_gleisrichtung_und_uebergangsbogen",
+      "imageKey": "q-spurweite-spurweiten-vierschienengleis"
     },
     {
       "id": "spurweite-g13",
@@ -280,7 +289,8 @@
       "correctIndex": 1,
       "explanation": "Nach § 21 EBO müssen die Räder und Radsätze der Fahrzeuge so beschaffen und gelagert sein, daß Gleisbogen mit 150 m Radius und 1.435 mm Spurweite einwandfrei durchfahren werden können.",
       "source": "§21 EBO Räder/Radsätze",
-      "sourceUrl": "https://www.buzer.de/gesetz/1420/a170193.htm"
+      "sourceUrl": "https://www.buzer.de/gesetz/1420/a170193.htm",
+      "imageKey": "q-spurweite-comparison-of-british-track-gauges"
     }
   ]
 }

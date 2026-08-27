@@ -1,0 +1,173 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Trassierungsrechner</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Zusatzmodul</p>
+      <h1>Trassierungsrechner</h1>
+      <p class="lede">
+        Neigungswechsel (Ausrundung) und Überhöhungsrampen selbst durchrechnen — Werte werden
+        immer neu zufällig erzeugt, es gibt keine feste Aufgabenzahl. Eingabe mit Toleranz,
+        bei Fehlern der komplette Rechenweg mit eingesetzten Zahlen.
+      </p>
+      <div class="stat-row">
+        <div class="stat"><span>Serie</span><strong>{{ progress.streak }}</strong></div>
+        <div class="stat"><span>Bestwert</span><strong>{{ progress.bestStreak }}</strong></div>
+        <div class="stat"><span>Richtig</span><strong>{{ progress.correct }}/{{ progress.total }}</strong></div>
+        <div class="stat"><span>Quote</span><strong>{{ quote }}%</strong></div>
+      </div>
+    </section>
+
+    <section class="kategorie-row">
+      <ion-select
+        class="kategorie-select"
+        interface="action-sheet"
+        label="Formel-Kategorie"
+        labelPlacement="stacked"
+        [value]="ausgewaehlteKategorie"
+        (ionChange)="onKategorieChange($any($event).detail.value)"
+      >
+        <ion-select-option [value]="zufallId">Zufällig (alle Kategorien)</ion-select-option>
+        <ion-select-option *ngFor="let k of kategorien" [value]="k.id">
+          {{ k.block === 'neigungswechsel' ? 'Neigungswechsel' : 'Überhöhung' }} · {{ k.label }}
+        </ion-select-option>
+      </ion-select>
+    </section>
+
+    <ion-card class="aufgabe-card">
+      <ion-card-header>
+        <ion-card-subtitle>{{ aktuelleKategorieInfo?.label }}</ion-card-subtitle>
+        <ion-card-title class="formel-title">{{ aktuelleKategorieInfo?.formel }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="diagram-wrap" [ngSwitch]="diagramm">
+          <svg *ngSwitchCase="'ausrundung'" viewBox="0 0 400 180" class="diagram-svg">
+            <line x1="20" y1="150" x2="200" y2="55" class="d-tangent"/>
+            <line x1="200" y1="55" x2="380" y2="115" class="d-tangent"/>
+            <path d="M 165,68 Q 200,55 235,70" class="d-curve"/>
+            <line x1="200" y1="55" x2="200" y2="150" class="d-guide"/>
+            <circle cx="200" cy="55" r="3.5" class="d-point"/>
+            <text x="200" y="168" text-anchor="middle" class="dlabel">NW</text>
+            <text x="105" y="98" text-anchor="middle" class="dlabel">lt</text>
+            <text x="295" y="98" text-anchor="middle" class="dlabel">lt</text>
+            <text x="200" y="40" text-anchor="middle" class="dlabel accent">ra</text>
+          </svg>
+
+          <svg *ngSwitchCase="'hoehe-neigung'" viewBox="0 0 400 180" class="diagram-svg">
+            <line x1="40" y1="150" x2="360" y2="150" class="d-base"/>
+            <line x1="360" y1="150" x2="360" y2="60" class="d-base"/>
+            <line x1="40" y1="150" x2="360" y2="60" class="d-curve"/>
+            <text x="200" y="168" text-anchor="middle" class="dlabel">L</text>
+            <text x="380" y="105" text-anchor="middle" class="dlabel">Δh</text>
+            <text x="150" y="122" text-anchor="middle" class="dlabel accent">N</text>
+          </svg>
+
+          <svg *ngSwitchCase="'pfeilhoehe'" viewBox="0 0 400 180" class="diagram-svg">
+            <path d="M 40,120 Q 200,60 360,120" class="d-curve"/>
+            <line x1="40" y1="120" x2="360" y2="120" class="d-base"/>
+            <line x1="200" y1="120" x2="200" y2="93" class="d-guide"/>
+            <circle cx="200" cy="120" r="3" class="d-point"/>
+            <text x="120" y="140" text-anchor="middle" class="dlabel">a</text>
+            <text x="280" y="140" text-anchor="middle" class="dlabel">b</text>
+            <text x="222" y="102" text-anchor="start" class="dlabel accent">hf</text>
+            <text x="200" y="48" text-anchor="middle" class="dlabel">r</text>
+          </svg>
+
+          <svg *ngSwitchCase="'boeschung'" viewBox="0 0 400 180" class="diagram-svg">
+            <line x1="40" y1="150" x2="40" y2="60" class="d-base"/>
+            <line x1="40" y1="150" x2="320" y2="150" class="d-base"/>
+            <line x1="40" y1="60" x2="320" y2="150" class="d-curve"/>
+            <text x="20" y="108" text-anchor="middle" class="dlabel">u</text>
+            <text x="180" y="168" text-anchor="middle" class="dlabel">L</text>
+            <text x="205" y="98" text-anchor="middle" class="dlabel accent">1 : m</text>
+          </svg>
+
+          <svg *ngSwitchCase="'sform'" viewBox="0 0 400 180" class="diagram-svg">
+            <line x1="30" y1="140" x2="370" y2="140" class="d-guide"/>
+            <path d="M 30,140 C 115,140 85,90 200,90 C 315,90 285,40 370,40" class="d-curve"/>
+            <circle cx="30" cy="140" r="4" class="d-point"/>
+            <circle cx="200" cy="90" r="4" class="d-point"/>
+            <circle cx="370" cy="40" r="4" class="d-point"/>
+            <text x="30" y="160" text-anchor="middle" class="dlabel">RA</text>
+            <text x="200" y="110" text-anchor="middle" class="dlabel">RM</text>
+            <text x="370" y="60" text-anchor="middle" class="dlabel">RE</text>
+            <text x="200" y="172" text-anchor="middle" class="dlabel accent">L_R</text>
+          </svg>
+
+          <svg *ngSwitchCase="'linearrampe'" viewBox="0 0 400 180" class="diagram-svg">
+            <line x1="30" y1="140" x2="370" y2="140" class="d-guide"/>
+            <line x1="30" y1="140" x2="370" y2="50" class="d-curve"/>
+            <circle cx="30" cy="140" r="4" class="d-point"/>
+            <circle cx="370" cy="50" r="4" class="d-point"/>
+            <line x1="200" y1="140" x2="200" y2="95" class="d-guide-dash"/>
+            <text x="200" y="172" text-anchor="middle" class="dlabel">lx</text>
+            <text x="370" y="172" text-anchor="middle" class="dlabel">L</text>
+          </svg>
+
+          <svg *ngSwitchCase="'verwindung'" viewBox="0 0 400 180" class="diagram-svg">
+            <g transform="translate(90,110) rotate(-4)">
+              <rect x="-45" y="-6" width="90" height="12" rx="2" class="d-rail"/>
+            </g>
+            <g transform="translate(310,110) rotate(-16)">
+              <rect x="-45" y="-6" width="90" height="12" rx="2" class="d-rail accent"/>
+            </g>
+            <line x1="90" y1="150" x2="310" y2="150" class="d-base"/>
+            <line x1="90" y1="145" x2="90" y2="155" class="d-base"/>
+            <line x1="310" y1="145" x2="310" y2="155" class="d-base"/>
+            <text x="200" y="170" text-anchor="middle" class="dlabel">Basislänge</text>
+            <text x="90" y="90" text-anchor="middle" class="dlabel">u1</text>
+            <text x="310" y="70" text-anchor="middle" class="dlabel accent">u2</text>
+          </svg>
+        </div>
+
+        <div class="gegeben-block">
+          <p class="block-label">Gegeben</p>
+          <div class="gegeben-list">
+            <div class="gegeben-item" *ngFor="let g of aufgabe.gegeben">
+              <span class="g-label">{{ g.label }}</span>
+              <span class="g-wert">{{ g.wert }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gesucht-block" *ngIf="feedback === null">
+          <p class="block-label">Gesucht</p>
+          <div class="input-row">
+            <span class="gesucht-name">{{ aufgabe.gesuchtLabel }}</span>
+            <ion-input
+              class="guess-input"
+              type="text"
+              inputmode="decimal"
+              placeholder="z. B. 12,34"
+              [value]="eingabe"
+              (ionInput)="eingabe = $any($event.detail).value ?? ''"
+              (keyup.enter)="pruefen()"
+            ></ion-input>
+            <span class="unit" *ngIf="aufgabe.gesuchtEinheit">{{ aufgabe.gesuchtEinheit }}</span>
+          </div>
+          <ion-button expand="block" (click)="pruefen()">Prüfen</ion-button>
+        </div>
+
+        <div class="feedback-box" *ngIf="feedback !== null" [class.correct]="feedback === 'correct'" [class.wrong]="feedback === 'wrong'">
+          <strong>{{ feedback === 'correct' ? 'Richtig!' : 'Leider falsch.' }}</strong>
+          <p class="korrekt-zeile">
+            {{ aufgabe.gesuchtLabel }} = <span class="mono">{{ korrekterWertFormatiert }} {{ aufgabe.gesuchtEinheit }}</span>
+          </p>
+          <p class="rechenweg" *ngIf="feedback === 'wrong'">{{ aufgabe.rechenweg }}</p>
+          <ion-button expand="block" (click)="neueAufgabe()">Nächste Aufgabe</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

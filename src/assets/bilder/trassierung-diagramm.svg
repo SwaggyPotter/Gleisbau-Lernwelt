@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#16242f"/>
+  <!-- Rasterlinien -->
+  <g stroke="#6fa8dc" stroke-opacity="0.15" stroke-width="1">
+    <line x1="0" y1="50" x2="400" y2="50"/>
+    <line x1="0" y1="100" x2="400" y2="100"/>
+    <line x1="0" y1="150" x2="400" y2="150"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+    <line x1="0" y1="250" x2="400" y2="250"/>
+    <line x1="50" y1="0" x2="50" y2="300"/>
+    <line x1="100" y1="0" x2="100" y2="300"/>
+    <line x1="150" y1="0" x2="150" y2="300"/>
+    <line x1="200" y1="0" x2="200" y2="300"/>
+    <line x1="250" y1="0" x2="250" y2="300"/>
+    <line x1="300" y1="0" x2="300" y2="300"/>
+    <line x1="350" y1="0" x2="350" y2="300"/>
+  </g>
+
+  <!-- Tangenten des Neigungswechsels -->
+  <line x1="30" y1="230" x2="200" y2="90" stroke="#8ca3af" stroke-width="3" stroke-dasharray="9 6"/>
+  <line x1="200" y1="90" x2="370" y2="180" stroke="#8ca3af" stroke-width="3" stroke-dasharray="9 6"/>
+
+  <!-- Ausrundungskurve -->
+  <path d="M 155,112 Q 200,90 245,116" fill="none" stroke="#ff8a3d" stroke-width="5"/>
+
+  <!-- Neigungswechselpunkt -->
+  <line x1="200" y1="90" x2="200" y2="230" stroke="#6fa8dc" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <circle cx="200" cy="90" r="5" fill="#6fa8dc"/>
+
+  <!-- Beschriftung -->
+  <text x="200" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="#eaf2f5">NW</text>
+  <text x="110" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#8ca3af">lt</text>
+  <text x="290" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#8ca3af">lt</text>
+  <text x="200" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="#ff8a3d">ra</text>
+
+  <!-- Ueberhoehungsrampe unten als S-Kurve -->
+  <path d="M 40,275 C 110,275 90,245 160,245 C 230,245 210,220 360,220" fill="none" stroke="#ff8a3d" stroke-width="3" opacity="0.85"/>
+  <circle cx="40" cy="275" r="3.5" fill="#6fa8dc"/>
+  <circle cx="360" cy="220" r="3.5" fill="#6fa8dc"/>
+</svg>

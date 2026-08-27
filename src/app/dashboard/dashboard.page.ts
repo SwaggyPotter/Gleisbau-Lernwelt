@@ -60,7 +60,7 @@ export class DashboardPage {
     {
       id: 'bereich-rechentrainer',
       title: 'Rechentrainer',
-      description: 'Nivellieren, Volumen, Prozentrechnung, Gesamtquiz und Materialrechner.',
+      description: 'Nivellieren, Volumen, Prozentrechnung, Gesamtquiz, Materialrechner und Trassierung.',
       icon: 'calculator-outline',
       link: '/kategorie/rechentrainer',
       count: RECHENTRAINER_TILES.length,

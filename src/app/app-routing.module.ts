@@ -59,6 +59,11 @@ const routes: Routes = [
       .then(m => m.QuizduellModule)
   },
   {
+    path: 'zusatz/trassierung',
+    loadChildren: () => import('./modules/zusatz/trassierung/trassierung.module')
+      .then(m => m.TrassierungModule)
+  },
+  {
     path: 'kategorie/:id',
     loadChildren: () => import('./modules/kategorie/kategorie.module')
       .then(m => m.KategorieModule)

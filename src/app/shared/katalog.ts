@@ -72,6 +72,16 @@ export const RECHENTRAINER_TILES: QuizTile[] = [
     image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Loading_bay_at_Hakkila_rail_yard_in_Vantaa%2C_Finland%2C_2021.jpg?width=900',
     imageCredit: 'Coen, CC BY-SA 4.0, via Wikimedia Commons',
   },
+  {
+    id: 'quiz-trassierung',
+    title: 'Trassierungsrechner',
+    description: 'Neigungswechsel (Ausrundung) und Überhöhungsrampen selbst durchrechnen — 16 Formel-Kategorien, unbegrenzt neue Aufgaben.',
+    icon: 'analytics-outline',
+    tag: 'Quiz',
+    link: '/zusatz/trassierung',
+    image: 'assets/bilder/trassierung-diagramm.svg',
+    imageCredit: 'Eigene Grafik',
+  },
 ];
 
 export const SPIELE_TILES: QuizTile[] = [

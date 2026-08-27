@@ -5,7 +5,7 @@ const SITE_USER = 'gleisbau';
 // SHA-256 des Seiten-Passworts (nicht das Klartext-Passwort selbst), damit es
 // nicht 1:1 im Bundle steht. Reines Soft-Gate (siehe Ki Datenspeicher) --
 // verhindert nur den zufaelligen Aufruf, keine belastbare Zugriffskontrolle.
-const SITE_PASSWORD_SHA256 = '3e9857a868a05c8bb641d62a895c6a2c893259ee91c51bd2926803b33fad2414';
+const SITE_PASSWORD_SHA256 = '4ebd8ac94619f5345420e60da151ed9412c292bd90c13819c40e3924bb2bf0e3';
 
 export function hasStoredSiteAuth(): boolean {
   try {

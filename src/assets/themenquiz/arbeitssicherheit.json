@@ -1,0 +1,286 @@
+{
+  "topicId": "arbeitssicherheit",
+  "title": "Arbeitssicherheit im Gleisbereich",
+  "questions": [
+    {
+      "id": "as-q1",
+      "question": "Wovon hängt ab, welche Sicherungsmaßnahme bei Arbeiten im Gleisbereich angewendet werden muss?",
+      "choices": [
+        "Von der Gefährdungssituation an der Arbeitsstelle",
+        "Vom Wetter am Tag der Arbeiten",
+        "Von der Anzahl der Beschäftigten",
+        "Von der Tageszeit"
+      ],
+      "correctIndex": 0,
+      "explanation": "Arbeiten im Gleisbereich dürfen nur mit einer der Gefährdungssituation angemessenen Sicherungsmaßnahme durchgeführt werden — hohe Gefährdung erfordert hochwertigere Maßnahmen.",
+      "source": "DGUV Information 201-021, Sicherheitshinweise für Arbeiten im Gleisbereich",
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm"
+    },
+    {
+      "id": "as-q2",
+      "question": "Welche drei grundsätzlichen Arten der Sicherung von Arbeitsstellen im Gleisbereich gibt es?",
+      "choices": [
+        "Selbstsicherung, Fremdsicherung, technische Sicherung",
+        "Tag-, Nacht- und Wochenendsicherung",
+        "Einzel-, Gruppen- und Kolonnensicherung",
+        "Schall-, Licht- und Funksicherung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die drei grundsätzlichen Sicherungsarten sind Selbstsicherung, Fremdsicherung und technische Sicherung.",
+      "source": "DGUV Information 201-021, Sicherheitshinweise für Arbeiten im Gleisbereich",
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm"
+    },
+    {
+      "id": "as-q3",
+      "question": "Was bedeutet Selbstsicherung?",
+      "choices": [
+        "Jeder Beschäftigte beobachtet den Gleisbereich selbst und muss eine Fahrt rechtzeitig erkennen",
+        "Eine Maschine sichert automatisch alle Beschäftigten",
+        "Nur der Vorarbeiter beobachtet für die ganze Gruppe",
+        "Es wird gar keine Beobachtung benötigt"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bei der Selbstsicherung beobachtet jeder Beschäftigte einzeln oder in Kleingruppen den Gleisbereich selbst und muss eine herannahende Fahrt rechtzeitig erkennen können.",
+      "source": "DGUV Information 201-021, Kapitel 5: Arbeiten in Kleingruppen und unter Selbstsicherung",
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm"
+    },
+    {
+      "id": "as-q4",
+      "question": "Wie hoch ist bei der klassischen Selbstsicherung mindestens die Sicherheitsfrist, um eine Fahrt am Beginn der Annäherungsstrecke sicher zu erkennen?",
+      "choices": [
+        "Mindestens 20 Sekunden",
+        "Mindestens 2 Sekunden",
+        "Mindestens 5 Minuten",
+        "Es gibt keine Mindestfrist"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die klassische Selbstsicherung erfordert, dass eine Fahrt am Beginn der Annäherungsstrecke bei einer Sicherheitsfrist von mindestens 20 Sekunden sicher erkannt werden kann.",
+      "source": "DGUV Information 201-021, Sicherheitshinweise für Arbeiten im Gleisbereich",
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm"
+    },
+    {
+      "id": "as-q5",
+      "question": "Was ist eine Sicherungsaufsicht?",
+      "choices": [
+        "Eine eigens eingeteilte Person, die bei Fremdsicherung die Arbeitsstelle beobachtet und rechtzeitig warnt",
+        "Der Baustellenleiter, der nur die Materiallieferung überwacht",
+        "Ein technisches Gerät ohne Personal",
+        "Eine Person, die nur die Arbeitszeiten aufschreibt"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bei der Fremdsicherung übernimmt eine eigens dafür eingeteilte Person, die Sicherungsaufsicht, die Beobachtung des Gleisbereichs und warnt die Beschäftigten rechtzeitig vor Zügen.",
+      "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+    },
+    {
+      "id": "as-q6",
+      "question": "Was unterscheidet die Fremdsicherung von der Selbstsicherung?",
+      "choices": [
+        "Bei der Fremdsicherung übernimmt eine eigens eingeteilte Person die Beobachtung und Warnung, nicht jeder Einzelne selbst",
+        "Bei der Fremdsicherung braucht niemand mehr Warnkleidung",
+        "Fremdsicherung ist nur bei Nacht erlaubt",
+        "Es gibt keinen Unterschied"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fremdsicherung bedeutet, dass eine eigens eingeteilte Sicherungsaufsicht die Beobachtung und Warnung übernimmt — im Gegensatz zur Selbstsicherung, bei der jeder Beschäftigte selbst beobachtet.",
+      "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+    },
+    {
+      "id": "as-q7",
+      "question": "Was ist die Räumzeit?",
+      "choices": [
+        "Die Zeit, die benötigt wird, um den Gleisbereich mit Maschinen und Geräten ohne Hast vollständig zu räumen",
+        "Die Zeit, die ein Zug für die Einfahrt in den Bahnhof braucht",
+        "Die tägliche Arbeitszeit einer Gleisbaukolonne",
+        "Die Zeit für den Aufbau der Baustelleneinrichtung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Räumzeit ist die Zeit, die benötigt wird, um den Gleisbereich einschließlich Maschinen und Geräten ohne Hast zu räumen. Sie wird vom Arbeitgeber festgelegt.",
+      "source": "DGUV Regel 101-024, Sicherungsmaßnahmen bei Arbeiten im Gleisbereich",
+      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf"
+    },
+    {
+      "id": "as-q8",
+      "question": "Wie setzt sich die Sicherheitsfrist zusammen?",
+      "choices": [
+        "Aus Räumzeit plus Sicherheitszuschlag",
+        "Aus der Zuggeschwindigkeit geteilt durch zwei",
+        "Nur aus der Räumzeit, ohne Zuschlag",
+        "Aus der Anzahl der Beschäftigten mal zehn Sekunden"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Sicherheitsfrist ist die Summe aus Räumzeit und einem zusätzlichen Sicherheitszuschlag.",
+      "source": "DGUV Regel 101-024, Sicherungsmaßnahmen bei Arbeiten im Gleisbereich",
+      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf"
+    },
+    {
+      "id": "as-q9",
+      "question": "Was bezeichnet der Begriff Gefahrenraum im Zusammenhang mit Arbeiten im Gleisbereich?",
+      "choices": [
+        "Den Bereich, in dem Gefährdungen durch bewegte Schienenfahrzeuge entstehen, einschließlich der Oberleitungsanlage",
+        "Nur den Bereich innerhalb der Schwellen",
+        "Ausschließlich den Bahnsteigbereich",
+        "Den Bereich außerhalb des Bahngeländes"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Gleisbereich bzw. Gefahrenraum ist der Bereich, in dem durch bewegte Schienenfahrzeuge Gefährdungen entstehen — dazu zählt auch der Bereich der Oberleitungsanlage.",
+      "source": "DGUV Regel 101-024, Sicherungsmaßnahmen bei Arbeiten im Gleisbereich",
+      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf"
+    },
+    {
+      "id": "as-q10",
+      "question": "Wie breit muss ein Schutzstreifen zusätzlich zum Gleisbereich mindestens sein, damit keine gesonderte Sicherungsmaßnahme erforderlich ist?",
+      "choices": [
+        "Mindestens 2,0 Meter",
+        "Mindestens 0,5 Meter",
+        "Mindestens 10 Meter",
+        "Ein Schutzstreifen reicht nie aus"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kann zusätzlich zum Gleisbereich ein Schutzstreifen von mindestens 2,0 m Breite eingerichtet werden, sind dort keine gesonderten Sicherungsmaßnahmen erforderlich.",
+      "source": "DGUV Regel 101-024, Sicherungsmaßnahmen bei Arbeiten im Gleisbereich",
+      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf"
+    },
+    {
+      "id": "as-q11",
+      "question": "Welche Mindestklasse an Warnkleidung ist bei Arbeiten im Gleisbereich vorgeschrieben?",
+      "choices": [
+        "Mindestens Warnkleidung Klasse 2",
+        "Warnkleidung ist nur bei Regen Pflicht",
+        "Jede beliebige helle Kleidung reicht aus",
+        "Warnkleidung ist nur nachts vorgeschrieben"
+      ],
+      "correctIndex": 0,
+      "explanation": "Der Arbeitgeber muss Warnkleidung mindestens der Klasse 2 zur Verfügung stellen, die Beschäftigte im Gleisbereich tragen müssen, wenn sie durch Zugverkehr gefährdet sein können.",
+      "source": "DGUV, Persönliche Schutzausrüstung / Warnkleidung",
+      "sourceUrl": "https://www.dguv.de/medien/fb-psa/de/publikationen/2015/fdp_warnkleidung.pdf"
+    },
+    {
+      "id": "as-q12",
+      "question": "Woran ist eine Sicherungsaufsicht typischerweise zu erkennen?",
+      "choices": [
+        "An einer Kennzeichnung/einem Ausweis und an Warnkleidung",
+        "Sie trägt keine besondere Kennzeichnung",
+        "Nur am Namen auf dem Bauplan",
+        "An einer roten Signalflagge, sonst nichts"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die Sicherungsaufsicht führt eine Kennzeichnung mit sich und trägt Warnkleidung, damit sie an der Arbeitsstelle eindeutig als solche erkennbar ist.",
+      "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+    },
+    {
+      "id": "as-q13",
+      "question": "Wann darf im Arbeitsgleis mit der eigentlichen Bauarbeit begonnen werden?",
+      "choices": [
+        "Erst nachdem das Arbeitsgleis gesichert ist und ggf. die Zustimmung der Sicherungsaufsicht vorliegt",
+        "Sobald die Beschäftigten am Gleis eingetroffen sind",
+        "Sobald das Werkzeug ausgeladen ist",
+        "Zu jeder beliebigen Zeit ohne weitere Freigabe"
+      ],
+      "correctIndex": 0,
+      "explanation": "Arbeiten im Arbeitsgleis dürfen erst beginnen, wenn das Gleis gesichert ist und — je nach Sicherungsart — die Zustimmung der Sicherungsaufsicht vorliegt.",
+      "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+    },
+    {
+      "id": "as-q14",
+      "question": "Was bedeutet eine Gleissperrung im Sinne der Arbeitssicherheit?",
+      "choices": [
+        "Das Gleis wird für den Zugverkehr komplett gesperrt, sodass ohne Zugfahrten gearbeitet werden kann",
+        "Das Gleis wird nur für Güterzüge gesperrt",
+        "Es wird ein Zaun um die Baustelle gebaut",
+        "Die Geschwindigkeit der Züge wird nur reduziert"
+      ],
+      "correctIndex": 0,
+      "explanation": "Eine Gleissperrung ist eine betriebliche Maßnahme, die ein Gleis vollständig für den Zugverkehr sperrt, damit dort ohne laufenden Zugbetrieb gearbeitet werden kann.",
+      "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+    },
+    {
+      "id": "as-q15",
+      "question": "In welcher DB-internen Richtlinie ist unter anderem das Arbeiten im Gleisbereich geregelt?",
+      "choices": [
+        "Ril 132 (Züge fahren und Rangieren), mit Unterrichtlinien wie 132.0118",
+        "Ril 100 (Betriebsstellenverzeichnis)",
+        "Ril 800 ausschließlich",
+        "Es gibt dafür keine eigene Richtlinie"
+      ],
+      "correctIndex": 0,
+      "explanation": "Arbeiten im Gleisbereich werden unter anderem in der Ril 132 (Züge fahren und Rangieren) mit zugehörigen Unterrichtlinien wie 132.0118 geregelt.",
+      "source": "DB InfraGO, Arbeiten im Gleisbereich — Überarbeitung der Ril 132.0118",
+      "sourceUrl": "https://www.dbinfrago.com/resource/blob/12613364/a0e378acab8571e04488c8b83a6cfb50/Foliensatz-fuer-alle-Aenderungen-132-0118-data.pdf"
+    },
+    {
+      "id": "as-q16",
+      "question": "Welches DGUV-Regelwerk behandelt gezielt die Sicherungsmaßnahmen bei Arbeiten im Gleisbereich?",
+      "choices": [
+        "DGUV Regel 101-024",
+        "DGUV Vorschrift 1 (Grundsätze der Prävention)",
+        "DIN EN 13481",
+        "DGUV Regel 101-024 gibt es nicht"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die DGUV Regel 101-024 beschreibt konkret die Sicherungsmaßnahmen bei Arbeiten im Gleisbereich.",
+      "source": "DGUV Regel 101-024, Sicherungsmaßnahmen bei Arbeiten im Gleisbereich",
+      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf"
+    },
+    {
+      "id": "as-q17",
+      "question": "Muss ein technisches Sicherungssystem vor dem Einsatz im Gleisbereich freigegeben sein?",
+      "choices": [
+        "Ja, es muss bahntechnisch freigegeben sein",
+        "Nein, jedes handelsübliche Gerät darf verwendet werden",
+        "Nur bei Nachtarbeiten ist eine Freigabe nötig",
+        "Eine Freigabe ist nur bei Neubaustrecken erforderlich"
+      ],
+      "correctIndex": 0,
+      "explanation": "Technische Sicherungssysteme müssen vor ihrem Einsatz bahntechnisch freigegeben sein, bevor sie zur Sicherung von Arbeitsstellen genutzt werden dürfen.",
+      "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+    },
+    {
+      "id": "as-q18",
+      "question": "Wo werden die für eine Arbeitsstelle festgelegten Sicherungsmaßnahmen dokumentiert?",
+      "choices": [
+        "Im Sicherungsplan",
+        "Nur mündlich zwischen den Beschäftigten abgesprochen",
+        "Im Fahrplan des nächsten Zuges",
+        "Eine Dokumentation ist nicht vorgeschrieben"
+      ],
+      "correctIndex": 0,
+      "explanation": "Die für eine Arbeitsstelle im Gleisbereich festgelegten Sicherungsmaßnahmen werden in einem Sicherungsplan dokumentiert.",
+      "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+    },
+    {
+      "id": "as-q19",
+      "question": "Was ist beim Benachrichtigungsverfahren als alternatives Fremdsicherungsverfahren besonders wichtig?",
+      "choices": [
+        "Die Benachrichtigung über Zug- oder Rangierfahrten muss vor Zulassung der Fahrt bestätigt werden",
+        "Es reicht, wenn irgendjemand vor Ort informiert ist",
+        "Die Benachrichtigung darf auch nach der Zugfahrt erfolgen",
+        "Ein Benachrichtigungsverfahren ist grundsätzlich verboten"
+      ],
+      "correctIndex": 0,
+      "explanation": "Beim Benachrichtigungsverfahren muss die Meldung über Zug- oder Rangierfahrten an der Arbeitsstelle vor Zulassung der Fahrt ausdrücklich bestätigt werden.",
+      "source": "DGUV Information 201-021, Sicherheitshinweise für Arbeiten im Gleisbereich",
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm"
+    },
+    {
+      "id": "as-q20",
+      "question": "Warum ist Warnkleidung im Gleisbereich so wichtig?",
+      "choices": [
+        "Damit Triebfahrzeugführer die Beschäftigten frühzeitig erkennen können",
+        "Sie ist nur aus modischen Gründen vorgeschrieben",
+        "Sie schützt ausschließlich vor Regen",
+        "Sie ersetzt jede andere Sicherungsmaßnahme vollständig"
+      ],
+      "correctIndex": 0,
+      "explanation": "Signalfarbene Warnkleidung macht Beschäftigte im Gleisbereich für Triebfahrzeugführer frühzeitig erkennbar und ergänzt damit — ersetzt aber nicht — die eigentliche Sicherungsmaßnahme.",
+      "source": "DGUV, Persönliche Schutzausrüstung / Warnkleidung",
+      "sourceUrl": "https://www.dguv.de/medien/fb-psa/de/publikationen/2015/fdp_warnkleidung.pdf"
+    }
+  ]
+}

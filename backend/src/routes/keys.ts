@@ -12,11 +12,31 @@ const keySchema = z.object({
 
 export const keysRouter = Router();
 
+interface KeyRow {
+  key: string;
+  year: number;
+  full_name: string;
+  created_at: string;
+  uses: number;
+  max_uses: number;
+  issued_by: string;
+}
+
+const toPublicKey = (row: KeyRow) => ({
+  key: row.key,
+  year: row.year,
+  fullName: row.full_name,
+  createdAt: row.created_at,
+  uses: row.uses,
+  maxUses: row.max_uses,
+  issuedBy: row.issued_by,
+});
+
 keysRouter.get('/', asyncHandler(async (_req, res) => {
   const { rows } = await pool.query(
     'SELECT key, year, full_name, created_at, uses, max_uses, issued_by FROM registration_keys ORDER BY created_at DESC',
   );
-  res.json({ keys: rows });
+  res.json({ keys: rows.map(toPublicKey) });
 }));
 
 keysRouter.post('/', asyncHandler(async (req, res) => {
@@ -32,7 +52,7 @@ keysRouter.post('/', asyncHandler(async (req, res) => {
        RETURNING key, year, full_name, created_at, uses, max_uses, issued_by`,
       [key, year, fullName, maxUses, issuedBy ?? 'Admin'],
     );
-    res.status(201).json({ key: rows[0] });
+    res.status(201).json({ key: toPublicKey(rows[0]) });
   } catch (err) {
     throw httpError(500, 'Key konnte nicht erstellt werden');
   }

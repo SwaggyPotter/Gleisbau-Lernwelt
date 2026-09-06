@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { QuizFile, QuizProgress } from '../models/gesamtquiz.models';
+import { ProfilSyncService } from '../../../../core/auth/services/profil-sync.service';
 
 const STORAGE_KEY = 'zusatz-gesamtquiz-progress';
 
@@ -10,7 +11,10 @@ const STORAGE_KEY = 'zusatz-gesamtquiz-progress';
 export class GesamtquizDataService {
   private quiz$?: Observable<QuizFile>;
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly profilSync: ProfilSyncService,
+  ) {}
 
   getQuiz(): Observable<QuizFile> {
     if (!this.quiz$) {
@@ -49,6 +53,7 @@ export class GesamtquizDataService {
         wrong: prev.wrong + (correct ? 0 : 1),
       },
     };
+    this.profilSync.melde('zusatz:gesamtquiz', correct);
     return this.saveProgress({ quizStats });
   }
 }

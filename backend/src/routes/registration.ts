@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { pool } from '../db/pool';
 import { asyncHandler } from '../middleware/async-handler';
 import { httpError } from '../middleware/error-handler';
+import { createSession } from '../sessions';
 
 const registrationSchema = z.object({
   email: z.string().email(),
@@ -48,7 +49,12 @@ registrationRouter.post('/', asyncHandler(async (req, res) => {
     await client.query('UPDATE registration_keys SET uses = uses + 1 WHERE key = $1', [registrationKey.key]);
     await client.query('COMMIT');
 
-    res.status(201).json({ user: userRows[0] });
+    const created = userRows[0];
+    const token = await createSession(created.id);
+    res.status(201).json({
+      user: { id: created.id, fullName: created.full_name, email: created.email, role: created.role, year: created.year },
+      token,
+    });
   } catch (err) {
     await client.query('ROLLBACK');
     if ((err as { code?: string }).code === '23505') {

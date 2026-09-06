@@ -12,6 +12,15 @@
       <a routerLink="/kategorie/lernfelder" routerLinkActive="active">Lernfelder</a>
       <a routerLink="/kategorie/rechentrainer" routerLinkActive="active">Rechentrainer</a>
       <a routerLink="/kategorie/spiele" routerLinkActive="active">Spiele</a>
+      <a *ngIf="user$ | async as u; else keinKonto" routerLink="/konto/profil" routerLinkActive="active" class="konto-link">
+        <ion-icon name="person-circle-outline"></ion-icon> {{ u.fullName }}
+      </a>
+      <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/schluessel" routerLinkActive="active">Schlüssel</a>
+      <ng-template #keinKonto>
+        <a routerLink="/konto/anmelden" routerLinkActive="active" class="konto-link">
+          <ion-icon name="log-in-outline"></ion-icon> Anmelden
+        </a>
+      </ng-template>
     </nav>
   </ion-toolbar>
 </ion-header>

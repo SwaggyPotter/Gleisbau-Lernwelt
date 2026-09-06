@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#16242f"/>
+  <g stroke="#6fa8dc" stroke-opacity="0.15" stroke-width="1">
+    <line x1="0" y1="50" x2="400" y2="50"/>
+    <line x1="0" y1="100" x2="400" y2="100"/>
+    <line x1="0" y1="150" x2="400" y2="150"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+    <line x1="0" y1="250" x2="400" y2="250"/>
+    <line x1="50" y1="0" x2="50" y2="300"/>
+    <line x1="100" y1="0" x2="100" y2="300"/>
+    <line x1="150" y1="0" x2="150" y2="300"/>
+    <line x1="200" y1="0" x2="200" y2="300"/>
+    <line x1="250" y1="0" x2="250" y2="300"/>
+    <line x1="300" y1="0" x2="300" y2="300"/>
+    <line x1="350" y1="0" x2="350" y2="300"/>
+  </g>
+
+  <!-- Stammgleis -->
+  <line x1="20" y1="150" x2="380" y2="150" stroke="#8ca3af" stroke-width="5"/>
+  <!-- Abzweigendes Gleis -->
+  <path d="M 140,150 Q 260,150 380,80" fill="none" stroke="#ff8a3d" stroke-width="5"/>
+
+  <!-- Zunge -->
+  <line x1="140" y1="150" x2="200" y2="120" stroke="#6fa8dc" stroke-width="3"/>
+
+  <!-- Winkelbogen -->
+  <path d="M 210,150 A 70,70 0 0 0 195,113" fill="none" stroke="#eaf2f5" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="225" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="#eaf2f5">α</text>
+
+  <text x="200" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="#eaf2f5">1 : n</text>
+  <text x="100" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#8ca3af">z</text>
+</svg>

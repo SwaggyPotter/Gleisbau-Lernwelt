@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { ThemenquizFile, ThemenquizProgress, ThemenquizTopic } from '../models/themenquiz.models';
+import { ProfilSyncService } from '../../../core/auth/services/profil-sync.service';
 
 const STORAGE_PREFIX = 'themenquiz-progress-';
 
@@ -11,7 +12,10 @@ export class ThemenquizDataService {
   private topics$?: Observable<ThemenquizTopic[]>;
   private readonly quizCache = new Map<string, Observable<ThemenquizFile>>();
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly profilSync: ProfilSyncService,
+  ) {}
 
   getTopics(): Observable<ThemenquizTopic[]> {
     if (!this.topics$) {
@@ -57,6 +61,7 @@ export class ThemenquizDataService {
       },
     };
     localStorage.setItem(STORAGE_PREFIX + topicId, JSON.stringify(next));
+    this.profilSync.melde(`themenquiz:${topicId}`, correct);
     return next;
   }
 }

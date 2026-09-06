@@ -1,0 +1,92 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Lernfortschritt</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell" *ngIf="fortschritt as f; else laden">
+    <section class="hero">
+      <p class="eyebrow">Übersicht</p>
+      <h1>Lernfortschritt</h1>
+      <p class="lede">Alle Module zusammengefasst — Daten stecken lokal in diesem Browser (localStorage), nicht auf dem Server.</p>
+      <div class="stat-row">
+        <div class="stat"><span>Beantwortet</span><strong>{{ f.summeBeantwortet }}</strong></div>
+        <div class="stat"><span>Richtig</span><strong>{{ f.summeRichtig }}</strong></div>
+        <div class="stat"><span>Quote</span><strong>{{ f.summeQuote }}%</strong></div>
+        <div class="stat" *ngIf="f.pruefung.anzahlVersuche > 0"><span>Prüfung Bestwert</span><strong>{{ f.pruefung.bestesProzent }}%</strong></div>
+      </div>
+    </section>
+
+    <section class="filter-row">
+      <ion-segment [value]="nurBegonnen" (ionChange)="nurBegonnen = $any($event).detail.value">
+        <ion-segment-button [value]="true"><ion-label>Nur begonnene</ion-label></ion-segment-button>
+        <ion-segment-button [value]="false"><ion-label>Alle</ion-label></ion-segment-button>
+      </ion-segment>
+    </section>
+
+    <section class="block" *ngIf="f.pruefung.anzahlVersuche > 0">
+      <p class="block-label">Prüfungssimulation</p>
+      <div class="pruefung-list">
+        <div class="pruefung-item" *ngFor="let v of f.pruefung.letzte" [class.bestanden]="v.bestanden">
+          <span class="pv-prozent">{{ v.prozent }}%</span>
+          <span class="pv-status">{{ v.bestanden ? 'bestanden' : 'nicht bestanden' }}</span>
+        </div>
+      </div>
+      <a routerLink="/zusatz/pruefungssimulation" class="mehr-link">Zur Prüfungssimulation →</a>
+    </section>
+
+    <section class="block">
+      <p class="block-label">Rechentrainer &amp; Spiele</p>
+      <div class="fortschritt-list" *ngIf="sichtbareRechentrainer.length > 0; else leerRechentrainer">
+        <a class="fortschritt-item" *ngFor="let r of sichtbareRechentrainer" [routerLink]="r.link">
+          <div class="fi-head">
+            <span class="fi-title">{{ r.label }}</span>
+            <span class="fi-quote" *ngIf="r.versuche > 0">{{ quote(r.richtig, r.versuche) }}%</span>
+          </div>
+          <div class="fi-bar" *ngIf="r.versuche > 0">
+            <div class="fi-bar-fill" [style.width.%]="quote(r.richtig, r.versuche)"></div>
+          </div>
+          <div class="fi-meta">
+            <span *ngIf="r.versuche > 0">{{ r.richtig }}/{{ r.versuche }} richtig</span>
+            <span *ngIf="r.bestStreak !== undefined">Beste Serie: {{ r.bestStreak }}</span>
+          </div>
+        </a>
+      </div>
+      <ng-template #leerRechentrainer><p class="leer-hinweis">Noch nichts begonnen.</p></ng-template>
+    </section>
+
+    <section class="block">
+      <p class="block-label">Wissenstests &amp; Lernfelder</p>
+      <div class="fortschritt-list" *ngIf="sichtbareThemen.length > 0; else leerThemen">
+        <div class="fortschritt-item" *ngFor="let t of sichtbareThemen">
+          <div class="fi-head">
+            <span class="fi-title">{{ t.title }}</span>
+            <span class="fi-quote" *ngIf="t.richtig + t.falsch > 0">{{ quote(t.richtig, t.richtig + t.falsch) }}%</span>
+          </div>
+          <div class="fi-bar">
+            <div class="fi-bar-fill" [style.width.%]="(t.beantwortet / t.gesamt) * 100"></div>
+          </div>
+          <div class="fi-meta">
+            <span>{{ t.beantwortet }}/{{ t.gesamt }} Fragen gesehen</span>
+            <span *ngIf="t.richtig + t.falsch > 0">{{ t.richtig }}/{{ t.richtig + t.falsch }} richtig</span>
+          </div>
+        </div>
+      </div>
+      <ng-template #leerThemen><p class="leer-hinweis">Noch nichts begonnen.</p></ng-template>
+    </section>
+  </div>
+
+  <ng-template #laden>
+    <div class="page-shell">
+      <p class="leer-hinweis" *ngIf="!ladefehler">Lade Fortschritt…</p>
+      <p class="leer-hinweis" *ngIf="ladefehler">Fortschritt konnte nicht geladen werden.</p>
+    </div>
+  </ng-template>
+</ion-content>

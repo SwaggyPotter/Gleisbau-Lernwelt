@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Baumaschinen erkennen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Spiel</p>
+      <h1>Baumaschinen erkennen</h1>
+      <p class="lede">Welche Maschine ist auf dem Bild zu sehen? Vier Antwortmöglichkeiten, eine ist richtig.</p>
+      <div class="stat-row">
+        <div class="stat"><span>Serie</span><strong>{{ progress.streak }}</strong></div>
+        <div class="stat"><span>Bestwert</span><strong>{{ progress.bestStreak }}</strong></div>
+        <div class="stat"><span>Richtig</span><strong>{{ progress.correct }}/{{ progress.total }}</strong></div>
+        <div class="stat"><span>Quote</span><strong>{{ quote }}%</strong></div>
+      </div>
+    </section>
+
+    <ion-card class="bild-card">
+      <img [src]="runde.maschine.bildUrl" [alt]="runde.antwort ? runde.maschine.name : 'Baumaschine'" class="maschine-bild"/>
+      <p class="bild-credit" *ngIf="runde.antwort">{{ runde.maschine.bildCredit }}</p>
+    </ion-card>
+
+    <div class="optionen-liste">
+      <button
+        *ngFor="let o of runde.optionen"
+        class="option-btn"
+        [class]="optionKlasse(o)"
+        [disabled]="!!runde.antwort"
+        (click)="waehleAntwort(o)"
+      >{{ o.name }}</button>
+    </div>
+
+    <div class="feedback-box" *ngIf="runde.antwort as a" [class.correct]="a.id === runde.maschine.id" [class.wrong]="a.id !== runde.maschine.id">
+      <strong>{{ a.id === runde.maschine.id ? 'Richtig!' : 'Leider falsch.' }}</strong>
+      <p class="maschine-name">{{ runde.maschine.name }}</p>
+      <p class="maschine-beschreibung">{{ runde.maschine.beschreibung }}</p>
+      <ion-button expand="block" (click)="neueRunde()">Nächstes Bild</ion-button>
+    </div>
+  </div>
+</ion-content>

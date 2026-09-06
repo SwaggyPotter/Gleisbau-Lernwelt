@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Difficulty, MaterialrechnerProgress } from '../models/materialrechner.models';
+import { ProfilSyncService } from '../../../../core/auth/services/profil-sync.service';
 
 const STORAGE_KEY = 'materialrechner-progress';
 
@@ -13,6 +14,8 @@ const EMPTY: MaterialrechnerProgress = {
 
 @Injectable({ providedIn: 'root' })
 export class MaterialrechnerDataService {
+  constructor(private readonly profilSync: ProfilSyncService) {}
+
   loadProgress(): MaterialrechnerProgress {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return structuredClone(EMPTY);
@@ -30,6 +33,7 @@ export class MaterialrechnerDataService {
     if (correct) entry.correct += 1;
     else entry.wrong += 1;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    this.profilSync.melde('zusatz:materialrechner', correct);
     return state;
   }
 }

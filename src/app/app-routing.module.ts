@@ -64,6 +64,41 @@ const routes: Routes = [
       .then(m => m.TrassierungModule)
   },
   {
+    path: 'zusatz/weichenrechner',
+    loadChildren: () => import('./modules/zusatz/weichenrechner/weichenrechner.module')
+      .then(m => m.WeichenrechnerModule)
+  },
+  {
+    path: 'zusatz/schienendehnung',
+    loadChildren: () => import('./modules/zusatz/schienendehnung/schienendehnung.module')
+      .then(m => m.SchienendehnungModule)
+  },
+  {
+    path: 'zusatz/pruefungssimulation',
+    loadChildren: () => import('./modules/zusatz/pruefungssimulation/pruefungssimulation.module')
+      .then(m => m.PruefungssimulationModule)
+  },
+  {
+    path: 'zusatz/lernfortschritt',
+    loadChildren: () => import('./modules/zusatz/lernfortschritt/lernfortschritt.module')
+      .then(m => m.LernfortschrittModule)
+  },
+  {
+    path: 'zusatz/glossar',
+    loadChildren: () => import('./modules/zusatz/glossar/glossar.module')
+      .then(m => m.GlossarModule)
+  },
+  {
+    path: 'zusatz/baumaschinen',
+    loadChildren: () => import('./modules/zusatz/baumaschinen/baumaschinen.module')
+      .then(m => m.BaumaschinenModule)
+  },
+  {
+    path: 'konto',
+    loadChildren: () => import('./modules/konto/konto.module')
+      .then(m => m.KontoModule)
+  },
+  {
     path: 'kategorie/:id',
     loadChildren: () => import('./modules/kategorie/kategorie.module')
       .then(m => m.KategorieModule)

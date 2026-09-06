@@ -60,6 +60,12 @@
     "questionCount": 45
   },
   {
+    "topicId": "arbeitssicherheit",
+    "title": "Arbeitssicherheit im Gleisbereich",
+    "description": "Selbstsicherung, Fremdsicherung, Raeumzeit, Gefahrenraum, Warnkleidung",
+    "questionCount": 20
+  },
+  {
     "topicId": "lf01",
     "title": "Baustellen einrichten",
     "description": "Lernfeld 1, Jahr 1: Sicherheit, Organisation, Baustelleneinrichtung.",

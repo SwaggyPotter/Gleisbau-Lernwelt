@@ -1,0 +1,99 @@
+@use '../../konto-theme' as theme;
+
+:host {
+  @include theme.theme-vars;
+}
+
+@include theme.page-base;
+
+.tab-row {
+  margin: 4px 0 18px;
+}
+
+.chart-wrap {
+  position: relative;
+  height: 280px;
+}
+
+.chart-wrap.chart-small {
+  height: 200px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.block {
+  margin: 18px 0;
+}
+
+.modul-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modul-item {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mi-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--sp-text);
+}
+
+.mi-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--sp-text-muted);
+}
+
+.errungenschaft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.errungenschaft-karte {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  opacity: 0.4;
+  filter: grayscale(1);
+
+  ion-icon { font-size: 30px; color: var(--sp-text-muted); }
+
+  .ek-title { font-weight: 700; font-size: 13px; color: var(--sp-text); }
+  .ek-desc { font-size: 11px; color: var(--sp-text-muted); line-height: 1.4; }
+
+  &.freigeschaltet {
+    opacity: 1;
+    filter: none;
+    border-color: rgba(255, 138, 61, 0.5);
+
+    ion-icon { color: var(--sp-accent); }
+  }
+}
+
+.toggle-item {
+  --background: transparent;
+  --color: var(--sp-text);
+  margin: 14px 0;
+}
+
+.leer-hinweis {
+  color: var(--sp-text-muted);
+  text-align: center;
+  padding: 24px 0;
+}

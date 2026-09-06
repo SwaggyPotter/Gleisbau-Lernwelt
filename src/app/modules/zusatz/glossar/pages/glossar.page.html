@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Fachbegriffe-Glossar</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Zusatzmodul</p>
+      <h1>Fachbegriffe-Glossar</h1>
+      <p class="lede">Kurz nachschlagen statt lange suchen — Begriffe aus Oberbau, Trassierung, Weichen und mehr.</p>
+    </section>
+
+    <section class="such-row">
+      <ion-input
+        class="such-input"
+        type="text"
+        placeholder="Begriff suchen…"
+        [value]="suchbegriff"
+        (ionInput)="onSucheChange($any($event.detail).value)"
+      ></ion-input>
+    </section>
+
+    <section class="kategorie-chips">
+      <button class="chip" [class.aktiv]="ausgewaehlteKategorie === alleId" (click)="waehleKategorie(alleId)">
+        Alle ({{ anzahlProKategorie[alleId] }})
+      </button>
+      <button
+        class="chip"
+        *ngFor="let k of kategorien"
+        [class.aktiv]="ausgewaehlteKategorie === k"
+        (click)="waehleKategorie(k)"
+      >{{ kategorieLabels[k] }} ({{ anzahlProKategorie[k] }})</button>
+    </section>
+
+    <section class="eintrag-liste">
+      <ion-card class="eintrag-card" *ngFor="let e of gefilterteEintraege">
+        <ion-card-content>
+          <div class="e-head">
+            <span class="e-begriff">{{ e.begriff }}</span>
+            <span class="e-kategorie">{{ kategorieLabels[e.kategorie] }}</span>
+          </div>
+          <p class="e-definition">{{ e.definition }}</p>
+        </ion-card-content>
+      </ion-card>
+
+      <p class="leer-hinweis" *ngIf="gefilterteEintraege.length === 0">Kein Begriff gefunden.</p>
+    </section>
+  </div>
+</ion-content>

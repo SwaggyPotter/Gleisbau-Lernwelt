@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { KategorieId, TrassierungProgress } from '../models/trassierung.models';
+import { ProfilSyncService } from '../../../../core/auth/services/profil-sync.service';
 
 const STORAGE_KEY = 'trassierung-progress';
 
@@ -7,6 +8,8 @@ const EMPTY: TrassierungProgress = { streak: 0, bestStreak: 0, correct: 0, total
 
 @Injectable({ providedIn: 'root' })
 export class TrassierungDataService {
+  constructor(private readonly profilSync: ProfilSyncService) {}
+
   loadProgress(): TrassierungProgress {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return structuredClone(EMPTY);
@@ -34,6 +37,7 @@ export class TrassierungDataService {
     state.byKategorie[kategorie] = eintrag;
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    this.profilSync.melde('zusatz:trassierung', correct);
     return state;
   }
 }

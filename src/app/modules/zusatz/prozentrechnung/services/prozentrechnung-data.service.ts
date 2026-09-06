@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { shareReplay } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { BlockProgress, QuizFile } from '../models/prozentrechnung.models';
+import { ProfilSyncService } from '../../../../core/auth/services/profil-sync.service';
 
 const STORAGE_KEY = 'prozentrechnung-progress';
 
@@ -12,7 +13,10 @@ export class ProzentrechnungDataService {
 
   private quiz$?: Observable<QuizFile>;
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly profilSync: ProfilSyncService,
+  ) {}
 
   getQuiz(): Observable<QuizFile> {
     if (!this.quiz$) {
@@ -50,6 +54,7 @@ export class ProzentrechnungDataService {
         wrong: prev.wrong + (correct ? 0 : 1),
       },
     };
+    this.profilSync.melde('zusatz:prozentrechnung', correct);
     return this.saveProgress({ quizStats });
   }
 }

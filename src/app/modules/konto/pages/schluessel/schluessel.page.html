@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Registrierungs-Schlüssel</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/konto/profil" fill="clear">
+        <ion-icon slot="start" name="person-outline"></ion-icon>
+        <span class="toolbar-action-label">Zum Profil</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Admin</p>
+      <h1>Registrierungs-Schlüssel</h1>
+      <p class="lede">Jeder Schlüssel gilt für genau eine Registrierung. Gib ihn an eine Person weiter, damit sie sich unter /konto/registrieren ein Konto anlegen kann.</p>
+    </section>
+
+    <ion-card class="form-card">
+      <ion-card-content>
+        <p class="block-label">Neuen Schlüssel erstellen</p>
+        <ion-input class="field" label="Name" labelPlacement="stacked" [(ngModel)]="neuerName" name="neuerName" placeholder="Vor- und Nachname"></ion-input>
+        <ion-segment [value]="neuesJahr" (ionChange)="neuesJahr = $any($event).detail.value">
+          <ion-segment-button [value]="1"><ion-label>Jahr 1</ion-label></ion-segment-button>
+          <ion-segment-button [value]="2"><ion-label>Jahr 2</ion-label></ion-segment-button>
+          <ion-segment-button [value]="3"><ion-label>Jahr 3</ion-label></ion-segment-button>
+        </ion-segment>
+        <ion-button expand="block" [disabled]="erstellenBusy" (click)="erstellen()">Schlüssel erstellen</ion-button>
+        <p class="hinweis" *ngIf="letzterNeuerKey">Neuer Schlüssel: <strong class="mono">{{ letzterNeuerKey }}</strong></p>
+      </ion-card-content>
+    </ion-card>
+
+    <p class="fehler" *ngIf="ladefehler">Schlüssel konnten nicht geladen werden.</p>
+
+    <section class="block">
+      <p class="block-label">Vorhandene Schlüssel ({{ keys.length }})</p>
+      <div class="key-liste">
+        <div class="key-item" *ngFor="let k of keys">
+          <div class="ki-head">
+            <span class="ki-key mono">{{ k.key }}</span>
+            <span class="ki-status" [class.frei]="offeneUses(k) > 0">{{ offeneUses(k) > 0 ? 'offen' : 'benutzt' }}</span>
+          </div>
+          <span class="ki-name">{{ k.fullName }} · Jahr {{ k.year }}</span>
+          <ion-button size="small" fill="clear" color="danger" (click)="loeschen(k.key)">Löschen</ion-button>
+        </div>
+        <p class="leer-hinweis" *ngIf="keys.length === 0">Noch keine Schlüssel erstellt.</p>
+      </div>
+    </section>
+  </div>
+</ion-content>

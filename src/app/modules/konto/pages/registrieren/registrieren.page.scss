@@ -1,0 +1,7 @@
+@use '../../konto-theme' as theme;
+
+:host {
+  @include theme.theme-vars;
+}
+
+@include theme.page-base;

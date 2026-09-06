@@ -1,0 +1,110 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Schienenausdehnungs-Rechner</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Zusatzmodul</p>
+      <h1>Schienenausdehnungs-Rechner</h1>
+      <p class="lede">
+        Thermische Längenänderung von Schienenstahl berechnen — mit α = 0,000011 /K
+        (11 µm je Meter und Kelvin). Immer neue Werte, keine feste Aufgabenzahl.
+      </p>
+      <div class="stat-row">
+        <div class="stat"><span>Serie</span><strong>{{ progress.streak }}</strong></div>
+        <div class="stat"><span>Bestwert</span><strong>{{ progress.bestStreak }}</strong></div>
+        <div class="stat"><span>Richtig</span><strong>{{ progress.correct }}/{{ progress.total }}</strong></div>
+        <div class="stat"><span>Quote</span><strong>{{ quote }}%</strong></div>
+      </div>
+    </section>
+
+    <section class="kategorie-row">
+      <ion-select
+        class="kategorie-select"
+        interface="action-sheet"
+        label="Formel-Kategorie"
+        labelPlacement="stacked"
+        [value]="ausgewaehlteKategorie"
+        (ionChange)="onKategorieChange($any($event).detail.value)"
+      >
+        <ion-select-option [value]="zufallId">Zufällig (alle Kategorien)</ion-select-option>
+        <ion-select-option *ngFor="let k of kategorien" [value]="k.id">{{ k.label }}</ion-select-option>
+      </ion-select>
+    </section>
+
+    <ion-card class="aufgabe-card">
+      <ion-card-header>
+        <ion-card-subtitle>{{ aktuelleKategorieInfo?.label }}</ion-card-subtitle>
+        <ion-card-title class="formel-title">{{ aktuelleKategorieInfo?.formel }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="diagram-wrap" [ngSwitch]="diagramm">
+          <svg *ngSwitchCase="'dehnung'" viewBox="0 0 400 140" class="diagram-svg">
+            <line x1="20" y1="70" x2="260" y2="70" class="d-base"/>
+            <line x1="260" y1="70" x2="380" y2="70" class="d-curve" stroke-dasharray="4 4"/>
+            <text x="140" y="55" text-anchor="middle" class="dlabel">l₀</text>
+            <text x="320" y="55" text-anchor="middle" class="dlabel accent">ΔL</text>
+            <path d="M 250,90 L 260,80 L 250,70" fill="none" class="d-guide"/>
+            <path d="M 390,90 L 380,80 L 390,70" fill="none" class="d-guide"/>
+          </svg>
+
+          <svg *ngSwitchCase="'luecke'" viewBox="0 0 400 140" class="diagram-svg">
+            <line x1="20" y1="70" x2="185" y2="70" class="d-base"/>
+            <rect x="185" y="63" width="15" height="14" class="d-gap"/>
+            <line x1="215" y1="70" x2="380" y2="70" class="d-base"/>
+            <text x="100" y="55" text-anchor="middle" class="dlabel">Schiene 1</text>
+            <text x="300" y="55" text-anchor="middle" class="dlabel">Schiene 2</text>
+            <text x="200" y="100" text-anchor="middle" class="dlabel accent">Stoßlücke</text>
+          </svg>
+        </div>
+
+        <div class="gegeben-block">
+          <p class="block-label">Gegeben</p>
+          <div class="gegeben-list">
+            <div class="gegeben-item" *ngFor="let g of aufgabe.gegeben">
+              <span class="g-label">{{ g.label }}</span>
+              <span class="g-wert">{{ g.wert }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gesucht-block" *ngIf="feedback === null">
+          <p class="block-label">Gesucht</p>
+          <div class="input-row">
+            <span class="gesucht-name">{{ aufgabe.gesuchtLabel }}</span>
+            <ion-input
+              class="guess-input"
+              type="text"
+              inputmode="decimal"
+              placeholder="z. B. 12,34"
+              [value]="eingabe"
+              (ionInput)="eingabe = $any($event.detail).value ?? ''"
+              (keyup.enter)="pruefen()"
+            ></ion-input>
+            <span class="unit" *ngIf="aufgabe.gesuchtEinheit">{{ aufgabe.gesuchtEinheit }}</span>
+          </div>
+          <ion-button expand="block" (click)="pruefen()">Prüfen</ion-button>
+        </div>
+
+        <div class="feedback-box" *ngIf="feedback !== null" [class.correct]="feedback === 'correct'" [class.wrong]="feedback === 'wrong'">
+          <strong>{{ feedback === 'correct' ? 'Richtig!' : 'Leider falsch.' }}</strong>
+          <p class="korrekt-zeile">
+            {{ aufgabe.gesuchtLabel }} = <span class="mono">{{ korrekterWertFormatiert }} {{ aufgabe.gesuchtEinheit }}</span>
+          </p>
+          <p class="rechenweg" *ngIf="feedback === 'wrong'">{{ aufgabe.rechenweg }}</p>
+          <ion-button expand="block" (click)="neueAufgabe()">Nächste Aufgabe</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

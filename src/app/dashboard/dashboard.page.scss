@@ -427,6 +427,17 @@ ion-badge {
       color: var(--sp-accent);
       border-bottom-color: var(--sp-accent);
     }
+
+    &.konto-link {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+
+      ion-icon {
+        font-size: 15px;
+      }
+    }
   }
 }
 

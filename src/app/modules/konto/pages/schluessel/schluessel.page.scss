@@ -1,0 +1,63 @@
+@use '../../konto-theme' as theme;
+
+:host {
+  @include theme.theme-vars;
+}
+
+@include theme.page-base;
+
+.block {
+  margin: 18px 0;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.key-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.key-item {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ki-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ki-key {
+  font-weight: 700;
+  color: var(--sp-accent-2);
+}
+
+.ki-status {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--sp-text-muted);
+
+  &.frei { color: var(--sp-success); }
+}
+
+.ki-name {
+  color: var(--sp-text-muted);
+  font-size: 13px;
+}
+
+.leer-hinweis {
+  color: var(--sp-text-muted);
+  text-align: center;
+  padding: 20px 0;
+}

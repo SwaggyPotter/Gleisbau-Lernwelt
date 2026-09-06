@@ -1,0 +1,136 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Mein Profil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell" *ngIf="geladen; else laden">
+    <section class="hero" *ngIf="user$ | async as u">
+      <p class="eyebrow">{{ u.role === 'admin' ? 'Administrator' : (u.year ? 'Jahr ' + u.year : 'Konto') }}</p>
+      <h1>{{ u.fullName }}</h1>
+      <p class="lede">{{ u.email }}</p>
+    </section>
+
+    <p class="fehler" *ngIf="ladefehler">Profil konnte nicht geladen werden.</p>
+
+    <section class="tab-row">
+      <ion-segment [value]="ansicht" (ionChange)="wechsleAnsicht($any($event).detail.value)">
+        <ion-segment-button value="uebersicht"><ion-label>Übersicht</ion-label></ion-segment-button>
+        <ion-segment-button value="statistiken"><ion-label>Statistiken</ion-label></ion-segment-button>
+        <ion-segment-button value="errungenschaften"><ion-label>Errungenschaften</ion-label></ion-segment-button>
+        <ion-segment-button value="einstellungen"><ion-label>Einstellungen</ion-label></ion-segment-button>
+      </ion-segment>
+    </section>
+
+    <!-- ================= UEBERSICHT ================= -->
+    <ng-container *ngIf="ansicht === 'uebersicht' && stats as s">
+      <div class="stat-row">
+        <div class="stat"><span>Beantwortet</span><strong>{{ s.summe.beantwortet }}</strong></div>
+        <div class="stat"><span>Richtig</span><strong>{{ s.summe.richtig }}</strong></div>
+        <div class="stat"><span>Quote</span><strong>{{ s.summe.quote }}%</strong></div>
+        <div class="stat"><span>Beste Serie</span><strong>{{ s.summe.bestStreakOverall }}</strong></div>
+        <div class="stat"><span>Errungenschaften</span><strong>{{ freigeschaltetKeys.size }}/{{ alleErrungenschaften.length }}</strong></div>
+      </div>
+
+      <ion-card class="info-card" *ngIf="ringChart">
+        <ion-card-content>
+          <p class="block-label">Gesamt-Trefferquote</p>
+          <div class="chart-wrap chart-small">
+            <app-chart [config]="ringChart"></app-chart>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <p class="leer-hinweis" *ngIf="aktivModule().length === 0">Noch keine Aufgaben mit diesem Konto beantwortet — leg einfach in einem beliebigen Modul los, es wird automatisch mitgezählt.</p>
+    </ng-container>
+
+    <!-- ================= STATISTIKEN ================= -->
+    <ng-container *ngIf="ansicht === 'statistiken'">
+      <ion-card class="info-card" *ngIf="balkenChart">
+        <ion-card-content>
+          <p class="block-label">Richtig / Falsch pro Modul</p>
+          <div class="chart-wrap">
+            <app-chart [config]="balkenChart"></app-chart>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="info-card" *ngIf="streakChart">
+        <ion-card-content>
+          <p class="block-label">Beste Serien pro Modul</p>
+          <div class="chart-wrap">
+            <app-chart [config]="streakChart"></app-chart>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <section class="block">
+        <p class="block-label">Alle Module im Detail</p>
+        <div class="modul-liste">
+          <div class="modul-item" *ngFor="let m of aktivModule()">
+            <span class="mi-title">{{ modulLabel(m.moduleKey) }}</span>
+            <span class="mi-meta">{{ m.correct }}/{{ m.correct + m.wrong }} richtig · Serie {{ m.streak }} · Beste {{ m.bestStreak }}</span>
+          </div>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- ================= ERRUNGENSCHAFTEN ================= -->
+    <ng-container *ngIf="ansicht === 'errungenschaften'">
+      <div class="errungenschaft-grid">
+        <div class="errungenschaft-karte" *ngFor="let a of alleErrungenschaften" [class.freigeschaltet]="istFreigeschaltet(a.key)">
+          <ion-icon [name]="a.icon"></ion-icon>
+          <span class="ek-title">{{ a.title }}</span>
+          <span class="ek-desc">{{ a.description }}</span>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- ================= EINSTELLUNGEN ================= -->
+    <ng-container *ngIf="ansicht === 'einstellungen'">
+      <ion-card class="form-card">
+        <ion-card-content>
+          <p class="block-label">Anzeigename ändern</p>
+          <ion-input class="field" label="Neuer Name" labelPlacement="stacked" [(ngModel)]="neuerName" name="neuerName"></ion-input>
+          <ion-button expand="block" fill="outline" (click)="nameSpeichern()">Name speichern</ion-button>
+          <p class="hinweis" *ngIf="nameGespeichert">Gespeichert.</p>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="form-card">
+        <ion-card-content>
+          <p class="block-label">Bevorzugtes Lehrjahr</p>
+          <ion-segment [value]="einstellungen.bevorzugtesLehrjahr" (ionChange)="einstellungen.bevorzugtesLehrjahr = $any($event).detail.value">
+            <ion-segment-button [value]="null"><ion-label>Alle</ion-label></ion-segment-button>
+            <ion-segment-button [value]="1"><ion-label>Jahr 1</ion-label></ion-segment-button>
+            <ion-segment-button [value]="2"><ion-label>Jahr 2</ion-label></ion-segment-button>
+            <ion-segment-button [value]="3"><ion-label>Jahr 3</ion-label></ion-segment-button>
+          </ion-segment>
+
+          <ion-item class="toggle-item" lines="none">
+            <ion-label>Benachrichtigung bei neuen Errungenschaften</ion-label>
+            <ion-toggle [(ngModel)]="einstellungen.errungenschaftenHinweise" name="hinweise"></ion-toggle>
+          </ion-item>
+
+          <ion-button expand="block" (click)="einstellungenSpeichern()">Einstellungen speichern</ion-button>
+          <p class="hinweis" *ngIf="einstellungenGespeichert">Gespeichert.</p>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-button expand="block" fill="outline" color="danger" (click)="abmelden()">Abmelden</ion-button>
+    </ng-container>
+  </div>
+
+  <ng-template #laden>
+    <div class="page-shell">
+      <p class="leer-hinweis">Lade Profil…</p>
+    </div>
+  </ng-template>
+</ion-content>

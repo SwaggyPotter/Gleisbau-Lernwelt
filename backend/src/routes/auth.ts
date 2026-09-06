@@ -5,6 +5,8 @@ import { pool } from '../db/pool';
 import { asyncHandler } from '../middleware/async-handler';
 import { httpError } from '../middleware/error-handler';
 import { deletionNoticeMessage, purgeDueDeletedUsers } from '../user-deletion';
+import { createSession, deleteSession } from '../sessions';
+import { requireAuth } from '../middleware/auth';
 
 const loginSchema = z.object({
   email: z.string().min(1), // accept admin username without @
@@ -15,6 +17,22 @@ const loginWithKeySchema = z.object({
   email: z.string().email(),
   key: z.string().min(6),
   newPassword: z.string().min(8, 'Passwort muss mindestens 8 Zeichen haben'),
+});
+
+interface UserRow {
+  id: string;
+  full_name: string;
+  email: string;
+  role: 'user' | 'admin';
+  year: number | null;
+}
+
+const toPublicUser = (row: UserRow) => ({
+  id: row.id,
+  fullName: row.full_name,
+  email: row.email,
+  role: row.role,
+  year: row.year,
 });
 
 export const authRouter = Router();
@@ -46,8 +64,8 @@ authRouter.post('/login', asyncHandler(async (req, res) => {
     throw httpError(401, 'Ungueltige Anmeldedaten');
   }
 
-  const { password_hash, ...publicUser } = user;
-  res.json({ user: publicUser });
+  const token = await createSession(user.id);
+  res.json({ user: toPublicUser(user), token });
 }));
 
 authRouter.post('/login-key', asyncHandler(async (req, res) => {
@@ -76,9 +94,34 @@ authRouter.post('/login-key', asyncHandler(async (req, res) => {
   const { rows: updated } = await pool.query(
     `UPDATE users SET password_hash = $1
      WHERE id = $2
-     RETURNING id, full_name, email, role, year, key_used`,
+     RETURNING id, full_name, email, role, year`,
     [passwordHash, user.id],
   );
 
-  res.json({ user: updated[0] });
+  const token = await createSession(user.id);
+  res.json({ user: toPublicUser(updated[0]), token });
+}));
+
+authRouter.post('/logout', requireAuth, asyncHandler(async (req, res) => {
+  const authHeader = req.headers.authorization ?? '';
+  const token = /^Bearer\s+(.+)$/i.exec(authHeader)?.[1]?.trim();
+  if (token) await deleteSession(token);
+  res.status(204).send();
+}));
+
+authRouter.get('/me', requireAuth, asyncHandler(async (req, res) => {
+  res.json({ user: req.user });
+}));
+
+const updateNameSchema = z.object({
+  fullName: z.string().min(2).max(120),
+});
+
+authRouter.patch('/me', requireAuth, asyncHandler(async (req, res) => {
+  const { fullName } = updateNameSchema.parse(req.body);
+  const { rows } = await pool.query(
+    'UPDATE users SET full_name = $1 WHERE id = $2 RETURNING id, full_name, email, role, year',
+    [fullName, req.user!.id],
+  );
+  res.json({ user: toPublicUser(rows[0]) });
 }));

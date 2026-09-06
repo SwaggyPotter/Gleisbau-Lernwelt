@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { hasStoredSiteAuth } from './core/site-gate/site-gate.component';
+import { NeueErrungenschaft } from './core/auth/services/profil-sync.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +9,35 @@ import { hasStoredSiteAuth } from './core/site-gate/site-gate.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'Gleisbau Lernwelt';
   unlocked = hasStoredSiteAuth();
+
+  private readonly onErrungenschaft = (event: Event) => {
+    const neu = (event as CustomEvent<NeueErrungenschaft[]>).detail ?? [];
+    for (const a of neu) this.zeigeToast(a);
+  };
+
+  constructor(private readonly toastCtrl: ToastController) {}
+
+  ngOnInit(): void {
+    window.addEventListener('glw-errungenschaft-freigeschaltet', this.onErrungenschaft);
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('glw-errungenschaft-freigeschaltet', this.onErrungenschaft);
+  }
+
+  private async zeigeToast(a: NeueErrungenschaft): Promise<void> {
+    const toast = await this.toastCtrl.create({
+      header: 'Errungenschaft freigeschaltet!',
+      message: a.title,
+      duration: 4000,
+      position: 'top',
+      color: 'success',
+      icon: a.icon,
+      buttons: [{ text: 'OK', role: 'cancel' }],
+    });
+    await toast.present();
+  }
 }

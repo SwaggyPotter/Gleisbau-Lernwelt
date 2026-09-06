@@ -7,6 +7,7 @@ import {
   RECHENTRAINER_TILES,
   SPIELE_TILES,
 } from '../shared/katalog';
+import { AuthService } from '../core/auth/services/auth.service';
 
 type TileProgress = {
   answered: number;
@@ -60,7 +61,7 @@ export class DashboardPage {
     {
       id: 'bereich-rechentrainer',
       title: 'Rechentrainer',
-      description: 'Nivellieren, Volumen, Prozentrechnung, Gesamtquiz, Materialrechner und Trassierung.',
+      description: 'Nivellieren, Volumen, Prozentrechnung, Gesamtquiz, Materialrechner, Trassierung, Weichen, Schienendehnung, Prüfungssimulation, Lernfortschritt und Glossar.',
       icon: 'calculator-outline',
       link: '/kategorie/rechentrainer',
       count: RECHENTRAINER_TILES.length,
@@ -84,8 +85,11 @@ export class DashboardPage {
     ...SPIELE_TILES,
   ];
 
-  constructor() {
+  readonly user$ = this.auth.currentUser$;
+
+  constructor(private readonly auth: AuthService) {
     this.refreshProgress();
+    this.auth.restoreSession().subscribe();
   }
 
   ionViewWillEnter(): void {

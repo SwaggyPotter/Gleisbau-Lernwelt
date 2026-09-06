@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Anmelden</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Konto</p>
+      <h1>Anmelden</h1>
+      <p class="lede">Mit deinem Konto werden Statistiken, Errungenschaften und Einstellungen serverseitig gespeichert.</p>
+    </section>
+
+    <ion-card class="form-card">
+      <ion-card-content>
+        <form (ngSubmit)="submit()">
+          <ion-input
+            class="field"
+            label="E-Mail"
+            labelPlacement="stacked"
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            required
+            autocomplete="username"
+          ></ion-input>
+          <ion-input
+            class="field"
+            label="Passwort"
+            labelPlacement="stacked"
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            required
+            autocomplete="current-password"
+          ></ion-input>
+
+          <p class="fehler" *ngIf="fehler">{{ fehler }}</p>
+
+          <ion-button expand="block" type="submit" [disabled]="busy">{{ busy ? 'Bitte warten…' : 'Anmelden' }}</ion-button>
+        </form>
+
+        <p class="switch-link">Noch kein Konto? <a routerLink="/konto/registrieren">Registrieren</a></p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

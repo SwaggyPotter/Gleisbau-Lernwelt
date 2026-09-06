@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ProfilSyncService } from '../../../../core/auth/services/profil-sync.service';
 
 /**
  * Geometrie der E-Teilung, nach dem echten Lattenvorbild.
@@ -89,7 +90,7 @@ export class NivellierlattePage {
   readonly rodLabels: RodLabel[] = [];
   readonly rodFieldLines: number[] = [];
 
-  constructor() {
+  constructor(private readonly profilSync: ProfilSyncService) {
     this.buildRod();
     this.bestStreak = Number(localStorage.getItem(STORAGE_KEY) ?? 0);
     this.next();
@@ -158,6 +159,7 @@ export class NivellierlattePage {
     } else {
       this.streak = 0;
     }
+    this.profilSync.melde('zusatz:nivellierlatte', this.feedback === 'correct');
   }
 
   submitDistance(): void {

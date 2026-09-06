@@ -1,0 +1,129 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Prüfungssimulation</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+
+    <!-- ================= SETUP ================= -->
+    <ng-container *ngIf="phase === 'setup'">
+      <section class="hero">
+        <p class="eyebrow">Zusatzmodul</p>
+        <h1>Prüfungssimulation</h1>
+        <p class="lede">
+          Gemischtes Quiz über alle Lernfelder, mit Timer wie in einer echten Prüfung — kein
+          Sofort-Feedback pro Frage, das Ergebnis gibt es erst am Ende. {{ bestehensgrenze }} %
+          gelten als bestanden (Richtwert).
+        </p>
+      </section>
+
+      <ion-card class="setup-card">
+        <ion-card-content>
+          <p class="block-label">Anzahl Fragen</p>
+          <ion-segment [value]="gewaehlteFragenzahl" (ionChange)="gewaehlteFragenzahl = $any($event).detail.value">
+            <ion-segment-button *ngFor="let n of fragenzahlOptionen" [value]="n">
+              <ion-label>{{ n }}</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+          <p class="zeit-hinweis">Zeitlimit: {{ gewaehlteFragenzahl * 75 / 60 | number:'1.0-0' }} Minuten (75 s je Frage)</p>
+
+          <ion-button expand="block" [disabled]="ladefehler" (click)="starten()">Prüfung starten</ion-button>
+          <p class="fehler" *ngIf="ladefehler">Fragen konnten nicht geladen werden.</p>
+        </ion-card-content>
+      </ion-card>
+
+      <section class="historie" *ngIf="historie.versuche.length > 0">
+        <p class="block-label">Letzte Versuche (bestes Ergebnis: {{ historie.bestesProzent }} %)</p>
+        <div class="historie-list">
+          <div class="historie-item" *ngFor="let v of historie.versuche" [class.bestanden]="v.bestanden">
+            <span class="h-prozent">{{ v.prozent }} %</span>
+            <span class="h-details">{{ v.richtig }}/{{ v.anzahlFragen }} · {{ v.bestanden ? 'bestanden' : 'nicht bestanden' }}{{ v.abgebrochenDurchZeit ? ' · Zeit abgelaufen' : '' }}</span>
+          </div>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- ================= RUNNING ================= -->
+    <ng-container *ngIf="phase === 'running' && aktuelleFrage as f">
+      <div class="timer-row">
+        <span class="timer" [class.warn]="restSekunden < 60">{{ restzeitFormatiert }}</span>
+        <span class="fortschritt">{{ beantworteteAnzahl }}/{{ aktiveFragen.length }} beantwortet</span>
+      </div>
+
+      <div class="frage-uebersicht">
+        <button
+          *ngFor="let fr of aktiveFragen; let i = index"
+          class="frage-dot"
+          [class.aktiv]="i === currentIndex"
+          [class.beantwortet]="antworten[fr.id] !== null"
+          (click)="springeZu(i)"
+        >{{ i + 1 }}</button>
+      </div>
+
+      <ion-card class="aufgabe-card">
+        <ion-card-content>
+          <p class="frage-nr">Frage {{ currentIndex + 1 }} von {{ aktiveFragen.length }}</p>
+          <p class="question">{{ f.question }}</p>
+          <ion-list lines="none">
+            <ion-item
+              *ngFor="let c of f.choices"
+              (click)="waehle(c.id)"
+              [class]="antwortKlasse(f, c.id)"
+              button
+            >
+              <ion-label>{{ c.text }}</ion-label>
+            </ion-item>
+          </ion-list>
+
+          <div class="nav-row">
+            <ion-button fill="outline" size="small" (click)="zurueck()" [disabled]="currentIndex === 0">Zurück</ion-button>
+            <ion-button fill="outline" size="small" (click)="weiter()" [disabled]="currentIndex >= aktiveFragen.length - 1">Weiter</ion-button>
+            <div class="spacer"></div>
+            <ion-button color="danger" size="small" (click)="beenden()">Prüfung abgeben</ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+
+    <!-- ================= FINISHED ================= -->
+    <ng-container *ngIf="phase === 'finished' && ergebnis as e">
+      <section class="hero">
+        <p class="eyebrow">Ergebnis</p>
+        <h1>{{ e.bestanden ? 'Bestanden' : 'Nicht bestanden' }}</h1>
+        <p class="lede" *ngIf="e.abgebrochenDurchZeit">Die Zeit ist abgelaufen — es wurde automatisch abgegeben.</p>
+        <div class="stat-row">
+          <div class="stat"><span>Richtig</span><strong>{{ e.richtig }}/{{ e.anzahlFragen }}</strong></div>
+          <div class="stat"><span>Prozent</span><strong>{{ e.prozent }}%</strong></div>
+          <div class="stat"><span>Bestwert</span><strong>{{ historie.bestesProzent }}%</strong></div>
+        </div>
+      </section>
+
+      <ion-button expand="block" (click)="neuerVersuch()">Neuer Versuch</ion-button>
+
+      <section class="review">
+        <p class="block-label">Auswertung</p>
+        <ion-card class="aufgabe-card" *ngFor="let f of aktiveFragen; let i = index">
+          <ion-card-content>
+            <p class="frage-nr">Frage {{ i + 1 }}</p>
+            <p class="question">{{ f.question }}</p>
+            <ion-list lines="none">
+              <ion-item *ngFor="let c of f.choices" [class]="antwortKlasse(f, c.id)">
+                <ion-label>{{ c.text }}</ion-label>
+              </ion-item>
+            </ion-list>
+            <p class="erklaerung">{{ f.explain }}</p>
+          </ion-card-content>
+        </ion-card>
+      </section>
+    </ng-container>
+
+  </div>
+</ion-content>

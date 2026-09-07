@@ -113,15 +113,36 @@ authRouter.get('/me', requireAuth, asyncHandler(async (req, res) => {
   res.json({ user: req.user });
 }));
 
-const updateNameSchema = z.object({
-  fullName: z.string().min(2).max(120),
+const updateMeSchema = z.object({
+  fullName: z.string().min(2).max(120).optional(),
+  email: z.string().min(1).optional(), // admin-Login darf ein einfacher Benutzername ohne @ sein
+  newPassword: z.string().min(8, 'Passwort muss mindestens 8 Zeichen haben').optional(),
 });
 
 authRouter.patch('/me', requireAuth, asyncHandler(async (req, res) => {
-  const { fullName } = updateNameSchema.parse(req.body);
-  const { rows } = await pool.query(
-    'UPDATE users SET full_name = $1 WHERE id = $2 RETURNING id, full_name, email, role, year',
-    [fullName, req.user!.id],
-  );
-  res.json({ user: toPublicUser(rows[0]) });
+  const { fullName, email, newPassword } = updateMeSchema.parse(req.body);
+  if (!fullName && !email && !newPassword) {
+    throw httpError(400, 'Keine Aenderung angegeben');
+  }
+
+  const sets: string[] = [];
+  const values: unknown[] = [];
+  let i = 1;
+  if (fullName) { sets.push(`full_name = $${i++}`); values.push(fullName); }
+  if (email) { sets.push(`email = $${i++}`); values.push(email); }
+  if (newPassword) { sets.push(`password_hash = $${i++}`); values.push(await bcrypt.hash(newPassword, 10)); }
+  values.push(req.user!.id);
+
+  try {
+    const { rows } = await pool.query(
+      `UPDATE users SET ${sets.join(', ')} WHERE id = $${i} RETURNING id, full_name, email, role, year`,
+      values,
+    );
+    res.json({ user: toPublicUser(rows[0]) });
+  } catch (err) {
+    if ((err as { code?: string }).code === '23505') {
+      throw httpError(409, 'Diese E-Mail wird bereits verwendet');
+    }
+    throw err;
+  }
 }));

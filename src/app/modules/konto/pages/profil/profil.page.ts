@@ -35,6 +35,12 @@ export class ProfilPage implements OnInit {
   neuerName = '';
   nameGespeichert = false;
 
+  neueEmail = '';
+  neuesPasswort = '';
+  neuesPasswortWiederholen = '';
+  kontoFehler: string | null = null;
+  kontoGespeichert = false;
+
   balkenChart: ChartConfiguration<'bar'> | null = null;
   ringChart: ChartConfiguration<'doughnut'> | null = null;
   streakChart: ChartConfiguration<'bar'> | null = null;
@@ -93,6 +99,35 @@ export class ProfilPage implements OnInit {
       this.neuerName = '';
       this.nameGespeichert = true;
       setTimeout(() => (this.nameGespeichert = false), 2500);
+    });
+  }
+
+  kontoSpeichern(): void {
+    this.kontoFehler = null;
+    const email = this.neueEmail.trim();
+    const passwort = this.neuesPasswort;
+
+    if (!email && !passwort) return;
+    if (passwort && passwort.length < 8) {
+      this.kontoFehler = 'Das neue Passwort muss mindestens 8 Zeichen haben.';
+      return;
+    }
+    if (passwort && passwort !== this.neuesPasswortWiederholen) {
+      this.kontoFehler = 'Die Passwörter stimmen nicht überein.';
+      return;
+    }
+
+    this.auth.updateAccount({ email: email || undefined, newPassword: passwort || undefined }).subscribe({
+      next: () => {
+        this.neueEmail = '';
+        this.neuesPasswort = '';
+        this.neuesPasswortWiederholen = '';
+        this.kontoGespeichert = true;
+        setTimeout(() => (this.kontoGespeichert = false), 2500);
+      },
+      error: (err) => {
+        this.kontoFehler = err?.error?.error ?? 'Änderung fehlgeschlagen.';
+      },
     });
   }
 

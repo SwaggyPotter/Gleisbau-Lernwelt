@@ -99,6 +99,11 @@ const routes: Routes = [
       .then(m => m.KontoModule)
   },
   {
+    path: 'offline',
+    loadChildren: () => import('./modules/offline/offline.module')
+      .then(m => m.OfflineModule)
+  },
+  {
     path: 'kategorie/:id',
     loadChildren: () => import('./modules/kategorie/kategorie.module')
       .then(m => m.KategorieModule)

@@ -132,6 +132,16 @@ export const RECHENTRAINER_TILES: QuizTile[] = [
     image: 'assets/bilder/glossar-diagramm.svg',
     imageCredit: 'Eigene Grafik',
   },
+  {
+    id: 'quiz-offline',
+    title: 'Offline-Modus',
+    description: 'Fragen, Rechentrainer-Daten und Bilder einmal herunterladen — funktioniert danach ohne Internet.',
+    icon: 'cloud-download-outline',
+    tag: 'Uebersicht',
+    link: '/offline',
+    image: 'assets/bilder/offline-diagramm.svg',
+    imageCredit: 'Eigene Grafik',
+  },
 ];
 
 export const SPIELE_TILES: QuizTile[] = [
@@ -498,3 +508,20 @@ export const BAUBERUFE_TILES: QuizTile[] = [
       imageCredit: 'Adrian Pingstone (Arpingstone), gemeinfrei',
     },
 ];
+
+const ALLE_KATALOG_TILES: QuizTile[] = [
+  ...RECHENTRAINER_TILES,
+  ...SPIELE_TILES,
+  ...WISSENSTEST_TILES,
+  ...GLEISBAU_LERNFELD_TILES,
+  ...BAUBERUFE_TILES,
+];
+
+/** Alle lokal gehosteten Kachel-Bilder (assets/...), fuer den Offline-Download. */
+export function lokaleKachelBilder(): string[] {
+  return [...new Set(
+    ALLE_KATALOG_TILES
+      .map(t => t.image)
+      .filter((img): img is string => !!img && !img.startsWith('http')),
+  )];
+}

@@ -106,6 +106,18 @@
 
       <ion-card class="form-card">
         <ion-card-content>
+          <p class="block-label">E-Mail / Passwort ändern</p>
+          <ion-input class="field" label="Neue E-Mail (optional)" labelPlacement="stacked" type="email" [(ngModel)]="neueEmail" name="neueEmail" autocomplete="username"></ion-input>
+          <ion-input class="field" label="Neues Passwort (optional, mind. 8 Zeichen)" labelPlacement="stacked" type="password" [(ngModel)]="neuesPasswort" name="neuesPasswort" autocomplete="new-password"></ion-input>
+          <ion-input class="field" label="Neues Passwort wiederholen" labelPlacement="stacked" type="password" [(ngModel)]="neuesPasswortWiederholen" name="neuesPasswortWiederholen" autocomplete="new-password"></ion-input>
+          <p class="fehler" *ngIf="kontoFehler">{{ kontoFehler }}</p>
+          <ion-button expand="block" fill="outline" (click)="kontoSpeichern()">Speichern</ion-button>
+          <p class="hinweis" *ngIf="kontoGespeichert">Gespeichert — beim nächsten Anmelden gelten die neuen Daten.</p>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="form-card">
+        <ion-card-content>
           <p class="block-label">Bevorzugtes Lehrjahr</p>
           <ion-segment [value]="einstellungen.bevorzugtesLehrjahr" (ionChange)="einstellungen.bevorzugtesLehrjahr = $any($event).detail.value">
             <ion-segment-button [value]="null"><ion-label>Alle</ion-label></ion-segment-button>

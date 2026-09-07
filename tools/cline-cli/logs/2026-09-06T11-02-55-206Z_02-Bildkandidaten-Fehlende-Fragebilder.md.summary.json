@@ -1,0 +1,14 @@
+{
+  "relFile": "12-Bildmaterial/02-Bildkandidaten-Fehlende-Fragebilder.md",
+  "status": "SUCCESS",
+  "reasons": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 155,
+      "status": "SUCCESS",
+      "reasons": []
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-09-06T11-02-55-206Z_02-Bildkandidaten-Fehlende-Fragebilder.md.log"
+}

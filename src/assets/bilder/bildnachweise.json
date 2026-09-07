@@ -716,5 +716,61 @@
     "credit": "Pubert at German Wikipedia, CC BY-SA 3.0, via Wikimedia Commons",
     "license": "CC BY-SA 3.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Spurweiten_Vierschienengleis.png"
+  },
+  {
+    "key": "baumaschinen-stopfmaschine",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/01%20582%20SIG-Stopfmaschine.jpg?width=900",
+    "credit": "Falk2, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:01_582_SIG-Stopfmaschine.jpg"
+  },
+  {
+    "key": "baumaschinen-schienenschleifzug",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Vossloh%20Rail%20Services%20HSG.JPG?width=900",
+    "credit": "Rolf Heinrich, Köln, CC BY 3.0, via Wikimedia Commons",
+    "license": "CC BY 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vossloh_Rail_Services_HSG.JPG"
+  },
+  {
+    "key": "baumaschinen-gleisbaukran",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Multi%20Tasker%201200%20type%20rail%20crane%20by%20Kirow%20(KRC)%20.JPG?width=900",
+    "credit": "Böhringer Friedrich, CC BY-SA 3.0 AT, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0 AT",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Multi_Tasker_1200_type_rail_crane_by_Kirow_(KRC)_.JPG"
+  },
+  {
+    "key": "baumaschinen-zweiwegebagger",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Zweiwegebagger%20Liebherr.jpg?width=900",
+    "credit": "Tobias Daubitzer, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zweiwegebagger_Liebherr.jpg"
+  },
+  {
+    "key": "baumaschinen-schotterplaniermaschine",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/L04%20839%20Innotrans%202024%2C%20Schotterplaniermaschine%20HSP%204.0.jpg?width=900",
+    "credit": "Falk2, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:L04_839_Innotrans_2024,_Schotterplaniermaschine_HSP_4.0.jpg"
+  },
+  {
+    "key": "q-arbeitssicherheit-warnweste",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Warnweste%20gelb.jpg?width=900",
+    "credit": "Magnus Mertens, CC BY-SA 2.0 DE, via Wikimedia Commons",
+    "license": "CC BY-SA 2.0 DE",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Warnweste_gelb.jpg"
+  },
+  {
+    "key": "q-schiene-rad-schiene-profil",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Drawing%20--%20railway%20wheel%20and%20rail%20profiles.png?width=900",
+    "credit": "SCHolar44, CC0, via Wikimedia Commons",
+    "license": "CC0 1.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Drawing_--_railway_wheel_and_rail_profiles.png"
+  },
+  {
+    "key": "q-schiene-gleis-foto",
+    "file": "https://commons.wikimedia.org/wiki/Special:FilePath/Rail%20track.jpg?width=900",
+    "credit": "Tipiac, CC BY-SA 3.0, via Wikimedia Commons",
+    "license": "CC BY-SA 3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rail_track.jpg"
   }
 ]

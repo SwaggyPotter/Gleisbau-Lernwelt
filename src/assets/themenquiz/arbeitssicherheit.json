@@ -14,7 +14,8 @@
       "correctIndex": 0,
       "explanation": "Arbeiten im Gleisbereich dürfen nur mit einer der Gefährdungssituation angemessenen Sicherungsmaßnahme durchgeführt werden — hohe Gefährdung erfordert hochwertigere Maßnahmen.",
       "source": "DGUV Information 201-021, Sicherheitshinweise für Arbeiten im Gleisbereich",
-      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm"
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q2",
@@ -28,7 +29,8 @@
       "correctIndex": 0,
       "explanation": "Die drei grundsätzlichen Sicherungsarten sind Selbstsicherung, Fremdsicherung und technische Sicherung.",
       "source": "DGUV Information 201-021, Sicherheitshinweise für Arbeiten im Gleisbereich",
-      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm"
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q3",
@@ -42,7 +44,8 @@
       "correctIndex": 0,
       "explanation": "Bei der Selbstsicherung beobachtet jeder Beschäftigte einzeln oder in Kleingruppen den Gleisbereich selbst und muss eine herannahende Fahrt rechtzeitig erkennen können.",
       "source": "DGUV Information 201-021, Kapitel 5: Arbeiten in Kleingruppen und unter Selbstsicherung",
-      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm"
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q4",
@@ -56,7 +59,8 @@
       "correctIndex": 0,
       "explanation": "Die klassische Selbstsicherung erfordert, dass eine Fahrt am Beginn der Annäherungsstrecke bei einer Sicherheitsfrist von mindestens 20 Sekunden sicher erkannt werden kann.",
       "source": "DGUV Information 201-021, Sicherheitshinweise für Arbeiten im Gleisbereich",
-      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm"
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q5",
@@ -70,7 +74,8 @@
       "correctIndex": 0,
       "explanation": "Bei der Fremdsicherung übernimmt eine eigens dafür eingeteilte Person, die Sicherungsaufsicht, die Beobachtung des Gleisbereichs und warnt die Beschäftigten rechtzeitig vor Zügen.",
       "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q6",
@@ -84,7 +89,8 @@
       "correctIndex": 0,
       "explanation": "Fremdsicherung bedeutet, dass eine eigens eingeteilte Sicherungsaufsicht die Beobachtung und Warnung übernimmt — im Gegensatz zur Selbstsicherung, bei der jeder Beschäftigte selbst beobachtet.",
       "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q7",
@@ -98,7 +104,8 @@
       "correctIndex": 0,
       "explanation": "Die Räumzeit ist die Zeit, die benötigt wird, um den Gleisbereich einschließlich Maschinen und Geräten ohne Hast zu räumen. Sie wird vom Arbeitgeber festgelegt.",
       "source": "DGUV Regel 101-024, Sicherungsmaßnahmen bei Arbeiten im Gleisbereich",
-      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf"
+      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q8",
@@ -112,7 +119,8 @@
       "correctIndex": 0,
       "explanation": "Die Sicherheitsfrist ist die Summe aus Räumzeit und einem zusätzlichen Sicherheitszuschlag.",
       "source": "DGUV Regel 101-024, Sicherungsmaßnahmen bei Arbeiten im Gleisbereich",
-      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf"
+      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q9",
@@ -126,7 +134,8 @@
       "correctIndex": 0,
       "explanation": "Der Gleisbereich bzw. Gefahrenraum ist der Bereich, in dem durch bewegte Schienenfahrzeuge Gefährdungen entstehen — dazu zählt auch der Bereich der Oberleitungsanlage.",
       "source": "DGUV Regel 101-024, Sicherungsmaßnahmen bei Arbeiten im Gleisbereich",
-      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf"
+      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q10",
@@ -140,7 +149,8 @@
       "correctIndex": 0,
       "explanation": "Kann zusätzlich zum Gleisbereich ein Schutzstreifen von mindestens 2,0 m Breite eingerichtet werden, sind dort keine gesonderten Sicherungsmaßnahmen erforderlich.",
       "source": "DGUV Regel 101-024, Sicherungsmaßnahmen bei Arbeiten im Gleisbereich",
-      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf"
+      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q11",
@@ -154,7 +164,8 @@
       "correctIndex": 0,
       "explanation": "Der Arbeitgeber muss Warnkleidung mindestens der Klasse 2 zur Verfügung stellen, die Beschäftigte im Gleisbereich tragen müssen, wenn sie durch Zugverkehr gefährdet sein können.",
       "source": "DGUV, Persönliche Schutzausrüstung / Warnkleidung",
-      "sourceUrl": "https://www.dguv.de/medien/fb-psa/de/publikationen/2015/fdp_warnkleidung.pdf"
+      "sourceUrl": "https://www.dguv.de/medien/fb-psa/de/publikationen/2015/fdp_warnkleidung.pdf",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q12",
@@ -168,7 +179,8 @@
       "correctIndex": 0,
       "explanation": "Die Sicherungsaufsicht führt eine Kennzeichnung mit sich und trägt Warnkleidung, damit sie an der Arbeitsstelle eindeutig als solche erkennbar ist.",
       "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q13",
@@ -182,7 +194,8 @@
       "correctIndex": 0,
       "explanation": "Arbeiten im Arbeitsgleis dürfen erst beginnen, wenn das Gleis gesichert ist und — je nach Sicherungsart — die Zustimmung der Sicherungsaufsicht vorliegt.",
       "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q14",
@@ -196,7 +209,8 @@
       "correctIndex": 0,
       "explanation": "Eine Gleissperrung ist eine betriebliche Maßnahme, die ein Gleis vollständig für den Zugverkehr sperrt, damit dort ohne laufenden Zugbetrieb gearbeitet werden kann.",
       "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q15",
@@ -210,7 +224,8 @@
       "correctIndex": 0,
       "explanation": "Arbeiten im Gleisbereich werden unter anderem in der Ril 132 (Züge fahren und Rangieren) mit zugehörigen Unterrichtlinien wie 132.0118 geregelt.",
       "source": "DB InfraGO, Arbeiten im Gleisbereich — Überarbeitung der Ril 132.0118",
-      "sourceUrl": "https://www.dbinfrago.com/resource/blob/12613364/a0e378acab8571e04488c8b83a6cfb50/Foliensatz-fuer-alle-Aenderungen-132-0118-data.pdf"
+      "sourceUrl": "https://www.dbinfrago.com/resource/blob/12613364/a0e378acab8571e04488c8b83a6cfb50/Foliensatz-fuer-alle-Aenderungen-132-0118-data.pdf",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q16",
@@ -224,7 +239,8 @@
       "correctIndex": 0,
       "explanation": "Die DGUV Regel 101-024 beschreibt konkret die Sicherungsmaßnahmen bei Arbeiten im Gleisbereich.",
       "source": "DGUV Regel 101-024, Sicherungsmaßnahmen bei Arbeiten im Gleisbereich",
-      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf"
+      "sourceUrl": "https://www.uv-bund-bahn.de/fileadmin/user_upload/101-024.pdf",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q17",
@@ -238,7 +254,8 @@
       "correctIndex": 0,
       "explanation": "Technische Sicherungssysteme müssen vor ihrem Einsatz bahntechnisch freigegeben sein, bevor sie zur Sicherung von Arbeitsstellen genutzt werden dürfen.",
       "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q18",
@@ -252,7 +269,8 @@
       "correctIndex": 0,
       "explanation": "Die für eine Arbeitsstelle im Gleisbereich festgelegten Sicherungsmaßnahmen werden in einem Sicherungsplan dokumentiert.",
       "source": "Sicherung von Arbeiten im Gleisbereich (DB AG) — Trackopedia",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/arbeitssicherheit/sicherung-von-arbeiten-im-gleisbereich-db-ag",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q19",
@@ -266,7 +284,8 @@
       "correctIndex": 0,
       "explanation": "Beim Benachrichtigungsverfahren muss die Meldung über Zug- oder Rangierfahrten an der Arbeitsstelle vor Zulassung der Fahrt ausdrücklich bestätigt werden.",
       "source": "DGUV Information 201-021, Sicherheitshinweise für Arbeiten im Gleisbereich",
-      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm"
+      "sourceUrl": "https://www.bgbau-medien.de/handlungshilfen_gb/daten/dguv/201_021/5.htm",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     },
     {
       "id": "as-q20",
@@ -280,7 +299,8 @@
       "correctIndex": 0,
       "explanation": "Signalfarbene Warnkleidung macht Beschäftigte im Gleisbereich für Triebfahrzeugführer frühzeitig erkennbar und ergänzt damit — ersetzt aber nicht — die eigentliche Sicherungsmaßnahme.",
       "source": "DGUV, Persönliche Schutzausrüstung / Warnkleidung",
-      "sourceUrl": "https://www.dguv.de/medien/fb-psa/de/publikationen/2015/fdp_warnkleidung.pdf"
+      "sourceUrl": "https://www.dguv.de/medien/fb-psa/de/publikationen/2015/fdp_warnkleidung.pdf",
+      "imageKey": "q-arbeitssicherheit-warnweste"
     }
   ]
 }

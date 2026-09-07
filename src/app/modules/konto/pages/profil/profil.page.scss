@@ -8,6 +8,17 @@
 
 .tab-row {
   margin: 4px 0 18px;
+
+  ion-segment-button {
+    min-width: 0;
+
+    ion-label {
+      font-size: 12px;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+    }
+  }
 }
 
 .chart-wrap {

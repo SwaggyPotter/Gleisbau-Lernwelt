@@ -12,6 +12,7 @@
       <a routerLink="/kategorie/lernfelder" routerLinkActive="active">Lernfelder</a>
       <a routerLink="/kategorie/rechentrainer" routerLinkActive="active">Rechentrainer</a>
       <a routerLink="/kategorie/spiele" routerLinkActive="active">Spiele</a>
+      <a routerLink="/offline" routerLinkActive="active">Offline</a>
       <a *ngIf="user$ | async as u; else keinKonto" routerLink="/konto/profil" routerLinkActive="active" class="konto-link">
         <ion-icon name="person-circle-outline"></ion-icon> {{ u.fullName }}
       </a>

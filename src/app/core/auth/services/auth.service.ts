@@ -71,7 +71,12 @@ export class AuthService {
   }
 
   updateName(fullName: string): Observable<AppUser> {
-    return this.http.patch<{ user: AppUser }>(`${API_BASE_URL}/auth/me`, { fullName }).pipe(
+    return this.updateAccount({ fullName });
+  }
+
+  /** Aendert E-Mail und/oder Passwort des eingeloggten Kontos. Beide Felder optional. */
+  updateAccount(payload: { fullName?: string; email?: string; newPassword?: string }): Observable<AppUser> {
+    return this.http.patch<{ user: AppUser }>(`${API_BASE_URL}/auth/me`, payload).pipe(
       map(res => res.user),
       tap(user => this.userSubject.next(user)),
     );

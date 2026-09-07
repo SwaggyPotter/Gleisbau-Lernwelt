@@ -14,7 +14,8 @@
       "correctIndex": 0,
       "explanation": "Die Schiene besteht aus dem Schienenkopf (mit der Fahrkante), dem Schienensteg (Verbindungsteil) und dem Schienenfuß (Befestigungsbasis auf der Schwelle).",
       "source": "Schienenprofil (Datum: 24.8.2026)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Schiene_(Bahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Schiene_(Bahn)",
+      "imageKey": "q-schiene-rad-schiene-profil"
     },
     {
       "id": "t3q2",
@@ -28,7 +29,8 @@
       "correctIndex": 0,
       "explanation": "Der Schienenkopf bildet die Fahrkante, auf der die Räder laufen. Er muss verschleißfest sein und die Radlasten aufnehmen.",
       "source": "CDP Railsystems \"Eisenbahnschienen Profile\" (Datum: 24.8.2026)",
-      "sourceUrl": "https://bharatforge.eu/artikel/eisenbahnschienen-profile-wegweiser-fuer-sicherheit-und-stabilitaet-im-gleisbau/"
+      "sourceUrl": "https://bharatforge.eu/artikel/eisenbahnschienen-profile-wegweiser-fuer-sicherheit-und-stabilitaet-im-gleisbau/",
+      "imageKey": "q-schiene-gleis-foto"
     },
     {
       "id": "t3q3",
@@ -42,7 +44,8 @@
       "correctIndex": 0,
       "explanation": "Stahl dehnt sich bei Temperaturerhöhung aus. Dieser Effekt muss beim Gleisbau berücksichtigt werden, z. B. durch lückenlos verschweißte Gleise mit Spannungsstaat.",
       "source": "Metal Zenith \"Stahl Wärmeausdehnung Rechner\" (Datum: 24.8.2026)",
-      "sourceUrl": "https://metalzenith.com/de/pages/thermal-expansion-of-steel-calculator"
+      "sourceUrl": "https://metalzenith.com/de/pages/thermal-expansion-of-steel-calculator",
+      "imageKey": "q-schiene-rad-schiene-profil"
     },
     {
       "id": "t3q4",
@@ -56,7 +59,8 @@
       "correctIndex": 0,
       "explanation": "Bei lückenlos verschweißtem Gleis werden einzelne Schienenabschnitte zu sehr langen Strecken verschweißt, um ein gleichmäßiges Fahrverhalten zu erreichen.",
       "source": "RAILING \"Lückenloses Gleis\" (Datum: 24.8.2026)",
-      "sourceUrl": "https://railing.de/8840-2/"
+      "sourceUrl": "https://railing.de/8840-2/",
+      "imageKey": "q-schiene-gleis-foto"
     },
     {
       "id": "t3q5",
@@ -70,7 +74,8 @@
       "correctIndex": 0,
       "explanation": "Schienenverschleiß an der Fahrkante entsteht durch den ständigen Kontakt der Räder. Er muss regelmäßig gemessen und bei Grenzwerten saniert oder ersetzt werden.",
       "source": "Trackopedia \"Verschleiß und Schienenfehler\" (Datum: 24.8.2026)",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/schienen/verschleiss-und-schienenfehler"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/infrastruktur/oberbau/schienen/verschleiss-und-schienenfehler",
+      "imageKey": "q-schiene-rad-schiene-profil"
     },
     {
       "id": "schiene-g1",
@@ -84,7 +89,8 @@
       "correctIndex": 1,
       "explanation": "Die UIC 60 Breitschiene (auch 60E1 genannt) hat ein Querschnittsgewicht von 60,21 kg pro Meter Länge.",
       "source": "UIC 60 Railprofile 60E1 nach DIN EN 13674-1, Masse 60,21 kg/m (29.06.2026)",
-      "sourceUrl": "https://rails.arcelormittal.com/profiles/transport-rails/european-standards/rail-uic60-60e1/"
+      "sourceUrl": "https://rails.arcelormittal.com/profiles/transport-rails/european-standards/rail-uic60-60e1/",
+      "imageKey": "q-schiene-gleis-foto"
     },
     {
       "id": "schiene-g2",
@@ -98,7 +104,8 @@
       "correctIndex": 2,
       "explanation": "Der Schienenkopf ist der obere Teil, der die Radlast trägt und die geometrische Fahrkante für den Zug bildet.",
       "source": "Schienenprofil UIC 60, Kopf bildet Fahrkante und trägt Radlast (29.06.2026)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Schiene_(Bahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Schiene_(Bahn)",
+      "imageKey": "q-schiene-rad-schiene-profil"
     },
     {
       "id": "schiene-g3",
@@ -112,7 +119,8 @@
       "correctIndex": 2,
       "explanation": "Stahl hat einen thermischen Längenausdehnungskoeffizienten von etwa 11 Mikrometer pro Meter und Kelvin im Temperaturbereich von 20°C bis 100°C.",
       "source": "Carbon Steel α = 11,7 µm/(m·K) im Bereich 20°C–100°C (29.06.2026)",
-      "sourceUrl": "https://metalzenith.com/de/pages/thermal-expansion-of-steel-calculator"
+      "sourceUrl": "https://metalzenith.com/de/pages/thermal-expansion-of-steel-calculator",
+      "imageKey": "q-schiene-gleis-foto"
     },
     {
       "id": "schiene-g4",
@@ -126,7 +134,8 @@
       "correctIndex": 1,
       "explanation": "Die Längenausdehnung berechnet sich aus dem Ausdehnungskoeffizienten α, der Ausgangslänge l₀ und der Temperaturänderung ΔT.",
       "source": "Formel ΔL = α · l₀ · ΔT für lineare thermische Ausdehnung bestätigt (29.06.2026)",
-      "sourceUrl": "https://rechner-tools.de/63-laengenausdehnungsrechner.php"
+      "sourceUrl": "https://rechner-tools.de/63-laengenausdehnungsrechner.php",
+      "imageKey": "q-schiene-rad-schiene-profil"
     },
     {
       "id": "schiene-g5",
@@ -140,7 +149,8 @@
       "correctIndex": 1,
       "explanation": "Die Norm EN 13674-1 regelt die technischen Anforderungen an Breitschienen einschließlich des Profilquerschnitts.",
       "source": "DIN EN 13674-1:2017 enthält Festlegungen für Vignolschienen ab 46 kg/m (29.06.2026)",
-      "sourceUrl": "https://webstore.ansi.org/standards/din/dinen136742017de"
+      "sourceUrl": "https://webstore.ansi.org/standards/din/dinen136742017de",
+      "imageKey": "q-schiene-gleis-foto"
     },
     {
       "id": "schiene-g6",
@@ -154,7 +164,8 @@
       "correctIndex": 1,
       "explanation": "Der schmale Steg verbindet Kopffläche und Fußfläche und leitet Biegemomente zwischen Kopf (Druckzone) und Fuß (Zugzone) weiter.",
       "source": "Schienensteg verbindet Kopf mit Fuß und leitet Biegespannungen weiter (2024)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Schiene_(Bahn)"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Schiene_(Bahn)",
+      "imageKey": "q-schiene-rad-schiene-profil"
     },
     {
       "id": "schiene-g7",
@@ -168,7 +179,8 @@
       "correctIndex": 0,
       "explanation": "Der Querschnittsmodul X-X für den Kopf der UIC 60 Schiene beträgt 333,6 cm³ und ist entscheidend für die Biegebeanspruchung.",
       "source": "UIC 60 Profil-Datenblatt, Wx-x = 333,6 cm³ (2024)",
-      "sourceUrl": "https://www.voestalpine.com/highperformancemetals/argentina/app/uploads/sites/264/2024/09/voestalpine-60E1.pdf"
+      "sourceUrl": "https://www.voestalpine.com/highperformancemetals/argentina/app/uploads/sites/264/2024/09/voestalpine-60E1.pdf",
+      "imageKey": "q-schiene-gleis-foto"
     },
     {
       "id": "schiene-g8",
@@ -182,7 +194,8 @@
       "correctIndex": 1,
       "explanation": "ΔL = α · l₀ · ΔT = 11·10⁻⁶/m·K × 25 m × 5 K = 1,375 mm. Dieser Wert zeigt die thermische Ausdehnung an.",
       "source": "Längenausdehnungsrechner mit Formel ΔL = L₀·α·ΔT (2024)",
-      "sourceUrl": "https://www.calchub-app.com/thermodynamik/laengenausdehnung-berechnen"
+      "sourceUrl": "https://www.calchub-app.com/thermodynamik/laengenausdehnung-berechnen",
+      "imageKey": "q-schiene-rad-schiene-profil"
     },
     {
       "id": "schiene-g9",
@@ -196,7 +209,8 @@
       "correctIndex": 0,
       "explanation": "Ohne Schienenstöße entfallen Stoßlücken und Laschenverbindungen — das bedeutet weniger Verschleiß an Rad und Schiene, ruhigeren Lauf und geringeren Instandhaltungsaufwand.",
       "source": "CWR eliminiert Stoßgaps, weniger Wartung, ruhiger Lauf (2023)",
-      "sourceUrl": "https://railwaynews.net/wiki/the-infinite-track-continuous-welded-rail-cwr-explained"
+      "sourceUrl": "https://railwaynews.net/wiki/the-infinite-track-continuous-welded-rail-cwr-explained",
+      "imageKey": "q-schiene-gleis-foto"
     },
     {
       "id": "schiene-g10",
@@ -210,7 +224,8 @@
       "correctIndex": 2,
       "explanation": "Das Trägheitsmoment Y-Y ist mit 512,3 cm⁴ entscheidend für die seitliche Stabilität und Verformung der Schiene unter Querlast.",
       "source": "Definition und Bedeutung des Trägheitsmoments für seitliche Biegesteifigkeit (2024)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Trägheitsmoment"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Trägheitsmoment",
+      "imageKey": "q-schiene-rad-schiene-profil"
     },
     {
       "id": "schiene-g11",
@@ -224,7 +239,8 @@
       "correctIndex": 1,
       "explanation": "Die Neutraltemperatur ist die spannungsfreie Temperatur. Liegt die Schienentemperatur darüber, entsteht Druckspannung; liegt sie darunter, entsteht Zugspannung.",
       "source": "Neutraltemperatur als spannungsfreie Temperatur (Datum: 2026)",
-      "sourceUrl": "https://www.rail4future.com/en/dam/jcr:9c00fbc1-69f5-4990-9c20-25f1b6b2e6d3/D2.3.1%20Report%20on%20the%20currently%20available%20test%20methods%20and%20test%20systems.pdf"
+      "sourceUrl": "https://www.rail4future.com/en/dam/jcr:9c00fbc1-69f5-4990-9c20-25f1b6b2e6d3/D2.3.1%20Report%20on%20the%20currently%20available%20test%20methods%20and%20test%20systems.pdf",
+      "imageKey": "q-schiene-gleis-foto"
     },
     {
       "id": "schiene-g12",
@@ -238,7 +254,8 @@
       "correctIndex": 0,
       "explanation": "Das große Trägheitsmoment X-X (3038,3 cm⁴) sorgt dafür, dass das Profil unter der Vertikallast stabil bleibt und Biegeverformungen klein bleiben.",
       "source": "Trägheitsmoment als Widerstand gegen Biegung (Datum: 2026)",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Tr%C3%A4gheitsmoment"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Tr%C3%A4gheitsmoment",
+      "imageKey": "q-schiene-rad-schiene-profil"
     },
     {
       "id": "schiene-g13",
@@ -252,7 +269,8 @@
       "correctIndex": 1,
       "explanation": "Durch Schweißstellen, Gleisarbeiten und Temperaturbeanspruchung im Betrieb verschiebt sich die tatsächliche Neutraltemperatur, daher wird ein Bereich betrachtet.",
       "source": "Neutraltemperatur variiert durch Schweißungen/Setzungen (Datum: 2026)",
-      "sourceUrl": "https://www.elektro-thermit.de/fileadmin/et/user_upload/PDF/Publikationen/ppt_Innotrans2010_Neutraltemperatur.pdf"
+      "sourceUrl": "https://www.elektro-thermit.de/fileadmin/et/user_upload/PDF/Publikationen/ppt_Innotrans2010_Neutraltemperatur.pdf",
+      "imageKey": "q-schiene-gleis-foto"
     },
     {
       "id": "schiene-g14",
@@ -266,7 +284,8 @@
       "correctIndex": 0,
       "explanation": "Liegt die Betriebstemperatur deutlich über der NRT, entstehen thermische Druckspannungen, die zum Gleisknicken (Buckling) führen können.",
       "source": "Buckling bei zu niedriger NRT im Sommer (Datum: 2026)",
-      "sourceUrl": "https://www.elektro-thermit.de/fileadmin/et/user_upload/PDF/Publikationen/38_43_Wegner.pdf"
+      "sourceUrl": "https://www.elektro-thermit.de/fileadmin/et/user_upload/PDF/Publikationen/38_43_Wegner.pdf",
+      "imageKey": "q-schiene-rad-schiene-profil"
     }
   ]
 }

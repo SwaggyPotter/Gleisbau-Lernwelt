@@ -1,0 +1,77 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Offline-Modus</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell" *ngIf="fortschritt$ | async as f">
+    <section class="hero">
+      <p class="eyebrow">Für unterwegs</p>
+      <h1>Offline-Modus</h1>
+      <p class="lede">
+        Lädt alle Fragen, Rechentrainer-Daten und Bilder einmal vollständig herunter, damit die App
+        danach auch ohne Internet funktioniert — praktisch auf der Baustelle oder unterwegs ohne Empfang.
+      </p>
+    </section>
+
+    <div class="hinweis-box" *ngIf="netzwerkHinweis">
+      <ion-icon name="warning-outline"></ion-icon>
+      <span>{{ netzwerkHinweis }}</span>
+    </div>
+
+    <ion-card class="info-card">
+      <ion-card-content>
+        <div class="status-row">
+          <div class="status-item">
+            <span>Zuletzt aktualisiert</span>
+            <strong>{{ status.zuletztAktualisiert ? (status.zuletztAktualisiert | date:'dd.MM.yyyy, HH:mm') : 'noch nie' }}</strong>
+          </div>
+          <div class="status-item">
+            <span>Gespeicherte Dateien</span>
+            <strong>{{ status.anzahlDateien }}</strong>
+          </div>
+        </div>
+
+        <div class="fortschritt-block" *ngIf="f.laeuftGerade || f.gesamt > 0">
+          <div class="fortschritt-bar">
+            <div class="fortschritt-fill" [style.width.%]="prozent(f)"></div>
+          </div>
+          <p class="fortschritt-text">
+            {{ f.fertig }} / {{ f.gesamt }} Dateien ({{ prozent(f) }}%)
+            <span *ngIf="f.fehler > 0"> · {{ f.fehler }} fehlgeschlagen</span>
+          </p>
+          <p class="fortschritt-datei" *ngIf="f.laeuftGerade && f.aktuelleDatei">Lädt: {{ f.aktuelleDatei }}</p>
+        </div>
+
+        <div class="button-row">
+          <ion-button expand="block" *ngIf="!f.laeuftGerade" (click)="starten()">
+            {{ status.anzahlDateien > 0 ? 'Aktualisieren / fortsetzen' : 'Jetzt herunterladen' }}
+          </ion-button>
+          <ion-button expand="block" color="danger" fill="outline" *ngIf="f.laeuftGerade" (click)="abbrechen()">
+            Download abbrechen
+          </ion-button>
+        </div>
+        <ion-button expand="block" fill="clear" color="medium" size="small" *ngIf="!f.laeuftGerade && status.anzahlDateien > 0" (click)="zuruecksetzen()">
+          Offline-Daten zurücksetzen
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <section class="erklaerung">
+      <p class="block-label">Wie funktioniert das?</p>
+      <ul>
+        <li>Schließt du die Seite oder den Tab während des Downloads, bricht er ab — bereits heruntergeladene Dateien bleiben aber gespeichert.</li>
+        <li>Beim nächsten Öffnen zeigt der Button „Aktualisieren / fortsetzen" an und lädt nur noch die fehlenden Dateien nach, nicht alles neu.</li>
+        <li>Die Daten liegen im Cache dieses Browsers auf diesem Gerät — bei anderen Browsern oder nach Löschen der Browserdaten muss neu heruntergeladen werden.</li>
+        <li>Statistiken, Login und alles, was mit dem Server sprechen muss, funktionieren offline natürlich nicht — nur Fragen, Rechentrainer und Bilder sind dann verfügbar.</li>
+      </ul>
+    </section>
+  </div>
+</ion-content>

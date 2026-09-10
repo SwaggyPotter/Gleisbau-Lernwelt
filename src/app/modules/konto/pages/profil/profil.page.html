@@ -118,6 +118,13 @@
 
       <ion-card class="form-card">
         <ion-card-content>
+          <p class="block-label">Design (Skin)</p>
+          <app-skin-picker (geaendert)="skinGeaendert($event)"></app-skin-picker>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="form-card">
+        <ion-card-content>
           <p class="block-label">Bevorzugtes Lehrjahr</p>
           <ion-segment [value]="einstellungen.bevorzugtesLehrjahr" (ionChange)="einstellungen.bevorzugtesLehrjahr = $any($event).detail.value">
             <ion-segment-button [value]="null"><ion-label>Alle</ion-label></ion-segment-button>

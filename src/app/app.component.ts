@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { hasStoredSiteAuth } from './core/site-gate/site-gate.component';
 import { NeueErrungenschaft } from './core/auth/services/profil-sync.service';
+import { ThemeService } from './core/theme/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +19,13 @@ export class AppComponent implements OnInit, OnDestroy {
     for (const a of neu) this.zeigeToast(a);
   };
 
-  constructor(private readonly toastCtrl: ToastController) {}
+  constructor(
+    private readonly toastCtrl: ToastController,
+    private readonly theme: ThemeService,
+  ) {}
 
   ngOnInit(): void {
+    this.theme.init();
     window.addEventListener('glw-errungenschaft-freigeschaltet', this.onErrungenschaft);
   }
 

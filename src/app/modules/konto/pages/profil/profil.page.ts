@@ -6,6 +6,7 @@ import { AuthService } from '../../../../core/auth/services/auth.service';
 import { ProfilApiService } from '../../services/profil-api.service';
 import { Einstellungen, Errungenschaft, ModulStat, StatsUebersicht } from '../../models/profil.models';
 import { modulLabel } from '../../module-labels';
+import { ThemeService } from '../../../../core/theme/theme.service';
 
 type Ansicht = 'uebersicht' | 'statistiken' | 'einstellungen' | 'errungenschaften';
 
@@ -30,7 +31,7 @@ export class ProfilPage implements OnInit {
   stats: StatsUebersicht | null = null;
   alleErrungenschaften: Errungenschaft[] = [];
   freigeschaltetKeys = new Set<string>();
-  einstellungen: Einstellungen = { bevorzugtesLehrjahr: null, errungenschaftenHinweise: true };
+  einstellungen: Einstellungen = { bevorzugtesLehrjahr: null, errungenschaftenHinweise: true, skin: 'standard' };
   einstellungenGespeichert = false;
   neuerName = '';
   nameGespeichert = false;
@@ -51,6 +52,7 @@ export class ProfilPage implements OnInit {
     private readonly auth: AuthService,
     private readonly api: ProfilApiService,
     private readonly router: Router,
+    private readonly theme: ThemeService,
   ) {}
 
   ngOnInit(): void {
@@ -65,6 +67,7 @@ export class ProfilPage implements OnInit {
         this.alleErrungenschaften = alle.achievements;
         this.freigeschaltetKeys = new Set(meine.freigeschaltet.map(f => f.key));
         this.einstellungen = einst.settings;
+        this.theme.waehle(einst.settings.skin);
         this.baueCharts(stats.module);
         this.geladen = true;
       },
@@ -82,6 +85,10 @@ export class ProfilPage implements OnInit {
 
   istFreigeschaltet(key: string): boolean {
     return this.freigeschaltetKeys.has(key);
+  }
+
+  skinGeaendert(skin: Einstellungen['skin']): void {
+    this.einstellungen.skin = skin;
   }
 
   einstellungenSpeichern(): void {

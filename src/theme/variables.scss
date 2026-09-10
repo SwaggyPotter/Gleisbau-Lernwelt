@@ -52,17 +52,20 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   // Grundflaechen
-  --sp-bg: #0f1b24;
-  --sp-surface: #16242f;
-  --sp-surface-2: #1c2e3b;
+  --sp-bg: var(--skin-bg, #0f1b24);
+  --sp-surface: var(--skin-surface, #16242f);
+  --sp-surface-2: var(--skin-surface-2, #1c2e3b);
   --sp-surface-muted: #1a2833;
 
-  // Akzente
-  --sp-accent: #ff8a3d;
-  --sp-accent-2: #6fa8dc;
-  --sp-success: #6fbf73;
+  // Akzente -- ueberschreibbar durch ThemeService (src/app/core/theme/), das
+  // --skin-*-Variablen auf documentElement setzt. Ohne aktiven Skin (Standard)
+  // sind diese Custom Properties nicht gesetzt, var() faellt dann auf den
+  // zweiten Parameter zurueck -- also exakt das bisherige Aussehen.
+  --sp-accent: var(--skin-accent, #ff8a3d);
+  --sp-accent-2: var(--skin-accent-2, #6fa8dc);
+  --sp-success: var(--skin-success, #6fbf73);
   --sp-warn: #e0b64f;
-  --sp-danger: #e06f6f;
+  --sp-danger: var(--skin-danger, #e06f6f);
 
   // Text
   --sp-text: #eaf2f5;

@@ -96,6 +96,16 @@ export class DashboardPage {
     this.refreshProgress();
   }
 
+  abmelden(): void {
+    this.auth.logout();
+  }
+
+  zeigeSkinAuswahl = false;
+
+  toggleSkinAuswahl(): void {
+    this.zeigeSkinAuswahl = !this.zeigeSkinAuswahl;
+  }
+
   onSearchInput(event: Event): void {
     const custom = event as CustomEvent<{ value?: string }>;
     this.searchTerm = custom.detail?.value ?? '';

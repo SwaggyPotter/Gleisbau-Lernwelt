@@ -1,0 +1,21 @@
+<div class="skin-grid">
+  <button
+    *ngFor="let s of skins"
+    type="button"
+    class="skin-card"
+    [class.aktiv]="aktuell === s.id"
+    [class.gesperrt]="istGesperrt(s)"
+    (click)="waehle(s)"
+  >
+    <span class="skin-preview" [style.background]="s.vorschauBg">
+      <span class="preview-dot" [style.background]="s.vorschauAccent"></span>
+      <span class="preview-dot" [style.background]="s.vorschauAccent2"></span>
+      <ion-icon *ngIf="istGesperrt(s)" name="lock-closed" class="lock-icon"></ion-icon>
+      <ion-icon *ngIf="aktuell === s.id" name="checkmark-circle" class="check-icon"></ion-icon>
+    </span>
+    <span class="skin-info">
+      <span class="skin-label">{{ s.label }}</span>
+      <span class="skin-desc">{{ istGesperrt(s) ? ('🔒 ' + s.freischaltungLabel) : s.beschreibung }}</span>
+    </span>
+  </button>
+</div>

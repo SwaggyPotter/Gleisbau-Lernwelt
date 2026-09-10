@@ -23,6 +23,14 @@ export const ACHIEVEMENTS: AchievementDef[] = [
   { key: 'baumaschinen-kenner', title: 'Baumaschinen-Kenner', description: 'Alle Baumaschinen im Bilderquiz mindestens einmal richtig erkannt.', icon: 'construct-outline' },
 ];
 
+/** Welche Skins (siehe Frontend src/app/core/theme/) welches Achievement voraussetzen. Skins ohne Eintrag sind frei waehlbar. */
+export const SKIN_UNLOCK_REQUIREMENTS: Record<string, string> = {
+  neon: 'streak-25',
+  gold: 'hundert-richtig',
+  wald: 'alle-rechentrainer',
+  ozean: 'pruefung-bestanden',
+};
+
 const RECHENTRAINER_KEYS = [
   'zusatz:materialrechner', 'zusatz:trassierung', 'zusatz:weichenrechner',
   'zusatz:schienendehnung', 'zusatz:volumen', 'zusatz:prozentrechnung', 'zusatz:nivellieren',

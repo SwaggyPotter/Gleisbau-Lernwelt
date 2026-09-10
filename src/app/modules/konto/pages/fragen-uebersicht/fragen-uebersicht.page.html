@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Fragen &amp; Bilder</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/konto/profil" fill="clear">
+        <ion-icon slot="start" name="person-outline"></ion-icon>
+        <span class="toolbar-action-label">Zum Profil</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Admin</p>
+      <h1>Fragen &amp; Bilder</h1>
+      <p class="lede">Alle Themenquiz-Fragen nach Thema sortiert, mit Vorschau des zugeordneten Bildes.</p>
+    </section>
+
+    <p class="fehler" *ngIf="ladefehler">Konnte nicht geladen werden.</p>
+
+    <ng-container *ngIf="geladen && !ladefehler">
+      <div class="stat-row">
+        <div class="stat"><span>Fragen gesamt</span><strong>{{ gesamtFragen }}</strong></div>
+        <div class="stat"><span>Mit Bild</span><strong>{{ gesamtMitBild }}</strong></div>
+        <div class="stat"><span>Ohne Bild</span><strong>{{ gesamtOhneBild }}</strong></div>
+      </div>
+
+      <ion-item class="filter-item" lines="none">
+        <ion-label>Nur Fragen ohne Bild anzeigen</ion-label>
+        <ion-toggle [(ngModel)]="nurOhneBild" name="nurOhneBild"></ion-toggle>
+      </ion-item>
+
+      <ion-accordion-group class="themen-accordion">
+        <ion-accordion *ngFor="let g of sichtbareGruppen()" [value]="g.topicId">
+          <ion-item slot="header" lines="none">
+            <ion-label>
+              {{ g.title }}
+              <span class="gruppe-badge">{{ g.mitBild }}/{{ g.fragen.length }} mit Bild</span>
+            </ion-label>
+          </ion-item>
+          <div class="frage-liste" slot="content">
+            <div class="frage-item" *ngFor="let f of sichtbareFragen(g)">
+              <img *ngIf="f.bildUrl" [src]="f.bildUrl" class="frage-thumb" [alt]="f.question"/>
+              <div class="frage-kein-bild" *ngIf="!f.bildUrl">
+                <ion-icon name="image-outline"></ion-icon>
+              </div>
+              <div class="frage-text-block">
+                <span class="frage-text">{{ f.question }}</span>
+                <span class="frage-meta" *ngIf="f.bildUrl">{{ f.imageKey }} · {{ f.bildCredit }}</span>
+                <span class="frage-meta kein-bild-hinweis" *ngIf="!f.bildUrl">kein Bild hinterlegt</span>
+              </div>
+            </div>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ng-container>
+
+    <p class="leer-hinweis" *ngIf="!geladen && !ladefehler">Lade Fragen…</p>
+  </div>
+</ion-content>

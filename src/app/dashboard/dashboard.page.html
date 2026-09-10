@@ -13,16 +13,27 @@
       <a routerLink="/kategorie/rechentrainer" routerLinkActive="active">Rechentrainer</a>
       <a routerLink="/kategorie/spiele" routerLinkActive="active">Spiele</a>
       <a routerLink="/offline" routerLinkActive="active">Offline</a>
+      <button type="button" class="skin-toggle" [class.aktiv]="zeigeSkinAuswahl" (click)="toggleSkinAuswahl()" title="Design ändern">
+        <ion-icon name="settings-outline"></ion-icon>
+        <span>Design</span>
+      </button>
       <a *ngIf="user$ | async as u; else keinKonto" routerLink="/konto/profil" routerLinkActive="active" class="konto-link">
         <ion-icon name="person-circle-outline"></ion-icon> {{ u.fullName }}
       </a>
       <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/schluessel" routerLinkActive="active">Schlüssel</a>
+      <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/fragen" routerLinkActive="active">Fragen</a>
+      <a *ngIf="user$ | async" (click)="abmelden()" class="konto-link logout-link">
+        <ion-icon name="log-out-outline"></ion-icon> Abmelden
+      </a>
       <ng-template #keinKonto>
         <a routerLink="/konto/anmelden" routerLinkActive="active" class="konto-link">
           <ion-icon name="log-in-outline"></ion-icon> Anmelden
         </a>
       </ng-template>
     </nav>
+    <div class="skin-row" *ngIf="zeigeSkinAuswahl">
+      <app-skin-picker></app-skin-picker>
+    </div>
   </ion-toolbar>
 </ion-header>
 

@@ -1,3 +1,5 @@
+import { SkinId } from '../../../core/theme/theme.models';
+
 export interface ModulStat {
   moduleKey: string;
   correct: number;
@@ -32,6 +34,7 @@ export interface ErrungenschaftFreigeschaltet {
 export interface Einstellungen {
   bevorzugtesLehrjahr: number | null;
   errungenschaftenHinweise: boolean;
+  skin: SkinId;
 }
 
 export interface RegistrierungsKey {

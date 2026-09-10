@@ -125,8 +125,11 @@ const runStartupMigrations = async () => {
       user_id uuid PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
       bevorzugtes_lehrjahr smallint CHECK (bevorzugtes_lehrjahr BETWEEN 1 AND 3),
       errungenschaften_hinweise boolean NOT NULL DEFAULT true,
+      skin text NOT NULL DEFAULT 'standard' CHECK (skin IN ('standard', 'playful', 'season', 'neon', 'gold', 'wald', 'ozean')),
       updated_at timestamptz NOT NULL DEFAULT now()
     )`);
+    // Bereits bestehende Installationen (Tabelle existierte schon vor dem skin-Feld)
+    await pool.query("ALTER TABLE user_settings ADD COLUMN IF NOT EXISTS skin text NOT NULL DEFAULT 'standard'");
 
     await seedAchievements();
     await purgeDueDeletedUsers();

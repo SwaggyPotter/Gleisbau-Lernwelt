@@ -3,13 +3,15 @@
 // daher kein globales Stylesheet -- stattdessen ein gemeinsamer, wiederverwendbarer Satz Regeln).
 
 @mixin theme-vars {
-  --sp-bg: #0f1b24;
-  --sp-surface: #16242f;
-  --sp-surface-2: #1c2e3b;
-  --sp-accent: #ff8a3d;
-  --sp-accent-2: #6fa8dc;
-  --sp-success: #6fbf73;
-  --sp-danger: #e0806f;
+  // var(--skin-x, Standard) -- ueberschreibbar durch ThemeService (Skins),
+  // ohne aktiven Skin exakt das bisherige Aussehen.
+  --sp-bg: var(--skin-bg, #0f1b24);
+  --sp-surface: var(--skin-surface, #16242f);
+  --sp-surface-2: var(--skin-surface-2, #1c2e3b);
+  --sp-accent: var(--skin-accent, #ff8a3d);
+  --sp-accent-2: var(--skin-accent-2, #6fa8dc);
+  --sp-success: var(--skin-success, #6fbf73);
+  --sp-danger: var(--skin-danger, #e0806f);
   --sp-text: #eaf2f5;
   --sp-text-muted: #8ca3af;
   --sp-border: rgba(111, 168, 220, 0.22);

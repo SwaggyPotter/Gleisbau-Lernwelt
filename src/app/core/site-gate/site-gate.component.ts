@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { SiteGateStateService } from './site-gate-state.service';
 
 const STORAGE_KEY = 'glw-site-auth';
 const SITE_USER = 'gleisbau';
@@ -36,6 +38,16 @@ export class SiteGateComponent {
   busy = false;
 
   @Output() unlocked = new EventEmitter<void>();
+
+  constructor(
+    private readonly router: Router,
+    private readonly siteGateState: SiteGateStateService,
+  ) {}
+
+  zeigeOeffentlicheInhalte(): void {
+    this.siteGateState.enablePublicMode();
+    this.router.navigateByUrl('/oeffentlich');
+  }
 
   async submit(): Promise<void> {
     this.error = null;

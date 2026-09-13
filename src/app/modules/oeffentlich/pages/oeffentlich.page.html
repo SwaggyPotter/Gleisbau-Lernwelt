@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Öffentlich freigegeben</ion-title>
+    <ion-buttons slot="end" *ngIf="!istAngemeldet">
+      <ion-button (click)="zumLogin()" fill="clear">
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        <span class="toolbar-action-label">Zum Login</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Ohne Login</p>
+      <h1>Öffentlich freigegebene Inhalte</h1>
+      <p class="lede">
+        Diese Inhalte sind offiziell freigegeben und für alle frei zugänglich — kein Login nötig.
+      </p>
+    </section>
+
+    <section class="inhalte-liste">
+      <ion-card class="inhalt-card" *ngFor="let tile of inhalte" [routerLink]="tile.link">
+        <ion-card-header>
+          <div class="tile-top">
+            <ion-chip outline="true"><ion-label>{{ tile.tag }}</ion-label></ion-chip>
+          </div>
+          <ion-card-title>{{ tile.title }}</ion-card-title>
+          <ion-card-subtitle>{{ tile.description }}</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+
+      <p class="leer-hinweis" *ngIf="inhalte.length === 0">Aktuell sind keine Inhalte öffentlich freigegeben.</p>
+    </section>
+  </div>
+</ion-content>

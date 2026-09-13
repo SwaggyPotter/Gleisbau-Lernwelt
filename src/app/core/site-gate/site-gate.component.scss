@@ -129,3 +129,31 @@ form input:focus {
   color: #fff;
   box-shadow: 0 6px 16px rgba(226, 98, 42, 0.35);
 }
+
+.oeffentlich-row {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--steel-600);
+  text-align: center;
+}
+
+.oeffentlich-divider {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--rail-200);
+  opacity: 0.6;
+  margin-bottom: 12px;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--steel-500);
+  color: var(--rail-100);
+}
+
+.btn-secondary:hover {
+  border-color: var(--signal-orange);
+}

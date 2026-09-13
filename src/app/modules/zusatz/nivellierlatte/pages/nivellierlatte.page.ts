@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProfilSyncService } from '../../../../core/auth/services/profil-sync.service';
+import { hasStoredSiteAuth } from '../../../../core/site-gate/site-gate.component';
 
 /**
  * Geometrie der E-Teilung, nach dem echten Lattenvorbild.
@@ -50,6 +51,9 @@ const STORAGE_KEY = 'nivellierlatte-highscore';
   standalone: false,
 })
 export class NivellierlattePage {
+  /** Oeffentliche Besucher (kein Login) landen auf der oeffentlichen Uebersicht statt im Dashboard. */
+  readonly uebersichtLink = hasStoredSiteAuth() ? '/dashboard' : '/oeffentlich';
+
   readonly rodMinM = 0;
   readonly rodMaxM = 2.5;
   readonly toleranceMm = 5;

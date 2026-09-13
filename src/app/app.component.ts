@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { hasStoredSiteAuth } from './core/site-gate/site-gate.component';
+import { SiteGateStateService } from './core/site-gate/site-gate-state.service';
 import { NeueErrungenschaft } from './core/auth/services/profil-sync.service';
 import { ThemeService } from './core/theme/theme.service';
 
@@ -13,6 +15,9 @@ import { ThemeService } from './core/theme/theme.service';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Gleisbau Lernwelt';
   unlocked = hasStoredSiteAuth();
+  publicMode = false;
+
+  private publicModeSub?: Subscription;
 
   private readonly onErrungenschaft = (event: Event) => {
     const neu = (event as CustomEvent<NeueErrungenschaft[]>).detail ?? [];
@@ -22,15 +27,18 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private readonly toastCtrl: ToastController,
     private readonly theme: ThemeService,
+    private readonly siteGateState: SiteGateStateService,
   ) {}
 
   ngOnInit(): void {
     this.theme.init();
     window.addEventListener('glw-errungenschaft-freigeschaltet', this.onErrungenschaft);
+    this.publicModeSub = this.siteGateState.publicMode$.subscribe(v => (this.publicMode = v));
   }
 
   ngOnDestroy(): void {
     window.removeEventListener('glw-errungenschaft-freigeschaltet', this.onErrungenschaft);
+    this.publicModeSub?.unsubscribe();
   }
 
   private async zeigeToast(a: NeueErrungenschaft): Promise<void> {

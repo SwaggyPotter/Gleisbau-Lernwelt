@@ -22,6 +22,13 @@
           {{ busy ? 'Bitte warten...' : 'Anmelden' }}
         </button>
       </form>
+
+      <div class="oeffentlich-row">
+        <span class="oeffentlich-divider">oder</span>
+        <button type="button" class="btn btn-secondary" (click)="zeigeOeffentlicheInhalte()">
+          Öffentlich freigegebene Inhalte ansehen
+        </button>
+      </div>
     </div>
   </div>
 </div>

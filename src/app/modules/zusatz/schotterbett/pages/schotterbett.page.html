@@ -1,0 +1,168 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Schotterbett-Rechner</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Uebersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Zusatzmodul</p>
+      <h1>Schotterbett-Rechner</h1>
+      <p class="lede">
+        Schwellenabstand, Schwellen pro Kilometer und Mindest-Bettungsstärke
+        berechnen — Werte für eingleisige Strecken, mit echten Quellen belegt.
+      </p>
+      <div class="stat-row">
+        <div class="stat"><span>Serie</span><strong>{{ progress.streak }}</strong></div>
+        <div class="stat"><span>Bestwert</span><strong>{{ progress.bestStreak }}</strong></div>
+        <div class="stat"><span>Richtig</span><strong>{{ progress.correct }}/{{ progress.total }}</strong></div>
+        <div class="stat"><span>Quote</span><strong>{{ quote }}%</strong></div>
+      </div>
+    </section>
+
+    <section class="kategorie-row">
+      <ion-select
+        class="kategorie-select"
+        interface="action-sheet"
+        label="Aufgaben-Kategorie"
+        labelPlacement="stacked"
+        [value]="ausgewaehlteKategorie"
+        (ionChange)="onKategorieChange($any($event).detail.value)"
+      >
+        <ion-select-option [value]="zufallId">Zufällig (alle Kategorien)</ion-select-option>
+        <ion-select-option *ngFor="let k of kategorien" [value]="k.id">{{ k.label }}</ion-select-option>
+      </ion-select>
+    </section>
+
+    <ion-card class="aufgabe-card">
+      <ion-card-header>
+        <ion-card-subtitle>{{ aktuelleKategorieInfo?.label }}</ion-card-subtitle>
+        <ion-card-title class="formel-title">{{ aktuelleKategorieInfo?.formel }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="diagram-wrap" [ngSwitch]="diagramm">
+          <svg *ngSwitchCase="'querschnitt'" viewBox="0 0 400 160" class="diagram-svg">
+            <line x1="20" y1="135" x2="380" y2="135" class="d-base"/>
+            <polygon points="120,95 280,95 330,135 70,135" class="d-fill"/>
+            <polyline points="70,135 120,95 280,95 330,135" class="d-outline"/>
+            <rect x="160" y="80" width="80" height="15" class="d-schwelle"/>
+            <line x1="360" y1="95" x2="360" y2="135" class="d-guide"/>
+            <line x1="330" y1="95" x2="365" y2="95" class="d-guide"/>
+            <line x1="330" y1="135" x2="365" y2="135" class="d-guide"/>
+            <text x="375" y="118" text-anchor="middle" class="dlabel" transform="rotate(90 375 118)">Bettungsstärke</text>
+            <text x="95" y="118" text-anchor="middle" class="dlabel accent">Böschung</text>
+            <text x="140" y="88" text-anchor="middle" class="dlabel">Schotterschulter</text>
+            <text x="200" y="20" text-anchor="middle" class="dlabel muted">BEISPIELQUERSCHNITT — KEINE NORM</text>
+          </svg>
+
+          <svg *ngSwitchCase="'staerke'" viewBox="0 0 400 160" class="diagram-svg">
+            <line x1="20" y1="140" x2="380" y2="140" class="d-base"/>
+            <rect x="90" y="80" width="60" height="60" class="d-fill"/>
+            <rect x="90" y="80" width="60" height="60" class="d-outline-rect"/>
+            <text x="120" y="70" text-anchor="middle" class="dlabel">30 cm</text>
+            <text x="120" y="155" text-anchor="middle" class="dlabel muted">Standard</text>
+            <rect x="250" y="60" width="60" height="80" class="d-fill accent-fill"/>
+            <rect x="250" y="60" width="60" height="80" class="d-outline-rect accent"/>
+            <text x="280" y="50" text-anchor="middle" class="dlabel accent">40 cm</text>
+            <text x="280" y="155" text-anchor="middle" class="dlabel muted">Hochleistung</text>
+          </svg>
+        </div>
+
+        <div class="gegeben-block">
+          <p class="block-label">Gegeben</p>
+          <div class="gegeben-list">
+            <div class="gegeben-item" *ngFor="let g of aufgabe.gegeben">
+              <span class="g-label">{{ g.label }}</span>
+              <span class="g-wert">{{ g.wert }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gesucht-block" *ngIf="feedback === null">
+          <p class="block-label">Gesucht</p>
+          <div class="input-row">
+            <span class="gesucht-name">{{ aufgabe.gesuchtLabel }}</span>
+            <ion-input
+              class="guess-input"
+              type="text"
+              inputmode="decimal"
+              placeholder="z. B. 1667"
+              [value]="eingabe"
+              (ionInput)="eingabe = $any($event.detail).value ?? ''"
+              (keyup.enter)="pruefen()"
+            ></ion-input>
+            <span class="unit" *ngIf="aufgabe.gesuchtEinheit">{{ aufgabe.gesuchtEinheit }}</span>
+          </div>
+          <ion-button expand="block" (click)="pruefen()">Prüfen</ion-button>
+        </div>
+
+        <div class="feedback-box" *ngIf="feedback !== null" [class.correct]="feedback === 'correct'" [class.wrong]="feedback === 'wrong'">
+          <strong>{{ feedback === 'correct' ? 'Richtig!' : 'Leider falsch.' }}</strong>
+          <p class="korrekt-zeile">
+            {{ aufgabe.gesuchtLabel }} = <span class="mono">{{ korrekterWertFormatiert }} {{ aufgabe.gesuchtEinheit }}</span>
+          </p>
+          <p class="rechenweg">{{ aufgabe.rechenweg }}</p>
+          <ion-button expand="block" (click)="neueAufgabe()">Nächste Aufgabe</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="info-card">
+      <ion-card-header>
+        <ion-card-subtitle>Hintergrund</ion-card-subtitle>
+        <ion-card-title class="info-title">Was steckt hinter einer Oberbauanordnung?</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>
+          Die Kombination aus Schwellentyp, Schienentyp, Befestigungsart und
+          Schwellenabstand wird bei der Deutschen Bahn als
+          <strong>Oberbauanordnung</strong> in einem festen Code
+          zusammengefasst, geregelt in der DB-Richtlinie
+          <strong>Ril 820 „Grundlagen des Oberbaus"</strong>. Ein reales
+          Beispiel aus der Gleisbauer-Ausbildung (Lernfeld 10):
+        </p>
+        <p class="code-example">W14K-60-B70-1667</p>
+        <ul class="code-breakdown">
+          <li><strong>W14K</strong> — Befestigungsart (W-Befestigung, Spannklemme Skl 14)</li>
+          <li><strong>60</strong> — Schwellenabstand in cm</li>
+          <li><strong>B70</strong> — Schwellentyp (Spannbetonschwelle B70)</li>
+          <li><strong>1667</strong> — Schwellen je Kilometer (1000 m ÷ 0,60 m)</li>
+        </ul>
+        <p class="hinweis-box">
+          Die vollständige DB-Tabelle mit allen Kombinationen und den
+          zugehörigen Überhöhungswerten (0–160 mm) ist nicht frei im Internet
+          zugänglich — sie steht nur im kostenpflichtigen DB-Regelwerk
+          (Ril 820) bzw. vergleichbaren Fachquellen. Die Werte auf dieser
+          Seite stammen stattdessen aus frei zugänglichen Fachpublikationen
+          (siehe Quellen).
+        </p>
+        <p class="quellen-label">Quellen</p>
+        <ul class="quellen-liste">
+          <li>
+            <a href="https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/etr_070102.pdf" target="_blank" rel="noopener">
+              Plasser &amp; Theurer / ETR: „Oberbauschotter Teil 1" (Jan/Feb 2008)
+            </a> — Bettungsstärke-Mindestwerte
+          </li>
+          <li>
+            <a href="https://hubbs.schule/mediathek/schienen-montieren-und-oberbau-fertigstellen-pdf" target="_blank" rel="noopener">
+              KMK-Curriculum Lernfeld 10, HubbS
+            </a> — Beispiel-Oberbauanordnung „W14K-60-B70-1667"
+          </li>
+          <li>
+            <a href="https://www.bahnausbau-muenchen.de/files/WPS%20PFA6/10_Querschnitte/10-01-01_6-EB-4-R001-B9_Regelquerschnitt_Str-5606_freie%20Strecke-Regionalverkehr-eingleisig.pdf" target="_blank" rel="noopener">
+              DB Netz AG Planfeststellung Walpertskirchener Spange
+            </a> — Regelquerschnitt eingleisig, u = 0/160 mm
+          </li>
+        </ul>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

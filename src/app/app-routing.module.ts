@@ -90,6 +90,11 @@ const routes: Routes = [
           .then(m => m.SchienendehnungModule)
       },
       {
+        path: 'zusatz/schotterbett',
+        loadChildren: () => import('./modules/zusatz/schotterbett/schotterbett.module')
+          .then(m => m.SchotterbettModule)
+      },
+      {
         path: 'zusatz/pruefungssimulation',
         loadChildren: () => import('./modules/zusatz/pruefungssimulation/pruefungssimulation.module')
           .then(m => m.PruefungssimulationModule)

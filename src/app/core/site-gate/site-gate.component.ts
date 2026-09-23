@@ -7,7 +7,7 @@ const SITE_USER = 'gleisbau';
 // SHA-256 des Seiten-Passworts (nicht das Klartext-Passwort selbst), damit es
 // nicht 1:1 im Bundle steht. Reines Soft-Gate (siehe Ki Datenspeicher) --
 // verhindert nur den zufaelligen Aufruf, keine belastbare Zugriffskontrolle.
-const SITE_PASSWORD_SHA256 = '4ebd8ac94619f5345420e60da151ed9412c292bd90c13819c40e3924bb2bf0e3';
+const SITE_PASSWORD_SHA256 = '4f98efa857fd05c24205fd6efae29a93ed6e2c2f57fbc7939815be8cde26527d';
 
 export function hasStoredSiteAuth(): boolean {
   try {
@@ -67,5 +67,13 @@ export class SiteGateComponent {
       // dann bei jedem Aufruf erneut sichtbar, aber der Login selbst klappt.
     }
     this.unlocked.emit();
+    // Der Router loest bei einem frischen Seitenaufruf (noch ohne Login)
+    // bereits vor der Anmeldung still auf '/oeffentlich' auf (siteGateGuard
+    // greift, bevor das Router-Outlet ueberhaupt existiert -- das Outlet
+    // steckt in <ion-app>, das erst nach *ngIf="unlocked" gerendert wird).
+    // Ohne diese explizite Navigation wuerde das Outlet beim ersten Rendern
+    // genau diesen stehengebliebenen Redirect uebernehmen statt das
+    // Dashboard zu zeigen.
+    this.router.navigateByUrl('/dashboard');
   }
 }

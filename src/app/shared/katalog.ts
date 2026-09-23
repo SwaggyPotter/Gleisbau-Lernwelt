@@ -103,6 +103,16 @@ export const RECHENTRAINER_TILES: QuizTile[] = [
     imageCredit: 'Eigene Grafik',
   },
   {
+    id: 'quiz-schotterbett',
+    title: 'Schotterbett-Rechner',
+    description: 'Schwellenabstand, Schwellen pro Kilometer und Mindest-Bettungsstärke berechnen.',
+    icon: 'layers-outline',
+    tag: 'Quiz',
+    link: '/zusatz/schotterbett',
+    image: 'assets/bilder/schotterbett-diagramm.svg',
+    imageCredit: 'Eigene Grafik',
+  },
+  {
     id: 'quiz-pruefungssimulation',
     title: 'Prüfungssimulation',
     description: 'Gemischtes Quiz über alle Lernfelder mit Timer, kein Sofort-Feedback — wie in einer echten Prüfung.',

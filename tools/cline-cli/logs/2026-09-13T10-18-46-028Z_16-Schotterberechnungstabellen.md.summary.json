@@ -1,0 +1,18 @@
+{
+  "relFile": "08-Recherche-Gwen/16-Schotterberechnungstabellen.md",
+  "status": "RULE_VIOLATION",
+  "reasons": [
+    "Überschrift \"🔎 Rechercheergebnisse von Gwen\" wurde entfernt."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 126,
+      "status": "RULE_VIOLATION",
+      "reasons": [
+        "Überschrift \"🔎 Rechercheergebnisse von Gwen\" wurde entfernt."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-09-13T10-18-46-028Z_16-Schotterberechnungstabellen.md.log"
+}

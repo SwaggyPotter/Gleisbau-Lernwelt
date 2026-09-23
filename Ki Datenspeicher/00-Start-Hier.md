@@ -105,14 +105,25 @@ Datei + das Update-Log, nicht blind auf die Architektur-/Modul-Dateien.
   Bildproduktion. Details:
   [[14-Gwen-Code-Aufgaben/20-Bilder-fuer-Fragen]],
   [[17-Bilder-fuer-Fragen/00-Fragen-ohne-Bild]].
-- **Design**: eigenes "Streckenplan"-System (Blaupausen-Optik), CSS Custom
-  Properties `--sp-*`/`--font-*` in `src/theme/variables.scss`, Fonts Oswald/
-  Barlow/JetBrains Mono selbst gehostet als woff2. Neue Module binden sich
-  darüber ein (`:host { ... var(--sp-bg) ... }`), nicht über globale Ionic-Farben
-  (das hat schon zweimal andere Seiten heimlich kaputt gemacht, siehe Lehren
-  unten). **Quiz-Duell** hat bewusst ein eigenes, unabhängiges Theme
-  ("Steel/Signal", Tims eigener Wunsch nach seinem Referenz-Prototyp), nicht
-  das Streckenplan-System.
+- **Design**: Basis ist weiterhin das "Streckenplan"-System (Blaupausen-Optik),
+  CSS Custom Properties `--sp-*`/`--font-*` in `src/theme/variables.scss`, Fonts
+  Oswald/Barlow/JetBrains Mono selbst gehostet als woff2. Neue Module binden
+  sich darüber ein (`:host { ... var(--sp-bg) ... }`), nicht über globale
+  Ionic-Farben (das hat schon zweimal andere Seiten heimlich kaputt gemacht,
+  siehe Lehren unten). **Quiz-Duell UND das Login-Gate (`site-gate.component`)**
+  haben bewusst ein eigenes, unabhängiges Farbschema ("Steel/Signal"), nicht
+  das Streckenplan-System — übernehmen aber die Schrift des aktiven Designs.
+  **Seit 2026-09-23: 10 auswählbare Designs** (Signalwerk = neuer Standard,
+  plus Baustelle/Blaupause/Bahn-Clean/Nachtschicht/Messing & Stahl/
+  Bahnsteig-Anzeige/Streckennetz/Gleisbildstellwerk/Gelbe Flotte) als
+  Erweiterung des bestehenden Skin-Systems (`ThemeService`/`SkinPicker`,
+  `--skin-*`-Overrides), umschaltbar über den Dashboard-"Design"-Button oder
+  Profil → Einstellungen → Design. Referenzvorlage liegt unter
+  `design-reference/`. Details, gefundene Bugs (hartkodierte Text-/
+  Rahmenfarben in 14 Dateien) und offene Punkte (Backend-Redeploy fürs
+  Zod/Postgres-Enum noch ausstehend, bespoke Signatur-Komponenten aus dem
+  Auftragsprompt bewusst nicht gebaut): [[05-Update-Log/Update-Log]] Eintrag
+  2026-09-23.
   ⚠️ **CSS-Falle bei eigenen `:host`-Farben in `ion-content`-Seiten**: eine
   Farbe nur auf `:host { color: ... }` zu setzen reicht NICHT — Ionic setzt
   intern per `::slotted(*)` eine eigene Textfarbe (`var(--ion-text-color)`,

@@ -11,6 +11,98 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+## 2026-09-23 — 10 neue Designs zum Umschalten, Signalwerk als neuer Standard
+
+Tim hatte über die Desktop-Claude-App zehn Design-Vorlagen entwerfen lassen
+(`design-reference/gleisbau-designvorschau.html`, dazu ein ausführlicher
+Auftragsprompt `design-reference/prompt-claude-code-themes.md`) und wollte
+sie in die echte App übernehmen: **Signalwerk** als neuer Standard für alle
+Besucher, die übrigen 9 (Baustelle, Blaupause, Bahn-Clean, Nachtschicht,
+Messing & Stahl, Bahnsteig-Anzeige, Streckennetz, Gleisbildstellwerk, Gelbe
+Flotte) frei wählbar unter dem bereits vorhandenen Design-Umschalter
+(Dashboard-Kopfzeile "Design"-Button bzw. Profil → Einstellungen → Design).
+
+**Wichtigste Erkenntnis vorab**: Es gab schon ein passendes Fundament — das
+Skin-System aus der vorherigen Session (`ThemeService`/`SkinPicker`,
+CSS-Custom-Properties `--skin-*` → `--sp-*`/`--font-*`), das App-weit über
+35 Dateien hinweg schon konsequent verwendet wurde. Die 10 Designs sind
+deshalb als **Erweiterung** dieses bestehenden Systems umgesetzt, nicht als
+Neubau: `theme.models.ts` (10 neue `SkinId`s), `theme.service.ts` (volle
+Paletten inkl. Radius/Schatten/Schriften 1:1 aus der Referenz übernommen),
+`variables.scss`/`konto-theme.scss` (Fonts jetzt ebenfalls über Skin
+überschreibbar), neue `src/theme/designs.scss` für kleine globale
+Zusatzakzente (Baustelle-Warnstreifen oben, Schriftschnitt-Korrektur für
+einschnittige Fonts).
+
+**Zwei echte, vorher unbemerkte Bugs gefunden und mitgefixt** (wären sonst
+bei den neuen HELLEN Designs — Baustelle, Bahn-Clean, Streckennetz —
+aufgefallen): `--sp-text`/`--sp-text-muted`/`--sp-border`/`--font-*` waren
+in `variables.scss` UND zusätzlich unabhängig in 14 Seiten-SCSS-Dateien
+sowie in `konto-theme.scss`s Mixin **hartkodiert auf die dunklen
+Streckenplan-Werte**, nicht überschreibbar. Ohne den Fix wäre auf einem
+hellen Design der Fließtext (heller Text auf hellem Grund) unlesbar
+gewesen. Fund kam vor dem Ausliefern per gezieltem Grep, nicht erst beim
+visuellen Test — die 14 Dateien enthielten Byte-für-Byte denselben
+6-zeiligen Block, per `perl`-Script in einem Rutsch sauber gefixt.
+
+**Schriftschnitt-Detail aus der Referenz übernommen**: VT323 (Bahnsteig),
+Share Tech Mono (Gleisbildstellwerk) und Press Start 2P (Gelbe Flotte)
+existieren nur in Schriftschnitt 400 — ohne expliziten Override hätte der
+Browser sie bei den App-weit hartkodierten `font-weight:700`-Überschriften
+"fake-bold" synthetisiert und ihren eigentlichen Terminal-/Pixel-Charakter
+verwaschen. Genau wie in der Referenz (die für Bahnsteig deshalb
+`font-weight:400` auf Überschriften setzt) per gezieltem, dokumentiertem
+`!important`-Override in `designs.scss` behoben.
+
+**Backend mitgezogen**: `user_settings.skin` hatte ein Zod-Enum
+(`backend/src/routes/settings.ts`) UND eine Postgres-`CHECK`-Constraint
+(`backend/src/index.ts`, `backend/db/init/07_profile_system.sql`) mit der
+alten, kürzeren Werteliste — ohne Anpassung hätten eingeloggte Nutzer die
+neuen Designs zwar lokal sehen, aber nicht serverseitig speichern können
+(Zod/Constraint-Fehler). Beide erweitert, inkl. Migration
+(`DROP CONSTRAINT IF EXISTS` + `ADD CONSTRAINT`) für die bereits laufende
+Installation.
+
+**Verifiziert per Playwright** (lokaler Dev-Server, `ng serve`, echter
+Login durchs Site-Gate): alle 10 Designs + die 6 bestehenden Skins korrekt
+im Umschalter, Signalwerk als Standard für neue Besucher (kein gespeicherter
+Wert), Farben/Schriften pro Design korrekt aufgelöst (`getComputedStyle`
+gegengeprüft), Schriften laden nachweislich nur bei aktivem Theme
+(`document.fonts`-Status), kein Flackern beim Neuladen (neues
+Anti-FOUC-Bootstrap-Script in `index.html`, direkt nach `commit` geprüft,
+noch vor Angular-Bootstrap), Mobile-Breite (390px) geprüft, keine
+Konsolenfehler in keinem der getesteten Designs.
+
+**Bewusst NICHT umgesetzt** (Scope-Entscheidung, siehe
+`design-reference/prompt-claude-code-themes.md` Abschnitt
+"Signatur-Komponenten" für die volle Ambition): die zehn bespoken,
+datengekoppelten Signatur-Komponenten aus dem ursprünglichen Auftragsprompt
+(z. B. eine neue Split-Flap-Komponente fürs Quiz-Duell, ein
+Streckennetz-Lernpfad gekoppelt an echten Fortschritt mit fahrendem Zug,
+ein XP-/Level-System für Gelbe Flotte, Fahrstraßen-Animation beim
+Seitenwechsel für Gleisbildstellwerk) sowie die eigene `/design-demo`-Route.
+Das wäre ein eigenständiges, deutlich größeres Vorhaben (mehrere neue
+Komponenten, teils neue Datenmodelle wie ein XP-System, das es aktuell gar
+nicht gibt) gewesen als eine reine Farb-/Schrift-/Radius-Umsetzung — bewusst
+zurückgestellt, um die App nicht mit unfertigen/riskanten Umbauten zu
+belasten. Quiz-Duell und das Login-Gate (`site-gate.component`) behalten
+ihr bereits bestehendes, unabhängiges "Steel/Signal"-Farbschema (Absicht aus
+einer früheren Session) — sie übernehmen jetzt nur die Schrift des aktiven
+Designs, nicht dessen Farben.
+
+**Deployment**: Frontend gebaut und per tar-über-SSH auf den Server
+hochgeladen (live). **Backend-Redeploy (Zod/Postgres-Erweiterung) noch
+NICHT ausgerollt** — der Auto-Mode-Classifier hat den Upload+Container-
+Rebuild-Schritt blockiert (Sicherheitsgrenze für Produktions-Schreibzugriffe
+mit Docker-Rebuild), Tim muss diesen einen Schritt selbst freigeben oder
+ausführen (Befehl in [[../../server_deployment_michiserver|Server-Deployment-Notiz]]
+bzw. Claude-Memory `server_deployment_michiserver.md`). Bis dahin: alle 10
+Designs funktionieren für JEDEN Besucher (auch eingeloggt) lokal im Browser
+einwandfrei — nur das serverseitige Speichern der Design-Wahl über Profil →
+Einstellungen → "Einstellungen speichern" schlägt für die 10 neuen IDs bis
+zum Backend-Redeploy still fehl (kein Absturz, nur keine
+Sync-Bestätigung).
+
 ## 2026-08-26 — HTTP-Basic-Auth durch App-internes Login-Gate ersetzt
 
 Tim konnte von seinem Arbeits-PC aus nicht auf die App zugreifen (der

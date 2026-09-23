@@ -43,6 +43,10 @@ CREATE TABLE IF NOT EXISTS user_settings (
     user_id uuid PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
     bevorzugtes_lehrjahr smallint CHECK (bevorzugtes_lehrjahr BETWEEN 1 AND 3),
     errungenschaften_hinweise boolean NOT NULL DEFAULT true,
-    skin text NOT NULL DEFAULT 'standard' CHECK (skin IN ('standard', 'playful', 'season', 'neon', 'gold', 'wald', 'ozean')),
+    skin text NOT NULL DEFAULT 'standard' CHECK (skin IN (
+        'standard', 'playful', 'season', 'neon', 'gold', 'wald', 'ozean',
+        'signalwerk', 'baustelle', 'blaupause', 'bahn-clean', 'nachtschicht',
+        'messing', 'bahnsteig', 'streckennetz', 'stellwerk', 'gelbe-flotte'
+    )),
     updated_at timestamptz NOT NULL DEFAULT now()
 );

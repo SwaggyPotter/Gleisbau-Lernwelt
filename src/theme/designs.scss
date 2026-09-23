@@ -1,0 +1,31 @@
+// Kleine, sichere globale Zusatz-Akzente der 10 Designs (2026-09-23), ueber
+// [data-theme="..."] (siehe ThemeService.anwenden()). Bewusst zurueckhaltend:
+// nur additive, layoutunkritische Effekte, keine Eingriffe in bestehende
+// Modul-Templates -- die eigentliche Umgestaltung passiert ueber die
+// --sp-*/--font-*-Farb-/Schrift-Tokens in variables.scss.
+
+// Baustelle: durchgehende Warnstreifen-Kante oben, wie in der Referenz
+// (.t2::before). `pointer-events: none`, damit nichts blockiert wird.
+[data-theme="baustelle"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 6px;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(-45deg, #ffd100 0 10px, #1a1a1a 10px 20px);
+}
+
+// VT323 (Bahnsteig-Anzeige), Share Tech Mono (Gleisbildstellwerk) und Press
+// Start 2P (Gelbe Flotte) existieren nur in Schriftschnitt 400. Ueberschriften
+// im Rest der App sind ueberall auf font-weight:700 hartkodiert (pro Seite,
+// nicht ueber ein Token) -- ohne diesen Override wuerde der Browser diese
+// Fonts "fake-bold" synthetisieren, was ihren eigentlichen Charakter
+// (Terminal-/Retro-/Pixel-Look) sichtbar verwaescht. Genau wie in der
+// Referenz, die fuer Bahnsteig deshalb explizit font-weight:400 auf
+// Ueberschriften setzt (.t7 .head h2{font-weight:400}).
+[data-theme="bahnsteig"] h1, [data-theme="bahnsteig"] h2, [data-theme="bahnsteig"] h3, [data-theme="bahnsteig"] ion-card-title,
+[data-theme="stellwerk"] h1, [data-theme="stellwerk"] h2, [data-theme="stellwerk"] h3, [data-theme="stellwerk"] ion-card-title,
+[data-theme="gelbe-flotte"] h1, [data-theme="gelbe-flotte"] h2, [data-theme="gelbe-flotte"] h3, [data-theme="gelbe-flotte"] ion-card-title {
+  font-weight: 400 !important;
+}

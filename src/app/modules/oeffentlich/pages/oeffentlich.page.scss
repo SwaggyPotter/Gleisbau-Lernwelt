@@ -4,12 +4,13 @@
   --sp-surface-2: var(--skin-surface-2, #1c2e3b);
   --sp-accent: var(--skin-accent, #ff8a3d);
   --sp-accent-2: var(--skin-accent-2, #6fa8dc);
-  --sp-text: #eaf2f5;
-  --sp-text-muted: #8ca3af;
-  --sp-border: rgba(111, 168, 220, 0.22);
-  --font-display: "Oswald", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Barlow", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --sp-text: var(--skin-text, #eaf2f5);
+  --sp-text-muted: var(--skin-text-muted, #8ca3af);
+  --sp-border: var(--skin-border, rgba(111, 168, 220, 0.22));
+  --sp-on-primary: var(--skin-on-primary, #0f1b24);
+  --font-display: var(--skin-font-display, "Oswald"), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--skin-font-body, "Barlow"), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--skin-font-mono, "JetBrains Mono"), ui-monospace, monospace;
   font-family: var(--font-body);
   color: var(--sp-text);
 }

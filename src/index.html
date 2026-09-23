@@ -8,6 +8,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+  <script>
+    // Verhindert einen Farb-"Blitz" beim Laden: setzt data-theme + die wichtigsten
+    // Grundfarben schon VOR dem Angular-Bootstrap, aus denselben localStorage-Werten,
+    // die ThemeService (src/app/core/theme/theme.service.ts) beim Waehlen eines
+    // Designs schreibt. Ohne gespeicherten Wert gilt Signalwerk (neuer Standard).
+    (function () {
+      try {
+        var theme = localStorage.getItem('glw-skin') || 'signalwerk';
+        var bg = localStorage.getItem('glw-skin-bg') || '#14171A';
+        var text = localStorage.getItem('glw-skin-text') || '#E8ECEF';
+        var root = document.documentElement;
+        root.setAttribute('data-theme', theme);
+        root.style.setProperty('--skin-bg', bg);
+        root.style.setProperty('--skin-text', text);
+      } catch (e) { /* localStorage nicht verfuegbar -- dann eben ein kurzes Aufblitzen */ }
+    })();
+  </script>
 </head>
 
 <body>

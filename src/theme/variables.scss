@@ -46,10 +46,40 @@
   src: url("/assets/fonts/jetbrains-mono-700.woff2") format("woff2");
 }
 
+// Zusaetzliche Schriften der 10 Designs (2026-09-23, design-reference/gleisbau-designvorschau.html).
+// Alle als @font-face deklariert, aber der Browser laedt eine Datei erst, wenn ein
+// aktives Theme sie tatsaechlich referenziert -- ungenutzte Designs verursachen also
+// keine zusaetzlichen Requests (kein manuelles Lazy-Loading pro Theme noetig).
+@font-face { font-family: "Barlow Condensed"; font-weight: 500; font-style: normal; font-display: swap; src: url("/assets/fonts/barlow-condensed-500.woff2") format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-weight: 700; font-style: normal; font-display: swap; src: url("/assets/fonts/barlow-condensed-700.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/inter-400.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 600; font-style: normal; font-display: swap; src: url("/assets/fonts/inter-600.woff2") format("woff2"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/source-sans-3-400.woff2") format("woff2"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 600; font-style: normal; font-display: swap; src: url("/assets/fonts/source-sans-3-600.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/ibm-plex-sans-400.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 600; font-style: normal; font-display: swap; src: url("/assets/fonts/ibm-plex-sans-600.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/ibm-plex-mono-400.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 500; font-style: normal; font-display: swap; src: url("/assets/fonts/ibm-plex-mono-500.woff2") format("woff2"); }
+@font-face { font-family: "Roboto Condensed"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/roboto-condensed-400.woff2") format("woff2"); }
+@font-face { font-family: "Roboto Condensed"; font-weight: 700; font-style: normal; font-display: swap; src: url("/assets/fonts/roboto-condensed-700.woff2") format("woff2"); }
+@font-face { font-family: "Roboto Mono"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/roboto-mono-400.woff2") format("woff2"); }
+@font-face { font-family: "Roboto Mono"; font-weight: 500; font-style: normal; font-display: swap; src: url("/assets/fonts/roboto-mono-500.woff2") format("woff2"); }
+@font-face { font-family: "Space Mono"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/space-mono-400.woff2") format("woff2"); }
+@font-face { font-family: "VT323"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/vt323-400.woff2") format("woff2"); }
+@font-face { font-family: "DM Sans"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/dm-sans-400.woff2") format("woff2"); }
+@font-face { font-family: "DM Sans"; font-weight: 600; font-style: normal; font-display: swap; src: url("/assets/fonts/dm-sans-600.woff2") format("woff2"); }
+@font-face { font-family: "DM Sans"; font-weight: 700; font-style: normal; font-display: swap; src: url("/assets/fonts/dm-sans-700.woff2") format("woff2"); }
+@font-face { font-family: "Share Tech Mono"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/share-tech-mono-400.woff2") format("woff2"); }
+@font-face { font-family: "Press Start 2P"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/press-start-2p-400.woff2") format("woff2"); }
+@font-face { font-family: "Rubik"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/rubik-400.woff2") format("woff2"); }
+@font-face { font-family: "Rubik"; font-weight: 600; font-style: normal; font-display: swap; src: url("/assets/fonts/rubik-600.woff2") format("woff2"); }
+
 :root {
-  --font-display: "Oswald", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Barlow", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  // Ueberschreibbar durch das aktive Design (ThemeService setzt --skin-font-*),
+  // Fallback bleibt das urspruengliche Streckenplan-Schriftbild.
+  --font-display: var(--skin-font-display, "Oswald"), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--skin-font-body, "Barlow"), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--skin-font-mono, "JetBrains Mono"), ui-monospace, monospace;
 
   // Grundflaechen
   --sp-bg: var(--skin-bg, #0f1b24);
@@ -63,17 +93,25 @@
   // zweiten Parameter zurueck -- also exakt das bisherige Aussehen.
   --sp-accent: var(--skin-accent, #ff8a3d);
   --sp-accent-2: var(--skin-accent-2, #6fa8dc);
+  --sp-on-primary: var(--skin-on-primary, #0f1b24);
   --sp-success: var(--skin-success, #6fbf73);
   --sp-warn: #e0b64f;
   --sp-danger: var(--skin-danger, #e06f6f);
 
-  // Text
-  --sp-text: #eaf2f5;
-  --sp-text-muted: #8ca3af;
+  // Text -- WICHTIG ueberschreibbar: helle Designs (Baustelle, Bahn-Clean,
+  // Streckennetz) haben einen hellen --sp-bg und brauchen daher dunklen Text.
+  // Ohne diesen Override waere Fliesstext auf hellen Designs unlesbar (hell auf hell).
+  --sp-text: var(--skin-text, #eaf2f5);
+  --sp-text-muted: var(--skin-text-muted, #8ca3af);
 
   // Linien/Rahmen
-  --sp-border: rgba(111, 168, 220, 0.22);
-  --sp-border-strong: rgba(111, 168, 220, 0.4);
+  --sp-border: var(--skin-border, rgba(111, 168, 220, 0.22));
+  --sp-border-strong: var(--skin-border-strong, rgba(111, 168, 220, 0.4));
+
+  // Form/Schatten -- von den 10 Designs gesetzt (design-reference), sonst das
+  // bisherige Aussehen (dezent gerundet, kein Schatten).
+  --sp-radius: var(--skin-radius, 6px);
+  --sp-shadow: var(--skin-shadow, none);
 
   // Bewusst KEINE globalen --ion-*-Variablen (Hintergrund, Text, Primaerfarbe,
   // Toolbar) gesetzt: mehrere Seiten (Quiz-Engines, Zusatzmodule) sind noch

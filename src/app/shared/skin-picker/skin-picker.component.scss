@@ -5,8 +5,8 @@
   --sp-accent: var(--skin-accent, #ff8a3d);
   --sp-text: var(--skin-text, #eaf2f5);
   --sp-text-muted: var(--skin-text-muted, #8ca3af);
-  --font-body: "Barlow", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Oswald", ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--skin-font-body, "Barlow"), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--skin-font-display, "Oswald"), ui-sans-serif, system-ui, sans-serif;
 }
 
 .skin-grid {

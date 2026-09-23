@@ -125,11 +125,23 @@ const runStartupMigrations = async () => {
       user_id uuid PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
       bevorzugtes_lehrjahr smallint CHECK (bevorzugtes_lehrjahr BETWEEN 1 AND 3),
       errungenschaften_hinweise boolean NOT NULL DEFAULT true,
-      skin text NOT NULL DEFAULT 'standard' CHECK (skin IN ('standard', 'playful', 'season', 'neon', 'gold', 'wald', 'ozean')),
+      skin text NOT NULL DEFAULT 'standard' CHECK (skin IN (
+        'standard', 'playful', 'season', 'neon', 'gold', 'wald', 'ozean',
+        'signalwerk', 'baustelle', 'blaupause', 'bahn-clean', 'nachtschicht',
+        'messing', 'bahnsteig', 'streckennetz', 'stellwerk', 'gelbe-flotte'
+      )),
       updated_at timestamptz NOT NULL DEFAULT now()
     )`);
     // Bereits bestehende Installationen (Tabelle existierte schon vor dem skin-Feld)
     await pool.query("ALTER TABLE user_settings ADD COLUMN IF NOT EXISTS skin text NOT NULL DEFAULT 'standard'");
+    // 2026-09-23: 10 neue Designs eingefuehrt -- die CHECK-Constraint auf bereits
+    // laufenden Installationen kennt die alte, kuerzere Werteliste noch nicht.
+    await pool.query('ALTER TABLE user_settings DROP CONSTRAINT IF EXISTS user_settings_skin_check');
+    await pool.query(`ALTER TABLE user_settings ADD CONSTRAINT user_settings_skin_check CHECK (skin IN (
+      'standard', 'playful', 'season', 'neon', 'gold', 'wald', 'ozean',
+      'signalwerk', 'baustelle', 'blaupause', 'bahn-clean', 'nachtschicht',
+      'messing', 'bahnsteig', 'streckennetz', 'stellwerk', 'gelbe-flotte'
+    ))`);
 
     await seedAchievements();
     await purgeDueDeletedUsers();

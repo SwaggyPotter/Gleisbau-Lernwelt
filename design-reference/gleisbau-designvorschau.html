@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Designvorschau Gleisbau-Lernwelt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Barlow:wght@400;600&family=DM+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&family=Oswald:wght@500;700&family=Press+Start+2P&family=Roboto+Condensed:wght@400;700&family=Roboto+Mono:wght@400;500&family=Rubik:wght@400;600&family=Share+Tech+Mono&family=Source+Sans+3:wght@400;600;700&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --shell-bg:#E7E6E1; --shell-text:#1c1d1f; --shell-muted:#5d5f63; --shell-chip:#ffffff; --shell-line:#cfcdc6;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--shell-bg:#18191b; --shell-text:#ececea; --shell-muted:#a2a3a6; --shell-chip:#242528; --shell-line:#34363a;}
+}
+:root[data-theme="dark"]{--shell-bg:#18191b; --shell-text:#ececea; --shell-muted:#a2a3a6; --shell-chip:#242528; --shell-line:#34363a;}
+html{scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--shell-bg);color:var(--shell-text);font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+img,svg{max-width:100%}
+
+/* ---------- Kopfbereich ---------- */
+.intro{max-width:1100px;margin:0 auto;padding:40px 20px 28px}
+.intro h1{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:clamp(34px,6vw,58px);line-height:1;margin:0 0 10px;letter-spacing:.01em}
+.intro p{margin:0 0 22px;color:var(--shell-muted);max-width:62ch}
+.jump{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+.jump a{display:flex;align-items:center;gap:8px;padding:7px 12px 7px 10px;border-radius:999px;background:var(--shell-chip);border:1px solid var(--shell-line);color:var(--shell-text);text-decoration:none;font-size:14px}
+.jump a:hover{border-color:var(--shell-text)}
+.dots{display:flex}
+.dots i{width:12px;height:12px;border-radius:50%;margin-left:-3px;border:1.5px solid var(--shell-chip)}
+.dots i:first-child{margin-left:0}
+
+/* ---------- Gemeinsame Bausteine ---------- */
+.t{
+  --radius:10px; --shadow:none; --on-primary:#111; --ok-text:#0b0b0b; --bad-text:#fff;
+  --fh:"Inter",sans-serif; --fb:"Inter",sans-serif; --fm:"JetBrains Mono",monospace;
+  background:var(--bg);color:var(--text);font-family:var(--fb);
+  padding:clamp(36px,6vw,64px) clamp(16px,4vw,40px);position:relative;
+}
+.wrap{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.head{display:flex;gap:16px;align-items:flex-start;margin-bottom:26px}
+.num{flex:none;width:44px;height:44px;display:grid;place-items:center;background:var(--primary);color:var(--on-primary);font-family:var(--fm);font-weight:600;border-radius:var(--radius)}
+.head h2{font-family:var(--fh);margin:0;font-size:clamp(28px,4.4vw,42px);line-height:1.05}
+.head p{margin:6px 0 0;color:var(--muted);max-width:60ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;min-width:0}
+.card h3{font-family:var(--fh);margin:0 0 14px;font-size:20px;line-height:1.25}
+.muted{color:var(--muted)}
+.opts{display:grid;gap:8px}
+.opt{display:block;width:100%;text-align:left;padding:11px 14px;border:1px solid var(--border);background:var(--bg);color:var(--text);border-radius:calc(var(--radius)*.7);font:inherit;cursor:pointer;transition:background .2s,border-color .2s}
+.opt:hover{border-color:var(--primary)}
+.opt.right{background:var(--ok);color:var(--ok-text);border-color:var(--ok);animation:pop .38s ease-out}
+.opt.wrong{background:var(--bad);color:var(--bad-text);border-color:var(--bad);animation:shake .4s}
+.feedback{min-height:1.5em;margin:12px 0 0;font-size:14px;color:var(--muted)}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{font:inherit;font-weight:600;padding:10px 18px;border-radius:calc(var(--radius)*.7);cursor:pointer;border:1px solid transparent;transition:transform .15s,background .2s,box-shadow .2s}
+.btn.primary{background:var(--primary);color:var(--on-primary)}
+.btn.secondary{background:transparent;color:var(--text);border-color:var(--border-strong,var(--text))}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible,.opt:focus-visible,.jump a:focus-visible{outline:3px solid var(--accent,#2563eb);outline-offset:2px}
+.progress{height:10px;border-radius:999px;background:var(--bg);border:1px solid var(--border);overflow:hidden;margin:14px 0 6px}
+.progress span{display:block;height:100%;background:var(--primary);border-radius:inherit}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px;margin-top:18px}
+.sw{font-family:var(--fm);font-size:11px;color:var(--muted)}
+.sw b{display:block;height:34px;border-radius:calc(var(--radius)*.5);border:1px solid var(--border);margin-bottom:4px}
+.sig{display:flex;flex-direction:column}
+.stage{flex:1;display:grid;place-items:center;min-height:190px;gap:12px}
+.replay{align-self:flex-start;margin-top:14px;font-size:14px;padding:8px 14px}
+
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+
+/* ---------- 1 Signalwerk ---------- */
+.t1{--bg:#14171A;--surface:#1E2328;--text:#E8ECEF;--muted:#9AA4AD;--primary:#22C55E;--on-primary:#06180c;--accent:#FACC15;--ok:#22C55E;--bad:#EF4444;--border:#343B42;--fh:"Barlow Condensed",sans-serif;--fb:"Inter",sans-serif;--fm:"JetBrains Mono",monospace}
+.t1 .head h2{letter-spacing:.02em;font-weight:700}
+.t1 .num{border-radius:50%;box-shadow:0 0 14px rgba(34,197,94,.55)}
+.t1 .opt.right{box-shadow:0 0 18px rgba(34,197,94,.55)}
+.t1 .btn.primary{box-shadow:0 0 14px rgba(34,197,94,.35)}
+.ks{width:76px;padding:12px 16px;background:#0b0d0f;border-radius:38px;display:flex;flex-direction:column;gap:12px;border:2px solid #2d343a}
+.lamp{width:44px;height:44px;border-radius:50%;background:#262a2e;transition:background .25s,box-shadow .25s}
+.lamp.r.on{background:#EF4444;box-shadow:0 0 18px #EF4444,0 0 44px rgba(239,68,68,.45)}
+.lamp.y.on{background:#FACC15;box-shadow:0 0 18px #FACC15,0 0 44px rgba(250,204,21,.45)}
+.lamp.g.on{background:#22C55E;box-shadow:0 0 18px #22C55E,0 0 44px rgba(34,197,94,.45)}
+.ks-label{font-family:var(--fm);font-size:14px;color:var(--muted)}
+.t1 .stage{grid-template-columns:auto auto;align-items:center;gap:24px}
+
+/* ---------- 2 Baustelle ---------- */
+.t2{--bg:#F4F1EA;--surface:#FFFFFF;--text:#1A1A1A;--muted:#55554f;--primary:#FF6A13;--on-primary:#1A1A1A;--accent:#1A1A1A;--ok:#1f9d55;--ok-text:#fff;--bad:#d62828;--border:#1A1A1A;--radius:3px;--shadow:5px 5px 0 #1A1A1A;--fh:"Oswald",sans-serif;--fb:"Source Sans 3",sans-serif;--fm:"JetBrains Mono",monospace}
+.t2::before{content:"";position:absolute;left:0;right:0;top:0;height:14px;background:repeating-linear-gradient(-45deg,#FFD100 0 14px,#1A1A1A 14px 28px)}
+.t2 .head h2{text-transform:uppercase;font-weight:700}
+.t2 .card{border-width:2px}
+.t2 .opt{border-width:2px}
+.t2 .btn{border:2px solid #1A1A1A;box-shadow:3px 3px 0 #1A1A1A;position:relative;overflow:hidden}
+.t2 .btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 #1A1A1A}
+.t2 .btn.primary::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-20deg)}
+.t2 .btn.primary:hover::after{animation:glint .5s ease-out}
+@keyframes glint{to{left:130%}}
+.t2 .progress{border:2px solid #1A1A1A;border-radius:0;background:#fff}
+.t2 .progress span{border-radius:0;background:repeating-linear-gradient(-45deg,#FF6A13 0 10px,#ff8a45 10px 20px)}
+.loader{width:100%;height:30px;border:3px solid #1A1A1A;background:#fff}
+.loader .fill{height:100%;width:100%;background:repeating-linear-gradient(-45deg,#FFD100 0 12px,#1A1A1A 12px 24px);background-size:34px 34px}
+.loader .fill.run{animation:stripes .6s linear infinite}
+@keyframes stripes{to{background-position:34px 0}}
+.load-txt{font-family:var(--fh);text-transform:uppercase;font-size:18px;letter-spacing:.02em}
+.t2 .stage{width:100%;align-content:center}
+
+/* ---------- 3 Blaupause ---------- */
+.t3{--bg:#0B3A66;--surface:rgba(15,76,129,.85);--text:#E6F0FA;--muted:#a9c6e3;--primary:#FDE68A;--on-primary:#0B3A66;--accent:#7DD3FC;--ok:#86efac;--bad:#fca5a5;--bad-text:#3b0a0a;--border:rgba(230,240,250,.45);--border-strong:rgba(230,240,250,.8);--radius:0px;--fh:"IBM Plex Sans",sans-serif;--fb:"IBM Plex Sans",sans-serif;--fm:"IBM Plex Mono",monospace;
+  background-image:linear-gradient(rgba(230,240,250,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(230,240,250,.07) 1px,transparent 1px);background-size:24px 24px}
+.t3 .card{border-style:dashed}
+.t3 .opt{background:transparent;border-style:dashed}
+.t3 .head h2{font-weight:600}
+.bp{width:100%;max-width:340px}
+.bp path,.bp line{fill:none;stroke-linecap:round}
+.bp .tan{stroke:rgba(230,240,250,.55);stroke-width:1.2;stroke-dasharray:1;stroke-dashoffset:0}
+.bp .curve{stroke:#FDE68A;stroke-width:3.5;stroke-dasharray:1;stroke-dashoffset:0}
+.bp .dimln{stroke:#7DD3FC;stroke-width:1.2;stroke-dasharray:1;stroke-dashoffset:0}
+.bp text{fill:#E6F0FA;font-family:"IBM Plex Mono",monospace;font-size:10px}
+.bp .pt{fill:#0B3A66;stroke:#FDE68A;stroke-width:2}
+.bp.play .tan{animation:draw .9s ease-out both}
+.bp.play .curve{animation:draw 1s .7s ease-in-out both}
+.bp.play .dimln{animation:draw .6s 1.5s ease-out both}
+.bp.play .pt,.bp.play text{animation:fadein .4s 1.6s both}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.readout{font-family:var(--fm);font-size:14px;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center}
+.readout b{color:var(--primary);font-weight:500}
+
+/* ---------- 4 Bahn-Clean ---------- */
+.t4{--bg:#FFFFFF;--surface:#F0F3F5;--text:#282D37;--muted:#646973;--primary:#D4001A;--on-primary:#fff;--accent:#1455C0;--ok:#408335;--ok-text:#fff;--bad:#D4001A;--border:#D7DCE1;--border-strong:#282D37;--radius:8px;--fh:"Source Sans 3",sans-serif;--fb:"Source Sans 3",sans-serif;--fm:"Roboto Mono",monospace}
+.t4 .head h2{font-weight:700}
+.t4 .card{border:none}
+.t4 .opt{background:#fff}
+.side{display:flex;flex-direction:column;gap:2px;width:100%;max-width:240px}
+.side button{font:inherit;text-align:left;background:none;border:none;padding:9px 14px;color:var(--muted);cursor:pointer;position:relative;border-radius:0 6px 6px 0}
+.side button::before{content:"";position:absolute;left:0;top:0;width:3px;height:100%;background:var(--primary);transform:scaleY(0);transform-origin:top;transition:transform .3s ease-out}
+.side button.active{color:var(--text);font-weight:600;background:#fff}
+.side button.active::before{transform:scaleY(1)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:10px;width:100%;max-width:260px}
+.checks li{display:flex;align-items:center;gap:10px}
+.checks svg{width:24px;height:24px;flex:none;background:#fff;border:1px solid var(--border);border-radius:6px}
+.checks path{fill:none;stroke:#408335;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.checks.play path{animation:draw .45s ease-out both}
+.checks.play li:nth-child(1) path{animation-delay:.1s}
+.checks.play li:nth-child(2) path{animation-delay:.45s}
+.checks.play li:nth-child(3) path{animation-delay:.8s}
+.t4 .stage{grid-template-columns:1fr;justify-items:start;gap:22px}
+
+/* ---------- 5 Nachtschicht ---------- */
+.t5{--bg:#0A0C10;--surface:#151922;--text:#FFF4D6;--muted:#8b93a1;--primary:#FF7A1A;--on-primary:#0A0C10;--accent:#C7D2DA;--ok:#7ee08a;--bad:#ff5a5a;--border:#262c38;--radius:6px;--fh:"Barlow",sans-serif;--fb:"Barlow",sans-serif;--fm:"Space Mono",monospace;overflow:hidden}
+.t5 .head h2{font-weight:600}
+.spot{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(circle 260px at var(--mx,50%) var(--my,35%),rgba(255,244,214,.07),rgba(0,0,0,.7) 75%);transition:opacity .35s}
+.t5.lamp-off .spot{opacity:0}
+@media (hover:none){.spot{opacity:0}}
+.vest{width:170px;height:120px;background:#FF7A1A;border-radius:10px 10px 4px 4px;position:relative;overflow:hidden;box-shadow:inset 0 -10px 0 rgba(0,0,0,.15)}
+.vest::before{content:"";position:absolute;left:50%;top:-20px;width:60px;height:60px;border-radius:50%;background:var(--surface);transform:translateX(-50%)}
+.refl{position:absolute;left:0;right:0;height:14px;background:#C7D2DA;overflow:hidden}
+.refl:nth-of-type(1){top:52px}.refl:nth-of-type(2){top:80px}
+.refl::after{content:"";position:absolute;top:0;bottom:0;width:50px;left:-60px;background:linear-gradient(90deg,transparent,#fff,transparent)}
+.vest.play .refl::after{animation:sweep .9s ease-in-out both}
+.vest.play .refl:nth-of-type(2)::after{animation-delay:.15s}
+@keyframes sweep{to{left:110%}}
+
+/* ---------- 6 Messing & Stahl ---------- */
+.t6{--bg:#2B2B2B;--surface:#3A3A3A;--text:#EDE6D6;--muted:#b3ab9a;--primary:#B8893B;--on-primary:#2b2112;--accent:#D9B36C;--ok:#6aa84f;--ok-text:#fff;--bad:#B91C1C;--border:#555;--border-strong:#9CA3AF;--radius:4px;--fh:"Roboto Condensed",sans-serif;--fb:"Roboto Condensed",sans-serif;--fm:"Roboto Mono",monospace}
+.t6 .head h2{font-weight:700;text-shadow:0 1px 0 rgba(0,0,0,.6)}
+.t6 .card{background:linear-gradient(180deg,#414141,#363636);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 2px 6px rgba(0,0,0,.4)}
+.t6 .num{background:linear-gradient(180deg,#e2c07a,#b8893b 55%,#8e6a2c)}
+.t6 .btn.primary{background:linear-gradient(180deg,#e2c07a,#b8893b 55%,#8e6a2c);text-shadow:0 1px 0 rgba(255,255,255,.35);border-color:#7a5a24;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.t6 .btn.secondary{background:linear-gradient(180deg,#b8bdc4,#8b9098);color:#1f2124;border-color:#6b7078}
+.t6 .progress{background:#222;border-color:#555}
+.t6 .progress span{background:linear-gradient(180deg,#e2c07a,#b8893b);border-radius:0}
+.gauge{width:100%;max-width:300px}
+.gauge .tick{stroke:#EDE6D6;stroke-width:1.2}
+.gauge .tick.big{stroke-width:2.2}
+.gauge text{fill:#EDE6D6;font-family:"Roboto Mono",monospace;font-size:10px}
+.needle{transform-box:view-box;transform-origin:120px 122px;transform:rotate(-18deg);transition:transform 1.2s cubic-bezier(.34,1.56,.64,1)}
+.gval{font-family:var(--fm);font-size:15px}
+.gval b{color:var(--accent);font-weight:500}
+
+/* ---------- 7 Bahnsteig-Anzeige ---------- */
+.t7{--bg:#0E1B3D;--surface:#13265A;--text:#FFFFFF;--muted:#b7c3e6;--primary:#FFD43B;--on-primary:#0E1B3D;--accent:#FFD43B;--ok:#4ade80;--bad:#f87171;--border:#2a3f7a;--radius:4px;--fh:"VT323",monospace;--fb:"Inter",sans-serif;--fm:"VT323",monospace}
+.t7 .head h2{font-size:clamp(38px,6vw,56px);font-weight:400;color:var(--primary)}
+.t7 .num{font-size:26px}
+.t7 .card h3{font-family:"Inter",sans-serif}
+.board{width:100%;background:#081330;border:1px solid var(--border);border-radius:4px;padding:12px;display:grid;gap:10px}
+.brow{display:flex;align-items:center;gap:10px;font-family:"VT323",monospace;font-size:26px;line-height:1}
+.brow .time{color:#FFD43B}
+.brow .gl{margin-left:auto;background:#1D4ED8;color:#fff;border-radius:3px;padding:3px 9px}
+.flap{display:inline-flex;gap:2px}
+.flap .ch{display:inline-block;width:.7em;text-align:center;background:#16244d;border-radius:2px;position:relative;padding:3px 0}
+.flap .ch::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#081330}
+.flap .ch.f{animation:flip .1s linear}
+@keyframes flip{0%{transform:rotateX(0)}50%{transform:rotateX(-80deg)}100%{transform:rotateX(0)}}
+.flap.big{font-family:"VT323",monospace;font-size:34px;color:#FFD43B}
+.ticker{overflow:hidden;white-space:nowrap;font-family:"VT323",monospace;font-size:22px;color:#FFD43B;border-top:1px solid var(--border);padding-top:8px}
+.ticker span{display:inline-block;padding-left:100%}
+.ticker.play span{animation:marquee 9s linear 1 both}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+.ticker:not(.play) span{padding-left:0}
+
+/* ---------- 8 Streckennetz ---------- */
+.t8{--bg:#FAFAF7;--surface:#FFFFFF;--text:#111827;--muted:#6b7280;--primary:#16A34A;--on-primary:#fff;--accent:#2563EB;--ok:#16A34A;--ok-text:#fff;--bad:#E11D48;--border:#e5e7eb;--border-strong:#111827;--radius:16px;--shadow:0 1px 2px rgba(17,24,39,.06);--fh:"DM Sans",sans-serif;--fb:"DM Sans",sans-serif;--fm:"DM Sans",sans-serif}
+.t8 .head h2{font-weight:700}
+.t8 .btn{border-radius:999px}
+.netz{width:100%;max-width:360px;overflow:visible}
+.netz .ln{fill:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.netz .st{fill:#fff;stroke:#16A34A;stroke-width:3;transition:fill .25s;transform-box:fill-box;transform-origin:center}
+.netz .st.done{fill:#16A34A}
+.netz .st.arrive{animation:stpulse .6s ease-out}
+@keyframes stpulse{0%{transform:scale(1)}45%{transform:scale(1.6)}100%{transform:scale(1)}}
+.netz text{font-family:"DM Sans",sans-serif;font-size:10px;fill:#374151}
+.netz .train rect{fill:#111827}
+.netz .train circle{fill:#FDE047}
+
+/* ---------- 9 Gleisbildstellwerk ---------- */
+.t9{--bg:#1F3A2E;--surface:#2A4A3B;--text:#E5E7EB;--muted:#a9bfb3;--primary:#FDE047;--on-primary:#1F3A2E;--accent:#FDE047;--ok:#FDE047;--bad:#EF4444;--border:#3d6150;--border-strong:#D1D5DB;--radius:3px;--fh:"Share Tech Mono",monospace;--fb:"Share Tech Mono",monospace;--fm:"Share Tech Mono",monospace}
+.t9 .btn,.t9 .opt{box-shadow:inset 0 -3px 0 rgba(0,0,0,.35)}
+.t9 .btn.secondary{background:#D1D5DB;color:#1F3A2E;border-color:#9aa0a8}
+.t9 .opt.wrong{animation:belegt .5s steps(2) 2}
+@keyframes belegt{50%{filter:brightness(1.6)}}
+.gb{width:100%;max-width:360px}
+.gb .seg{fill:none;stroke:#E5E7EB;stroke-width:6;stroke-linecap:butt;transition:stroke .15s}
+.gb .seg.idle{stroke:#6f8a7c}
+.gb .seg.lit{stroke:#FDE047}
+.gb .key{fill:#D1D5DB;stroke:#111;stroke-width:1.5}
+.gb .key.down{fill:#FDE047}
+.gb .key.blink{animation:keyblink .35s steps(2) 3}
+@keyframes keyblink{50%{fill:#D1D5DB}}
+.gb text{fill:#E5E7EB;font-family:"Share Tech Mono",monospace;font-size:10px}
+
+/* ---------- 10 Gelbe Flotte ---------- */
+.t10{--bg:#111111;--surface:#1E1E1E;--text:#f5f5f5;--muted:#a3a3a3;--primary:#FFC400;--on-primary:#111;--accent:#22D3EE;--ok:#4ADE80;--bad:#F43F5E;--border:#333;--radius:0px;--fh:"Press Start 2P",monospace;--fb:"Rubik",sans-serif;--fm:"Press Start 2P",monospace}
+.t10 .head h2{font-size:clamp(18px,3vw,26px);line-height:1.5;color:var(--primary)}
+.t10 .num{font-size:12px}
+.t10 .card h3{font-family:"Rubik",sans-serif;font-weight:600}
+.t10 .card{box-shadow:4px 0 0 #333,-4px 0 0 #333,0 4px 0 #333,0 -4px 0 #333;border:none}
+.t10 .btn{border-radius:0;box-shadow:inset -3px -3px 0 rgba(0,0,0,.35)}
+.t10 .progress{border-radius:0;height:14px}
+.t10 .progress span{border-radius:0;background:repeating-linear-gradient(90deg,#FFC400 0 10px,#e0ac00 10px 12px)}
+.xp{position:relative;width:100%;height:30px;background:repeating-linear-gradient(90deg,#3a2a1a 0 6px,#1e1e1e 6px 18px);border-top:3px solid #9CA3AF;border-bottom:3px solid #9CA3AF}
+.xp .xpfill{position:absolute;left:0;top:0;bottom:0;width:78%;background:rgba(255,196,0,.28)}
+.pxtrain{position:absolute;top:2px;left:calc(78% - 40px);width:40px;height:20px;background:#FFC400;box-shadow:inset -6px 0 0 #e0ac00}
+.pxtrain::before{content:"";position:absolute;right:6px;top:4px;width:10px;height:6px;background:#22D3EE}
+.pxtrain::after{content:"";position:absolute;left:4px;bottom:-4px;width:6px;height:6px;background:#111;box-shadow:24px 0 0 #111}
+.xptxt{font-family:"Press Start 2P",monospace;font-size:10px;line-height:1.8;text-align:center}
+.badge{position:relative;font-family:"Press Start 2P",monospace;font-size:11px;background:#FFC400;color:#111;padding:10px 14px;box-shadow:4px 4px 0 #22D3EE;transform:scale(1)}
+.badge.pop{animation:badgepop .5s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes badgepop{0%{transform:scale(0)}100%{transform:scale(1)}}
+.badge .pt{position:absolute;left:50%;top:50%;width:6px;height:6px;background:#9CA3AF;opacity:0}
+.badge.pop .pt{animation:burst .7s .1s ease-out both}
+@keyframes burst{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
+
+footer{max-width:1100px;margin:0 auto;padding:28px 20px 40px;color:var(--shell-muted);font-size:14px}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-delay:0s !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="intro">
+  <h1>Designvorschau Gleisbau-Lernwelt</h1>
+  <p>Zehn Farbwelten zum Vergleichen. Jede zeigt eine Quizfrage zum Anklicken, ein Modul mit Fortschritt und Buttons, die Farbpalette und die typische Animation. Die Animation startet beim Hinscrollen und lässt sich wiederholen.</p>
+  <ul class="jump" id="jump"></ul>
+</header>
+
+<!-- 1 -->
+<section class="t t1" id="t1">
+  <div class="wrap">
+    <div class="head"><span class="num">1</span><div><h2>Signalwerk</h2><p>Dunkles Stellwerk-Gefühl, Farben aus den Ks-Signalen. Richtige Antworten leuchten wie ein Fahrtbegriff.</p></div></div>
+    <div class="grid">
+      <div class="card quiz"></div><div class="card ui"></div>
+      <div class="card sig"><h3>Signalwechsel</h3>
+        <div class="stage"><div class="ks"><span class="lamp r"></span><span class="lamp y"></span><span class="lamp g on"></span></div><div class="ks-label">Ks 1: Fahrt</div></div>
+        <button class="btn secondary replay">Animation abspielen</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="t t2" id="t2">
+  <div class="wrap">
+    <div class="head"><span class="num">2</span><div><h2>Baustelle</h2><p>Warnorange, Signalgelb und harte Kanten. Laut und eindeutig, sofort als Gleisbaustelle erkennbar.</p></div></div>
+    <div class="grid">
+      <div class="card quiz"></div><div class="card ui"></div>
+      <div class="card sig"><h3>Ladebalken mit Warnstreifen</h3>
+        <div class="stage"><div class="loader"><div class="fill"></div></div><div class="load-txt">Baustelle eingerichtet</div></div>
+        <button class="btn secondary replay">Animation abspielen</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="t t3" id="t3">
+  <div class="wrap">
+    <div class="head"><span class="num">3</span><div><h2>Blaupause</h2><p>Technische Zeichnung mit Raster und Bemaßung. Gemacht für Trassierung und Rechenaufgaben.</p></div></div>
+    <div class="grid">
+      <div class="card quiz"></div><div class="card ui"></div>
+      <div class="card sig"><h3>Ausrundung einer Kuppe</h3>
+        <div class="stage">
+          <svg class="bp" viewBox="0 0 320 175" role="img" aria-label="Kuppenausrundung mit Tangenten">
+            <path class="tan" pathLength="1" d="M10 140 L160 40 L310 140"/>
+            <path class="curve" pathLength="1" d="M85 90 Q160 40 235 90"/>
+            <path class="dimln" pathLength="1" d="M85 158 L235 158 M85 150 V166 M235 150 V166"/>
+            <circle class="pt" cx="85" cy="90" r="4"/><circle class="pt" cx="235" cy="90" r="4"/>
+            <text x="62" y="84">TA</text><text x="242" y="84">TE</text>
+            <text x="30" y="118">+8 ‰</text><text x="266" y="118">−7 ‰</text>
+            <text x="150" y="172">2T</text>
+          </svg>
+          <div class="readout"><span>R = <b class="count" data-to="10000" data-dec="0">10.000</b> m</span><span>T = <b class="count" data-to="75" data-dec="2">75,00</b> m</span><span>f = <b class="count" data-to="0.28" data-dec="2">0,28</b> m</span></div>
+        </div>
+        <button class="btn secondary replay">Animation abspielen</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="t t4" id="t4">
+  <div class="wrap">
+    <div class="head"><span class="num">4</span><div><h2>Bahn-Clean</h2><p>Weiß, Verkehrsrot und viel Ruhe. Wirkt offiziell und passt gut für Ausbilderseiten.</p></div></div>
+    <div class="grid">
+      <div class="card quiz"></div><div class="card ui"></div>
+      <div class="card sig"><h3>Navigation und Abhaken</h3>
+        <div class="stage">
+          <nav class="side" aria-label="Beispielnavigation"><button class="active">Oberbau</button><button>Vermessung</button><button>Arbeitssicherheit</button></nav>
+          <ul class="checks">
+            <li><svg viewBox="0 0 24 24"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7.5"/></svg>PSA vollständig</li>
+            <li><svg viewBox="0 0 24 24"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sicherungsposten eingewiesen</li>
+            <li><svg viewBox="0 0 24 24"><path pathLength="1" d="M5 12.5l4.5 4.5L19 7.5"/></svg>Arbeitsgleis gesperrt</li>
+          </ul>
+        </div>
+        <button class="btn secondary replay">Animation abspielen</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="t t5" id="t5">
+  <div class="spot"></div>
+  <div class="wrap">
+    <div class="head"><span class="num">5</span><div><h2>Nachtschicht</h2><p>Dunkler Modus mit Stirnlampe: Der Lichtkegel folgt der Maus. Reflektorstreifen glänzen auf.</p></div></div>
+    <div class="grid">
+      <div class="card quiz"></div><div class="card ui"></div>
+      <div class="card sig"><h3>Warnweste im Lichtkegel</h3>
+        <div class="stage"><div class="vest"><span class="refl"></span><span class="refl"></span></div></div>
+        <div class="btns" style="margin-top:14px"><button class="btn secondary replay" style="margin-top:0">Animation abspielen</button><button class="btn secondary lamp-toggle">Stirnlampe aus</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="t t6" id="t6">
+  <div class="wrap">
+    <div class="head"><span class="num">6</span><div><h2>Messing &amp; Stahl</h2><p>Hochwertig und handwerklich, wie ein Messwerkzeug. Passt zum Verschleißmesser und zur Nivellierlatte.</p></div></div>
+    <div class="grid">
+      <div class="card quiz"></div><div class="card ui"></div>
+      <div class="card sig"><h3>Zeigerausschlag</h3>
+        <div class="stage">
+          <svg class="gauge" viewBox="0 0 240 140" role="img" aria-label="Messuhr">
+            <path d="M25 122 A95 95 0 0 1 215 122" fill="none" stroke="#B8893B" stroke-width="3"/>
+            <g id="ticks"></g>
+            <g class="needle"><line x1="120" y1="122" x2="120" y2="40" stroke="#B91C1C" stroke-width="2.5" stroke-linecap="round"/></g>
+            <circle cx="120" cy="122" r="8" fill="#D9B36C" stroke="#8e6a2c" stroke-width="2"/>
+          </svg>
+          <div class="gval">Seitenverschleiß <b class="count" data-to="0.8" data-dec="1">0,8</b> mm</div>
+        </div>
+        <button class="btn secondary replay">Animation abspielen</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="t t7" id="t7">
+  <div class="wrap">
+    <div class="head"><span class="num">7</span><div><h2>Bahnsteig-Anzeige</h2><p>Blaue Zugzielanzeiger und Fallblatt-Tafeln. Stark für Quizduell-Punktestände und Modulübersichten.</p></div></div>
+    <div class="grid">
+      <div class="card quiz"></div><div class="card ui"></div>
+      <div class="card sig"><h3>Fallblatt-Tafel</h3>
+        <div class="stage">
+          <div class="board">
+            <div class="brow"><span class="time">08:14</span><span class="flap" data-text="OBERBAU"></span><span class="gl">3</span></div>
+            <div class="brow"><span class="time">09:30</span><span class="flap" data-text="VERMESSUNG"></span><span class="gl">5</span></div>
+            <div class="flap big" data-text="PUNKTE 01240"></div>
+            <div class="ticker"><span>Hinweis: Neue Aufgaben zur Trassierung verfügbar</span></div>
+          </div>
+        </div>
+        <button class="btn secondary replay">Animation abspielen</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="t t8" id="t8">
+  <div class="wrap">
+    <div class="head"><span class="num">8</span><div><h2>Streckennetz</h2><p>Der Lernpfad als Linienplan. Jedes Modul ist ein Bahnhof, der Zug zeigt, wie weit man ist.</p></div></div>
+    <div class="grid">
+      <div class="card quiz"></div><div class="card ui"></div>
+      <div class="card sig"><h3>Lernpfad</h3>
+        <div class="stage">
+          <svg class="netz" viewBox="0 0 340 150" role="img" aria-label="Lernpfad als Linienplan">
+            <path class="ln" d="M30 30 H130 Q150 30 160 48 L200 118 H320" stroke="#2563EB" opacity=".35"/>
+            <path class="ln" id="line8" d="M20 110 H110 Q130 110 140 92 L170 42 Q180 25 200 25 H320" stroke="#16A34A"/>
+            <g id="st8"></g>
+            <g class="train" id="train8"><rect x="-10" y="-6" width="20" height="12" rx="4"/><circle cx="5" cy="0" r="2.2"/></g>
+          </svg>
+        </div>
+        <button class="btn secondary replay">Animation abspielen</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="t t9" id="t9">
+  <div class="wrap">
+    <div class="head"><span class="num">9</span><div><h2>Gleisbildstellwerk</h2><p>Retro-Stelltafel. Navigation funktioniert wie eine Fahrstraße von Start- zu Zieltaste.</p></div></div>
+    <div class="grid">
+      <div class="card quiz"></div><div class="card ui"></div>
+      <div class="card sig"><h3>Fahrstraße stellen</h3>
+        <div class="stage">
+          <svg class="gb" viewBox="0 0 340 150" role="img" aria-label="Gleisbild mit Fahrstraße">
+            <path class="seg idle" d="M164 100 H316"/>
+            <path class="seg route" d="M20 100 H86"/>
+            <path class="seg route" d="M92 100 H156"/>
+            <path class="seg route" d="M160 100 L196 62"/>
+            <path class="seg route" d="M202 60 H266"/>
+            <path class="seg route" d="M272 60 H320"/>
+            <circle class="key" id="k-start" cx="20" cy="124" r="8"/>
+            <circle class="key" id="k-end" cx="320" cy="36" r="8"/>
+            <text x="34" y="128">Grundlagen</text>
+            <text x="250" y="40">Prüfung</text>
+            <text x="150" y="122">W3</text>
+          </svg>
+        </div>
+        <button class="btn secondary replay">Animation abspielen</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="t t10" id="t10">
+  <div class="wrap">
+    <div class="head"><span class="num">10</span><div><h2>Gelbe Flotte</h2><p>Arcade-Stil für Quiz und Wettbewerbe. XP-Balken als Gleis, Abzeichen für bestandene Module.</p></div></div>
+    <div class="grid">
+      <div class="card quiz"></div><div class="card ui"></div>
+      <div class="card sig"><h3>Level-Aufstieg</h3>
+        <div class="stage">
+          <div class="xp"><div class="xpfill"></div><div class="pxtrain"></div></div>
+          <div class="xptxt">Level 4: 780 / 1000 XP</div>
+          <div class="badge">Stopfmeister</div>
+        </div>
+        <button class="btn secondary replay">Animation abspielen</button></div>
+    </div>
+  </div>
+</section>
+
+<footer>Sag einfach, welche Nummern dir gefallen, dann baue ich daraus das Theme-System für Claude Code.</footer>
+
+<script>
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fmt = (v,d)=>v.toLocaleString('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d});
+
+const themes = [
+ {name:'Signalwerk', mod:'Signale und Sicherung', chap:'Kapitel 2: Ks-Signalbegriffe', prog:65, pal:[['#14171A'],['#1E2328'],['#22C55E'],['#FACC15'],['#EF4444'],['#E8ECEF']]},
+ {name:'Baustelle', mod:'Arbeitssicherheit', chap:'Kapitel 1: Schutzausrüstung', prog:40, pal:[['#F4F1EA'],['#FF6A13'],['#FFD100'],['#1A1A1A'],['#8A8A85'],['#FFFFFF']]},
+ {name:'Blaupause', mod:'Trassierung', chap:'Kapitel 5: Neigungswechsel', prog:30, pal:[['#0B3A66'],['#0F4C81'],['#E6F0FA'],['#7DD3FC'],['#FDE68A']]},
+ {name:'Bahn-Clean', mod:'Oberbau', chap:'Kapitel 4: Schienenprofile', prog:72, pal:[['#FFFFFF'],['#F0F3F5'],['#D4001A'],['#282D37'],['#D7DCE1'],['#1455C0']]},
+ {name:'Nachtschicht', mod:'Arbeitssicherheit', chap:'Kapitel 3: Arbeiten bei Nacht', prog:55, pal:[['#0A0C10'],['#151922'],['#FFF4D6'],['#C7D2DA'],['#FF7A1A']]},
+ {name:'Messing & Stahl', mod:'Messtechnik', chap:'Kapitel 2: Verschleißmessung', prog:80, pal:[['#2B2B2B'],['#3A3A3A'],['#B8893B'],['#D9B36C'],['#9CA3AF'],['#B91C1C']]},
+ {name:'Bahnsteig-Anzeige', mod:'Grundlagen', chap:'Kapitel 1: Spurweite und Gleisaufbau', prog:90, pal:[['#0E1B3D'],['#13265A'],['#FFFFFF'],['#FFD43B'],['#1D4ED8']]},
+ {name:'Streckennetz', mod:'Maschinen', chap:'Kapitel 3: Stopfen und Richten', prog:50, pal:[['#FAFAF7'],['#E11D48'],['#2563EB'],['#16A34A'],['#F59E0B'],['#7C3AED']]},
+ {name:'Gleisbildstellwerk', mod:'Signale und Sicherung', chap:'Kapitel 4: Sh-Signale', prog:35, pal:[['#1F3A2E'],['#2A4A3B'],['#E5E7EB'],['#FDE047'],['#EF4444'],['#D1D5DB']]},
+ {name:'Gelbe Flotte', mod:'Oberbau', chap:'Kapitel 6: Schwellen', prog:78, pal:[['#111111'],['#1E1E1E'],['#FFC400'],['#22D3EE'],['#4ADE80'],['#F43F5E']]}
+];
+
+const qs = [
+ {q:'Welchen Signalbegriff zeigt Ks 1?', o:['Fahrt','Halt erwarten','Halt'], a:0},
+ {q:'Wofür steht PSA?', o:['Persönliche Schutzausrüstung','Prüfstelle für Arbeitsschutz','Planmäßige Sperrung Arbeitsgleis'], a:0},
+ {q:'Welcher Übergangsbogen verbindet im Regelfall Gerade und Kreisbogen?', o:['Ellipse','Klothoide','Parabel dritten Grades'], a:1},
+ {q:'Welches Schienenprofil hat das höchste Metergewicht?', o:['49E5','54E4','60E2'], a:2},
+ {q:'Welche Warnkleidungsfarbe ist im Gleisbereich üblich?', o:['Blau','Orange','Grün'], a:1},
+ {q:'Was misst der Schienenkopf-Verschleißmesser?', o:['Überhöhung','Spurweite','Höhen- und Seitenverschleiß'], a:2},
+ {q:'Wie groß ist die Regelspurweite in Deutschland?', o:['1435 mm','1520 mm','1000 mm'], a:0},
+ {q:'Was macht eine Stopfmaschine?', o:['Sie schleift die Schienen','Sie verdichtet den Schotter unter den Schwellen','Sie reinigt die Bettung'], a:1},
+ {q:'Was bedeutet Sh 0?', o:['Langsamfahrt','Fahrverbot aufgehoben','Halt! Fahrverbot'], a:2},
+ {q:'Welche Schwellenart ist auf Hauptstrecken heute Standard?', o:['Holzschwelle','Betonschwelle','Stahlschwelle'], a:1}
+];
+
+const sections = [...document.querySelectorAll('section.t')];
+
+// Sprungleiste
+document.getElementById('jump').innerHTML = themes.map((t,i)=>
+  `<li><a href="#t${i+1}"><span class="dots">${t.pal.slice(0,3).map(p=>`<i style="background:${p[0]}"></i>`).join('')}</span>${i+1} ${t.name.replace('&','&amp;')}</a></li>`).join('');
+
+// Gemeinsame Karten füllen
+sections.forEach((sec,i)=>{
+  const t = themes[i], q = qs[i];
+  sec.querySelector('.quiz').innerHTML =
+    `<h3>${q.q}</h3><div class="opts">${q.o.map((o,j)=>`<button class="opt" data-j="${j}">${o}</button>`).join('')}</div><p class="feedback" aria-live="polite">Tipp: Probier auch eine falsche Antwort.</p>`;
+  sec.querySelector('.ui').innerHTML =
+    `<h3>Modul ${t.mod.replace('&','&amp;')}</h3><div class="muted">${t.chap}</div>
+     <div class="progress" role="progressbar" aria-valuenow="${t.prog}" aria-valuemin="0" aria-valuemax="100"><span style="width:${t.prog}%"></span></div>
+     <div class="muted" style="font-size:14px">${t.prog} % geschafft</div>
+     <div class="btns"><button class="btn primary">Weiter lernen</button><button class="btn secondary">Später</button></div>
+     <div class="chips"><span class="chip">Neu</span><span class="chip">Prüfungsrelevant</span></div>
+     <div class="swatches">${t.pal.map(p=>`<div class="sw"><b style="background:${p[0]}"></b>${p[0]}</div>`).join('')}</div>`;
+  sec.querySelector('.opts').addEventListener('click',e=>{
+    const b = e.target.closest('.opt'); if(!b) return;
+    const ok = +b.dataset.j === q.a, fb = sec.querySelector('.feedback');
+    sec.querySelectorAll('.opt').forEach(x=>x.classList.remove('right','wrong'));
+    void b.offsetWidth;
+    b.classList.add(ok?'right':'wrong');
+    fb.textContent = ok ? 'Richtig.' : 'Leider falsch. Versuch es nochmal.';
+  });
+});
+
+// Hilfsfunktionen
+function restart(el,c='play'){el.classList.remove(c);void el.getBoundingClientRect();el.classList.add(c);}
+function clearT(sec){(sec._t||[]).forEach(clearTimeout);(sec._i||[]).forEach(clearInterval);if(sec._raf)cancelAnimationFrame(sec._raf);sec._t=[];sec._i=[];}
+function later(sec,fn,ms){sec._t.push(setTimeout(fn,ms));}
+function tween(sec,dur,step,done){
+  if(RM){step(1);done&&done();return;}
+  const t0=performance.now();
+  const f=now=>{const p=Math.min(1,(now-t0)/dur);step(p);if(p<1)sec._raf=requestAnimationFrame(f);else done&&done();};
+  sec._raf=requestAnimationFrame(f);
+}
+const ease=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+function counts(sec,dur=900,delay=0){
+  sec.querySelectorAll('.count').forEach(el=>{
+    const to=+el.dataset.to,d=+el.dataset.dec; el.textContent=fmt(0,d);
+    later(sec,()=>{
+      const t0=performance.now();
+      const f=now=>{const p=Math.min(1,(now-t0)/dur);el.textContent=fmt(to*ease(p),d);if(p<1)requestAnimationFrame(f);};
+      RM?el.textContent=fmt(to,d):requestAnimationFrame(f);
+    },RM?0:delay);
+  });
+}
+
+// Vorbereitung einzelner Themes
+// 6: Skala
+(()=>{const g=document.getElementById('ticks');let s='';
+ for(let i=0;i<=20;i++){const a=Math.PI+i*Math.PI/20,big=i%5===0,r1=95,r2=big?80:87;
+  const x1=120+r1*Math.cos(a),y1=122+r1*Math.sin(a),x2=120+r2*Math.cos(a),y2=122+r2*Math.sin(a);
+  s+=`<line class="tick${big?' big':''}" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`;
+  if(big){const rx=120+68*Math.cos(a),ry=122+68*Math.sin(a);s+=`<text x="${rx.toFixed(1)}" y="${(ry+3).toFixed(1)}" text-anchor="middle">${fmt(i/10,1)}</text>`;}}
+ g.innerHTML=s;})();
+// 7: Fallblatt
+document.querySelectorAll('.flap').forEach(el=>{el.innerHTML=[...el.dataset.text].map(c=>`<span class="ch">${c===' '?'&nbsp;':c}</span>`).join('');});
+// 8: Stationen
+const path8=document.getElementById('line8'),L8=path8.getTotalLength(),train8=document.getElementById('train8');
+const fr8=[0,.25,.5,.75,1],names8=['Sicherheit','Oberbau','Maschinen','Trassierung','Prüfung'];
+document.getElementById('st8').innerHTML=fr8.map((f,i)=>{const p=path8.getPointAtLength(f*L8);const dy=(i===2||i===3)?-14:22;const anchor=i===0?'start':(i===4?'end':'middle');
+  return `<circle class="st" cx="${p.x}" cy="${p.y}" r="7"/><text x="${p.x+(i===0?-6:0)}" y="${p.y+dy}" text-anchor="${anchor}">${names8[i]}</text>`;}).join('');
+const st8=[...document.querySelectorAll('#st8 .st')];
+function pos8(f){const d=Math.max(0,Math.min(L8,f*L8)),p=path8.getPointAtLength(d),q=path8.getPointAtLength(Math.min(L8,d+1)),q0=path8.getPointAtLength(Math.max(0,d-1));
+  const a=Math.atan2(q.y-q0.y,q.x-q0.x)*180/Math.PI;train8.setAttribute('transform',`translate(${p.x} ${p.y}) rotate(${a})`);}
+pos8(.5);st8.forEach((s,i)=>s.classList.toggle('done',i<=2));
+// 10: Partikel
+(()=>{const b=document.querySelector('.badge');for(let i=0;i<10;i++){const a=i/10*Math.PI*2,r=60+Math.random()*25;const s=document.createElement('span');s.className='pt';s.style.setProperty('--dx',(Math.cos(a)*r).toFixed(0)+'px');s.style.setProperty('--dy',(Math.sin(a)*r).toFixed(0)+'px');b.appendChild(s);}})();
+
+// Animationen
+const play = {
+ t1(sec){const l=[...sec.querySelectorAll('.lamp')],lab=sec.querySelector('.ks-label');
+  const seq=[[0,'Hp 0: Halt'],[1,'Ks 2: Halt erwarten'],[2,'Ks 1: Fahrt']];
+  const set=([k,t])=>{l.forEach(x=>x.classList.remove('on'));l[k].classList.add('on');lab.textContent=t;};
+  if(RM){set(seq[2]);return;} seq.forEach((s,j)=>later(sec,()=>set(s),j*850));},
+ t2(sec){const f=sec.querySelector('.loader .fill'),tx=sec.querySelector('.load-txt');f.classList.add('run');
+  tween(sec,2400,p=>{f.style.width=(p*100)+'%';tx.textContent=`Baustelle wird eingerichtet: ${Math.round(p*100)} %`;},
+   ()=>{f.classList.remove('run');tx.textContent='Baustelle eingerichtet';});},
+ t3(sec){restart(sec.querySelector('.bp'));counts(sec,900,1500);},
+ t4(sec){restart(sec.querySelector('.checks'));},
+ t5(sec){restart(sec.querySelector('.vest'));},
+ t6(sec){const n=sec.querySelector('.needle');n.style.transition='none';n.style.transform='rotate(-90deg)';void n.getBoundingClientRect();
+  n.style.transition='';later(sec,()=>{n.style.transform='rotate(-18deg)';},RM?0:60);counts(sec,1000,60);},
+ t7(sec){const A='ABCDEFGHIJKLMNOPRSTUVWZ0123456789';
+  sec.querySelectorAll('.flap').forEach(el=>{const fin=el.dataset.text;[...el.children].forEach((ch,i)=>{
+   if(fin[i]===' ')return; if(RM){ch.textContent=fin[i];return;}
+   let k=0;const n=4+i;const iv=setInterval(()=>{ch.textContent=k<n?A[Math.floor(Math.random()*A.length)]:fin[i];
+    ch.classList.remove('f');void ch.offsetWidth;ch.classList.add('f');if(k++>=n)clearInterval(iv);},65);sec._i.push(iv);});});
+  restart(sec.querySelector('.ticker'));},
+ t8(sec){st8.forEach((s,i)=>{s.classList.toggle('done',i===0);s.classList.remove('arrive');});
+  tween(sec,2300,p=>{const f=.5*ease(p);pos8(f);st8.forEach((s,i)=>{if(fr8[i]<=f+0.001)s.classList.add('done');});},
+   ()=>{restart(st8[2],'arrive');});},
+ t9(sec){const segs=[...sec.querySelectorAll('.seg.route')],ks=sec.querySelector('#k-start'),ke=sec.querySelector('#k-end');
+  segs.forEach(s=>s.classList.remove('lit'));ks.classList.remove('down');ke.classList.remove('down','blink');
+  if(RM){segs.forEach(s=>s.classList.add('lit'));ks.classList.add('down');ke.classList.add('down');return;}
+  later(sec,()=>ks.classList.add('down'),150);later(sec,()=>ke.classList.add('down','blink'),450);
+  segs.forEach((s,i)=>later(sec,()=>s.classList.add('lit'),900+i*190));},
+ t10(sec){const fill=sec.querySelector('.xpfill'),tr=sec.querySelector('.pxtrain'),tx=sec.querySelector('.xptxt'),b=sec.querySelector('.badge');
+  b.classList.remove('pop');b.style.transform='scale(0)';
+  const set=v=>{fill.style.width=v+'%';tr.style.left=`calc(${v}% - ${v*0.4}px)`;tx.textContent=`Level 4: ${Math.round(v*10)} / 1000 XP`;};
+  tween(sec,2000,p=>set(100*ease(p)),()=>{tx.textContent='Level 5 erreicht';b.style.transform='';restart(b,'pop');});}
+};
+
+sections.forEach(sec=>{
+  sec.querySelector('.replay').addEventListener('click',()=>{clearT(sec);play[sec.id](sec);});
+});
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting&&!e.target._played){e.target._played=true;clearT(e.target);play[e.target.id](e.target);}
+}),{threshold:.35});
+sections.forEach(s=>{s._t=[];s._i=[];io.observe(s);});
+
+// Nachtschicht: Lichtkegel
+const t5=document.getElementById('t5');
+t5.addEventListener('pointermove',e=>{const r=t5.getBoundingClientRect();t5.style.setProperty('--mx',(e.clientX-r.left)+'px');t5.style.setProperty('--my',(e.clientY-r.top)+'px');});
+t5.querySelector('.lamp-toggle').addEventListener('click',e=>{const off=t5.classList.toggle('lamp-off');e.currentTarget.textContent=off?'Stirnlampe an':'Stirnlampe aus';});
+
+// Bahn-Clean: Navigation
+document.querySelectorAll('.side button').forEach(b=>b.addEventListener('click',()=>{
+  b.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');}));
+</script>
+</body>
+</html>

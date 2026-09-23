@@ -12,7 +12,11 @@ settingsRouter.use(requireAuth);
 const settingsSchema = z.object({
   bevorzugtesLehrjahr: z.number().int().min(1).max(3).nullable().optional(),
   errungenschaftenHinweise: z.boolean().optional(),
-  skin: z.enum(['standard', 'playful', 'season', 'neon', 'gold', 'wald', 'ozean']).optional(),
+  skin: z.enum([
+    'standard', 'playful', 'season', 'neon', 'gold', 'wald', 'ozean',
+    'signalwerk', 'baustelle', 'blaupause', 'bahn-clean', 'nachtschicht',
+    'messing', 'bahnsteig', 'streckennetz', 'stellwerk', 'gelbe-flotte',
+  ]).optional(),
 });
 
 const DEFAULTS = { bevorzugtes_lehrjahr: null as number | null, errungenschaften_hinweise: true, skin: 'standard' };

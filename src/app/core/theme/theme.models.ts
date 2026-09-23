@@ -1,4 +1,7 @@
-export type SkinId = 'standard' | 'playful' | 'season' | 'neon' | 'gold' | 'wald' | 'ozean';
+export type SkinId =
+  | 'standard' | 'playful' | 'season' | 'neon' | 'gold' | 'wald' | 'ozean'
+  | 'signalwerk' | 'baustelle' | 'blaupause' | 'bahn-clean' | 'nachtschicht'
+  | 'messing' | 'bahnsteig' | 'streckennetz' | 'stellwerk' | 'gelbe-flotte';
 
 export interface SkinInfo {
   id: SkinId;

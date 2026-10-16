@@ -1,0 +1,73 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Gleisbau Tycoon</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/kategorie/spiele" fill="clear">
+        <ion-icon slot="start" name="game-controller-outline"></ion-icon>
+        <span class="toolbar-action-label">Spiele</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollY]="false" class="tc-content">
+  <div class="tc-wrap">
+    <div class="tc-bar">
+      <ng-container *ngIf="!ansichtVon">
+        <button type="button" [class.on]="tab === 'spiel'" (click)="wechsle('spiel')">Spiel</button>
+        <button type="button" [class.on]="tab === 'rangliste'" (click)="wechsle('rangliste')">Rangliste</button>
+        <label class="tc-share" *ngIf="geladen && !fehler">
+          <input type="checkbox" [checked]="geteilt" [disabled]="teilenBusy" (change)="teilen($any($event.target).checked)" />
+          Netz zum Ansehen freigeben
+        </label>
+        <span class="tc-meta" *ngIf="geladen && !fehler">👁 {{ besucher }} Besucher</span>
+        <span class="tc-meta" *ngIf="geladen && !fehler">{{ status }}</span>
+      </ng-container>
+      <ng-container *ngIf="ansichtVon">
+        <button type="button" routerLink="/zusatz/tycoon">← Zurück</button>
+        <span class="tc-meta"><b>Netz von {{ ansichtVon.name }}</b> · Guthaben {{ ansichtVon.money | number:'1.0-0':'de' }} € · 👁 {{ besucher }} Besucher</span>
+      </ng-container>
+    </div>
+
+    <p class="tc-fehler" *ngIf="fehler">{{ fehler }}</p>
+    <p class="tc-fehler" *ngIf="!geladen">Lade …</p>
+
+    <div class="tc-main" [hidden]="tab !== 'spiel' || !!fehler">
+      <div class="tycoon" #gameRoot [class.ro]="!!ansichtVon">
+        <div id="hud">
+          <b>🚆 {{ ansichtVon ? ansichtVon.name : 'Gleisbau Tycoon' }}</b>
+          <span>Guthaben: <span id="money">0 €</span></span>
+          <span id="day">Tag 1</span>
+          <span class="sp" id="speeds">
+            <button data-act="speed" data-arg="0">⏸</button>
+            <button data-act="speed" data-arg="1" class="on">1×</button>
+            <button data-act="speed" data-arg="2">2×</button>
+            <button data-act="speed" data-arg="4">4×</button>
+          </span>
+        </div>
+        <canvas id="c"></canvas>
+        <aside id="panel"></aside>
+        <div id="hint"></div>
+        <div id="toast"></div>
+        <div id="modal"><div class="card" id="mcard"></div></div>
+      </div>
+    </div>
+
+    <div class="tc-rang" [hidden]="tab !== 'rangliste'">
+      <h2>Rangliste nach Guthaben</h2>
+      <p class="tc-fehler" *ngIf="rangFehler">Rangliste konnte nicht geladen werden.</p>
+      <p *ngIf="rangGeladen && !rangFehler && rang.length === 0">Noch niemand im Spiel.</p>
+      <ol class="tc-liste">
+        <li *ngFor="let e of rang" [class.me]="e.isMe">
+          <span class="rk">{{ e.rank }}</span>
+          <span class="nm">{{ e.name }}<small *ngIf="e.isMe"> (du)</small></span>
+          <span class="mo">{{ e.money | number:'1.0-0':'de' }} €</span>
+          <span class="mt">{{ e.lines }} Strecken · {{ e.trains }} Züge · {{ modi[e.mode] || modi[0] }} · 👁 {{ e.visitors }}</span>
+          <button type="button" *ngIf="e.shared || e.isMe" [routerLink]="['/zusatz/tycoon', e.userId]">Ansehen</button>
+          <span class="mt" *ngIf="!e.shared && !e.isMe">nicht freigegeben</span>
+        </li>
+      </ol>
+      <button type="button" (click)="ladeRangliste()">Aktualisieren</button>
+    </div>
+  </div>
+</ion-content>

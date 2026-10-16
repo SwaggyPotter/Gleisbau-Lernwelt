@@ -1,0 +1,145 @@
+@use '../../konto-theme' as theme;
+
+:host {
+  @include theme.theme-vars;
+}
+
+@include theme.page-base;
+
+.filter-leiste {
+  margin-bottom: 16px;
+}
+
+.filter-zeile {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+select,
+textarea {
+  background: var(--sp-surface);
+  color: var(--sp-text);
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  padding: 8px;
+  font: inherit;
+}
+
+.leer {
+  color: var(--sp-text-muted);
+}
+
+.bild-raster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.bild-karte {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &[data-decision='keep'] { border-color: #2e9d57; }
+  &[data-decision='remove'] { border-color: #c4453a; opacity: 0.8; }
+  &[data-decision='unsure'] { border-color: #d19a1f; }
+}
+
+.bild-link img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+  background: var(--sp-surface-2);
+}
+
+.bild-info p {
+  margin: 0 0 2px;
+  font-size: 13px;
+}
+
+.bild-id {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--sp-accent-2);
+  word-break: break-all;
+}
+
+.bild-hinweis,
+.bild-credit {
+  color: var(--sp-text-muted);
+  font-size: 12px;
+}
+
+.entscheidung {
+  display: flex;
+  gap: 6px;
+}
+
+.knopf {
+  flex: 1;
+  padding: 8px 4px;
+  border-radius: 6px;
+  border: 1px solid var(--sp-border);
+  background: var(--sp-surface-2);
+  color: var(--sp-text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+
+  &.keep.aktiv { background: #2e9d57; color: #fff; border-color: #2e9d57; }
+  &.unsure.aktiv { background: #d19a1f; color: #1a1a1a; border-color: #d19a1f; }
+  &.remove.aktiv { background: #c4453a; color: #fff; border-color: #c4453a; }
+}
+
+.status {
+  margin: 0;
+  font-size: 12px;
+
+  &.ok { color: #2e9d57; }
+}
+
+.upload-box {
+  margin-bottom: 16px;
+}
+
+.upload-knopf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--sp-accent, #f5b301);
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+
+  input { display: none; }
+  &.aus { opacity: 0.6; pointer-events: none; }
+}
+
+.upload-stand {
+  margin: 8px 0 0;
+  color: var(--sp-text-muted);
+  font-size: 13px;
+}
+
+.loeschen {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #c4453a;
+  background: transparent;
+  color: #c4453a;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}

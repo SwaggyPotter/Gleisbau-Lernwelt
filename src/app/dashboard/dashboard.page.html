@@ -13,6 +13,8 @@
       <a routerLink="/kategorie/rechentrainer" routerLinkActive="active">Rechentrainer</a>
       <a routerLink="/kategorie/spiele" routerLinkActive="active">Spiele</a>
       <a routerLink="/offline" routerLinkActive="active">Offline</a>
+      <a *ngIf="user$ | async" routerLink="/forum" routerLinkActive="active">Forum</a>
+      <span class="online-anzeige" *ngIf="online$ | async as n" title="In den letzten 5 Minuten aktiv"><span class="punkt"></span>{{ n }} online</span>
       <button type="button" class="skin-toggle" [class.aktiv]="zeigeSkinAuswahl" (click)="toggleSkinAuswahl()" title="Design ändern">
         <ion-icon name="settings-outline"></ion-icon>
         <span>Design</span>
@@ -22,6 +24,8 @@
       </a>
       <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/schluessel" routerLinkActive="active">Schlüssel</a>
       <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/fragen" routerLinkActive="active">Fragen</a>
+      <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/bilder" routerLinkActive="active">Bilder</a>
+      <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/benennen" routerLinkActive="active">Benennen</a>
       <a *ngIf="user$ | async" (click)="abmelden()" class="konto-link logout-link">
         <ion-icon name="log-out-outline"></ion-icon> Abmelden
       </a>

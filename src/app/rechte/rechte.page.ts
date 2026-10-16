@@ -117,7 +117,7 @@ export class RechtePage implements OnInit {
       domain: 'baunetzwissen.de',
       verwendungen: 24,
       einordnung:
-        'Fachportal des Bauverlags (BauNetz). Nutzungsbedingungen untersagen vor allem die kommerzielle Nutzung veröffentlichter Adressen, enthalten aber keine expliziten Zitier- oder Linkregeln. Für unsere fünf betroffenen Fragen (LF03) wurden die zuvor wörtlich übernommenen Definitionssätze in dieser Runde durch eigene Kurzformulierungen ersetzt.',
+        'Fachportal des Bauverlags (BauNetz). Nutzungsbedingungen untersagen vor allem die kommerzielle Nutzung veröffentlichter Adressen, enthalten aber keine expliziten Zitier- oder Linkregeln.',
     },
     {
       domain: 'dguv.de',

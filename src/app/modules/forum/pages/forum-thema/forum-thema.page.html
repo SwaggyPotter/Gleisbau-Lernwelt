@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Forum</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/forum" fill="clear">
+        <ion-icon slot="start" name="chatbubbles-outline"></ion-icon>
+        <span class="toolbar-action-label">Alle Themen</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <p class="fehler" *ngIf="ladefehler">Thema nicht gefunden.</p>
+
+    <ng-container *ngIf="thread">
+      <section class="hero">
+        <p class="eyebrow">Thema von {{ thread.authorName }}</p>
+        <h1>{{ thread.title }}</h1>
+      </section>
+
+      <button type="button" class="loeschen" *ngIf="thread.canDelete" (click)="themaLoeschen()">
+        {{ loeschBestaetigung === 'thread' ? 'Wirklich ganzes Thema löschen? Nochmal tippen' : 'Thema löschen' }}
+      </button>
+
+      <article class="beitrag" *ngFor="let p of posts">
+        <header>
+          <strong>{{ p.authorName }}</strong>
+          <span>{{ p.createdAt | date:'dd.MM.yy HH:mm' }}</span>
+        </header>
+        <p class="text">{{ p.body }}</p>
+        <button type="button" class="loeschen klein" *ngIf="p.canDelete && posts.length > 1" (click)="beitragLoeschen(p)">
+          {{ loeschBestaetigung === 'p' + p.id ? 'Wirklich löschen?' : 'Löschen' }}
+        </button>
+      </article>
+
+      <form class="antwort" (ngSubmit)="senden()">
+        <textarea name="antwort" [(ngModel)]="antwort" rows="4" placeholder="Deine Antwort" maxlength="5000"></textarea>
+        <p class="fehler" *ngIf="fehler">{{ fehler }}</p>
+        <button type="submit" class="senden" [disabled]="sendet || !antwort.trim()">{{ sendet ? 'Sende …' : 'Antworten' }}</button>
+      </form>
+    </ng-container>
+  </div>
+</ion-content>

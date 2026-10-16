@@ -1,0 +1,14 @@
+{
+  "relFile": "18-Bildbedarf-Gleisbau/01-Oberbau-Befestigung.md",
+  "status": "SUCCESS",
+  "reasons": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 54,
+      "status": "SUCCESS",
+      "reasons": []
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-10-02T06-11-08-036Z_01-Oberbau-Befestigung.md.log"
+}

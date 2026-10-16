@@ -60,14 +60,6 @@ const runStartupMigrations = async () => {
     // Sync learning fields with canonical list
     const fields = [
       { id: 'lf-01', title: 'Baustellen einrichten', description: 'Sicherheit, Organisation, Baustelleneinrichtung', year: 1, tag: 'Sicherheit & Organisation' },
-      { id: 'lf-02', title: 'Bauwerke erschließen und gründen', description: 'Grundlagen Erschließung, Fundamente, Baugrund', year: 1, tag: 'Erschließung & Gründung' },
-      { id: 'lf-03', title: 'Einschalige Baukörper mauern', description: 'Mauerwerk, Steine, Verbände (Grundlagen Hoch-/Tiefbau)', year: 1, tag: 'Mauerwerk' },
-      { id: 'lf-04', title: 'Stahlbetonbauteile herstellen', description: 'Schalung, Bewehrung, Beton', year: 1, tag: 'Stahlbeton' },
-      { id: 'lf-05', title: 'Holzkonstruktionen herstellen', description: 'Holzbauteile, Verbindungen, Montage', year: 1, tag: 'Holzbau' },
-      { id: 'lf-06', title: 'Bauteile beschichten und bekleiden', description: 'Schutz, Abdichtung, Oberflächen', year: 1, tag: 'Oberflächen' },
-      { id: 'lf-07', title: 'Baugründe erkunden', description: 'Bodenarten, Tragfähigkeit, Baugrunduntersuchung', year: 2, tag: 'Baugrund' },
-      { id: 'lf-08', title: 'Erdbauwerke errichten', description: 'Aushub, Verbau, Planum, Verdichtung', year: 2, tag: 'Erdbau' },
-      { id: 'lf-09', title: 'Verkehrsflächen aus Pflaster- und Plattenbelägen herstellen', description: 'Wege, Flächen, Unterbau', year: 2, tag: 'Pflaster' },
       { id: 'lf-10', title: 'Gleisanlagen neu bauen', description: 'Gleisaufbau, Schotter, Schwellen, Schienen', year: 2, tag: 'Neubau Gleis' },
       { id: 'lf-11', title: 'Gleisbögen herstellen und einmessen', description: 'Vermessung, Gleislage, Radien', year: 3, tag: 'Gleisbögen' },
       { id: 'lf-12', title: 'Weichen montieren und einmessen', description: 'Weichenarten, Einbau, Kontrolle', year: 3, tag: 'Weichen' },
@@ -142,6 +134,71 @@ const runStartupMigrations = async () => {
       'signalwerk', 'baustelle', 'blaupause', 'bahn-clean', 'nachtschicht',
       'messing', 'bahnsteig', 'streckennetz', 'stellwerk', 'gelbe-flotte'
     ))`);
+
+    await pool.query(`CREATE TABLE IF NOT EXISTS image_reviews (
+      image_id text PRIMARY KEY,
+      source text NOT NULL DEFAULT 'foto',
+      decision text CHECK (decision IN ('keep', 'remove', 'unsure')),
+      category text,
+      note text,
+      updated_by text,
+      updated_at timestamptz NOT NULL DEFAULT now()
+    )`);
+
+    await pool.query('ALTER TABLE image_reviews ADD COLUMN IF NOT EXISTS name text');
+    await pool.query(`CREATE TABLE IF NOT EXISTS photos (
+      id serial PRIMARY KEY,
+      original_name text NOT NULL,
+      full_jpeg bytea NOT NULL,
+      thumb_jpeg bytea NOT NULL,
+      size_bytes integer NOT NULL,
+      uploaded_by text,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )`);
+
+    await pool.query(`CREATE TABLE IF NOT EXISTS presence (
+      client_id text PRIMARY KEY,
+      last_seen timestamptz NOT NULL DEFAULT now()
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS forum_threads (
+      id serial PRIMARY KEY,
+      title text NOT NULL,
+      author_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      created_at timestamptz NOT NULL DEFAULT now(),
+      last_post_at timestamptz NOT NULL DEFAULT now()
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS forum_posts (
+      id serial PRIMARY KEY,
+      thread_id integer NOT NULL REFERENCES forum_threads(id) ON DELETE CASCADE,
+      author_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      body text NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )`);
+    await pool.query('CREATE INDEX IF NOT EXISTS idx_forum_posts_thread ON forum_posts(thread_id, created_at)');
+
+    await pool.query(`CREATE TABLE IF NOT EXISTS chat_messages (
+      id serial PRIMARY KEY,
+      author_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      body text NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )`);
+
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_saves (
+      user_id uuid PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+      state jsonb NOT NULL,
+      money bigint NOT NULL DEFAULT 0,
+      line_count integer NOT NULL DEFAULT 0,
+      train_count integer NOT NULL DEFAULT 0,
+      shared boolean NOT NULL DEFAULT false,
+      updated_at timestamptz NOT NULL DEFAULT now()
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_visits (
+      owner_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      visitor_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      first_at timestamptz NOT NULL DEFAULT now(),
+      last_at timestamptz NOT NULL DEFAULT now(),
+      PRIMARY KEY (owner_id, visitor_id)
+    )`);
 
     await seedAchievements();
     await purgeDueDeletedUsers();

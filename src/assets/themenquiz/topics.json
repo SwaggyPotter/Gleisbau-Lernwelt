@@ -26,8 +26,8 @@
   {
     "topicId": "bettung",
     "title": "Bettung und Schotter",
-    "description": "Gleisschotter, Lastverteilung, Entwaesserung, Bettungsquerschnitt",
-    "questionCount": 30
+    "description": "Gleisschotter, Lastverteilung, Entwaesserung, Bettungsquerschnitt, Untergrund und Planum",
+    "questionCount": 41
   },
   {
     "topicId": "kleineisen",
@@ -70,54 +70,6 @@
     "title": "Baustellen einrichten",
     "description": "Lernfeld 1, Jahr 1: Sicherheit, Organisation, Baustelleneinrichtung.",
     "questionCount": 72
-  },
-  {
-    "topicId": "lf02",
-    "title": "Bauwerke erschliessen und gruenden",
-    "description": "Lernfeld 2, Jahr 1: Erschliessung, Fundamente, Baugrund.",
-    "questionCount": 30
-  },
-  {
-    "topicId": "lf03",
-    "title": "Einschalige Baukoerper mauern",
-    "description": "Lernfeld 3, Jahr 1: Mauerwerk, Steine, Verbaende.",
-    "questionCount": 34
-  },
-  {
-    "topicId": "lf04",
-    "title": "Stahlbetonbauteile herstellen",
-    "description": "Lernfeld 4, Jahr 1: Schalung, Bewehrung, Beton.",
-    "questionCount": 31
-  },
-  {
-    "topicId": "lf05",
-    "title": "Holzkonstruktionen herstellen",
-    "description": "Lernfeld 5, Jahr 1: Holzbauteile, Verbindungen, Montage.",
-    "questionCount": 31
-  },
-  {
-    "topicId": "lf06",
-    "title": "Bauteile beschichten und bekleiden",
-    "description": "Lernfeld 6, Jahr 1: Schutz, Abdichtung, Oberflaechen.",
-    "questionCount": 30
-  },
-  {
-    "topicId": "lf07",
-    "title": "Baugruende erkunden",
-    "description": "Lernfeld 7, Jahr 2: Bodenarten, Tragfaehigkeit, Baugrunduntersuchung.",
-    "questionCount": 25
-  },
-  {
-    "topicId": "lf08",
-    "title": "Erdbauwerke errichten",
-    "description": "Lernfeld 8, Jahr 2: Aushub, Verbau, Planum, Verdichtung.",
-    "questionCount": 23
-  },
-  {
-    "topicId": "lf09",
-    "title": "Verkehrsflaechen aus Pflaster- und Plattenbelaegen herstellen",
-    "description": "Lernfeld 9, Jahr 2: Wege, Flaechen, Unterbau.",
-    "questionCount": 23
   },
   {
     "topicId": "lf10",

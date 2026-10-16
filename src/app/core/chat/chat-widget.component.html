@@ -1,0 +1,31 @@
+<ng-container *ngIf="user">
+  <button type="button" class="chat-knopf" (click)="umschalten()" [attr.aria-label]="offen ? 'Chat schließen' : 'Chat öffnen'">
+    <ion-icon [name]="offen ? 'close-outline' : 'chatbubble-ellipses-outline'"></ion-icon>
+    <span class="badge" *ngIf="!offen && ungelesen > 0">{{ ungelesen > 9 ? '9+' : ungelesen }}</span>
+  </button>
+
+  <section class="chat-fenster" *ngIf="offen" aria-label="Globaler Chat">
+    <header>
+      <strong>Chat</strong>
+      <span>Alle Angemeldeten sehen deine Nachrichten</span>
+    </header>
+
+    <div class="liste" #liste>
+      <p class="leer" *ngIf="nachrichten.length === 0">Noch nichts geschrieben. Sag Hallo!</p>
+      <div class="nachricht" *ngFor="let m of nachrichten" [class.meine]="m.mine">
+        <div class="kopf">
+          <strong>{{ m.mine ? 'Du' : m.authorName }}</strong>
+          <span>{{ m.createdAt | date:'HH:mm' }}</span>
+          <button type="button" class="weg" *ngIf="user.role === 'admin'" (click)="loeschen(m)" aria-label="Nachricht löschen">×</button>
+        </div>
+        <p>{{ m.body }}</p>
+      </div>
+    </div>
+
+    <form (ngSubmit)="senden()">
+      <input type="text" name="text" [(ngModel)]="text" maxlength="500" placeholder="Nachricht schreiben …" autocomplete="off" />
+      <button type="submit" [disabled]="!text.trim()" aria-label="Senden"><ion-icon name="send-outline"></ion-icon></button>
+    </form>
+    <p class="fehler" *ngIf="fehler">{{ fehler }}</p>
+  </section>
+</ng-container>

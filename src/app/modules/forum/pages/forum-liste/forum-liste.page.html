@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Forum</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="home-outline"></ion-icon>
+        <span class="toolbar-action-label">Start</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Austausch</p>
+      <h1>Forum</h1>
+      <p class="lede">Fragen stellen, Wissen teilen. Dein Name im Konto ist für andere sichtbar. Bitte bleib freundlich.</p>
+    </section>
+
+    <button type="button" class="neu-knopf" (click)="neu = !neu">{{ neu ? 'Abbrechen' : 'Neues Thema' }}</button>
+
+    <form class="neu-form" *ngIf="neu" (ngSubmit)="absenden()">
+      <input type="text" name="titel" [(ngModel)]="titel" placeholder="Titel (mindestens 3 Zeichen)" maxlength="120" required />
+      <textarea name="text" [(ngModel)]="text" rows="5" placeholder="Deine Frage oder dein Beitrag" maxlength="5000" required></textarea>
+      <p class="fehler" *ngIf="sendefehler">{{ sendefehler }}</p>
+      <button type="submit" class="neu-knopf" [disabled]="sendet || titel.trim().length < 3 || !text.trim()">
+        {{ sendet ? 'Sende …' : 'Thema erstellen' }}
+      </button>
+    </form>
+
+    <p class="fehler" *ngIf="ladefehler">Forum konnte nicht geladen werden (angemeldet?).</p>
+    <p class="leer" *ngIf="geladen && !ladefehler && themen.length === 0">Noch keine Themen. Starte das erste!</p>
+
+    <ul class="themen">
+      <li *ngFor="let t of themen">
+        <a [routerLink]="['/forum', t.id]">
+          <strong>{{ t.title }}</strong>
+          <span class="meta">{{ t.authorName }} · {{ t.postCount }} Beitrag/Beiträge · zuletzt {{ t.lastPostAt | date:'dd.MM.yy HH:mm' }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</ion-content>

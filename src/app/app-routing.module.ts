@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { siteGateGuard } from './core/site-gate/site-gate.guard';
+import { authGuard } from './core/auth/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -60,6 +61,12 @@ const routes: Routes = [
           .then(m => m.NivellierlatteModule)
       },
       {
+        path: 'zusatz/tycoon',
+        canActivate: [authGuard],
+        loadChildren: () => import('./modules/zusatz/tycoon/tycoon.module')
+          .then(m => m.TycoonModule)
+      },
+      {
         path: 'zusatz/schienenmesser',
         loadChildren: () => import('./modules/zusatz/schienenmesser/schienenmesser.module')
           .then(m => m.SchienenmesserModule)
@@ -113,6 +120,12 @@ const routes: Routes = [
         path: 'zusatz/baumaschinen',
         loadChildren: () => import('./modules/zusatz/baumaschinen/baumaschinen.module')
           .then(m => m.BaumaschinenModule)
+      },
+      {
+        path: 'forum',
+        canActivate: [authGuard],
+        loadChildren: () => import('./modules/forum/forum.module')
+          .then(m => m.ForumModule)
       },
       {
         path: 'konto',

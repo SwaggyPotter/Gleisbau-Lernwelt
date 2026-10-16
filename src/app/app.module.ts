@@ -8,10 +8,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SiteGateComponent } from './core/site-gate/site-gate.component';
+import { ChatWidgetComponent } from './core/chat/chat-widget.component';
 import { AuthInterceptor } from './core/auth/interceptors/auth.interceptor';
 
 @NgModule({
-  declarations: [AppComponent, SiteGateComponent],
+  declarations: [AppComponent, SiteGateComponent, ChatWidgetComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

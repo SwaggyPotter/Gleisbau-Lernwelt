@@ -1,0 +1,95 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Bilder-Verwaltung</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/konto/fragen" fill="clear">
+        <ion-icon slot="start" name="images-outline"></ion-icon>
+        <span class="toolbar-action-label">Fragen &amp; Bilder</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Admin</p>
+      <h1>Bilder-Verwaltung</h1>
+      <p class="lede">Jedes Bild beurteilen: soll es auf der Webseite bleiben, wie ist es kategorisiert. Alles wird auf dem Server gespeichert.</p>
+    </section>
+
+    <p class="fehler" *ngIf="ladefehler">Konnte nicht geladen werden (Backend erreichbar und als Admin angemeldet?).</p>
+
+    <section class="upload-box" *ngIf="geladen && !ladefehler">
+      <label class="upload-knopf" [class.aus]="hochladenLaeuft">
+        <ion-icon name="cloud-upload-outline"></ion-icon>
+        Fotos hochladen
+        <input type="file" accept="image/*" multiple (change)="dateienGewaehlt($event)" [disabled]="hochladenLaeuft" />
+      </label>
+      <p class="upload-stand" *ngIf="hochladeStand">{{ hochladenLaeuft ? 'Lade hoch: ' : '' }}{{ hochladeStand }}</p>
+      <p class="fehler" *ngIf="hochladeFehler.length">Fehlgeschlagen: {{ hochladeFehler.join(', ') }}</p>
+    </section>
+
+    <ng-container *ngIf="geladen && !ladefehler">
+      <div class="stat-row">
+        <div class="stat"><span>Offen</span><strong>{{ zaehle(null) }}</strong></div>
+        <div class="stat"><span>Behalten</span><strong>{{ zaehle('keep') }}</strong></div>
+        <div class="stat"><span>Entfernen</span><strong>{{ zaehle('remove') }}</strong></div>
+        <div class="stat"><span>Unsicher</span><strong>{{ zaehle('unsure') }}</strong></div>
+      </div>
+
+      <div class="filter-leiste">
+        <ion-segment [(ngModel)]="filter" name="filter" [scrollable]="true">
+          <ion-segment-button value="offen"><ion-label>Offen</ion-label></ion-segment-button>
+          <ion-segment-button value="keep"><ion-label>Behalten</ion-label></ion-segment-button>
+          <ion-segment-button value="remove"><ion-label>Entfernen</ion-label></ion-segment-button>
+          <ion-segment-button value="unsure"><ion-label>Unsicher</ion-label></ion-segment-button>
+          <ion-segment-button value="alle"><ion-label>Alle</ion-label></ion-segment-button>
+        </ion-segment>
+        <div class="filter-zeile">
+          <select [(ngModel)]="quelle" name="quelle" aria-label="Quelle">
+            <option value="alle">Alle Quellen</option>
+            <option value="upload">Hochgeladen (Handy)</option>
+            <option value="foto">Fotos aus dem Chat</option>
+            <option value="app">Bilder in der App</option>
+          </select>
+          <select [(ngModel)]="kategorieFilter" name="kategorieFilter" aria-label="Kategorie">
+            <option value="">Alle Kategorien</option>
+            <option *ngFor="let k of kategorien" [value]="k">{{ k }}</option>
+          </select>
+        </div>
+      </div>
+
+      <p class="leer" *ngIf="sichtbar.length === 0">Keine Bilder in dieser Ansicht.</p>
+
+      <div class="bild-raster">
+        <article class="bild-karte" *ngFor="let z of sichtbar" [attr.data-decision]="z.decision">
+          <a [href]="z.url" target="_blank" rel="noopener" class="bild-link" (click)="vollansicht(z, $event)">
+            <img [src]="z.url" [alt]="z.beschreibung" loading="lazy" />
+          </a>
+          <div class="bild-info">
+            <p class="bild-id">{{ z.id }}</p>
+            <p class="bild-text">{{ z.beschreibung }}</p>
+            <p class="bild-hinweis" *ngIf="z.hinweis">Sicherheit: {{ z.hinweis }}</p>
+            <p class="bild-credit">{{ z.credit }}</p>
+          </div>
+          <div class="entscheidung">
+            <button type="button" class="knopf keep" [class.aktiv]="z.decision === 'keep'" (click)="waehle(z, 'keep')">Behalten</button>
+            <button type="button" class="knopf unsure" [class.aktiv]="z.decision === 'unsure'" (click)="waehle(z, 'unsure')">Unsicher</button>
+            <button type="button" class="knopf remove" [class.aktiv]="z.decision === 'remove'" (click)="waehle(z, 'remove')">Entfernen</button>
+          </div>
+          <select class="kat" [(ngModel)]="z.category" [name]="'kat-' + z.id" (change)="speichere(z)" aria-label="Kategorie">
+            <option value="">Kategorie wählen</option>
+            <option *ngFor="let k of kategorien" [value]="k">{{ k }}</option>
+          </select>
+          <textarea class="notiz" rows="2" placeholder="Notiz (z. B. wie das Teil heißt)" [(ngModel)]="z.note" [name]="'note-' + z.id" (blur)="speichere(z)"></textarea>
+          <button type="button" class="loeschen" *ngIf="z.uploadId !== undefined" (click)="loeschen(z)">
+            {{ loeschBestaetigung === z.id ? 'Wirklich löschen? Nochmal tippen' : 'Foto löschen (verschwindet überall)' }}
+          </button>
+          <p class="status fehler" *ngIf="z.fehler">Speichern fehlgeschlagen</p>
+          <p class="status ok" *ngIf="z.gespeichert && !z.fehler">Gespeichert</p>
+        </article>
+      </div>
+    </ng-container>
+  </div>
+</ion-content>

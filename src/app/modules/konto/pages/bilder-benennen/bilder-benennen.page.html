@@ -1,0 +1,105 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Bilder benennen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/konto/bilder" fill="clear">
+        <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
+        <span class="toolbar-action-label">Upload &amp; Prüfen</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Admin</p>
+      <h1>Bilder benennen</h1>
+      <p class="lede">Gib jedem Bild den Namen des Bauteils. Die Liste zeigt automatisch, was wir schon haben und was noch fehlt.</p>
+    </section>
+
+    <p class="fehler" *ngIf="ladefehler">Konnte nicht geladen werden (als Admin angemeldet?).</p>
+
+    <section class="upload-box" *ngIf="geladen && !ladefehler">
+      <label class="upload-knopf" [class.aus]="hochladenLaeuft">
+        <ion-icon name="cloud-upload-outline"></ion-icon>
+        Fotos vom Handy hochladen
+        <input type="file" accept="image/*" multiple (change)="dateienGewaehlt($event)" [disabled]="hochladenLaeuft" />
+      </label>
+      <p class="upload-stand" *ngIf="hochladeStand">{{ hochladenLaeuft ? 'Lade hoch: ' : '' }}{{ hochladeStand }}</p>
+      <p class="fehler" *ngIf="hochladeFehler.length">Fehlgeschlagen: {{ hochladeFehler.join(', ') }}</p>
+    </section>
+
+    <ng-container *ngIf="geladen && !ladefehler">
+      <div class="stat-row">
+        <div class="stat"><span>Bilder ohne Namen</span><strong>{{ ohneName }}</strong></div>
+        <div class="stat"><span>Bauteile vorhanden</span><strong>{{ gesamt.vorhanden }} / {{ gesamt.gesamt }}</strong></div>
+        <div class="stat"><span>Noch fehlend</span><strong>{{ gesamt.gesamt - gesamt.vorhanden }}</strong></div>
+      </div>
+
+      <ion-segment [(ngModel)]="ansicht" name="ansicht">
+        <ion-segment-button value="benennen"><ion-label>Benennen</ion-label></ion-segment-button>
+        <ion-segment-button value="liste"><ion-label>Bauteil-Liste</ion-label></ion-segment-button>
+      </ion-segment>
+
+      <datalist id="bauteil-namen">
+        <option *ngFor="let t of bauteile" [value]="t.name"></option>
+      </datalist>
+
+      <!-- Benennen -->
+      <ng-container *ngIf="ansicht === 'benennen'">
+        <ion-item class="filter-item" lines="none">
+          <ion-label>Nur Bilder ohne Namen</ion-label>
+          <ion-toggle [(ngModel)]="nurOhneName" name="nurOhneName"></ion-toggle>
+        </ion-item>
+
+        <p class="leer" *ngIf="sichtbar.length === 0">Alles benannt. 🎉</p>
+
+        <div class="bild-raster">
+          <article class="bild-karte" *ngFor="let b of sichtbar">
+            <img [src]="b.url" [alt]="b.beschreibung" loading="lazy" />
+            <p class="bild-text">{{ b.beschreibung }}</p>
+            <p class="bild-hinweis" *ngIf="b.vorschlag">Vorschlag: {{ b.vorschlag }}</p>
+            <input
+              class="name-input"
+              type="text"
+              list="bauteil-namen"
+              placeholder="Name des Bauteils (aus Liste wählen oder eigener)"
+              [(ngModel)]="b.name"
+              [name]="'name-' + b.id"
+              (change)="nameGeaendert(b)"
+            />
+            <select [(ngModel)]="b.category" [name]="'kat-' + b.id" (change)="speichere(b)" aria-label="Kategorie">
+              <option value="">Kategorie wählen</option>
+              <option *ngFor="let k of kategorien" [value]="k">{{ k }}</option>
+            </select>
+            <p class="status ok" *ngIf="b.gespeichert && !b.fehler">Gespeichert</p>
+            <p class="status fehler" *ngIf="b.fehler">Speichern fehlgeschlagen</p>
+          </article>
+        </div>
+      </ng-container>
+
+      <!-- Liste -->
+      <ng-container *ngIf="ansicht === 'liste'">
+        <ion-item class="filter-item" lines="none">
+          <ion-label>Nur fehlende anzeigen</ion-label>
+          <ion-toggle [(ngModel)]="nurFehlende" name="nurFehlende"></ion-toggle>
+        </ion-item>
+
+        <section class="gruppe" *ngFor="let g of liste">
+          <h2>{{ g.kategorie }} <span class="badge">{{ g.vorhanden }}/{{ g.zeilen.length }}</span></h2>
+          <ul class="teile">
+            <li *ngFor="let z of g.zeilen" [class.fehlt]="!z.bilder.length">
+              <span class="haken">{{ z.bilder.length ? '✓' : '✗' }}</span>
+              <span class="teil-name">{{ z.name }}<em *ngIf="z.eigen"> (eigener Eintrag)</em></span>
+              <span class="teil-anzahl" *ngIf="z.bilder.length">{{ z.bilder.length }} Bild(er)</span>
+              <span class="teil-thumbs">
+                <img *ngFor="let b of z.bilder | slice:0:4" [src]="b.url" [alt]="z.name" />
+              </span>
+            </li>
+          </ul>
+        </section>
+      </ng-container>
+    </ng-container>
+  </div>
+</ion-content>

@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { hasStoredSiteAuth } from './core/site-gate/site-gate.component';
+import { hasStoredSiteAuth, syncGateCookie } from './core/site-gate/site-gate.component';
 import { SiteGateStateService } from './core/site-gate/site-gate-state.service';
+import { AuthService } from './core/auth/services/auth.service';
+import { PresenceService } from './core/presence/presence.service';
+import { firstValueFrom } from 'rxjs';
 import { NeueErrungenschaft } from './core/auth/services/profil-sync.service';
 import { ThemeService } from './core/theme/theme.service';
 
@@ -28,12 +31,33 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly toastCtrl: ToastController,
     private readonly theme: ThemeService,
     private readonly siteGateState: SiteGateStateService,
+    private readonly auth: AuthService,
+    private readonly presence: PresenceService,
   ) {}
 
   ngOnInit(): void {
+    void syncGateCookie();
+    if (hasStoredSiteAuth()) this.presence.start();
+    void this.adminAutoLogin();
     this.theme.init();
     window.addEventListener('glw-errungenschaft-freigeschaltet', this.onErrungenschaft);
     this.publicModeSub = this.siteGateState.publicMode$.subscribe(v => (this.publicMode = v));
+  }
+
+  /** Gespeicherte Gate-Zugangsdaten fuer den Admin-Login nutzen, falls noch keine Sitzung besteht. */
+  private async adminAutoLogin(): Promise<void> {
+    if (!hasStoredSiteAuth()) return;
+    try {
+      const user = await firstValueFrom(this.auth.restoreSession());
+      if (user) return;
+      const raw = localStorage.getItem('glw-site-auth');
+      const gespeichert = raw ? (JSON.parse(raw) as { user?: string; password?: string }) : null;
+      if (gespeichert?.user && gespeichert.password) {
+        await firstValueFrom(this.auth.login(gespeichert.user, gespeichert.password));
+      }
+    } catch {
+      // kein passendes Admin-Konto -- normaler Login unter /konto/anmelden bleibt moeglich
+    }
   }
 
   ngOnDestroy(): void {

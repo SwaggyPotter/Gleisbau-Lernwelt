@@ -1,0 +1,74 @@
+@use '../../../konto/konto-theme' as theme;
+
+:host {
+  @include theme.theme-vars;
+}
+
+@include theme.page-base;
+
+textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding: 10px;
+  background: var(--sp-surface);
+  color: var(--sp-text);
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  font: inherit;
+}
+
+.beitrag {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 6px;
+
+    span { color: var(--sp-text-muted); }
+  }
+}
+
+.text {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.senden {
+  padding: 12px 18px;
+  border-radius: 8px;
+  border: none;
+  background: var(--sp-accent, #f5b301);
+  color: #1a1a1a;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:disabled { opacity: 0.5; }
+}
+
+.loeschen {
+  padding: 8px 12px;
+  margin: 0 0 10px;
+  border-radius: 6px;
+  border: 1px solid #c4453a;
+  background: transparent;
+  color: #c4453a;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+
+  &.klein {
+    margin: 8px 0 0;
+    padding: 4px 10px;
+    font-size: 12px;
+  }
+}

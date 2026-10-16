@@ -434,6 +434,149 @@
       "source": "Funktionsweise des DGS`",
       "sourceUrl": "https://technology.plassertheurer.com/de/dynamischeGleisstabilisation/funktionsweise-des-dgs",
       "imageKey": "q-bettung-schotter"
+    },
+    {
+      "id": "bettung-u1",
+      "question": "Wie ist der Gleiskörper bei Schotteroberbau von oben nach unten aufgebaut?",
+      "choices": [
+        "Schwelle, Schiene, Planumsschutzschicht, Schotterbett",
+        "Schotterbett, Schiene und Schwelle, Untergrund, Planumsschutzschicht",
+        "Schiene und Schwelle, Schotterbett, Planumsschutzschicht, Unterbau/Untergrund",
+        "Planumsschutzschicht, Schotterbett, Schwelle, Schiene"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die Lasten laufen von der Schiene über die Schwelle ins Schotterbett, weiter durch die Planumsschutzschicht in den Unterbau bzw. Untergrund. Jede Schicht verteilt die Last auf eine größere Fläche.",
+      "source": "Eigene Zusammenfassung (Allgemeinwissen Eisenbahnoberbau/-unterbau)"
+    },
+    {
+      "id": "bettung-u2",
+      "question": "Was zählt beim Schotteroberbau zum Oberbau?",
+      "choices": [
+        "Nur die Schienen",
+        "Das Planum und der Untergrund",
+        "Damm, Einschnitt und Entwässerungsgräben",
+        "Schienen, Schienenbefestigung, Schwellen und Schotterbett"
+      ],
+      "correctIndex": 3,
+      "explanation": "Zum Oberbau gehören alle Teile, die auf dem Planum liegen: Schienen, Befestigung, Schwellen und das Schotterbett. Darunter beginnt der Unterbau.",
+      "source": "Eigene Zusammenfassung (Allgemeinwissen Eisenbahnoberbau/-unterbau)"
+    },
+    {
+      "id": "bettung-u3",
+      "question": "Was ist der Untergrund eines Gleises?",
+      "choices": [
+        "Das Schotterbett unter den Schwellen",
+        "Der natürlich gewachsene Boden, auf dem der Unterbau bzw. das Gleis aufbaut",
+        "Die Planumsschutzschicht",
+        "Die Schicht direkt unter der Schiene"
+      ],
+      "correctIndex": 1,
+      "explanation": "Untergrund ist der gewachsene Boden. Seine Tragfähigkeit und Wasserempfindlichkeit entscheiden mit darüber, wie das Gleis liegt und wie aufwendig der Unterbau sein muss.",
+      "source": "Eigene Zusammenfassung (Allgemeinwissen Eisenbahnoberbau/-unterbau)"
+    },
+    {
+      "id": "bettung-u4",
+      "question": "Was ist ein Unterbau im Gleisbau?",
+      "choices": [
+        "Der Schotter zwischen den Schwellen",
+        "Ein Teil der Schienenbefestigung",
+        "Der hergestellte Erdkörper (z. B. Damm oder Einschnittsohle) unter dem Oberbau",
+        "Die Unterseite der Schwelle"
+      ],
+      "correctIndex": 2,
+      "explanation": "Der Unterbau trägt den Oberbau, bis hinauf zum Planum. Dammschüttungen und hergerichtete Einschnitte gehören dazu, bei Neubauten auch die Planumsschutzschicht.",
+      "source": "Eigene Zusammenfassung (Allgemeinwissen Eisenbahnoberbau/-unterbau)"
+    },
+    {
+      "id": "bettung-u5",
+      "question": "Was versteht man unter einer Schlammstelle im Gleis?",
+      "choices": [
+        "Ein neu gestopfter Gleisabschnitt",
+        "Eine Stelle, an der Wasser und Feinteile Bettung und Untergrund aufweichen und Schlamm nach oben gedrückt wird",
+        "Eine Pfütze neben dem Gleis",
+        "Eine Stelle mit besonders sauberem Schotter"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bei Schlammstellen weicht der Untergrund durch Wasser auf, Feinteile wandern in den Schotter. Das Gleis verliert Lagestabilität und sinkt unter Last ein. Abhilfe: Entwässerung verbessern, Bettung reinigen oder erneuern.",
+      "source": "Eigene Zusammenfassung (Allgemeinwissen Eisenbahnoberbau/-unterbau)"
+    },
+    {
+      "id": "bettung-u6",
+      "question": "Was versteht man unter Tiefenentwässerung?",
+      "choices": [
+        "Das Abpumpen einer Baugrube",
+        "Das Ableiten von Regenwasser nur über offene Gräben",
+        "Die Ableitung von Sickerwasser aus dem Gleiskörper über Dränleitungen unter der Oberfläche",
+        "Das Bewässern von Grünflächen neben der Strecke"
+      ],
+      "correctIndex": 2,
+      "explanation": "Tiefenentwässerung (umgangssprachlich oft Tiefenbewässerung genannt, gemeint ist aber das Entwässern) sammelt Wasser aus Schutzschicht und Untergrund in Dränrohren und führt es kontrolliert ab. So bleibt der Untergrund tragfähig.",
+      "source": "Eigene Zusammenfassung (Allgemeinwissen Eisenbahnoberbau/-unterbau)"
+    },
+    {
+      "id": "bettung-u7",
+      "question": "Worin unterscheiden sich Oberflächen- und Tiefenentwässerung?",
+      "choices": [
+        "Beide arbeiten nur mit offenen Gräben",
+        "Oberflächenentwässerung gibt es nur bei Weichen",
+        "Tiefenentwässerung gibt es nur im Tunnel",
+        "Oberflächenwasser fließt über Gefälle zu Gräben oder Mulden, Tiefenentwässerung nimmt Sickerwasser über Dränleitungen auf"
+      ],
+      "correctIndex": 3,
+      "explanation": "Das Planum hat ein Quergefälle, damit Regenwasser seitlich abläuft. Wasser, das in den Gleiskörper einsickert, wird zusätzlich in Dränleitungen gefasst.",
+      "source": "Eigene Zusammenfassung (Allgemeinwissen Eisenbahnoberbau/-unterbau)"
+    },
+    {
+      "id": "bettung-u8",
+      "question": "Wozu dienen Kontrollschächte in einer Gleisentwässerung?",
+      "choices": [
+        "Um Schotter einzufüllen",
+        "Um die Dränleitungen zu kontrollieren, zu spülen und bei Bedarf zu reinigen",
+        "Zum Befestigen der Oberleitungsmasten",
+        "Als Lagerplatz für Werkzeug"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dränleitungen können durch Feinteile verstopfen. Über Schächte lässt sich die Leitung kontrollieren und spülen, außerdem wird das Wasser dort gesammelt und weitergegeben.",
+      "source": "Eigene Zusammenfassung (Allgemeinwissen Eisenbahnoberbau/-unterbau)"
+    },
+    {
+      "id": "bettung-u9",
+      "question": "Warum wird ein Dränrohr in einen Filterkies gebettet?",
+      "choices": [
+        "Damit das Rohr schöner aussieht",
+        "Damit das Rohr schwimmt",
+        "Damit Wasser ins Rohr gelangt, Feinteile aber zurückgehalten werden und das Rohr nicht verstopft",
+        "Damit kein Wasser ins Rohr gelangt"
+      ],
+      "correctIndex": 2,
+      "explanation": "Die grobe Kiesumhüllung lässt Wasser durch und hält Feinteile fern. Ohne Filterschicht würde das Rohr zuschlammen und die Entwässerung ausfallen.",
+      "source": "Eigene Zusammenfassung (Allgemeinwissen Eisenbahnoberbau/-unterbau)"
+    },
+    {
+      "id": "bettung-u10",
+      "question": "Wozu dient ein Plattendruckversuch auf dem Planum?",
+      "choices": [
+        "Er misst die Spurweite",
+        "Er prüft die Schienentemperatur",
+        "Er bestimmt die Schottersorte",
+        "Er prüft die Tragfähigkeit (Verformungsmodul) des Planums"
+      ],
+      "correctIndex": 3,
+      "explanation": "Eine Lastplatte wird belastet und die Einsenkung gemessen. Daraus ergibt sich der Verformungsmodul. Reicht er nicht, muss nachverdichtet oder der Boden verbessert werden.",
+      "source": "Eigene Zusammenfassung (Allgemeinwissen Eisenbahnoberbau/-unterbau)"
+    },
+    {
+      "id": "bettung-u11",
+      "question": "Warum besteht die Planumsschutzschicht aus frostunempfindlichem, grobkörnigem Material?",
+      "choices": [
+        "Damit sie leichter einzufärben ist",
+        "Damit sich im Winter kein Eis im Boden anreichert und das Gleis nicht gehoben wird",
+        "Damit sie billiger ist",
+        "Damit sie mehr Wasser speichert"
+      ],
+      "correctIndex": 1,
+      "explanation": "Feinkörnige Böden saugen Wasser und frieren zu Eislinsen auf, was Frosthebungen verursacht. Grobkörniges, wasserdurchlässiges Material verhindert das und schützt zugleich den Untergrund.",
+      "source": "Eigene Zusammenfassung (Allgemeinwissen Eisenbahnoberbau/-unterbau)"
     }
   ]
 }

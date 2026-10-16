@@ -8,6 +8,7 @@ import {
   SPIELE_TILES,
 } from '../shared/katalog';
 import { AuthService } from '../core/auth/services/auth.service';
+import { PresenceService } from '../core/presence/presence.service';
 
 type TileProgress = {
   answered: number;
@@ -53,7 +54,7 @@ export class DashboardPage {
     {
       id: 'bereich-lernfelder',
       title: 'Lernfelder',
-      description: 'Quiz nach Lernfeldern — Gleisbau (LF10-14) und allgemeine Bauberufe (LF01-09).',
+      description: 'Quiz nach Lernfeldern — Baustelle (LF01) und Gleisbau (LF10-14).',
       icon: 'library-outline',
       link: '/kategorie/lernfelder',
       count: GLEISBAU_LERNFELD_TILES.length + BAUBERUFE_TILES.length,
@@ -86,8 +87,10 @@ export class DashboardPage {
   ];
 
   readonly user$ = this.auth.currentUser$;
+  readonly online$ = this.presence.online$;
 
-  constructor(private readonly auth: AuthService) {
+  constructor(private readonly auth: AuthService, private readonly presence: PresenceService) {
+    this.presence.start();
     this.refreshProgress();
     this.auth.restoreSession().subscribe();
   }

@@ -245,7 +245,7 @@ export class NivellierlattePage {
       this.rodLabels.push({
         x: (patternLeft ? HALF_W : 0) + HALF_W / 2,
         y: dmTop + UNITS_PER_DM * 0.75 + 12,
-        text: String(value).padStart(2, '0'),
+        text: (value / 10).toFixed(1).replace('.', ','),
       });
     }
     this.rodFieldLines.push(dmCount * UNITS_PER_DM);

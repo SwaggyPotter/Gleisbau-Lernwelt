@@ -490,3 +490,19 @@ ion-badge {
     font-size: 19px;
   }
 }
+
+.online-anzeige {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--sp-text-muted, #9aa);
+  white-space: nowrap;
+
+  .punkt {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2e9d57;
+  }
+}

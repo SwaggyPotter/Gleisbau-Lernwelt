@@ -32,7 +32,9 @@ export const createServer = () => {
     }),
   );
   app.use(compression());
-  app.use(express.json({ limit: '1mb' }));
+  // /api/photos bringt einen eigenen JSON-Parser mit hoeherem Limit mit (Foto-Upload).
+  const jsonParser = express.json({ limit: '1mb' });
+  app.use((req, res, next) => (req.path.startsWith('/api/photos') ? next() : jsonParser(req, res, next)));
   app.use(express.urlencoded({ extended: false }));
 
   app.use(

@@ -57,8 +57,8 @@ const KATEGORIEN: Kategorie[] = [
         tiles: nachLernfeldnummer(GLEISBAU_LERNFELD_TILES),
       },
       {
-        title: 'Allgemeine Bauberufe',
-        note: 'Lernfeld 1 bis 9 — Grundlagen, die alle Bauberufe gemeinsam haben.',
+        title: 'Grundlagen für alle Bauberufe',
+        note: 'Lernfeld 1 — Baustelle einrichten und Sicherheit.',
         tiles: nachLernfeldnummer(BAUBERUFE_TILES),
       },
     ],

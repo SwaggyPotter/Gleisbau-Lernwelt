@@ -29,26 +29,22 @@
   }
 }
 
-# Frontend (Angular/Ionic-App als statische Dateien) — zusaetzlich zum
-# client-seitigen App-Gate seit 2026-09-13 wieder HTTP-Basic-Auth auf
-# Server-Ebene: Solange die Seite kein Impressum hat, darf sie nicht
-# oeffentlich erreichbar sein. Das client-seitige Gate allein schuetzt NICHT
-# die statischen Dateien selbst (JS-Bundles, JSON-Fragenkataloge etc. waren
-# ueber direkte URLs immer unauthentifiziert abrufbar, curl-verifiziert) --
-# Basic-Auth auf Caddy-Ebene blockt jede Anfrage inkl. Assets, bevor
-# ueberhaupt etwas ausgeliefert wird. Nur die API bleibt ohne Basic-Auth
-# (siehe deren Kommentar oben) -- Browser-fetch()-Aufrufe zu einem anderen
-# Origin koennen keinen interaktiven Basic-Auth-Dialog ausloesen, das wuerde
-# alle App->API-Aufrufe (Login, Registrierung, Stats-Sync) brechen.
-# Bekannte Einschraenkung (Grund der frueheren Entfernung): der native
-# Browser-Auth-Dialog hat in mindestens einem Firmennetzwerk nicht
-# funktioniert -- falls das wieder auftritt, Tim Bescheid geben.
+# Frontend (Angular/Ionic-App als statische Dateien). Seit 2026-10-02 KEIN Browser-Popup
+# (HTTP-Basic-Auth) mehr: die App-Huelle (index.html, JS, CSS) ist oeffentlich, enthaelt
+# aber keine Inhalte. Alle Daten unter /assets/ (Fragenkataloge, Bilder, Diagramme) werden
+# nur ausgeliefert, wenn das Cookie glw_gate gesetzt ist -- das setzt die Login-Maske der
+# App nach erfolgreicher Anmeldung (src/app/core/site-gate/site-gate.component.ts).
+# Cookie-Wert = SHA-256(Passwort + ":glw-gate-cookie-v1"); bei Passwortaenderung hier
+# mitziehen. Schriften und Icons bleiben offen, damit die Login-Maske selbst rendert.
 {$APP_DOMAIN} {
   encode zstd gzip
 
-  basic_auth {
-    gleisbau $2a$14$UyZaKScTk0gVkUI1h1D59u3BGp3tX1ztZi7hiFzi2um2PL9zMWZAS
+  @daten {
+    path /assets/*
+    not path /assets/fonts/* /assets/icon/*
+    not header Cookie *glw_gate=eca3dbf650628f397ba910a9382de9595488fe9996a4d1887fd36ca36493ad1c*
   }
+  respond @daten "Bitte in der App anmelden." 401
 
   header {
     Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"

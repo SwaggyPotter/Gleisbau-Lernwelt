@@ -11,7 +11,13 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
-## 2026-09-23 — 10 neue Designs zum Umschalten, Signalwerk als neuer Standard
+### 2026-10-16 — Gleisbau-Wissensbibliothek (Vault-Ordner 19)
+
+Tim wollte den Vault zu einem Gleisbau-Gedächtnis ausbauen (Fachrecherche, DB-Richtlinien mit Quellen). Neuer Ordner [[19-Gleisbau-Wissensbibliothek/00-Index]]: 33 Themen (A Regelwerke, B Fachthemen), Gwen-Rohfunde mit automatischem URL-Check (ca. 43 % tote Links), von Claude verifiziertes [[19-Gleisbau-Wissensbibliothek/Regelwerk-Verzeichnis]] und [[19-Gleisbau-Wissensbibliothek/Regelwerk-Zugang-verifiziert]]. Zentrale Befunde: technische DB-Ril nur über Regelwerk@DB bestellbar; DGUV 77 (BG BAU) vs. 78 (Bund und Bahn). Tools: tools/wissensbibliothek/ (topics.cjs, generate-topics.cjs, run-recherche.cjs mit Zeitbudget, Modell-Check pro Versuch, URL-Check). Details und Fehlerbilder: [[19-Gleisbau-Wissensbibliothek/Bericht]].
+
+---
+
+# 2026-09-23 — 10 neue Designs zum Umschalten, Signalwerk als neuer Standard
 
 Tim hatte über die Desktop-Claude-App zehn Design-Vorlagen entwerfen lassen
 (`design-reference/gleisbau-designvorschau.html`, dazu ein ausführlicher

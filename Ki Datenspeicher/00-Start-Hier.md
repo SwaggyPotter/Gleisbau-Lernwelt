@@ -44,6 +44,8 @@ Datei + das Update-Log, nicht blind auf die Architektur-/Modul-Dateien.
 
 ## Kurzfassung (falls nur 60 Sekunden Zeit sind)
 
+- **Gleisbau-Wissensbibliothek (seit 2026-10-16):** [[19-Gleisbau-Wissensbibliothek/00-Index]] — recherchiertes Fachwissen + DB-Regelwerk-Verzeichnis mit Quellenklassen A/B/C; Gwen-Rohfunde sind unverifiziert, geprüft sind nur [[19-Gleisbau-Wissensbibliothek/Regelwerk-Verzeichnis]] und [[19-Gleisbau-Wissensbibliothek/Regelwerk-Zugang-verifiziert]]. Bericht: [[19-Gleisbau-Wissensbibliothek/Bericht]].
+
 - **Was**: Ionic/Angular-Lern-App für Gleisbau-Auszubildende (Bahnbau,
   Deutschland). Themenquiz, Rechentrainer (Nivellieren/Volumen/Prozentrechnung),
   Gesamtquiz, 14 Lernfelder (LF01-09 Bauberufe + LF10-14 Gleisbau) und seit

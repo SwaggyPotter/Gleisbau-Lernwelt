@@ -1,0 +1,26 @@
+{
+  "relFile": "19-Gleisbau-Wissensbibliothek/Themen/B17-Fachbegriffe-Glossar-Gleisbau.md",
+  "status": "NO_CHANGE",
+  "reasons": [
+    "Datei wurde nicht verändert."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 4,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 4,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-10-16T16-12-01-799Z_B17-Fachbegriffe-Glossar-Gleisbau.md.log"
+}

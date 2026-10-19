@@ -52,6 +52,14 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     { n: 'Schwer', task: 'Nivellierlatte ablesen (3 Ablesungen, 3 richtig)', val: 1500, share: .30, col: '#e07a3a', reads: 3, need: 3, dist: 20 },
     { n: 'Experte', task: 'Nivellierlatte ablesen (4 Ablesungen, 3 richtig)', val: 4000, share: .50, col: '#d64545', reads: 4, need: 3, dist: 24 },
   ];
+  /** Lok-Typen zum Kaufen: alte Loks sind billig, bringen aber weniger Miete (Tims Spielidee). speed/rent/upkeep sind Faktoren auf CFG. */
+  const TRAINS = [
+    { n: 'Dampflok (Gebrauchtkauf)', cost: 1200, speed: 0.75, rent: 0.55, upkeep: 1.6, len: 2, col: '#7a5230', col2: '#b08a64' },
+    { n: 'Diesellok', cost: 2500, speed: 1, rent: 1, upkeep: 1, len: 2, col: '#ff7a00', col2: '#ffb066' },
+    { n: 'E-Lok', cost: 4500, speed: 1.2, rent: 1.7, upkeep: 1.1, len: 3, col: '#2e86ab', col2: '#8cc1d6' },
+    { n: 'ICE-Triebzug', cost: 9000, speed: 1.6, rent: 3.2, upkeep: 1.3, len: 4, col: '#d9d9d9', col2: '#9aa5b1' },
+  ];
+  const tdef = (t: any) => TRAINS[t.type ?? 1] || TRAINS[1];
   const LCOL = ['#e4572e', '#2e86ab', '#59a14f', '#b07aa1', '#f2a900', '#17bebb', '#8c564b', '#4e79a7', '#d6336c', '#7f8c8d'];
 
   /* ---------- Helfer ---------- */
@@ -140,11 +148,12 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const dir = Math.random() < .5 ? 1 : -1;
     S.trains.push({ id: S.nextId++, line: L.id, own: false, dir, s: dir > 0 ? 0 : L.len, earned: 0, cost: 0, trips: 0 });
   };
-  const buyTrain = (id: number) => {
-    if (S.money < CFG.trainCost) { toast('Zu wenig Guthaben.'); return; }
-    S.money -= CFG.trainCost;
-    S.trains.push({ id: S.nextId++, line: id, own: true, dir: 1, s: 0, earned: 0, cost: 0, trips: 0 });
-    toast('Eigener Zug gekauft (−' + fmt(CFG.trainCost) + ')');
+  const buyTrain = (id: number, type = 1) => {
+    const def = TRAINS[type]; if (!def) return;
+    if (S.money < def.cost) { toast('Zu wenig Guthaben.'); return; }
+    S.money -= def.cost;
+    S.trains.push({ id: S.nextId++, line: id, own: true, type, dir: 1, s: 0, earned: 0, cost: 0, trips: 0 });
+    toast(def.n + ' gekauft (−' + fmt(def.cost) + ')');
     save();
   };
   const careLine = (id: number) => {
@@ -192,7 +201,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       // Nur Optik: Zuege fahren, keine Wirtschaft.
       for (const t of S.trains) {
         const L = S.lines[t.line]; if (!L) continue;
-        t.s += t.dir * CFG.trainSpeed * dtReal;
+        t.s += t.dir * CFG.trainSpeed * (t.own ? tdef(t).speed : 1) * dtReal;
         if (t.s >= L.len || t.s <= 0) { t.s = Math.max(0, Math.min(L.len, t.s)); t.dir *= -1; }
       }
       return;
@@ -219,7 +228,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     }
     for (const t of S.trains.slice()) {
       const L = S.lines[t.line];
-      t.s += t.dir * CFG.trainSpeed * (L.fault ? CFG.faultSpeed : 1) * dt;
+      t.s += t.dir * CFG.trainSpeed * (t.own ? tdef(t).speed : 1) * (L.fault ? CFG.faultSpeed : 1) * dt;
       if (t.s >= L.len || t.s <= 0) { t.s = Math.max(0, Math.min(L.len, t.s)); arrive(t, L); }
     }
     for (let i = popups.length - 1; i >= 0; i--) { popups[i].age += dtReal; if (popups[i].age > 1.4) popups.splice(i, 1); }
@@ -230,7 +239,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     L.cond = Math.max(0, L.cond - CFG.wearPerPass * (t.own ? 1 : 1.4));
     t.trips++;
     if (t.own) {
-      const inc = L.len * CFG.ownRent * (L.fault ? CFG.faultIncome : 1), cost = L.len * CFG.ownUpkeep;
+      const td = tdef(t), inc = L.len * CFG.ownRent * td.rent * (L.fault ? CFG.faultIncome : 1), cost = L.len * CFG.ownUpkeep * td.upkeep;
       S.money += inc - cost; L.inO += inc; t.earned += inc; t.cost += cost;
       popups.push({ x: p.x, y: p.y, txt: '+' + Math.round(inc - cost) + ' €', col: '#e07a00', age: 0 });
       t.dir *= -1;
@@ -323,13 +332,13 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     }
     for (const t of S.trains) {
       const L = S.lines[t.line]; if (!L) continue;
-      const n = t.own ? 2 : 3;
+      const n = t.own ? tdef(t).len : 3;
       for (let i = 0; i < n; i++) {
         const s = t.s - t.dir * i * 11;
         if (s < 0 || s > L.len) continue;
         const p = posAt(L, s);
         ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.ang);
-        ctx.fillStyle = t.own ? (i === 0 ? '#ff7a00' : '#ffb066') : (i === 0 ? '#2f3a46' : '#5d6b7a');
+        ctx.fillStyle = t.own ? (i === 0 ? tdef(t).col : tdef(t).col2) : (i === 0 ? '#2f3a46' : '#5d6b7a');
         ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5;
         ctx.beginPath(); ctx.rect(-5, -3.5, 10, 7); ctx.fill(); ctx.stroke();
         ctx.restore();
@@ -382,14 +391,17 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       h += '<div class="row"><b>Netto Strecke</b><b class="' + (net >= 0 ? 'pos' : 'neg') + '">' + sgn(net) + '</b></div>';
       if (!RO) {
         if (L.fault) h += '<p class="neg"><b>⚠ Störung (' + DIFF[L.fault.diff].n + ')</b> – Züge fahren langsamer und bringen nur ' + Math.round(CFG.faultIncome * 100) + ' % Einnahmen. Klicke das rote ! auf der Strecke.</p>';
-        h += '<div class="btns"><button data-act="buy" data-arg="' + L.id + '" ' + (S.money < CFG.trainCost ? 'disabled' : '') + '>Eigenen Zug kaufen (' + fmt(CFG.trainCost) + ')</button>';
+        h += '<div class="btns">';
+        TRAINS.forEach((d, ti) => {
+          h += '<button data-act="buy" data-arg="' + L.id + ':' + ti + '" ' + (S.money < d.cost ? 'disabled' : '') + '>' + d.n + ' kaufen (' + fmt(d.cost) + ') · Miete ' + Math.round(d.rent * 100) + ' %</button>';
+        });
         h += '<button data-act="care" data-arg="' + L.id + '" ' + (S.money < care || L.cond >= 95 ? 'disabled' : '') + '>Pflege durch Fremdfirma (' + fmt(care) + ')</button></div>';
       }
       h += '<b>Eigene Züge (' + own.length + ')</b>';
       if (!own.length) h += '<div class="mut">' + (RO ? 'Keine.' : 'Noch keiner. Vermiete Züge, um zusätzlich Geld zu verdienen.') + '</div>';
       own.forEach((t: any, i: number) => {
         const n = t.earned - t.cost;
-        h += '<div class="train"><div class="row"><span>Zug #' + (i + 1) + ' <span class="mut">(' + t.trips + ' Fahrten)</span></span><b class="' + (n >= 0 ? 'pos' : 'neg') + '">' + sgn(n) + '</b></div>' +
+        h += '<div class="train"><div class="row"><span>' + tdef(t).n + ' #' + (i + 1) + ' <span class="mut">(' + t.trips + ' Fahrten)</span></span><b class="' + (n >= 0 ? 'pos' : 'neg') + '">' + sgn(n) + '</b></div>' +
           '<div class="mut">Einnahmen ' + sgn(t.earned) + ' · Wartung ' + sgn(-t.cost) + '</div></div>';
       });
       return h;
@@ -551,7 +563,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (RO) return;
     if (a === 'speed') S.speed = +arg!;
     else if (a === 'mode') { S.mode = +arg!; S.faultIn = Math.min(S.faultIn, modeInterval(S.mode)); save(); }
-    else if (a === 'buy') buyTrain(+arg!);
+    else if (a === 'buy') { const [lid, ty] = arg!.split(':'); buyTrain(+lid, ty === undefined ? 1 : +ty); }
     else if (a === 'care') careLine(+arg!);
     else if (a === 'firm') { resolveFault(S.lines[modal.line], 'firm'); closeModal(); save(); }
     else if (a === 'self') startSelf();

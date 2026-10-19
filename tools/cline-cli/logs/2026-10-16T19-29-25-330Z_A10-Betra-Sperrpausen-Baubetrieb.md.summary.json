@@ -1,0 +1,22 @@
+{
+  "relFile": "19-Gleisbau-Wissensbibliothek/Themen/A10-Betra-Sperrpausen-Baubetrieb.md",
+  "status": "RULE_VIOLATION",
+  "reasons": [
+    "Frontmatter (außer status) wurde verändert.",
+    "Ursprünglicher Fragen-Abschnitt fehlt oder wurde verändert.",
+    "Überschrift \"🔎 Rechercheergebnisse von Gwen\" wurde entfernt."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 225,
+      "status": "RULE_VIOLATION",
+      "reasons": [
+        "Frontmatter (außer status) wurde verändert.",
+        "Ursprünglicher Fragen-Abschnitt fehlt oder wurde verändert.",
+        "Überschrift \"🔎 Rechercheergebnisse von Gwen\" wurde entfernt."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-10-16T19-29-25-330Z_A10-Betra-Sperrpausen-Baubetrieb.md.log"
+}

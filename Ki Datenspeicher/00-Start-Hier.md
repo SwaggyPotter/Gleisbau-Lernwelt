@@ -10,7 +10,7 @@ Dieser Vault ist der zentrale Wissensspeicher für das Projekt **Gleisbau Lernwe
 was das Projekt ist, wie es aufgebaut ist, was zuletzt passiert ist, was offen ist
 — und wie Gwen (das lokale KI-Modell) gesteuert wird.
 
-**Stand dieser Datei: 2026-08-26.** Sie wird bei größeren Änderungen aktualisiert,
+**Stand dieser Datei: 2026-10-19** (Kurzfassung unten um Ordner 19/20, Homescreen und 3D-Engine ergänzt; die Detailabschnitte stammen teils noch von 2026-08-26). Sie wird bei größeren Änderungen aktualisiert,
 ist aber kein Ersatz für `git log` / `git status` — bei Zweifeln immer den echten
 Code-Stand prüfen.
 
@@ -44,6 +44,7 @@ Datei + das Update-Log, nicht blind auf die Architektur-/Modul-Dateien.
 
 ## Kurzfassung (falls nur 60 Sekunden Zeit sind)
 
+- **Stand 2026-10-19 (zuerst lesen):** [[20-Bahnspiel-3D-Assets/Uebergabe-naechster-Chat]] fasst Zustand, Entscheidungen und Fallstricke zusammen. Startseite `/dashboard` = Handy-Homescreen (alle Apps als Icons); 3D-Engine (Babylon.js) + Modelle unter `/modelle`; Asset-Review-Seite `/bahnspiel-assets`; Tycoon mit 4 Lok-Typen. Details: [[05-Update-Log/Update-Log]] Eintrag 2026-10-19. Ordner 20: [[20-Bahnspiel-3D-Assets/00-Index]].
 - **Gleisbau-Wissensbibliothek (seit 2026-10-16):** [[19-Gleisbau-Wissensbibliothek/00-Index]] — recherchiertes Fachwissen + DB-Regelwerk-Verzeichnis mit Quellenklassen A/B/C; Gwen-Rohfunde sind unverifiziert, geprüft sind nur [[19-Gleisbau-Wissensbibliothek/Regelwerk-Verzeichnis]] und [[19-Gleisbau-Wissensbibliothek/Regelwerk-Zugang-verifiziert]]. Bericht: [[19-Gleisbau-Wissensbibliothek/Bericht]].
 
 - **Was**: Ionic/Angular-Lern-App für Gleisbau-Auszubildende (Bahnbau,
@@ -497,6 +498,8 @@ Ki Datenspeicher/
 ├── 11-Fragen-Generierung/         ← neue Quizfragen je Wissenstest-Thema
 ├── 12-Bildmaterial/               ← Bildkandidaten-Recherche (Wikimedia)
 ├── 13-CLI-Testbereich/            ← Cline-CLI-Testdateien/-ergebnisse
+├── 19-Gleisbau-Wissensbibliothek/ ← Fachrecherche + DB-Regelwerk-Verzeichnis
+├── 20-Bahnspiel-3D-Assets/        ← 3D-Assets, Lizenzen, Entscheidungen, Übergabe
 └── 14-Gwen-Code-Aufgaben/         ← Protokoll jeder Code-Delegation an Gwen
     ├── 01-Nivellierlatte-Feinschliff.md
     ├── 02-Kategorie-Menues.md

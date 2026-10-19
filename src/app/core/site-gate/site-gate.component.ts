@@ -30,7 +30,15 @@ export async function syncGateCookie(): Promise<void> {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     const { password } = JSON.parse(raw) as { password?: string };
-    if (password) await setGateCookie(password);
+    if (!password) return;
+    // Veraltetes gespeichertes Passwort (nach einer Passwortaenderung): Cookie waere falsch und
+    // jede /assets/-Datei bekaeme 401 -- Login verwerfen, damit die Login-Maske wieder erscheint.
+    if ((await sha256Hex(password)) !== SITE_PASSWORD_SHA256) {
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+      return;
+    }
+    await setGateCookie(password);
   } catch {
     // ohne localStorage/Cookies bleibt der Login pro Aufruf noetig
   }

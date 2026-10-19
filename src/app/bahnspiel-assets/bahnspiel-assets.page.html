@@ -1,0 +1,81 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Bahnspiel-Assets</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ba-content">
+  <div class="ba-shell">
+    <p class="ba-intro">
+      Recherchierte Funde fuer das geplante Bahnspiel (nur von Claude geprueft: Link und Lizenz wurden auf der
+      Zielseite gelesen). Pro Eintrag: <strong>Behalten</strong>, <strong>Vielleicht</strong> oder
+      <strong>Raus</strong> waehlen und optional einen eigenen Namen vergeben. Die Auswahl wird nur in diesem
+      Browser gemerkt &ndash; mit &bdquo;Entscheidungen kopieren&ldquo; an Claude weitergeben.
+    </p>
+
+    <div class="ba-stats">
+      <span class="s-behalten">Behalten: {{ zaehler.behalten }}</span>
+      <span class="s-vielleicht">Vielleicht: {{ zaehler.vielleicht }}</span>
+      <span class="s-raus">Raus: {{ zaehler.raus }}</span>
+      <span>Offen: {{ zaehler.offen }}</span>
+    </div>
+
+    <div class="ba-filter">
+      <button *ngFor="let k of kategorien" type="button" [class.aktiv]="filter === k" (click)="filter = k">{{ k }}</button>
+      <label class="ba-offen"><input type="checkbox" [(ngModel)]="nurOffen" /> nur unentschiedene</label>
+    </div>
+
+    <article *ngFor="let a of sichtbar" class="ba-card" [ngClass]="'e-' + (urteil(a.id).entscheidung || 'offen')">
+      <div class="ba-head">
+        <span class="ba-kat">{{ a.kategorie }}</span>
+        <h3>{{ urteil(a.id).eigenerName || a.name }}</h3>
+        <p *ngIf="urteil(a.id).eigenerName" class="ba-orig">Original: {{ a.name }}</p>
+      </div>
+      <figure *ngIf="a.bild" class="ba-bild">
+        <img [src]="a.bild" [alt]="a.name" loading="lazy" />
+        <figcaption>{{ a.bildCredit }}</figcaption>
+      </figure>
+      <p *ngIf="!a.bild" class="ba-keinbild">Keine Vorschau (Quelle oeffnen).</p>
+      <p>{{ a.beschreibung }}</p>
+      <ul class="ba-meta">
+        <li><b>Lizenz:</b> {{ a.lizenz }}</li>
+        <li><b>Format:</b> {{ a.format }}</li>
+        <li *ngIf="a.polygone !== '-'"><b>Polygone:</b> {{ a.polygone }}</li>
+        <li *ngIf="repoText(a.repo)"><span class="ba-repo" [ngClass]="'r-' + a.repo">{{ repoText(a.repo) }}</span></li>
+      </ul>
+      <a [href]="a.url" target="_blank" rel="noopener">Quelle oeffnen</a>
+
+      <div class="ba-urteil">
+        <button type="button" class="b-behalten" [class.aktiv]="urteil(a.id).entscheidung === 'behalten'" (click)="setze(a.id, 'behalten')">Behalten</button>
+        <button type="button" class="b-vielleicht" [class.aktiv]="urteil(a.id).entscheidung === 'vielleicht'" (click)="setze(a.id, 'vielleicht')">Vielleicht</button>
+        <button type="button" class="b-raus" [class.aktiv]="urteil(a.id).entscheidung === 'raus'" (click)="setze(a.id, 'raus')">Raus</button>
+      </div>
+      <input
+        class="ba-input"
+        type="text"
+        placeholder="Eigener Name (optional)"
+        [ngModel]="urteil(a.id).eigenerName"
+        (ngModelChange)="setzeFeld(a.id, 'eigenerName', $event)"
+      />
+      <input
+        class="ba-input"
+        type="text"
+        placeholder="Notiz (optional)"
+        [ngModel]="urteil(a.id).notiz"
+        (ngModelChange)="setzeFeld(a.id, 'notiz', $event)"
+      />
+    </article>
+
+    <p class="ba-intro" *ngIf="sichtbar.length === 0">Keine Eintraege in dieser Ansicht.</p>
+
+    <div class="ba-export">
+      <button type="button" (click)="erzeugeExport()">Entscheidungen kopieren</button>
+      <button type="button" class="b-raus" (click)="zuruecksetzen()">Alles zuruecksetzen</button>
+      <p *ngIf="hinweis">{{ hinweis }}</p>
+      <textarea *ngIf="exportText" readonly rows="10" [value]="exportText"></textarea>
+    </div>
+  </div>
+</ion-content>

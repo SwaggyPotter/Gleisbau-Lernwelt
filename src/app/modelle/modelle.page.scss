@@ -1,0 +1,131 @@
+:host {
+  font-family: var(--font-body);
+  color: var(--sp-text);
+}
+
+ion-header ion-toolbar {
+  --background: var(--sp-bg);
+  --color: var(--sp-text);
+  --border-color: var(--sp-border);
+}
+
+.mo-content {
+  --background: var(--sp-bg);
+  color: var(--sp-text);
+}
+
+.mo-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 16px 48px;
+  color: var(--sp-text);
+}
+
+.mo-buehne {
+  position: relative;
+  width: 100%;
+  height: min(60vh, 520px);
+  border: 1px solid var(--sp-border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.mo-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  outline: none;
+  touch-action: none;
+}
+
+.mo-status {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 0.85rem;
+
+  &.fehler {
+    background: #c0392b;
+  }
+}
+
+.mo-leiste,
+.mo-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+
+  button {
+    padding: 8px 14px;
+    border: 1px solid var(--sp-border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--sp-text);
+    font: inherit;
+    cursor: pointer;
+
+    &.aktiv {
+      background: var(--sp-text);
+      color: var(--sp-bg);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+}
+
+.mo-credit,
+.mo-hinweis {
+  margin: 6px 0;
+  color: var(--sp-text);
+  font-size: 0.9rem;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+.mo-hinweis {
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+
+.mo-liste {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.mo-karte {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid var(--sp-border);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--sp-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  .kat {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.65;
+  }
+
+  &.aktiv {
+    border-color: var(--sp-text);
+    box-shadow: inset 0 0 0 1px var(--sp-text);
+  }
+}

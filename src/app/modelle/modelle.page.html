@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>3D-Modelle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="mo-content">
+  <div class="mo-shell">
+    <div class="mo-buehne">
+      <canvas #leinwand class="mo-canvas"></canvas>
+      <div class="mo-status" *ngIf="laedt">Lade …</div>
+      <div class="mo-status fehler" *ngIf="fehler">{{ fehler }}</div>
+    </div>
+
+    <div class="mo-leiste">
+      <button type="button" [class.aktiv]="diorama" (click)="zeigeDiorama()">Gleis-Diorama (Zug fährt)</button>
+      <button type="button" [class.aktiv]="drehen && !diorama" [disabled]="diorama" (click)="toggleDrehen()">
+        Automatisch drehen: {{ drehen ? 'an' : 'aus' }}
+      </button>
+    </div>
+
+    <p class="mo-credit" *ngIf="ausgewaehlt as m">
+      <b>{{ m.name }}</b> · {{ m.urheber }} · Lizenz {{ m.lizenz }} ·
+      <a [href]="m.quelleUrl" target="_blank" rel="noopener">Quelle</a>
+    </p>
+    <p class="mo-credit" *ngIf="diorama">
+      Diorama aus dem Kenney Train Kit (CC0) ·
+      <a href="https://kenney.nl/assets/train-kit" target="_blank" rel="noopener">Quelle</a>
+    </p>
+    <p class="mo-hinweis">Ziehen = drehen, Mausrad/Pinch = zoomen.</p>
+
+    <div class="mo-filter">
+      <button *ngFor="let k of kategorien" type="button" [class.aktiv]="kategorie === k" (click)="kategorie = k">{{ k }}</button>
+    </div>
+
+    <div class="mo-liste">
+      <button
+        *ngFor="let m of liste"
+        type="button"
+        class="mo-karte"
+        [class.aktiv]="ausgewaehlt?.id === m.id"
+        (click)="waehle(m)"
+      >
+        <span class="kat">{{ m.kategorie }}</span>
+        <span class="name">{{ m.name }}</span>
+      </button>
+    </div>
+  </div>
+</ion-content>

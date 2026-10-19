@@ -143,9 +143,20 @@ const routes: Routes = [
           .then(m => m.KategorieModule)
       },
       {
+        path: 'modelle',
+        loadChildren: () => import('./modelle/modelle.module')
+          .then(m => m.ModellePageModule)
+      },
+      { path: 'apps', redirectTo: 'dashboard', pathMatch: 'full' },
+      {
         path: 'bildnachweise',
         loadChildren: () => import('./bildnachweise/bildnachweise.module')
           .then(m => m.BildnachweisePageModule)
+      },
+      {
+        path: 'bahnspiel-assets',
+        loadChildren: () => import('./bahnspiel-assets/bahnspiel-assets.module')
+          .then(m => m.BahnspielAssetsPageModule)
       },
       {
         path: 'quellenverzeichnis',

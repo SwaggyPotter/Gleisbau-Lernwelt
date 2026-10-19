@@ -1,0 +1,26 @@
+{
+  "relFile": "19-Gleisbau-Wissensbibliothek/Themen/A13-DGUV-BG-BAU-Gleisbau.md",
+  "status": "NO_CHANGE",
+  "reasons": [
+    "Datei wurde nicht verändert."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 6,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 11,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-10-16T18-13-48-353Z_A13-DGUV-BG-BAU-Gleisbau.md.log"
+}

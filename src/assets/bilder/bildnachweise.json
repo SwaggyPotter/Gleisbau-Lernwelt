@@ -492,5 +492,26 @@
     "credit": "Tipiac, CC BY-SA 3.0, via Wikimedia Commons",
     "license": "CC BY-SA 3.0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rail_track.jpg"
+  },
+  {
+    "key": "q-schiene-squat",
+    "file": "assets/bilder/schienenfehler-squat.png",
+    "credit": "US-Verkehrsministerium (USDOT), gemeinfrei (PD-USGov-DOT), via Wikimedia Commons",
+    "license": "Public Domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rail_squat.png"
+  },
+  {
+    "key": "q-schiene-head-checks",
+    "file": "assets/bilder/schienenfehler-head-checks.png",
+    "credit": "US-Verkehrsministerium (USDOT), gemeinfrei (PD-USGov-DOT), via Wikimedia Commons",
+    "license": "Public Domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gauge_Corner_Cracking.png"
+  },
+  {
+    "key": "q-schiene-riffeln",
+    "file": "assets/bilder/schienenfehler-riffeln.jpg",
+    "credit": "Janhajk, CC BY-SA 4.0, via Wikimedia Commons",
+    "license": "CC BY-SA 4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Riffelbildung_Bogeninnenschiene_Detail.jpg"
   }
 ]

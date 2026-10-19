@@ -1,0 +1,22 @@
+{
+  "relFile": "19-Gleisbau-Wissensbibliothek/Themen/A03-Ril-820-824-Oberbau-Fahrbahn.md",
+  "status": "SUCCESS",
+  "reasons": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 53,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 99,
+      "status": "SUCCESS",
+      "reasons": []
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-10-16T17-48-58-369Z_A03-Ril-820-824-Oberbau-Fahrbahn.md.log"
+}

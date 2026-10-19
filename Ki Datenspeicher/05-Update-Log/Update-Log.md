@@ -11,6 +11,21 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+### 2026-10-19 — Bahnspiel-3D-Assets, Handy-Startseite, 3D-Engine, Quiz-Bilder, Tycoon-Loks
+
+Neuer Vault-Ordner [[20-Bahnspiel-3D-Assets/00-Index]] (Recherche zu 3D-Assets, Struktur wie Ordner 19; Pipeline `tools/bahnspiel-assets/`). Gwen-Lauf scheiterte nach ca. 4 Minuten (3 Schnellfehlschläge, Modell war nicht geladen) — es gibt **keine** Gwen-Rohfunde, alles Geprüfte stammt von Claude: [[20-Bahnspiel-3D-Assets/Verzeichnis-verifiziert]]. Tim hat auf der neuen Review-Seite `/bahnspiel-assets` (Daten `src/assets/bahnspiel-assets/assets.json`, Auswahl nur in localStorage, Export als JSON) entschieden: [[20-Bahnspiel-3D-Assets/Entscheidungen-Tim]].
+
+- **Quiz:** Thema „Schienen“ von 19 auf 24 Fragen (`schiene-f1`..`f5`: Riffeln, Head Checks, Squat + 2 Textfragen). Drei Bilder lokal unter `src/assets/bilder/schienenfehler-*`, Keys `q-schiene-riffeln|head-checks|squat` in `bildnachweise.json` (Squat/Head Checks Public Domain US-DOT, Riffeln CC BY-SA 4.0 Janhajk). Quellen der Fragen sind nur die Commons-Dateiseiten — Fachbelege fehlen noch. **Tims Notizen verwechselten Squat/Flachstelle und Head Checks/Riffeln** (siehe Entscheidungen-Tim); im Quiz sind die richtigen Begriffe verwendet.
+- **Tycoon:** 4 Lok-Typen (`TRAINS` in `tycoon-engine.ts`: Dampflok 1.200 €, Diesel 2.500 €, E-Lok 4.500 €, ICE 9.000 €; Faktoren auf Tempo/Miete/Unterhalt, ungeprüft ausbalanciert). Alte Spielstände: Loks ohne `type` = Diesellok.
+- **Startseite:** `/dashboard` ist jetzt ein Handy-Homescreen (App-Icons in farbigen Ordnern: Spiele, Rechner, Lernfelder LF10–14 / LF01–09, Wissenstests, „Mehr“ mit Forum (nur eingeloggt), Offline, 3D-Modelle) mit Suche. Header nur noch: online-Anzeige, Design, Konto, Abmelden, Admin-Links (Schlüssel/Fragen/Bilder/Benennen). Fortschrittszähler (Abgeschlossen/In Arbeit/Offen) entfielen. `/apps` leitet auf `/dashboard`. **Lehre:** Ein Getter in der Vorlage, der bei jedem Change-Detection-Lauf neue Objekte liefert (`gruppen`), baute die Seite endlos neu auf und ließ den Tab nach dem Login abstürzen — Ergebnis jetzt gecacht + `trackBy`.
+- **Gate/401-Fix:** Server gibt `/assets/*` nur mit Cookie `glw_gate` aus (Caddy, seit 2026-10-02, kein Basic-Auth-Popup mehr). Ein veraltetes im Browser gespeichertes Passwort ergab ein falsches Cookie → alle Assets 401. `syncGateCookie()` prüft jetzt den SHA-256 des gespeicherten Passworts und verwirft den Login (Reload → Login-Maske) bei Abweichung.
+- **3D-Engine:** `@babylonjs/core`+`loaders` (v7, Apache-2.0), Hülle `src/app/shared/engine3d/engine3d.ts` (Szene, Kamera, GLB laden, Viewer, Gleis-Diorama mit fahrendem Zug), Katalog `modell-katalog.ts`, Seite `/modelle` (Lazy-Modul, Engine per dynamischem Import). 28 GLB (Kenney Train Kit CC0 + Lok 32kda CC0) unter `src/assets/modelle/`. Wichtig: `engine.disableUniformBuffers = true` (sonst zeichnete Software-GL nichts). Test nur per Headless-Chromium (Software-Rendering), nicht auf echter GPU.
+- **Deploy:** alles auf den Server (frontend-dist) hochgeladen, **nichts committet** (Tim pusht per GitHub Desktop).
+
+Offen: Modelle im Tycoon nutzen; Diorama-Optik; Gwen-Lauf zu Ordner 20 neu starten (Modell vorher laden: `tools/gwen-modell-laden.cmd`); Lizenzen der Blender-Addons (Auto Rails, 3DT, Ryan King) ungeprüft; Kenney-Download braucht Referer `https://kenney.nl/assets/train-kit` (sonst 403); Quizquellen der neuen Fragen mit Fachbeleg ergänzen; Tim-Spielidee (Lok kaufen/vermieten, Schwellenabstand als Aufgabe, Regelabstand noch zu belegen).
+
+---
+
 ### 2026-10-16 — Gleisbau-Wissensbibliothek (Vault-Ordner 19)
 
 Tim wollte den Vault zu einem Gleisbau-Gedächtnis ausbauen (Fachrecherche, DB-Richtlinien mit Quellen). Neuer Ordner [[19-Gleisbau-Wissensbibliothek/00-Index]]: 33 Themen (A Regelwerke, B Fachthemen), Gwen-Rohfunde mit automatischem URL-Check (ca. 43 % tote Links), von Claude verifiziertes [[19-Gleisbau-Wissensbibliothek/Regelwerk-Verzeichnis]] und [[19-Gleisbau-Wissensbibliothek/Regelwerk-Zugang-verifiziert]]. Zentrale Befunde: technische DB-Ril nur über Regelwerk@DB bestellbar; DGUV 77 (BG BAU) vs. 78 (Bund und Bahn). Tools: tools/wissensbibliothek/ (topics.cjs, generate-topics.cjs, run-recherche.cjs mit Zeitbudget, Modell-Check pro Versuch, URL-Check). Details und Fehlerbilder: [[19-Gleisbau-Wissensbibliothek/Bericht]].

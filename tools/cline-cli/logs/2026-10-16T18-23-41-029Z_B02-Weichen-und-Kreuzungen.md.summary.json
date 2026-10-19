@@ -1,0 +1,14 @@
+{
+  "relFile": "19-Gleisbau-Wissensbibliothek/Themen/B02-Weichen-und-Kreuzungen.md",
+  "status": "SUCCESS",
+  "reasons": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 101,
+      "status": "SUCCESS",
+      "reasons": []
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-10-16T18-23-41-029Z_B02-Weichen-und-Kreuzungen.md.log"
+}

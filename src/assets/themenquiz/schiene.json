@@ -286,6 +286,86 @@
       "source": "Buckling bei zu niedriger NRT im Sommer (Datum: 2026)",
       "sourceUrl": "https://www.elektro-thermit.de/fileadmin/et/user_upload/PDF/Publikationen/38_43_Wegner.pdf",
       "imageKey": "q-schiene-rad-schiene-profil"
+    },
+    {
+      "id": "schiene-f1",
+      "question": "Welcher Schienenfehler ist auf dem Bild zu sehen?",
+      "choices": [
+        "Riffeln (wellenförmiger Verschleiß der Schienenoberfläche)",
+        "Flachstelle (Radschaden)",
+        "Head Checks (Risse an der Fahrkante)",
+        "Schienenbruch"
+      ],
+      "correctIndex": 0,
+      "explanation": "Riffeln sind regelmäßig wiederkehrende Wellen auf der Fahrfläche. Das Bild zeigt Riffeln an der Bogeninnenschiene eines Normalspurgleises, verursacht durch Schlupf. Eine Flachstelle ist dagegen ein Radschaden.",
+      "source": "Wikimedia Commons: Riffelbildung Bogeninnenschiene Detail (Janhajk, CC BY-SA 4.0)",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Riffelbildung_Bogeninnenschiene_Detail.jpg",
+      "difficulty": "mittel",
+      "imageKey": "q-schiene-riffeln"
+    },
+    {
+      "id": "schiene-f2",
+      "question": "Welcher Schienenfehler ist auf dem Bild zu sehen?",
+      "choices": [
+        "Head Checks (Gauge Corner Cracking, Risse an der Fahrkante)",
+        "Riffeln",
+        "Flachstelle (Radschaden)",
+        "Spurkranzverschleiß"
+      ],
+      "correctIndex": 0,
+      "explanation": "Head Checks sind eine Reihe von Rissen an der Fahrkante des Schienenkopfs, typisch an der bogenäußeren Schiene. Sie entstehen durch Rollkontaktermüdung (Rolling Contact Fatigue).",
+      "source": "Wikimedia Commons: Gauge Corner Cracking (USDOT, Public Domain)",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gauge_Corner_Cracking.png",
+      "difficulty": "schwer",
+      "imageKey": "q-schiene-head-checks"
+    },
+    {
+      "id": "schiene-f3",
+      "question": "Welcher Schienenfehler ist auf dem Bild zu sehen: eine dunkle Stelle auf der Schienenoberfläche?",
+      "choices": [
+        "Squat (Ermüdungsschaden im Schienenkopf)",
+        "Riffeln",
+        "Head Checks",
+        "Flachstelle (Radschaden)"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ein Squat zeigt sich als dunkle Stelle auf der Fahrfläche und ist ein Rollkontaktermüdungsschaden unter der Oberfläche. Eine Flachstelle ist dagegen ein Schaden am Rad, nicht an der Schiene.",
+      "source": "Wikimedia Commons: Rail squat (USDOT, Public Domain)",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rail_squat.png",
+      "difficulty": "profi",
+      "imageKey": "q-schiene-squat"
+    },
+    {
+      "id": "schiene-f4",
+      "question": "Wo treten Riffeln im Gleis typischerweise besonders häufig auf?",
+      "choices": [
+        "In Bögen, besonders an der Bogeninnenschiene",
+        "Nur in Tunneln",
+        "Nur an Weichenherzstücken",
+        "Nur auf neu verlegten Schienen"
+      ],
+      "correctIndex": 0,
+      "explanation": "Riffeln findet man auf geraden und gekrümmten Gleisen. Das Foto der Wikimedia-Commons-Datei zeigt sie an der Innenschiene eines Bogens, verursacht durch den Schlupf der Räder.",
+      "source": "Wikimedia Commons: Riffelbildung Bogeninnenschiene Detail",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Riffelbildung_Bogeninnenschiene_Detail.jpg",
+      "difficulty": "mittel",
+      "imageKey": "q-schiene-riffeln"
+    },
+    {
+      "id": "schiene-f5",
+      "question": "Wodurch entstehen Head Checks und Squats vor allem?",
+      "choices": [
+        "Durch Rollkontaktermüdung (Rolling Contact Fatigue) im Rad-Schiene-Kontakt",
+        "Durch zu geringen Schotterdruck",
+        "Durch zu niedrige Schienentemperatur beim Verlegen",
+        "Durch Flachstellen am Radsatz"
+      ],
+      "correctIndex": 0,
+      "explanation": "Beide Schäden gehören zur Gruppe der Rollkontaktermüdungsschäden: wiederholte hohe Kontaktspannungen erzeugen Risse im Schienenkopf.",
+      "source": "Wikimedia Commons: Gauge Corner Cracking (Abbildung aus Rolling Contact Fatigue: A Comprehensive Review)",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gauge_Corner_Cracking.png",
+      "difficulty": "profi",
+      "imageKey": "q-schiene-head-checks"
     }
   ]
 }

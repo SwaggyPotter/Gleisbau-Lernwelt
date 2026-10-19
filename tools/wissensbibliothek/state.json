@@ -1,0 +1,110 @@
+{
+  "A01": {
+    "status": "TECHNICAL_FAILURE",
+    "tries": 1,
+    "durationSec": 181,
+    "finished": "2026-10-16T18:51:12.707Z",
+    "urls": 17,
+    "ok": 12,
+    "entries": 20
+  },
+  "A02": {
+    "status": "NO_CHANGE",
+    "tries": 1,
+    "durationSec": 987,
+    "finished": "2026-10-16T19:07:40.538Z",
+    "urls": 11,
+    "ok": 10,
+    "entries": 20
+  },
+  "A03": {
+    "status": "SUCCESS",
+    "tries": 1,
+    "durationSec": 71,
+    "finished": "2026-10-16T19:08:57.129Z",
+    "urls": 5,
+    "ok": 3,
+    "entries": 13
+  },
+  "A04": {
+    "status": "NO_CHANGE",
+    "tries": 1,
+    "durationSec": 440,
+    "finished": "2026-10-16T19:16:17.330Z",
+    "urls": 8,
+    "ok": 6,
+    "entries": 8
+  },
+  "A05": {
+    "status": "NO_CHANGE",
+    "tries": 1,
+    "durationSec": 166,
+    "finished": "2026-10-16T19:19:09.585Z",
+    "urls": 2,
+    "ok": 2,
+    "entries": 15
+  },
+  "A06": {
+    "status": "NO_CHANGE",
+    "tries": 1,
+    "durationSec": 127,
+    "finished": "2026-10-16T19:21:16.570Z",
+    "urls": 0,
+    "ok": 0,
+    "entries": 0
+  },
+  "A07": {
+    "status": "NEEDS_REVIEW",
+    "tries": 1,
+    "durationSec": 152,
+    "finished": "2026-10-16T19:23:48.619Z",
+    "urls": 0,
+    "ok": 0,
+    "entries": 8
+  },
+  "A08": {
+    "status": "NO_CHANGE",
+    "tries": 1,
+    "durationSec": 126,
+    "finished": "2026-10-16T19:25:54.509Z",
+    "urls": 0,
+    "ok": 0,
+    "entries": 0
+  },
+  "A09": {
+    "status": "SUCCESS",
+    "tries": 1,
+    "durationSec": 143,
+    "finished": "2026-10-16T19:28:42.182Z",
+    "urls": 9,
+    "ok": 9,
+    "entries": 0
+  },
+  "A10": {
+    "status": "RULE_VIOLATION",
+    "tries": 1,
+    "durationSec": 270,
+    "finished": "2026-10-16T19:33:12.092Z",
+    "urls": 0,
+    "ok": 0,
+    "entries": 0
+  },
+  "A11": {
+    "status": "TECHNICAL_FAILURE",
+    "tries": 1,
+    "durationSec": 213,
+    "finished": "2026-10-16T19:36:45.704Z",
+    "urls": 7,
+    "ok": 7,
+    "entries": 10
+  },
+  "A12": {
+    "status": "TECHNICAL_FAILURE",
+    "tries": 1,
+    "durationSec": 396,
+    "finished": "2026-10-16T19:43:22.259Z",
+    "urls": 22,
+    "ok": 10,
+    "entries": 28
+  }
+}

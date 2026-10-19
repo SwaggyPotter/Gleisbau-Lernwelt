@@ -1,0 +1,22 @@
+{
+  "relFile": "19-Gleisbau-Wissensbibliothek/Themen/A12-Normen-DIN-EN-Gleisbau.md",
+  "status": "SUCCESS",
+  "reasons": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 82,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 260,
+      "status": "SUCCESS",
+      "reasons": []
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-10-16T18-07-52-711Z_A12-Normen-DIN-EN-Gleisbau.md.log"
+}

@@ -1,0 +1,26 @@
+{
+  "relFile": "19-Gleisbau-Wissensbibliothek/Themen/A04-Ril-836-Erdbauwerke-Bahnkoerper.md",
+  "status": "NO_CHANGE",
+  "reasons": [
+    "Datei wurde nicht verändert."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "durationSec": 17,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    },
+    {
+      "attempt": 2,
+      "durationSec": 54,
+      "status": "NO_CHANGE",
+      "reasons": [
+        "Datei wurde nicht verändert."
+      ]
+    }
+  ],
+  "logPath": "E:\\Gleisbau-Lernwelt\\tools\\cline-cli\\logs\\2026-10-16T17-51-36-346Z_A04-Ril-836-Erdbauwerke-Bahnkoerper.md.log"
+}

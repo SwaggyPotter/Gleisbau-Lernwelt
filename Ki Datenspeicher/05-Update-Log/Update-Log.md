@@ -11,6 +11,25 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+### 2026-10-19 (spät) — Tycoon-Landschaft: Bäume, Häuser, Hochhäuser
+
+- Neue CC0-Modelle (Kenney, `License.txt` liegt je Ordner bei, zusammen ca. 2,4 MB): `src/assets/modelle/kenney-natur/` (7 Bäume, 2 Büsche, 2 Felsen aus dem Nature Kit), `kenney-vorort/` (Häuser `building-type-a..h`, City Kit Suburban), `kenney-stadt/` (`building-a..h` + 2 Hochhäuser, City Kit Commercial). Eigene Ordner, weil beide City-Kits eine `Textures/colormap.png` mit gleichem Namen haben. Die grauen `low-detail-building-*` wurden verworfen (untexturiert, wirkten wie Betonklötze).
+- Neue Datei `tycoon/tycoon-deko.ts`: feste (geseedete) Verteilung — ca. 30 Wälder + Einzelbäume, Büsche/Felsen, je Stadt 9 (Großstadt 14) Gebäude; Großstädte (Berlin, Hamburg, München, Köln, Frankfurt) mit Hochhäusern. Häuser erscheinen erst, wenn die Stadt aufgedeckt ist; alles, was einer gebauten Strecke im Weg steht, wird ausgeblendet. Technik: jedes Modell zu einem Mesh verschmolzen + Thin Instances (wenige Draw Calls, wichtig fürs Handy). Höhe je Gebäudetyp gedeckelt, damit Namensschilder (jetzt auf Höhe 5) frei bleiben; Stadtsockel ist jetzt ein flacher Platz.
+- Lehre: `ng build` stürzte mit „cannot allocate memory“ ab, solange Gwen (6,5 GB) in LM Studio geladen war → Modell vor Builds entladen.
+- Lokal getestet (Screenshots), Produktions-Build ok. Noch nicht deployt (Stand dieses Eintrags), nichts committet. Offen: 3D-Modelle/Kenney-Credits auf `/bildnachweise` bzw. `/rechte` (CC0 verlangt es nicht, wäre aber fair).
+
+---
+
+### 2026-10-19 (abends) — Tycoon in 3D, alte Kategorie-Ansicht entfernt
+
+- **Alte Kategorie-Ansicht weg:** 7 Seiten (Tycoon, Schienenraten, Schienenmesser, Quizduell, Nivellieren, Volumen, Prozentrechnung) verlinkten im Header noch auf `/kategorie/spiele|rechentrainer` (altes Overlay). Jetzt „Zur Uebersicht“ → `/dashboard` wie alle anderen; Route `kategorie/:id` leitet auf `/dashboard` um. Modul `src/app/modules/kategorie/` ist damit ungenutzt (noch nicht gelöscht).
+- **Tycoon 3D:** neue Datei `tycoon/tycoon-3d.ts` (Babylon): Gelände, Städte mit Namensschildern, Strecken (Schotter + Linienfarbe, Zustand färbt den Schotter), Störungskugeln, alle Züge als Kenney-Modelle (Dampflok+Kohle/Holz, Diesel+Container, E-Triebzug, ICE mit Triebkopf an beiden Enden; Fremdzüge = Diesel B + Güterwagen). Liest pro Bild den Zustand über `handle.welt()`, Klicks gehen über `handle.klickWelt()` in dieselbe Spiel-Logik (Trefferzone ×2,5). Umschalter „3D-Ansicht“ in der Leiste (Standard an, Wahl in localStorage `tycoon-ansicht3d`); Kamera richtet sich automatisch auf das Netz aus (Panel rechts bzw. unten berücksichtigt).
+- **Kaufdialog:** „… kaufen“ öffnet jetzt einen Dialog mit drehender 3D-Lok (Engine3D-Viewer), Tempo/Miete/Wartung und „Jetzt kaufen“. Eigene Züge haben „3D ansehen“ (geht auch im Ansehen-Modus fremder Netze).
+- **Gwen/Cline:** CLI war deinstalliert → `npm install -g cline` neu. Gwen setzte den Kaufdialog-Auftrag (`tools/cline-cli/_auftrag-tycoon-kaufdialog.txt`) nur teilweise um und baute `renderModal` eigenmächtig um → Build-Fehler (vom Wrapper erkannt); Claude hat die Spezifikation dann per Skript angewendet. Fallstricke: Babylon `POINTERTAP` löste nicht aus (eigene Tipp-Erkennung), `dispose(false, true)` auf einer Modell-Instanz löscht die **geteilte** Textur aller Züge (→ weiße Züge).
+- Getestet lokal (`ng serve` + Patchright mit simuliertem Backend, Desktop 1280 px und Handy 390 px). **Nicht deployt** — der Produktions-Upload wurde vom Auto-Mode blockiert; Tim muss ihn freigeben oder selbst ausführen. Nichts committet.
+
+---
+
 ### 2026-10-19 — Bahnspiel-3D-Assets, Handy-Startseite, 3D-Engine, Quiz-Bilder, Tycoon-Loks
 
 Neuer Vault-Ordner [[20-Bahnspiel-3D-Assets/00-Index]] (Recherche zu 3D-Assets, Struktur wie Ordner 19; Pipeline `tools/bahnspiel-assets/`). Gwen-Lauf scheiterte nach ca. 4 Minuten (3 Schnellfehlschläge, Modell war nicht geladen) — es gibt **keine** Gwen-Rohfunde, alles Geprüfte stammt von Claude: [[20-Bahnspiel-3D-Assets/Verzeichnis-verifiziert]]. Tim hat auf der neuen Review-Seite `/bahnspiel-assets` (Daten `src/assets/bahnspiel-assets/assets.json`, Auswahl nur in localStorage, Export als JSON) entschieden: [[20-Bahnspiel-3D-Assets/Entscheidungen-Tim]].

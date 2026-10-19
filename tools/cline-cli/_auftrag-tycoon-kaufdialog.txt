@@ -1,0 +1,53 @@
+Aendere NUR die Datei src/app/modules/zusatz/tycoon/tycoon-engine.ts. Keine anderen Dateien anfassen, nichts loeschen, was hier nicht genannt ist. Fuehre KEINE Befehle aus (kein npm, kein ng build).
+
+Ziel: Bevor eine Lok gekauft wird, oeffnet sich ein Kaufdialog mit 3D-Vorschau. Eigene Zuege bekommen einen Button "3D ansehen". Die 3D-Anzeige selbst baut jemand anderes; du rufst nur den Callback opts.onVorschau auf.
+
+Mache GENAU diese 7 Aenderungen:
+
+1) Im Interface TycoonOptions nach der Zeile "onReset?: () => void;" diese Zeilen einfuegen:
+  /** Zeigt (el gesetzt) bzw. entfernt (el null) die 3D-Vorschau des Lok-Typs typ (Index in TRAINS). */
+  onVorschau?: (el: HTMLElement | null, typ: number) => void;
+
+2) In der Funktion panelHTML, in der Zeile mit TRAINS.forEach, den Text data-act="buy" durch data-act="pick" ersetzen. Sonst an dieser Zeile nichts aendern.
+
+3) In panelHTML im Block own.forEach((t: any, i: number) => { ... }) die Zeile
+          '<div class="mut">Einnahmen ' + sgn(t.earned) + ' · Wartung ' + sgn(-t.cost) + '</div></div>';
+ersetzen durch
+          '<div class="mut">Einnahmen ' + sgn(t.earned) + ' · Wartung ' + sgn(-t.cost) + '</div>' +
+          '<button class="sm" data-act="show" data-arg="' + (t.type ?? 1) + '">3D ansehen</button></div>';
+
+4) Die Zeile
+  const closeModal = () => { modal = null; $('#modal').style.display = 'none'; };
+ersetzen durch
+  const closeModal = () => { modal = null; $('#modal').style.display = 'none'; opts.onVorschau?.(null, 0); };
+
+5) In der Funktion renderModal direkt NACH der Zeile "const L = S.lines[modal.line];" diesen Block einfuegen:
+    if (modal.kind === 'buy' || modal.kind === 'show') {
+      const td = TRAINS[modal.typ];
+      let h = '<h2>' + td.n + '</h2><div class="lok3d" id="lok3d"></div>';
+      h += '<div class="row"><span>Tempo</span><b>' + Math.round(td.speed * 100) + ' %</b></div>';
+      h += '<div class="row"><span>Miete</span><b>' + Math.round(td.rent * 100) + ' %</b></div>';
+      h += '<div class="row"><span>Wartung</span><b>' + Math.round(td.upkeep * 100) + ' %</b></div>';
+      h += '<div class="opts">';
+      if (modal.kind === 'buy') h += '<div class="mut">Strecke ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + '</div><button data-act="buyok" ' + (S.money < td.cost ? 'disabled' : '') + '>Jetzt kaufen (' + fmt(td.cost) + ')</button>';
+      h += '<button data-act="close">' + (modal.kind === 'buy' ? 'Abbrechen' : 'Schließen') + '</button></div>';
+      box.innerHTML = h;
+      opts.onVorschau?.($('#lok3d'), modal.typ);
+      return;
+    }
+
+6) In der Funktion onActionDown die Zeile
+    if (RO) return;
+ersetzen durch
+    if (RO && a !== 'show' && a !== 'close') return;
+und direkt NACH der Zeile die mit "else if (a === 'care')" beginnt diese drei Zeilen einfuegen:
+    else if (a === 'pick') { const [lid, ty] = arg!.split(':'); modal = { kind: 'buy', line: +lid, typ: +ty }; renderModal(); }
+    else if (a === 'show') { modal = { kind: 'show', line: sel.line, typ: +arg! }; renderModal(); }
+    else if (a === 'buyok') { const m = modal; closeModal(); buyTrain(m.line, m.typ); }
+
+7) In der Funktion onKey den Teil
+if (modal && modal.kind === 'fault') closeModal();
+ersetzen durch
+if (modal && modal.kind !== 'mg') closeModal();
+
+Pruefe am Ende, dass jede der 7 Aenderungen genau einmal in der Datei steht.

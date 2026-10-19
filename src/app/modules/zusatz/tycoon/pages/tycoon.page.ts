@@ -1,7 +1,11 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { startTycoon, TycoonHandle } from '../tycoon-engine';
 import { TycoonAnsicht, TycoonApiService, TycoonEintrag } from '../tycoon-api.service';
+import { lokDatei, TycoonWelt3D } from '../tycoon-3d';
+import { Engine3D } from '../../../../shared/engine3d/engine3d';
+
+const ANSICHT_KEY = 'tycoon-ansicht3d';
 
 @Component({
   selector: 'app-tycoon',
@@ -12,6 +16,18 @@ import { TycoonAnsicht, TycoonApiService, TycoonEintrag } from '../tycoon-api.se
 })
 export class TycoonPage implements AfterViewInit, OnDestroy {
   @ViewChild('gameRoot') gameRoot!: ElementRef<HTMLElement>;
+
+  /** Die 3D-Welt lebt nur, solange ihr Canvas angezeigt wird (*ngIf). */
+  @ViewChild('c3d') set c3d(ref: ElementRef<HTMLCanvasElement> | undefined) {
+    if (ref?.nativeElement === this.weltCanvas) return;
+    this.welt?.zerstoeren();
+    this.welt = null;
+    this.weltCanvas = ref?.nativeElement ?? null;
+    this.starteWelt();
+  }
+
+  /** 3D-Ansicht der Karte (Standard an, Wahl wird im Browser gemerkt). */
+  ansicht3d = this.leseAnsicht();
 
   tab: 'spiel' | 'rangliste' = 'spiel';
   geladen = false;
@@ -31,8 +47,11 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   private pending: unknown | null = null;
   private saveTimer: ReturnType<typeof setTimeout> | null = null;
   private destroyed = false;
+  private welt: TycoonWelt3D | null = null;
+  private weltCanvas: HTMLCanvasElement | null = null;
+  private vorschau: Engine3D | null = null;
 
-  constructor(private readonly api: TycoonApiService, private readonly route: ActivatedRoute) {}
+  constructor(private readonly api: TycoonApiService, private readonly route: ActivatedRoute, private readonly zone: NgZone) {}
 
   ngAfterViewInit(): void {
     const userId = this.route.snapshot.paramMap.get('userId');
@@ -53,6 +72,9 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroyed = true;
+    this.zeigeVorschau(null, 0);
+    this.welt?.zerstoeren();
+    this.welt = null;
     this.handle?.destroy();
     this.flush();
   }
@@ -63,6 +85,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
       state,
       readOnly,
       onSave: data => this.queueSave(data),
+      onVorschau: (el, typ) => this.zeigeVorschau(el, typ),
       onReset: () => {
         this.pending = null;
         if (this.saveTimer) { clearTimeout(this.saveTimer); this.saveTimer = null; }
@@ -71,6 +94,46 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
         this.besucher = 0;
       },
     });
+    this.starteWelt();
+  }
+
+  schalte3d(): void {
+    this.ansicht3d = !this.ansicht3d;
+    try { localStorage.setItem(ANSICHT_KEY, this.ansicht3d ? '1' : '0'); } catch { /* egal */ }
+  }
+
+  private leseAnsicht(): boolean {
+    try { return localStorage.getItem(ANSICHT_KEY) !== '0'; } catch { return true; }
+  }
+
+  private starteWelt(): void {
+    const handle = this.handle, canvas = this.weltCanvas;
+    if (this.welt || !handle || !canvas || this.destroyed) return;
+    try {
+      this.welt = this.zone.runOutsideAngular(() => new TycoonWelt3D(canvas, handle.welt, (x, y) => handle.klickWelt(x, y)));
+    } catch {
+      // Kein WebGL: bei der 2D-Karte bleiben.
+      this.welt = null;
+      this.ansicht3d = false;
+    }
+  }
+
+  /** Lok-Modell im Kaufdialog bzw. bei "3D ansehen" drehen lassen; el = null raeumt auf. */
+  private zeigeVorschau(el: HTMLElement | null, typ: number): void {
+    this.vorschau?.zerstoeren();
+    this.vorschau = null;
+    if (!el) return;
+    const canvas = document.createElement('canvas');
+    el.appendChild(canvas);
+    try {
+      this.vorschau = this.zone.runOutsideAngular(() => {
+        const e = new Engine3D(canvas);
+        e.zeigeModell(lokDatei(typ)).catch(() => undefined);
+        return e;
+      });
+    } catch {
+      el.textContent = '3D-Vorschau nicht verfügbar.';
+    }
   }
 
   private queueSave(data: unknown): void {

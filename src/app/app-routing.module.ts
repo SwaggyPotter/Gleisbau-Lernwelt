@@ -137,11 +137,8 @@ const routes: Routes = [
         loadChildren: () => import('./modules/offline/offline.module')
           .then(m => m.OfflineModule)
       },
-      {
-        path: 'kategorie/:id',
-        loadChildren: () => import('./modules/kategorie/kategorie.module')
-          .then(m => m.KategorieModule)
-      },
+      // Alte Kategorie-Ansicht ist durch den Homescreen ersetzt (Tim, 2026-10-19).
+      { path: 'kategorie/:id', redirectTo: 'dashboard' },
       {
         path: 'modelle',
         loadChildren: () => import('./modelle/modelle.module')

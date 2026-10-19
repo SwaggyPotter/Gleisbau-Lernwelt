@@ -5,6 +5,8 @@
  * (Server statt localStorage) und kennt einen Nur-Lesen-Modus fuer fremde Netze.
  */
 
+import type { TycoonWeltDaten } from './tycoon-3d';
+
 export interface TycoonOptions {
   /** Gespeicherter Spielstand (JSON vom Server) oder null fuer ein neues Spiel. */
   state: any | null;
@@ -12,10 +14,16 @@ export interface TycoonOptions {
   readOnly: boolean;
   onSave: (data: any, money: number) => void;
   onReset?: () => void;
+  /** Zeigt (el gesetzt) bzw. entfernt (el null) die 3D-Vorschau des Lok-Typs typ (Index in TRAINS). */
+  onVorschau?: (el: HTMLElement | null, typ: number) => void;
 }
 
 export interface TycoonHandle {
   destroy: () => void;
+  /** Lesezugriff fuer die 3D-Ansicht (tycoon-3d.ts). */
+  welt: () => TycoonWeltDaten;
+  /** Klick an einer Stelle der 2D-Welt (1000 x 640), z. B. aus der 3D-Ansicht. */
+  klickWelt: (x: number, y: number) => void;
 }
 
 export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandle {
@@ -267,13 +275,13 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     let t = ((p.x - a.x) * dx + (p.y - a.y) * dy) / l2; t = Math.max(0, Math.min(1, t));
     return Math.hypot(p.x - (a.x + t * dx), p.y - (a.y + t * dy));
   };
-  const hit = (p: any) => {
+  const hit = (p: any, tol = 1) => {
     const r: any = { city: null, line: null, fault: null };
-    if (!RO) for (const L of S.lines) if (L.fault) { const q = posAt(L, L.len * L.fault.t); if (dist(p, q) < 18 / Math.min(1, k)) { r.fault = L.id; return r; } }
+    if (!RO) for (const L of S.lines) if (L.fault) { const q = posAt(L, L.len * L.fault.t); if (dist(p, q) < 18 * tol / Math.min(1, k)) { r.fault = L.id; return r; } }
     for (let i = 0; i < CITIES.length; i++) if (S.vis[i] && dist(p, CITIES[i]) < 20) { r.city = i; return r; }
     let best = 1e9;
     for (const L of S.lines) {
-      for (let i = 1; i < L.pts.length; i++) { const d = segDist(p, L.pts[i - 1], L.pts[i]); if (d < 9 / Math.min(1, k) && d < best) { best = d; r.line = L.id; } }
+      for (let i = 1; i < L.pts.length; i++) { const d = segDist(p, L.pts[i - 1], L.pts[i]); if (d < 9 * tol / Math.min(1, k) && d < best) { best = d; r.line = L.id; } }
     }
     return r;
   };
@@ -281,9 +289,10 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     hover = hit(toWorld(e));
     cv.style.cursor = (hover.city !== null || hover.line !== null || hover.fault !== null) ? 'pointer' : 'default';
   };
-  const onCanvasDown = (e: PointerEvent) => {
+  const onCanvasDown = (e: PointerEvent) => klick(toWorld(e));
+  const klick = (p: { x: number; y: number }, tol = 1) => {
     if (modal) return;
-    const p = toWorld(e), h = hit(p);
+    const h = hit(p, tol);
     if (h.fault !== null) { openFault(h.fault); return; }
     if (RO) {
       if (h.line !== null) { sel.line = h.line; } else if (h.city === null) { sel.line = null; }
@@ -298,7 +307,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (h.line !== null) { sel.line = h.line; sel.city = null; S.openedLine = true; return; }
     sel.city = null; sel.line = null;
   };
-  const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { sel.city = null; sel.line = null; if (modal && modal.kind === 'fault') closeModal(); } };
+  const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { sel.city = null; sel.line = null; if (modal && modal.kind !== 'mg') closeModal(); } };
   cv.addEventListener('pointermove', onMove);
   cv.addEventListener('pointerdown', onCanvasDown);
   window.addEventListener('keydown', onKey);
@@ -393,7 +402,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         if (L.fault) h += '<p class="neg"><b>⚠ Störung (' + DIFF[L.fault.diff].n + ')</b> – Züge fahren langsamer und bringen nur ' + Math.round(CFG.faultIncome * 100) + ' % Einnahmen. Klicke das rote ! auf der Strecke.</p>';
         h += '<div class="btns">';
         TRAINS.forEach((d, ti) => {
-          h += '<button data-act="buy" data-arg="' + L.id + ':' + ti + '" ' + (S.money < d.cost ? 'disabled' : '') + '>' + d.n + ' kaufen (' + fmt(d.cost) + ') · Miete ' + Math.round(d.rent * 100) + ' %</button>';
+          h += '<button data-act="pick" data-arg="' + L.id + ':' + ti + '" ' + (S.money < d.cost ? 'disabled' : '') + '>' + d.n + ' kaufen (' + fmt(d.cost) + ') · Miete ' + Math.round(d.rent * 100) + ' %</button>';
         });
         h += '<button data-act="care" data-arg="' + L.id + '" ' + (S.money < care || L.cond >= 95 ? 'disabled' : '') + '>Pflege durch Fremdfirma (' + fmt(care) + ')</button></div>';
       }
@@ -402,7 +411,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       own.forEach((t: any, i: number) => {
         const n = t.earned - t.cost;
         h += '<div class="train"><div class="row"><span>' + tdef(t).n + ' #' + (i + 1) + ' <span class="mut">(' + t.trips + ' Fahrten)</span></span><b class="' + (n >= 0 ? 'pos' : 'neg') + '">' + sgn(n) + '</b></div>' +
-          '<div class="mut">Einnahmen ' + sgn(t.earned) + ' · Wartung ' + sgn(-t.cost) + '</div></div>';
+          '<div class="mut">Einnahmen ' + sgn(t.earned) + ' · Wartung ' + sgn(-t.cost) + '</div>' +
+          '<button class="sm" data-act="show" data-arg="' + (t.type ?? 1) + '">3D ansehen</button></div>';
       });
       return h;
     }
@@ -466,10 +476,23 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
 
   /* ---------- Modal: Stoerung & Mini-Aufgaben ---------- */
   const openFault = (id: number) => { modal = { kind: 'fault', line: id }; renderModal(); };
-  const closeModal = () => { modal = null; $('#modal').style.display = 'none'; };
+  const closeModal = () => { modal = null; $('#modal').style.display = 'none'; opts.onVorschau?.(null, 0); };
   const renderModal = () => {
     const box = $('#mcard'); $('#modal').style.display = 'flex';
     const L = S.lines[modal.line];
+    if (modal.kind === 'buy' || modal.kind === 'show') {
+      const td = TRAINS[modal.typ];
+      let h = '<h2>' + td.n + '</h2><div class="lok3d" id="lok3d"></div>';
+      h += '<div class="row"><span>Tempo</span><b>' + Math.round(td.speed * 100) + ' %</b></div>';
+      h += '<div class="row"><span>Miete</span><b>' + Math.round(td.rent * 100) + ' %</b></div>';
+      h += '<div class="row"><span>Wartung</span><b>' + Math.round(td.upkeep * 100) + ' %</b></div>';
+      h += '<div class="opts">';
+      if (modal.kind === 'buy') h += '<div class="mut">Strecke ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + '</div><button data-act="buyok" ' + (S.money < td.cost ? 'disabled' : '') + '>Jetzt kaufen (' + fmt(td.cost) + ')</button>';
+      h += '<button data-act="close">' + (modal.kind === 'buy' ? 'Abbrechen' : 'Schließen') + '</button></div>';
+      box.innerHTML = h;
+      opts.onVorschau?.($('#lok3d'), modal.typ);
+      return;
+    }
     if (modal.kind === 'fault') {
       const f = L.fault, d = DIFF[f.diff], can = unlocked(f.diff);
       box.innerHTML = '<h2>Störung: ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + '</h2>' +
@@ -560,11 +583,14 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const b = (e.target as HTMLElement).closest('[data-act]') as HTMLButtonElement | null;
     if (!b || b.disabled) return;
     const a = b.dataset['act'], arg = b.dataset['arg'];
-    if (RO) return;
+    if (RO && a !== 'show' && a !== 'close') return;
     if (a === 'speed') S.speed = +arg!;
     else if (a === 'mode') { S.mode = +arg!; S.faultIn = Math.min(S.faultIn, modeInterval(S.mode)); save(); }
     else if (a === 'buy') { const [lid, ty] = arg!.split(':'); buyTrain(+lid, ty === undefined ? 1 : +ty); }
     else if (a === 'care') careLine(+arg!);
+    else if (a === 'pick') { const [lid, ty] = arg!.split(':'); modal = { kind: 'buy', line: +lid, typ: +ty }; renderModal(); }
+    else if (a === 'show') { modal = { kind: 'show', line: sel.line, typ: +arg! }; renderModal(); }
+    else if (a === 'buyok') { const m = modal; closeModal(); buyTrain(m.line, m.typ); }
     else if (a === 'firm') { resolveFault(S.lines[modal.line], 'firm'); closeModal(); save(); }
     else if (a === 'self') startSelf();
     else if (a === 'submit') submitReading();
@@ -613,6 +639,9 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   raf = requestAnimationFrame(loop);
 
   return {
+    welt: () => ({ S, sel, CITIES, DIFF, posAt }),
+    // In 3D trifft man schraeg von oben -- groessere Trefferzone fuer Strecken und Stoerungen.
+    klickWelt: (x: number, y: number) => klick({ x, y }, 2.5),
     destroy: () => {
       save();
       alive = false;

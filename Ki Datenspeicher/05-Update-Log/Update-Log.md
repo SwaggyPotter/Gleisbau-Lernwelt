@@ -11,6 +11,28 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+### 2026-10-20 — Tycoon: Nachbarländer, 26 neue Städte, Karte verschieben
+
+- **Kartenausschnitt erweitert** (Generator neu ausgeführt): lon 3,6–17,8 / lat 46,7–56,2, Karte 1063 × 1133, alle Länder im Ausschnitt aus Natural Earth (Deutschland heller + dickere Grenze), Ländernamen auf der Karte (`LAENDER_NAMEN` in `tycoon-karte.ts`), `aufLand()` für die Deko.
+- **Städte 12 → 38** (nur hinten angehängt, Indizes alter Spielstände bleiben gültig): 13 deutsche (Bremen, Kiel, Magdeburg, Erfurt, Kassel, Münster, Mannheim, Karlsruhe, Freiburg, Augsburg, Regensburg, Würzburg, Saarbrücken) + 13 im Ausland (Kopenhagen, Amsterdam, Brüssel, Luxemburg, Straßburg, Zürich, Innsbruck, Salzburg, Wien, Prag, Breslau, Posen, Stettin; Feld `land`). Alte Spielstände: `vis` wird auf die neue Länge gebracht, und beim ersten Laden werden einmalig die 2 nächsten Nachbarn jedes Streckenendpunkts aufgedeckt.
+- **Starre Ansicht beweglich:** Ziehen = Karte verschieben (Bodenpunkt bleibt unter dem Finger), Mausrad / zwei Finger = zoomen, Blickwinkel bleibt fest; Tippen weiterhin = Spielklick (unter 8 px Bewegung). Kameraziel auf die Karte begrenzt.
+- Deko: Häuserringe kleiner (Nachbarstädte teils nur ~5 Einheiten auseinander), Abstandsprüfung über alle Städte; mehr Wälder (ganze Karte, nur auf Land); Großstädte zusätzlich Amsterdam, Brüssel, Kopenhagen, Wien, Prag, Zürich.
+- **Fallstrick:** Ein verwaister `ng serve` (TaskStop beendet den Kind-Node-Prozess nicht) lieferte nach einem Typfehler still den letzten guten Stand aus → Test sah „nichts geändert“. Dev-Server per Port 4300 / Kommandozeile `ng.js serve` gezielt beenden und Build-Log auf Fehler prüfen.
+- Lokal getestet (Desktop, Handy, 2D). Nichts committet.
+
+---
+
+### 2026-10-19 (Nacht) — Tycoon: Deutschlandkarte, echte Gleise, starre Kamera
+
+- **Karte:** Deutschland-Umriss + Nachbarländer aus Natural Earth 1:50m (Public Domain), erzeugt von `tools/tycoon-karte/erzeuge-karte.cjs` → `tycoon/tycoon-karte-daten.ts` (ca. 31 KB). `tycoon/tycoon-karte.ts`: Projektion (lon0 5,6 / lat0 55,25 / 115 Einheiten je Breitengrad, Längengrade × cos 51,2°), Kartengröße 732 × 977, die 12 Städte an echten Koordinaten (Reihenfolge unverändert — Spielstände speichern Stadt-Indizes, alte Strecken werden automatisch neu verlegt), `inDeutschland()`, `zeichneKarte()` (2D-Karte und 3D-Bodentextur). 1 Einheit ≈ 0,97 km (Panel-Anzeige angepasst). Streckenkurven etwas flacher (±18 % statt ±28 %), damit sie nicht über die Grenze ausscheren.
+- **Gleise:** statt farbiger Röhre jetzt Schotterbett + Holzschwellen (alle Strecken zusammen als Thin Instances eines Quaders, Abstand 0,42) + zwei Schienen. Gewählte Strecke: Schienen leuchten orange. Schotterfarbe zeigt weiter den Zustand.
+- **Starre Ansicht (Standard):** Kamera fest, richtet sich automatisch neu aus, wenn neue Städte aufgedeckt werden. Knopf „Kamera frei“ schaltet Drehen/Zoomen frei (localStorage `tycoon-kamera-frei`).
+- Bäume/Häuser nur noch innerhalb Deutschlands (mehr Wälder: 45 Gruppen + 160 Einzelbäume).
+- **Bugfix:** 3D-Klicks nutzten die 2D-Trefferzone × 2,5 — bei der neuen (kleiner skalierten) Hochformat-Karte wurde die Zone riesig und traf falsche Strecken/Störungen. Jetzt feste Radien für 3D-Klicks (Strecke 16, Störung 22 Weltkoordinaten).
+- Lokal getestet (Desktop + Handy, Strecke antippen, Kauf, 2D-Ansicht). Nichts committet.
+
+---
+
 ### 2026-10-19 (spät) — Tycoon-Landschaft: Bäume, Häuser, Hochhäuser
 
 - Neue CC0-Modelle (Kenney, `License.txt` liegt je Ordner bei, zusammen ca. 2,4 MB): `src/assets/modelle/kenney-natur/` (7 Bäume, 2 Büsche, 2 Felsen aus dem Nature Kit), `kenney-vorort/` (Häuser `building-type-a..h`, City Kit Suburban), `kenney-stadt/` (`building-a..h` + 2 Hochhäuser, City Kit Commercial). Eigene Ordner, weil beide City-Kits eine `Textures/colormap.png` mit gleichem Namen haben. Die grauen `low-detail-building-*` wurden verworfen (untexturiert, wirkten wie Betonklötze).

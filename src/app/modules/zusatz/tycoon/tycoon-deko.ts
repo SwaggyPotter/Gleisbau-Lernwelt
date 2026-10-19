@@ -5,6 +5,7 @@ import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import type { TycoonWeltDaten } from './tycoon-3d';
+import { aufLand, KARTE_H, KARTE_W, SC, wx, wz } from './tycoon-karte';
 
 /*
  * Landschaft fuer die 3D-Ansicht des Tycoon: Waelder, Buesche, Felsen und Haeuser um die Staedte.
@@ -20,12 +21,11 @@ const KLEINKRAM = ['plant_bush', 'plant_bushLarge', 'rock_largeA', 'rock_largeC'
 const VORORT = 'abcdefgh'.split('').map((c) => P + 'kenney-vorort/building-type-' + c + '.glb');
 const STADT = 'abcdefgh'.split('').map((c) => P + 'kenney-stadt/building-' + c + '.glb');
 const HOCHHAUS = ['a', 'b'].map((c) => P + 'kenney-stadt/building-skyscraper-' + c + '.glb');
-const GROSSSTADT = new Set(['Berlin', 'Hamburg', 'München', 'Köln', 'Frankfurt']);
+const GROSSSTADT = new Set(['Berlin', 'Hamburg', 'München', 'Köln', 'Frankfurt', 'Amsterdam', 'Brüssel', 'Kopenhagen', 'Wien', 'Prag', 'Zürich']);
 
-/** Gleiche Umrechnung wie in tycoon-3d.ts: 2D-Welt (1000 x 640) -> 3D (100 x 64). */
-const SC = 0.1;
-const wx = (x: number) => (x - 500) * SC;
-const wz = (y: number) => -(y - 320) * SC;
+/** 3D-Punkt (x, z) liegt auf Land? (Umkehrung von wx/wz.) */
+const imLand = (x: number, z: number) => aufLand(x / SC + KARTE_W / 2, -z / SC + KARTE_H / 2);
+const X0 = wx(0), X1 = wx(KARTE_W), Z0 = wz(KARTE_H), Z1 = wz(0);
 
 interface Objekt {
   modell: string;
@@ -64,16 +64,18 @@ export class TycoonDeko {
     const sx = staedte.map((c) => wx(c.x)), sz = staedte.map((c) => wz(c.y));
     const nahStadt = (x: number, z: number, r: number) => sx.some((cx, i) => Math.hypot(x - cx, z - sz[i]) < r);
 
+    const gebaeude: { x: number; z: number }[] = [];
     // Haeuser um jede Stadt: innen Stadtgebaeude (Grossstaedte mit Hochhaeusern), aussen Vorort.
     staedte.forEach((c, i) => {
       const gross = GROSSSTADT.has(c.n);
-      const anzahl = gross ? 14 : 9, rMax = gross ? 6.5 : 5;
-      const hier: { x: number; z: number }[] = [];
+      const anzahl = gross ? 13 : 8, rMax = gross ? 5.5 : 4.2;
       for (let k = 0, versuche = 0; k < anzahl && versuche < 200; versuche++) {
         const w = rnd() * Math.PI * 2, r = 2.1 + rnd() * (rMax - 2.1);
         const x = sx[i] + Math.cos(w) * r, z = sz[i] + Math.sin(w) * r;
-        if (hier.some((h) => Math.hypot(h.x - x, h.z - z) < 1.55)) continue;
-        hier.push({ x, z });
+        // Abstand zu allen Gebaeuden (auch der Nachbarstadt) und zu fremden Stadtmitten
+        if (gebaeude.some((h) => Math.hypot(h.x - x, h.z - z) < 1.55) || !imLand(x, z)) continue;
+        if (sx.some((cx, j) => j !== i && Math.hypot(x - cx, z - sz[j]) < 2.6)) continue;
+        gebaeude.push({ x, z });
         k++;
         const innen = r < 4;
         // Grossstadt: innen Hochhaeuser/Geschaeftshaeuser. Kleinstadt: wenige Geschaeftshaeuser, sonst Vorort.
@@ -87,17 +89,17 @@ export class TycoonDeko {
 
     // Waelder (Gruppen) und einzelne Baeume, Buesche, Felsen -- nicht in Staedten.
     const baum = (x: number, z: number) => {
-      if (Math.abs(x) > 57 || Math.abs(z) > 40 || nahStadt(x, z, 7.5)) return;
+      if (!imLand(x, z) || nahStadt(x, z, 6)) return;
       this.objekte.push({ modell: pick(BAEUME), x, z, dreh: rnd() * Math.PI * 2, groesse: 1.4 + rnd() * 1.3, nachHoehe: true, maxHoehe: 9, stadt: -1, frei: 1.3 });
     };
-    for (let w = 0; w < 30; w++) {
-      const cx = -56 + rnd() * 112, cz = -39 + rnd() * 78, r = 1.5 + rnd() * 4, n = 5 + Math.floor(rnd() * 11);
+    for (let w = 0; w < 75; w++) {
+      const cx = X0 + rnd() * (X1 - X0), cz = Z0 + rnd() * (Z1 - Z0), r = 1.5 + rnd() * 4, n = 5 + Math.floor(rnd() * 11);
       for (let k = 0; k < n; k++) { const a = rnd() * Math.PI * 2, d = Math.sqrt(rnd()) * r; baum(cx + Math.cos(a) * d, cz + Math.sin(a) * d); }
     }
-    for (let k = 0; k < 90; k++) baum(-57 + rnd() * 114, -40 + rnd() * 80);
-    for (let k = 0; k < 50; k++) {
-      const x = -57 + rnd() * 114, z = -40 + rnd() * 80;
-      if (nahStadt(x, z, 6)) continue;
+    for (let k = 0; k < 280; k++) baum(X0 + rnd() * (X1 - X0), Z0 + rnd() * (Z1 - Z0));
+    for (let k = 0; k < 110; k++) {
+      const x = X0 + rnd() * (X1 - X0), z = Z0 + rnd() * (Z1 - Z0);
+      if (!imLand(x, z) || nahStadt(x, z, 6)) continue;
       this.objekte.push({ modell: pick(KLEINKRAM), x, z, dreh: rnd() * Math.PI * 2, groesse: 0.5 + rnd() * 0.6, nachHoehe: false, maxHoehe: 9, stadt: -1, frei: 1.1 });
     }
   }

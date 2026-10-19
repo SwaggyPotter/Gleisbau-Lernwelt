@@ -6,6 +6,7 @@ import { lokDatei, TycoonWelt3D } from '../tycoon-3d';
 import { Engine3D } from '../../../../shared/engine3d/engine3d';
 
 const ANSICHT_KEY = 'tycoon-ansicht3d';
+const KAMERA_KEY = 'tycoon-kamera-frei';
 
 @Component({
   selector: 'app-tycoon',
@@ -28,6 +29,8 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
 
   /** 3D-Ansicht der Karte (Standard an, Wahl wird im Browser gemerkt). */
   ansicht3d = this.leseAnsicht();
+  /** Freie Kamera (drehen/zoomen) statt starrer Kartenansicht. Standard: starr. */
+  kameraFrei = this.lese(KAMERA_KEY, false);
 
   tab: 'spiel' | 'rangliste' = 'spiel';
   geladen = false;
@@ -102,8 +105,18 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     try { localStorage.setItem(ANSICHT_KEY, this.ansicht3d ? '1' : '0'); } catch { /* egal */ }
   }
 
+  schalteKamera(): void {
+    this.kameraFrei = !this.kameraFrei;
+    try { localStorage.setItem(KAMERA_KEY, this.kameraFrei ? '1' : '0'); } catch { /* egal */ }
+    this.welt?.setzeFreieKamera(this.kameraFrei);
+  }
+
   private leseAnsicht(): boolean {
-    try { return localStorage.getItem(ANSICHT_KEY) !== '0'; } catch { return true; }
+    return this.lese(ANSICHT_KEY, true);
+  }
+
+  private lese(key: string, standard: boolean): boolean {
+    try { const v = localStorage.getItem(key); return v === null ? standard : v === '1'; } catch { return standard; }
   }
 
   private starteWelt(): void {
@@ -111,6 +124,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     if (this.welt || !handle || !canvas || this.destroyed) return;
     try {
       this.welt = this.zone.runOutsideAngular(() => new TycoonWelt3D(canvas, handle.welt, (x, y) => handle.klickWelt(x, y)));
+      this.welt.setzeFreieKamera(this.kameraFrei);
     } catch {
       // Kein WebGL: bei der 2D-Karte bleiben.
       this.welt = null;

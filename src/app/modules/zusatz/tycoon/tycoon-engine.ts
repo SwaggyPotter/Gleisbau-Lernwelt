@@ -6,6 +6,7 @@
  */
 
 import type { TycoonWeltDaten } from './tycoon-3d';
+import { CITIES, KARTE_H, KARTE_W, zeichneKarte } from './tycoon-karte';
 
 export interface TycoonOptions {
   /** Gespeicherter Spielstand (JSON vom Server) oder null fuer ein neues Spiel. */
@@ -22,7 +23,7 @@ export interface TycoonHandle {
   destroy: () => void;
   /** Lesezugriff fuer die 3D-Ansicht (tycoon-3d.ts). */
   welt: () => TycoonWeltDaten;
-  /** Klick an einer Stelle der 2D-Welt (1000 x 640), z. B. aus der 3D-Ansicht. */
+  /** Klick an einer Stelle der 2D-Welt (KARTE_W x KARTE_H), z. B. aus der 3D-Ansicht. */
   klickWelt: (x: number, y: number) => void;
 }
 
@@ -45,12 +46,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     { n: 'Stress', min: 3 },
   ];
   const modeInterval = (m: number) => MODES[m].min * 60 * (1 + Math.random() * 0.2);
-  const CITIES = [
-    { n: 'Berlin', x: 620, y: 185 }, { n: 'Hamburg', x: 360, y: 95 }, { n: 'Rostock', x: 600, y: 55 },
-    { n: 'Hannover', x: 330, y: 235 }, { n: 'Leipzig', x: 570, y: 335 }, { n: 'Dresden', x: 720, y: 365 },
-    { n: 'Dortmund', x: 170, y: 270 }, { n: 'Köln', x: 130, y: 380 }, { n: 'Frankfurt', x: 310, y: 430 },
-    { n: 'Nürnberg', x: 520, y: 500 }, { n: 'Stuttgart', x: 320, y: 555 }, { n: 'München', x: 600, y: 595 },
-  ];
+  // Staedte an echten Koordinaten: siehe tycoon-karte.ts.
   const START_CITY = 0;
   const DIFF = [
     // Alle Stoerungen werden mit dem Spiel "Nivellierlatte ablesen" behoben. Mit der Stufe wachsen
@@ -109,7 +105,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const lo = a < b ? CITIES[a] : CITIES[b], hi = a < b ? CITIES[b] : CITIES[a];
     const rnd = mulberry(Math.min(a, b) * 1000 + Math.max(a, b) + 7);
     const dx = hi.x - lo.x, dy = hi.y - lo.y, L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L;
-    const o1 = (rnd() * 2 - 1) * L * .28, o2 = (rnd() * 2 - 1) * L * .28;
+    const o1 = (rnd() * 2 - 1) * L * .18, o2 = (rnd() * 2 - 1) * L * .18;
     const c1 = { x: lo.x + dx * .3 + nx * o1, y: lo.y + dy * .3 + ny * o1 };
     const c2 = { x: lo.x + dx * .7 + nx * o2, y: lo.y + dy * .7 + ny * o2 };
     const pts: any[] = [];
@@ -264,7 +260,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     W = root.clientWidth; H = root.clientHeight; dpr = window.devicePixelRatio || 1;
     cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + 'px'; cv.style.height = H + 'px';
     const narrow = W < 700, aw = narrow ? W : W - 300, ah = narrow ? H - HUD_H - Math.round(H * .38) : H - HUD_H;
-    k = Math.max(0.1, Math.min(aw / 1000, ah / 640) * .94); ox = (aw - 1000 * k) / 2; oy = HUD_H + (ah - 640 * k) / 2;
+    k = Math.max(0.1, Math.min(aw / KARTE_W, ah / KARTE_H) * .94); ox = (aw - KARTE_W * k) / 2; oy = HUD_H + (ah - KARTE_H * k) / 2;
   };
   const toWorld = (e: PointerEvent) => {
     const r = cv.getBoundingClientRect();
@@ -275,13 +271,15 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     let t = ((p.x - a.x) * dx + (p.y - a.y) * dy) / l2; t = Math.max(0, Math.min(1, t));
     return Math.hypot(p.x - (a.x + t * dx), p.y - (a.y + t * dy));
   };
-  const hit = (p: any, tol = 1) => {
+  /** fest = Klick aus der 3D-Ansicht: feste Trefferradien in Weltkoordinaten statt vom 2D-Zoom abhaengiger. */
+  const hit = (p: any, fest = false) => {
     const r: any = { city: null, line: null, fault: null };
-    if (!RO) for (const L of S.lines) if (L.fault) { const q = posAt(L, L.len * L.fault.t); if (dist(p, q) < 18 * tol / Math.min(1, k)) { r.fault = L.id; return r; } }
+    const faultR = fest ? 22 : 18 / Math.min(1, k), lineR = fest ? 16 : 9 / Math.min(1, k);
+    if (!RO) for (const L of S.lines) if (L.fault) { const q = posAt(L, L.len * L.fault.t); if (dist(p, q) < faultR) { r.fault = L.id; return r; } }
     for (let i = 0; i < CITIES.length; i++) if (S.vis[i] && dist(p, CITIES[i]) < 20) { r.city = i; return r; }
     let best = 1e9;
     for (const L of S.lines) {
-      for (let i = 1; i < L.pts.length; i++) { const d = segDist(p, L.pts[i - 1], L.pts[i]); if (d < 9 * tol / Math.min(1, k) && d < best) { best = d; r.line = L.id; } }
+      for (let i = 1; i < L.pts.length; i++) { const d = segDist(p, L.pts[i - 1], L.pts[i]); if (d < lineR && d < best) { best = d; r.line = L.id; } }
     }
     return r;
   };
@@ -290,9 +288,9 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     cv.style.cursor = (hover.city !== null || hover.line !== null || hover.fault !== null) ? 'pointer' : 'default';
   };
   const onCanvasDown = (e: PointerEvent) => klick(toWorld(e));
-  const klick = (p: { x: number; y: number }, tol = 1) => {
+  const klick = (p: { x: number; y: number }, fest = false) => {
     if (modal) return;
-    const h = hit(p, tol);
+    const h = hit(p, fest);
     if (h.fault !== null) { openFault(h.fault); return; }
     if (RO) {
       if (h.line !== null) { sel.line = h.line; } else if (h.city === null) { sel.line = null; }
@@ -323,8 +321,9 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   };
   const draw = () => {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.fillStyle = '#f4f1ea'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#bcd6e6'; ctx.fillRect(0, 0, W, H);
     ctx.save(); ctx.translate(ox, oy); ctx.scale(k, k);
+    zeichneKarte(ctx, undefined, 1.5 / k);
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
     for (const L of S.lines) {
       const on = sel.line === L.id || hover.line === L.id;
@@ -390,7 +389,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       const net = L.inF + L.inO - L.up - L.rep - ownUp;
       const care = Math.round(L.len * CFG.careCostPerUnit / 10) * 10;
       let h = '<h3 style="color:' + L.color + '">' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + '</h3>';
-      h += '<div class="mut">Länge ca. ' + Math.round(L.len * .6) + ' km</div>';
+      h += '<div class="mut">Länge ca. ' + Math.round(L.len * .97) + ' km</div>';
       h += '<div class="row"><span>Zustand</span><b>' + Math.round(L.cond) + ' %</b></div>' + barHTML(L.cond, condCol(L.cond));
       h += '<div class="row"><span>Trassenentgelt (Fremdzüge)</span><span class="pos">' + sgn(L.inF) + '</span></div>';
       h += '<div class="row"><span>Miete eigene Züge</span><span class="pos">' + sgn(L.inO) + '</span></div>';
@@ -616,9 +615,12 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     try {
       if (!d || !Array.isArray(d.lines)) return false;
       fresh();
-      Object.assign(S, { money: d.money, time: d.time, vis: d.vis, skill: d.skill, mode: d.mode ?? 0, faultIn: d.faultIn ?? modeInterval(d.mode ?? 0), tut: d.tut, faultsFixed: d.faultsFixed, passes: d.passes, anyFault: d.anyFault, openedLine: d.openedLine, nextId: d.nextId });
+      // vis auf die aktuelle Staedteliste bringen (alte Staende kennen weniger Staedte).
+      Object.assign(S, { money: d.money, time: d.time, vis: CITIES.map((_, i) => !!d.vis?.[i]), skill: d.skill, mode: d.mode ?? 0, faultIn: d.faultIn ?? modeInterval(d.mode ?? 0), tut: d.tut, faultsFixed: d.faultsFixed, passes: d.passes, anyFault: d.anyFault, openedLine: d.openedLine, nextId: d.nextId });
       d.lines.forEach((o: any) => { const L: any = addLine(o.a, o.b); Object.assign(L, { cond: o.cond, inF: o.inF, inO: o.inO, up: o.up, rep: o.rep, fault: o.fault, color: o.color }); });
       S.trains = d.own || [];
+      // Einmalig nach dem Staedte-Ausbau: Nachbarn bestehender Strecken aufdecken.
+      if ((d.vis?.length ?? 0) < CITIES.length) S.lines.forEach((L: any) => { revealNear(L.a, 2); revealNear(L.b, 2); });
       return true;
     } catch { return false; }
   };
@@ -640,8 +642,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
 
   return {
     welt: () => ({ S, sel, CITIES, DIFF, posAt }),
-    // In 3D trifft man schraeg von oben -- groessere Trefferzone fuer Strecken und Stoerungen.
-    klickWelt: (x: number, y: number) => klick({ x, y }, 2.5),
+    klickWelt: (x: number, y: number) => klick({ x, y }, true),
     destroy: () => {
       save();
       alive = false;

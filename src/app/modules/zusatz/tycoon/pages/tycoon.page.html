@@ -28,6 +28,7 @@
         <span class="tc-meta"><b>Netz von {{ ansichtVon.name }}</b> · Guthaben {{ ansichtVon.money | number:'1.0-0':'de' }} € · 👁 {{ besucher }} Besucher</span>
       </ng-container>
       <button type="button" class="tc-3d" *ngIf="geladen && !fehler && tab === 'spiel'" [class.on]="ansicht3d" (click)="schalte3d()">3D-Ansicht</button>
+      <button type="button" *ngIf="geladen && !fehler && tab === 'spiel' && ansicht3d" [class.on]="kameraFrei" (click)="schalteKamera()" title="Aus: feste Kartenansicht, die dem Netz folgt">Kamera frei</button>
     </div>
 
     <p class="tc-fehler" *ngIf="fehler">{{ fehler }}</p>

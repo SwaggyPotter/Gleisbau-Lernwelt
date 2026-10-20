@@ -11,6 +11,18 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+### 2026-10-20 (Nacht) — Tycoon: Bezirke, Clans, Stadt-Lichter, Arbeiten, keine Verluste mehr
+
+- **Wirtschaft ohne Verluste** (Tims Wunsch): keine laufenden Kosten mehr (Streckenunterhalt und Zugwartung entfernt). Zustand der Strecke senkt nur die Einnahmen (`condFaktor`: 100 % Zustand = voll, 0 % = 40 %, mit Werkstatt 70 %); „Entgangen“ wird je Strecke gezählt (`L.verlust`). Fehlversuch bei Störungen kostet nichts mehr, Störung bleibt bestehen. Fremdfirma nur, wenn das Geld reicht. Alte Spielstände mit negativem Guthaben starten bei 0 €. Ausrüstung „Werkstatt“ wirkt jetzt auf den Wartungsstau.
+- **Mehr Arbeiten:** 6 Störungsarten (Gleislagefehler → Nivellierlatte; Schienenfehler, Schwellenschaden, verschmutzte Bettung, Spurweitenfehler, lockere Kleineisen → Fachfragen aus `assets/themenquiz/<thema>.json`, Anzahl/Mindestzahl je Schwierigkeit). Neue freiwillige Arbeit **Inspektion** je Strecke (3 Fachfragen aus 9 Themen, 2 richtig → +30 % Zustand, Bonus = Länge × 2, +10 XP; Sperrzeit 120 s bzw. 30 s nach Fehlversuch). Menü „🛠 Arbeiten“ im HUD listet Störungen und Inspektionen. Bildbezogene Fragen („Bild/Abbildung/Foto“) werden ausgefiltert, weil das Spiel keine Bilder zeigt. Antworten zeigen Erklärung + Quelle.
+- **Bezirke (gemeinsame Karte, Backend):** je Stadt 4 Bezirke (Großstädte 6; Grundpreis 600 bzw. 1.000 €; `bezirkeVon()` in `tycoon-karte.ts`). Kaufen über das neue **Stadt-Panel** (Stadt anklicken). Fremde Bezirke übernehmen = 3 × Grundpreis, der alte Besitzer bekommt den Grundpreis als Gutschrift (wird beim nächsten Laden automatisch gutgeschrieben); frisch gekaufte Bezirke 2 h geschützt; Clan-Bezirke nicht übernehmbar. **Strecken bauen nur noch, wenn man in beiden Städten einen eigenen oder Clan-Bezirk hat** (oder die Stadt schon angeschlossen ist; ohne Serververbindung keine Sperre). Bezirke bringen laufend Geld (Grundpreis × 0,0015 €/s) nur in angeschlossenen Städten; eine Störung an einer Strecke der Stadt halbiert das. 3D: farbige Sektoren um die Stadt (Clanfarbe bzw. feste Spielerfarbe aus der Konto-ID, `spielerFarbe()`), 2D: farbige Tortenstücke.
+- **Stadt-Lichter:** über jeder Stadt kreisen Lichtkugeln, eine je anderem Spieler mit Strecke dorthin (max. 6); gelb = in den letzten 15 Min. aktiv (gespeichert), grau = sonst.
+- **Clans:** Reiter „🛡 Clans“: gründen (Name, Kürzel 2–4, Farbe aus 10), beitreten, austreten (leerer Clan wird aufgelöst). Clan-Kürzel in der Rangliste, neue Ranglisten-Kategorie „Bezirke“.
+- **Backend:** neue Tabellen `tycoon_bezirke`, `tycoon_gutschriften`, `tycoon_clans`, `tycoon_clan_mitglieder` (Startup-Migration); Endpunkte `GET /tycoon/welt`, `POST /tycoon/bezirke` (Transaktion mit `FOR UPDATE`), `POST /tycoon/gutschriften/abholen`, `GET/POST /tycoon/clans`, `POST /tycoon/clans/:id/beitreten`, `POST /tycoon/clans/austreten`; Spiel zurücksetzen gibt die Bezirke frei. SQL vorab im Wegwerf-Container `postgres:16` auf dem Server getestet.
+- Lokal getestet (simulierte API). **Noch nicht deployt** (zusammen mit Duellen + Shop-3D: Backend + Frontend). Nichts committet.
+
+---
+
 ### 2026-10-20 (spät) — Tycoon-Shop: 3D-Ansicht jedes Zuges
 
 - Shop-Reiter „Züge“ hat oben einen 3D-Betrachter mit dem kompletten Zug (Lok + Wagen + ggf. umgedrehter Endkopf), dreht sich langsam, mit Maus/Finger drehbar. Jede Zeile hat 👁; Umschalten lädt nur den Betrachter neu (gleiche WebGL-Engine wird weiterverwendet, kein neues Canvas je Zug — wichtig fürs Handy). Gewählter Zug ist markiert, Name + km/h stehen unter dem Bild.

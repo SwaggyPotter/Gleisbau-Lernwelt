@@ -5,7 +5,7 @@ import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import type { TycoonWeltDaten } from './tycoon-3d';
-import { aufLand, KARTE_H, KARTE_W, SC, wx, wz } from './tycoon-karte';
+import { aufLand, GROSSSTADT, KARTE_H, KARTE_W, SC, wx, wz } from './tycoon-karte';
 
 /*
  * Landschaft fuer die 3D-Ansicht des Tycoon: Waelder, Buesche, Felsen und Haeuser um die Staedte.
@@ -21,7 +21,6 @@ const KLEINKRAM = ['plant_bush', 'plant_bushLarge', 'rock_largeA', 'rock_largeC'
 const VORORT = 'abcdefgh'.split('').map((c) => P + 'kenney-vorort/building-type-' + c + '.glb');
 const STADT = 'abcdefgh'.split('').map((c) => P + 'kenney-stadt/building-' + c + '.glb');
 const HOCHHAUS = ['a', 'b'].map((c) => P + 'kenney-stadt/building-skyscraper-' + c + '.glb');
-const GROSSSTADT = new Set(['Berlin', 'Hamburg', 'München', 'Köln', 'Frankfurt', 'Amsterdam', 'Brüssel', 'Kopenhagen', 'Wien', 'Prag', 'Zürich']);
 
 /** 3D-Punkt (x, z) liegt auf Land? (Umkehrung von wx/wz.) */
 const imLand = (x: number, z: number) => aufLand(x / SC + KARTE_W / 2, -z / SC + KARTE_H / 2);

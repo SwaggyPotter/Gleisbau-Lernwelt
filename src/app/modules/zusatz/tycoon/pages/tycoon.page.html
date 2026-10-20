@@ -17,6 +17,7 @@
         <button type="button" [class.on]="tab === 'spiel'" (click)="wechsle('spiel')">Spiel</button>
         <button type="button" [class.on]="tab === 'rangliste'" (click)="wechsle('rangliste')">Rangliste</button>
         <button type="button" [class.on]="tab === 'duelle'" (click)="wechsle('duelle')">⚔ Duelle</button>
+        <button type="button" [class.on]="tab === 'clans'" (click)="wechsle('clans')">🛡 Clans</button>
         <label class="tc-share" *ngIf="geladen && !fehler">
           <input type="checkbox" [checked]="geteilt" [disabled]="teilenBusy" (change)="teilen($any($event.target).checked)" />
           Netz zum Ansehen freigeben
@@ -43,6 +44,7 @@
           <span id="day">Tag 1</span>
           <span id="lvl" class="lvl"></span>
           <span class="sp" id="speeds">
+            <button data-act="arbeiten" class="shopbtn">🛠 Arbeiten</button>
             <button data-act="shop" class="shopbtn">🛒 Shop</button>
             <button data-act="speed" data-arg="0">⏸</button>
             <button data-act="speed" data-arg="1" class="on">1×</button>
@@ -70,9 +72,9 @@
       <ol class="tc-liste">
         <li *ngFor="let e of rangSortiert; let i = index" [class.me]="e.isMe">
           <span class="rk">{{ i + 1 }}</span>
-          <span class="nm">{{ e.name }}<small *ngIf="e.isMe"> (du)</small></span>
+          <span class="nm">{{ e.name }}<small *ngIf="e.clan"> [{{ e.clan }}]</small><small *ngIf="e.isMe"> (du)</small></span>
           <span class="mo">⭐ {{ level(e.xp) }} · {{ eur(e.money) }} €</span>
-          <span class="mt">{{ e.lines }} Strecken · {{ e.trains }} Züge · bis {{ klassen[e.maxCls]?.kmh || 100 }} km/h · 🏆 {{ e.siege }} Siege · 👁 {{ e.visitors }}</span>
+          <span class="mt">{{ e.lines }} Strecken · {{ e.bezirke }} Bezirke · {{ e.trains }} Züge · bis {{ klassen[e.maxCls]?.kmh || 100 }} km/h · 🏆 {{ e.siege }} Siege · 👁 {{ e.visitors }}</span>
           <span class="ak">
             <button type="button" *ngIf="e.shared || e.isMe" [routerLink]="['/zusatz/tycoon', e.userId]">Ansehen</button>
             <ng-container *ngIf="!e.isMe">
@@ -113,6 +115,35 @@
         </li>
       </ol>
       <button type="button" (click)="ladeDuelle()">Aktualisieren</button>
+    </div>
+
+    <div class="tc-rang" [hidden]="tab !== 'clans'">
+      <h2>🛡 Clans</h2>
+      <p class="tc-erklaerung">Schließt euch zusammen: Bezirke von Clan-Mitgliedern nehmt ihr euch nicht gegenseitig weg, sie leuchten in der
+        Clanfarbe, und ihr dürft in jeder Stadt Strecken bauen, in der euer Clan einen Bezirk hat. Wer in einen anderen Clan wechselt, verlässt den alten.</p>
+      <p class="tc-hinweis" *ngIf="clanMeldung">{{ clanMeldung }}</p>
+      <ol class="tc-liste">
+        <li *ngFor="let c of clans; let i = index" [class.me]="c.id === meinClan">
+          <span class="rk"><span class="clanpunkt" [style.background]="c.farbe"></span></span>
+          <span class="nm">{{ c.name }} <small>[{{ c.kuerzel }}]</small><small *ngIf="c.id === meinClan"> (dein Clan)</small></span>
+          <span class="mo">{{ c.bezirke }} Bezirke · ⭐ {{ eur(c.xp) }}</span>
+          <span class="mt">{{ c.mitglieder }} Mitglieder: {{ c.namen.join(', ') }}</span>
+          <span class="ak">
+            <button type="button" *ngIf="c.id !== meinClan" (click)="clanBeitreten(c)">Beitreten</button>
+            <button type="button" *ngIf="c.id === meinClan" (click)="clanAustreten()">Austreten</button>
+          </span>
+        </li>
+      </ol>
+      <p *ngIf="clans.length === 0">Noch gibt es keinen Clan – gründe den ersten!</p>
+      <h3>Clan gründen</h3>
+      <div class="tc-form">
+        <input type="text" [(ngModel)]="neuName" placeholder="Name (z. B. Schotterbande)" maxlength="30" />
+        <input type="text" [(ngModel)]="neuKuerzel" placeholder="Kürzel (2–4)" maxlength="4" class="kurz" />
+        <span class="farbwahl">
+          <button type="button" *ngFor="let f of clanFarben" class="clanpunkt" [style.background]="f" [class.on]="neuFarbe === f" (click)="neuFarbe = f" [attr.aria-label]="'Farbe ' + f"></button>
+        </span>
+        <button type="button" (click)="clanGruenden()" [disabled]="neuName.trim().length < 3 || neuKuerzel.trim().length < 2">Gründen</button>
+      </div>
     </div>
   </div>
 </ion-content>

@@ -1,4 +1,5 @@
 import { DEUTSCHLAND, KARTE_H, KARTE_PROJ, KARTE_W, NACHBARN } from './tycoon-karte-daten';
+import { STADT_BEZIRKE } from './tycoon-bezirke-daten';
 
 /**
  * Spielkarte des Tycoon: Deutschland (Natural Earth, Public Domain) in Weltkoordinaten
@@ -63,6 +64,57 @@ export const CITIES: { n: string; x: number; y: number; land?: string }[] = [
   { n: 'Posen', land: 'PL', ...proj(52.406, 16.925) },
   { n: 'Stettin', land: 'PL', ...proj(53.428, 14.553) },
 ];
+
+/** Grossstaedte: mehr Bezirke (und Hochhaeuser in der 3D-Deko). */
+export const GROSSSTADT = new Set(['Berlin', 'Hamburg', 'München', 'Köln', 'Frankfurt', 'Amsterdam', 'Brüssel', 'Kopenhagen', 'Wien', 'Prag', 'Zürich']);
+const BEZIRK_NAMEN = ['Mitte', 'Nord', 'Ost', 'Süd', 'West', 'Altstadt'];
+export interface Bezirk {
+  n: string;
+  /** Grundpreis; Uebernahme von anderen kostet das Dreifache. */
+  basis: number;
+  /** Echte Grenzen (OpenStreetMap, ODbL) als Ringe x0,y0,... in Weltkoordinaten; leer = keine Daten. */
+  ringe: number[][];
+}
+const bezirkCache = new Map<number, Bezirk[]>();
+/**
+ * Bezirke einer Stadt: echte Stadtbezirke aus OpenStreetMap (tycoon-bezirke-daten.ts), sonst Ersatznamen.
+ * Grundpreis nach Stadtgroesse und Flaeche des Bezirks (grosse Bezirke kosten mehr).
+ */
+export const bezirkeVon = (stadt: number): Bezirk[] => {
+  const c = bezirkCache.get(stadt);
+  if (c) return c;
+  const grund = GROSSSTADT.has(CITIES[stadt]?.n) ? 1000 : 600;
+  const echt = STADT_BEZIRKE[stadt] || [];
+  let liste: Bezirk[];
+  if (echt.length) {
+    const fmax = Math.max(...echt.map((b) => b.f), 1);
+    liste = echt.map((b) => ({ n: b.n, basis: Math.round((grund * (0.6 + 0.8 * b.f / fmax)) / 50) * 50, ringe: b.r }));
+  } else {
+    liste = BEZIRK_NAMEN.slice(0, grund === 1000 ? 6 : 4).map((n) => ({ n, basis: grund, ringe: [] }));
+  }
+  bezirkCache.set(stadt, liste);
+  return liste;
+};
+/** Ausdehnung aller Bezirksgrenzen einer Stadt (Weltkoordinaten) oder null ohne Daten. */
+export const bezirkRahmen = (stadt: number): { x0: number; y0: number; x1: number; y1: number } | null => {
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  bezirkeVon(stadt).forEach((b) => b.ringe.forEach((r) => {
+    for (let i = 0; i < r.length; i += 2) { x0 = Math.min(x0, r[i]); x1 = Math.max(x1, r[i]); y0 = Math.min(y0, r[i + 1]); y1 = Math.max(y1, r[i + 1]); }
+  }));
+  return x0 === Infinity ? null : { x0, y0, x1, y1 };
+};
+
+/** Feste Farbe je Spieler (aus der Konto-ID), falls er in keinem Clan ist. */
+export function spielerFarbe(id: string): string {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
+  const hue = h % 360, s = 0.65, l = 0.5;
+  const f = (n: number) => {
+    const k = (n + hue / 30) % 12, a = s * Math.min(l, 1 - l);
+    return Math.round(255 * (l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))).toString(16).padStart(2, '0');
+  };
+  return '#' + f(0) + f(8) + f(4);
+}
 
 /** Laendernamen auf der Karte (Position in Breitengrad/Laengengrad). */
 const LAENDER_NAMEN = [

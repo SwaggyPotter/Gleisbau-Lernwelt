@@ -23,6 +23,19 @@ export interface TycoonEintrag {
   xp: number;
   maxCls: number;
   siege: number;
+  bezirke: number;
+  clan: string | null;
+}
+
+export interface TycoonClan {
+  id: string;
+  name: string;
+  kuerzel: string;
+  farbe: string;
+  mitglieder: number;
+  xp: number;
+  bezirke: number;
+  namen: string[];
 }
 
 export interface TycoonDuell {
@@ -88,6 +101,35 @@ export class TycoonApiService {
 
   duellAbholen(id: string): Observable<{ ergebnis: 'sieg' | 'remis' | 'niederlage'; pokale: number; xp: number }> {
     return this.http.post<{ ergebnis: 'sieg' | 'remis' | 'niederlage'; pokale: number; xp: number }>(`${API_BASE_URL}/tycoon/duelle/${id}/abholen`, {});
+  }
+
+  /** Gemeinsame Welt: Bezirke, Aktivitaet je Stadt, Anzahl offener Gutschriften. */
+  welt(): Observable<any> {
+    return this.http.get<any>(`${API_BASE_URL}/tycoon/welt`);
+  }
+
+  bezirkKaufen(stadt: number, bezirk: number, basis: number): Observable<{ preis: number; uebernommen: boolean }> {
+    return this.http.post<{ preis: number; uebernommen: boolean }>(`${API_BASE_URL}/tycoon/bezirke`, { stadt, bezirk, basis });
+  }
+
+  gutschriftenAbholen(): Observable<{ summe: number; eintraege: { betrag: number; text: string }[] }> {
+    return this.http.post<{ summe: number; eintraege: { betrag: number; text: string }[] }>(`${API_BASE_URL}/tycoon/gutschriften/abholen`, {});
+  }
+
+  clans(): Observable<{ meinClan: string | null; farben: string[]; clans: TycoonClan[] }> {
+    return this.http.get<{ meinClan: string | null; farben: string[]; clans: TycoonClan[] }>(`${API_BASE_URL}/tycoon/clans`);
+  }
+
+  clanGruenden(name: string, kuerzel: string, farbe: string): Observable<{ id: string }> {
+    return this.http.post<{ id: string }>(`${API_BASE_URL}/tycoon/clans`, { name, kuerzel, farbe });
+  }
+
+  clanBeitreten(id: string): Observable<{ ok: boolean }> {
+    return this.http.post<{ ok: boolean }>(`${API_BASE_URL}/tycoon/clans/${id}/beitreten`, {});
+  }
+
+  clanAustreten(): Observable<{ ok: boolean }> {
+    return this.http.post<{ ok: boolean }>(`${API_BASE_URL}/tycoon/clans/austreten`, {});
   }
 
   ansehen(userId: string): Observable<TycoonAnsicht> {

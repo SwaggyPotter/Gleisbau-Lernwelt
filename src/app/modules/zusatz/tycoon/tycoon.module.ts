@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,6 +12,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [TycoonPage],
-  imports: [CommonModule, IonicModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, FormsModule, IonicModule, RouterModule.forChild(routes)],
 })
 export class TycoonModule {}

@@ -6,7 +6,7 @@
  */
 
 import type { TycoonWeltDaten } from './tycoon-3d';
-import { CITIES, KARTE_H, KARTE_W, zeichneKarte } from './tycoon-karte';
+import { bezirkeVon, bezirkRahmen, CITIES, KARTE_H, KARTE_W, spielerFarbe, zeichneKarte } from './tycoon-karte';
 import { AUSRUESTUNG, KLASSEN, LEVEL_XP, levelAus, SKINS, ZUEGE } from './tycoon-zuege';
 
 export interface TycoonOptions {
@@ -18,12 +18,21 @@ export interface TycoonOptions {
   onReset?: () => void;
   /** Zeigt (el gesetzt) bzw. entfernt (el null) die 3D-Vorschau des Lok-Typs typ (Index in TRAINS). */
   onVorschau?: (el: HTMLElement | null, typ: number) => void;
+  /** Bezirk kaufen/uebernehmen (Server); die Seite meldet Erfolg ueber handle.bezahlt() zurueck. */
+  onBezirk?: (stadt: number, bezirk: number, basis: number) => void;
 }
 
 export interface TycoonHandle {
   destroy: () => void;
   /** Lesezugriff fuer die 3D-Ansicht (tycoon-3d.ts). */
   welt: () => TycoonWeltDaten;
+  /** Gemeinsame Welt vom Server (Bezirke, Aktivitaet je Stadt). */
+  setzeWelt: (w: any) => void;
+  /** Bezirkskauf war erfolgreich: Preis abziehen. */
+  bezahlt: (preis: number, text: string) => void;
+  /** Geld gutschreiben (z. B. Entschaedigung fuer einen uebernommenen Bezirk). */
+  gutschrift: (betrag: number, text: string) => void;
+  meldung: (text: string) => void;
   /** Duell-Belohnung gutschreiben (Erfahrung + Pokale). */
   belohnung: (xp: number, pokale: number, text: string) => void;
   /** Klick an einer Stelle der 2D-Welt (KARTE_W x KARTE_H), z. B. aus der 3D-Ansicht. */
@@ -47,6 +56,21 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     { n: 'Normal', min: 7 },
     { n: 'Anspruchsvoll', min: 5 },
     { n: 'Stress', min: 3 },
+  ];
+  /** Stoerungsarten: Gleislage wird per Nivellement geprueft, alles andere mit Fachfragen aus dem Themenquiz der Lernwelt. */
+  const FEHLER_ARTEN: { n: string; thema: string | null; themaN: string }[] = [
+    { n: 'Gleislagefehler (Höhe)', thema: null, themaN: 'Nivellement' },
+    { n: 'Schienenfehler', thema: 'schiene', themaN: 'Schiene' },
+    { n: 'Schwellenschaden', thema: 'schwellen', themaN: 'Schwellen' },
+    { n: 'Verschmutzte Bettung', thema: 'bettung', themaN: 'Bettung' },
+    { n: 'Spurweitenfehler', thema: 'spurweite', themaN: 'Spurweite' },
+    { n: 'Lockere Kleineisen', thema: 'kleineisen', themaN: 'Kleineisen' },
+  ];
+  /** Fragen je Schwierigkeit (Anzahl, davon richtig). */
+  const QUIZ_N = [3, 3, 4, 5], QUIZ_NEED = [2, 3, 3, 4];
+  const INSPEKTION_THEMEN = [
+    ['schiene', 'Schiene'], ['schwellen', 'Schwellen'], ['bettung', 'Bettung'], ['spurweite', 'Spurweite'], ['kleineisen', 'Kleineisen'],
+    ['messmittel', 'Messmittel'], ['handwerkzeuge', 'Handwerkzeuge'], ['kleingeraete', 'Kleingeräte'], ['arbeitssicherheit', 'Arbeitssicherheit'],
   ];
   const modeInterval = (m: number) => MODES[m].min * 60 * (1 + Math.random() * 0.2);
   // Staedte an echten Koordinaten: siehe tycoon-karte.ts.
@@ -76,6 +100,26 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   /** Gekaufte Ausruestung vorhanden? */
   const hat = (id: string) => (S.ausr || []).includes(id);
   const skinFarbe = () => SKINS.find((k) => k.id === S.skin)?.farbe ?? null;
+  /** Wartungsstau kostet nur Einnahmen: Zustand 100 % = volle Einnahmen, 0 % = 40 % (mit Werkstatt 70 %). */
+  const condFaktor = (L: any) => 1 - (1 - L.cond / 100) * 0.6 * (hat('werkstatt') ? 0.5 : 1);
+  /** Gemeinsame Welt vom Server (null = noch nicht geladen oder Ansehen-Modus). */
+  let welt: any = null;
+  /** Im Stadt-Panel ausgewaehlter Bezirk. */
+  let bzWahl: { c: number; i: number } | null = null;
+  const meineId = () => welt?.ich?.id ?? null;
+  const bezirkVon = (c: number, b: number) => (welt?.bezirke || []).find((x: any) => x.stadt === c && x.bezirk === b);
+  const istMein = (x: any) => !!x && x.ownerId === meineId();
+  const istClan = (x: any) => !!x && !!welt?.ich?.clanId && x.clanId === welt.ich.clanId && !istMein(x);
+  const angeschlossen = (c: number) => S.lines.some((l: any) => l.a === c || l.b === c);
+  /** Darf in Stadt c gebaut werden? Eigener oder Clan-Bezirk, oder schon angeschlossen (bzw. Welt nicht geladen). */
+  const praesenz = (c: number) => !welt || angeschlossen(c) || (welt.bezirke || []).some((x: any) => x.stadt === c && (istMein(x) || istClan(x)));
+  /** Einnahmen der eigenen Bezirke in Stadt c pro Sekunde (nur wenn angeschlossen; Stoerung dort halbiert). */
+  const bezirkRate = (c: number) => {
+    if (!welt || !angeschlossen(c)) return 0;
+    const meine = (welt.bezirke || []).filter((x: any) => x.stadt === c && istMein(x));
+    const stoerung = S.lines.some((l: any) => l.fault && (l.a === c || l.b === c));
+    return meine.reduce((a: number, x: any) => a + x.basis * 0.0015, 0) * (stoerung ? 0.5 : 1);
+  };
   const LCOL = ['#e4572e', '#2e86ab', '#59a14f', '#b07aa1', '#f2a900', '#17bebb', '#8c564b', '#4e79a7', '#d6336c', '#7f8c8d'];
 
   /* ---------- Helfer ---------- */
@@ -158,8 +202,11 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     S.lines.push(L);
     return L;
   };
-  const tryBuild = (a: number, b: number) => {
+  /** true = gebaut; Zahl = in dieser Stadt fehlt ein Bezirk; false = sonst nicht moeglich. */
+  const tryBuild = (a: number, b: number): boolean | number => {
     if (lineExists(a, b)) { toast('Diese Strecke gehört dir schon.'); return false; }
+    const fehlt = [a, b].find((c) => !praesenz(c));
+    if (fehlt !== undefined) { toast('In ' + CITIES[fehlt].n + ' brauchst du zuerst einen Bezirk – unten im Panel kaufen.', 4000); return fehlt; }
     const g = makeGeo(a, b), cost = lineCost(g);
     if (S.money < cost) { toast('Zu wenig Guthaben (' + fmt(cost) + ' nötig).'); return false; }
     S.money -= cost;
@@ -249,16 +296,18 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       let q = Math.random() * sum;
       while (diff < wt.length - 1 && q > wt[diff]) { q -= wt[diff]; diff++; }
     }
-    L.fault = { t: rand(.25, .75), diff };
+    L.fault = { t: rand(.25, .75), diff, art: ri(0, FEHLER_ARTEN.length - 1) };
     S.anyFault = true;
     S.faultIn = modeInterval(S.mode) * (hat('schleifzug') ? 1.3 : 1);
-    toast('⚠ Störung auf ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + ' (' + DIFF[diff].n + ')');
+    toast('⚠ ' + FEHLER_ARTEN[L.fault.art].n + ' auf ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + ' (' + DIFF[diff].n + ')');
   };
   const resolveFault = (L: any, how: string) => {
     const d = DIFF[L.fault.diff];
+    // Fehlversuch kostet nichts: Stoerung bleibt einfach bestehen.
+    if (how === 'self-fail') { addXp(3); toast('Nicht geschafft – die Störung bleibt. Versuch es nochmal oder beauftrage die Fremdfirma.', 4000); return; }
+    if (how === 'firm' && S.money < d.val) { toast('Zu wenig Guthaben für die Fremdfirma.'); return; }
     if (how === 'firm') { S.money -= d.val; L.rep += d.val; L.cond = Math.min(100, L.cond + 10); addXp(5); toast('Fremdfirma erledigt die Störung (−' + fmt(d.val) + ')'); }
     if (how === 'self-ok') { const b = d.val * d.share * (hat('messzug') ? 1.5 : 1); S.money += b; L.cond = Math.min(100, L.cond + 20); S.skill[L.fault.diff]++; addXp(20 + 10 * L.fault.diff); toast('Selbst erledigt! Fremdkosten gespart, Bonus +' + fmt(b)); }
-    if (how === 'self-fail') { const c = d.val * .5; S.money -= c; L.rep += c; L.cond = Math.min(100, L.cond + 10); addXp(5); toast('Fehlversuch – Fremdfirma musste nacharbeiten (−' + fmt(c) + ')'); }
     L.fault = null; S.faultsFixed++;
   };
   const unlocked = (d: number) => d === 0 || S.skill[d - 1] >= CFG.unlockNeed;
@@ -280,8 +329,6 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (!dt) return;
     S.time += dt;
     for (const L of S.lines) {
-      const up = L.len * CFG.upkeepPerSec * klasse(L).unterhalt * (1 + (100 - L.cond) / 50) * dt;
-      S.money -= up; L.up += up;
       L.spawnT -= dt;
       if (L.spawnT <= 0) {
         L.spawnT = rand(CFG.foreignSpawn[0], CFG.foreignSpawn[1]);
@@ -294,6 +341,12 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     } else {
       S.faultIn -= Math.min(dtReal, .25);
       if (S.faultIn <= 0) createFault(false);   // wartet, solange noch eine Stoerung offen ist
+    }
+    // Bezirke bringen laufend Geld (nur angeschlossene Staedte; Stoerung dort halbiert).
+    if (welt) {
+      let r = 0;
+      new Set<number>((welt.bezirke || []).filter((x: any) => istMein(x)).map((x: any) => x.stadt as number)).forEach((c) => (r += bezirkRate(c)));
+      if (r > 0) { S.money += r * dt; S.bezirkSumme = (S.bezirkSumme || 0) + r * dt; }
     }
     for (const t of S.trains.slice()) {
       const L = S.lines[t.line];
@@ -308,15 +361,16 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     L.cond = Math.max(0, L.cond - CFG.wearPerPass * klasse(L).wear * (t.own ? tdef(t).wear : 1.4) * (hat('stopfmaschine') ? 0.75 : 1));
     t.trips++;
     if (t.own) {
-      const td = tdef(t), inc = L.len * CFG.ownRent * td.rent * (1 + (hat('fahrgastinfo') ? 0.1 : 0) + (hat('schaufel') ? 0.05 : 0)) * (L.fault ? CFG.faultIncome : 1),
-        cost = L.len * CFG.ownUpkeep * td.upkeep * (hat('werkstatt') ? 0.8 : 1);
-      S.money += inc - cost; L.inO += inc; t.earned += inc; t.cost += cost;
+      // Keine Wartungskosten mehr: Wartungsstau und Stoerung senken nur die Einnahmen.
+      const td = tdef(t), voll = L.len * CFG.ownRent * td.rent * (1 + (hat('fahrgastinfo') ? 0.1 : 0) + (hat('schaufel') ? 0.05 : 0));
+      const inc = voll * condFaktor(L) * (L.fault ? CFG.faultIncome : 1);
+      S.money += inc; L.inO += inc; t.earned += inc; L.verlust = (L.verlust || 0) + voll - inc;
       addXp(1);
-      popups.push({ x: p.x, y: p.y, txt: '+' + Math.round(inc - cost) + ' €', col: '#e07a00', age: 0 });
+      popups.push({ x: p.x, y: p.y, txt: '+' + Math.round(inc) + ' €', col: '#e07a00', age: 0 });
       t.dir *= -1;
     } else {
-      const fee = L.len * CFG.foreignFee * klasse(L).entgelt * (L.fault ? CFG.faultIncome : 1);
-      S.money += fee; L.inF += fee;
+      const voll = L.len * CFG.foreignFee * klasse(L).entgelt, fee = voll * condFaktor(L) * (L.fault ? CFG.faultIncome : 1);
+      S.money += fee; L.inF += fee; L.verlust = (L.verlust || 0) + voll - fee;
       popups.push({ x: p.x, y: p.y, txt: '+' + Math.round(fee) + ' €', col: '#2e8b57', age: 0 });
       S.trains.splice(S.trains.indexOf(t), 1);
     }
@@ -366,7 +420,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (h.city !== null) {
       if (sel.city === null) { sel.city = h.city; sel.line = null; }
       else if (sel.city === h.city) { sel.city = null; }
-      else { if (tryBuild(sel.city, h.city)) sel.city = h.city; }
+      else { const r = tryBuild(sel.city, h.city); if (r === true) sel.city = h.city; else if (typeof r === 'number') sel.city = r; }
       return;
     }
     if (h.line !== null) { sel.line = h.line; sel.city = null; S.openedLine = true; return; }
@@ -391,6 +445,18 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     ctx.fillStyle = '#bcd6e6'; ctx.fillRect(0, 0, W, H);
     ctx.save(); ctx.translate(ox, oy); ctx.scale(k, k);
     zeichneKarte(ctx, undefined, 1.5 / k);
+    // Stadtbezirke (echte Grenzen): Besitz farbig, freie nur als feine Linie.
+    for (let i = 0; i < CITIES.length; i++) {
+      if (!S.vis[i]) continue;
+      bezirkeVon(i).forEach((b, j) => {
+        if (!b.ringe.length) return;
+        ctx.beginPath();
+        b.ringe.forEach((r) => { ctx.moveTo(r[0], r[1]); for (let q = 2; q < r.length; q += 2) ctx.lineTo(r[q], r[q + 1]); ctx.closePath(); });
+        const x = welt ? bezirkVon(i, j) : null;
+        if (x) { ctx.fillStyle = x.clanFarbe || spielerFarbe(x.ownerId); ctx.globalAlpha = istMein(x) ? 0.75 : 0.5; ctx.fill(); ctx.globalAlpha = 1; }
+        ctx.strokeStyle = 'rgba(70,70,60,.45)'; ctx.lineWidth = 0.6 / k; ctx.stroke();
+      });
+    }
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
     for (const L of S.lines) {
       const on = sel.line === L.id || hover.line === L.id;
@@ -430,6 +496,15 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       if (!S.vis[i]) continue;
       const c = CITIES[i], connected = S.lines.some((l: any) => l.a === i || l.b === i);
       const isSel = sel.city === i, isHov = hover.city === i;
+      if (welt) {
+        const bz = bezirkeVon(i), st = (Math.PI * 2) / bz.length;
+        bz.forEach((b, j) => {
+          const x = bezirkVon(i, j);
+          if (!x || b.ringe.length) return;   // echte Grenzen sind oben schon gezeichnet
+          ctx.beginPath(); ctx.moveTo(c.x, c.y); ctx.arc(c.x, c.y, 22, j * st - Math.PI / 2, (j + 1) * st - Math.PI / 2); ctx.closePath();
+          ctx.fillStyle = x.clanFarbe || spielerFarbe(x.ownerId); ctx.globalAlpha = istMein(x) ? 0.85 : 0.55; ctx.fill(); ctx.globalAlpha = 1;
+        });
+      }
       ctx.beginPath(); ctx.arc(c.x, c.y, isSel || isHov ? 13 : 11, 0, 7);
       ctx.fillStyle = connected ? '#fff' : '#f4f1ea'; ctx.fill();
       ctx.lineWidth = isSel ? 5 : 3.5; ctx.strokeStyle = isSel ? '#e4572e' : '#23262b'; ctx.stroke();
@@ -452,8 +527,6 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (sel.line !== null && S.lines[sel.line]) {
       const L = S.lines[sel.line];
       const own = S.trains.filter((t: any) => t.own && t.line === L.id);
-      const ownUp = own.reduce((a: number, t: any) => a + t.cost, 0);
-      const net = L.inF + L.inO - L.up - L.rep - ownUp;
       const care = Math.round(L.len * CFG.careCostPerUnit / 10) * 10;
       let h = '<h3 style="color:' + L.color + '">' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + '</h3>';
       h += '<div class="mut">Länge ca. ' + Math.round(L.len * .97) + ' km</div>';
@@ -461,28 +534,29 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       h += '<div class="row"><span>Zustand</span><b>' + Math.round(L.cond) + ' %</b></div>' + barHTML(L.cond, condCol(L.cond));
       h += '<div class="row"><span>Trassenentgelt (Fremdzüge)</span><span class="pos">' + sgn(L.inF) + '</span></div>';
       h += '<div class="row"><span>Miete eigene Züge</span><span class="pos">' + sgn(L.inO) + '</span></div>';
-      h += '<div class="row"><span>Unterhalt laufend</span><span class="neg">' + sgn(-L.up) + '</span></div>';
-      h += '<div class="row"><span>Wartung eigene Züge</span><span class="neg">' + sgn(-ownUp) + '</span></div>';
-      h += '<div class="row"><span>Reparaturen / Fremdfirma</span><span class="neg">' + sgn(-L.rep) + '</span></div>';
-      h += '<div class="row"><b>Netto Strecke</b><b class="' + (net >= 0 ? 'pos' : 'neg') + '">' + sgn(net) + '</b></div>';
+      h += '<div class="row"><b>Einnahmen Strecke</b><b class="pos">' + sgn(L.inF + L.inO) + '</b></div>';
+      h += '<div class="row"><span>Entgangen (Wartungsstau/Störung)</span><span class="neg">' + sgn(-(L.verlust || 0)) + '</span></div>';
+      h += '<div class="mut">Zustand ' + Math.round(L.cond) + ' % → ' + Math.round(condFaktor(L) * 100) + ' % der möglichen Einnahmen. Ausgegeben für Ausbau/Reparatur: ' + fmt(L.rep) + '</div>';
       if (!RO) {
         if (L.fault) h += '<p class="neg"><b>⚠ Störung (' + DIFF[L.fault.diff].n + ')</b> – Züge fahren langsamer und bringen nur ' + Math.round(CFG.faultIncome * 100) + ' % Einnahmen. Klicke das rote ! auf der Strecke.</p>';
-        h += '<div class="btns"><button data-act="shop" data-arg="z:' + L.id + '">🛒 Zug kaufen …</button>' + ausbauKnopf(L);
+        h += '<div class="btns"><button data-act="shop" data-arg="z:' + L.id + '">🛒 Zug kaufen …</button>' + ausbauKnopf(L) + inspektionKnopf(L);
         h += '<button data-act="care" data-arg="' + L.id + '" ' + (S.money < care || L.cond >= 95 ? 'disabled' : '') + '>Pflege durch Fremdfirma (' + fmt(care) + ')</button></div>';
       }
       h += '<b>Eigene Züge (' + own.length + ')</b>';
       if (!own.length) h += '<div class="mut">' + (RO ? 'Keine.' : 'Noch keiner. Vermiete Züge, um zusätzlich Geld zu verdienen.') + '</div>';
       own.forEach((t: any, i: number) => {
-        const n = t.earned - t.cost;
+        const n = t.earned;
         h += '<div class="train"><div class="row"><span>' + tdef(t).n + ' #' + (i + 1) + ' <span class="mut">(' + vKmh(t, L) + ' km/h · ' + t.trips + ' Fahrten)</span></span><b class="' + (n >= 0 ? 'pos' : 'neg') + '">' + sgn(n) + '</b></div>' +
-          '<div class="mut">Einnahmen ' + sgn(t.earned) + ' · Wartung ' + sgn(-t.cost) + '</div>' +
+
           '<button class="sm" data-act="show" data-arg="' + (t.type ?? 1) + '">3D ansehen</button></div>';
       });
       return h;
     }
+    if (sel.city !== null) return stadtHTML(sel.city);
     const own = S.trains.filter((t: any) => t.own);
     const inF = S.lines.reduce((a: number, l: any) => a + l.inF, 0), inO = S.lines.reduce((a: number, l: any) => a + l.inO, 0);
-    const out = S.lines.reduce((a: number, l: any) => a + l.up + l.rep, 0) + own.reduce((a: number, t: any) => a + t.cost, 0);
+    const verlust = S.lines.reduce((a: number, l: any) => a + (l.verlust || 0), 0), bez = S.bezirkSumme || 0;
+    const meineBezirke = welt ? (welt.bezirke || []).filter((x: any) => istMein(x)).length : 0;
     let h = '<h3>' + (RO ? 'Unternehmen' : 'Dein Unternehmen') + '</h3>';
     const lv = level(), von = LEVEL_XP[lv - 1], bis = LEVEL_XP[lv];
     h += '<div class="row"><span>Level</span><b>' + lv + (bis === undefined ? ' (max.)' : '') + '</b></div>';
@@ -491,8 +565,10 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     h += '<div class="row"><span>Eigene Züge</span><b>' + own.length + '</b></div>';
     h += '<div class="row"><span>Trassenentgelt gesamt</span><span class="pos">' + sgn(inF) + '</span></div>';
     h += '<div class="row"><span>Mieteinnahmen gesamt</span><span class="pos">' + sgn(inO) + '</span></div>';
-    h += '<div class="row"><span>Kosten gesamt</span><span class="neg">' + sgn(-out) + '</span></div>';
-    h += '<div class="row"><b>Betriebsergebnis</b><b class="' + (inF + inO - out >= 0 ? 'pos' : 'neg') + '">' + sgn(inF + inO - out) + '</b></div>';
+    h += '<div class="row"><span>Bezirke (' + meineBezirke + ')</span><span class="pos">' + sgn(bez) + '</span></div>';
+    h += '<div class="row"><b>Einnahmen gesamt</b><b class="pos">' + sgn(inF + inO + bez) + '</b></div>';
+    h += '<div class="row"><span>Entgangen durch Wartungsstau/Störungen</span><span class="neg">' + sgn(-verlust) + '</span></div>';
+    h += '<div class="mut">Laufende Kosten gibt es nicht – schlechter Zustand und Störungen senken nur die Einnahmen. Selbst beheben lohnt sich!</div>';
     h += '<h3 style="margin-top:16px">Können (Eigenleistung)</h3>';
     DIFF.forEach((d, i) => {
       const u = unlocked(i);
@@ -509,11 +585,175 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (RO) {
       h += '<p class="mut" style="margin-top:14px">Du siehst das Netz nur zum Ansehen. Strecke anklicken = Details.</p>';
     } else {
-      h += '<p class="mut" style="margin-top:14px">Stadt anklicken, dann zweite Stadt anklicken = Strecke kaufen. Strecke anklicken = Details & Züge. Rotes ! = Störung. Mit jeder Verbindung schalten sich neue Städte frei.</p>';
+      h += '<p class="mut" style="margin-top:14px">Stadt anklicken = Bezirke kaufen. Danach zweite Stadt anklicken = Strecke bauen (dort brauchst du auch einen Bezirk). Strecke anklicken = Details & Züge. Rotes ! = Störung. Mit jeder Verbindung schalten sich neue Städte frei.</p>';
       h += '<div class="btns"><button data-act="reset" class="sm">Spiel zurücksetzen</button></div>';
     }
     return h;
   };
+  const uhr = (iso: string) => new Date(iso).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+  /** Eine Bezirkszeile mit Farbe, Besitzer und Kauf-/Uebernahme-Knopf. */
+  const bezirkZeile = (c: number, i: number) => {
+    const b = bezirkeVon(c)[i], x = bezirkVon(c, i), farbe = x ? (x.clanFarbe || spielerFarbe(x.ownerId)) : '#d9d4c8';
+    let wer = 'frei', knopf = '';
+    if (!x) knopf = RO ? '' : '<button class="sm" data-act="bez" data-arg="' + c + ':' + i + '" ' + (S.money < b.basis ? 'disabled' : '') + '>Kaufen · ' + fmt(b.basis) + '</button>';
+    else if (istMein(x)) { wer = 'deiner'; knopf = '<span class="pos">✓</span>'; }
+    else {
+      wer = x.ownerName + (x.clanKuerzel ? ' [' + x.clanKuerzel + ']' : '');
+      if (istClan(x)) knopf = '<span class="mut">Clan</span>';
+      else if (new Date(x.geschuetztBis).getTime() > Date.now()) knopf = '<span class="mut">🛡 bis ' + uhr(x.geschuetztBis) + '</span>';
+      else if (!RO) knopf = '<button class="sm" data-act="bez" data-arg="' + c + ':' + i + '" ' + (S.money < x.basis * 3 ? 'disabled' : '') + '>Übernehmen · ' + fmt(x.basis * 3) + '</button>';
+    }
+    const gew = !!bzWahl && bzWahl.c === c && bzWahl.i === i;
+    return '<div class="bezirk' + (gew ? ' gewaehlt' : '') + '" data-act="bzwahl" data-arg="' + c + ':' + i + '"><span class="farbpunkt" style="background:' + farbe + '"></span>' +
+      '<span class="bz-n">' + b.n + ' <span class="mut">· ' + wer + '</span></span>' + knopf + '</div>';
+  };
+  /** Bezirksplan der Stadt als SVG (echte Grenzen), Besitz farbig, gewaehlter Bezirk umrandet. */
+  const bezirkPlan = (c: number) => {
+    const rahmen = bezirkRahmen(c);
+    if (!rahmen) return '';
+    const pad = 1.5, w = rahmen.x1 - rahmen.x0 + 2 * pad, hh = rahmen.y1 - rahmen.y0 + 2 * pad, strich = Math.max(w, hh) / 260;
+    const pfad = (r: number[]) => { let d = 'M' + r[0] + ' ' + r[1]; for (let q = 2; q < r.length; q += 2) d += 'L' + r[q] + ' ' + r[q + 1]; return d + 'Z'; };
+    const teile = bezirkeVon(c).map((b, i) => {
+      const x = welt ? bezirkVon(c, i) : null, gew = !!bzWahl && bzWahl.c === c && bzWahl.i === i;
+      const fuell = x ? (x.clanFarbe || spielerFarbe(x.ownerId)) : '#f4f1ea', deck = x ? (istMein(x) ? 0.9 : 0.65) : 1;
+      return { gew, svg: '<path d="' + b.ringe.map(pfad).join('') + '" fill="' + fuell + '" fill-opacity="' + deck + '" stroke="' + (gew ? '#e4572e' : '#5a5a52') +
+        '" stroke-width="' + (gew ? strich * 3.5 : strich) + '" stroke-linejoin="round" data-act="bzwahl" data-arg="' + c + ':' + i + '"><title>' + b.n + '</title></path>' };
+    });
+    // Gewaehlten Bezirk zuletzt zeichnen, damit sein Rand oben liegt.
+    const C = CITIES[c];
+    return '<svg class="bz-plan" viewBox="' + (rahmen.x0 - pad) + ' ' + (rahmen.y0 - pad) + ' ' + w + ' ' + hh + '">' +
+      teile.filter((t) => !t.gew).map((t) => t.svg).join('') + teile.filter((t) => t.gew).map((t) => t.svg).join('') +
+      '<circle cx="' + C.x + '" cy="' + C.y + '" r="' + strich * 4 + '" fill="#23262b"/></svg>';
+  };
+  /** Panel einer Stadt: Aktivitaet anderer Spieler und Bezirke (kaufen / uebernehmen). */
+  const stadtHTML = (c: number) => {
+    const C = CITIES[c], info = (welt?.staedte || []).find((x: any) => x.stadt === c);
+    let h = '<h3>' + C.n + (C.land ? ' <span class="mut">(' + C.land + ')</span>' : '') + '</h3>';
+    h += '<div class="mut">' + (info ? '💡 ' + info.spieler + ' andere Spieler mit Strecken hier' + (info.aktiv ? ', ' + info.aktiv + ' gerade aktiv' : '') : 'Hier ist noch kein anderer Spieler.') + '</div>';
+    if (!welt) {
+      h += '<p class="mut">' + (RO ? '' : 'Bezirke werden geladen …') + '</p>';
+    } else {
+      const bz = bezirkeVon(c);
+      if (bzWahl && bzWahl.c !== c) bzWahl = null;
+      h += '<h3 style="margin-top:10px">Bezirke (' + bz.length + ')</h3>';
+      const plan = bezirkPlan(c);
+      if (plan) h += plan + '<div class="mut">Bezirk im Plan antippen.</div>';
+      if (bzWahl) h += '<div class="bz-wahl">' + bezirkZeile(c, bzWahl.i) + '</div>';
+      bz.forEach((_b, i) => { h += bezirkZeile(c, i); });
+      if (plan) h += '<div class="mut">Bezirksgrenzen: © OpenStreetMap-Mitwirkende (ODbL)</div>';
+      const meine = (welt.bezirke || []).filter((x: any) => x.stadt === c && istMein(x)).length;
+      if (meine) {
+        h += angeschlossen(c)
+          ? '<div class="mut">Deine ' + meine + ' Bezirk(e) hier bringen ' + fmt(bezirkRate(c) * 60) + ' pro Minute' + (S.lines.some((l: any) => l.fault && (l.a === c || l.b === c)) ? ' – eine Störung an der Stadt halbiert das!' : '.') + '</div>'
+          : '<div class="mut">Bezirke bringen Geld, sobald eine deiner Strecken hier endet.</div>';
+      }
+      h += '<div class="mut">Fremde Bezirke kosten das Dreifache; der bisherige Besitzer bekommt den Grundpreis erstattet. Frisch gekaufte Bezirke sind 2 Stunden geschützt.</div>';
+    }
+    if (!RO) h += '<p class="mut">Klicke eine zweite Stadt an, um eine Strecke zu bauen. In beiden Städten brauchst du einen eigenen Bezirk (oder einen deines Clans), außer die Stadt ist schon an dein Netz angeschlossen.</p>';
+    h += '<div class="btns"><button class="sm" data-act="stadtzu">Schließen</button></div>';
+    return h;
+  };
+  /** Inspektion: freiwillige Arbeit an einer Strecke (Fachfragen), bringt Zustand, Geld und Erfahrung. */
+  const inspektionKnopf = (L: any, kurz = false) => {
+    if (L.cond >= 95) return '';
+    const warten = Math.ceil((L.inspAb || 0) - S.time);
+    return warten > 0 ? '<button disabled>' + (kurz ? 'in ' : '🔧 Inspektion wieder in ') + warten + ' s</button>'
+      : '<button data-act="insp" data-arg="' + L.id + '">' + (kurz ? 'Starten · +' : '🔧 Inspektion (Fachfragen): +30 % Zustand, +') + fmt(inspektionsBonus(L)) + '</button>';
+  };
+  const inspektionsBonus = (L: any) => Math.round(L.len * 2 / 10) * 10;
+  const inspektionErgebnis = (L: any, ok: boolean) => {
+    if (ok) {
+      const b = inspektionsBonus(L);
+      L.cond = Math.min(100, L.cond + 30); S.money += b; L.inspAb = S.time + 120; addXp(10);
+      toast('🔧 Inspektion bestanden: Zustand +30 %, +' + fmt(b));
+    } else {
+      L.inspAb = S.time + 30; addXp(2);
+      toast('Inspektion nicht bestanden – in 30 Sekunden nochmal versuchen.');
+    }
+  };
+  /** Liste aller Arbeiten: offene Stoerungen und faellige Inspektionen. */
+  const arbeitHTML = () => {
+    let h = '<h2>🛠 Arbeiten</h2><div class="mut">Selbst erledigen bringt Geld und Erfahrung, Fehlversuche kosten nichts. Störungen senken die Einnahmen der Strecke und der Bezirke in den angeschlossenen Städten.</div><div class="shop-liste">';
+    let n = 0;
+    S.lines.forEach((L: any) => {
+      const name = CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n;
+      if (L.fault) {
+        n++;
+        const art = FEHLER_ARTEN[L.fault.art ?? 0];
+        h += '<div class="shop-zug"><div class="shop-text"><b>⚠ ' + art.n + '</b><div class="mut">' + name + ' · ' + DIFF[L.fault.diff].n + ' · ' + (art.thema ? 'Fachfragen „' + art.themaN + '“' : 'Nivellierlatte ablesen') + '</div></div><button data-act="afault" data-arg="' + L.id + '">Beheben</button></div>';
+      }
+      if (L.cond < 95) {
+        n++;
+        h += '<div class="shop-zug"><div class="shop-text"><b>🔧 Inspektion</b><div class="mut">' + name + ' · Zustand ' + Math.round(L.cond) + ' % · 3 Fachfragen, +30 % Zustand</div></div>' + inspektionKnopf(L, true) + '</div>';
+      }
+    });
+    if (!n) h += '<p class="mut">Gerade gibt es nichts zu tun – alles in Schuss!</p>';
+    return h + '</div><div class="opts"><button data-act="close">Schließen</button></div>';
+  };
+
+  /* ---- Fachfragen aus dem Themenquiz der Lernwelt ---- */
+  const fragenCache = new Map<string, any[]>();
+  const ladeFragen = async (thema: string): Promise<any[]> => {
+    if (fragenCache.has(thema)) return fragenCache.get(thema)!;
+    const r = await fetch('assets/themenquiz/' + thema + '.json');
+    if (!r.ok) throw new Error('Fragen nicht ladbar');
+    const j = await r.json();
+    // Fragen, die sich auf ein Bild beziehen, gehen hier nicht (das Spiel zeigt keine Bilder).
+    const liste = (j.questions || []).filter((q: any) => Array.isArray(q.choices) && typeof q.correctIndex === 'number' && !/(Bild|Abbildung|Foto)/i.test(q.question));
+    if (!liste.length) throw new Error('keine Fragen');
+    fragenCache.set(thema, liste);
+    return liste;
+  };
+  /** zweck: 'stoerung' (Stoerung auf modal.line beheben) oder 'inspektion'. */
+  const startQuiz = (line: number, thema: string, themaN: string, n: number, need: number, zweck: 'stoerung' | 'inspektion') => {
+    modal = { kind: 'quiz', line, zweck, themaN, laden: true };
+    renderModal();
+    ladeFragen(thema).then((liste) => {
+      if (modal?.kind !== 'quiz' || modal.line !== line) return;
+      Object.assign(modal, { laden: false, fragen: shuffle(liste.slice()).slice(0, n), i: 0, ok: 0, need: Math.min(need, n), antwort: null });
+      renderModal();
+    }).catch(() => {
+      if (modal?.kind !== 'quiz') return;
+      // Ohne Fragen: auf die Nivellierlatte ausweichen.
+      if (zweck === 'stoerung') { modal = { kind: 'fault', line }; startSelf(); }
+      else { closeModal(); toast('Fragen konnten nicht geladen werden.'); }
+    });
+  };
+  const quizHTML = () => {
+    const q = modal, L = S.lines[q.line];
+    let h = '<h2>' + (q.zweck === 'stoerung' ? '⚠ ' + FEHLER_ARTEN[L.fault?.art ?? 0].n : '🔧 Inspektion') + ' <span class="mut">· ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + '</span></h2>';
+    if (q.laden) return h + '<p class="mut">Fragen werden geladen …</p>';
+    const f = q.fragen[q.i];
+    h += '<div class="mut">Thema ' + q.themaN + ' · Frage ' + (q.i + 1) + ' / ' + q.fragen.length + ' · mind. ' + q.need + ' richtig · bisher ' + q.ok + ' richtig</div>';
+    h += '<p><b>' + f.question + '</b></p><div class="opts">';
+    f.choices.forEach((c: string, i: number) => {
+      const kl = q.antwort === null ? '' : i === f.correctIndex ? ' class="good"' : i === q.antwort ? ' class="bad"' : '';
+      h += '<button data-act="qa" data-arg="' + i + '"' + kl + (q.antwort === null ? '' : ' disabled') + '>' + c + '</button>';
+    });
+    h += '</div>';
+    if (q.antwort !== null) {
+      const richtig = q.antwort === f.correctIndex;
+      h += '<div class="fb ' + (richtig ? 'good' : 'bad') + '"><b>' + (richtig ? 'Richtig!' : 'Leider falsch.') + '</b>' + (f.explanation ? '<br>' + f.explanation : '') + '</div>';
+      if (f.sourceUrl) h += '<div class="mut">Quelle: <a href="' + f.sourceUrl + '" target="_blank" rel="noopener">' + (f.source || f.sourceUrl) + '</a></div>';
+      h += '<div class="opts"><button data-act="qnext">' + (q.i < q.fragen.length - 1 ? 'Nächste Frage' : 'Fertig') + '</button></div>';
+    }
+    return h + '<div class="opts"><button data-act="close">Abbrechen' + (q.zweck === 'stoerung' ? ' (Störung bleibt)' : '') + '</button></div>';
+  };
+  const quizAntwort = (i: number) => {
+    const q = modal; if (q.antwort !== null || q.laden) return;
+    q.antwort = i;
+    if (i === q.fragen[q.i].correctIndex) q.ok++;
+    renderModal();
+  };
+  const quizWeiter = () => {
+    const q = modal; if (q.antwort === null) return;
+    if (q.i < q.fragen.length - 1) { q.i++; q.antwort = null; renderModal(); return; }
+    const L = S.lines[q.line], ok = q.ok >= q.need;
+    if (q.zweck === 'stoerung') { if (L.fault) resolveFault(L, ok ? 'self-ok' : 'self-fail'); }
+    else inspektionErgebnis(L, ok);
+    closeModal(); save();
+  };
+
   /** Knopf "Strecke ausbauen" (Panel und Shop). */
   const ausbauKnopf = (L: any) => {
     const n = KLASSEN[(L.cls ?? 0) + 1];
@@ -535,7 +775,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
 
   /* ---------- Tutorial ---------- */
   const TUT = [
-    { t: 'Willkommen! Klicke auf eine Stadt und danach auf eine zweite, um eine Strecke zu kaufen.', ok: () => S.lines.length > 0 },
+    { t: 'Willkommen! Klicke Berlin an und kaufe rechts einen Bezirk. Dann klicke eine zweite Stadt an, kaufe auch dort einen Bezirk und klicke wieder Berlin → Strecke wird gebaut.', ok: () => S.lines.length > 0 },
     { t: 'Gebaut! Fremdzüge nutzen deine Strecke und zahlen Trassenentgelt. Klicke die Strecke an für Details.', ok: () => S.openedLine },
     { t: 'Kaufe jetzt einen eigenen Zug: „🛒 Zug kaufen“ bei der Strecke oder oben im Shop.', ok: () => S.trains.some((t: any) => t.own) },
     { t: 'Verschleiß verursacht Störungen. Sobald ein rotes „!“ erscheint: anklicken und Aufgabe wählen.', ok: () => S.faultsFixed > 0 },
@@ -558,13 +798,15 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const box = $('#mcard'); $('#modal').style.display = 'flex';
     box.className = 'card' + (modal.kind === 'shop' ? ' breit' : '');
     if (modal.kind === 'shop') { box.innerHTML = shopHTML(); opts.onVorschau?.($('#lok3d'), modal.ansicht ?? 1); return; }
+    if (modal.kind === 'arbeit') { box.innerHTML = arbeitHTML(); return; }
+    if (modal.kind === 'quiz') { box.innerHTML = quizHTML(); return; }
     const L = S.lines[modal.line];
     if (modal.kind === 'buy' || modal.kind === 'show') {
       const td = TRAINS[modal.typ];
       let h = '<h2>' + td.n + '</h2><div class="lok3d" id="lok3d"></div>';
       h += '<div class="row"><span>Höchstgeschwindigkeit</span><b>' + td.kmh + ' km/h' + (L && klasse(L).kmh < td.kmh ? ' (auf dieser Strecke ' + klasse(L).kmh + ')' : '') + '</b></div>';
       h += '<div class="row"><span>Miete</span><b>' + Math.round(td.rent * 100) + ' %</b></div>';
-      h += '<div class="row"><span>Wartung</span><b>' + Math.round(td.upkeep * 100) + ' %</b></div>';
+      h += '<div class="row"><span>Gleisverschleiß</span><b>' + Math.round(td.wear * 100) + ' %</b></div>';
       h += '<div class="opts">';
       if (modal.kind === 'buy') h += '<div class="mut">Strecke ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + '</div><button data-act="buyok" ' + (S.money < td.cost ? 'disabled' : '') + '>Jetzt kaufen (' + fmt(td.cost) + ')</button>';
       h += '<button data-act="close">' + (modal.kind === 'buy' ? (modal.zurueck ? 'Zurück zum Shop' : 'Abbrechen') : 'Schließen') + '</button></div>';
@@ -573,15 +815,16 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       return;
     }
     if (modal.kind === 'fault') {
-      const f = L.fault, d = DIFF[f.diff], can = unlocked(f.diff);
-      box.innerHTML = '<h2>Störung: ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + '</h2>' +
-        '<p><span class="tag" style="background:' + d.col + '">' + d.n + '</span> &nbsp;Aufgabe: <b>' + d.task + '</b><br>Auftragswert: <b>' + fmt(d.val) + '</b></p>' +
-        '<p class="mut">Solange die Störung besteht, fahren die Züge auf dieser Strecke nur langsam und bringen nur ' + Math.round(CFG.faultIncome * 100) + ' % Einnahmen.</p>' +
+      const f = L.fault, d = DIFF[f.diff], can = unlocked(f.diff), art = FEHLER_ARTEN[f.art ?? 0];
+      const aufgabe = art.thema ? 'Fachfragen „' + art.themaN + '“ (' + QUIZ_N[f.diff] + ' Fragen, mind. ' + QUIZ_NEED[f.diff] + ' richtig)' : d.task;
+      box.innerHTML = '<h2>⚠ ' + art.n + ': ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + '</h2>' +
+        '<p><span class="tag" style="background:' + d.col + '">' + d.n + '</span> &nbsp;Aufgabe: <b>' + aufgabe + '</b><br>Auftragswert: <b>' + fmt(d.val) + '</b></p>' +
+        '<p class="mut">Solange die Störung besteht, fahren die Züge langsamer und bringen nur ' + Math.round(CFG.faultIncome * 100) + ' % Einnahmen; Bezirke in den Städten der Strecke nur die Hälfte.</p>' +
         '<div class="opts">' +
-        '<button data-act="firm">Fremdfirma beauftragen (−' + fmt(d.val) + ')</button>' +
+        '<button data-act="firm" ' + (S.money < d.val ? 'disabled' : '') + '>Fremdfirma beauftragen (−' + fmt(d.val) + ')</button>' +
         '<button data-act="self" ' + (can ? '' : 'disabled') + '>Selbst erledigen – spart ' + fmt(d.val) + ' + Bonus ' + fmt(d.val * d.share) + ' (' + Math.round(d.share * 100) + ' %)</button>' +
         (can ? '' : '<div class="mut">🔒 Frei nach ' + CFG.unlockNeed + ' geschafften „' + DIFF[f.diff - 1].n + '“-Aufgaben (' + S.skill[f.diff - 1] + '/' + CFG.unlockNeed + ').</div>') +
-        '<div class="mut">Fehlversuch: Fremdfirma muss nacharbeiten (−' + fmt(d.val * .5) + ').</div>' +
+        '<div class="mut">Ein Fehlversuch kostet nichts – die Störung bleibt dann einfach bestehen.</div>' +
         '<button data-act="close">Später</button></div>';
       return;
     }
@@ -646,7 +889,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         const zu = lv < z.lvl, ohneOL = z.el && !K.el, eff = Math.min(z.kmh, K.kmh);
         h += '<div class="shop-zug' + (zu ? ' zu' : '') + (i === modal.ansicht ? ' gewaehlt' : '') + '" data-zug="' + i + '">' +
           '<button class="sm auge" data-act="sieh" data-arg="' + i + '" title="In 3D ansehen">👁</button><div class="shop-text"><b>' + z.n + '</b>' + (z.el ? ' <span class="tag" style="background:#2e86ab">⚡ elektrisch</span>' : '') +
-          '<div class="mut">bis ' + z.kmh + ' km/h' + (eff < z.kmh ? ' (hier ' + eff + ')' : '') + ' · Miete ' + pct(z.rent) + ' · Wartung ' + pct(z.upkeep) + ' · ' + z.len + ' Fahrzeuge</div></div>';
+          '<div class="mut">bis ' + z.kmh + ' km/h' + (eff < z.kmh ? ' (hier ' + eff + ')' : '') + ' · Miete ' + pct(z.rent) + ' · Gleisverschleiß ' + pct(z.wear) + ' · ' + z.len + ' Fahrzeuge</div></div>';
         h += zu ? '<button disabled>🔒 Level ' + z.lvl + '</button>'
           : ohneOL ? '<button disabled title="Strecke zuerst elektrifizieren (Hauptbahn)">braucht Oberleitung</button>'
           : '<button data-act="pick" data-arg="' + L.id + ':' + i + ':shop" ' + (S.money < z.cost ? 'disabled' : '') + '>' + fmt(z.cost) + '</button>';
@@ -657,7 +900,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       h += '<div class="shop-liste">';
       KLASSEN.forEach((k) => {
         h += '<div class="shop-zug' + (lv < k.lvl ? ' zu' : '') + '"><div><b>' + k.n + '</b><div class="mut">max. ' + k.kmh + ' km/h · ' + (k.el ? 'Oberleitung' : 'ohne Oberleitung') +
-          ' · Unterhalt ' + pct(k.unterhalt) + ' · Trassenentgelt ' + pct(k.entgelt) + '</div></div><span class="mut">' + (lv < k.lvl ? '🔒 ab Level ' + k.lvl : '✓ frei') + '</span></div>';
+          ' · Verschleiß ' + pct(k.wear) + ' · Trassenentgelt ' + pct(k.entgelt) + '</div></div><span class="mut">' + (lv < k.lvl ? '🔒 ab Level ' + k.lvl : '✓ frei') + '</span></div>';
       });
       h += '</div><h3>Deine Strecken</h3><div class="shop-liste">';
       S.lines.forEach((l: any) => {
@@ -721,7 +964,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const g = modal.mg; if (!g.fb) return;
     if (g.i < g.rounds.length - 1) { g.i++; g.fb = null; renderModal(); }
     else {
-      resolveFault(S.lines[modal.line], g.ok >= g.need ? 'self-ok' : 'self-fail');
+      const L = S.lines[modal.line];
+      if (L.fault) resolveFault(L, g.ok >= g.need ? 'self-ok' : 'self-fail');
       closeModal(); save();
     }
   };
@@ -731,7 +975,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const b = (e.target as HTMLElement).closest('[data-act]') as HTMLButtonElement | null;
     if (!b || b.disabled) return;
     const a = b.dataset['act'], arg = b.dataset['arg'];
-    if (RO && a !== 'show' && a !== 'close') return;
+    if (RO && a !== 'show' && a !== 'close' && a !== 'bzwahl') return;
     if (a === 'speed') S.speed = +arg!;
     else if (a === 'mode') { S.mode = +arg!; S.faultIn = Math.min(S.faultIn, modeInterval(S.mode)); save(); }
     else if (a === 'buy') { const [lid, ty] = arg!.split(':'); buyTrain(+lid, ty === undefined ? 1 : +ty); }
@@ -753,7 +997,26 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     else if (a === 'show') { modal = { kind: 'show', line: sel.line, typ: +arg! }; renderModal(); }
     else if (a === 'buyok') { const m = modal; closeModal(); buyTrain(m.line, m.typ); }
     else if (a === 'firm') { resolveFault(S.lines[modal.line], 'firm'); closeModal(); save(); }
-    else if (a === 'self') startSelf();
+    else if (a === 'self') {
+      const L = S.lines[modal.line], art = FEHLER_ARTEN[L.fault.art ?? 0];
+      if (art.thema) startQuiz(L.id, art.thema, art.themaN, QUIZ_N[L.fault.diff], QUIZ_NEED[L.fault.diff], 'stoerung');
+      else startSelf();
+    }
+    else if (a === 'qa') quizAntwort(+arg!);
+    else if (a === 'qnext') quizWeiter();
+    else if (a === 'arbeiten') { modal = { kind: 'arbeit' }; renderModal(); }
+    else if (a === 'afault') { modal = { kind: 'fault', line: +arg! }; renderModal(); }
+    else if (a === 'insp') {
+      const L = S.lines[+arg!], [thema, themaN] = INSPEKTION_THEMEN[ri(0, INSPEKTION_THEMEN.length - 1)];
+      if (L && S.time >= (L.inspAb || 0)) startQuiz(L.id, thema, themaN, 3, 2, 'inspektion');
+    }
+    else if (a === 'stadtzu') { sel.city = null; bzWahl = null; }
+    else if (a === 'bzwahl') { const [c, i] = arg!.split(':').map(Number); bzWahl = bzWahl && bzWahl.c === c && bzWahl.i === i ? null : { c, i }; }
+    else if (a === 'bez') {
+      const [c, b] = arg!.split(':').map(Number), x = bezirkVon(c, b), basis = bezirkeVon(c)[b].basis, preis = x ? x.basis * 3 : basis;
+      if (S.money < preis) toast('Zu wenig Guthaben (' + fmt(preis) + ' nötig).');
+      else opts.onBezirk?.(c, b, basis);
+    }
     else if (a === 'submit') submitReading();
     else if (a === 'next') nextReading();
     else if (a === 'close') {
@@ -775,9 +1038,9 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   let toastT: any;
   const toast = (t: string, ms = 2600) => { const e = $('#toast'); e.textContent = t; e.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => e.classList.remove('show'), ms); };
   const serialize = () => ({
-    money: S.money, time: S.time, vis: S.vis, skill: S.skill, xp: S.xp, pokale: S.pokale, skins: S.skins, skin: S.skin, ausr: S.ausr, mode: S.mode, faultIn: S.faultIn, tut: S.tut, faultsFixed: S.faultsFixed, passes: S.passes,
+    money: S.money, bezirkSumme: S.bezirkSumme, time: S.time, vis: S.vis, skill: S.skill, xp: S.xp, pokale: S.pokale, skins: S.skins, skin: S.skin, ausr: S.ausr, mode: S.mode, faultIn: S.faultIn, tut: S.tut, faultsFixed: S.faultsFixed, passes: S.passes,
     anyFault: S.anyFault, openedLine: S.openedLine, nextId: S.nextId,
-    lines: S.lines.map((l: any) => ({ a: l.a, b: l.b, cond: l.cond, inF: l.inF, inO: l.inO, up: l.up, rep: l.rep, fault: l.fault, color: l.color, cls: l.cls })),
+    lines: S.lines.map((l: any) => ({ a: l.a, b: l.b, cond: l.cond, inF: l.inF, inO: l.inO, up: l.up, rep: l.rep, fault: l.fault, color: l.color, cls: l.cls, verlust: l.verlust, inspAb: l.inspAb })),
     own: S.trains.filter((t: any) => t.own),
   });
   const save = () => { if (RO || !alive) return; opts.onSave(serialize(), S.money); };
@@ -786,8 +1049,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       if (!d || !Array.isArray(d.lines)) return false;
       fresh();
       // vis auf die aktuelle Staedteliste bringen (alte Staende kennen weniger Staedte).
-      Object.assign(S, { money: d.money, time: d.time, vis: CITIES.map((_, i) => !!d.vis?.[i]), skill: d.skill, mode: d.mode ?? 0, faultIn: d.faultIn ?? modeInterval(d.mode ?? 0), tut: d.tut, faultsFixed: d.faultsFixed, passes: d.passes, anyFault: d.anyFault, openedLine: d.openedLine, nextId: d.nextId });
-      d.lines.forEach((o: any) => { const L: any = addLine(o.a, o.b); Object.assign(L, { cond: o.cond, inF: o.inF, inO: o.inO, up: o.up, rep: o.rep, fault: o.fault, color: o.color, cls: o.cls ?? 1 }); });
+      Object.assign(S, { money: Math.max(0, d.money || 0), bezirkSumme: d.bezirkSumme || 0, time: d.time, vis: CITIES.map((_, i) => !!d.vis?.[i]), skill: d.skill, mode: d.mode ?? 0, faultIn: d.faultIn ?? modeInterval(d.mode ?? 0), tut: d.tut, faultsFixed: d.faultsFixed, passes: d.passes, anyFault: d.anyFault, openedLine: d.openedLine, nextId: d.nextId });
+      d.lines.forEach((o: any) => { const L: any = addLine(o.a, o.b); Object.assign(L, { cond: o.cond, inF: o.inF, inO: o.inO, up: o.up, rep: o.rep, fault: o.fault, color: o.color, cls: o.cls ?? 1, verlust: o.verlust || 0, inspAb: o.inspAb || 0 }); });
       S.trains = d.own || [];
       // Alte Staende ohne Erfahrung: aus dem bisherigen Fortschritt schaetzen. Alte Strecken gelten als Hauptbahn (cls 1, s. o.).
       S.pokale = d.pokale ?? 0; S.skins = d.skins ?? ['standard']; S.skin = d.skin ?? 'standard'; S.ausr = d.ausr ?? [];
@@ -814,7 +1077,11 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   raf = requestAnimationFrame(loop);
 
   return {
-    welt: () => ({ S, sel, CITIES, DIFF, posAt, skin: skinFarbe() }),
+    welt: () => ({ S, sel, CITIES, DIFF, posAt, skin: skinFarbe(), welt }),
+    setzeWelt: (w: any) => { welt = w; },
+    bezahlt: (preis: number, text: string) => { S.money = Math.max(0, S.money - preis); addXp(8); toast(text, 3500); save(); },
+    gutschrift: (betrag: number, text: string) => { S.money += betrag; toast(text + ' +' + fmt(betrag), 5000); save(); },
+    meldung: (text: string) => toast(text, 4000),
     belohnung: (xp: number, pokale: number, text: string) => {
       S.pokale = (S.pokale || 0) + pokale;
       toast(text + ' +' + pokale + ' 🏆, +' + xp + ' Erfahrung', 4000);

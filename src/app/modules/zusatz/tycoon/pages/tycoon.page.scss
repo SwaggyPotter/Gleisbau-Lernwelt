@@ -94,6 +94,13 @@
   button.on { background: var(--skin-accent, #ff8a3d); color: var(--skin-on-primary, #0f1b24); border-color: transparent; } }
 .tc-hinweis { padding: 8px 12px; border-radius: 8px; background: var(--skin-surface, #16242f); border: 1px solid var(--skin-accent, #ff8a3d); }
 .tc-erklaerung { color: var(--skin-text-muted, #8ca3af); font-size: 14px; }
+.clanpunkt { display: inline-block; width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .5); padding: 0; vertical-align: middle; }
+.tc-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  input { font: inherit; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--skin-border, rgba(111, 168, 220, 0.4)); background: transparent; color: inherit; min-width: 0; flex: 1 1 200px; }
+  input.kurz { flex: 0 1 110px; }
+  .farbwahl { display: flex; gap: 6px; }
+  .farbwahl .clanpunkt { width: 24px; height: 24px; cursor: pointer; }
+  .farbwahl .clanpunkt.on { border-color: #fff; box-shadow: 0 0 0 2px var(--skin-accent, #ff8a3d); } }
 
 /* ---------- Spiel (aus der Demo uebernommen, auf .tycoon begrenzt) ---------- */
 .tycoon {
@@ -158,6 +165,17 @@
   .shopbtn { font-weight: 600; }
   .farbpunkt { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 6px; vertical-align: -2px; border: 1px solid rgba(0,0,0,.25); }
   .tabs { flex-wrap: wrap; }
+  .bezirk { display: flex; align-items: center; gap: 6px; padding: 4px 0; border-top: 1px solid var(--line); }
+  .bezirk .bz-n { flex: 1; min-width: 0; }
+  .bezirk button { flex: none; }
+  .bezirk { cursor: pointer; }
+  .bezirk.gewaehlt { background: rgba(228, 87, 46, .08); box-shadow: inset 3px 0 0 #e4572e; }
+  .bz-wahl { margin: 6px 0; font-weight: 600; .bezirk { border-top: 0; } }
+  .bz-plan { display: block; width: 100%; max-height: 280px; margin: 4px 0; background: #cfe0ea; border-radius: 8px; cursor: pointer; touch-action: manipulation; }
+  .bz-plan path:hover { fill-opacity: .75; }
+  #modal .opts button.good { background: #2e8b57; color: #fff; border-color: #2e8b57; opacity: 1; }
+  #modal .opts button.bad { background: #c0392b; color: #fff; border-color: #c0392b; opacity: 1; }
+  #modal a { color: #2e86ab; }
   #modal .opts { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
   #modal button.good { background: #2e8b57; color: #fff; border-color: #2e8b57; }
   #modal button.bad { background: #c0392b; color: #fff; border-color: #c0392b; }

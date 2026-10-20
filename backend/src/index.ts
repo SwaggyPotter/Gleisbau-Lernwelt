@@ -217,6 +217,37 @@ const runStartupMigrations = async () => {
       abgeholt_h boolean NOT NULL DEFAULT false,
       abgeholt_g boolean NOT NULL DEFAULT false
     )`);
+    // Tycoon-Bezirke: gemeinsame Karte, jeder Bezirk gehoert hoechstens einem Spieler.
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_bezirke (
+      stadt integer NOT NULL,
+      bezirk integer NOT NULL,
+      owner uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      basis integer NOT NULL,
+      seit timestamptz NOT NULL DEFAULT now(),
+      geschuetzt_bis timestamptz NOT NULL DEFAULT now(),
+      PRIMARY KEY (stadt, bezirk)
+    )`);
+    // Gutschriften (z. B. Entschaedigung, wenn ein Bezirk uebernommen wird) -- der Client holt sie ab.
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_gutschriften (
+      id serial PRIMARY KEY,
+      user_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      betrag integer NOT NULL,
+      text text NOT NULL,
+      erstellt timestamptz NOT NULL DEFAULT now(),
+      abgeholt boolean NOT NULL DEFAULT false
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_clans (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      name text NOT NULL UNIQUE,
+      kuerzel text NOT NULL UNIQUE,
+      farbe text NOT NULL,
+      erstellt timestamptz NOT NULL DEFAULT now()
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_clan_mitglieder (
+      user_id uuid PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+      clan_id uuid NOT NULL REFERENCES tycoon_clans(id) ON DELETE CASCADE,
+      seit timestamptz NOT NULL DEFAULT now()
+    )`);
 
     await seedAchievements();
     await purgeDueDeletedUsers();

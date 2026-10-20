@@ -26,7 +26,8 @@ import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture';
 import { PointerEventTypes } from '@babylonjs/core/Events/pointerEvents';
 import { TycoonDeko } from './tycoon-deko';
-import { KARTE_H, KARTE_W, SC, wx, wz, zeichneKarte } from './tycoon-karte';
+import { bezirkeVon, bezirkRahmen, GROSSSTADT, KARTE_H, KARTE_W, SC, spielerFarbe, wx, wz, zeichneKarte } from './tycoon-karte';
+import { CreateDisc } from '@babylonjs/core/Meshes/Builders/discBuilder';
 import { ZUEGE } from './tycoon-zuege';
 
 /** Was die 2D-Spiel-Engine der 3D-Ansicht pro Bild zur Verfuegung stellt (nur lesen). */
@@ -38,6 +39,8 @@ export interface TycoonWeltDaten {
   posAt: (L: any, s: number) => { x: number; y: number; ang: number };
   /** Lackierung der eigenen Zuege (Hex) oder null fuer die Werkslackierung. */
   skin: string | null;
+  /** Gemeinsame Welt vom Server (Bezirke, Aktivitaet je Stadt) oder null. */
+  welt: any;
 }
 
 const MODELL_PFAD = 'assets/modelle/kenney/';
@@ -102,6 +105,11 @@ export class TycoonWelt3D {
   private stoerungen: Mesh[] = [];
   private readonly auswahlRing: Mesh;
   private readonly deko: TycoonDeko;
+  /** Bezirks-Sektoren und Aktivitaets-Lichter; neu gebaut, wenn sich Besitz/Aktivitaet aendert. */
+  private bezirkSchluessel = '';
+  private bezirkTeile: TransformNode[] = [];
+  private lichter: { knoten: TransformNode; aktiv: boolean }[] = [];
+  private readonly farbMats = new Map<string, StandardMaterial>();
   private tot = false;
 
   constructor(
@@ -174,7 +182,7 @@ export class TycoonWelt3D {
 
     const { CITIES } = daten();
     CITIES.forEach((c, i) => {
-      const sockel = CreateCylinder('stadt' + i, { diameter: 3, height: 0.25, tessellation: 24 }, this.scene);
+      const sockel = CreateCylinder('stadt' + i, { diameter: 1.8, height: 0.25, tessellation: 24 }, this.scene);
       sockel.position.set(wx(c.x), 0.12, wz(c.y));
       sockel.material = this.farbe('stadtMat' + i, '#d9d4c7');
       sockel.isPickable = false;
@@ -387,6 +395,7 @@ export class TycoonWelt3D {
     }
     this.syncStrecken(d);
     this.deko.aktualisiere(d);
+    this.syncBezirke(d);
     this.syncStaedte(d);
     this.syncStoerungen(d);
     this.syncZuege(d);
@@ -521,6 +530,142 @@ export class TycoonWelt3D {
       draht.isPickable = false;
     }
     return { cls, schotter, schienen, draht, schotterMat, holz: cls >= 2 ? [] : schwellen, beton: cls >= 2 ? schwellen : [], masten };
+  }
+
+  private farbMat(hex: string, alpha: number, leuchten = 0.25): StandardMaterial {
+    const key = hex + alpha + leuchten;
+    let m = this.farbMats.get(key);
+    if (!m) {
+      m = new StandardMaterial('farbe' + key, this.scene);
+      m.diffuseColor = Color3.FromHexString(hex);
+      m.emissiveColor = Color3.FromHexString(hex).scale(leuchten);
+      m.specularColor = Color3.Black();
+      m.alpha = alpha;
+      m.backFaceCulling = false;
+      this.farbMats.set(key, m);
+    }
+    return m;
+  }
+
+  /** Selbstleuchtend (unabhaengig vom Licht der Szene) fuer die Aktivitaets-Lichter. */
+  private leuchtMat(hex: string): StandardMaterial {
+    const key = 'leucht' + hex;
+    let m = this.farbMats.get(key);
+    if (!m) {
+      m = new StandardMaterial(key, this.scene);
+      m.emissiveColor = Color3.FromHexString(hex);
+      m.disableLighting = true;
+      this.farbMats.set(key, m);
+    }
+    return m;
+  }
+
+  /**
+   * Echte Bezirksgrenzen einer Stadt als Bodenbild (eine Flaeche mit Textur): Besitz farbig, freie Bezirke hell, alle umrandet.
+   * Kleine Staedte werden vergroessert (hoechstens bis knapp vor die naechste Stadt), damit man die Bezirke sieht.
+   */
+  private bezirkFlaeche(d: TycoonWeltDaten, i: number, w: any): void {
+    const rahmen = bezirkRahmen(i)!, c = d.CITIES[i];
+    const bw = rahmen.x1 - rahmen.x0, bh = rahmen.y1 - rahmen.y0, radius = Math.max(bw, bh) / 2 || 1;
+    const naechste = Math.min(...d.CITIES.filter((_o, j) => j !== i).map((o) => Math.hypot(o.x - c.x, o.y - c.y)));
+    const s = Math.max(1, Math.min(42 / radius, (naechste * 0.45) / radius));
+    const tw = 512, th = Math.max(64, Math.round((512 * bh) / bw));
+    const tex = new DynamicTexture('bezirkTex' + i, { width: tw, height: th }, this.scene, true);
+    tex.hasAlpha = true;
+    const ctx = tex.getContext() as unknown as CanvasRenderingContext2D;
+    ctx.clearRect(0, 0, tw, th);
+    ctx.lineJoin = 'round';
+    bezirkeVon(i).forEach((b, j) => {
+      const x = (w.bezirke || []).find((o: any) => o.stadt === i && o.bezirk === j);
+      ctx.beginPath();
+      b.ringe.forEach((r) => {
+        for (let q = 0; q < r.length; q += 2) {
+          const px = ((r[q] - rahmen.x0) / bw) * tw, py = ((r[q + 1] - rahmen.y0) / bh) * th;
+          if (q === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+      });
+      if (x) { ctx.fillStyle = x.clanFarbe || spielerFarbe(x.ownerId); ctx.globalAlpha = x.ownerId === w.ich?.id ? 0.78 : 0.55; }
+      else { ctx.fillStyle = '#ffffff'; ctx.globalAlpha = 0.22; }
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = 'rgba(35,38,43,.7)';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    });
+    tex.update();
+    const flaeche = CreateGround('bezirke' + i, { width: bw * s * SC, height: bh * s * SC }, this.scene);
+    // Um den Stadtpunkt vergroessern, damit die Stadt an ihrer Stelle bleibt.
+    const mx = c.x + ((rahmen.x0 + rahmen.x1) / 2 - c.x) * s, my = c.y + ((rahmen.y0 + rahmen.y1) / 2 - c.y) * s;
+    flaeche.position.set(wx(mx), 0.03, wz(my));
+    const mat = new StandardMaterial('bezirkMat' + i, this.scene);
+    mat.diffuseTexture = tex;
+    mat.useAlphaFromDiffuseTexture = true;
+    mat.emissiveColor = new Color3(0.25, 0.25, 0.25);
+    mat.specularColor = Color3.Black();
+    flaeche.material = mat;
+    flaeche.isPickable = false;
+    const halter = new TransformNode('bezirkHalter' + i, this.scene);
+    flaeche.parent = halter;
+    // Beim Neuaufbau mit entsorgen (Textur + Material gehoeren nur dieser Flaeche).
+    halter.onDisposeObservable.add(() => { mat.dispose(true, true); });
+    this.bezirkTeile.push(halter);
+  }
+
+  /** Bezirke als farbige Sektoren um die Stadt (Besitzer- bzw. Clanfarbe) und Lichter fuer die Aktivitaet anderer Spieler. */
+  private syncBezirke(d: TycoonWeltDaten): void {
+    const w = d.welt, S = d.S;
+    const key = w ? JSON.stringify([S.vis, (w.bezirke || []).map((b: any) => [b.stadt, b.bezirk, b.ownerId, b.clanFarbe]), w.staedte, w.ich?.id]) : '';
+    if (key !== this.bezirkSchluessel) {
+      this.bezirkSchluessel = key;
+      this.bezirkTeile.forEach((t) => t.dispose());
+      this.bezirkTeile = [];
+      this.lichter = [];
+      if (w) {
+        d.CITIES.forEach((c, i) => {
+          if (!S.vis[i]) return;
+          if (bezirkRahmen(i)) { this.bezirkFlaeche(d, i, w); return; }
+          const bz = bezirkeVon(i), r = GROSSSTADT.has(c.n) ? 5.6 : 4.6;
+          bz.forEach((_b, j) => {
+            const x = (w.bezirke || []).find((b: any) => b.stadt === i && b.bezirk === j);
+            if (!x) return;
+            const mein = x.ownerId === w.ich?.id;
+            const halter = new TransformNode('bezirk', this.scene);
+            halter.position.set(wx(c.x), 0.035, wz(c.y));
+            halter.rotation.y = (j * Math.PI * 2) / bz.length;
+            const sektor = CreateDisc('sektor', { radius: r, arc: 1 / bz.length, tessellation: 32 }, this.scene);
+            sektor.rotation.x = Math.PI / 2;
+            sektor.parent = halter;
+            sektor.isPickable = false;
+            sektor.material = this.farbMat(x.clanFarbe || spielerFarbe(x.ownerId), mein ? 0.62 : 0.42);
+            this.bezirkTeile.push(halter);
+          });
+        });
+        (w.staedte || []).forEach((st: any) => {
+          const c = d.CITIES[st.stadt];
+          if (!c || !S.vis[st.stadt] || !st.spieler) return;
+          const knoten = new TransformNode('lichter', this.scene);
+          knoten.position.set(wx(c.x), 2.4, wz(c.y));
+          const n = Math.min(6, st.spieler), aktiv = st.aktiv > 0;
+          for (let k = 0; k < n; k++) {
+            const kugel = CreateSphere('licht', { diameter: k < st.aktiv ? 1.25 : 0.9, segments: 12 }, this.scene);
+            kugel.parent = knoten;
+            kugel.isPickable = false;
+            const a = (k / n) * Math.PI * 2;
+            kugel.position.set(Math.cos(a) * 2.7, 0, Math.sin(a) * 2.7);
+            kugel.material = this.leuchtMat(k < st.aktiv ? '#ffc400' : '#8fa3b8');
+          }
+          this.bezirkTeile.push(knoten);
+          this.lichter.push({ knoten, aktiv });
+        });
+      }
+    }
+    // Lichter kreisen; wo gerade jemand aktiv ist, schneller und pulsierend.
+    const t = performance.now() / 1000;
+    this.lichter.forEach((l) => {
+      l.knoten.rotation.y = t * (l.aktiv ? 0.9 : 0.25);
+      l.knoten.position.y = 2.4 + (l.aktiv ? Math.sin(t * 3) * 0.25 : 0);
+    });
   }
 
   private syncStoerungen(d: TycoonWeltDaten): void {

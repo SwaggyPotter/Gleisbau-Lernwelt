@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { startTycoon, TycoonHandle } from '../tycoon-engine';
-import { TycoonAnsicht, TycoonApiService, TycoonDuell, TycoonEintrag } from '../tycoon-api.service';
+import { TycoonAnsicht, TycoonApiService, TycoonClan, TycoonDuell, TycoonEintrag } from '../tycoon-api.service';
+import { CITIES, bezirkeVon } from '../tycoon-karte';
 import { KLASSEN, levelAus } from '../tycoon-zuege';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -35,7 +36,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   /** Freie Kamera (drehen/zoomen) statt starrer Kartenansicht. Standard: starr. */
   kameraFrei = this.lese(KAMERA_KEY, false);
 
-  tab: 'spiel' | 'rangliste' | 'duelle' = 'spiel';
+  tab: 'spiel' | 'rangliste' | 'duelle' | 'clans' = 'spiel';
   geladen = false;
   fehler = '';
   geteilt = false;
@@ -49,10 +50,18 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   rangGeladen = false;
   rangFehler = false;
   /** Sortierung der Rangliste. */
-  rangNach: 'level' | 'geld' | 'strecken' | 'siege' = 'level';
-  readonly rangKategorien: { id: 'level' | 'geld' | 'strecken' | 'siege'; n: string }[] = [
-    { id: 'level', n: 'Level' }, { id: 'geld', n: 'Guthaben' }, { id: 'strecken', n: 'Strecken' }, { id: 'siege', n: 'Duell-Siege' },
+  rangNach: 'level' | 'geld' | 'strecken' | 'bezirke' | 'siege' = 'level';
+  readonly rangKategorien: { id: 'level' | 'geld' | 'strecken' | 'bezirke' | 'siege'; n: string }[] = [
+    { id: 'level', n: 'Level' }, { id: 'geld', n: 'Guthaben' }, { id: 'strecken', n: 'Strecken' }, { id: 'bezirke', n: 'Bezirke' }, { id: 'siege', n: 'Duell-Siege' },
   ];
+  clans: TycoonClan[] = [];
+  meinClan: string | null = null;
+  clanFarben: string[] = [];
+  clanMeldung = '';
+  neuName = '';
+  neuKuerzel = '';
+  neuFarbe = '';
+  private weltTimer: ReturnType<typeof setInterval> | null = null;
   readonly klassen = KLASSEN;
   readonly level = levelAus;
   duelle: TycoonDuell[] = [];
@@ -89,6 +98,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroyed = true;
+    if (this.weltTimer) clearInterval(this.weltTimer);
     this.zeigeVorschau(null, 0);
     this.welt?.zerstoeren();
     this.welt = null;
@@ -103,6 +113,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
       readOnly,
       onSave: data => this.queueSave(data),
       onVorschau: (el, typ) => this.zeigeVorschau(el, typ),
+      onBezirk: (stadt, bezirk, basis) => this.kaufeBezirk(stadt, bezirk, basis),
       onReset: () => {
         this.pending = null;
         if (this.saveTimer) { clearTimeout(this.saveTimer); this.saveTimer = null; }
@@ -112,6 +123,59 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
       },
     });
     this.starteWelt();
+    if (!readOnly) {
+      this.ladeWelt();
+      this.weltTimer = setInterval(() => this.ladeWelt(), 30000);
+    }
+  }
+
+  /** Gemeinsame Welt laden und offene Gutschriften (Entschaedigungen) gleich gutschreiben. */
+  private ladeWelt(): void {
+    this.api.welt().subscribe({
+      next: (w) => {
+        this.handle?.setzeWelt(w);
+        if (w.gutschriftenOffen > 0) {
+          this.api.gutschriftenAbholen().subscribe((g) => {
+            if (g.summe > 0) this.handle?.gutschrift(g.summe, g.eintraege.length === 1 ? g.eintraege[0].text : g.eintraege.length + ' deiner Bezirke wurden übernommen – Entschädigung');
+          });
+        }
+      },
+      error: () => undefined,
+    });
+  }
+
+  private kaufeBezirk(stadt: number, bezirk: number, basis: number): void {
+    this.sicher().pipe(switchMap(() => this.api.bezirkKaufen(stadt, bezirk, basis))).subscribe({
+      next: (r) => {
+        const name = bezirkeVon(stadt)[bezirk]?.n + ' in ' + CITIES[stadt]?.n;
+        this.handle?.bezahlt(r.preis, (r.uebernommen ? '⚔ Bezirk übernommen: ' : '🏙 Bezirk gekauft: ') + name);
+        this.ladeWelt();
+      },
+      error: (err) => { this.handle?.meldung(err?.error?.error ?? 'Kauf nicht möglich.'); this.ladeWelt(); },
+    });
+  }
+
+  ladeClans(): void {
+    this.api.clans().subscribe({
+      next: (r) => { this.clans = r.clans; this.meinClan = r.meinClan; this.clanFarben = r.farben; if (!this.neuFarbe) this.neuFarbe = r.farben[0]; },
+      error: () => (this.clanMeldung = 'Clans konnten nicht geladen werden.'),
+    });
+  }
+
+  clanGruenden(): void {
+    this.clanMeldung = '';
+    this.api.clanGruenden(this.neuName, this.neuKuerzel, this.neuFarbe).subscribe({
+      next: () => { this.clanMeldung = 'Clan „' + this.neuName + '“ gegründet!'; this.neuName = ''; this.neuKuerzel = ''; this.ladeClans(); this.ladeWelt(); },
+      error: (err) => (this.clanMeldung = err?.error?.error === 'Invalid request payload' ? 'Name 3–30 Zeichen, Kürzel 2–4 Buchstaben/Ziffern.' : err?.error?.error ?? 'Gründen nicht möglich.'),
+    });
+  }
+
+  clanBeitreten(c: TycoonClan): void {
+    this.api.clanBeitreten(c.id).subscribe({ next: () => { this.clanMeldung = 'Willkommen bei ' + c.name + '!'; this.ladeClans(); this.ladeWelt(); }, error: () => (this.clanMeldung = 'Beitritt nicht möglich.') });
+  }
+
+  clanAustreten(): void {
+    this.api.clanAustreten().subscribe({ next: () => { this.clanMeldung = 'Du bist ausgetreten.'; this.ladeClans(); this.ladeWelt(); }, error: () => (this.clanMeldung = 'Austritt nicht möglich.') });
   }
 
   schalte3d(): void {
@@ -190,15 +254,16 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     });
   }
 
-  wechsle(t: 'spiel' | 'rangliste' | 'duelle'): void {
+  wechsle(t: 'spiel' | 'rangliste' | 'duelle' | 'clans'): void {
     this.tab = t;
     if (t === 'rangliste') this.ladeRangliste();
     if (t === 'duelle') this.ladeDuelle();
+    if (t === 'clans') this.ladeClans();
   }
 
   get rangSortiert(): TycoonEintrag[] {
     const wert = (e: TycoonEintrag) =>
-      this.rangNach === 'geld' ? e.money : this.rangNach === 'strecken' ? e.lines : this.rangNach === 'siege' ? e.siege : e.xp;
+      this.rangNach === 'geld' ? e.money : this.rangNach === 'strecken' ? e.lines : this.rangNach === 'bezirke' ? e.bezirke : this.rangNach === 'siege' ? e.siege : e.xp;
     return [...this.rang].sort((a, b) => wert(b) - wert(a) || b.money - a.money);
   }
 

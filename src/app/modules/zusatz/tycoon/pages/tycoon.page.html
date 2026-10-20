@@ -16,6 +16,7 @@
       <ng-container *ngIf="!ansichtVon">
         <button type="button" [class.on]="tab === 'spiel'" (click)="wechsle('spiel')">Spiel</button>
         <button type="button" [class.on]="tab === 'rangliste'" (click)="wechsle('rangliste')">Rangliste</button>
+        <button type="button" [class.on]="tab === 'duelle'" (click)="wechsle('duelle')">⚔ Duelle</button>
         <label class="tc-share" *ngIf="geladen && !fehler">
           <input type="checkbox" [checked]="geteilt" [disabled]="teilenBusy" (change)="teilen($any($event.target).checked)" />
           Netz zum Ansehen freigeben
@@ -25,7 +26,7 @@
       </ng-container>
       <ng-container *ngIf="ansichtVon">
         <button type="button" routerLink="/zusatz/tycoon">← Zurück</button>
-        <span class="tc-meta"><b>Netz von {{ ansichtVon.name }}</b> · Guthaben {{ ansichtVon.money | number:'1.0-0':'de' }} € · 👁 {{ besucher }} Besucher</span>
+        <span class="tc-meta"><b>Netz von {{ ansichtVon.name }}</b> · Guthaben {{ eur(ansichtVon.money) }} € · 👁 {{ besucher }} Besucher</span>
       </ng-container>
       <button type="button" class="tc-3d" *ngIf="geladen && !fehler && tab === 'spiel'" [class.on]="ansicht3d" (click)="schalte3d()">3D-Ansicht</button>
       <button type="button" *ngIf="geladen && !fehler && tab === 'spiel' && ansicht3d" [class.on]="kameraFrei" (click)="schalteKamera()" title="Aus: feste Kartenansicht, die dem Netz folgt">Kamera frei</button>
@@ -40,7 +41,9 @@
           <b>🚆 {{ ansichtVon ? ansichtVon.name : 'Gleisbau Tycoon' }}</b>
           <span>Guthaben: <span id="money">0 €</span></span>
           <span id="day">Tag 1</span>
+          <span id="lvl" class="lvl"></span>
           <span class="sp" id="speeds">
+            <button data-act="shop" class="shopbtn">🛒 Shop</button>
             <button data-act="speed" data-arg="0">⏸</button>
             <button data-act="speed" data-arg="1" class="on">1×</button>
             <button data-act="speed" data-arg="2">2×</button>
@@ -57,20 +60,59 @@
     </div>
 
     <div class="tc-rang" [hidden]="tab !== 'rangliste'">
-      <h2>Rangliste nach Guthaben</h2>
+      <h2>Rangliste</h2>
+      <div class="tc-kat">
+        <button type="button" *ngFor="let k of rangKategorien" [class.on]="rangNach === k.id" (click)="rangNach = k.id">{{ k.n }}</button>
+      </div>
       <p class="tc-fehler" *ngIf="rangFehler">Rangliste konnte nicht geladen werden.</p>
       <p *ngIf="rangGeladen && !rangFehler && rang.length === 0">Noch niemand im Spiel.</p>
+      <p class="tc-hinweis" *ngIf="duellMeldung">{{ duellMeldung }}</p>
       <ol class="tc-liste">
-        <li *ngFor="let e of rang" [class.me]="e.isMe">
-          <span class="rk">{{ e.rank }}</span>
+        <li *ngFor="let e of rangSortiert; let i = index" [class.me]="e.isMe">
+          <span class="rk">{{ i + 1 }}</span>
           <span class="nm">{{ e.name }}<small *ngIf="e.isMe"> (du)</small></span>
-          <span class="mo">{{ e.money | number:'1.0-0':'de' }} €</span>
-          <span class="mt">{{ e.lines }} Strecken · {{ e.trains }} Züge · {{ modi[e.mode] || modi[0] }} · 👁 {{ e.visitors }}</span>
-          <button type="button" *ngIf="e.shared || e.isMe" [routerLink]="['/zusatz/tycoon', e.userId]">Ansehen</button>
-          <span class="mt" *ngIf="!e.shared && !e.isMe">nicht freigegeben</span>
+          <span class="mo">⭐ {{ level(e.xp) }} · {{ eur(e.money) }} €</span>
+          <span class="mt">{{ e.lines }} Strecken · {{ e.trains }} Züge · bis {{ klassen[e.maxCls]?.kmh || 100 }} km/h · 🏆 {{ e.siege }} Siege · 👁 {{ e.visitors }}</span>
+          <span class="ak">
+            <button type="button" *ngIf="e.shared || e.isMe" [routerLink]="['/zusatz/tycoon', e.userId]">Ansehen</button>
+            <ng-container *ngIf="!e.isMe">
+              <button type="button" (click)="herausfordern(e, 1)" title="Wer erwirtschaftet in 1 Stunde mehr Einnahmen?">⚔ 1 Std.</button>
+              <button type="button" (click)="herausfordern(e, 24)" title="Wer erwirtschaftet in 24 Stunden mehr Einnahmen?">⚔ 24 Std.</button>
+            </ng-container>
+          </span>
         </li>
       </ol>
       <button type="button" (click)="ladeRangliste()">Aktualisieren</button>
+    </div>
+
+    <div class="tc-rang" [hidden]="tab !== 'duelle'">
+      <h2>⚔ Duelle</h2>
+      <p class="tc-erklaerung">Fordere in der Rangliste jemanden heraus. Sobald das Duell angenommen ist, zählt, wer in der Laufzeit
+        (1 oder 24 Stunden) <b>mehr Einnahmen</b> erwirtschaftet – Trassenentgelt plus Miete. Es läuft nur, solange gespielt wird.
+        Belohnung: Sieg 3 🏆 + 100 Erfahrung, Unentschieden 2 🏆 + 50, Niederlage 1 🏆 + 20. Pokale gibt es im Shop gegen besondere Lackierungen und Ausrüstung.</p>
+      <p class="tc-hinweis" *ngIf="duellMeldung">{{ duellMeldung }}</p>
+      <p *ngIf="duelleGeladen && duelle.length === 0">Noch keine Duelle. Fordere jemanden in der Rangliste heraus!</p>
+      <ol class="tc-liste">
+        <li *ngFor="let d of duelle" [class.me]="d.status === 'fertig' && d.ergebnis === 'sieg'">
+          <span class="rk">{{ d.status === 'fertig' ? (d.ergebnis === 'sieg' ? '🏆' : d.ergebnis === 'remis' ? '🤝' : '–') : d.status === 'laeuft' ? '⏱' : '✉' }}</span>
+          <span class="nm">{{ d.rolle === 'gegner' && d.status === 'offen' ? d.gegnerName + ' fordert dich heraus' : 'gegen ' + d.gegnerName }} <small>({{ d.stunden }} Std.)</small></span>
+          <span class="mo" *ngIf="d.status !== 'offen'">Du +{{ eur(d.meinZuwachs) }} € · {{ d.gegnerName }} +{{ eur(d.gegnerZuwachs) }} €</span>
+          <span class="mt">
+            <ng-container *ngIf="d.status === 'offen' && d.rolle === 'herausforderer'">Wartet auf Annahme.</ng-container>
+            <ng-container *ngIf="d.status === 'laeuft'">Läuft noch {{ restzeit(d) }}</ng-container>
+            <ng-container *ngIf="d.status === 'fertig'">{{ d.ergebnis === 'sieg' ? 'Gewonnen!' : d.ergebnis === 'remis' ? 'Unentschieden.' : 'Verloren.' }}{{ d.abgeholt ? ' Belohnung abgeholt.' : '' }}</ng-container>
+          </span>
+          <span class="ak">
+            <ng-container *ngIf="d.status === 'offen' && d.rolle === 'gegner'">
+              <button type="button" (click)="annehmen(d)">Annehmen</button>
+              <button type="button" (click)="ablehnen(d)">Ablehnen</button>
+            </ng-container>
+            <button type="button" *ngIf="d.status === 'offen' && d.rolle === 'herausforderer'" (click)="ablehnen(d)">Zurückziehen</button>
+            <button type="button" *ngIf="d.status === 'fertig' && !d.abgeholt" (click)="abholen(d)">Belohnung abholen</button>
+          </span>
+        </li>
+      </ol>
+      <button type="button" (click)="ladeDuelle()">Aktualisieren</button>
     </div>
   </div>
 </ion-content>

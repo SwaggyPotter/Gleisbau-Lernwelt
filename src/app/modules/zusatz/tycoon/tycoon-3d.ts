@@ -27,6 +27,7 @@ import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTextur
 import { PointerEventTypes } from '@babylonjs/core/Events/pointerEvents';
 import { TycoonDeko } from './tycoon-deko';
 import { KARTE_H, KARTE_W, SC, wx, wz, zeichneKarte } from './tycoon-karte';
+import { ZUEGE } from './tycoon-zuege';
 
 /** Was die 2D-Spiel-Engine der 3D-Ansicht pro Bild zur Verfuegung stellt (nur lesen). */
 export interface TycoonWeltDaten {
@@ -35,25 +36,43 @@ export interface TycoonWeltDaten {
   CITIES: { n: string; x: number; y: number }[];
   DIFF: { col: string }[];
   posAt: (L: any, s: number) => { x: number; y: number; ang: number };
+  /** Lackierung der eigenen Zuege (Hex) oder null fuer die Werkslackierung. */
+  skin: string | null;
 }
 
 const MODELL_PFAD = 'assets/modelle/kenney/';
-/** Modelle je Lok-Typ (Index wie TRAINS in tycoon-engine.ts). Kenney Train Kit, CC0. */
-export const ZUG_MODELLE: { lok: string; wagen: string[] }[] = [
-  { lok: 'train-locomotive-a', wagen: ['train-carriage-coal', 'train-carriage-wood'] },
-  { lok: 'train-diesel-a', wagen: ['train-carriage-container-red', 'train-carriage-container-blue'] },
-  { lok: 'train-electric-city-a', wagen: ['train-electric-city-a'] },
-  { lok: 'train-electric-bullet-a', wagen: ['train-electric-double-a'] },
-];
 /** Fremdzuege (zahlen Trassenentgelt): Gueterzug mit Diesellok. */
-const FREMD_MODELL = { lok: 'train-diesel-b', wagen: ['train-carriage-box', 'train-carriage-tank'] };
-export const lokDatei = (typ: number): string => MODELL_PFAD + (ZUG_MODELLE[typ] ?? ZUG_MODELLE[1]).lok + '.glb';
+const FREMD_MODELL: { lok: string; wagen: string[]; ende?: string } = { lok: 'train-diesel-b', wagen: ['train-carriage-box', 'train-carriage-tank'] };
+/** Abstand der Oberleitungsmasten (3D-Einheiten). */
+const MAST_ABSTAND = 3;
+/** Modelle je Zug-Typ stehen in tycoon-zuege.ts (ZUEGE[typ].modell). */
+export const lokDatei = (typ: number): string => MODELL_PFAD + (ZUEGE[typ] ?? ZUEGE[1]).modell.lok + '.glb';
+/** Alle Fahrzeug-Dateien eines Zug-Typs in Reihenfolge (wie auf der Karte); umgedreht = letztes ist ein Endkopf. */
+export const zugDateien = (typ: number): { dateien: string[]; umgedreht: boolean } => {
+  const z = ZUEGE[typ] ?? ZUEGE[1], m = z.modell, dateien: string[] = [];
+  for (let i = 0; i < z.len; i++) {
+    dateien.push(MODELL_PFAD + (i === 0 ? m.lok : i === z.len - 1 && m.ende ? m.ende : m.wagen[(i - 1) % m.wagen.length]) + '.glb');
+  }
+  return { dateien, umgedreht: !!m.ende };
+};
 
 const WAGEN_LAENGE = 2.0;
 const WAGEN_ABSTAND = 2.15;
 /** Abstand der Schienen von der Gleismitte und Schwellenabstand (3D-Einheiten). */
 const SCHIENE = 0.27;
 const SCHWELLEN_ABSTAND = 0.42;
+
+/** Ein gebautes Gleis in 3D. Bei Ausbau (cls) wird es neu erzeugt. */
+interface Gleis {
+  cls: number;
+  schotter: Mesh;
+  schienen: Mesh[];
+  draht: Mesh | null;
+  schotterMat: StandardMaterial;
+  holz: number[];
+  beton: number[];
+  masten: number[];
+}
 
 interface Vorlage { container: AssetContainer; drehY: number; skala: number; versatz: Vector3 }
 
@@ -69,8 +88,11 @@ export class TycoonWelt3D {
   private readonly vorlagen = new Map<string, Vorlage | 'laedt'>();
   private readonly zuege = new Map<number, { schluessel: string; wagen: TransformNode[] }>();
   private readonly staedte: { sockel: Mesh; schild: Mesh }[] = [];
-  private strecken: { schotter: Mesh; schienen: Mesh[]; schotterMat: StandardMaterial; schwellen: number[] }[] = [];
+  private strecken: Gleis[] = [];
   private readonly schwellen: Mesh;
+  private readonly betonSchwellen: Mesh;
+  private readonly masten: Mesh;
+  private readonly drahtMat: StandardMaterial;
   private readonly schieneMat: StandardMaterial;
   private readonly schieneAnMat: StandardMaterial;
   private frei = false;
@@ -129,6 +151,23 @@ export class TycoonWelt3D {
     this.schwellen.isPickable = false;
     this.schwellen.alwaysSelectAsActiveMesh = true;
     this.schwellen.setEnabled(false);
+    // Ab Ausbaustrecke: Betonschwellen
+    this.betonSchwellen = CreateBox('betonschwelle', { width: 0.9, height: 0.08, depth: 0.2 }, this.scene);
+    this.betonSchwellen.material = this.farbe('betonMat', '#b4b2ab');
+    this.betonSchwellen.isPickable = false;
+    this.betonSchwellen.alwaysSelectAsActiveMesh = true;
+    this.betonSchwellen.setEnabled(false);
+    // Oberleitungsmast: Mast neben dem Gleis + Ausleger zur Gleismitte (lokal +x), als ein Mesh
+    const stange = CreateBox('mastStange', { width: 0.08, height: 1.65, depth: 0.08 }, this.scene);
+    stange.position.y = 0.82;
+    const arm = CreateBox('mastArm', { width: 0.85, height: 0.05, depth: 0.05 }, this.scene);
+    arm.position.set(0.42, 1.55, 0);
+    this.masten = Mesh.MergeMeshes([stange, arm], true)!;
+    this.masten.material = this.farbe('mastMat', '#5f6670');
+    this.masten.isPickable = false;
+    this.masten.alwaysSelectAsActiveMesh = true;
+    this.masten.setEnabled(false);
+    this.drahtMat = this.farbe('drahtMat', '#2b2f33');
     this.schieneMat = this.farbe('schieneMat', '#a7adb4');
     this.schieneMat.specularColor = new Color3(0.5, 0.5, 0.5);
     this.schieneAnMat = this.farbe('schieneAnMat', '#ffb347', true);
@@ -305,7 +344,7 @@ export class TycoonWelt3D {
     return null;
   }
 
-  private baueWagen(id: string): TransformNode | null {
+  private baueWagen(id: string, farbe: string | null = null): TransformNode | null {
     const v = this.vorlage(id);
     if (!v) return null;
     const wagen = new TransformNode('wagen-' + id, this.scene);
@@ -314,10 +353,24 @@ export class TycoonWelt3D {
     halter.position.copyFrom(v.versatz);
     halter.rotation.y = v.drehY;
     halter.scaling.setAll(v.skala);
-    const inst = v.container.instantiateModelsToScene((n) => n, false, { doNotInstantiate: true });
+    // Mit Lackierung: eigene Materialkopien (Textur bleibt geteilt), Farbe wird mit der Textur multipliziert.
+    const inst = v.container.instantiateModelsToScene((n) => n, !!farbe, { doNotInstantiate: true });
     inst.rootNodes.forEach((r) => (r.parent = halter));
-    wagen.getChildMeshes().forEach((m) => (m.isPickable = false));
+    const ton = farbe ? Color3.White().scale(0.3).add(Color3.FromHexString(farbe).scale(0.7)) : null;
+    wagen.getChildMeshes().forEach((m) => {
+      m.isPickable = false;
+      const mat = m.material as any;
+      if (ton && mat) { if ('albedoColor' in mat) mat.albedoColor = ton; else if ('diffuseColor' in mat) mat.diffuseColor = ton; }
+    });
+    (wagen as any).eigeneMaterialien = !!farbe;
     return wagen;
+  }
+
+  /** Wagen entfernen; kopierte Materialien mit, die geteilte Textur aber nicht. */
+  private entsorge(w: TransformNode): void {
+    const mats = (w as any).eigeneMaterialien ? w.getChildMeshes().map((m) => m.material).filter((m) => !!m) : [];
+    w.dispose();
+    mats.forEach((m) => m!.dispose(false, false));
   }
 
   /* ---------- Bild-Aktualisierung ---------- */
@@ -374,28 +427,52 @@ export class TycoonWelt3D {
 
   private syncStrecken(d: TycoonWeltDaten): void {
     const S = d.S;
-    if (this.streckenS !== S || this.strecken.length !== S.lines.length) {
-      if (this.streckenS !== S) {
-        this.strecken.forEach((s) => { s.schotter.dispose(); s.schienen.forEach((m) => m.dispose()); s.schotterMat.dispose(); });
-        this.strecken = [];
-        this.streckenS = S;
-      }
-      for (let i = this.strecken.length; i < S.lines.length; i++) this.strecken.push(this.baueGleis(S.lines[i], i));
-      // Alle Schwellen aller Strecken als Thin Instances eines einzigen Quaders.
-      const alle = this.strecken.flatMap((s) => s.schwellen);
-      if (alle.length) this.schwellen.thinInstanceSetBuffer('matrix', new Float32Array(alle), 16, true);
-      this.schwellen.setEnabled(alle.length > 0);
+    let neu = false;
+    if (this.streckenS !== S) {
+      this.strecken.forEach((g) => this.entferneGleis(g));
+      this.strecken = [];
+      this.streckenS = S;
+      neu = true;
     }
-    this.strecken.forEach((s, i) => {
+    // Neue Strecken anlegen, ausgebaute (andere Klasse) neu erzeugen.
+    S.lines.forEach((L: any, i: number) => {
+      const g = this.strecken[i];
+      if (g && g.cls === (L.cls ?? 0)) return;
+      if (g) this.entferneGleis(g);
+      this.strecken[i] = this.baueGleis(L, i);
+      neu = true;
+    });
+    if (neu) {
+      // Schwellen und Masten aller Strecken als Thin Instances je eines Meshes.
+      const setze = (mesh: Mesh, werte: number[]) => {
+        if (werte.length) mesh.thinInstanceSetBuffer('matrix', new Float32Array(werte), 16, true);
+        mesh.setEnabled(werte.length > 0);
+      };
+      setze(this.schwellen, this.strecken.flatMap((g) => g.holz));
+      setze(this.betonSchwellen, this.strecken.flatMap((g) => g.beton));
+      setze(this.masten, this.strecken.flatMap((g) => g.masten));
+    }
+    this.strecken.forEach((g, i) => {
       const L = S.lines[i];
       const mat = d.sel.line === i ? this.schieneAnMat : this.schieneMat;
-      s.schienen.forEach((m) => { if (m.material !== mat) m.material = mat; });
-      s.schotterMat.diffuseColor = Color3.FromHexString(L.cond < 25 ? '#b5574b' : L.cond < 50 ? '#b08a50' : '#8d8478');
+      g.schienen.forEach((m) => { if (m.material !== mat) m.material = mat; });
+      g.schotterMat.diffuseColor = Color3.FromHexString(L.cond < 25 ? '#b5574b' : L.cond < 50 ? '#b08a50' : '#8d8478');
     });
   }
 
-  /** Gleis entlang der Streckenkurve: Schotterbett, Schwellen (als Matrizen) und zwei Schienen. */
-  private baueGleis(L: any, i: number): { schotter: Mesh; schienen: Mesh[]; schotterMat: StandardMaterial; schwellen: number[] } {
+  private entferneGleis(g: Gleis): void {
+    g.schotter.dispose();
+    g.schienen.forEach((m) => m.dispose());
+    g.draht?.dispose();
+    g.schotterMat.dispose();
+  }
+
+  /**
+   * Gleis entlang der Streckenkurve: Schotterbett, Schwellen (Holz bzw. ab Ausbaustrecke Beton, als Matrizen),
+   * zwei Schienen und bei elektrifizierten Strecken Oberleitungsmasten mit Fahrdraht.
+   */
+  private baueGleis(L: any, i: number): Gleis {
+    const cls = L.cls ?? 0;
     const pfad: Vector3[] = L.pts.map((p: any) => new Vector3(wx(p.x), 0.05, wz(p.y)));
     const schotter = CreateTube('schotter' + i, { path: pfad, radius: 0.7, tessellation: 10, cap: Mesh.CAP_ALL }, this.scene);
     schotter.scaling.y = 0.2;
@@ -417,21 +494,33 @@ export class TycoonWelt3D {
       m.isPickable = false;
       return m;
     });
-    const schwellen: number[] = [];
-    const m = new Matrix();
-    let rest = SCHWELLEN_ABSTAND / 2;
-    for (let k = 1; k < pfad.length; k++) {
-      const a = pfad[k - 1], b = pfad[k], seg = Vector3.Distance(a, b);
-      const dreh = Math.atan2(b.x - a.x, b.z - a.z);
-      while (rest <= seg) {
-        const f = rest / seg;
-        Matrix.RotationY(dreh).multiplyToRef(Matrix.Translation(a.x + (b.x - a.x) * f, 0.12, a.z + (b.z - a.z) * f), m);
-        for (let q = 0; q < 16; q++) schwellen.push(m.m[q]);
-        rest += SCHWELLEN_ABSTAND;
+    /** Gleichmaessig entlang des Pfads verteilte Matrizen (Drehung in Fahrtrichtung, Versatz quer). */
+    const verteile = (abstand: number, hoehe: number, querVersatz: number): number[] => {
+      const out: number[] = [];
+      const m = new Matrix();
+      let rest = abstand / 2;
+      for (let k = 1; k < pfad.length; k++) {
+        const a = pfad[k - 1], b = pfad[k], seg = Vector3.Distance(a, b);
+        const dreh = Math.atan2(b.x - a.x, b.z - a.z);
+        while (rest <= seg) {
+          const f = rest / seg, q = quer[k];
+          Matrix.RotationY(dreh).multiplyToRef(Matrix.Translation(a.x + (b.x - a.x) * f + q.x * querVersatz, hoehe, a.z + (b.z - a.z) * f + q.z * querVersatz), m);
+          for (let n = 0; n < 16; n++) out.push(m.m[n]);
+          rest += abstand;
+        }
+        rest -= seg;
       }
-      rest -= seg;
+      return out;
+    };
+    const schwellen = verteile(SCHWELLEN_ABSTAND, 0.12, 0);
+    let draht: Mesh | null = null, masten: number[] = [];
+    if (cls >= 1) {
+      masten = verteile(MAST_ABSTAND, 0, 0.85);
+      draht = CreateTube('draht' + i, { path: pfad.map((p) => new Vector3(p.x, 1.55, p.z)), radius: 0.02, tessellation: 4 }, this.scene);
+      draht.material = this.drahtMat;
+      draht.isPickable = false;
     }
-    return { schotter, schienen, schotterMat, schwellen };
+    return { cls, schotter, schienen, draht, schotterMat, holz: cls >= 2 ? [] : schwellen, beton: cls >= 2 ? schwellen : [], masten };
   }
 
   private syncStoerungen(d: TycoonWeltDaten): void {
@@ -462,25 +551,24 @@ export class TycoonWelt3D {
     for (const t of S.trains) {
       const L = S.lines[t.line];
       if (!L) continue;
-      const modell = t.own ? (ZUG_MODELLE[t.type ?? 1] ?? ZUG_MODELLE[1]) : FREMD_MODELL;
-      const anzahl = t.own ? ([2, 2, 3, 4][t.type ?? 1] ?? 2) : 3;
-      const schluessel = (t.own ? 'o' : 'f') + (t.type ?? 1);
+      const typ = ZUEGE[t.type ?? 1] ?? ZUEGE[1];
+      const modell = t.own ? typ.modell : FREMD_MODELL;
+      const anzahl = t.own ? typ.len : 3;
+      const farbe = t.own ? d.skin : null;
+      const schluessel = (t.own ? 'o' : 'f') + (t.type ?? 1) + (farbe ?? '');
       let z = this.zuege.get(t.id);
-      if (z && z.schluessel !== schluessel) { z.wagen.forEach((w) => w.dispose()); z = undefined; this.zuege.delete(t.id); }
+      if (z && z.schluessel !== schluessel) { z.wagen.forEach((w) => this.entsorge(w)); z = undefined; this.zuege.delete(t.id); }
       if (!z) {
         const wagen: TransformNode[] = [];
         for (let i = 0; i < anzahl; i++) {
-          const w = this.baueWagen(i === 0 ? modell.lok : modell.wagen[(i - 1) % modell.wagen.length]);
+          // Triebzuege: letzter Wagen ist wieder ein Triebkopf, umgedreht.
+          const ende = i === anzahl - 1 && i > 0 && modell.ende;
+          const w = this.baueWagen(i === 0 ? modell.lok : ende ? modell.ende! : modell.wagen[(i - 1) % modell.wagen.length], farbe);
           if (!w) break;
+          if (ende) (w as any).umgedreht = true;
           wagen.push(w);
         }
-        if (wagen.length < anzahl) { wagen.forEach((w) => w.dispose()); continue; }
-        // ICE: letzter Wagen ist wieder ein Triebkopf, umgedreht.
-        if (t.own && t.type === 3) {
-          wagen[anzahl - 1].dispose();
-          const kopf = this.baueWagen(modell.lok);
-          if (kopf) { (kopf as any).umgedreht = true; wagen[anzahl - 1] = kopf; }
-        }
+        if (wagen.length < anzahl) { wagen.forEach((w) => this.entsorge(w)); continue; }
         z = { schluessel, wagen };
         this.zuege.set(t.id, z);
       }
@@ -497,7 +585,7 @@ export class TycoonWelt3D {
       });
     }
     for (const [id, z] of this.zuege) {
-      if (!gesehen.has(id)) { z.wagen.forEach((w) => w.dispose()); this.zuege.delete(id); }
+      if (!gesehen.has(id)) { z.wagen.forEach((w) => this.entsorge(w)); this.zuege.delete(id); }
     }
   }
 }

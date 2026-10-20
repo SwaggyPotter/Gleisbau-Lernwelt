@@ -86,9 +86,14 @@
     .nm { font-weight: 600; small { font-weight: 400; color: var(--skin-text-muted, #8ca3af); } }
     .mo { font-weight: 700; font-variant-numeric: tabular-nums; }
     .mt { grid-column: 2 / 4; font-size: 12px; color: var(--skin-text-muted, #8ca3af); }
-    button { grid-column: 4; grid-row: 1 / 3; }
+    .ak { grid-column: 4; grid-row: 1 / 3; display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
   }
 }
+
+.tc-kat { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;
+  button.on { background: var(--skin-accent, #ff8a3d); color: var(--skin-on-primary, #0f1b24); border-color: transparent; } }
+.tc-hinweis { padding: 8px 12px; border-radius: 8px; background: var(--skin-surface, #16242f); border: 1px solid var(--skin-accent, #ff8a3d); }
+.tc-erklaerung { color: var(--skin-text-muted, #8ca3af); font-size: 14px; }
 
 /* ---------- Spiel (aus der Demo uebernommen, auf .tycoon begrenzt) ---------- */
 .tycoon {
@@ -137,6 +142,22 @@
   #modal h2 { margin: 0 0 8px; font-size: 18px; }
   #modal .mut { color: var(--mut); font-size: 12px; }
   #modal .row { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
+  #modal .card.breit { width: min(720px, 96%); }
+  #modal h3 { margin: 14px 0 6px; font-size: 15px; }
+  .tabs { display: flex; gap: 6px; margin: 6px 0 10px; }
+  .shop-wahl { display: block; margin-bottom: 8px; font-size: 13px; }
+  .shop-wahl select { display: block; width: 100%; margin-top: 4px; font: inherit; padding: 5px 8px; border: 1px solid var(--ink); border-radius: 6px; background: var(--card); color: var(--ink); }
+  .shop-zug { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
+  .shop-zug.zu { opacity: .55; }
+  .shop-zug.gewaehlt { background: rgba(123, 97, 255, .08); box-shadow: inset 3px 0 0 #7b61ff; }
+  .shop-zug .shop-text { flex: 1; min-width: 0; }
+  .shop-zug .auge { flex: none; }
+  .shop-ansicht { text-align: center; font-weight: 600; margin: -4px 0 8px; }
+  .shop-zug button { white-space: nowrap; flex: none; }
+  .lvl { font-weight: 600; color: #6a4fe0; }
+  .shopbtn { font-weight: 600; }
+  .farbpunkt { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 6px; vertical-align: -2px; border: 1px solid rgba(0,0,0,.25); }
+  .tabs { flex-wrap: wrap; }
   #modal .opts { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
   #modal button.good { background: #2e8b57; color: #fff; border-color: #2e8b57; }
   #modal button.bad { background: #c0392b; color: #fff; border-color: #c0392b; }
@@ -158,5 +179,5 @@
     #hint { bottom: calc(38% + 10px); left: 10px; right: 10px; max-width: none; }
     #hud { gap: 10px; font-size: 12px; }
   }
-  .tc-liste li { grid-template-columns: 28px 1fr auto; button { grid-column: 2 / 4; grid-row: auto; } .mt { grid-column: 2 / 4; } }
+  .tc-liste li { grid-template-columns: 28px 1fr auto; .ak { grid-column: 2 / 4; grid-row: auto; justify-content: flex-start; } .mt { grid-column: 2 / 4; } }
 }

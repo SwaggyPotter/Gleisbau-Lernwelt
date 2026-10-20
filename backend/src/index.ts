@@ -199,6 +199,24 @@ const runStartupMigrations = async () => {
       last_at timestamptz NOT NULL DEFAULT now(),
       PRIMARY KEY (owner_id, visitor_id)
     )`);
+    // Tycoon-Duelle: Wer erwirtschaftet in der Laufzeit mehr Einnahmen? (Startwerte werden beim Annehmen festgehalten.)
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_duelle (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      herausforderer uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      gegner uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      stunden integer NOT NULL,
+      status text NOT NULL DEFAULT 'offen',
+      erstellt timestamptz NOT NULL DEFAULT now(),
+      start_at timestamptz,
+      ende_at timestamptz,
+      basis_h double precision,
+      basis_g double precision,
+      wert_h double precision,
+      wert_g double precision,
+      sieger uuid,
+      abgeholt_h boolean NOT NULL DEFAULT false,
+      abgeholt_g boolean NOT NULL DEFAULT false
+    )`);
 
     await seedAchievements();
     await purgeDueDeletedUsers();

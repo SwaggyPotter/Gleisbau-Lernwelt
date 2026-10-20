@@ -11,6 +11,38 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+### 2026-10-20 (spät) — Tycoon-Shop: 3D-Ansicht jedes Zuges
+
+- Shop-Reiter „Züge“ hat oben einen 3D-Betrachter mit dem kompletten Zug (Lok + Wagen + ggf. umgedrehter Endkopf), dreht sich langsam, mit Maus/Finger drehbar. Jede Zeile hat 👁; Umschalten lädt nur den Betrachter neu (gleiche WebGL-Engine wird weiterverwendet, kein neues Canvas je Zug — wichtig fürs Handy). Gewählter Zug ist markiert, Name + km/h stehen unter dem Bild.
+- Kaufdialog und „3D ansehen“ zeigen jetzt ebenfalls den ganzen Zug statt nur der Lok.
+- Technik: `Engine3D.zeigeZug(dateien, letztesUmgedreht)` (bricht einen noch ladenden älteren Auftrag ab), `zugDateien(typ)` in `tycoon-3d.ts`.
+- Lokal getestet. Noch nicht deployt (zusammen mit den Duellen von heute Abend: Backend + Frontend). Nichts committet.
+
+---
+
+### 2026-10-20 (abends) — Tycoon: Duelle, Rangliste mit Kategorien, Lackierungen, Ausrüstung
+
+- **Backend** (`backend/src/routes/tycoon.ts`, neue Tabelle `tycoon_duelle` in `index.ts` → Startup-Migration): Rangliste liefert zusätzlich `xp`, `maxCls` (höchste Streckenklasse aus dem JSON-Spielstand) und `siege`, sortiert nach Erfahrung, max. 100 Einträge. Duell-Endpunkte: `POST /tycoon/duelle` (Gegner + 1 oder 24 Std.; max. 5 offene/laufende, je Paar nur eins), `GET /tycoon/duelle` (wertet abgelaufene aus), `POST …/:id/annehmen` (merkt Startwerte), `…/ablehnen` (auch Zurückziehen), `…/abholen` (Belohnung einmal je Spieler). Messwert = Summe aller Einnahmen (inF + inO aller Strecken) im gespeicherten Stand; Belohnung Sieg 3 🏆 + 100 XP, Remis 2 + 50, Niederlage 1 + 20. Nicht manipulationssicher (Client rechnet), wie der Rest des Tycoon. SQL vorab in einem Wegwerf-Container `postgres:16` auf dem Server getestet (danach gelöscht).
+- **Frontend:** Reiter „⚔ Duelle“ (Annehmen/Ablehnen/Zurückziehen, laufender Zuwachs beider Seiten, Restzeit, Belohnung abholen → `handle.belohnung()` schreibt Pokale + XP in den Spielstand). Rangliste mit Kategorien Level/Guthaben/Strecken/Duell-Siege und Knöpfen „⚔ 1 Std.“/„⚔ 24 Std.“. Vor Herausfordern/Annehmen wird der Spielstand sofort gespeichert.
+- **Shop** neue Reiter: „Ausrüstung“ (`AUSRUESTUNG` in `tycoon-zuege.ts`: Stopfmaschine −25 % Verschleiß, Schienenschleifzug −30 % Störungshäufigkeit, Werkstatt −20 % Wartung, Gleismesszug +50 % Störungsbonus, Fahrgastinformation +10 % Miete, Umbauzug −20 % Ausbaukosten, Goldene Schaufel für 12 🏆) und „Lackierungen“ (`SKINS`: 6 für Geld ab Level, Chrom 8 🏆, Champion-Violett 20 🏆). Lackierung färbt alle eigenen Züge (3D: Materialkopien je Zug, Farbe × Textur; 2D: Zugfarbe). HUD zeigt „⭐ Level · 🏆 Pokale“.
+- **Bugfix (bestand schon vorher):** Geldbeträge in Rangliste/„Netz von …“ waren leer, weil die Angular-Locale `de` nicht registriert ist (`number:…:'de'` gibt nichts aus) → eigene Methode `eur()`.
+- Lokal getestet mit simulierter API (Rangliste, Duelle, Belohnung, Lackierung, Ausrüstung). Headless-Screenshots brauchen bei vielen 3D-Objekten länger (Software-GL ~5 fps) → Screenshot-Timeout im Testskript auf 120 s. Nichts committet.
+
+---
+
+### 2026-10-20 — Tycoon: Level-System, Shop, 12 Züge, Streckenklassen bis 300 km/h
+
+- **Neue Datei `tycoon/tycoon-zuege.ts`** (von Engine und 3D gemeinsam genutzt): `ZUEGE` (12 Typen, Index = gespeicherter Zug-Typ, nur hinten anhängen), `KLASSEN` (5 Streckenklassen), `LEVEL_XP`/`levelAus`.
+  - Züge: Rangierlok 70 km/h (L1), Dampflok 80 (L1), Diesel-Güterzug 120 (L1), Dampf-Personenzug 100 (L2), Regionalbahn 140 (L2), S-Bahn 160 ⚡ (L3), Regional-Express Doppelstock 160 ⚡ (L3), Schwerer Güterzug 120 ⚡ (L4, mehr Verschleiß), Intercity 200 ⚡ (L5), ICE 250 ⚡ (L6), ICE 300 ⚡ (L8), Hochgeschwindigkeitszug lang 300 ⚡ (L9). Alte Typen 0–3 behalten ihren Index (E-Lok heißt jetzt S-Bahn-Triebzug, ICE kostet neu 18.000 €).
+  - Klassen: Nebenbahn 100 km/h ohne Oberleitung → Hauptbahn 160 (elektrifiziert, L2) → Ausbaustrecke 200 (L4) → Schnellfahrstrecke 250 (L6) → Hochgeschwindigkeitsstrecke 300 (L8). Klasse wirkt auf Bau-/Ausbaukosten, Unterhalt, Trassenentgelt der Fremdzüge und Verschleiß. Ausbau immer eine Stufe, Kosten = Länge × 5 × Differenz der Baufaktoren.
+- **Spielmechanik:** Geschwindigkeit = min(Zug, Strecke) (120 km/h = bisherige Grundgeschwindigkeit), Fremdzüge max. 110 km/h. E-Züge nur auf elektrifizierten Strecken. Neue Strecken starten als Nebenbahn; **alte Strecken gelten beim Laden als Hauptbahn** (damit gekaufte E-Loks/ICE weiterfahren). Alte ICE fahren auf Hauptbahnen jetzt max. 160 statt ~190.
+- **Level/Erfahrung:** Fahrt eigener Zug +1, Zugkauf +5, Strecke +15, Ausbau +10 × neue Klasse, Störung selbst +20/+30/…, Fremdfirma/Fehlversuch +5. Level 1–10 (Schwellen 0/50/150/300/500/800/1200/1700/2300/3000). Level-up-Toast nennt die Freischaltungen. Alte Spielstände: Erfahrung wird aus Strecken, behobenen Störungen und Fahrten geschätzt.
+- **Shop** (🛒 im HUD und „Zug kaufen …“ im Strecken-Panel): Reiter „Züge“ (Strecke wählen, alle Züge mit Level-Sperre/„braucht Oberleitung“, Kauf öffnet den 3D-Kaufdialog mit „Zurück zum Shop“) und „Strecken ausbauen“ (Klassen-Übersicht + Ausbau-Knöpfe). Panel zeigt Klasse, km/h je Zug, Level-Balken.
+- **3D:** Triebzüge aus Kenney-Teilen (-a Triebkopf, -b/-c Mittelwagen, Endkopf gedreht); 16 weitere Kenney-GLB (CC0) in `assets/modelle/kenney/` + im Katalog `/modelle`. Elektrifizierte Strecken mit Oberleitungsmasten (Thin Instances) und Fahrdraht, ab Ausbaustrecke Betonschwellen; ausgebaute Strecken werden neu erzeugt.
+- Balancing ist grob geschätzt (Einnahmen pro Zeit ≈ Miete × km/h; Kaufpreise so gewählt, dass schnelle Züge etwas rentabler sind, aber teure Streckenausbauten brauchen). Lokal getestet. Nichts committet.
+
+---
+
 ### 2026-10-20 — Tycoon: Nachbarländer, 26 neue Städte, Karte verschieben
 
 - **Kartenausschnitt erweitert** (Generator neu ausgeführt): lon 3,6–17,8 / lat 46,7–56,2, Karte 1063 × 1133, alle Länder im Ausschnitt aus Natural Earth (Deutschland heller + dickere Grenze), Ländernamen auf der Karte (`LAENDER_NAMEN` in `tycoon-karte.ts`), `aufLand()` für die Deko.

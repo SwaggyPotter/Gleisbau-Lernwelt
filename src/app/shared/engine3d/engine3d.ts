@@ -119,6 +119,51 @@ export class Engine3D {
     return m;
   }
 
+  /** Zaehlt Anzeige-Auftraege; ein neuer Auftrag bricht einen noch ladenden alten ab. */
+  private auftrag = 0;
+
+  /**
+   * Ganzen Zug zeigen: Fahrzeuge der Reihe nach entlang Z, optional letztes Fahrzeug umgedreht
+   * (Triebkopf am Zugende). Auf feste Laenge normiert, Kamera dreht sich langsam.
+   */
+  async zeigeZug(dateien: string[], letztesUmgedreht = false): Promise<void> {
+    const nr = ++this.auftrag;
+    this.raeumeAnzeigeAuf();
+    const zug = new TransformNode('zug', this.scene);
+    this.anzeige.push(zug);
+    let versatz = 0;
+    for (let i = 0; i < dateien.length; i++) {
+      const t = await this.lade(dateien[i]);
+      if (this.tot || nr !== this.auftrag) { t.wurzel.dispose(); return; }
+      this.richteAufZAchseAus(t.wurzel);
+      if (letztesUmgedreht && i === dateien.length - 1 && i > 0) {
+        if (t.wurzel.rotationQuaternion) {
+          t.wurzel.rotation = t.wurzel.rotationQuaternion.toEulerAngles();
+          t.wurzel.rotationQuaternion = null;
+        }
+        t.wurzel.rotation.y += Math.PI;
+      }
+      const tm = masse(t.wurzel);
+      t.wurzel.position.y -= tm.min.y;
+      t.wurzel.position.z += versatz - tm.max.z;
+      versatz -= tm.groesse.z + 0.04;
+      t.wurzel.parent = zug;
+    }
+    const g = masse(zug);
+    zug.scaling.setAll(7 / Math.max(0.001, g.groesse.x, g.groesse.z));
+    const g2 = masse(zug);
+    const mitte = g2.min.add(g2.max).scale(0.5);
+    zug.position.subtractInPlace(new Vector3(mitte.x, g2.min.y, mitte.z));
+    this.kamera.setTarget(new Vector3(0, g2.groesse.y / 2, 0));
+    // Von schraeg seitlich und recht flach: der lange Zug fuellt den breiten Betrachter.
+    this.kamera.radius = 6;
+    this.kamera.upperRadiusLimit = 40;
+    this.kamera.alpha = -Math.PI / 2.3;
+    this.kamera.beta = Math.PI / 2.45;
+    this.setzeAutoDrehen(true);
+    this.baueBoden(11);
+  }
+
   setzeAutoDrehen(an: boolean): void {
     this.kamera.useAutoRotationBehavior = an;
     if (an && this.kamera.autoRotationBehavior) this.kamera.autoRotationBehavior.idleRotationSpeed = 0.35;

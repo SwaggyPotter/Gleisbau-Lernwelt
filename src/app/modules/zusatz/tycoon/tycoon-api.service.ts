@@ -20,6 +20,22 @@ export interface TycoonEintrag {
   mode: number;
   shared: boolean;
   isMe: boolean;
+  xp: number;
+  maxCls: number;
+  siege: number;
+}
+
+export interface TycoonDuell {
+  id: string;
+  rolle: 'herausforderer' | 'gegner';
+  gegnerName: string;
+  stunden: number;
+  status: 'offen' | 'laeuft' | 'fertig';
+  ende: string | null;
+  meinZuwachs: number;
+  gegnerZuwachs: number;
+  ergebnis: 'sieg' | 'remis' | 'niederlage' | null;
+  abgeholt: boolean;
 }
 
 export interface TycoonAnsicht {
@@ -51,6 +67,27 @@ export class TycoonApiService {
 
   rangliste(): Observable<{ entries: TycoonEintrag[] }> {
     return this.http.get<{ entries: TycoonEintrag[] }>(`${API_BASE_URL}/tycoon/leaderboard`);
+  }
+
+  duelle(): Observable<{ duelle: TycoonDuell[] }> {
+    return this.http.get<{ duelle: TycoonDuell[] }>(`${API_BASE_URL}/tycoon/duelle`);
+  }
+
+  herausfordern(gegnerId: string, stunden: 1 | 24): Observable<{ id: string }> {
+    return this.http.post<{ id: string }>(`${API_BASE_URL}/tycoon/duelle`, { gegnerId, stunden });
+  }
+
+  duellAnnehmen(id: string): Observable<{ ok: boolean }> {
+    return this.http.post<{ ok: boolean }>(`${API_BASE_URL}/tycoon/duelle/${id}/annehmen`, {});
+  }
+
+  /** Ablehnen (als Gegner) oder Zurueckziehen (als Herausforderer). */
+  duellAblehnen(id: string): Observable<{ ok: boolean }> {
+    return this.http.post<{ ok: boolean }>(`${API_BASE_URL}/tycoon/duelle/${id}/ablehnen`, {});
+  }
+
+  duellAbholen(id: string): Observable<{ ergebnis: 'sieg' | 'remis' | 'niederlage'; pokale: number; xp: number }> {
+    return this.http.post<{ ergebnis: 'sieg' | 'remis' | 'niederlage'; pokale: number; xp: number }>(`${API_BASE_URL}/tycoon/duelle/${id}/abholen`, {});
   }
 
   ansehen(userId: string): Observable<TycoonAnsicht> {

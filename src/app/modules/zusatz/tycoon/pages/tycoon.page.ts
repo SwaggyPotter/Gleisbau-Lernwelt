@@ -1,8 +1,11 @@
 import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { startTycoon, TycoonHandle } from '../tycoon-engine';
-import { TycoonAnsicht, TycoonApiService, TycoonEintrag } from '../tycoon-api.service';
-import { lokDatei, TycoonWelt3D } from '../tycoon-3d';
+import { TycoonAnsicht, TycoonApiService, TycoonDuell, TycoonEintrag } from '../tycoon-api.service';
+import { KLASSEN, levelAus } from '../tycoon-zuege';
+import { Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { TycoonWelt3D, zugDateien } from '../tycoon-3d';
 import { Engine3D } from '../../../../shared/engine3d/engine3d';
 
 const ANSICHT_KEY = 'tycoon-ansicht3d';
@@ -32,7 +35,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   /** Freie Kamera (drehen/zoomen) statt starrer Kartenansicht. Standard: starr. */
   kameraFrei = this.lese(KAMERA_KEY, false);
 
-  tab: 'spiel' | 'rangliste' = 'spiel';
+  tab: 'spiel' | 'rangliste' | 'duelle' = 'spiel';
   geladen = false;
   fehler = '';
   geteilt = false;
@@ -45,6 +48,16 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   rang: TycoonEintrag[] = [];
   rangGeladen = false;
   rangFehler = false;
+  /** Sortierung der Rangliste. */
+  rangNach: 'level' | 'geld' | 'strecken' | 'siege' = 'level';
+  readonly rangKategorien: { id: 'level' | 'geld' | 'strecken' | 'siege'; n: string }[] = [
+    { id: 'level', n: 'Level' }, { id: 'geld', n: 'Guthaben' }, { id: 'strecken', n: 'Strecken' }, { id: 'siege', n: 'Duell-Siege' },
+  ];
+  readonly klassen = KLASSEN;
+  readonly level = levelAus;
+  duelle: TycoonDuell[] = [];
+  duelleGeladen = false;
+  duellMeldung = '';
 
   private handle: TycoonHandle | null = null;
   private pending: unknown | null = null;
@@ -53,6 +66,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   private welt: TycoonWelt3D | null = null;
   private weltCanvas: HTMLCanvasElement | null = null;
   private vorschau: Engine3D | null = null;
+  private vorschauEl: HTMLElement | null = null;
 
   constructor(private readonly api: TycoonApiService, private readonly route: ActivatedRoute, private readonly zone: NgZone) {}
 
@@ -132,17 +146,26 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     }
   }
 
-  /** Lok-Modell im Kaufdialog bzw. bei "3D ansehen" drehen lassen; el = null raeumt auf. */
+  /**
+   * Ganzen Zug (Lok + Wagen) im Kaufdialog, bei "3D ansehen" und im Shop drehen lassen; el = null raeumt auf.
+   * Bleibt der Behaelter derselbe (Shop: anderer Zug angeklickt), wird die laufende Engine weiterverwendet.
+   */
   private zeigeVorschau(el: HTMLElement | null, typ: number): void {
+    const zug = zugDateien(typ);
+    if (el && el === this.vorschauEl && this.vorschau) {
+      this.zone.runOutsideAngular(() => this.vorschau!.zeigeZug(zug.dateien, zug.umgedreht).catch(() => undefined));
+      return;
+    }
     this.vorschau?.zerstoeren();
     this.vorschau = null;
+    this.vorschauEl = el;
     if (!el) return;
     const canvas = document.createElement('canvas');
     el.appendChild(canvas);
     try {
       this.vorschau = this.zone.runOutsideAngular(() => {
         const e = new Engine3D(canvas);
-        e.zeigeModell(lokDatei(typ)).catch(() => undefined);
+        e.zeigeZug(zug.dateien, zug.umgedreht).catch(() => undefined);
         return e;
       });
     } catch {
@@ -167,9 +190,71 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     });
   }
 
-  wechsle(t: 'spiel' | 'rangliste'): void {
+  wechsle(t: 'spiel' | 'rangliste' | 'duelle'): void {
     this.tab = t;
     if (t === 'rangliste') this.ladeRangliste();
+    if (t === 'duelle') this.ladeDuelle();
+  }
+
+  get rangSortiert(): TycoonEintrag[] {
+    const wert = (e: TycoonEintrag) =>
+      this.rangNach === 'geld' ? e.money : this.rangNach === 'strecken' ? e.lines : this.rangNach === 'siege' ? e.siege : e.xp;
+    return [...this.rang].sort((a, b) => wert(b) - wert(a) || b.money - a.money);
+  }
+
+  /** Erst den aktuellen Spielstand speichern, damit der Server mit frischen Werten rechnet. */
+  private sicher(): Observable<unknown> {
+    if (this.saveTimer) { clearTimeout(this.saveTimer); this.saveTimer = null; }
+    if (this.pending === null) return of(null);
+    const data = this.pending;
+    this.pending = null;
+    return this.api.speichern(data);
+  }
+
+  herausfordern(e: TycoonEintrag, stunden: 1 | 24): void {
+    this.duellMeldung = '';
+    this.sicher().pipe(switchMap(() => this.api.herausfordern(e.userId, stunden))).subscribe({
+      next: () => { this.duellMeldung = 'Herausforderung an ' + e.name + ' verschickt (' + stunden + ' Std.). Sie startet, sobald angenommen wird.'; this.ladeDuelle(); },
+      error: (err) => (this.duellMeldung = err?.error?.error ?? err?.error?.message ?? 'Herausforderung nicht möglich.'),
+    });
+  }
+
+  ladeDuelle(): void {
+    this.api.duelle().subscribe({
+      next: (r) => { this.duelle = r.duelle; this.duelleGeladen = true; },
+      error: () => { this.duelleGeladen = true; this.duellMeldung = 'Duelle konnten nicht geladen werden.'; },
+    });
+  }
+
+  annehmen(d: TycoonDuell): void {
+    this.sicher().pipe(switchMap(() => this.api.duellAnnehmen(d.id))).subscribe({ next: () => this.ladeDuelle(), error: () => (this.duellMeldung = 'Annehmen fehlgeschlagen.') });
+  }
+
+  ablehnen(d: TycoonDuell): void {
+    this.api.duellAblehnen(d.id).subscribe({ next: () => this.ladeDuelle(), error: () => (this.duellMeldung = 'Das ging nicht.') });
+  }
+
+  abholen(d: TycoonDuell): void {
+    this.api.duellAbholen(d.id).pipe(map((r) => r)).subscribe({
+      next: (r) => {
+        const text = r.ergebnis === 'sieg' ? '🏆 Duell gewonnen!' : r.ergebnis === 'remis' ? 'Duell unentschieden.' : 'Duell verloren – trotzdem Erfahrung gesammelt.';
+        this.handle?.belohnung(r.xp, r.pokale, text);
+        this.duellMeldung = text + ' +' + r.pokale + ' 🏆, +' + r.xp + ' Erfahrung (im Spiel gutgeschrieben).';
+        this.ladeDuelle();
+      },
+      error: () => (this.duellMeldung = 'Belohnung konnte nicht abgeholt werden.'),
+    });
+  }
+
+  /** Ganzzahl mit deutschem Tausenderpunkt (die Angular-Locale 'de' ist in der App nicht registriert). */
+  eur(n: number): string {
+    return Math.round(n || 0).toLocaleString('de-DE');
+  }
+
+  restzeit(d: TycoonDuell): string {
+    if (!d.ende) return '';
+    const min = Math.max(0, Math.round((new Date(d.ende).getTime() - Date.now()) / 60000));
+    return min >= 60 ? Math.floor(min / 60) + ' Std. ' + (min % 60) + ' Min.' : min + ' Min.';
   }
 
   ladeRangliste(): void {

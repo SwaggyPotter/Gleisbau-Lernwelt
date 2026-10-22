@@ -138,7 +138,8 @@ function vereinfache(pts, tol) {
     // Ebene mit sinnvoller Bezirksanzahl (3..30), bevorzugt nah an 12, bei Gleichstand die groebere.
     const kandidaten = Object.entries(jeEbene).filter(([, l]) => l.length >= 3 && l.length <= 30);
     if (!kandidaten.length) { console.log('  keine passende Ebene: ' + JSON.stringify(Object.fromEntries(Object.entries(jeEbene).map(([k, v]) => [k, v.length])))); ergebnis.push({ stadt: i, name, bezirke: [] }); continue; }
-    kandidaten.sort((a, b) => Math.abs(a[1].length - 12) - Math.abs(b[1].length - 12) || +a[0] - +b[0]);
+    // Groebste Ebene nehmen (z. B. Muenchen: 25 Stadtbezirke statt einzelner Viertel).
+    kandidaten.sort((a, b) => +a[0] - +b[0]);
     const ebene = kandidaten[0][0];
     const geo = await overpass(`[out:json][timeout:120];${flaeche_}rel(area.a)["boundary"="administrative"]["admin_level"="${ebene}"];out geom;`, i + '-geom-' + ebene + (flaeche_.includes('wikidata') ? '' : '-name') + '.json');
     if (!geo) { ergebnis.push({ stadt: i, name, bezirke: [] }); continue; }

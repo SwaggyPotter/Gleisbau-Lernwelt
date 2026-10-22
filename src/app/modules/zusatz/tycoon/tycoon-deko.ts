@@ -5,6 +5,7 @@ import { Matrix, Vector3 } from '@babylonjs/core/Maths/math.vector';
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import type { TycoonWeltDaten } from './tycoon-3d';
+import { hoehe3D } from './tycoon-hoehen';
 import { aufLand, GROSSSTADT, KARTE_H, KARTE_W, SC, wx, wz } from './tycoon-karte';
 
 /*
@@ -21,6 +22,7 @@ const KLEINKRAM = ['plant_bush', 'plant_bushLarge', 'rock_largeA', 'rock_largeC'
 const VORORT = 'abcdefgh'.split('').map((c) => P + 'kenney-vorort/building-type-' + c + '.glb');
 const STADT = 'abcdefgh'.split('').map((c) => P + 'kenney-stadt/building-' + c + '.glb');
 const HOCHHAUS = ['a', 'b'].map((c) => P + 'kenney-stadt/building-skyscraper-' + c + '.glb');
+const IND = (n: string) => P + 'kenney-industrie/' + n + '.glb';
 
 /** 3D-Punkt (x, z) liegt auf Land? (Umkehrung von wx/wz.) */
 const imLand = (x: number, z: number) => aufLand(x / SC + KARTE_W / 2, -z / SC + KARTE_H / 2);
@@ -55,6 +57,8 @@ export class TycoonDeko {
   private readonly objekte: Objekt[] = [];
   private readonly vorbilder = new Map<string, Vorbild | 'laedt' | 'fehler'>();
   private schluessel = '';
+  /** Gebaeude des Spielers (Kohlelager, Unterwerke) -- aendern sich mit dem Spielstand. */
+  private spielerObjekte: Objekt[] = [];
   private tot = false;
 
   constructor(private readonly scene: Scene, staedte: { n: string; x: number; y: number }[]) {
@@ -96,6 +100,28 @@ export class TycoonDeko {
       for (let k = 0; k < n; k++) { const a = rnd() * Math.PI * 2, d = Math.sqrt(rnd()) * r; baum(cx + Math.cos(a) * d, cz + Math.sin(a) * d); }
     }
     for (let k = 0; k < 280; k++) baum(X0 + rnd() * (X1 - X0), Z0 + rnd() * (Z1 - Z0));
+    // Industrie: Windraeder im flachen Norden, Solarfelder, Kuehltuerme (Ruhrgebiet, Leipzig), Tanklager (Hamburg), Wassertuerme.
+    const nordGrenze = wz(staedte[3].y); // ungefaehr Breite von Hannover
+    for (let k = 0; k < 45; k++) {
+      const x = X0 + rnd() * (X1 - X0), z = nordGrenze + rnd() * (Z1 - nordGrenze);
+      if (!imLand(x, z) || nahStadt(x, z, 5)) continue;
+      this.objekte.push({ modell: IND('windmill'), x, z, dreh: rnd() * Math.PI * 2, groesse: 3, nachHoehe: true, maxHoehe: 9, stadt: -1, frei: 1.2 });
+    }
+    for (let k = 0; k < 18; k++) {
+      const x = X0 + rnd() * (X1 - X0), z = Z0 + rnd() * (Z1 - Z0);
+      if (!imLand(x, z) || nahStadt(x, z, 6)) continue;
+      this.objekte.push({ modell: IND('solar-panel-landscape-group'), x, z, dreh: 0, groesse: 1.4, nachHoehe: false, maxHoehe: 9, stadt: -1, frei: 1.4 });
+    }
+    const beiStadt = (i: number, modell: string, groesse: number, nachHoehe: boolean, n: number) => {
+      for (let k = 0; k < n; k++) {
+        const w = rnd() * Math.PI * 2, r = 4.8 + rnd() * 1.8, x = sx[i] + Math.cos(w) * r, z = sz[i] + Math.sin(w) * r;
+        if (imLand(x, z)) this.objekte.push({ modell, x, z, dreh: rnd() * Math.PI * 2, groesse, nachHoehe, maxHoehe: 9, stadt: i, frei: 1.5 });
+      }
+    };
+    beiStadt(6, IND('chimney-large'), 2.2, true, 3);    // Dortmund
+    beiStadt(4, IND('chimney-large'), 2.2, true, 2);    // Leipzig
+    beiStadt(1, IND('detail-tank-large'), 1.2, false, 3); // Hamburg
+    [2, 13, 15, 22, 23].forEach((i) => beiStadt(i, IND('water-tower'), 1.8, true, 1));
     for (let k = 0; k < 110; k++) {
       const x = X0 + rnd() * (X1 - X0), z = Z0 + rnd() * (Z1 - Z0);
       if (!imLand(x, z) || nahStadt(x, z, 6)) continue;
@@ -108,21 +134,33 @@ export class TycoonDeko {
   /** Pro Bild aufrufen; baut die Instanzen nur neu, wenn sich Strecken oder aufgedeckte Staedte aendern. */
   aktualisiere(d: TycoonWeltDaten): void {
     const S = d.S;
-    const schluessel = S.lines.length + '|' + S.vis.join('') + '|' + this.vorbilder.size + '|' + this.geladen;
+    // Kohlelager je Stadt, Bahnstrom-Unterwerk an Staedten mit eigener Oberleitung.
+    const olStaedte = Array.from(new Set<number>(S.lines.filter((l: any) => l.ol).flatMap((l: any) => [l.a, l.b])));
+    const spielerKey = (S.lager || []).join(',') + '/' + olStaedte.join(',');
+    const schluessel = S.lines.length + '|' + S.vis.join('') + '|' + this.vorbilder.size + '|' + this.geladen + '|' + spielerKey;
     if (schluessel === this.schluessel) return;
     this.schluessel = schluessel;
 
     const gleise: { x: number; z: number }[][] = S.lines.map((L: any) => L.pts.map((p: any) => ({ x: wx(p.x), z: wz(p.y) })));
     const amGleis = (o: Objekt) => gleise.some((pts) => pts.some((p) => Math.abs(p.x - o.x) < o.frei + 1 && Math.hypot(p.x - o.x, p.z - o.z) < o.frei));
 
+    const platz = (c: number, winkel: number, modell: string, groesse: number): Objekt => {
+      const st = d.CITIES[c], x = wx(st.x) + Math.cos(winkel) * 2.6, z = wz(st.y) + Math.sin(winkel) * 2.6;
+      return { modell, x, z, dreh: winkel, groesse, nachHoehe: false, maxHoehe: 2, stadt: c, frei: 0 };
+    };
+    this.spielerObjekte = [
+      ...(S.lager || []).map((c: number) => platz(c, 0.9, IND('building-h'), 1.8)),
+      ...olStaedte.map((c) => platz(c, 2.5, IND('building-c'), 1.4)),
+    ];
     const jeModell = new Map<string, Objekt[]>();
-    for (const o of this.objekte) {
+    for (const o of [...this.objekte, ...this.spielerObjekte]) {
       if (o.stadt >= 0 && !S.vis[o.stadt]) continue;
       if (amGleis(o)) continue;
       if (!jeModell.has(o.modell)) jeModell.set(o.modell, []);
       jeModell.get(o.modell)!.push(o);
     }
-    const alle = new Set(this.objekte.map((o) => o.modell));
+    const alle = new Set([...this.objekte, ...this.spielerObjekte].map((o) => o.modell));
+    [IND('building-h'), IND('building-c')].forEach((m) => alle.add(m));
     for (const modell of alle) {
       const v = this.vorbild(modell);
       if (!v) continue;
@@ -135,7 +173,7 @@ export class TycoonDeko {
         Matrix.Translation(-(v.min.x + v.max.x) / 2, -v.min.y, -(v.min.z + v.max.z) / 2)
           .multiply(Matrix.Scaling(s, s, s))
           .multiply(Matrix.RotationY(o.dreh))
-          .multiply(Matrix.Translation(o.x, 0, o.z))
+          .multiply(Matrix.Translation(o.x, hoehe3D(o.x, o.z), o.z))
           .copyToArray(puffer, i * 16);
       });
       v.mesh.thinInstanceSetBuffer('matrix', puffer, 16, true);

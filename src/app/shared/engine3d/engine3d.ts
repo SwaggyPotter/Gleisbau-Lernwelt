@@ -119,6 +119,17 @@ export class Engine3D {
     return m;
   }
 
+  /** Lackierung: Materialfarbe wird mit der Textur multipliziert (wie im Tycoon). Jede Ladung hat eigene Materialien. */
+  private toene(wurzel: TransformNode, hex: string): void {
+    const ton = Color3.White().scale(0.3).add(Color3.FromHexString(hex).scale(0.7));
+    wurzel.getChildMeshes().forEach((m) => {
+      const mat = m.material as any;
+      if (!mat) return;
+      if ('albedoColor' in mat) mat.albedoColor = ton;
+      else if ('diffuseColor' in mat) mat.diffuseColor = ton;
+    });
+  }
+
   /** Zaehlt Anzeige-Auftraege; ein neuer Auftrag bricht einen noch ladenden alten ab. */
   private auftrag = 0;
 
@@ -126,7 +137,7 @@ export class Engine3D {
    * Ganzen Zug zeigen: Fahrzeuge der Reihe nach entlang Z, optional letztes Fahrzeug umgedreht
    * (Triebkopf am Zugende). Auf feste Laenge normiert, Kamera dreht sich langsam.
    */
-  async zeigeZug(dateien: string[], letztesUmgedreht = false): Promise<void> {
+  async zeigeZug(dateien: string[], letztesUmgedreht = false, farbe: string | null = null): Promise<void> {
     const nr = ++this.auftrag;
     this.raeumeAnzeigeAuf();
     const zug = new TransformNode('zug', this.scene);
@@ -135,6 +146,7 @@ export class Engine3D {
     for (let i = 0; i < dateien.length; i++) {
       const t = await this.lade(dateien[i]);
       if (this.tot || nr !== this.auftrag) { t.wurzel.dispose(); return; }
+      if (farbe) this.toene(t.wurzel, farbe);
       this.richteAufZAchseAus(t.wurzel);
       if (letztesUmgedreht && i === dateien.length - 1 && i > 0) {
         if (t.wurzel.rotationQuaternion) {

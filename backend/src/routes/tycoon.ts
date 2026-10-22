@@ -242,6 +242,10 @@ tycoonRouter.get('/view/:userId', asyncHandler(async (req, res) => {
 
 /* ---------- Gemeinsame Welt: Bezirke, Aktivitaet je Stadt, Gutschriften ---------- */
 
+/** Ein Clan-Mitglied "arbeitet" in einer Stadt, wenn es dort einen Bezirk hat und in so vielen Tagen gespielt hat. */
+const AKTIV_TAGE = 7;
+/** Erfahrung fuer Clan-Mitglieder in den Endstaedten einer neuen Strecke. */
+const CLAN_BAU_XP = 20;
 /** Wie lange ein gerade gekaufter Bezirk vor Uebernahme geschuetzt ist. */
 const SCHUTZ_STUNDEN = 2;
 /** Uebernahme eines fremden Bezirks kostet so viel mal den Grundpreis; der bisherige Besitzer bekommt den Grundpreis erstattet. */
@@ -261,20 +265,32 @@ tycoonRouter.get('/welt', asyncHandler(async (req, res) => {
     [ich],
   );
   const bezirke = await pool.query(
-    `SELECT b.stadt, b.bezirk, b.owner, b.basis, b.geschuetzt_bis, u.full_name, m.clan_id, c.kuerzel, c.farbe
+    `SELECT b.stadt, b.bezirk, b.owner, b.basis, b.geschuetzt_bis, u.full_name, m.clan_id, c.kuerzel, c.farbe,
+            COALESCE(s.updated_at > now() - make_interval(days => ${AKTIV_TAGE}), false) AS aktiv
        FROM tycoon_bezirke b JOIN users u ON u.id = b.owner
+       LEFT JOIN tycoon_saves s ON s.user_id = b.owner
        LEFT JOIN tycoon_clan_mitglieder m ON m.user_id = b.owner
        LEFT JOIN tycoon_clans c ON c.id = m.clan_id`,
   );
   const meinClan = await pool.query('SELECT clan_id FROM tycoon_clan_mitglieder WHERE user_id = $1', [ich]);
+  // Strecken der anderen Clan-Mitglieder (fuer Bau-Regel und Clan-Bonus im Client).
+  const clanStrecken = await pool.query(
+    `SELECT DISTINCT (l->>'a')::int AS a, (l->>'b')::int AS b
+       FROM tycoon_clan_mitglieder m
+       JOIN tycoon_clan_mitglieder ich ON ich.clan_id = m.clan_id AND ich.user_id = $1
+       JOIN tycoon_saves s ON s.user_id = m.user_id, jsonb_array_elements(COALESCE(s.state->'lines', '[]'::jsonb)) l
+      WHERE m.user_id <> $1`,
+    [ich],
+  );
   const gut = await pool.query('SELECT count(*)::int AS n FROM tycoon_gutschriften WHERE user_id = $1 AND NOT abgeholt', [ich]);
   res.json({
     ich: { id: ich, clanId: meinClan.rows[0]?.clan_id ?? null },
     staedte: staedte.rows.map((r) => ({ stadt: r.stadt, spieler: r.spieler, aktiv: r.aktiv })),
     bezirke: bezirke.rows.map((r) => ({
       stadt: r.stadt, bezirk: r.bezirk, ownerId: r.owner, ownerName: r.full_name, basis: r.basis,
-      geschuetztBis: r.geschuetzt_bis, clanId: r.clan_id, clanKuerzel: r.kuerzel, clanFarbe: r.farbe,
+      geschuetztBis: r.geschuetzt_bis, clanId: r.clan_id, clanKuerzel: r.kuerzel, clanFarbe: r.farbe, aktiv: r.aktiv,
     })),
+    clanStrecken: clanStrecken.rows.map((r) => [r.a, r.b]),
     gutschriftenOffen: gut.rows[0].n,
   });
 }));
@@ -282,7 +298,7 @@ tycoonRouter.get('/welt', asyncHandler(async (req, res) => {
 /** Bezirk kaufen (frei: Grundpreis) oder einem anderen Spieler abkaufen (3x Grundpreis, der bekommt den Grundpreis erstattet). */
 tycoonRouter.post('/bezirke', asyncHandler(async (req, res) => {
   const { stadt, bezirk, basis } = z.object({
-    stadt: z.number().int().min(0).max(99), bezirk: z.number().int().min(0).max(39), basis: z.number().int().min(100).max(20000),
+    stadt: z.number().int().min(0).max(99), bezirk: z.number().int().min(0).max(2_000_000_000), basis: z.number().int().min(100).max(20000),
   }).parse(req.body);
   const ich = req.user!.id;
   const client = await pool.connect();
@@ -331,10 +347,39 @@ tycoonRouter.post('/bezirke', asyncHandler(async (req, res) => {
 /** Offene Gutschriften abholen (einmalig); der Client schreibt die Summe in seinen Spielstand. */
 tycoonRouter.post('/gutschriften/abholen', asyncHandler(async (req, res) => {
   const { rows } = await pool.query(
-    'UPDATE tycoon_gutschriften SET abgeholt = true WHERE user_id = $1 AND NOT abgeholt RETURNING betrag, text',
+    'UPDATE tycoon_gutschriften SET abgeholt = true WHERE user_id = $1 AND NOT abgeholt RETURNING betrag, xp, text',
     [req.user!.id],
   );
-  res.json({ summe: rows.reduce((a, r) => a + r.betrag, 0), eintraege: rows });
+  res.json({ summe: rows.reduce((a, r) => a + r.betrag, 0), xp: rows.reduce((a, r) => a + r.xp, 0), eintraege: rows });
+}));
+
+/**
+ * Neue Strecke gebaut: Clan-Mitglieder (ausser dem Bauherrn), die in einer der beiden Staedte einen Bezirk haben und
+ * aktiv sind, bekommen Erfahrung als Gutschrift. Antwort: wie viele Mitglieder profitieren.
+ */
+tycoonRouter.post('/verbindung', asyncHandler(async (req, res) => {
+  const { a, b, nameA, nameB } = z.object({
+    a: z.number().int().min(0).max(99), b: z.number().int().min(0).max(99),
+    nameA: z.string().max(40), nameB: z.string().max(40),
+  }).parse(req.body);
+  const ich = req.user!.id;
+  const { rows } = await pool.query(
+    `SELECT DISTINCT b.owner
+       FROM tycoon_bezirke b
+       JOIN tycoon_clan_mitglieder m ON m.user_id = b.owner
+       JOIN tycoon_clan_mitglieder i ON i.clan_id = m.clan_id AND i.user_id = $1
+       JOIN tycoon_saves s ON s.user_id = b.owner AND s.updated_at > now() - make_interval(days => ${AKTIV_TAGE})
+      WHERE b.stadt IN ($2, $3) AND b.owner <> $1`,
+    [ich, a, b],
+  );
+  if (rows.length) {
+    const name = await pool.query('SELECT full_name FROM users WHERE id = $1', [ich]);
+    const text = `${name.rows[0]?.full_name ?? 'Ein Clan-Mitglied'} hat ${nameA} ⇄ ${nameB} gebaut – Clan-Bonus`;
+    for (const r of rows) {
+      await pool.query('INSERT INTO tycoon_gutschriften (user_id, betrag, xp, text) VALUES ($1, 0, $2, $3)', [r.owner, CLAN_BAU_XP, text]);
+    }
+  }
+  res.json({ mitglieder: rows.length, xp: CLAN_BAU_XP });
 }));
 
 /* ---------- Clans ---------- */

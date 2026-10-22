@@ -236,6 +236,8 @@ const runStartupMigrations = async () => {
       erstellt timestamptz NOT NULL DEFAULT now(),
       abgeholt boolean NOT NULL DEFAULT false
     )`);
+    // Gutschriften koennen auch Erfahrung enthalten (Clan-Bonus beim Streckenbau).
+    await pool.query('ALTER TABLE tycoon_gutschriften ADD COLUMN IF NOT EXISTS xp integer NOT NULL DEFAULT 0');
     await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_clans (
       id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
       name text NOT NULL UNIQUE,

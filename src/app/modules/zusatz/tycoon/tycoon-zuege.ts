@@ -18,8 +18,10 @@ export interface ZugTyp {
   len: number;
   /** Ab diesem Level kaufbar. */
   lvl: number;
-  /** Braucht Oberleitung (Streckenklasse elektrifiziert). */
+  /** Braucht Oberleitung auf der Strecke. */
   el: boolean;
+  /** Dampfbetrieb: braucht ein Kohlelager in einer der beiden Endstaedte, sonst Kohlemangel. */
+  kohle?: boolean;
   /** Gleisverschleiss je Fahrt (Faktor). */
   wear: number;
   /** 2D-Farben: Lok, Wagen. */
@@ -30,7 +32,7 @@ export interface ZugTyp {
 }
 
 export const ZUEGE: ZugTyp[] = [
-  { n: 'Dampflok (Gebrauchtkauf)', kmh: 80, cost: 1200, rent: 0.55, upkeep: 1.6, len: 3, lvl: 1, el: false, wear: 1.1, col: '#7a5230', col2: '#b08a64',
+  { n: 'Dampflok (Gebrauchtkauf)', kmh: 80, cost: 1200, rent: 0.55, upkeep: 1.6, len: 3, lvl: 1, el: false, kohle: true, wear: 1.1, col: '#7a5230', col2: '#b08a64',
     modell: { lok: 'train-locomotive-a', wagen: ['train-carriage-coal', 'train-carriage-wood'] } },
   { n: 'Diesellok (Güterzug)', kmh: 120, cost: 2500, rent: 1, upkeep: 1, len: 3, lvl: 1, el: false, wear: 1, col: '#ff7a00', col2: '#ffb066',
     modell: { lok: 'train-diesel-a', wagen: ['train-carriage-container-red', 'train-carriage-container-blue'] } },
@@ -41,7 +43,7 @@ export const ZUEGE: ZugTyp[] = [
   // Ausbau 2026-10-20
   { n: 'Rangierlok mit Holzwagen', kmh: 70, cost: 900, rent: 0.45, upkeep: 0.6, len: 3, lvl: 1, el: false, wear: 1, col: '#e0b000', col2: '#a0703a',
     modell: { lok: 'train-diesel-c', wagen: ['train-carriage-lumber', 'train-carriage-flatbed-wood'] } },
-  { n: 'Dampf-Personenzug', kmh: 100, cost: 2800, rent: 1.1, upkeep: 1.3, len: 3, lvl: 2, el: false, wear: 1, col: '#3b6e3b', col2: '#c0703a',
+  { n: 'Dampf-Personenzug', kmh: 100, cost: 2800, rent: 1.1, upkeep: 1.3, len: 3, lvl: 2, el: false, kohle: true, wear: 1, col: '#3b6e3b', col2: '#c0703a',
     modell: { lok: 'train-locomotive-passenger-a', wagen: ['train-locomotive-passenger-b'] } },
   { n: 'Regionalbahn (Diesel)', kmh: 140, cost: 3600, rent: 1.35, upkeep: 1.05, len: 3, lvl: 2, el: false, wear: 1, col: '#3f8f4f', col2: '#7fbf8a',
     modell: { lok: 'train-diesel-box-a', wagen: ['train-diesel-box-b'] } },
@@ -73,11 +75,38 @@ export interface StreckenKlasse {
 
 export const KLASSEN: StreckenKlasse[] = [
   { n: 'Nebenbahn', kmh: 100, el: false, bau: 1, unterhalt: 0.8, entgelt: 0.8, wear: 1, lvl: 1 },
-  { n: 'Hauptbahn (elektrifiziert)', kmh: 160, el: true, bau: 1.8, unterhalt: 1, entgelt: 1, wear: 1, lvl: 2 },
+  { n: 'Hauptbahn', kmh: 160, el: true, bau: 1.8, unterhalt: 1, entgelt: 1, wear: 1, lvl: 2 },
   { n: 'Ausbaustrecke', kmh: 200, el: true, bau: 2.8, unterhalt: 1.25, entgelt: 1.3, wear: 1.1, lvl: 4 },
   { n: 'Schnellfahrstrecke', kmh: 250, el: true, bau: 4.2, unterhalt: 1.6, entgelt: 1.6, wear: 1.2, lvl: 6 },
   { n: 'Hochgeschwindigkeitsstrecke', kmh: 300, el: true, bau: 6, unterhalt: 2, entgelt: 2, wear: 1.3, lvl: 8 },
 ];
+
+/** Einzel-Lackierung je Zug (ueberschreibt die Lackierung fuer alle Zuege). */
+export const ZUG_FARBEN: { id: string; n: string; farbe: string | null; preis: number }[] = [
+  { id: 'werk', n: 'Werkslack', farbe: null, preis: 0 },
+  { id: 'rot', n: 'Verkehrsrot', farbe: '#e3312d', preis: 400 },
+  { id: 'blau', n: 'Ozeanblau', farbe: '#2f6fbf', preis: 400 },
+  { id: 'gruen', n: 'Moosgrün', farbe: '#3c8d4f', preis: 400 },
+  { id: 'gelb', n: 'Signalgelb', farbe: '#f2c230', preis: 400 },
+  { id: 'orange', n: 'Baustellenorange', farbe: '#ff7a1a', preis: 400 },
+  { id: 'violett', n: 'Violett', farbe: '#7b4bc4', preis: 600 },
+  { id: 'silber', n: 'Silber', farbe: '#c9d1d9', preis: 600 },
+];
+
+/** Upgrades je Zug; Preis = Faktor x Kaufpreis des Zuges. */
+export const ZUG_UPGRADES: { id: string; n: string; text: string; faktor: number; lvl: number }[] = [
+  { id: 'komfort', n: 'Komfortausstattung', text: 'Bessere Sitze und Klima: Miete +15 %.', faktor: 0.25, lvl: 2 },
+  { id: 'drehgestell', n: 'Verschleißarme Drehgestelle', text: 'Schont das Gleis: Gleisverschleiß dieses Zuges −30 %.', faktor: 0.2, lvl: 3 },
+  { id: 'zusatzwagen', n: 'Zusatzwagen', text: 'Ein Wagen mehr: Miete +20 %.', faktor: 0.3, lvl: 4 },
+  { id: 'leistung', n: 'Leistungssteigerung', text: 'Stärkerer Antrieb: +10 % Höchstgeschwindigkeit (bis zur Streckengrenze).', faktor: 0.35, lvl: 5 },
+  { id: 'wlan', n: 'WLAN & Fahrgastinfo', text: 'Fahrgäste bleiben treu: Miete +10 %.', faktor: 0.15, lvl: 6 },
+];
+export const upgradePreis = (zugKosten: number, faktor: number): number => Math.round((zugKosten * faktor) / 50) * 50;
+
+/** Gebaeude in Staedten. */
+export const KOHLELAGER = { n: 'Kohlelager', preis: 2500, text: 'Versorgt Dampfloks auf allen Strecken, die hier enden. Ohne Kohle: nur 60 % Einnahmen und 80 % Tempo.' };
+/** Oberleitung je Strecke: Preis je Laengeneinheit. */
+export const OBERLEITUNG = { n: 'Oberleitung', proEinheit: 4, lvl: 2, text: 'Strom für E-Loks und Triebzüge. Ohne Oberleitung fahren hier nur Diesel- und Dampfloks.' };
 
 /** Lackierungen fuer die eigenen Zuege. Bezahlt mit Geld (preis) oder Pokalen aus Duellen (pokale). */
 export interface Skin { id: string; n: string; farbe: string | null; lvl: number; preis: number; pokale: number }

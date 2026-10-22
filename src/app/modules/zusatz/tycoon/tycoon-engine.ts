@@ -7,7 +7,9 @@
 
 import type { TycoonWeltDaten } from './tycoon-3d';
 import { bezirkeVon, bezirkRahmen, CITIES, KARTE_H, KARTE_W, spielerFarbe, zeichneKarte } from './tycoon-karte';
-import { AUSRUESTUNG, KLASSEN, LEVEL_XP, levelAus, SKINS, ZUEGE } from './tycoon-zuege';
+import { HOEHEN_QUELLE, ladeHoehen, reliefBild } from './tycoon-hoehen';
+import { HOEHEN } from './tycoon-hoehen-meta';
+import { AUSRUESTUNG, KLASSEN, KOHLELAGER, LEVEL_XP, levelAus, OBERLEITUNG, SKINS, upgradePreis, ZUEGE, ZUG_FARBEN, ZUG_UPGRADES } from './tycoon-zuege';
 
 export interface TycoonOptions {
   /** Gespeicherter Spielstand (JSON vom Server) oder null fuer ein neues Spiel. */
@@ -17,9 +19,11 @@ export interface TycoonOptions {
   onSave: (data: any, money: number) => void;
   onReset?: () => void;
   /** Zeigt (el gesetzt) bzw. entfernt (el null) die 3D-Vorschau des Lok-Typs typ (Index in TRAINS). */
-  onVorschau?: (el: HTMLElement | null, typ: number) => void;
+  onVorschau?: (el: HTMLElement | null, typ: number, farbe?: string | null, extraWagen?: boolean) => void;
   /** Bezirk kaufen/uebernehmen (Server); die Seite meldet Erfolg ueber handle.bezahlt() zurueck. */
   onBezirk?: (stadt: number, bezirk: number, basis: number) => void;
+  /** Neue Strecke gebaut (Server verteilt den Clan-Bonus). */
+  onVerbindung?: (a: number, b: number) => void;
 }
 
 export interface TycoonHandle {
@@ -31,7 +35,7 @@ export interface TycoonHandle {
   /** Bezirkskauf war erfolgreich: Preis abziehen. */
   bezahlt: (preis: number, text: string) => void;
   /** Geld gutschreiben (z. B. Entschaedigung fuer einen uebernommenen Bezirk). */
-  gutschrift: (betrag: number, text: string) => void;
+  gutschrift: (betrag: number, text: string, xp?: number) => void;
   meldung: (text: string) => void;
   /** Duell-Belohnung gutschreiben (Erfahrung + Pokale). */
   belohnung: (xp: number, pokale: number, text: string) => void;
@@ -88,7 +92,14 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const tdef = (t: any) => TRAINS[t.type ?? 1] || TRAINS[1];
   const klasse = (L: any) => KLASSEN[L.cls ?? 0] || KLASSEN[0];
   /** Tatsaechliche Geschwindigkeit: Zug und Strecke begrenzen; Fremdzuege fahren hoechstens 110 km/h. */
-  const vKmh = (t: any, L: any) => Math.min(t.own ? tdef(t).kmh : 110, klasse(L).kmh);
+  const hatUpg = (t: any, id: string) => (t.upg || []).includes(id);
+  /** Dampflok ohne Kohlelager in einer Endstadt der Strecke. */
+  const kohleMangel = (t: any, L: any) => !!t.own && !!tdef(t).kohle && !(S.lager || []).some((c: number) => c === L.a || c === L.b);
+  const vKmh = (t: any, L: any) => Math.round(Math.min(t.own ? tdef(t).kmh * (hatUpg(t, 'leistung') ? 1.1 : 1) : 110, klasse(L).kmh) * (kohleMangel(t, L) ? 0.8 : 1));
+  /** Mietfaktor eines eigenen Zuges durch Upgrades. */
+  const upgMiete = (t: any) => 1 + (hatUpg(t, 'komfort') ? 0.15 : 0) + (hatUpg(t, 'zusatzwagen') ? 0.2 : 0) + (hatUpg(t, 'wlan') ? 0.1 : 0);
+  const zugFarbe = (t: any) => ZUG_FARBEN.find((f) => f.id === t.farbe)?.farbe ?? null;
+  const olKosten = (L: any) => Math.round((L.len * OBERLEITUNG.proEinheit) / 10) * 10;
   /** 120 km/h entsprechen CFG.trainSpeed Welteinheiten pro Sekunde. */
   const pxs = (kmh: number) => CFG.trainSpeed * kmh / 120;
   const level = () => levelAus(S.xp || 0);
@@ -107,18 +118,31 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   /** Im Stadt-Panel ausgewaehlter Bezirk. */
   let bzWahl: { c: number; i: number } | null = null;
   const meineId = () => welt?.ich?.id ?? null;
-  const bezirkVon = (c: number, b: number) => (welt?.bezirke || []).find((x: any) => x.stadt === c && x.bezirk === b);
+  /** Besitz-Eintrag des i-ten Bezirks der Stadt c (gespeichert wird die feste Bezirks-ID). */
+  const bezirkVon = (c: number, i: number) => { const id = bezirkeVon(c)[i]?.id; return (welt?.bezirke || []).find((x: any) => x.stadt === c && x.bezirk === id); };
   const istMein = (x: any) => !!x && x.ownerId === meineId();
   const istClan = (x: any) => !!x && !!welt?.ich?.clanId && x.clanId === welt.ich.clanId && !istMein(x);
-  const angeschlossen = (c: number) => S.lines.some((l: any) => l.a === c || l.b === c);
-  /** Darf in Stadt c gebaut werden? Eigener oder Clan-Bezirk, oder schon angeschlossen (bzw. Welt nicht geladen). */
-  const praesenz = (c: number) => !welt || angeschlossen(c) || (welt.bezirke || []).some((x: any) => x.stadt === c && (istMein(x) || istClan(x)));
-  /** Einnahmen der eigenen Bezirke in Stadt c pro Sekunde (nur wenn angeschlossen; Stoerung dort halbiert). */
+  /** Strecken anderer Clan-Mitglieder (vom Server) als {a, b}. */
+  const clanStrecken = (): { a: number; b: number }[] => (welt?.clanStrecken || []).map((l: number[]) => ({ a: l[0], b: l[1] }));
+  /** Stadt c ist angeschlossen: eigene Strecke oder Strecke eines Clan-Mitglieds endet dort. */
+  const angeschlossen = (c: number) => S.lines.some((l: any) => l.a === c || l.b === c) || clanStrecken().some((l) => l.a === c || l.b === c);
+  const eigenerBezirk = (c: number) => (welt?.bezirke || []).some((x: any) => x.stadt === c && istMein(x));
+  /** Aktive Clan-Mitglieder (Bezirk + in den letzten 7 Tagen gespielt), die in Stadt c arbeiten. */
+  const clanArbeiter = (c: number): string[] => Array.from(new Set<string>((welt?.bezirke || []).filter((x: any) => x.stadt === c && istClan(x) && x.aktiv).map((x: any) => x.ownerName)));
+  /** Darf in Stadt c gebaut werden? Nur wenn du oder ein aktives Clan-Mitglied dort einen Bezirk hat (ohne Serverdaten keine Sperre). */
+  const praesenz = (c: number) => !welt || eigenerBezirk(c) || clanArbeiter(c).length > 0;
+  /** Clan-Verbindung: eine Strecke (eigene oder eines Mitglieds) von c in eine Stadt, in der der Clan ebenfalls arbeitet. */
+  const clanBonus = (c: number) => {
+    if (!welt?.ich?.clanId) return false;
+    const da = (x: number) => eigenerBezirk(x) || clanArbeiter(x).length > 0;
+    return [...S.lines, ...clanStrecken()].some((l: any) => (l.a === c || l.b === c) && da(l.a) && da(l.b));
+  };
+  /** Einnahmen der eigenen Bezirke in Stadt c pro Sekunde (nur angeschlossen; Clan-Verbindung +25 %, Stoerung halbiert). */
   const bezirkRate = (c: number) => {
     if (!welt || !angeschlossen(c)) return 0;
     const meine = (welt.bezirke || []).filter((x: any) => x.stadt === c && istMein(x));
     const stoerung = S.lines.some((l: any) => l.fault && (l.a === c || l.b === c));
-    return meine.reduce((a: number, x: any) => a + x.basis * 0.0015, 0) * (stoerung ? 0.5 : 1);
+    return meine.reduce((a: number, x: any) => a + x.basis * 0.0015, 0) * (stoerung ? 0.5 : 1) * (clanBonus(c) ? 1.25 : 1);
   };
   const LCOL = ['#e4572e', '#2e86ab', '#59a14f', '#b07aa1', '#f2a900', '#17bebb', '#8c564b', '#4e79a7', '#d6336c', '#7f8c8d'];
 
@@ -197,7 +221,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   /* ---------- Spiel-Aktionen ---------- */
   const addLine = (a: number, b: number) => {
     const g = makeGeo(a, b);
-    const L = { id: S.lines.length, a, b, pts: g.pts, cum: g.cum, len: g.len, color: LCOL[S.lines.length % LCOL.length], cls: 0,
+    const L = { id: S.lines.length, a, b, pts: g.pts, cum: g.cum, len: g.len, color: LCOL[S.lines.length % LCOL.length], cls: 0, ol: false,
       cond: 100, inF: 0, inO: 0, up: 0, rep: 0, fault: null, spawnT: rand(1.5, 4) };
     S.lines.push(L);
     return L;
@@ -206,13 +230,14 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const tryBuild = (a: number, b: number): boolean | number => {
     if (lineExists(a, b)) { toast('Diese Strecke gehört dir schon.'); return false; }
     const fehlt = [a, b].find((c) => !praesenz(c));
-    if (fehlt !== undefined) { toast('In ' + CITIES[fehlt].n + ' brauchst du zuerst einen Bezirk – unten im Panel kaufen.', 4000); return fehlt; }
+    if (fehlt !== undefined) { toast('In ' + CITIES[fehlt].n + ' arbeitet weder du noch ein aktives Clan-Mitglied – kauf dort zuerst einen Bezirk.', 4500); return fehlt; }
     const g = makeGeo(a, b), cost = lineCost(g);
     if (S.money < cost) { toast('Zu wenig Guthaben (' + fmt(cost) + ' nötig).'); return false; }
     S.money -= cost;
     addLine(a, b);
     revealNear(a, 2); revealNear(b, 2);
     addXp(15);
+    opts.onVerbindung?.(a, b);
     toast('Strecke ' + CITIES[a].n + ' ⇄ ' + CITIES[b].n + ' gebaut (−' + fmt(cost) + ')');
     sel.line = null;
     save();
@@ -222,14 +247,15 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const dir = Math.random() < .5 ? 1 : -1;
     S.trains.push({ id: S.nextId++, line: L.id, own: false, dir, s: dir > 0 ? 0 : L.len, earned: 0, cost: 0, trips: 0 });
   };
-  const buyTrain = (id: number, type = 1) => {
+  const buyTrain = (id: number, type = 1, farbe = 'werk') => {
     const def = TRAINS[type], L = S.lines[id]; if (!def || !L) return;
     if (level() < def.lvl) { toast('Erst ab Level ' + def.lvl + '.'); return; }
-    if (def.el && !klasse(L).el) { toast('Diese Strecke hat keine Oberleitung – erst ausbauen.'); return; }
-    if (S.money < def.cost) { toast('Zu wenig Guthaben.'); return; }
-    S.money -= def.cost;
+    if (def.el && !L.ol) { toast('Diese Strecke hat keine Oberleitung – erst bauen.'); return; }
+    const fp = ZUG_FARBEN.find((f) => f.id === farbe)?.preis ?? 0;
+    if (S.money < def.cost + fp) { toast('Zu wenig Guthaben.'); return; }
+    S.money -= def.cost + fp;
     addXp(5);
-    S.trains.push({ id: S.nextId++, line: id, own: true, type, dir: 1, s: 0, earned: 0, cost: 0, trips: 0 });
+    S.trains.push({ id: S.nextId++, line: id, own: true, type, dir: 1, s: 0, earned: 0, cost: 0, trips: 0, farbe, upg: [] });
     toast(def.n + ' gekauft (−' + fmt(def.cost) + ')');
     save();
   };
@@ -270,6 +296,44 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     S.ausr = [...(S.ausr || []), id];
     addXp(10);
     toast(a.n + ' gekauft: ' + a.text);
+    save();
+  };
+  const baueOberleitung = (id: number) => {
+    const L = S.lines[id];
+    if (!L || L.ol) return;
+    if (level() < OBERLEITUNG.lvl) { toast('Oberleitung erst ab Level ' + OBERLEITUNG.lvl + '.'); return; }
+    const c = olKosten(L);
+    if (S.money < c) { toast('Zu wenig Guthaben (' + fmt(c) + ' nötig).'); return; }
+    S.money -= c; L.rep += c; L.ol = true; addXp(10);
+    toast('⚡ Oberleitung ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + ' gebaut (−' + fmt(c) + ')');
+    save();
+  };
+  const baueKohlelager = (c: number) => {
+    S.lager = S.lager || [];
+    if (S.lager.includes(c)) return;
+    if (!praesenz(c)) { toast('In ' + CITIES[c].n + ' arbeitet weder du noch dein Clan.'); return; }
+    if (S.money < KOHLELAGER.preis) { toast('Zu wenig Guthaben.'); return; }
+    S.money -= KOHLELAGER.preis; S.lager.push(c); addXp(10);
+    toast('🏭 Kohlelager in ' + CITIES[c].n + ' gebaut (−' + fmt(KOHLELAGER.preis) + ')');
+    save();
+  };
+  const zugVon = (id: number) => S.trains.find((t: any) => t.own && t.id === id);
+  const faerbeZug = (id: number, farbe: string) => {
+    const t = zugVon(id), f = ZUG_FARBEN.find((x) => x.id === farbe);
+    if (!t || !f || (t.farbe ?? 'werk') === farbe) return;
+    if (S.money < f.preis) { toast('Zu wenig Guthaben.'); return; }
+    S.money -= f.preis; t.farbe = farbe;
+    toast('🎨 Neu lackiert: ' + f.n + (f.preis ? ' (−' + fmt(f.preis) + ')' : ''));
+    save();
+  };
+  const ruesteNach = (id: number, upg: string) => {
+    const t = zugVon(id), u = ZUG_UPGRADES.find((x) => x.id === upg);
+    if (!t || !u || hatUpg(t, upg)) return;
+    if (level() < u.lvl) { toast('Erst ab Level ' + u.lvl + '.'); return; }
+    const p = upgradePreis(tdef(t).cost, u.faktor);
+    if (S.money < p) { toast('Zu wenig Guthaben.'); return; }
+    S.money -= p; t.upg = [...(t.upg || []), upg]; addXp(5);
+    toast('🔧 ' + u.n + ' eingebaut (−' + fmt(p) + ')');
     save();
   };
   const careLine = (id: number) => {
@@ -358,11 +422,11 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const arrive = (t: any, L: any) => {
     const p = posAt(L, t.s);
     S.passes++;
-    L.cond = Math.max(0, L.cond - CFG.wearPerPass * klasse(L).wear * (t.own ? tdef(t).wear : 1.4) * (hat('stopfmaschine') ? 0.75 : 1));
+    L.cond = Math.max(0, L.cond - CFG.wearPerPass * klasse(L).wear * (t.own ? tdef(t).wear * (hatUpg(t, 'drehgestell') ? 0.7 : 1) : 1.4) * (hat('stopfmaschine') ? 0.75 : 1));
     t.trips++;
     if (t.own) {
       // Keine Wartungskosten mehr: Wartungsstau und Stoerung senken nur die Einnahmen.
-      const td = tdef(t), voll = L.len * CFG.ownRent * td.rent * (1 + (hat('fahrgastinfo') ? 0.1 : 0) + (hat('schaufel') ? 0.05 : 0));
+      const td = tdef(t), voll = L.len * CFG.ownRent * td.rent * upgMiete(t) * (1 + (hat('fahrgastinfo') ? 0.1 : 0) + (hat('schaufel') ? 0.05 : 0)) * (kohleMangel(t, L) ? 0.6 : 1);
       const inc = voll * condFaktor(L) * (L.fault ? CFG.faultIncome : 1);
       S.money += inc; L.inO += inc; t.earned += inc; L.verlust = (L.verlust || 0) + voll - inc;
       addXp(1);
@@ -434,6 +498,21 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   ro.observe(root);
 
   /* ---------- Zeichnen ---------- */
+  /** Hintergrundkarte (Meer, Relief, Grenzen) einmal vorrendern statt jedes Bild neu zu zeichnen. */
+  const KB = { x0: -300, y0: -250, x1: KARTE_W + 300, y1: KARTE_H + 250 }, KB_S = 1.2;
+  let kartenBild: HTMLCanvasElement | null = null, kartenMitRelief = false;
+  const holeKartenBild = () => {
+    const rel = reliefBild();
+    if (kartenBild && (kartenMitRelief || !rel)) return kartenBild;
+    const c = document.createElement('canvas');
+    c.width = Math.round((KB.x1 - KB.x0) * KB_S); c.height = Math.round((KB.y1 - KB.y0) * KB_S);
+    const g = c.getContext('2d')!;
+    g.scale(KB_S, KB_S); g.translate(-KB.x0, -KB.y0);
+    zeichneKarte(g, undefined, 1.4, rel ? { bild: rel, x0: HOEHEN.x0, y0: HOEHEN.y0, w: HOEHEN.breite * HOEHEN.zelle, h: HOEHEN.hoehe * HOEHEN.zelle } : null, KB);
+    kartenBild = c; kartenMitRelief = !!rel;
+    return c;
+  };
+  ladeHoehen();
   const path = (pts: any[]) => { ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y); for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y); };
   const label = (x: number, y: number, txt: string, col: string, plain?: boolean) => {
     ctx.font = '700 13px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -444,7 +523,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.fillStyle = '#bcd6e6'; ctx.fillRect(0, 0, W, H);
     ctx.save(); ctx.translate(ox, oy); ctx.scale(k, k);
-    zeichneKarte(ctx, undefined, 1.5 / k);
+    ctx.drawImage(holeKartenBild(), KB.x0, KB.y0, KB.x1 - KB.x0, KB.y1 - KB.y0);
     // Stadtbezirke (echte Grenzen): Besitz farbig, freie nur als feine Linie.
     for (let i = 0; i < CITIES.length; i++) {
       if (!S.vis[i]) continue;
@@ -473,13 +552,13 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     }
     for (const t of S.trains) {
       const L = S.lines[t.line]; if (!L) continue;
-      const n = t.own ? tdef(t).len : 3;
+      const n = t.own ? tdef(t).len + (hatUpg(t, 'zusatzwagen') ? 1 : 0) : 3;
       for (let i = 0; i < n; i++) {
         const s = t.s - t.dir * i * 11;
         if (s < 0 || s > L.len) continue;
         const p = posAt(L, s);
         ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.ang);
-        ctx.fillStyle = t.own ? (skinFarbe() ?? (i === 0 ? tdef(t).col : tdef(t).col2)) : (i === 0 ? '#2f3a46' : '#5d6b7a');
+        ctx.fillStyle = t.own ? (zugFarbe(t) ?? skinFarbe() ?? (i === 0 ? tdef(t).col : tdef(t).col2)) : (i === 0 ? '#2f3a46' : '#5d6b7a');
         ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5;
         ctx.beginPath(); ctx.rect(-5, -3.5, 10, 7); ctx.fill(); ctx.stroke();
         ctx.restore();
@@ -530,7 +609,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       const care = Math.round(L.len * CFG.careCostPerUnit / 10) * 10;
       let h = '<h3 style="color:' + L.color + '">' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + '</h3>';
       h += '<div class="mut">Länge ca. ' + Math.round(L.len * .97) + ' km</div>';
-      h += '<div class="row"><span>Ausbau</span><b>' + klasse(L).n + '</b></div><div class="mut">max. ' + klasse(L).kmh + ' km/h' + (klasse(L).el ? ' · Oberleitung' : ' · ohne Oberleitung') + '</div>';
+      h += '<div class="row"><span>Ausbau</span><b>' + klasse(L).n + '</b></div><div class="mut">max. ' + klasse(L).kmh + ' km/h' + (L.ol ? ' · ⚡ Oberleitung' : ' · ohne Oberleitung') + '</div>';
       h += '<div class="row"><span>Zustand</span><b>' + Math.round(L.cond) + ' %</b></div>' + barHTML(L.cond, condCol(L.cond));
       h += '<div class="row"><span>Trassenentgelt (Fremdzüge)</span><span class="pos">' + sgn(L.inF) + '</span></div>';
       h += '<div class="row"><span>Miete eigene Züge</span><span class="pos">' + sgn(L.inO) + '</span></div>';
@@ -539,7 +618,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       h += '<div class="mut">Zustand ' + Math.round(L.cond) + ' % → ' + Math.round(condFaktor(L) * 100) + ' % der möglichen Einnahmen. Ausgegeben für Ausbau/Reparatur: ' + fmt(L.rep) + '</div>';
       if (!RO) {
         if (L.fault) h += '<p class="neg"><b>⚠ Störung (' + DIFF[L.fault.diff].n + ')</b> – Züge fahren langsamer und bringen nur ' + Math.round(CFG.faultIncome * 100) + ' % Einnahmen. Klicke das rote ! auf der Strecke.</p>';
-        h += '<div class="btns"><button data-act="shop" data-arg="z:' + L.id + '">🛒 Zug kaufen …</button>' + ausbauKnopf(L) + inspektionKnopf(L);
+        h += '<div class="btns"><button data-act="shop" data-arg="z:' + L.id + '">🛒 Zug kaufen …</button>' + ausbauKnopf(L) + olKnopf(L) + inspektionKnopf(L);
         h += '<button data-act="care" data-arg="' + L.id + '" ' + (S.money < care || L.cond >= 95 ? 'disabled' : '') + '>Pflege durch Fremdfirma (' + fmt(care) + ')</button></div>';
       }
       h += '<b>Eigene Züge (' + own.length + ')</b>';
@@ -548,7 +627,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         const n = t.earned;
         h += '<div class="train"><div class="row"><span>' + tdef(t).n + ' #' + (i + 1) + ' <span class="mut">(' + vKmh(t, L) + ' km/h · ' + t.trips + ' Fahrten)</span></span><b class="' + (n >= 0 ? 'pos' : 'neg') + '">' + sgn(n) + '</b></div>' +
 
-          '<button class="sm" data-act="show" data-arg="' + (t.type ?? 1) + '">3D ansehen</button></div>';
+          (kohleMangel(t, L) ? '<div class="neg">⚠ Kohlemangel: Kohlelager in ' + CITIES[L.a].n + ' oder ' + CITIES[L.b].n + ' bauen (Stadt anklicken).</div>' : '') +
+          (RO ? '<button class="sm" data-act="show" data-arg="' + (t.type ?? 1) + '">3D ansehen</button>' : '<button class="sm" data-act="werk" data-arg="' + t.id + '">🔧 Werkstatt: Farbe & Upgrades</button>') + '</div>';
       });
       return h;
     }
@@ -568,6 +648,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     h += '<div class="row"><span>Bezirke (' + meineBezirke + ')</span><span class="pos">' + sgn(bez) + '</span></div>';
     h += '<div class="row"><b>Einnahmen gesamt</b><b class="pos">' + sgn(inF + inO + bez) + '</b></div>';
     h += '<div class="row"><span>Entgangen durch Wartungsstau/Störungen</span><span class="neg">' + sgn(-verlust) + '</span></div>';
+    h += '<div class="mut">' + HOEHEN_QUELLE + ' · Karte: Natural Earth</div>';
     h += '<div class="mut">Laufende Kosten gibt es nicht – schlechter Zustand und Störungen senken nur die Einnahmen. Selbst beheben lohnt sich!</div>';
     h += '<h3 style="margin-top:16px">Können (Eigenleistung)</h3>';
     DIFF.forEach((d, i) => {
@@ -633,6 +714,12 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (!welt) {
       h += '<p class="mut">' + (RO ? '' : 'Bezirke werden geladen …') + '</p>';
     } else {
+      const team = clanArbeiter(c), ich = eigenerBezirk(c);
+      h += '<div class="row"><span>Hier arbeiten</span><b>' + ([ich ? 'du' : '', ...team].filter(Boolean).join(', ') || '–') + '</b></div>';
+      if (!RO) h += '<div class="mut">' + (praesenz(c) ? '✓ Strecken von und nach ' + C.n + ' sind möglich.' : '✗ Für Strecken hierher brauchst du einen eigenen Bezirk oder ein aktives Clan-Mitglied mit Bezirk.') + '</div>';
+      if (clanBonus(c)) h += '<div class="pos">🤝 Clan-Verbindung: Bezirke deines Clans hier bringen +25 %.</div>';
+      if ((S.lager || []).includes(c)) h += '<div class="pos">🏭 Dein Kohlelager versorgt Dampfloks auf allen Strecken nach ' + C.n + '.</div>';
+      else if (!RO) h += '<div class="btns"><button data-act="lager" data-arg="' + c + '" ' + (S.money < KOHLELAGER.preis || !praesenz(c) ? 'disabled' : '') + '>🏭 Kohlelager bauen · ' + fmt(KOHLELAGER.preis) + '</button></div><div class="mut">' + KOHLELAGER.text + '</div>';
       const bz = bezirkeVon(c);
       if (bzWahl && bzWahl.c !== c) bzWahl = null;
       h += '<h3 style="margin-top:10px">Bezirke (' + bz.length + ')</h3>';
@@ -649,7 +736,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       }
       h += '<div class="mut">Fremde Bezirke kosten das Dreifache; der bisherige Besitzer bekommt den Grundpreis erstattet. Frisch gekaufte Bezirke sind 2 Stunden geschützt.</div>';
     }
-    if (!RO) h += '<p class="mut">Klicke eine zweite Stadt an, um eine Strecke zu bauen. In beiden Städten brauchst du einen eigenen Bezirk (oder einen deines Clans), außer die Stadt ist schon an dein Netz angeschlossen.</p>';
+    if (!RO) h += '<p class="mut">Klicke eine zweite Stadt an, um eine Strecke zu bauen. In beiden Städten muss jemand arbeiten: du mit einem eigenen Bezirk oder ein Clan-Mitglied, das dort einen Bezirk hat und in den letzten 7 Tagen gespielt hat. Clan-Mitglieder in den beiden Städten bekommen beim Bau Erfahrung, und solange die Verbindung steht, bringen ihre Bezirke dort 25 % mehr.</p>';
     h += '<div class="btns"><button class="sm" data-act="stadtzu">Schließen</button></div>';
     return h;
   };
@@ -754,6 +841,13 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     closeModal(); save();
   };
 
+  /** Knopf "Oberleitung bauen" (Panel und Shop). */
+  const olKnopf = (L: any) => {
+    if (L.ol) return '';
+    if (level() < OBERLEITUNG.lvl) return '<button disabled>🔒 Oberleitung ab Level ' + OBERLEITUNG.lvl + '</button>';
+    const c = olKosten(L);
+    return '<button data-act="ol" data-arg="' + L.id + '" ' + (S.money < c ? 'disabled' : '') + '>⚡ Oberleitung bauen · ' + fmt(c) + '</button>';
+  };
   /** Knopf "Strecke ausbauen" (Panel und Shop). */
   const ausbauKnopf = (L: any) => {
     const n = KLASSEN[(L.cls ?? 0) + 1];
@@ -775,7 +869,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
 
   /* ---------- Tutorial ---------- */
   const TUT = [
-    { t: 'Willkommen! Klicke Berlin an und kaufe rechts einen Bezirk. Dann klicke eine zweite Stadt an, kaufe auch dort einen Bezirk und klicke wieder Berlin → Strecke wird gebaut.', ok: () => S.lines.length > 0 },
+    { t: 'Willkommen! Klicke Berlin an und kaufe rechts einen Bezirk. Dann klicke eine zweite Stadt an, kaufe auch dort einen Bezirk (oder such dir einen Clan, der dort arbeitet) und klicke wieder Berlin → Strecke wird gebaut.', ok: () => S.lines.length > 0 },
     { t: 'Gebaut! Fremdzüge nutzen deine Strecke und zahlen Trassenentgelt. Klicke die Strecke an für Details.', ok: () => S.openedLine },
     { t: 'Kaufe jetzt einen eigenen Zug: „🛒 Zug kaufen“ bei der Strecke oder oben im Shop.', ok: () => S.trains.some((t: any) => t.own) },
     { t: 'Verschleiß verursacht Störungen. Sobald ein rotes „!“ erscheint: anklicken und Aufgabe wählen.', ok: () => S.faultsFixed > 0 },
@@ -801,17 +895,19 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (modal.kind === 'arbeit') { box.innerHTML = arbeitHTML(); return; }
     if (modal.kind === 'quiz') { box.innerHTML = quizHTML(); return; }
     const L = S.lines[modal.line];
+    if (modal.kind === 'werkstatt') { box.innerHTML = werkstattHTML(); const t = zugVon(modal.zug); if (t) opts.onVorschau?.($('#lok3d'), t.type ?? 1, zugFarbe(t) ?? skinFarbe(), hatUpg(t, 'zusatzwagen')); return; }
     if (modal.kind === 'buy' || modal.kind === 'show') {
-      const td = TRAINS[modal.typ];
+      const td = TRAINS[modal.typ], kf = ZUG_FARBEN.find((f) => f.id === (modal.farbe || 'werk'))!;
       let h = '<h2>' + td.n + '</h2><div class="lok3d" id="lok3d"></div>';
+      if (modal.kind === 'buy') h += '<div class="mut">Lackierung wählen:</div>' + farbKnoepfe('kfarbe', kf.id);
       h += '<div class="row"><span>Höchstgeschwindigkeit</span><b>' + td.kmh + ' km/h' + (L && klasse(L).kmh < td.kmh ? ' (auf dieser Strecke ' + klasse(L).kmh + ')' : '') + '</b></div>';
       h += '<div class="row"><span>Miete</span><b>' + Math.round(td.rent * 100) + ' %</b></div>';
       h += '<div class="row"><span>Gleisverschleiß</span><b>' + Math.round(td.wear * 100) + ' %</b></div>';
       h += '<div class="opts">';
-      if (modal.kind === 'buy') h += '<div class="mut">Strecke ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + '</div><button data-act="buyok" ' + (S.money < td.cost ? 'disabled' : '') + '>Jetzt kaufen (' + fmt(td.cost) + ')</button>';
+      if (modal.kind === 'buy') h += '<div class="mut">Strecke ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + (td.kohle ? ' · Dampflok: braucht ein Kohlelager in einer der beiden Städte' : '') + '</div><button data-act="buyok" ' + (S.money < td.cost + kf.preis ? 'disabled' : '') + '>Jetzt kaufen (' + fmt(td.cost + kf.preis) + (kf.preis ? ', davon Lack ' + fmt(kf.preis) : '') + ')</button>';
       h += '<button data-act="close">' + (modal.kind === 'buy' ? (modal.zurueck ? 'Zurück zum Shop' : 'Abbrechen') : 'Schließen') + '</button></div>';
       box.innerHTML = h;
-      opts.onVorschau?.($('#lok3d'), modal.typ);
+      opts.onVorschau?.($('#lok3d'), modal.typ, modal.kind === 'buy' ? kf.farbe ?? skinFarbe() : skinFarbe());
       return;
     }
     if (modal.kind === 'fault') {
@@ -843,11 +939,34 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const inp = $('#guess'); if (inp) inp.focus();
   };
 
+  /** Farbfelder (Kaufdialog und Werkstatt). */
+  const farbKnoepfe = (act: string, aktiv: string) => '<div class="farbwahl-zug">' + ZUG_FARBEN.map((f) =>
+    '<button class="farbfeld' + (f.id === aktiv ? ' on' : '') + '" data-act="' + act + '" data-arg="' + f.id + '" title="' + f.n + (f.preis ? ' (' + fmt(f.preis) + ')' : '') + '" style="background:' +
+    (f.farbe ?? 'linear-gradient(135deg,#ff7a00 50%,#2e86ab 50%)') + '"></button>').join('') + '</div>';
+  /** Werkstatt eines eigenen Zuges: Lackierung und Upgrades. */
+  const werkstattHTML = () => {
+    const t = zugVon(modal.zug);
+    if (!t) return '<p>Zug nicht gefunden.</p><div class="opts"><button data-act="close">Schließen</button></div>';
+    const td = tdef(t), L = S.lines[t.line], lv = level(), aktiv = t.farbe ?? 'werk';
+    let h = '<h2>🔧 Werkstatt · ' + td.n + '</h2><div class="mut">' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + ' · ' + vKmh(t, L) + ' km/h · ' + t.trips + ' Fahrten</div>';
+    h += '<div class="lok3d" id="lok3d"></div>';
+    h += '<h3>Lackierung</h3>' + farbKnoepfe('zfarbe', aktiv) + '<div class="mut">Aktuell: ' + ZUG_FARBEN.find((f) => f.id === aktiv)!.n + '. Neulackieren kostet je nach Farbe ' + fmt(400) + '–' + fmt(600) + ', Werkslack ist kostenlos.</div>';
+    h += '<h3>Upgrades</h3><div class="shop-liste">';
+    ZUG_UPGRADES.forEach((u) => {
+      const p = upgradePreis(td.cost, u.faktor), drin = hatUpg(t, u.id);
+      h += '<div class="shop-zug' + (lv < u.lvl && !drin ? ' zu' : '') + '"><div class="shop-text"><b>' + u.n + '</b><div class="mut">' + u.text + '</div></div>' +
+        (drin ? '<button disabled>✓ eingebaut</button>' : lv < u.lvl ? '<button disabled>🔒 Level ' + u.lvl + '</button>'
+          : '<button data-act="zupg" data-arg="' + u.id + '" ' + (S.money < p ? 'disabled' : '') + '>' + fmt(p) + '</button>') + '</div>';
+    });
+    h += '</div><div class="opts"><button data-act="close">' + (modal.zurueck ? 'Zurück zum Shop' : 'Schließen') + '</button></div>';
+    return h;
+  };
   /** Shop: Zuege kaufen (nach Level freigeschaltet) und Strecken ausbauen. */
   const shopHTML = () => {
     const lv = level();
     let h = '<h2>🛒 Shop <span class="mut">· Level ' + lv + ' · Guthaben ' + fmt(S.money) + '</span></h2>';
     h += '<div class="tabs"><button data-act="stab" data-arg="z" class="sm' + (modal.tab === 'z' ? ' on' : '') + '">Züge</button>' +
+      '<button data-act="stab" data-arg="w" class="sm' + (modal.tab === 'w' ? ' on' : '') + '">Deine Züge</button>' +
       '<button data-act="stab" data-arg="s" class="sm' + (modal.tab === 's' ? ' on' : '') + '">Strecken ausbauen</button>' +
       '<button data-act="stab" data-arg="a" class="sm' + (modal.tab === 'a' ? ' on' : '') + '">Ausrüstung</button>' +
       '<button data-act="stab" data-arg="k" class="sm' + (modal.tab === 'k' ? ' on' : '') + '">Lackierungen</button></div>';
@@ -886,25 +1005,35 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       h += '<div class="lok3d" id="lok3d"></div><div class="shop-ansicht" id="ansichtName">' + TRAINS[modal.ansicht].n + ' · bis ' + TRAINS[modal.ansicht].kmh + ' km/h</div>';
       h += '<div class="shop-liste">';
       TRAINS.map((z, i) => ({ z, i })).sort((a, b) => a.z.lvl - b.z.lvl || a.z.cost - b.z.cost).forEach(({ z, i }) => {
-        const zu = lv < z.lvl, ohneOL = z.el && !K.el, eff = Math.min(z.kmh, K.kmh);
+        const zu = lv < z.lvl, ohneOL = z.el && !L.ol, eff = Math.min(z.kmh, K.kmh);
         h += '<div class="shop-zug' + (zu ? ' zu' : '') + (i === modal.ansicht ? ' gewaehlt' : '') + '" data-zug="' + i + '">' +
           '<button class="sm auge" data-act="sieh" data-arg="' + i + '" title="In 3D ansehen">👁</button><div class="shop-text"><b>' + z.n + '</b>' + (z.el ? ' <span class="tag" style="background:#2e86ab">⚡ elektrisch</span>' : '') +
           '<div class="mut">bis ' + z.kmh + ' km/h' + (eff < z.kmh ? ' (hier ' + eff + ')' : '') + ' · Miete ' + pct(z.rent) + ' · Gleisverschleiß ' + pct(z.wear) + ' · ' + z.len + ' Fahrzeuge</div></div>';
         h += zu ? '<button disabled>🔒 Level ' + z.lvl + '</button>'
-          : ohneOL ? '<button disabled title="Strecke zuerst elektrifizieren (Hauptbahn)">braucht Oberleitung</button>'
+          : ohneOL ? '<button disabled title="Erst Oberleitung auf der Strecke bauen">braucht Oberleitung</button>'
           : '<button data-act="pick" data-arg="' + L.id + ':' + i + ':shop" ' + (S.money < z.cost ? 'disabled' : '') + '>' + fmt(z.cost) + '</button>';
         h += '</div>';
+      });
+      h += '</div>';
+    } else if (modal.tab === 'w') {
+      const eigene = S.trains.filter((t: any) => t.own);
+      h += '<div class="mut">Hier lackierst du einzelne Züge um und rüstest sie nach.</div><div class="shop-liste">';
+      if (!eigene.length) h += '<p class="mut">Du hast noch keine eigenen Züge.</p>';
+      eigene.forEach((t: any) => {
+        const L2 = S.lines[t.line], f = zugFarbe(t) ?? skinFarbe();
+        h += '<div class="shop-zug"><span class="farbpunkt" style="background:' + (f ?? tdef(t).col) + '"></span><div class="shop-text"><b>' + tdef(t).n + '</b><div class="mut">' + CITIES[L2.a].n + ' ⇄ ' + CITIES[L2.b].n +
+          ' · ' + vKmh(t, L2) + ' km/h · ' + (t.upg || []).length + ' Upgrades' + (kohleMangel(t, L2) ? ' · ⚠ Kohlemangel' : '') + '</div></div><button data-act="werk" data-arg="' + t.id + ':shop">🔧 Werkstatt</button></div>';
       });
       h += '</div>';
     } else {
       h += '<div class="shop-liste">';
       KLASSEN.forEach((k) => {
-        h += '<div class="shop-zug' + (lv < k.lvl ? ' zu' : '') + '"><div><b>' + k.n + '</b><div class="mut">max. ' + k.kmh + ' km/h · ' + (k.el ? 'Oberleitung' : 'ohne Oberleitung') +
+        h += '<div class="shop-zug' + (lv < k.lvl ? ' zu' : '') + '"><div><b>' + k.n + '</b><div class="mut">max. ' + k.kmh + ' km/h' +
           ' · Verschleiß ' + pct(k.wear) + ' · Trassenentgelt ' + pct(k.entgelt) + '</div></div><span class="mut">' + (lv < k.lvl ? '🔒 ab Level ' + k.lvl : '✓ frei') + '</span></div>';
       });
       h += '</div><h3>Deine Strecken</h3><div class="shop-liste">';
       S.lines.forEach((l: any) => {
-        h += '<div class="shop-zug"><div><b>' + CITIES[l.a].n + ' ⇄ ' + CITIES[l.b].n + '</b><div class="mut">' + klasse(l).n + ' · ' + klasse(l).kmh + ' km/h · Zustand ' + Math.round(l.cond) + ' %</div></div>' + ausbauKnopf(l) + '</div>';
+        h += '<div class="shop-zug"><div><b>' + CITIES[l.a].n + ' ⇄ ' + CITIES[l.b].n + '</b><div class="mut">' + klasse(l).n + ' · ' + klasse(l).kmh + ' km/h · Zustand ' + Math.round(l.cond) + ' %' + (l.ol ? ' · ⚡' : '') + '</div></div><div class="knoepfe">' + ausbauKnopf(l) + olKnopf(l) + '</div></div>';
       });
       h += '</div>';
     }
@@ -995,7 +1124,13 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     else if (a === 'ausr') { kaufeAusruestung(arg!); renderModal(); }
     else if (a === 'upg') { upgradeLine(+arg!); if (modal?.kind === 'shop') renderModal(); }
     else if (a === 'show') { modal = { kind: 'show', line: sel.line, typ: +arg! }; renderModal(); }
-    else if (a === 'buyok') { const m = modal; closeModal(); buyTrain(m.line, m.typ); }
+    else if (a === 'buyok') { const m = modal; closeModal(); buyTrain(m.line, m.typ, m.farbe || 'werk'); }
+    else if (a === 'kfarbe') { modal.farbe = arg; renderModal(); }
+    else if (a === 'werk') { const [id, von] = arg!.split(':'); modal = { kind: 'werkstatt', zug: +id, zurueck: von === 'shop' }; renderModal(); }
+    else if (a === 'zfarbe') { faerbeZug(modal.zug, arg!); renderModal(); }
+    else if (a === 'zupg') { ruesteNach(modal.zug, arg!); renderModal(); }
+    else if (a === 'ol') { baueOberleitung(+arg!); if (modal?.kind === 'shop') renderModal(); }
+    else if (a === 'lager') baueKohlelager(+arg!);
     else if (a === 'firm') { resolveFault(S.lines[modal.line], 'firm'); closeModal(); save(); }
     else if (a === 'self') {
       const L = S.lines[modal.line], art = FEHLER_ARTEN[L.fault.art ?? 0];
@@ -1013,14 +1148,15 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     else if (a === 'stadtzu') { sel.city = null; bzWahl = null; }
     else if (a === 'bzwahl') { const [c, i] = arg!.split(':').map(Number); bzWahl = bzWahl && bzWahl.c === c && bzWahl.i === i ? null : { c, i }; }
     else if (a === 'bez') {
-      const [c, b] = arg!.split(':').map(Number), x = bezirkVon(c, b), basis = bezirkeVon(c)[b].basis, preis = x ? x.basis * 3 : basis;
+      const [c, b] = arg!.split(':').map(Number), x = bezirkVon(c, b), bz = bezirkeVon(c)[b], basis = bz.basis, preis = x ? x.basis * 3 : basis;
       if (S.money < preis) toast('Zu wenig Guthaben (' + fmt(preis) + ' nötig).');
-      else opts.onBezirk?.(c, b, basis);
+      else opts.onBezirk?.(c, bz.id, basis);
     }
     else if (a === 'submit') submitReading();
     else if (a === 'next') nextReading();
     else if (a === 'close') {
       if (modal?.kind === 'buy' && modal.zurueck) { opts.onVorschau?.(null, 0); modal = { kind: 'shop', tab: 'z', line: modal.line, ansicht: modal.typ }; renderModal(); }
+      else if (modal?.kind === 'werkstatt' && modal.zurueck) { opts.onVorschau?.(null, 0); modal = { kind: 'shop', tab: 'w' }; renderModal(); }
       else closeModal();
     }
     else if (a === 'reset') { if (confirm('Spielstand wirklich löschen?')) { opts.onReset?.(); fresh(); sel = { city: null, line: null }; tutStart = 0; } }
@@ -1038,9 +1174,9 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   let toastT: any;
   const toast = (t: string, ms = 2600) => { const e = $('#toast'); e.textContent = t; e.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => e.classList.remove('show'), ms); };
   const serialize = () => ({
-    money: S.money, bezirkSumme: S.bezirkSumme, time: S.time, vis: S.vis, skill: S.skill, xp: S.xp, pokale: S.pokale, skins: S.skins, skin: S.skin, ausr: S.ausr, mode: S.mode, faultIn: S.faultIn, tut: S.tut, faultsFixed: S.faultsFixed, passes: S.passes,
+    money: S.money, bezirkSumme: S.bezirkSumme, time: S.time, vis: S.vis, skill: S.skill, xp: S.xp, pokale: S.pokale, skins: S.skins, skin: S.skin, ausr: S.ausr, lager: S.lager, mode: S.mode, faultIn: S.faultIn, tut: S.tut, faultsFixed: S.faultsFixed, passes: S.passes,
     anyFault: S.anyFault, openedLine: S.openedLine, nextId: S.nextId,
-    lines: S.lines.map((l: any) => ({ a: l.a, b: l.b, cond: l.cond, inF: l.inF, inO: l.inO, up: l.up, rep: l.rep, fault: l.fault, color: l.color, cls: l.cls, verlust: l.verlust, inspAb: l.inspAb })),
+    lines: S.lines.map((l: any) => ({ a: l.a, b: l.b, cond: l.cond, inF: l.inF, inO: l.inO, up: l.up, rep: l.rep, fault: l.fault, color: l.color, cls: l.cls, ol: l.ol, verlust: l.verlust, inspAb: l.inspAb })),
     own: S.trains.filter((t: any) => t.own),
   });
   const save = () => { if (RO || !alive) return; opts.onSave(serialize(), S.money); };
@@ -1050,10 +1186,10 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       fresh();
       // vis auf die aktuelle Staedteliste bringen (alte Staende kennen weniger Staedte).
       Object.assign(S, { money: Math.max(0, d.money || 0), bezirkSumme: d.bezirkSumme || 0, time: d.time, vis: CITIES.map((_, i) => !!d.vis?.[i]), skill: d.skill, mode: d.mode ?? 0, faultIn: d.faultIn ?? modeInterval(d.mode ?? 0), tut: d.tut, faultsFixed: d.faultsFixed, passes: d.passes, anyFault: d.anyFault, openedLine: d.openedLine, nextId: d.nextId });
-      d.lines.forEach((o: any) => { const L: any = addLine(o.a, o.b); Object.assign(L, { cond: o.cond, inF: o.inF, inO: o.inO, up: o.up, rep: o.rep, fault: o.fault, color: o.color, cls: o.cls ?? 1, verlust: o.verlust || 0, inspAb: o.inspAb || 0 }); });
+      d.lines.forEach((o: any) => { const L: any = addLine(o.a, o.b); Object.assign(L, { cond: o.cond, inF: o.inF, inO: o.inO, up: o.up, rep: o.rep, fault: o.fault, color: o.color, cls: o.cls ?? 1, ol: o.ol ?? (o.cls ?? 1) >= 1, verlust: o.verlust || 0, inspAb: o.inspAb || 0 }); });
       S.trains = d.own || [];
       // Alte Staende ohne Erfahrung: aus dem bisherigen Fortschritt schaetzen. Alte Strecken gelten als Hauptbahn (cls 1, s. o.).
-      S.pokale = d.pokale ?? 0; S.skins = d.skins ?? ['standard']; S.skin = d.skin ?? 'standard'; S.ausr = d.ausr ?? [];
+      S.pokale = d.pokale ?? 0; S.skins = d.skins ?? ['standard']; S.skin = d.skin ?? 'standard'; S.ausr = d.ausr ?? []; S.lager = d.lager ?? [];
       S.xp = d.xp ?? (S.lines.length * 15 + (S.faultsFixed || 0) * 10 + S.trains.reduce((a: number, t: any) => a + (t.trips || 0), 0));
       // Einmalig nach dem Staedte-Ausbau: Nachbarn bestehender Strecken aufdecken.
       if ((d.vis?.length ?? 0) < CITIES.length) S.lines.forEach((L: any) => { revealNear(L.a, 2); revealNear(L.b, 2); });
@@ -1080,7 +1216,12 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     welt: () => ({ S, sel, CITIES, DIFF, posAt, skin: skinFarbe(), welt }),
     setzeWelt: (w: any) => { welt = w; },
     bezahlt: (preis: number, text: string) => { S.money = Math.max(0, S.money - preis); addXp(8); toast(text, 3500); save(); },
-    gutschrift: (betrag: number, text: string) => { S.money += betrag; toast(text + ' +' + fmt(betrag), 5000); save(); },
+    gutschrift: (betrag: number, text: string, xp = 0) => {
+      S.money += betrag;
+      toast(text + (betrag ? ' +' + fmt(betrag) : '') + (xp ? ' +' + xp + ' Erfahrung' : ''), 5000);
+      if (xp) addXp(xp);
+      save();
+    },
     meldung: (text: string) => toast(text, 4000),
     belohnung: (xp: number, pokale: number, text: string) => {
       S.pokale = (S.pokale || 0) + pokale;

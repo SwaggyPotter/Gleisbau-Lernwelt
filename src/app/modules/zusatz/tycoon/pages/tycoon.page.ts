@@ -7,6 +7,7 @@ import { KLASSEN, levelAus } from '../tycoon-zuege';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { TycoonWelt3D, zugDateien } from '../tycoon-3d';
+import { ladeHoehen } from '../tycoon-hoehen';
 import { Engine3D } from '../../../../shared/engine3d/engine3d';
 
 const ANSICHT_KEY = 'tycoon-ansicht3d';
@@ -76,6 +77,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   private weltCanvas: HTMLCanvasElement | null = null;
   private vorschau: Engine3D | null = null;
   private vorschauEl: HTMLElement | null = null;
+  private hoehenBereit = false;
 
   constructor(private readonly api: TycoonApiService, private readonly route: ActivatedRoute, private readonly zone: NgZone) {}
 
@@ -112,8 +114,9 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
       state,
       readOnly,
       onSave: data => this.queueSave(data),
-      onVorschau: (el, typ) => this.zeigeVorschau(el, typ),
+      onVorschau: (el, typ, farbe, extra) => this.zeigeVorschau(el, typ, farbe ?? null, !!extra),
       onBezirk: (stadt, bezirk, basis) => this.kaufeBezirk(stadt, bezirk, basis),
+      onVerbindung: (a, b) => this.meldeVerbindung(a, b),
       onReset: () => {
         this.pending = null;
         if (this.saveTimer) { clearTimeout(this.saveTimer); this.saveTimer = null; }
@@ -136,7 +139,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
         this.handle?.setzeWelt(w);
         if (w.gutschriftenOffen > 0) {
           this.api.gutschriftenAbholen().subscribe((g) => {
-            if (g.summe > 0) this.handle?.gutschrift(g.summe, g.eintraege.length === 1 ? g.eintraege[0].text : g.eintraege.length + ' deiner Bezirke wurden übernommen – Entschädigung');
+            if (g.summe > 0 || g.xp > 0) this.handle?.gutschrift(g.summe, g.eintraege.length === 1 ? g.eintraege[0].text : g.eintraege.length + ' Gutschriften (Entschädigungen / Clan-Boni)', g.xp);
           });
         }
       },
@@ -147,11 +150,18 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   private kaufeBezirk(stadt: number, bezirk: number, basis: number): void {
     this.sicher().pipe(switchMap(() => this.api.bezirkKaufen(stadt, bezirk, basis))).subscribe({
       next: (r) => {
-        const name = bezirkeVon(stadt)[bezirk]?.n + ' in ' + CITIES[stadt]?.n;
+        const name = bezirkeVon(stadt).find((b) => b.id === bezirk)?.n + ' in ' + CITIES[stadt]?.n;
         this.handle?.bezahlt(r.preis, (r.uebernommen ? '⚔ Bezirk übernommen: ' : '🏙 Bezirk gekauft: ') + name);
         this.ladeWelt();
       },
       error: (err) => { this.handle?.meldung(err?.error?.error ?? 'Kauf nicht möglich.'); this.ladeWelt(); },
+    });
+  }
+
+  private meldeVerbindung(a: number, b: number): void {
+    this.sicher().pipe(switchMap(() => this.api.verbindung(a, b, CITIES[a].n, CITIES[b].n))).subscribe({
+      next: (r) => { if (r.mitglieder > 0) this.handle?.meldung('🤝 ' + r.mitglieder + ' Clan-Mitglied(er) in ' + CITIES[a].n + '/' + CITIES[b].n + ' bekommen +' + r.xp + ' Erfahrung.'); },
+      error: () => undefined,
     });
   }
 
@@ -200,6 +210,11 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   private starteWelt(): void {
     const handle = this.handle, canvas = this.weltCanvas;
     if (this.welt || !handle || !canvas || this.destroyed) return;
+    // Erst die Hoehen laden (Gelaende, Staedte und Gleise stehen darauf); bei Fehler flach weiter.
+    if (!this.hoehenBereit) {
+      ladeHoehen().finally(() => { this.hoehenBereit = true; this.starteWelt(); });
+      return;
+    }
     try {
       this.welt = this.zone.runOutsideAngular(() => new TycoonWelt3D(canvas, handle.welt, (x, y) => handle.klickWelt(x, y)));
       this.welt.setzeFreieKamera(this.kameraFrei);
@@ -214,10 +229,10 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
    * Ganzen Zug (Lok + Wagen) im Kaufdialog, bei "3D ansehen" und im Shop drehen lassen; el = null raeumt auf.
    * Bleibt der Behaelter derselbe (Shop: anderer Zug angeklickt), wird die laufende Engine weiterverwendet.
    */
-  private zeigeVorschau(el: HTMLElement | null, typ: number): void {
-    const zug = zugDateien(typ);
+  private zeigeVorschau(el: HTMLElement | null, typ: number, farbe: string | null = null, extraWagen = false): void {
+    const zug = zugDateien(typ, extraWagen);
     if (el && el === this.vorschauEl && this.vorschau) {
-      this.zone.runOutsideAngular(() => this.vorschau!.zeigeZug(zug.dateien, zug.umgedreht).catch(() => undefined));
+      this.zone.runOutsideAngular(() => this.vorschau!.zeigeZug(zug.dateien, zug.umgedreht, farbe).catch(() => undefined));
       return;
     }
     this.vorschau?.zerstoeren();
@@ -229,7 +244,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     try {
       this.vorschau = this.zone.runOutsideAngular(() => {
         const e = new Engine3D(canvas);
-        e.zeigeZug(zug.dateien, zug.umgedreht).catch(() => undefined);
+        e.zeigeZug(zug.dateien, zug.umgedreht, farbe).catch(() => undefined);
         return e;
       });
     } catch {

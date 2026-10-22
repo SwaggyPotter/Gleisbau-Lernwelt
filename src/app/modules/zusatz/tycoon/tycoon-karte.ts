@@ -1,11 +1,11 @@
-import { DEUTSCHLAND, KARTE_H, KARTE_PROJ, KARTE_W, NACHBARN } from './tycoon-karte-daten';
+import { DEUTSCHLAND, EUROPA, KARTE_H, KARTE_PROJ, KARTE_W, NACHBARN } from './tycoon-karte-daten';
 import { STADT_BEZIRKE } from './tycoon-bezirke-daten';
 
 /**
  * Spielkarte des Tycoon: Deutschland (Natural Earth, Public Domain) in Weltkoordinaten
  * (KARTE_W x KARTE_H, y nach Sueden). Staedte stehen an ihren echten Koordinaten.
  */
-export { DEUTSCHLAND, KARTE_H, KARTE_W, NACHBARN };
+export { DEUTSCHLAND, EUROPA, KARTE_H, KARTE_W, NACHBARN };
 
 /** Massstab 2D-Welt -> 3D und Umrechnung (Kartenmitte = 3D-Ursprung, Norden = +z). */
 export const SC = 0.1;
@@ -69,6 +69,8 @@ export const CITIES: { n: string; x: number; y: number; land?: string }[] = [
 export const GROSSSTADT = new Set(['Berlin', 'Hamburg', 'München', 'Köln', 'Frankfurt', 'Amsterdam', 'Brüssel', 'Kopenhagen', 'Wien', 'Prag', 'Zürich']);
 const BEZIRK_NAMEN = ['Mitte', 'Nord', 'Ost', 'Süd', 'West', 'Altstadt'];
 export interface Bezirk {
+  /** Feste Kennung (OpenStreetMap-Relation; Ersatzbezirke 0..5) -- so wird Besitz gespeichert. */
+  id: number;
   n: string;
   /** Grundpreis; Uebernahme von anderen kostet das Dreifache. */
   basis: number;
@@ -88,9 +90,9 @@ export const bezirkeVon = (stadt: number): Bezirk[] => {
   let liste: Bezirk[];
   if (echt.length) {
     const fmax = Math.max(...echt.map((b) => b.f), 1);
-    liste = echt.map((b) => ({ n: b.n, basis: Math.round((grund * (0.6 + 0.8 * b.f / fmax)) / 50) * 50, ringe: b.r }));
+    liste = echt.map((b) => ({ id: b.osm, n: b.n, basis: Math.round((grund * (0.6 + 0.8 * b.f / fmax)) / 50) * 50, ringe: b.r }));
   } else {
-    liste = BEZIRK_NAMEN.slice(0, grund === 1000 ? 6 : 4).map((n) => ({ n, basis: grund, ringe: [] }));
+    liste = BEZIRK_NAMEN.slice(0, grund === 1000 ? 6 : 4).map((n, i) => ({ id: i, n, basis: grund, ringe: [] }));
   }
   bezirkCache.set(stadt, liste);
   return liste;
@@ -128,7 +130,15 @@ const LAENDER_NAMEN = [
   { n: 'ÖSTERREICH', ...proj(47.2, 14.4) },
   { n: 'TSCHECHIEN', ...proj(49.6, 15.6) },
   { n: 'POLEN', ...proj(52.9, 16.4) },
-];
+].map((l) => ({ ...l, gross: false }));
+/** Laendernamen ausserhalb des Spielgebiets (groessere Schrift fuer die Europa-Ansicht). */
+const EUROPA_NAMEN = [
+  ['GROSSBRITANNIEN', 53.0, -1.6], ['IRLAND', 53.2, -8.0], ['SPANIEN', 40.0, -3.7], ['PORTUGAL', 39.6, -8.1], ['ITALIEN', 42.8, 12.6],
+  ['NORWEGEN', 61.5, 9.0], ['SCHWEDEN', 62.5, 15.5], ['FINNLAND', 63.0, 26.5], ['ESTLAND', 58.7, 25.6], ['LETTLAND', 56.9, 25.2],
+  ['LITAUEN', 55.4, 23.9], ['BELARUS', 53.6, 28.0], ['UKRAINE', 49.2, 31.0], ['SLOWAKEI', 48.7, 19.6], ['UNGARN', 47.1, 19.4],
+  ['RUMÄNIEN', 45.9, 24.9], ['SERBIEN', 44.0, 20.9], ['KROATIEN', 45.3, 16.2], ['BULGARIEN', 42.7, 25.2], ['GRIECHENLAND', 39.6, 22.0],
+  ['TÜRKEI', 39.2, 33.0], ['ALGERIEN', 34.8, 3.0], ['TUNESIEN', 34.6, 9.4],
+].map(([n, la, lo]) => ({ n: n as string, ...proj(la as number, lo as number), gross: true }));
 
 const imRing = (r: number[], x: number, y: number): boolean => {
   let drin = false;
@@ -149,33 +159,51 @@ export function aufLand(x: number, y: number): boolean {
   return inDeutschland(x, y) || NACHBARN.some((r) => imRing(r, x, y));
 }
 
-/** Zeichnet Meer, Nachbarlaender, Deutschland und Laendernamen in einen 2D-Kontext (bereits auf Weltkoordinaten transformiert). */
+/**
+ * Zeichnet Meer, Laender Europas, Deutschland und Laendernamen in einen 2D-Kontext (bereits auf Weltkoordinaten
+ * transformiert). Mit relief werden die Landflaechen mit dem Hoehenrelief gefuellt (statt Flaechenfarbe).
+ */
 export function zeichneKarte(
   ctx: CanvasRenderingContext2D,
   farben = { meer: '#bcd6e6', ausland: '#e9e5da', land: '#f4f1ea', grenze: '#8a8577', schrift: 'rgba(60,60,50,.35)' },
   linie = 1.5,
+  relief?: { bild: CanvasImageSource; x0: number; y0: number; w: number; h: number } | null,
+  bereich = { x0: EUROPA.x0, y0: EUROPA.y0, x1: EUROPA.x1, y1: EUROPA.y1 },
 ): void {
   ctx.fillStyle = farben.meer;
-  ctx.fillRect(-80, -80, KARTE_W + 160, KARTE_H + 160);
-  const ring = (r: number[]) => {
+  ctx.fillRect(bereich.x0, bereich.y0, bereich.x1 - bereich.x0, bereich.y1 - bereich.y0);
+  const pfad = (ringe: number[][]) => {
     ctx.beginPath();
-    ctx.moveTo(r[0], r[1]);
-    for (let i = 2; i < r.length; i += 2) ctx.lineTo(r[i], r[i + 1]);
-    ctx.closePath();
+    for (const r of ringe) {
+      ctx.moveTo(r[0], r[1]);
+      for (let i = 2; i < r.length; i += 2) ctx.lineTo(r[i], r[i + 1]);
+      ctx.closePath();
+    }
   };
   ctx.lineJoin = 'round';
-  ctx.fillStyle = farben.ausland;
-  for (const r of NACHBARN) { ring(r); ctx.fill(); }
+  if (relief) {
+    ctx.save();
+    pfad([...NACHBARN, ...DEUTSCHLAND]);
+    ctx.clip();
+    ctx.drawImage(relief.bild, relief.x0, relief.y0, relief.w, relief.h);
+    ctx.restore();
+    // Spielgebiet Deutschland leicht aufhellen
+    pfad(DEUTSCHLAND); ctx.fillStyle = 'rgba(255,255,255,.14)'; ctx.fill();
+  } else {
+    pfad(NACHBARN); ctx.fillStyle = farben.ausland; ctx.fill();
+    pfad(DEUTSCHLAND); ctx.fillStyle = farben.land; ctx.fill();
+  }
   ctx.strokeStyle = farben.grenze;
   ctx.lineWidth = linie * 0.6;
-  for (const r of NACHBARN) { ring(r); ctx.stroke(); }
-  ctx.fillStyle = farben.land;
-  for (const r of DEUTSCHLAND) { ring(r); ctx.fill(); }
+  pfad(NACHBARN); ctx.stroke();
   ctx.lineWidth = linie;
-  for (const r of DEUTSCHLAND) { ring(r); ctx.stroke(); }
+  pfad(DEUTSCHLAND); ctx.stroke();
   ctx.fillStyle = farben.schrift;
-  ctx.font = '700 22px system-ui, sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  for (const l of LAENDER_NAMEN) ctx.fillText(l.n.split('').join(' '), l.x, l.y);
+  for (const l of [...LAENDER_NAMEN, ...EUROPA_NAMEN]) {
+    if (l.x < bereich.x0 || l.x > bereich.x1 || l.y < bereich.y0 || l.y > bereich.y1) continue;
+    ctx.font = '700 ' + (l.gross ? 46 : 22) + 'px system-ui, sans-serif';
+    ctx.fillText(l.n.split('').join(' '), l.x, l.y);
+  }
 }

@@ -112,8 +112,13 @@ export class TycoonApiService {
     return this.http.post<{ preis: number; uebernommen: boolean }>(`${API_BASE_URL}/tycoon/bezirke`, { stadt, bezirk, basis });
   }
 
-  gutschriftenAbholen(): Observable<{ summe: number; eintraege: { betrag: number; text: string }[] }> {
-    return this.http.post<{ summe: number; eintraege: { betrag: number; text: string }[] }>(`${API_BASE_URL}/tycoon/gutschriften/abholen`, {});
+  gutschriftenAbholen(): Observable<{ summe: number; xp: number; eintraege: { betrag: number; xp: number; text: string }[] }> {
+    return this.http.post<{ summe: number; xp: number; eintraege: { betrag: number; xp: number; text: string }[] }>(`${API_BASE_URL}/tycoon/gutschriften/abholen`, {});
+  }
+
+  /** Neue Strecke melden; Clan-Mitglieder in den Endstaedten bekommen Erfahrung. */
+  verbindung(a: number, b: number, nameA: string, nameB: string): Observable<{ mitglieder: number; xp: number }> {
+    return this.http.post<{ mitglieder: number; xp: number }>(`${API_BASE_URL}/tycoon/verbindung`, { a, b, nameA, nameB });
   }
 
   clans(): Observable<{ meinClan: string | null; farben: string[]; clans: TycoonClan[] }> {

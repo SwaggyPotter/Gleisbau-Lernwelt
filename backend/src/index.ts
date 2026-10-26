@@ -238,6 +238,11 @@ const runStartupMigrations = async () => {
     )`);
     // Gutschriften koennen auch Erfahrung enthalten (Clan-Bonus beim Streckenbau).
     await pool.query('ALTER TABLE tycoon_gutschriften ADD COLUMN IF NOT EXISTS xp integer NOT NULL DEFAULT 0');
+    // Gebietsreform 2026-10-24: gekauft werden jetzt Landkreise/Bezirke (stadt = 100). Alte Stadtbezirke (stadt 0..99)
+    // werden einmalig erstattet und entfernt.
+    await pool.query(`WITH alt AS (DELETE FROM tycoon_bezirke WHERE stadt < 100 RETURNING owner, basis)
+      INSERT INTO tycoon_gutschriften (user_id, betrag, text)
+      SELECT owner, sum(basis)::int, 'Gebietsreform: deine alten Stadtbezirke wurden erstattet' FROM alt GROUP BY owner`);
     await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_clans (
       id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
       name text NOT NULL UNIQUE,

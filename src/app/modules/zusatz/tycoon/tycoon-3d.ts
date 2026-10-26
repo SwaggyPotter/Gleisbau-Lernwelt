@@ -28,10 +28,10 @@ import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture';
 import { PointerEventTypes } from '@babylonjs/core/Events/pointerEvents';
 import { TycoonDeko } from './tycoon-deko';
-import { bezirkeVon, bezirkRahmen, EUROPA, GROSSSTADT, KARTE_H, KARTE_W, SC, spielerFarbe, wx, wz, zeichneKarte } from './tycoon-karte';
+import { EUROPA, KARTE_H, KARTE_W, SC, wx, wz, zeichneKarte } from './tycoon-karte';
+import { Gebiet, zeichneGebiete } from './tycoon-gebiete';
 import { hoehe3D, hoeheWelt, reliefBild } from './tycoon-hoehen';
 import { HOEHEN } from './tycoon-hoehen-meta';
-import { CreateDisc } from '@babylonjs/core/Meshes/Builders/discBuilder';
 import { ZUEGE, ZUG_FARBEN } from './tycoon-zuege';
 
 /** Was die 2D-Spiel-Engine der 3D-Ansicht pro Bild zur Verfuegung stellt (nur lesen). */
@@ -43,8 +43,14 @@ export interface TycoonWeltDaten {
   posAt: (L: any, s: number) => { x: number; y: number; ang: number };
   /** Lackierung der eigenen Zuege (Hex) oder null fuer die Werkslackierung. */
   skin: string | null;
-  /** Gemeinsame Welt vom Server (Bezirke, Aktivitaet je Stadt) oder null. */
+  /** Gemeinsame Welt vom Server (Gebietsbesitz, Aktivitaet je Stadt) oder null. */
   welt: any;
+  /** Strecke, die gerade gezeichnet wird (siehe tycoon-engine.ts) oder null. */
+  zeichnung: { von: number; pts: { x: number; y: number }[]; ziel: number | null; fehl: { x: number; y: number } | null; ver: number } | null;
+  /** Fuellfarbe eines Gebiets (Besitz) oder null. */
+  gebietFarbe: (g: Gebiet) => { farbe: string; deckung: number } | null;
+  /** Aendert sich, wenn sich Gebietsbesitz aendert. */
+  gebietSchluessel: string;
 }
 
 const MODELL_PFAD = 'assets/modelle/kenney/';
@@ -110,9 +116,16 @@ export class TycoonWelt3D {
   private stoerungen: Mesh[] = [];
   private readonly auswahlRing: Mesh;
   private readonly deko: TycoonDeko;
-  /** Bezirks-Sektoren und Aktivitaets-Lichter; neu gebaut, wenn sich Besitz/Aktivitaet aendert. */
+  /** Aktivitaets-Lichter; neu gebaut, wenn sich die Aktivitaet aendert. */
   private bezirkSchluessel = '';
   private bezirkTeile: TransformNode[] = [];
+  /** Bodentextur des Spielgebiets: Karte ohne Gebiete (Kopie) + Gebietsflaechen, neu gezeichnet bei anderem Besitz/Auswahl. */
+  private boden: { tex: DynamicTexture; basis: HTMLCanvasElement; b: { x0: number; y0: number; x1: number; y1: number } } | null = null;
+  private bodenSchluessel = '';
+  /** Vorschau der gerade gezeichneten Strecke. */
+  private zeichenTeile: Mesh[] = [];
+  private zeichenStand = '';
+  private zeichnetZuletzt = false;
   private lichter: { knoten: TransformNode; aktiv: boolean }[] = [];
   private readonly farbMats = new Map<string, StandardMaterial>();
   private tot = false;
@@ -121,6 +134,7 @@ export class TycoonWelt3D {
     private readonly canvas: HTMLCanvasElement,
     private readonly daten: () => TycoonWeltDaten,
     private readonly onKlick: (x: number, y: number) => void,
+    private readonly onZeiger: (x: number, y: number) => void = () => undefined,
   ) {
     this.engine = new Engine(canvas, true, { preserveDrawingBuffer: false, stencil: false, antialias: true }, true);
     this.engine.disableUniformBuffers = true;
@@ -142,7 +156,7 @@ export class TycoonWelt3D {
 
     // Gelaende mit Hoehenrelief: fein fuer das Spielgebiet (+60 Rand), grob fuer ganz Europa (im Spielgebiet abgesenkt).
     const RAND = 60, sx0 = -RAND, sy0 = -RAND, sx1 = KARTE_W + RAND, sy1 = KARTE_H + RAND;
-    this.gelaende('gelaende', { x0: sx0, y0: sy0, x1: sx1, y1: sy1 }, 5, null, 2048, 2.2, 0);
+    this.boden = this.gelaende('gelaende', { x0: sx0, y0: sy0, x1: sx1, y1: sy1 }, 5, null, 2048, 1.0, 0);
     this.gelaende('europa', EUROPA, 16, { x0: sx0 + 20, y0: sy0 + 20, x1: sx1 - 20, y1: sy1 - 20 }, 2048, 5, -0.04);
 
     this.schwellen = CreateBox('schwelle', { width: 0.9, height: 0.07, depth: 0.2 }, this.scene);
@@ -196,23 +210,35 @@ export class TycoonWelt3D {
     const zeiger = new Map<number, { x: number; y: number }>();
     let griff: Vector3 | null = null;
     let fingerAbstand = 0;
+    /** Zeiger als 2D-Weltpunkt an die Engine (Strecke zeichnen). */
+    const melde = (e: PointerEvent) => { const p = this.bodenUnter(e.clientX, e.clientY); if (p) this.onZeiger(p.x / SC + KARTE_W / 2, -p.z / SC + KARTE_H / 2); };
     this.scene.onPointerObservable.add((pi) => {
       const e = pi.event as PointerEvent;
+      // Beim Zeichnen: Maus zeichnet ohne Taste (mit Taste wird verschoben), Finger/Stift zeichnet beim Ziehen.
+      const zeichnet = !!this.daten().zeichnung, finger = e.pointerType !== 'mouse';
       if (pi.type === PointerEventTypes.POINTERDOWN) {
         zeiger.set(e.pointerId, { x: e.clientX, y: e.clientY });
         runter = zeiger.size === 1 ? { x: e.clientX, y: e.clientY, t: performance.now() } : null;
-        griff = zeiger.size === 1 ? this.bodenUnter(e.clientX, e.clientY) : null;
-        if (zeiger.size === 2) { const [a, b] = [...zeiger.values()]; fingerAbstand = Math.hypot(a.x - b.x, a.y - b.y); }
+        griff = zeiger.size === 1 && !(zeichnet && finger) ? this.bodenUnter(e.clientX, e.clientY) : null;
+        if (zeiger.size === 2) { const [a, b] = [...zeiger.values()]; fingerAbstand = Math.hypot(a.x - b.x, a.y - b.y); griff = this.bodenUnter((a.x + b.x) / 2, (a.y + b.y) / 2); }
         return;
       }
       if (pi.type === PointerEventTypes.POINTERMOVE) {
+        if (zeichnet && (finger ? zeiger.size === 1 && zeiger.has(e.pointerId) : !zeiger.size)) {
+          if (finger) zeiger.set(e.pointerId, { x: e.clientX, y: e.clientY });
+          melde(e);
+          return;
+        }
         if (!zeiger.has(e.pointerId)) return;
         zeiger.set(e.pointerId, { x: e.clientX, y: e.clientY });
-        if (this.frei) return;
+        if (this.frei && !zeichnet) return;
         if (zeiger.size === 2) {
+          // Zwei Finger: zoomen und (um die Mitte) verschieben.
           const [a, b] = [...zeiger.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
           if (fingerAbstand > 0 && d > 0) this.zoome(fingerAbstand / d);
           fingerAbstand = d;
+          const jetzt = griff ? this.bodenUnter((a.x + b.x) / 2, (a.y + b.y) / 2) : null;
+          if (griff && jetzt) this.verschiebe(griff.x - jetzt.x, griff.z - jetzt.z);
           return;
         }
         if (griff && (!runter || Math.hypot(e.clientX - runter.x, e.clientY - runter.y) >= 8)) {
@@ -227,7 +253,9 @@ export class TycoonWelt3D {
       }
       if (pi.type !== PointerEventTypes.POINTERUP) return;
       zeiger.delete(e.pointerId);
-      griff = null;
+      // Von zwei auf einen Finger: dort weiter verschieben (nicht beim Zeichnen).
+      const rest = [...zeiger.values()][0];
+      griff = zeiger.size === 1 && !zeichnet ? this.bodenUnter(rest.x, rest.y) : null;
       if (!runter) return;
       const kurz = performance.now() - runter.t < 600 && Math.hypot(e.clientX - runter.x, e.clientY - runter.y) < 8;
       runter = null;
@@ -279,10 +307,12 @@ export class TycoonWelt3D {
 
   /**
    * Gelaendenetz mit Hoehen aus dem Relief und der Karte (Meer, Laender, Relief, Grenzen) als Textur.
-   * loch: Bereich, der abgesenkt wird (dort liegt das feinere Netz).
+   * loch: Bereich, der abgesenkt wird (dort liegt das feinere Netz). Liefert Textur und eine Kopie des Kartenbilds
+   * (Grundlage, auf die spaeter die Gebiete gezeichnet werden).
    */
   private gelaende(name: string, b: { x0: number; y0: number; x1: number; y1: number }, schritt: number,
-    loch: { x0: number; y0: number; x1: number; y1: number } | null, texBreite: number, linie: number, versatz: number): void {
+    loch: { x0: number; y0: number; x1: number; y1: number } | null, texBreite: number, linie: number, versatz: number):
+    { tex: DynamicTexture; basis: HTMLCanvasElement; b: { x0: number; y0: number; x1: number; y1: number } } {
     const nx = Math.ceil((b.x1 - b.x0) / schritt), nz = Math.ceil((b.y1 - b.y0) / schritt);
     const pos: number[] = [], uv: number[] = [], idx: number[] = [];
     for (let j = 0; j <= nz; j++) {
@@ -319,11 +349,60 @@ export class TycoonWelt3D {
       rel ? { bild: rel, x0: HOEHEN.x0, y0: HOEHEN.y0, w: HOEHEN.breite * HOEHEN.zelle, h: HOEHEN.hoehe * HOEHEN.zelle } : null, b);
     ctx.restore();
     tex.update();
+    const basis = document.createElement('canvas');
+    basis.width = texBreite; basis.height = th;
+    basis.getContext('2d')!.drawImage(ctx.canvas as unknown as CanvasImageSource, 0, 0);
     const mat = new StandardMaterial(name + 'Mat', this.scene);
     mat.diffuseTexture = tex;
     mat.specularColor = Color3.Black();
     mat.backFaceCulling = false;
     mesh.material = mat;
+    return { tex, basis, b };
+  }
+
+  /** Gebiete (Besitz, Grenzen, Auswahl) auf die Bodentextur zeichnen, wenn sich etwas geaendert hat. */
+  private syncBoden(d: TycoonWeltDaten): void {
+    const wahl = (d.sel as any).gebiet ?? null, key = d.gebietSchluessel + '|' + wahl;
+    if (!this.boden || key === this.bodenSchluessel) return;
+    this.bodenSchluessel = key;
+    const { tex, basis, b } = this.boden, ctx = tex.getContext() as unknown as CanvasRenderingContext2D;
+    ctx.drawImage(basis, 0, 0);
+    ctx.save();
+    ctx.scale(basis.width / (b.x1 - b.x0), basis.height / (b.y1 - b.y0));
+    ctx.translate(-b.x0, -b.y0);
+    zeichneGebiete(ctx, { farbe: d.gebietFarbe, linie: 1.6, wahl, namen: true, strich: '28,34,22' });
+    ctx.restore();
+    tex.update();
+  }
+
+  /** Vorschau der gerade gezeichneten Strecke: Schlauch ueber dem Gelaende, rot bis zur nicht erlaubten Stelle. */
+  private syncZeichnung(d: TycoonWeltDaten): void {
+    const z = d.zeichnung;
+    // Freie Kamera: waehrend des Zeichnens nicht drehen (sonst zieht der Finger die Kamera statt der Strecke).
+    if (!!z !== this.zeichnetZuletzt) {
+      this.zeichnetZuletzt = !!z;
+      if (this.frei) { if (z) this.kamera.detachControl(); else this.kamera.attachControl(this.canvas, true); }
+    }
+    const stand = z ? z.ver + ':' + z.pts.length + ':' + z.ziel + ':' + (z.fehl ? z.fehl.x.toFixed(1) + ',' + z.fehl.y.toFixed(1) : '') : '';
+    if (stand === this.zeichenStand) return;
+    this.zeichenStand = stand;
+    this.zeichenTeile.forEach((m) => m.dispose());
+    this.zeichenTeile = [];
+    if (!z) return;
+    const auf = (p: { x: number; y: number }) => new Vector3(wx(p.x), hoeheWelt(p.x, p.y) + 0.35, wz(p.y));
+    const pts = z.ziel !== null ? [...z.pts, d.CITIES[z.ziel]] : z.pts;
+    if (pts.length > 1) {
+      const m = CreateTube('zeichnung', { path: pts.map(auf), radius: 0.32, tessellation: 6 }, this.scene);
+      m.material = this.farbMat(z.ziel !== null ? '#2e8b57' : '#23262b', 1, 0.5);
+      m.isPickable = false;
+      this.zeichenTeile.push(m);
+    }
+    if (z.fehl) {
+      const m = CreateTube('zeichnungFehl', { path: [auf(z.pts[z.pts.length - 1]), auf(z.fehl)], radius: 0.22, tessellation: 6 }, this.scene);
+      m.material = this.farbMat('#c0392b', 0.8, 0.6);
+      m.isPickable = false;
+      this.zeichenTeile.push(m);
+    }
   }
 
   /** Nach Groessenaenderung des Containers aufrufen. */
@@ -440,6 +519,8 @@ export class TycoonWelt3D {
     }
     this.syncStrecken(d);
     this.deko.aktualisiere(d);
+    this.syncBoden(d);
+    this.syncZeichnung(d);
     this.syncBezirke(d);
     this.syncStaedte(d);
     this.syncStoerungen(d);
@@ -607,87 +688,16 @@ export class TycoonWelt3D {
     return m;
   }
 
-  /**
-   * Echte Bezirksgrenzen einer Stadt als Bodenbild (eine Flaeche mit Textur): Besitz farbig, freie Bezirke hell, alle umrandet.
-   * Kleine Staedte werden vergroessert (hoechstens bis knapp vor die naechste Stadt), damit man die Bezirke sieht.
-   */
-  private bezirkFlaeche(d: TycoonWeltDaten, i: number, w: any): void {
-    const rahmen = bezirkRahmen(i)!, c = d.CITIES[i];
-    const bw = rahmen.x1 - rahmen.x0, bh = rahmen.y1 - rahmen.y0, radius = Math.max(bw, bh) / 2 || 1;
-    const naechste = Math.min(...d.CITIES.filter((_o, j) => j !== i).map((o) => Math.hypot(o.x - c.x, o.y - c.y)));
-    const s = Math.max(1, Math.min(42 / radius, (naechste * 0.45) / radius));
-    const tw = 512, th = Math.max(64, Math.round((512 * bh) / bw));
-    const tex = new DynamicTexture('bezirkTex' + i, { width: tw, height: th }, this.scene, true);
-    tex.hasAlpha = true;
-    const ctx = tex.getContext() as unknown as CanvasRenderingContext2D;
-    ctx.clearRect(0, 0, tw, th);
-    ctx.lineJoin = 'round';
-    bezirkeVon(i).forEach((b, j) => {
-      const x = (w.bezirke || []).find((o: any) => o.stadt === i && o.bezirk === b.id);
-      ctx.beginPath();
-      b.ringe.forEach((r) => {
-        for (let q = 0; q < r.length; q += 2) {
-          const px = ((r[q] - rahmen.x0) / bw) * tw, py = ((r[q + 1] - rahmen.y0) / bh) * th;
-          if (q === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-        }
-        ctx.closePath();
-      });
-      if (x) { ctx.fillStyle = x.clanFarbe || spielerFarbe(x.ownerId); ctx.globalAlpha = x.ownerId === w.ich?.id ? 0.78 : 0.55; }
-      else { ctx.fillStyle = '#ffffff'; ctx.globalAlpha = 0.22; }
-      ctx.fill();
-      ctx.globalAlpha = 1;
-      ctx.strokeStyle = 'rgba(35,38,43,.7)';
-      ctx.lineWidth = 3;
-      ctx.stroke();
-    });
-    tex.update();
-    const flaeche = CreateGround('bezirke' + i, { width: bw * s * SC, height: bh * s * SC }, this.scene);
-    // Um den Stadtpunkt vergroessern, damit die Stadt an ihrer Stelle bleibt.
-    const mx = c.x + ((rahmen.x0 + rahmen.x1) / 2 - c.x) * s, my = c.y + ((rahmen.y0 + rahmen.y1) / 2 - c.y) * s;
-    flaeche.position.set(wx(mx), hoeheWelt(c.x, c.y) + 0.1, wz(my));
-    const mat = new StandardMaterial('bezirkMat' + i, this.scene);
-    mat.diffuseTexture = tex;
-    mat.useAlphaFromDiffuseTexture = true;
-    mat.emissiveColor = new Color3(0.25, 0.25, 0.25);
-    mat.specularColor = Color3.Black();
-    flaeche.material = mat;
-    flaeche.isPickable = false;
-    const halter = new TransformNode('bezirkHalter' + i, this.scene);
-    flaeche.parent = halter;
-    // Beim Neuaufbau mit entsorgen (Textur + Material gehoeren nur dieser Flaeche).
-    halter.onDisposeObservable.add(() => { mat.dispose(true, true); });
-    this.bezirkTeile.push(halter);
-  }
-
-  /** Bezirke als farbige Sektoren um die Stadt (Besitzer- bzw. Clanfarbe) und Lichter fuer die Aktivitaet anderer Spieler. */
+  /** Lichter fuer die Aktivitaet anderer Spieler ueber den Staedten. */
   private syncBezirke(d: TycoonWeltDaten): void {
     const w = d.welt, S = d.S;
-    const key = w ? JSON.stringify([S.vis, (w.bezirke || []).map((b: any) => [b.stadt, b.bezirk, b.ownerId, b.clanFarbe]), w.staedte, w.ich?.id]) : '';
+    const key = w ? JSON.stringify([S.vis, w.staedte]) : '';
     if (key !== this.bezirkSchluessel) {
       this.bezirkSchluessel = key;
       this.bezirkTeile.forEach((t) => t.dispose());
       this.bezirkTeile = [];
       this.lichter = [];
       if (w) {
-        d.CITIES.forEach((c, i) => {
-          if (!S.vis[i]) return;
-          if (bezirkRahmen(i)) { this.bezirkFlaeche(d, i, w); return; }
-          const bz = bezirkeVon(i), r = GROSSSTADT.has(c.n) ? 5.6 : 4.6;
-          bz.forEach((_b, j) => {
-            const x = (w.bezirke || []).find((o: any) => o.stadt === i && o.bezirk === bz[j].id);
-            if (!x) return;
-            const mein = x.ownerId === w.ich?.id;
-            const halter = new TransformNode('bezirk', this.scene);
-            halter.position.set(wx(c.x), hoeheWelt(c.x, c.y) + 0.06, wz(c.y));
-            halter.rotation.y = (j * Math.PI * 2) / bz.length;
-            const sektor = CreateDisc('sektor', { radius: r, arc: 1 / bz.length, tessellation: 32 }, this.scene);
-            sektor.rotation.x = Math.PI / 2;
-            sektor.parent = halter;
-            sektor.isPickable = false;
-            sektor.material = this.farbMat(x.clanFarbe || spielerFarbe(x.ownerId), mein ? 0.62 : 0.42);
-            this.bezirkTeile.push(halter);
-          });
-        });
         (w.staedte || []).forEach((st: any) => {
           const c = d.CITIES[st.stadt];
           if (!c || !S.vis[st.stadt] || !st.spieler) return;

@@ -1,11 +1,13 @@
-import { DEUTSCHLAND, EUROPA, KARTE_H, KARTE_PROJ, KARTE_W, NACHBARN } from './tycoon-karte-daten';
-import { STADT_BEZIRKE } from './tycoon-bezirke-daten';
+import { EUROPA, KARTE_H, KARTE_PROJ, KARTE_W, NACHBARN } from './tycoon-karte-daten';
+import { DEUTSCHLAND_NUTS } from './tycoon-gebiete-daten';
 
 /**
- * Spielkarte des Tycoon: Deutschland (Natural Earth, Public Domain) in Weltkoordinaten
- * (KARTE_W x KARTE_H, y nach Sueden). Staedte stehen an ihren echten Koordinaten.
+ * Spielkarte des Tycoon in Weltkoordinaten (KARTE_W x KARTE_H, y nach Sueden). Europa: Natural Earth (Public Domain);
+ * Deutschland: Umriss aus denselben Grenzen wie die Landkreise (tycoon-gebiete-daten.ts), damit alles zusammenpasst.
+ * Staedte stehen an ihren echten Koordinaten.
  */
-export { DEUTSCHLAND, EUROPA, KARTE_H, KARTE_W, NACHBARN };
+const DEUTSCHLAND = DEUTSCHLAND_NUTS;
+export { DEUTSCHLAND, EUROPA, KARTE_H, KARTE_PROJ, KARTE_W, NACHBARN };
 
 /** Massstab 2D-Welt -> 3D und Umrechnung (Kartenmitte = 3D-Ursprung, Norden = +z). */
 export const SC = 0.1;
@@ -65,46 +67,8 @@ export const CITIES: { n: string; x: number; y: number; land?: string }[] = [
   { n: 'Stettin', land: 'PL', ...proj(53.428, 14.553) },
 ];
 
-/** Grossstaedte: mehr Bezirke (und Hochhaeuser in der 3D-Deko). */
+/** Grossstaedte: Hochhaeuser in der 3D-Deko. */
 export const GROSSSTADT = new Set(['Berlin', 'Hamburg', 'München', 'Köln', 'Frankfurt', 'Amsterdam', 'Brüssel', 'Kopenhagen', 'Wien', 'Prag', 'Zürich']);
-const BEZIRK_NAMEN = ['Mitte', 'Nord', 'Ost', 'Süd', 'West', 'Altstadt'];
-export interface Bezirk {
-  /** Feste Kennung (OpenStreetMap-Relation; Ersatzbezirke 0..5) -- so wird Besitz gespeichert. */
-  id: number;
-  n: string;
-  /** Grundpreis; Uebernahme von anderen kostet das Dreifache. */
-  basis: number;
-  /** Echte Grenzen (OpenStreetMap, ODbL) als Ringe x0,y0,... in Weltkoordinaten; leer = keine Daten. */
-  ringe: number[][];
-}
-const bezirkCache = new Map<number, Bezirk[]>();
-/**
- * Bezirke einer Stadt: echte Stadtbezirke aus OpenStreetMap (tycoon-bezirke-daten.ts), sonst Ersatznamen.
- * Grundpreis nach Stadtgroesse und Flaeche des Bezirks (grosse Bezirke kosten mehr).
- */
-export const bezirkeVon = (stadt: number): Bezirk[] => {
-  const c = bezirkCache.get(stadt);
-  if (c) return c;
-  const grund = GROSSSTADT.has(CITIES[stadt]?.n) ? 1000 : 600;
-  const echt = STADT_BEZIRKE[stadt] || [];
-  let liste: Bezirk[];
-  if (echt.length) {
-    const fmax = Math.max(...echt.map((b) => b.f), 1);
-    liste = echt.map((b) => ({ id: b.osm, n: b.n, basis: Math.round((grund * (0.6 + 0.8 * b.f / fmax)) / 50) * 50, ringe: b.r }));
-  } else {
-    liste = BEZIRK_NAMEN.slice(0, grund === 1000 ? 6 : 4).map((n, i) => ({ id: i, n, basis: grund, ringe: [] }));
-  }
-  bezirkCache.set(stadt, liste);
-  return liste;
-};
-/** Ausdehnung aller Bezirksgrenzen einer Stadt (Weltkoordinaten) oder null ohne Daten. */
-export const bezirkRahmen = (stadt: number): { x0: number; y0: number; x1: number; y1: number } | null => {
-  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
-  bezirkeVon(stadt).forEach((b) => b.ringe.forEach((r) => {
-    for (let i = 0; i < r.length; i += 2) { x0 = Math.min(x0, r[i]); x1 = Math.max(x1, r[i]); y0 = Math.min(y0, r[i + 1]); y1 = Math.max(y1, r[i + 1]); }
-  }));
-  return x0 === Infinity ? null : { x0, y0, x1, y1 };
-};
 
 /** Feste Farbe je Spieler (aus der Konto-ID), falls er in keinem Clan ist. */
 export function spielerFarbe(id: string): string {
@@ -140,7 +104,7 @@ const EUROPA_NAMEN = [
   ['TÜRKEI', 39.2, 33.0], ['ALGERIEN', 34.8, 3.0], ['TUNESIEN', 34.6, 9.4],
 ].map(([n, la, lo]) => ({ n: n as string, ...proj(la as number, lo as number), gross: true }));
 
-const imRing = (r: number[], x: number, y: number): boolean => {
+export const imRing = (r: number[], x: number, y: number): boolean => {
   let drin = false;
   for (let i = 0, j = r.length - 2; i < r.length; j = i, i += 2) {
     const xi = r[i], yi = r[i + 1], xj = r[j], yj = r[j + 1];

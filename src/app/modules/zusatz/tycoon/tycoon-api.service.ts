@@ -103,11 +103,12 @@ export class TycoonApiService {
     return this.http.post<{ ergebnis: 'sieg' | 'remis' | 'niederlage'; pokale: number; xp: number }>(`${API_BASE_URL}/tycoon/duelle/${id}/abholen`, {});
   }
 
-  /** Gemeinsame Welt: Bezirke, Aktivitaet je Stadt, Anzahl offener Gutschriften. */
+  /** Gemeinsame Welt: Gebietsbesitz, Aktivitaet je Stadt, Anzahl offener Gutschriften. */
   welt(): Observable<any> {
     return this.http.get<any>(`${API_BASE_URL}/tycoon/welt`);
   }
 
+  /** Gebiet kaufen: stadt = GEBIET_STADT, bezirk = Gebiets-ID (Tabelle tycoon_bezirke). */
   bezirkKaufen(stadt: number, bezirk: number, basis: number): Observable<{ preis: number; uebernommen: boolean }> {
     return this.http.post<{ preis: number; uebernommen: boolean }>(`${API_BASE_URL}/tycoon/bezirke`, { stadt, bezirk, basis });
   }
@@ -116,9 +117,9 @@ export class TycoonApiService {
     return this.http.post<{ summe: number; xp: number; eintraege: { betrag: number; xp: number; text: string }[] }>(`${API_BASE_URL}/tycoon/gutschriften/abholen`, {});
   }
 
-  /** Neue Strecke melden; Clan-Mitglieder in den Endstaedten bekommen Erfahrung. */
-  verbindung(a: number, b: number, nameA: string, nameB: string): Observable<{ mitglieder: number; xp: number }> {
-    return this.http.post<{ mitglieder: number; xp: number }>(`${API_BASE_URL}/tycoon/verbindung`, { a, b, nameA, nameB });
+  /** Neue Strecke melden; Clan-Mitglieder, denen die Gebiete der Endstaedte gehoeren, bekommen Erfahrung. */
+  verbindung(a: number, b: number, nameA: string, nameB: string, gebiete: number[]): Observable<{ mitglieder: number; xp: number }> {
+    return this.http.post<{ mitglieder: number; xp: number }>(`${API_BASE_URL}/tycoon/verbindung`, { a, b, nameA, nameB, gebiete });
   }
 
   clans(): Observable<{ meinClan: string | null; farben: string[]; clans: TycoonClan[] }> {

@@ -74,7 +74,7 @@
           <span class="rk">{{ i + 1 }}</span>
           <span class="nm">{{ e.name }}<small *ngIf="e.clan"> [{{ e.clan }}]</small><small *ngIf="e.isMe"> (du)</small></span>
           <span class="mo">⭐ {{ level(e.xp) }} · {{ eur(e.money) }} €</span>
-          <span class="mt">{{ e.lines }} Strecken · {{ e.bezirke }} Bezirke · {{ e.trains }} Züge · bis {{ klassen[e.maxCls]?.kmh || 100 }} km/h · 🏆 {{ e.siege }} Siege · 👁 {{ e.visitors }}</span>
+          <span class="mt">{{ e.lines }} Strecken · {{ e.bezirke }} Gebiete · {{ e.trains }} Züge · bis {{ klassen[e.maxCls]?.kmh || 100 }} km/h · 🏆 {{ e.siege }} Siege · 👁 {{ e.visitors }}</span>
           <span class="ak">
             <button type="button" *ngIf="e.shared || e.isMe" [routerLink]="['/zusatz/tycoon', e.userId]">Ansehen</button>
             <ng-container *ngIf="!e.isMe">
@@ -119,14 +119,14 @@
 
     <div class="tc-rang" [hidden]="tab !== 'clans'">
       <h2>🛡 Clans</h2>
-      <p class="tc-erklaerung">Schließt euch zusammen: Bezirke von Clan-Mitgliedern nehmt ihr euch nicht gegenseitig weg, sie leuchten in der
-        Clanfarbe, und ihr dürft in jeder Stadt Strecken bauen, in der euer Clan einen Bezirk hat. Wer in einen anderen Clan wechselt, verlässt den alten.</p>
+      <p class="tc-erklaerung">Schließt euch zusammen: Gebiete von Clan-Mitgliedern nehmt ihr euch nicht gegenseitig weg, sie leuchten in der
+        Clanfarbe, und ihr dürft Strecken über die Gebiete aktiver Clan-Mitglieder zeichnen. Wer in einen anderen Clan wechselt, verlässt den alten.</p>
       <p class="tc-hinweis" *ngIf="clanMeldung">{{ clanMeldung }}</p>
       <ol class="tc-liste">
         <li *ngFor="let c of clans; let i = index" [class.me]="c.id === meinClan">
           <span class="rk"><span class="clanpunkt" [style.background]="c.farbe"></span></span>
           <span class="nm">{{ c.name }} <small>[{{ c.kuerzel }}]</small><small *ngIf="c.id === meinClan"> (dein Clan)</small></span>
-          <span class="mo">{{ c.bezirke }} Bezirke · ⭐ {{ eur(c.xp) }}</span>
+          <span class="mo">{{ c.bezirke }} Gebiete · ⭐ {{ eur(c.xp) }}</span>
           <span class="mt">{{ c.mitglieder }} Mitglieder: {{ c.namen.join(', ') }}</span>
           <span class="ak">
             <button type="button" *ngIf="c.id !== meinClan" (click)="clanBeitreten(c)">Beitreten</button>

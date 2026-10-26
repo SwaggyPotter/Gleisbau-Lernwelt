@@ -2,7 +2,8 @@ import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild, Vie
 import { ActivatedRoute } from '@angular/router';
 import { startTycoon, TycoonHandle } from '../tycoon-engine';
 import { TycoonAnsicht, TycoonApiService, TycoonClan, TycoonDuell, TycoonEintrag } from '../tycoon-api.service';
-import { CITIES, bezirkeVon } from '../tycoon-karte';
+import { CITIES } from '../tycoon-karte';
+import { GEBIET_STADT, gebietMitId, gebietVonStadt } from '../tycoon-gebiete';
 import { KLASSEN, levelAus } from '../tycoon-zuege';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -53,7 +54,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   /** Sortierung der Rangliste. */
   rangNach: 'level' | 'geld' | 'strecken' | 'bezirke' | 'siege' = 'level';
   readonly rangKategorien: { id: 'level' | 'geld' | 'strecken' | 'bezirke' | 'siege'; n: string }[] = [
-    { id: 'level', n: 'Level' }, { id: 'geld', n: 'Guthaben' }, { id: 'strecken', n: 'Strecken' }, { id: 'bezirke', n: 'Bezirke' }, { id: 'siege', n: 'Duell-Siege' },
+    { id: 'level', n: 'Level' }, { id: 'geld', n: 'Guthaben' }, { id: 'strecken', n: 'Strecken' }, { id: 'bezirke', n: 'Gebiete' }, { id: 'siege', n: 'Duell-Siege' },
   ];
   clans: TycoonClan[] = [];
   meinClan: string | null = null;
@@ -115,7 +116,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
       readOnly,
       onSave: data => this.queueSave(data),
       onVorschau: (el, typ, farbe, extra) => this.zeigeVorschau(el, typ, farbe ?? null, !!extra),
-      onBezirk: (stadt, bezirk, basis) => this.kaufeBezirk(stadt, bezirk, basis),
+      onGebiet: (gebiet, basis) => this.kaufeGebiet(gebiet, basis),
       onVerbindung: (a, b) => this.meldeVerbindung(a, b),
       onReset: () => {
         this.pending = null;
@@ -147,11 +148,11 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     });
   }
 
-  private kaufeBezirk(stadt: number, bezirk: number, basis: number): void {
-    this.sicher().pipe(switchMap(() => this.api.bezirkKaufen(stadt, bezirk, basis))).subscribe({
+  private kaufeGebiet(gebiet: number, basis: number): void {
+    this.sicher().pipe(switchMap(() => this.api.bezirkKaufen(GEBIET_STADT, gebiet, basis))).subscribe({
       next: (r) => {
-        const name = bezirkeVon(stadt).find((b) => b.id === bezirk)?.n + ' in ' + CITIES[stadt]?.n;
-        this.handle?.bezahlt(r.preis, (r.uebernommen ? '⚔ Bezirk übernommen: ' : '🏙 Bezirk gekauft: ') + name);
+        const name = gebietMitId(gebiet)?.n ?? 'Gebiet';
+        this.handle?.bezahlt(r.preis, (r.uebernommen ? '⚔ Gebiet übernommen: ' : '🗺 Gebiet gekauft: ') + name);
         this.ladeWelt();
       },
       error: (err) => { this.handle?.meldung(err?.error?.error ?? 'Kauf nicht möglich.'); this.ladeWelt(); },
@@ -159,7 +160,8 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   }
 
   private meldeVerbindung(a: number, b: number): void {
-    this.sicher().pipe(switchMap(() => this.api.verbindung(a, b, CITIES[a].n, CITIES[b].n))).subscribe({
+    const gebiete = [gebietVonStadt(a)?.id, gebietVonStadt(b)?.id].filter((g): g is number => g !== undefined);
+    this.sicher().pipe(switchMap(() => this.api.verbindung(a, b, CITIES[a].n, CITIES[b].n, gebiete))).subscribe({
       next: (r) => { if (r.mitglieder > 0) this.handle?.meldung('🤝 ' + r.mitglieder + ' Clan-Mitglied(er) in ' + CITIES[a].n + '/' + CITIES[b].n + ' bekommen +' + r.xp + ' Erfahrung.'); },
       error: () => undefined,
     });
@@ -216,7 +218,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
       return;
     }
     try {
-      this.welt = this.zone.runOutsideAngular(() => new TycoonWelt3D(canvas, handle.welt, (x, y) => handle.klickWelt(x, y)));
+      this.welt = this.zone.runOutsideAngular(() => new TycoonWelt3D(canvas, handle.welt, (x, y) => handle.klickWelt(x, y), (x, y) => handle.zeigerWelt(x, y)));
       this.welt.setzeFreieKamera(this.kameraFrei);
     } catch {
       // Kein WebGL: bei der 2D-Karte bleiben.

@@ -6,7 +6,8 @@
  */
 
 import type { TycoonWeltDaten } from './tycoon-3d';
-import { bezirkeVon, bezirkRahmen, CITIES, KARTE_H, KARTE_W, spielerFarbe, zeichneKarte } from './tycoon-karte';
+import { CITIES, KARTE_H, KARTE_W, spielerFarbe, zeichneKarte } from './tycoon-karte';
+import { BUNDESLAENDER, Gebiet, GEBIET_QUELLE, GEBIET_STADT, gebietAn, gebietMitId, gebietVonStadt, LAND_NAMEN, stelleErlaubt, umrandeGebiet, zeichneGebiete } from './tycoon-gebiete';
 import { HOEHEN_QUELLE, ladeHoehen, reliefBild } from './tycoon-hoehen';
 import { HOEHEN } from './tycoon-hoehen-meta';
 import { AUSRUESTUNG, KLASSEN, KOHLELAGER, LEVEL_XP, levelAus, OBERLEITUNG, SKINS, upgradePreis, ZUEGE, ZUG_FARBEN, ZUG_UPGRADES } from './tycoon-zuege';
@@ -20,8 +21,8 @@ export interface TycoonOptions {
   onReset?: () => void;
   /** Zeigt (el gesetzt) bzw. entfernt (el null) die 3D-Vorschau des Lok-Typs typ (Index in TRAINS). */
   onVorschau?: (el: HTMLElement | null, typ: number, farbe?: string | null, extraWagen?: boolean) => void;
-  /** Bezirk kaufen/uebernehmen (Server); die Seite meldet Erfolg ueber handle.bezahlt() zurueck. */
-  onBezirk?: (stadt: number, bezirk: number, basis: number) => void;
+  /** Gebiet (Landkreis/Bezirk) kaufen/uebernehmen (Server); die Seite meldet Erfolg ueber handle.bezahlt() zurueck. */
+  onGebiet?: (gebiet: number, basis: number) => void;
   /** Neue Strecke gebaut (Server verteilt den Clan-Bonus). */
   onVerbindung?: (a: number, b: number) => void;
 }
@@ -41,6 +42,8 @@ export interface TycoonHandle {
   belohnung: (xp: number, pokale: number, text: string) => void;
   /** Klick an einer Stelle der 2D-Welt (KARTE_W x KARTE_H), z. B. aus der 3D-Ansicht. */
   klickWelt: (x: number, y: number) => void;
+  /** Zeiger bewegt sich ueber diese Stelle der 2D-Welt (3D-Ansicht): verlaengert eine gerade gezeichnete Strecke. */
+  zeigerWelt: (x: number, y: number) => void;
 }
 
 export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandle {
@@ -115,35 +118,41 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const condFaktor = (L: any) => 1 - (1 - L.cond / 100) * 0.6 * (hat('werkstatt') ? 0.5 : 1);
   /** Gemeinsame Welt vom Server (null = noch nicht geladen oder Ansehen-Modus). */
   let welt: any = null;
-  /** Im Stadt-Panel ausgewaehlter Bezirk. */
-  let bzWahl: { c: number; i: number } | null = null;
+  /** Besitz je Gebiet (Server-Tabelle tycoon_bezirke mit stadt = GEBIET_STADT), beim Laden der Welt neu aufgebaut. */
+  let besitzNach = new Map<number, any>();
+  /** Aendert sich mit Besitz/Clan -- die Karten zeichnen ihre Gebietsflaechen dann neu. */
+  let gebietSchluessel = '';
   const meineId = () => welt?.ich?.id ?? null;
-  /** Besitz-Eintrag des i-ten Bezirks der Stadt c (gespeichert wird die feste Bezirks-ID). */
-  const bezirkVon = (c: number, i: number) => { const id = bezirkeVon(c)[i]?.id; return (welt?.bezirke || []).find((x: any) => x.stadt === c && x.bezirk === id); };
+  const besitz = (id: number | undefined) => (id === undefined ? undefined : besitzNach.get(id));
   const istMein = (x: any) => !!x && x.ownerId === meineId();
   const istClan = (x: any) => !!x && !!welt?.ich?.clanId && x.clanId === welt.ich.clanId && !istMein(x);
+  /** Ueber dieses Gebiet darf gebaut werden: eigenes oder eines Clan-Mitglieds, das in den letzten 7 Tagen gespielt hat (ohne Serverdaten keine Sperre). */
+  const erlaubt = (g: Gebiet) => { if (!welt) return true; const x = besitz(g.id); return istMein(x) || (istClan(x) && !!x.aktiv); };
+  /** Fuellfarbe eines Gebiets auf den Karten (Besitzer- bzw. Clanfarbe). */
+  const gebietFarbe = (g: Gebiet) => { const x = besitz(g.id); return x ? { farbe: x.clanFarbe || spielerFarbe(x.ownerId), deckung: istMein(x) ? 0.68 : 0.45 } : null; };
   /** Strecken anderer Clan-Mitglieder (vom Server) als {a, b}. */
   const clanStrecken = (): { a: number; b: number }[] => (welt?.clanStrecken || []).map((l: number[]) => ({ a: l[0], b: l[1] }));
-  /** Stadt c ist angeschlossen: eigene Strecke oder Strecke eines Clan-Mitglieds endet dort. */
-  const angeschlossen = (c: number) => S.lines.some((l: any) => l.a === c || l.b === c) || clanStrecken().some((l) => l.a === c || l.b === c);
-  const eigenerBezirk = (c: number) => (welt?.bezirke || []).some((x: any) => x.stadt === c && istMein(x));
-  /** Aktive Clan-Mitglieder (Bezirk + in den letzten 7 Tagen gespielt), die in Stadt c arbeiten. */
-  const clanArbeiter = (c: number): string[] => Array.from(new Set<string>((welt?.bezirke || []).filter((x: any) => x.stadt === c && istClan(x) && x.aktiv).map((x: any) => x.ownerName)));
-  /** Darf in Stadt c gebaut werden? Nur wenn du oder ein aktives Clan-Mitglied dort einen Bezirk hat (ohne Serverdaten keine Sperre). */
-  const praesenz = (c: number) => !welt || eigenerBezirk(c) || clanArbeiter(c).length > 0;
-  /** Clan-Verbindung: eine Strecke (eigene oder eines Mitglieds) von c in eine Stadt, in der der Clan ebenfalls arbeitet. */
-  const clanBonus = (c: number) => {
-    if (!welt?.ich?.clanId) return false;
-    const da = (x: number) => eigenerBezirk(x) || clanArbeiter(x).length > 0;
-    return [...S.lines, ...clanStrecken()].some((l: any) => (l.a === c || l.b === c) && da(l.a) && da(l.b));
+  /** Gebiet ist angeschlossen: eine eigene Strecke fuehrt hindurch oder eine Strecke eines Clan-Mitglieds endet darin. */
+  const angeschlossen = (id: number) => S.lines.some((l: any) => l.gebiete.includes(id))
+    || clanStrecken().some((l) => gebietVonStadt(l.a)?.id === id || gebietVonStadt(l.b)?.id === id);
+  const eigenerBezirk = (c: number) => istMein(besitz(gebietVonStadt(c)?.id));
+  /** Aktives Clan-Mitglied (in den letzten 7 Tagen gespielt), dem das Gebiet der Stadt c gehoert. */
+  const clanArbeiter = (c: number): string[] => { const x = besitz(gebietVonStadt(c)?.id); return istClan(x) && x.aktiv ? [x.ownerName] : []; };
+  /** Darf in Stadt c eine Strecke beginnen/enden? Nur wenn ihr Gebiet dir oder einem aktiven Clan-Mitglied gehoert. */
+  const praesenz = (c: number) => { const g = gebietVonStadt(c); return !welt || (!!g && erlaubt(g)); };
+  /** Clan-Verbindung: eine eigene Strecke durch dieses Gebiet fuehrt auch ueber Gebiete von Clan-Mitgliedern. */
+  const clanBonus = (id: number) => !!welt?.ich?.clanId && S.lines.some((l: any) => l.gebiete.includes(id) && l.gebiete.some((o: number) => istClan(besitz(o))));
+  /** Einnahmen eines eigenen Gebiets pro Sekunde (nur angeschlossen; Clan-Verbindung +25 %, Stoerung auf einer Strecke hindurch halbiert). */
+  const gebietRate = (id: number) => {
+    const x = besitz(id);
+    if (!welt || !istMein(x) || !angeschlossen(id)) return 0;
+    const stoerung = S.lines.some((l: any) => l.fault && l.gebiete.includes(id));
+    return x.basis * 0.0015 * (stoerung ? 0.5 : 1) * (clanBonus(id) ? 1.25 : 1);
   };
-  /** Einnahmen der eigenen Bezirke in Stadt c pro Sekunde (nur angeschlossen; Clan-Verbindung +25 %, Stoerung halbiert). */
-  const bezirkRate = (c: number) => {
-    if (!welt || !angeschlossen(c)) return 0;
-    const meine = (welt.bezirke || []).filter((x: any) => x.stadt === c && istMein(x));
-    const stoerung = S.lines.some((l: any) => l.fault && (l.a === c || l.b === c));
-    return meine.reduce((a: number, x: any) => a + x.basis * 0.0015, 0) * (stoerung ? 0.5 : 1) * (clanBonus(c) ? 1.25 : 1);
-  };
+  const meineGebiete = (): number[] => [...besitzNach.values()].filter(istMein).map((x) => x.bezirk);
+  /** Wem gehoert's, als Text. */
+  const besitzerText = (x: any) => !x ? 'frei' : istMein(x) ? 'deins' : x.ownerName + (x.clanKuerzel ? ' [' + x.clanKuerzel + ']' : '');
+  const gebietArt = (g: Gebiet) => ['Landkreis', 'Kreisfreie Stadt', 'Bezirk', 'Region'][g.typ] + ' · ' + (g.land === 'DE' ? BUNDESLAENDER[g.bl] : LAND_NAMEN[g.land] ?? g.land);
   const LCOL = ['#e4572e', '#2e86ab', '#59a14f', '#b07aa1', '#f2a900', '#17bebb', '#8c564b', '#4e79a7', '#d6336c', '#7f8c8d'];
 
   /* ---------- Helfer ---------- */
@@ -161,8 +170,13 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   /* ---------- Zustand ---------- */
   let W = 0, H = 0, dpr = 1, k = 1, ox = 0, oy = 0;
   let S: any = null;
-  let sel: any = { city: null, line: null };
-  let hover: any = { city: null, line: null, fault: null };
+  let sel: any = { city: null, line: null, gebiet: null };
+  let hover: any = { city: null, line: null, fault: null, gebiet: null };
+  /**
+   * Strecke wird gerade gezeichnet: Startstadt, Punkte bis hierher (nur ueber erlaubte Gebiete), Zielstadt sobald
+   * erreicht, letzte nicht erlaubte Stelle (rot angezeigt) und ein Zaehler, damit die 3D-Ansicht neu zeichnet.
+   */
+  let zeichnung: { von: number; pts: { x: number; y: number }[]; ziel: number | null; fehl: { x: number; y: number } | null; ver: number } | null = null;
   let modal: any = null;
   const popups: any[] = [];
   let alive = true;
@@ -195,9 +209,55 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         y: u * u * u * lo.y + 3 * u * u * t * c1.y + 3 * u * t * t * c2.y + t * t * t * hi.y });
     }
     if (a > b) pts.reverse();
+    return mitLaenge(pts);
+  };
+  const mitLaenge = (pts: any[]) => {
     const cum = [0];
     for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + dist(pts[i - 1], pts[i]));
     return { pts, cum, len: cum[cum.length - 1] };
+  };
+  /**
+   * Gezeichnete Strecke: Kontrollpunkte (flach x0,y0,x1,y1,..., so im Spielstand) zu einer glatten Linie.
+   * Erst auf hoechstens 4 Einheiten Abstand auffuellen (sonst schneidet die Glaettung Kurven ab und verlaesst
+   * schmale Gebiete), dann zweimal Chaikin; Anfang und Ende bleiben fest.
+   */
+  const geoAusPunkten = (p: number[]) => {
+    let pts: { x: number; y: number }[] = [{ x: p[0], y: p[1] }];
+    for (let i = 2; i < p.length; i += 2) {
+      const a = pts[pts.length - 1], b = { x: p[i], y: p[i + 1] }, n = Math.max(1, Math.ceil(dist(a, b) / 4));
+      for (let k = 1; k <= n; k++) pts.push({ x: a.x + (b.x - a.x) * k / n, y: a.y + (b.y - a.y) * k / n });
+    }
+    for (let n = 0; n < 2; n++) {
+      const o = [pts[0]];
+      for (let i = 0; i < pts.length - 1; i++) {
+        const a = pts[i], b = pts[i + 1];
+        o.push({ x: a.x * 0.75 + b.x * 0.25, y: a.y * 0.75 + b.y * 0.25 }, { x: a.x * 0.25 + b.x * 0.75, y: a.y * 0.25 + b.y * 0.75 });
+      }
+      o.push(pts[pts.length - 1]);
+      pts = o;
+    }
+    return mitLaenge(pts);
+  };
+  /** Gezeichnete Punkte fuer den Spielstand ausduennen (Douglas-Peucker, 0,4 Einheiten), auf 0,1 gerundet. */
+  const duenneAus = (pts: { x: number; y: number }[]): number[] => {
+    const keep = new Uint8Array(pts.length); keep[0] = keep[pts.length - 1] = 1;
+    const st = [[0, pts.length - 1]];
+    while (st.length) {
+      const [a, b] = st.pop()!; let max = 0, idx = -1;
+      for (let i = a + 1; i < b; i++) { const d = segDist(pts[i], pts[a], pts[b]); if (d > max) { max = d; idx = i; } }
+      if (max > 0.4) { keep[idx] = 1; st.push([a, idx], [idx, b]); }
+    }
+    return pts.filter((_, i) => keep[i]).flatMap((q) => [Math.round(q.x * 10) / 10, Math.round(q.y * 10) / 10]);
+  };
+  /**
+   * Ids der Gebiete, durch die eine Linie fuehrt: die der beiden Endstaedte immer, sonst nur mit mind. 2 Einheiten
+   * Linie darin (nur die Grenze streifen zaehlt nicht).
+   */
+  const gebieteEntlang = (pts: { x: number; y: number }[]): number[] => {
+    const n = new Map<number, number>(), schritt = mitLaenge(pts).len / Math.max(1, pts.length - 1);
+    pts.forEach((q) => { const g = gebietAn(q.x, q.y); if (g) n.set(g.id, (n.get(g.id) || 0) + 1); });
+    const enden = [pts[0], pts[pts.length - 1]].map((q) => gebietAn(q.x, q.y)?.id);
+    return [...n].filter(([id, c]) => enden.includes(id) || c * schritt >= 2).map(([id]) => id);
   };
   const posAt = (L: any, s: number) => {
     s = Math.max(0, Math.min(L.len, s));
@@ -219,29 +279,88 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   };
 
   /* ---------- Spiel-Aktionen ---------- */
-  const addLine = (a: number, b: number) => {
-    const g = makeGeo(a, b);
-    const L = { id: S.lines.length, a, b, pts: g.pts, cum: g.cum, len: g.len, color: LCOL[S.lines.length % LCOL.length], cls: 0, ol: false,
-      cond: 100, inF: 0, inO: 0, up: 0, rep: 0, fault: null, spawnT: rand(1.5, 4) };
+  /** p = gezeichnete Kontrollpunkte; ohne (alte Spielstaende) wird die fruehere geschwungene Verbindung erzeugt. */
+  const addLine = (a: number, b: number, p?: number[]) => {
+    const g = p && p.length >= 4 ? geoAusPunkten(p) : makeGeo(a, b);
+    const L = { id: S.lines.length, a, b, p: p && p.length >= 4 ? p : undefined, pts: g.pts, cum: g.cum, len: g.len, gebiete: gebieteEntlang(g.pts),
+      color: LCOL[S.lines.length % LCOL.length], cls: 0, ol: false, cond: 100, inF: 0, inO: 0, up: 0, rep: 0, fault: null, spawnT: rand(1.5, 4) };
     S.lines.push(L);
     return L;
   };
-  /** true = gebaut; Zahl = in dieser Stadt fehlt ein Bezirk; false = sonst nicht moeglich. */
-  const tryBuild = (a: number, b: number): boolean | number => {
-    if (lineExists(a, b)) { toast('Diese Strecke gehört dir schon.'); return false; }
-    const fehlt = [a, b].find((c) => !praesenz(c));
-    if (fehlt !== undefined) { toast('In ' + CITIES[fehlt].n + ' arbeitet weder du noch ein aktives Clan-Mitglied – kauf dort zuerst einen Bezirk.', 4500); return fehlt; }
-    const g = makeGeo(a, b), cost = lineCost(g);
-    if (S.money < cost) { toast('Zu wenig Guthaben (' + fmt(cost) + ' nötig).'); return false; }
+
+  /* ---------- Strecke zeichnen ---------- */
+  /** Neuer Punkt erst ab diesem Abstand zum letzten (Welteinheiten). */
+  const PUNKT_ABSTAND = 2.5;
+  const MAX_PUNKTE = 900;
+  /** Erlaubt-Pruefung entlang einer Strecke in kleinen Schritten; liefert den Anteil (0..1), bis zu dem alles erlaubt ist. */
+  const erlaubtBis = (a: { x: number; y: number }, b: { x: number; y: number }) => {
+    const n = Math.max(1, Math.ceil(dist(a, b) / 0.8));
+    for (let i = 1; i <= n; i++) if (!stelleErlaubt(a.x + (b.x - a.x) * i / n, a.y + (b.y - a.y) * i / n, erlaubt)) return (i - 1) / n;
+    return 1;
+  };
+  const starteZeichnen = (c: number) => {
+    if (S.lines.length >= 80) { toast('Mehr als 80 Strecken gehen nicht.'); return; }
+    if (!praesenz(c)) { toast('Das Gebiet von ' + CITIES[c].n + ' gehört weder dir noch einem aktiven Clan-Mitglied – kauf es zuerst.', 4500); return; }
+    zeichnung = { von: c, pts: [{ x: CITIES[c].x, y: CITIES[c].y }], ziel: null, fehl: null, ver: 0 };
+    sel = { city: null, line: null, gebiet: null };
+    toast('Fahre jetzt über deine Gebiete bis zur Zielstadt – die Strecke folgt dem Zeiger.', 4500);
+  };
+  /** Zeiger steht an p: Strecke dorthin verlaengern (so weit erlaubt), an einer Zielstadt einrasten, beim Zurueckfahren kuerzen. */
+  const zeichneZu = (p: { x: number; y: number }, fest = false) => {
+    const z = zeichnung;
+    if (!z) return;
+    const vorher = z.pts.length + ':' + z.ziel + ':' + !!z.fehl;
+    // Zurueck ueber die eigene Linie: dort abschneiden.
+    for (let i = 0; i < z.pts.length - 4; i++) if (dist(z.pts[i], p) < 2) { z.pts.length = i + 1; break; }
+    let letzter = z.pts[z.pts.length - 1];
+    const radius = fest ? 10 : Math.max(8, 16 / k);
+    const ziel = CITIES.findIndex((c, i) => i !== z.von && S.vis[i] && dist(c, p) < radius);
+    z.ziel = null;
+    if (ziel >= 0 && praesenz(ziel) && erlaubtBis(letzter, CITIES[ziel]) === 1) { z.ziel = ziel; z.fehl = null; }
+    else if (dist(letzter, p) >= PUNKT_ABSTAND && z.pts.length < MAX_PUNKTE) {
+      const f = erlaubtBis(letzter, p);
+      if (f === 1) { z.pts.push({ x: p.x, y: p.y }); z.fehl = null; }
+      else {
+        // Bis an die Grenze heranfahren, Rest rot anzeigen.
+        const q = { x: letzter.x + (p.x - letzter.x) * f, y: letzter.y + (p.y - letzter.y) * f };
+        if (dist(letzter, q) >= 0.8) { z.pts.push(q); letzter = q; }
+        z.fehl = { x: p.x, y: p.y };
+      }
+    } else if (z.fehl && dist(letzter, p) < PUNKT_ABSTAND) z.fehl = null;
+    if (z.pts.length + ':' + z.ziel + ':' + !!z.fehl !== vorher || z.fehl) z.ver++;
+  };
+  const zeichnungLaenge = (z: NonNullable<typeof zeichnung>) => {
+    let l = 0;
+    for (let i = 1; i < z.pts.length; i++) l += dist(z.pts[i - 1], z.pts[i]);
+    return l + (z.ziel !== null ? dist(z.pts[z.pts.length - 1], CITIES[z.ziel]) : 0);
+  };
+  /** Kontrollpunkte der fertigen Zeichnung (bis zur Zielstadt). */
+  const zeichnungPunkte = (z: NonNullable<typeof zeichnung>) => duenneAus([...z.pts, { x: CITIES[z.ziel!].x, y: CITIES[z.ziel!].y }]);
+  const baueZeichnung = () => {
+    const z = zeichnung;
+    if (!z || z.ziel === null) return;
+    const a = z.von, b = z.ziel;
+    if (lineExists(a, b)) { toast('Die Strecke ' + CITIES[a].n + ' ⇄ ' + CITIES[b].n + ' gehört dir schon.'); return; }
+    if (!praesenz(b)) { toast('Das Gebiet von ' + CITIES[b].n + ' gehört weder dir noch einem aktiven Clan-Mitglied.', 4500); return; }
+    const p = zeichnungPunkte(z), cost = lineCost(geoAusPunkten(p));
+    if (S.money < cost) { toast('Zu wenig Guthaben (' + fmt(cost) + ' nötig).'); return; }
     S.money -= cost;
-    addLine(a, b);
+    addLine(a, b, p);
     revealNear(a, 2); revealNear(b, 2);
     addXp(15);
     opts.onVerbindung?.(a, b);
     toast('Strecke ' + CITIES[a].n + ' ⇄ ' + CITIES[b].n + ' gebaut (−' + fmt(cost) + ')');
-    sel.line = null;
+    zeichnung = null;
+    sel = { city: null, line: S.lines.length - 1, gebiet: null };
     save();
-    return true;
+  };
+  /** Ein Stueck zuruecknehmen (Knopf). */
+  const zeichnungZurueck = () => {
+    const z = zeichnung;
+    if (!z) return;
+    let l = 0;
+    while (z.pts.length > 1 && l < 25) { l += dist(z.pts[z.pts.length - 1], z.pts[z.pts.length - 2]); z.pts.pop(); }
+    z.ziel = null; z.fehl = null; z.ver++;
   };
   const spawnForeign = (L: any) => {
     const dir = Math.random() < .5 ? 1 : -1;
@@ -406,10 +525,10 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       S.faultIn -= Math.min(dtReal, .25);
       if (S.faultIn <= 0) createFault(false);   // wartet, solange noch eine Stoerung offen ist
     }
-    // Bezirke bringen laufend Geld (nur angeschlossene Staedte; Stoerung dort halbiert).
+    // Gebiete bringen laufend Geld (nur angeschlossene; Stoerung auf einer Strecke hindurch halbiert).
     if (welt) {
       let r = 0;
-      new Set<number>((welt.bezirke || []).filter((x: any) => istMein(x)).map((x: any) => x.stadt as number)).forEach((c) => (r += bezirkRate(c)));
+      meineGebiete().forEach((id) => (r += gebietRate(id)));
       if (r > 0) { S.money += r * dt; S.bezirkSumme = (S.bezirkSumme || 0) + r * dt; }
     }
     for (const t of S.trains.slice()) {
@@ -458,41 +577,55 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   };
   /** fest = Klick aus der 3D-Ansicht: feste Trefferradien in Weltkoordinaten statt vom 2D-Zoom abhaengiger. */
   const hit = (p: any, fest = false) => {
-    const r: any = { city: null, line: null, fault: null };
+    const r: any = { city: null, line: null, fault: null, gebiet: null };
     const faultR = fest ? 22 : 18 / Math.min(1, k), lineR = fest ? 16 : 9 / Math.min(1, k);
     if (!RO) for (const L of S.lines) if (L.fault) { const q = posAt(L, L.len * L.fault.t); if (dist(p, q) < faultR) { r.fault = L.id; return r; } }
-    for (let i = 0; i < CITIES.length; i++) if (S.vis[i] && dist(p, CITIES[i]) < 20) { r.city = i; return r; }
+    for (let i = 0; i < CITIES.length; i++) if (S.vis[i] && dist(p, CITIES[i]) < (fest ? 20 : Math.max(12, 16 / k))) { r.city = i; return r; }
     let best = 1e9;
     for (const L of S.lines) {
       for (let i = 1; i < L.pts.length; i++) { const d = segDist(p, L.pts[i - 1], L.pts[i]); if (d < lineR && d < best) { best = d; r.line = L.id; } }
     }
+    if (r.line === null) r.gebiet = gebietAn(p.x, p.y)?.id ?? null;
     return r;
   };
+  /** Touch/Stift zeichnet nur bei aufgesetztem Finger, die Maus schon beim Bewegen (ohne Taste). */
+  let fingerZeichnet = false;
   const onMove = (e: PointerEvent) => {
-    hover = hit(toWorld(e));
-    cv.style.cursor = (hover.city !== null || hover.line !== null || hover.fault !== null) ? 'pointer' : 'default';
+    const p = toWorld(e);
+    hover = hit(p);
+    if (zeichnung && (e.pointerType === 'mouse' ? e.buttons === 0 : fingerZeichnet)) zeichneZu(p);
+    cv.style.cursor = zeichnung ? 'crosshair' : (hover.city !== null || hover.line !== null || hover.fault !== null) ? 'pointer' : 'default';
   };
-  const onCanvasDown = (e: PointerEvent) => klick(toWorld(e));
+  const onCanvasDown = (e: PointerEvent) => { fingerZeichnet = e.pointerType !== 'mouse'; klick(toWorld(e)); };
+  const onCanvasUp = () => { fingerZeichnet = false; };
   const klick = (p: { x: number; y: number }, fest = false) => {
     if (modal) return;
     const h = hit(p, fest);
+    if (zeichnung && !RO) {
+      // Zeichnen: Zielstadt antippen = bauen, sonst wird die Strecke bis hierher verlaengert.
+      zeichneZu(h.city !== null ? CITIES[h.city] : p, fest);
+      if (h.city !== null && h.city === zeichnung.ziel) baueZeichnung();
+      else if (h.city !== null && h.city !== zeichnung.von) toast('Bis ' + CITIES[h.city].n + ' kommst du nicht nur über deine Gebiete – kauf die fehlenden oder bau drumherum.', 4500);
+      return;
+    }
     if (h.fault !== null) { openFault(h.fault); return; }
     if (RO) {
       if (h.line !== null) { sel.line = h.line; } else if (h.city === null) { sel.line = null; }
       return;
     }
-    if (h.city !== null) {
-      if (sel.city === null) { sel.city = h.city; sel.line = null; }
-      else if (sel.city === h.city) { sel.city = null; }
-      else { const r = tryBuild(sel.city, h.city); if (r === true) sel.city = h.city; else if (typeof r === 'number') sel.city = r; }
-      return;
-    }
-    if (h.line !== null) { sel.line = h.line; sel.city = null; S.openedLine = true; return; }
-    sel.city = null; sel.line = null;
+    if (h.city !== null) { sel = { city: sel.city === h.city ? null : h.city, line: null, gebiet: null }; return; }
+    if (h.line !== null) { sel = { city: null, line: h.line, gebiet: null }; S.openedLine = true; return; }
+    sel = { city: null, line: null, gebiet: h.gebiet !== null && sel.gebiet !== h.gebiet ? h.gebiet : null };
   };
-  const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { sel.city = null; sel.line = null; if (modal && modal.kind !== 'mg') closeModal(); } };
+  const onKey = (e: KeyboardEvent) => {
+    if (e.key !== 'Escape') return;
+    if (zeichnung) { zeichnung = null; return; }
+    sel = { city: null, line: null, gebiet: null };
+    if (modal && modal.kind !== 'mg') closeModal();
+  };
   cv.addEventListener('pointermove', onMove);
   cv.addEventListener('pointerdown', onCanvasDown);
+  window.addEventListener('pointerup', onCanvasUp);
   window.addEventListener('keydown', onKey);
   const ro = new ResizeObserver(() => layout());
   ro.observe(root);
@@ -512,6 +645,20 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     kartenBild = c; kartenMitRelief = !!rel;
     return c;
   };
+  /** Gebietsflaechen und Grenzen ebenfalls vorrendern; neu nur bei anderem Besitz oder anderer Kartengroesse. */
+  let gebietsBild: HTMLCanvasElement | null = null, gebietsBildFuer = '';
+  const holeGebietsBild = () => {
+    const key = gebietSchluessel + '|' + k.toFixed(3);
+    if (gebietsBild && gebietsBildFuer === key) return gebietsBild;
+    const c = gebietsBild || document.createElement('canvas');
+    c.width = Math.round((KB.x1 - KB.x0) * KB_S); c.height = Math.round((KB.y1 - KB.y0) * KB_S);
+    const g = c.getContext('2d')!;
+    g.scale(KB_S, KB_S); g.translate(-KB.x0, -KB.y0);
+    // Linien in Bildschirmpixeln etwa gleich dick, egal wie gross die Karte gerade ist.
+    zeichneGebiete(g, { farbe: gebietFarbe, linie: 1.4 / Math.max(0.3, k), namen: true });
+    gebietsBild = c; gebietsBildFuer = key;
+    return c;
+  };
   ladeHoehen();
   const path = (pts: any[]) => { ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y); for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y); };
   const label = (x: number, y: number, txt: string, col: string, plain?: boolean) => {
@@ -524,18 +671,12 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     ctx.fillStyle = '#bcd6e6'; ctx.fillRect(0, 0, W, H);
     ctx.save(); ctx.translate(ox, oy); ctx.scale(k, k);
     ctx.drawImage(holeKartenBild(), KB.x0, KB.y0, KB.x1 - KB.x0, KB.y1 - KB.y0);
-    // Stadtbezirke (echte Grenzen): Besitz farbig, freie nur als feine Linie.
-    for (let i = 0; i < CITIES.length; i++) {
-      if (!S.vis[i]) continue;
-      bezirkeVon(i).forEach((b, j) => {
-        if (!b.ringe.length) return;
-        ctx.beginPath();
-        b.ringe.forEach((r) => { ctx.moveTo(r[0], r[1]); for (let q = 2; q < r.length; q += 2) ctx.lineTo(r[q], r[q + 1]); ctx.closePath(); });
-        const x = welt ? bezirkVon(i, j) : null;
-        if (x) { ctx.fillStyle = x.clanFarbe || spielerFarbe(x.ownerId); ctx.globalAlpha = istMein(x) ? 0.75 : 0.5; ctx.fill(); ctx.globalAlpha = 1; }
-        ctx.strokeStyle = 'rgba(70,70,60,.45)'; ctx.lineWidth = 0.6 / k; ctx.stroke();
-      });
-    }
+    // Gebiete (Landkreise, Bezirke): Besitz farbig, Kreis-, Landes- und Staatsgrenzen.
+    ctx.drawImage(holeGebietsBild(), KB.x0, KB.y0, KB.x1 - KB.x0, KB.y1 - KB.y0);
+    const hg = zeichnung || hover.gebiet === null || hover.gebiet === sel.gebiet ? null : gebietMitId(hover.gebiet);
+    if (hg) umrandeGebiet(ctx, hg, 'rgba(228,87,46,.55)', 1.6 / k);
+    const sg = sel.gebiet !== null ? gebietMitId(sel.gebiet) : null;
+    if (sg) { umrandeGebiet(ctx, sg, '#fff', 4.5 / k); umrandeGebiet(ctx, sg, '#e4572e', 2.5 / k); }
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
     for (const L of S.lines) {
       const on = sel.line === L.id || hover.line === L.id;
@@ -545,10 +686,20 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       path(L.pts); ctx.strokeStyle = L.cond < 25 ? '#ff2d2d' : L.cond < 50 ? '#ffb347' : '#fff';
       ctx.lineWidth = 2.2; ctx.setLineDash([3, 6]); ctx.stroke(); ctx.setLineDash([]);
     }
-    if (!RO && sel.city !== null && hover.city !== null && hover.city !== sel.city && !lineExists(sel.city, hover.city)) {
-      const g = makeGeo(sel.city, hover.city), c = lineCost(g), ok = S.money >= c;
-      path(g.pts); ctx.strokeStyle = ok ? 'rgba(35,38,43,.55)' : 'rgba(192,57,43,.7)'; ctx.lineWidth = 5; ctx.setLineDash([8, 8]); ctx.stroke(); ctx.setLineDash([]);
-      const m = g.pts[30]; label(m.x, m.y - 14, fmt(c), ok ? '#23262b' : '#c0392b');
+    if (zeichnung) {
+      // Gezeichnete Strecke: erlaubter Teil dunkel, an der Zielstadt eingerastet; nicht erlaubter Rest rot gestrichelt.
+      const z = zeichnung, ende = z.pts[z.pts.length - 1];
+      const pts = z.ziel !== null ? [...z.pts, CITIES[z.ziel]] : z.pts;
+      if (pts.length > 1) {
+        path(pts); ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.lineWidth = 9; ctx.stroke();
+        path(pts); ctx.strokeStyle = z.ziel !== null ? '#2e8b57' : '#23262b'; ctx.lineWidth = 5; ctx.stroke();
+      }
+      if (z.fehl) {
+        ctx.beginPath(); ctx.moveTo(ende.x, ende.y); ctx.lineTo(z.fehl.x, z.fehl.y);
+        ctx.strokeStyle = 'rgba(192,57,43,.85)'; ctx.lineWidth = 4; ctx.setLineDash([6, 6]); ctx.stroke(); ctx.setLineDash([]);
+      }
+      const c = Math.round(zeichnungLaenge(z) * CFG.lineCostPerUnit / 10) * 10, at = z.ziel !== null ? CITIES[z.ziel] : z.fehl ?? ende;
+      label(at.x, at.y - 24, (z.ziel !== null ? '✓ ' : '') + fmt(c), S.money >= c ? '#23262b' : '#c0392b');
     }
     for (const t of S.trains) {
       const L = S.lines[t.line]; if (!L) continue;
@@ -574,16 +725,9 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     for (let i = 0; i < CITIES.length; i++) {
       if (!S.vis[i]) continue;
       const c = CITIES[i], connected = S.lines.some((l: any) => l.a === i || l.b === i);
-      const isSel = sel.city === i, isHov = hover.city === i;
-      if (welt) {
-        const bz = bezirkeVon(i), st = (Math.PI * 2) / bz.length;
-        bz.forEach((b, j) => {
-          const x = bezirkVon(i, j);
-          if (!x || b.ringe.length) return;   // echte Grenzen sind oben schon gezeichnet
-          ctx.beginPath(); ctx.moveTo(c.x, c.y); ctx.arc(c.x, c.y, 22, j * st - Math.PI / 2, (j + 1) * st - Math.PI / 2); ctx.closePath();
-          ctx.fillStyle = x.clanFarbe || spielerFarbe(x.ownerId); ctx.globalAlpha = istMein(x) ? 0.85 : 0.55; ctx.fill(); ctx.globalAlpha = 1;
-        });
-      }
+      const isSel = sel.city === i || zeichnung?.von === i || zeichnung?.ziel === i, isHov = hover.city === i;
+      // Beim Zeichnen: moegliche Zielstaedte (Gebiet gehoert dir/deinem Clan) gruen markieren.
+      if (zeichnung && i !== zeichnung.von && praesenz(i)) { ctx.beginPath(); ctx.arc(c.x, c.y, 18, 0, 7); ctx.fillStyle = 'rgba(46,139,87,.35)'; ctx.fill(); }
       ctx.beginPath(); ctx.arc(c.x, c.y, isSel || isHov ? 13 : 11, 0, 7);
       ctx.fillStyle = connected ? '#fff' : '#f4f1ea'; ctx.fill();
       ctx.lineWidth = isSel ? 5 : 3.5; ctx.strokeStyle = isSel ? '#e4572e' : '#23262b'; ctx.stroke();
@@ -603,6 +747,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const barHTML = (v: number, col: string) => '<div class="bar"><i style="width:' + Math.round(v) + '%;background:' + col + '"></i></div>';
   const condCol = (c: number) => c < 25 ? '#d64545' : c < 50 ? '#e0a030' : '#4caf7d';
   const panelHTML = () => {
+    if (zeichnung && !RO) return zeichnungHTML();
     if (sel.line !== null && S.lines[sel.line]) {
       const L = S.lines[sel.line];
       const own = S.trains.filter((t: any) => t.own && t.line === L.id);
@@ -633,10 +778,11 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       return h;
     }
     if (sel.city !== null) return stadtHTML(sel.city);
+    if (sel.gebiet !== null && gebietMitId(sel.gebiet)) return gebietHTML(sel.gebiet);
     const own = S.trains.filter((t: any) => t.own);
     const inF = S.lines.reduce((a: number, l: any) => a + l.inF, 0), inO = S.lines.reduce((a: number, l: any) => a + l.inO, 0);
     const verlust = S.lines.reduce((a: number, l: any) => a + (l.verlust || 0), 0), bez = S.bezirkSumme || 0;
-    const meineBezirke = welt ? (welt.bezirke || []).filter((x: any) => istMein(x)).length : 0;
+    const meineBezirke = welt ? meineGebiete().length : 0;
     let h = '<h3>' + (RO ? 'Unternehmen' : 'Dein Unternehmen') + '</h3>';
     const lv = level(), von = LEVEL_XP[lv - 1], bis = LEVEL_XP[lv];
     h += '<div class="row"><span>Level</span><b>' + lv + (bis === undefined ? ' (max.)' : '') + '</b></div>';
@@ -645,10 +791,10 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     h += '<div class="row"><span>Eigene Züge</span><b>' + own.length + '</b></div>';
     h += '<div class="row"><span>Trassenentgelt gesamt</span><span class="pos">' + sgn(inF) + '</span></div>';
     h += '<div class="row"><span>Mieteinnahmen gesamt</span><span class="pos">' + sgn(inO) + '</span></div>';
-    h += '<div class="row"><span>Bezirke (' + meineBezirke + ')</span><span class="pos">' + sgn(bez) + '</span></div>';
+    h += '<div class="row"><span>Gebiete (' + meineBezirke + ')</span><span class="pos">' + sgn(bez) + '</span></div>';
     h += '<div class="row"><b>Einnahmen gesamt</b><b class="pos">' + sgn(inF + inO + bez) + '</b></div>';
     h += '<div class="row"><span>Entgangen durch Wartungsstau/Störungen</span><span class="neg">' + sgn(-verlust) + '</span></div>';
-    h += '<div class="mut">' + HOEHEN_QUELLE + ' · Karte: Natural Earth</div>';
+    h += '<div class="mut">' + HOEHEN_QUELLE + ' · Karte: Natural Earth · ' + GEBIET_QUELLE + '</div>';
     h += '<div class="mut">Laufende Kosten gibt es nicht – schlechter Zustand und Störungen senken nur die Einnahmen. Selbst beheben lohnt sich!</div>';
     h += '<h3 style="margin-top:16px">Können (Eigenleistung)</h3>';
     DIFF.forEach((d, i) => {
@@ -666,78 +812,99 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (RO) {
       h += '<p class="mut" style="margin-top:14px">Du siehst das Netz nur zum Ansehen. Strecke anklicken = Details.</p>';
     } else {
-      h += '<p class="mut" style="margin-top:14px">Stadt anklicken = Bezirke kaufen. Danach zweite Stadt anklicken = Strecke bauen (dort brauchst du auch einen Bezirk). Strecke anklicken = Details & Züge. Rotes ! = Störung. Mit jeder Verbindung schalten sich neue Städte frei.</p>';
+      h += '<p class="mut" style="margin-top:14px">Gebiet (Landkreis, Bezirk) auf der Karte anklicken = kaufen. Stadt anklicken → „Strecke zeichnen“ und über deine Gebiete bis zur nächsten Stadt fahren. Strecke anklicken = Details & Züge. Rotes ! = Störung. Mit jeder Verbindung schalten sich neue Städte frei.</p>';
       h += '<div class="btns"><button data-act="reset" class="sm">Spiel zurücksetzen</button></div>';
     }
     return h;
   };
   const uhr = (iso: string) => new Date(iso).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-  /** Eine Bezirkszeile mit Farbe, Besitzer und Kauf-/Uebernahme-Knopf. */
-  const bezirkZeile = (c: number, i: number) => {
-    const b = bezirkeVon(c)[i], x = bezirkVon(c, i), farbe = x ? (x.clanFarbe || spielerFarbe(x.ownerId)) : '#d9d4c8';
-    let wer = 'frei', knopf = '';
-    if (!x) knopf = RO ? '' : '<button class="sm" data-act="bez" data-arg="' + c + ':' + i + '" ' + (S.money < b.basis ? 'disabled' : '') + '>Kaufen · ' + fmt(b.basis) + '</button>';
-    else if (istMein(x)) { wer = 'deiner'; knopf = '<span class="pos">✓</span>'; }
+  /** Eine Gebietszeile mit Farbe, Besitzer und Kauf-/Uebernahme-Knopf (antippen = auf der Karte auswaehlen). */
+  const gebietZeile = (g: Gebiet) => {
+    const x = besitz(g.id), farbe = x ? (x.clanFarbe || spielerFarbe(x.ownerId)) : '#d9d4c8';
+    let knopf = '';
+    if (!x) knopf = RO ? '' : '<button class="sm" data-act="gkauf" data-arg="' + g.id + '" ' + (S.money < g.basis ? 'disabled' : '') + '>Kaufen · ' + fmt(g.basis) + '</button>';
+    else if (istMein(x)) knopf = '<span class="pos">✓</span>';
+    else if (istClan(x)) knopf = '<span class="mut">Clan' + (x.aktiv ? '' : ' (inaktiv)') + '</span>';
+    else if (new Date(x.geschuetztBis).getTime() > Date.now()) knopf = '<span class="mut">🛡 bis ' + uhr(x.geschuetztBis) + '</span>';
+    else if (!RO) knopf = '<button class="sm" data-act="gkauf" data-arg="' + g.id + '" ' + (S.money < x.basis * 3 ? 'disabled' : '') + '>Übernehmen · ' + fmt(x.basis * 3) + '</button>';
+    return '<div class="bezirk' + (sel.gebiet === g.id ? ' gewaehlt' : '') + '" data-act="gwahl" data-arg="' + g.id + '"><span class="farbpunkt" style="background:' + farbe + '"></span>' +
+      '<span class="bz-n">' + g.n + ' <span class="mut">· ' + besitzerText(x) + '</span></span>' + knopf + '</div>';
+  };
+  /** Einnahmen-Hinweis fuer ein eigenes Gebiet. */
+  const gebietEinnahmen = (g: Gebiet) => {
+    if (!istMein(besitz(g.id))) return '';
+    if (!angeschlossen(g.id)) return '<div class="mut">Bringt Geld, sobald eine deiner Strecken hindurchführt.</div>';
+    const stoerung = S.lines.some((l: any) => l.fault && l.gebiete.includes(g.id));
+    return '<div class="mut">Bringt ' + fmt(gebietRate(g.id) * 60) + ' pro Minute' + (stoerung ? ' – eine Störung auf einer Strecke hier halbiert das!' : '') +
+      (clanBonus(g.id) ? ' (🤝 +25 % Clan-Verbindung)' : '') + '.</div>';
+  };
+  /** Panel eines Gebiets (auf der Karte angeklickt). */
+  const gebietHTML = (id: number) => {
+    const g = gebietMitId(id);
+    if (!g) return '';
+    let h = '<h3>' + g.n + '</h3><div class="mut">' + gebietArt(g) + ' · ca. ' + g.f.toLocaleString('de-DE') + ' km²</div>';
+    if (!welt) h += '<p class="mut">' + (RO ? '' : 'Besitz wird geladen …') + '</p>';
     else {
-      wer = x.ownerName + (x.clanKuerzel ? ' [' + x.clanKuerzel + ']' : '');
-      if (istClan(x)) knopf = '<span class="mut">Clan</span>';
-      else if (new Date(x.geschuetztBis).getTime() > Date.now()) knopf = '<span class="mut">🛡 bis ' + uhr(x.geschuetztBis) + '</span>';
-      else if (!RO) knopf = '<button class="sm" data-act="bez" data-arg="' + c + ':' + i + '" ' + (S.money < x.basis * 3 ? 'disabled' : '') + '>Übernehmen · ' + fmt(x.basis * 3) + '</button>';
+      h += gebietZeile(g) + gebietEinnahmen(g);
+      if (g.staedte.length) h += '<div class="row"><span>Städte</span><b>' + g.staedte.map((c) => CITIES[c].n).join(', ') + '</b></div>';
+      const durch = S.lines.filter((l: any) => l.gebiete.includes(g.id));
+      if (durch.length) h += '<div class="mut">Deine Strecken hier: ' + durch.map((l: any) => CITIES[l.a].n + ' ⇄ ' + CITIES[l.b].n).join(', ') + '</div>';
+      if (!RO) h += '<div class="mut">Strecken darfst du nur über eigene Gebiete zeichnen (oder über die von aktiven Clan-Mitgliedern). Fremde Gebiete kosten das Dreifache; der bisherige Besitzer bekommt den Grundpreis erstattet. Frisch gekaufte Gebiete sind 2 Stunden geschützt.</div>';
     }
-    const gew = !!bzWahl && bzWahl.c === c && bzWahl.i === i;
-    return '<div class="bezirk' + (gew ? ' gewaehlt' : '') + '" data-act="bzwahl" data-arg="' + c + ':' + i + '"><span class="farbpunkt" style="background:' + farbe + '"></span>' +
-      '<span class="bz-n">' + b.n + ' <span class="mut">· ' + wer + '</span></span>' + knopf + '</div>';
+    h += '<div class="mut">' + GEBIET_QUELLE + '</div><div class="btns"><button class="sm" data-act="stadtzu">Schließen</button></div>';
+    return h;
   };
-  /** Bezirksplan der Stadt als SVG (echte Grenzen), Besitz farbig, gewaehlter Bezirk umrandet. */
-  const bezirkPlan = (c: number) => {
-    const rahmen = bezirkRahmen(c);
-    if (!rahmen) return '';
-    const pad = 1.5, w = rahmen.x1 - rahmen.x0 + 2 * pad, hh = rahmen.y1 - rahmen.y0 + 2 * pad, strich = Math.max(w, hh) / 260;
-    const pfad = (r: number[]) => { let d = 'M' + r[0] + ' ' + r[1]; for (let q = 2; q < r.length; q += 2) d += 'L' + r[q] + ' ' + r[q + 1]; return d + 'Z'; };
-    const teile = bezirkeVon(c).map((b, i) => {
-      const x = welt ? bezirkVon(c, i) : null, gew = !!bzWahl && bzWahl.c === c && bzWahl.i === i;
-      const fuell = x ? (x.clanFarbe || spielerFarbe(x.ownerId)) : '#f4f1ea', deck = x ? (istMein(x) ? 0.9 : 0.65) : 1;
-      return { gew, svg: '<path d="' + b.ringe.map(pfad).join('') + '" fill="' + fuell + '" fill-opacity="' + deck + '" stroke="' + (gew ? '#e4572e' : '#5a5a52') +
-        '" stroke-width="' + (gew ? strich * 3.5 : strich) + '" stroke-linejoin="round" data-act="bzwahl" data-arg="' + c + ':' + i + '"><title>' + b.n + '</title></path>' };
-    });
-    // Gewaehlten Bezirk zuletzt zeichnen, damit sein Rand oben liegt.
-    const C = CITIES[c];
-    return '<svg class="bz-plan" viewBox="' + (rahmen.x0 - pad) + ' ' + (rahmen.y0 - pad) + ' ' + w + ' ' + hh + '">' +
-      teile.filter((t) => !t.gew).map((t) => t.svg).join('') + teile.filter((t) => t.gew).map((t) => t.svg).join('') +
-      '<circle cx="' + C.x + '" cy="' + C.y + '" r="' + strich * 4 + '" fill="#23262b"/></svg>';
-  };
-  /** Panel einer Stadt: Aktivitaet anderer Spieler und Bezirke (kaufen / uebernehmen). */
+  /** Panel einer Stadt: Aktivitaet anderer Spieler, ihr Gebiet und "Strecke zeichnen". */
   const stadtHTML = (c: number) => {
-    const C = CITIES[c], info = (welt?.staedte || []).find((x: any) => x.stadt === c);
+    const C = CITIES[c], info = (welt?.staedte || []).find((x: any) => x.stadt === c), g = gebietVonStadt(c);
     let h = '<h3>' + C.n + (C.land ? ' <span class="mut">(' + C.land + ')</span>' : '') + '</h3>';
     h += '<div class="mut">' + (info ? '💡 ' + info.spieler + ' andere Spieler mit Strecken hier' + (info.aktiv ? ', ' + info.aktiv + ' gerade aktiv' : '') : 'Hier ist noch kein anderer Spieler.') + '</div>';
     if (!welt) {
-      h += '<p class="mut">' + (RO ? '' : 'Bezirke werden geladen …') + '</p>';
+      h += '<p class="mut">' + (RO ? '' : 'Gebiete werden geladen …') + '</p>';
     } else {
+      if (g) h += '<h3 style="margin-top:10px">Gebiet</h3>' + gebietZeile(g) + gebietEinnahmen(g);
       const team = clanArbeiter(c), ich = eigenerBezirk(c);
-      h += '<div class="row"><span>Hier arbeiten</span><b>' + ([ich ? 'du' : '', ...team].filter(Boolean).join(', ') || '–') + '</b></div>';
-      if (!RO) h += '<div class="mut">' + (praesenz(c) ? '✓ Strecken von und nach ' + C.n + ' sind möglich.' : '✗ Für Strecken hierher brauchst du einen eigenen Bezirk oder ein aktives Clan-Mitglied mit Bezirk.') + '</div>';
-      if (clanBonus(c)) h += '<div class="pos">🤝 Clan-Verbindung: Bezirke deines Clans hier bringen +25 %.</div>';
+      if (team.length || ich) h += '<div class="row"><span>Hier arbeitet</span><b>' + (ich ? 'du' : team.join(', ')) + '</b></div>';
+      if (!RO) {
+        h += '<div class="btns"><button data-act="zeichne" data-arg="' + c + '" ' + (praesenz(c) ? '' : 'disabled') + '>🛤 Strecke von hier zeichnen</button></div>';
+        h += '<div class="mut">' + (praesenz(c) ? 'Die Strecke folgt deinem Zeiger und geht nur über deine Gebiete (und die aktiver Clan-Mitglieder). Je länger, desto teurer.'
+          : '✗ Für Strecken von und nach ' + C.n + ' muss dir (oder einem aktiven Clan-Mitglied) das Gebiet gehören.') + '</div>';
+      }
       if ((S.lager || []).includes(c)) h += '<div class="pos">🏭 Dein Kohlelager versorgt Dampfloks auf allen Strecken nach ' + C.n + '.</div>';
       else if (!RO) h += '<div class="btns"><button data-act="lager" data-arg="' + c + '" ' + (S.money < KOHLELAGER.preis || !praesenz(c) ? 'disabled' : '') + '>🏭 Kohlelager bauen · ' + fmt(KOHLELAGER.preis) + '</button></div><div class="mut">' + KOHLELAGER.text + '</div>';
-      const bz = bezirkeVon(c);
-      if (bzWahl && bzWahl.c !== c) bzWahl = null;
-      h += '<h3 style="margin-top:10px">Bezirke (' + bz.length + ')</h3>';
-      const plan = bezirkPlan(c);
-      if (plan) h += plan + '<div class="mut">Bezirk im Plan antippen.</div>';
-      if (bzWahl) h += '<div class="bz-wahl">' + bezirkZeile(c, bzWahl.i) + '</div>';
-      bz.forEach((_b, i) => { h += bezirkZeile(c, i); });
-      if (plan) h += '<div class="mut">Bezirksgrenzen: © OpenStreetMap-Mitwirkende (ODbL)</div>';
-      const meine = (welt.bezirke || []).filter((x: any) => x.stadt === c && istMein(x)).length;
-      if (meine) {
-        h += angeschlossen(c)
-          ? '<div class="mut">Deine ' + meine + ' Bezirk(e) hier bringen ' + fmt(bezirkRate(c) * 60) + ' pro Minute' + (S.lines.some((l: any) => l.fault && (l.a === c || l.b === c)) ? ' – eine Störung an der Stadt halbiert das!' : '.') + '</div>'
-          : '<div class="mut">Bezirke bringen Geld, sobald eine deiner Strecken hier endet.</div>';
-      }
-      h += '<div class="mut">Fremde Bezirke kosten das Dreifache; der bisherige Besitzer bekommt den Grundpreis erstattet. Frisch gekaufte Bezirke sind 2 Stunden geschützt.</div>';
     }
-    if (!RO) h += '<p class="mut">Klicke eine zweite Stadt an, um eine Strecke zu bauen. In beiden Städten muss jemand arbeiten: du mit einem eigenen Bezirk oder ein Clan-Mitglied, das dort einen Bezirk hat und in den letzten 7 Tagen gespielt hat. Clan-Mitglieder in den beiden Städten bekommen beim Bau Erfahrung, und solange die Verbindung steht, bringen ihre Bezirke dort 25 % mehr.</p>';
+    if (!RO) h += '<p class="mut">Weitere Gebiete kaufst du, indem du sie auf der Karte anklickst. Clan-Mitglieder bekommen Erfahrung, wenn du eine Strecke in ihre Städte baust, und deine Gebiete bringen 25 % mehr, wenn deine Strecke auch über Gebiete deines Clans führt.</p>';
     h += '<div class="btns"><button class="sm" data-act="stadtzu">Schließen</button></div>';
+    return h;
+  };
+  /** Panel waehrend eine Strecke gezeichnet wird. */
+  const zeichnungHTML = () => {
+    const z = zeichnung!, len = zeichnungLaenge(z), c = Math.round(len * CFG.lineCostPerUnit / 10) * 10;
+    let h = '<h3>🛤 Strecke zeichnen</h3>';
+    h += '<div class="row"><span>Von</span><b>' + CITIES[z.von].n + '</b></div>';
+    h += '<div class="row"><span>Nach</span><b>' + (z.ziel !== null ? CITIES[z.ziel].n : '–') + '</b></div>';
+    h += '<div class="row"><span>Länge</span><b>ca. ' + Math.round(len * 0.97) + ' km</b></div>';
+    h += '<div class="row"><span>Kosten</span><b class="' + (S.money >= c ? '' : 'neg') + '">' + fmt(c) + '</b></div>';
+    if (z.fehl) {
+      // Erste nicht erlaubte Stelle zwischen Linienende und Zeiger: welches Gebiet versperrt den Weg?
+      const a = z.pts[z.pts.length - 1], f = z.fehl, n = Math.max(1, Math.ceil(dist(a, f) / 0.8));
+      let g: Gebiet | null = null, meer = false;
+      for (let i = 1; i <= n && !g && !meer; i++) {
+        const x = a.x + (f.x - a.x) * i / n, y = a.y + (f.y - a.y) * i / n;
+        if (stelleErlaubt(x, y, erlaubt)) continue;
+        g = gebietAn(x, y); meer = !g;
+      }
+      const x = g ? besitz(g.id) : null;
+      h += '<p class="neg">' + (g ? g.n + (x ? ' gehört ' + besitzerText(x) + (istClan(x) ? ' (seit über 7 Tagen nicht gespielt)' : '') : ' gehört noch niemandem') + ' – kauf es oder bau drumherum.'
+        : 'Hier geht keine Strecke (Meer).') + '</p>';
+      if (g) h += gebietZeile(g);
+    }
+    if (z.ziel !== null && lineExists(z.von, z.ziel)) h += '<p class="neg">Diese Verbindung hast du schon.</p>';
+    h += '<div class="btns">';
+    if (z.ziel !== null) h += '<button data-act="zbau" ' + (S.money < c || lineExists(z.von, z.ziel) ? 'disabled' : '') + '>✅ Bauen · ' + fmt(c) + '</button>';
+    h += '<button class="sm" data-act="zzurueck" ' + (z.pts.length > 1 ? '' : 'disabled') + '>↶ Stück zurück</button><button class="sm" data-act="zab">Abbrechen</button></div>';
+    h += '<div class="mut">Maus: einfach bewegen, die Strecke folgt dem Zeiger (Klick setzt einen Punkt). Handy: mit dem Finger ziehen, mit zwei Fingern die Karte verschieben. ' +
+      'Zurück über die eigene Linie fahren kürzt sie. An einer grün markierten Stadt rastet die Strecke ein – Stadt antippen oder „Bauen“. Esc = Abbrechen.</div>';
     return h;
   };
   /** Inspektion: freiwillige Arbeit an einer Strecke (Fachfragen), bringt Zustand, Geld und Erfahrung. */
@@ -760,7 +927,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   };
   /** Liste aller Arbeiten: offene Stoerungen und faellige Inspektionen. */
   const arbeitHTML = () => {
-    let h = '<h2>🛠 Arbeiten</h2><div class="mut">Selbst erledigen bringt Geld und Erfahrung, Fehlversuche kosten nichts. Störungen senken die Einnahmen der Strecke und der Bezirke in den angeschlossenen Städten.</div><div class="shop-liste">';
+    let h = '<h2>🛠 Arbeiten</h2><div class="mut">Selbst erledigen bringt Geld und Erfahrung, Fehlversuche kosten nichts. Störungen senken die Einnahmen der Strecke und deiner Gebiete entlang der Strecke.</div><div class="shop-liste">';
     let n = 0;
     S.lines.forEach((L: any) => {
       const name = CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n;
@@ -869,7 +1036,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
 
   /* ---------- Tutorial ---------- */
   const TUT = [
-    { t: 'Willkommen! Klicke Berlin an und kaufe rechts einen Bezirk. Dann klicke eine zweite Stadt an, kaufe auch dort einen Bezirk (oder such dir einen Clan, der dort arbeitet) und klicke wieder Berlin → Strecke wird gebaut.', ok: () => S.lines.length > 0 },
+    { t: 'Willkommen! Klicke Berlin an und kaufe sein Gebiet (Bezirk Mitte). Kaufe dann eine Kette von Gebieten (auf der Karte anklicken) bis zu einer anderen Stadt, z. B. über Brandenburg nach Leipzig. Danach bei Berlin „Strecke zeichnen“ und mit dem Zeiger über deine Gebiete bis zur Zielstadt fahren.', ok: () => S.lines.length > 0 },
     { t: 'Gebaut! Fremdzüge nutzen deine Strecke und zahlen Trassenentgelt. Klicke die Strecke an für Details.', ok: () => S.openedLine },
     { t: 'Kaufe jetzt einen eigenen Zug: „🛒 Zug kaufen“ bei der Strecke oder oben im Shop.', ok: () => S.trains.some((t: any) => t.own) },
     { t: 'Verschleiß verursacht Störungen. Sobald ein rotes „!“ erscheint: anklicken und Aufgabe wählen.', ok: () => S.faultsFixed > 0 },
@@ -915,7 +1082,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       const aufgabe = art.thema ? 'Fachfragen „' + art.themaN + '“ (' + QUIZ_N[f.diff] + ' Fragen, mind. ' + QUIZ_NEED[f.diff] + ' richtig)' : d.task;
       box.innerHTML = '<h2>⚠ ' + art.n + ': ' + CITIES[L.a].n + ' ⇄ ' + CITIES[L.b].n + '</h2>' +
         '<p><span class="tag" style="background:' + d.col + '">' + d.n + '</span> &nbsp;Aufgabe: <b>' + aufgabe + '</b><br>Auftragswert: <b>' + fmt(d.val) + '</b></p>' +
-        '<p class="mut">Solange die Störung besteht, fahren die Züge langsamer und bringen nur ' + Math.round(CFG.faultIncome * 100) + ' % Einnahmen; Bezirke in den Städten der Strecke nur die Hälfte.</p>' +
+        '<p class="mut">Solange die Störung besteht, fahren die Züge langsamer und bringen nur ' + Math.round(CFG.faultIncome * 100) + ' % Einnahmen; deine Gebiete entlang der Strecke nur die Hälfte.</p>' +
         '<div class="opts">' +
         '<button data-act="firm" ' + (S.money < d.val ? 'disabled' : '') + '>Fremdfirma beauftragen (−' + fmt(d.val) + ')</button>' +
         '<button data-act="self" ' + (can ? '' : 'disabled') + '>Selbst erledigen – spart ' + fmt(d.val) + ' + Bonus ' + fmt(d.val * d.share) + ' (' + Math.round(d.share * 100) + ' %)</button>' +
@@ -995,7 +1162,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       return h;
     }
     if (!S.lines.length) {
-      h += '<p class="mut">Baue zuerst eine Strecke: Stadt anklicken, dann eine zweite Stadt.</p>';
+      h += '<p class="mut">Baue zuerst eine Strecke: Stadt anklicken → „Strecke zeichnen“.</p>';
     } else if (modal.tab === 'z') {
       if (!S.lines[modal.line]) modal.line = S.lines[0].id;
       const L = S.lines[modal.line], K = klasse(L);
@@ -1104,7 +1271,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const b = (e.target as HTMLElement).closest('[data-act]') as HTMLButtonElement | null;
     if (!b || b.disabled) return;
     const a = b.dataset['act'], arg = b.dataset['arg'];
-    if (RO && a !== 'show' && a !== 'close' && a !== 'bzwahl') return;
+    if (RO && a !== 'show' && a !== 'close' && a !== 'gwahl' && a !== 'stadtzu') return;
     if (a === 'speed') S.speed = +arg!;
     else if (a === 'mode') { S.mode = +arg!; S.faultIn = Math.min(S.faultIn, modeInterval(S.mode)); save(); }
     else if (a === 'buy') { const [lid, ty] = arg!.split(':'); buyTrain(+lid, ty === undefined ? 1 : +ty); }
@@ -1145,13 +1312,19 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       const L = S.lines[+arg!], [thema, themaN] = INSPEKTION_THEMEN[ri(0, INSPEKTION_THEMEN.length - 1)];
       if (L && S.time >= (L.inspAb || 0)) startQuiz(L.id, thema, themaN, 3, 2, 'inspektion');
     }
-    else if (a === 'stadtzu') { sel.city = null; bzWahl = null; }
-    else if (a === 'bzwahl') { const [c, i] = arg!.split(':').map(Number); bzWahl = bzWahl && bzWahl.c === c && bzWahl.i === i ? null : { c, i }; }
-    else if (a === 'bez') {
-      const [c, b] = arg!.split(':').map(Number), x = bezirkVon(c, b), bz = bezirkeVon(c)[b], basis = bz.basis, preis = x ? x.basis * 3 : basis;
+    else if (a === 'stadtzu') sel = { city: null, line: null, gebiet: null };
+    else if (a === 'gwahl') { if (!(e.target as HTMLElement).closest('button')) sel = { city: null, line: null, gebiet: +arg! }; }
+    else if (a === 'gkauf') {
+      const g = gebietMitId(+arg!), x = besitz(+arg!);
+      if (!g) return;
+      const preis = x ? x.basis * 3 : g.basis;
       if (S.money < preis) toast('Zu wenig Guthaben (' + fmt(preis) + ' nötig).');
-      else opts.onBezirk?.(c, bz.id, basis);
+      else opts.onGebiet?.(g.id, g.basis);
     }
+    else if (a === 'zeichne') starteZeichnen(+arg!);
+    else if (a === 'zbau') baueZeichnung();
+    else if (a === 'zzurueck') zeichnungZurueck();
+    else if (a === 'zab') zeichnung = null;
     else if (a === 'submit') submitReading();
     else if (a === 'next') nextReading();
     else if (a === 'close') {
@@ -1159,7 +1332,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       else if (modal?.kind === 'werkstatt' && modal.zurueck) { opts.onVorschau?.(null, 0); modal = { kind: 'shop', tab: 'w' }; renderModal(); }
       else closeModal();
     }
-    else if (a === 'reset') { if (confirm('Spielstand wirklich löschen?')) { opts.onReset?.(); fresh(); sel = { city: null, line: null }; tutStart = 0; } }
+    else if (a === 'reset') { if (confirm('Spielstand wirklich löschen?')) { opts.onReset?.(); fresh(); sel = { city: null, line: null, gebiet: null }; zeichnung = null; tutStart = 0; } }
   };
   root.addEventListener('pointerdown', onActionDown);
   const onChange = (e: Event) => {
@@ -1176,7 +1349,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const serialize = () => ({
     money: S.money, bezirkSumme: S.bezirkSumme, time: S.time, vis: S.vis, skill: S.skill, xp: S.xp, pokale: S.pokale, skins: S.skins, skin: S.skin, ausr: S.ausr, lager: S.lager, mode: S.mode, faultIn: S.faultIn, tut: S.tut, faultsFixed: S.faultsFixed, passes: S.passes,
     anyFault: S.anyFault, openedLine: S.openedLine, nextId: S.nextId,
-    lines: S.lines.map((l: any) => ({ a: l.a, b: l.b, cond: l.cond, inF: l.inF, inO: l.inO, up: l.up, rep: l.rep, fault: l.fault, color: l.color, cls: l.cls, ol: l.ol, verlust: l.verlust, inspAb: l.inspAb })),
+    lines: S.lines.map((l: any) => ({ a: l.a, b: l.b, p: l.p, cond: l.cond, inF: l.inF, inO: l.inO, up: l.up, rep: l.rep, fault: l.fault, color: l.color, cls: l.cls, ol: l.ol, verlust: l.verlust, inspAb: l.inspAb })),
     own: S.trains.filter((t: any) => t.own),
   });
   const save = () => { if (RO || !alive) return; opts.onSave(serialize(), S.money); };
@@ -1186,7 +1359,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       fresh();
       // vis auf die aktuelle Staedteliste bringen (alte Staende kennen weniger Staedte).
       Object.assign(S, { money: Math.max(0, d.money || 0), bezirkSumme: d.bezirkSumme || 0, time: d.time, vis: CITIES.map((_, i) => !!d.vis?.[i]), skill: d.skill, mode: d.mode ?? 0, faultIn: d.faultIn ?? modeInterval(d.mode ?? 0), tut: d.tut, faultsFixed: d.faultsFixed, passes: d.passes, anyFault: d.anyFault, openedLine: d.openedLine, nextId: d.nextId });
-      d.lines.forEach((o: any) => { const L: any = addLine(o.a, o.b); Object.assign(L, { cond: o.cond, inF: o.inF, inO: o.inO, up: o.up, rep: o.rep, fault: o.fault, color: o.color, cls: o.cls ?? 1, ol: o.ol ?? (o.cls ?? 1) >= 1, verlust: o.verlust || 0, inspAb: o.inspAb || 0 }); });
+      d.lines.forEach((o: any) => { const L: any = addLine(o.a, o.b, Array.isArray(o.p) ? o.p : undefined); Object.assign(L, { cond: o.cond, inF: o.inF, inO: o.inO, up: o.up, rep: o.rep, fault: o.fault, color: o.color, cls: o.cls ?? 1, ol: o.ol ?? (o.cls ?? 1) >= 1, verlust: o.verlust || 0, inspAb: o.inspAb || 0 }); });
       S.trains = d.own || [];
       // Alte Staende ohne Erfahrung: aus dem bisherigen Fortschritt schaetzen. Alte Strecken gelten als Hauptbahn (cls 1, s. o.).
       S.pokale = d.pokale ?? 0; S.skins = d.skins ?? ['standard']; S.skin = d.skin ?? 'standard'; S.ausr = d.ausr ?? []; S.lager = d.lager ?? [];
@@ -1213,8 +1386,12 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   raf = requestAnimationFrame(loop);
 
   return {
-    welt: () => ({ S, sel, CITIES, DIFF, posAt, skin: skinFarbe(), welt }),
-    setzeWelt: (w: any) => { welt = w; },
+    welt: () => ({ S, sel, CITIES, DIFF, posAt, skin: skinFarbe(), welt, zeichnung, gebietFarbe, gebietSchluessel }),
+    setzeWelt: (w: any) => {
+      welt = w;
+      besitzNach = new Map((w?.bezirke || []).filter((x: any) => x.stadt === GEBIET_STADT).map((x: any) => [x.bezirk, x]));
+      gebietSchluessel = JSON.stringify([w?.ich, [...besitzNach.values()].map((x) => [x.bezirk, x.ownerId, x.clanFarbe, x.aktiv])]);
+    },
     bezahlt: (preis: number, text: string) => { S.money = Math.max(0, S.money - preis); addXp(8); toast(text, 3500); save(); },
     gutschrift: (betrag: number, text: string, xp = 0) => {
       S.money += betrag;
@@ -1230,6 +1407,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       save();
     },
     klickWelt: (x: number, y: number) => klick({ x, y }, true),
+    zeigerWelt: (x: number, y: number) => { if (zeichnung && !modal) zeichneZu({ x, y }, true); },
     destroy: () => {
       save();
       alive = false;
@@ -1239,6 +1417,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       ro.disconnect();
       cv.removeEventListener('pointermove', onMove);
       cv.removeEventListener('pointerdown', onCanvasDown);
+      window.removeEventListener('pointerup', onCanvasUp);
       root.removeEventListener('pointerdown', onActionDown);
       root.removeEventListener('keydown', onEnter);
       root.removeEventListener('change', onChange);

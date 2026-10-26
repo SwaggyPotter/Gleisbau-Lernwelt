@@ -5,6 +5,9 @@
  * Daten: (c) OpenStreetMap-Mitwirkende, ODbL 1.0 (https://www.openstreetmap.org/copyright).
  * Die erzeugte Datei ist eine abgeleitete Datenbank und steht damit ebenfalls unter ODbL.
  *
+ * Seit 2026-10-24 sind im Tycoon die Landkreise die Gebiete (erzeuge-gebiete.cjs); geschrieben werden nur noch die
+ * Bezirke der Stadtstaaten Berlin und Hamburg (BEHALTEN), alle anderen Staedte bekommen eine leere Liste.
+ *
  * Aufruf: node tools/tycoon-karte/hole-bezirke.cjs <cache-ordner>
  *   Rohantworten werden im Cache-Ordner abgelegt (erneuter Lauf fragt nur Fehlendes ab).
  *   Bei ueberlastetem Server wird mit wachsender Pause erneut versucht.
@@ -32,6 +35,8 @@ const STAEDTE = [
 const LOKAL = { Kopenhagen: 'København', 'Brüssel': 'Région de Bruxelles-Capitale - Brussels Hoofdstedelijk Gewest', Luxemburg: 'Luxembourg',
   'Straßburg': 'Strasbourg', Prag: 'Praha', Breslau: 'Wrocław', Posen: 'Poznań', Stettin: 'Szczecin' };
 const SERVER = ['https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter', 'https://overpass.private.coffee/api/interpreter'];
+/** Nur diese Staedte werden abgefragt und geschrieben. */
+const BEHALTEN = new Set(['Berlin', 'Hamburg']);
 const warte = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function overpass(abfrage, datei) {
@@ -123,6 +128,7 @@ function vereinfache(pts, tol) {
   const ergebnis = [];
   for (let i = 0; i < STAEDTE.length; i++) {
     const [name, qid] = STAEDTE[i];
+    if (!BEHALTEN.has(name)) { ergebnis.push({ stadt: i, name, bezirke: [] }); continue; }
     console.log(i + ' ' + name + ' (' + qid + ')');
     let flaeche_ = `rel["wikidata"="${qid}"]["boundary"="administrative"];map_to_area->.a;`;
     let tags = await overpass(`[out:json][timeout:90];${flaeche_}rel(area.a)["boundary"="administrative"]["admin_level"~"^(8|9|10|11)$"];out tags;`, i + '-tags.json');
@@ -165,7 +171,7 @@ function vereinfache(pts, tol) {
   fs.writeFileSync(ziel, `/* Automatisch erzeugt von tools/tycoon-karte/hole-bezirke.cjs -- nicht von Hand aendern.
  * Stadtbezirke: (c) OpenStreetMap-Mitwirkende, ODbL 1.0 (https://www.openstreetmap.org/copyright).
  * Diese Datei ist eine abgeleitete Datenbank und steht unter der ODbL 1.0.
- * Je Stadt (Index wie CITIES): Bezirke mit Name n, OSM-Relation osm, Flaeche f (Weltkoordinaten^2), Ringe r (x0,y0,x1,y1,...). */
+ * Nur Berlin und Hamburg (Stadtstaaten, ihre Bezirke sind Gebiete im Tycoon); je Stadt (Index wie CITIES): Bezirke mit Name n, OSM-Relation osm, Flaeche f (Weltkoordinaten^2), Ringe r (x0,y0,x1,y1,...). */
 /* eslint-disable */
 export const STADT_BEZIRKE: { n: string; osm: number; f: number; r: number[][] }[][] = [
 ${zeilen.join(',\n')},

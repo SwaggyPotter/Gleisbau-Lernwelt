@@ -295,10 +295,13 @@ tycoonRouter.get('/welt', asyncHandler(async (req, res) => {
   });
 }));
 
-/** Bezirk kaufen (frei: Grundpreis) oder einem anderen Spieler abkaufen (3x Grundpreis, der bekommt den Grundpreis erstattet). */
+/** Wert von tycoon_bezirke.stadt fuer Gebiete (Landkreise/Bezirke, bezirk = Gebiets-ID); siehe tycoon-gebiete.ts im Frontend. */
+const GEBIET_STADT = 100;
+
+/** Gebiet kaufen (frei: Grundpreis) oder einem anderen Spieler abkaufen (3x Grundpreis, der bekommt den Grundpreis erstattet). */
 tycoonRouter.post('/bezirke', asyncHandler(async (req, res) => {
   const { stadt, bezirk, basis } = z.object({
-    stadt: z.number().int().min(0).max(99), bezirk: z.number().int().min(0).max(2_000_000_000), basis: z.number().int().min(100).max(20000),
+    stadt: z.literal(GEBIET_STADT), bezirk: z.number().int().min(0).max(2_000_000_000), basis: z.number().int().min(100).max(20000),
   }).parse(req.body);
   const ich = req.user!.id;
   const client = await pool.connect();
@@ -354,13 +357,14 @@ tycoonRouter.post('/gutschriften/abholen', asyncHandler(async (req, res) => {
 }));
 
 /**
- * Neue Strecke gebaut: Clan-Mitglieder (ausser dem Bauherrn), die in einer der beiden Staedte einen Bezirk haben und
- * aktiv sind, bekommen Erfahrung als Gutschrift. Antwort: wie viele Mitglieder profitieren.
+ * Neue Strecke gebaut: Clan-Mitglieder (ausser dem Bauherrn), denen das Gebiet einer der beiden Endstaedte gehoert und
+ * die aktiv sind, bekommen Erfahrung als Gutschrift. Antwort: wie viele Mitglieder profitieren.
  */
 tycoonRouter.post('/verbindung', asyncHandler(async (req, res) => {
-  const { a, b, nameA, nameB } = z.object({
+  const { nameA, nameB, gebiete } = z.object({
     a: z.number().int().min(0).max(99), b: z.number().int().min(0).max(99),
     nameA: z.string().max(40), nameB: z.string().max(40),
+    gebiete: z.array(z.number().int().min(0).max(2_000_000_000)).max(2).default([]),
   }).parse(req.body);
   const ich = req.user!.id;
   const { rows } = await pool.query(
@@ -369,8 +373,8 @@ tycoonRouter.post('/verbindung', asyncHandler(async (req, res) => {
        JOIN tycoon_clan_mitglieder m ON m.user_id = b.owner
        JOIN tycoon_clan_mitglieder i ON i.clan_id = m.clan_id AND i.user_id = $1
        JOIN tycoon_saves s ON s.user_id = b.owner AND s.updated_at > now() - make_interval(days => ${AKTIV_TAGE})
-      WHERE b.stadt IN ($2, $3) AND b.owner <> $1`,
-    [ich, a, b],
+      WHERE b.stadt = ${GEBIET_STADT} AND b.bezirk = ANY($2::int[]) AND b.owner <> $1`,
+    [ich, gebiete],
   );
   if (rows.length) {
     const name = await pool.query('SELECT full_name FROM users WHERE id = $1', [ich]);

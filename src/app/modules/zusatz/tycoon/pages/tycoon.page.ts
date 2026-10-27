@@ -2,8 +2,7 @@ import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild, Vie
 import { ActivatedRoute } from '@angular/router';
 import { startTycoon, TycoonHandle } from '../tycoon-engine';
 import { TycoonAnsicht, TycoonApiService, TycoonClan, TycoonDuell, TycoonEintrag } from '../tycoon-api.service';
-import { CITIES } from '../tycoon-karte';
-import { GEBIET_STADT, gebietMitId, gebietVonStadt } from '../tycoon-gebiete';
+import { GEBIET_STADT, gebietMitId } from '../tycoon-gebiete';
 import { KLASSEN, levelAus } from '../tycoon-zuege';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -11,7 +10,8 @@ import { TycoonWelt3D, zugDateien } from '../tycoon-3d';
 import { ladeHoehen } from '../tycoon-hoehen';
 import { Engine3D } from '../../../../shared/engine3d/engine3d';
 
-const ANSICHT_KEY = 'tycoon-ansicht3d';
+/** Neuer Schluessel (2026-10-27): 2D ist jetzt Standard, alte gemerkte 3D-Wahl gilt nicht mehr. */
+const ANSICHT_KEY = 'tycoon-ansicht3d-v2';
 const KAMERA_KEY = 'tycoon-kamera-frei';
 
 @Component({
@@ -33,7 +33,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     this.starteWelt();
   }
 
-  /** 3D-Ansicht der Karte (Standard an, Wahl wird im Browser gemerkt). */
+  /** 3D-Ansicht der Karte (Standard aus = 2D, Wahl wird im Browser gemerkt). */
   ansicht3d = this.leseAnsicht();
   /** Freie Kamera (drehen/zoomen) statt starrer Kartenansicht. Standard: starr. */
   kameraFrei = this.lese(KAMERA_KEY, false);
@@ -117,11 +117,20 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
       onSave: data => this.queueSave(data),
       onVorschau: (el, typ, farbe, extra) => this.zeigeVorschau(el, typ, farbe ?? null, !!extra),
       onGebiet: (gebiet, basis) => this.kaufeGebiet(gebiet, basis),
-      onVerbindung: (a, b) => this.meldeVerbindung(a, b),
+      onVerbindung: (a, b, nameA, nameB, gebiete) => this.meldeVerbindung(a, b, nameA, nameB, gebiete),
+      onClanProjekt: (art) => this.api.clanProjektStarten(art).subscribe({
+        next: () => { this.handle?.meldung('🤝 Clan-Großprojekt gestartet!'); this.ladeWelt(); },
+        error: (err) => this.handle?.meldung(err?.error?.error ?? 'Projekt konnte nicht gestartet werden.'),
+      }),
+      onClanBeitrag: (betrag, schicht) => this.api.clanBeitrag(betrag, schicht).subscribe({
+        next: (r) => { this.handle?.clanBezahlt(schicht ? 0 : betrag, r.fertig ? '🎉 Clan-Großprojekt fertig!' : '🤝 Beitrag: ' + betrag.toLocaleString('de-DE') + ' € (' + Math.round(r.stand / r.ziel * 100) + ' %)'); this.ladeWelt(); },
+        error: (err) => this.handle?.meldung(err?.error?.error ?? 'Beitrag nicht möglich.'),
+      }),
       onReset: () => {
         this.pending = null;
         if (this.saveTimer) { clearTimeout(this.saveTimer); this.saveTimer = null; }
-        this.api.zuruecksetzen().subscribe({ error: () => (this.status = 'Zurücksetzen fehlgeschlagen') });
+        // Danach gleich die Welt neu laden, damit die freigegebenen Gebiete nicht noch als eigene erscheinen.
+        this.api.zuruecksetzen().subscribe({ next: () => this.ladeWelt(), error: () => (this.status = 'Zurücksetzen fehlgeschlagen') });
         this.geteilt = false;
         this.besucher = 0;
       },
@@ -159,10 +168,10 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     });
   }
 
-  private meldeVerbindung(a: number, b: number): void {
-    const gebiete = [gebietVonStadt(a)?.id, gebietVonStadt(b)?.id].filter((g): g is number => g !== undefined);
-    this.sicher().pipe(switchMap(() => this.api.verbindung(a, b, CITIES[a].n, CITIES[b].n, gebiete))).subscribe({
-      next: (r) => { if (r.mitglieder > 0) this.handle?.meldung('🤝 ' + r.mitglieder + ' Clan-Mitglied(er) in ' + CITIES[a].n + '/' + CITIES[b].n + ' bekommen +' + r.xp + ' Erfahrung.'); },
+  /** a, b: Streckenenden (Stadt-Index oder Bahnhof ab 1000), gebiete: deren Gebiete (fuer den Clan-Bonus). */
+  private meldeVerbindung(a: number, b: number, nameA: string, nameB: string, gebiete: number[]): void {
+    this.sicher().pipe(switchMap(() => this.api.verbindung(a, b, nameA, nameB, gebiete))).subscribe({
+      next: (r) => { if (r.mitglieder > 0) this.handle?.meldung('🤝 ' + r.mitglieder + ' Clan-Mitglied(er) in ' + nameA + '/' + nameB + ' bekommen +' + r.xp + ' Erfahrung.'); },
       error: () => undefined,
     });
   }
@@ -202,7 +211,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   }
 
   private leseAnsicht(): boolean {
-    return this.lese(ANSICHT_KEY, true);
+    return this.lese(ANSICHT_KEY, false);
   }
 
   private lese(key: string, standard: boolean): boolean {
@@ -218,7 +227,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
       return;
     }
     try {
-      this.welt = this.zone.runOutsideAngular(() => new TycoonWelt3D(canvas, handle.welt, (x, y) => handle.klickWelt(x, y), (x, y) => handle.zeigerWelt(x, y)));
+      this.welt = this.zone.runOutsideAngular(() => new TycoonWelt3D(canvas, handle.welt, (x, y, kk) => handle.klickWelt(x, y, kk), (x, y, kk) => handle.zeigerWelt(x, y, kk), () => handle.losgelassen()));
       this.welt.setzeFreieKamera(this.kameraFrei);
     } catch {
       // Kein WebGL: bei der 2D-Karte bleiben.

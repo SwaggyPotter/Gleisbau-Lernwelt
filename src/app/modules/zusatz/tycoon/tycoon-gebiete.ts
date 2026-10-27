@@ -4,21 +4,28 @@ import { CITIES, KARTE_PROJ } from './tycoon-karte';
 
 /**
  * Kaufbare Gebiete des Tycoon: in Deutschland alle Landkreise und kreisfreien Staedte, in Berlin und Hamburg
- * die Bezirke, im Ausland die NUTS-3-Regionen. Strecken duerfen nur ueber eigene Gebiete (oder die aktiver
- * Clan-Mitglieder) gezeichnet werden. Grenzen: Eurostat GISCO / EuroGeographics, Berlin/Hamburg: OpenStreetMap.
+ * die Bezirke, im Ausland Regionen (Departements, Provinzen, Kantone ...). Strecken duerfen nur ueber eigene Gebiete (oder die aktiver
+ * Clan-Mitglieder) gezeichnet werden. Grenzen: BKG VG250 (dl-de/by-2-0), Ausland: Natural Earth,
+ * Berlin/Hamburg: OpenStreetMap. Alle Quellen erlauben auch kommerzielle Nutzung (mit Quellenangabe).
  */
 
 /** Wert der Spalte tycoon_bezirke.stadt fuer Gebiete (alte Stadtbezirke hatten dort den Stadt-Index 0..99). */
 export const GEBIET_STADT = 100;
-export const GEBIET_QUELLE = 'Grenzen: © EuroGeographics (Eurostat GISCO), Berlin/Hamburg: © OpenStreetMap-Mitwirkende (ODbL)';
+/** Quellenvermerk als HTML (BKG verlangt Links auf bkg.bund.de und die Lizenz sowie einen Veraenderungshinweis). */
+export const GEBIET_QUELLE =
+  'Grenzen: © <a href="https://www.bkg.bund.de" target="_blank" rel="noopener">BKG</a> (2026) ' +
+  '<a href="https://www.govdata.de/dl-de/by-2-0" target="_blank" rel="noopener">dl-de/by-2-0</a>, Datenquellen: ' +
+  '<a href="https://sgx.geodatenzentrum.de/web_public/gdz/datenquellen/datenquellen_vg_nuts.pdf" target="_blank" rel="noopener">VG250</a>' +
+  ' (vereinfacht und für das Spiel umgestaltet) · Ausland: Natural Earth · Berlin/Hamburg: © OpenStreetMap-Mitwirkende (ODbL)';
 
 export interface Gebiet {
-  /** Feste Kennung, so wird Besitz gespeichert: NUTS-ID als Zahl zur Basis 36, Bezirke: OSM-Relation. */
+  /** Feste Kennung, so wird Besitz gespeichert: NUTS-ID (Ausland: eigene 6-stellige Kennung) als Zahl
+   * zur Basis 36, Bezirke: OSM-Relation. */
   id: number;
   n: string;
   /** Laenderkuerzel (DE, NL, ...). */
   land: string;
-  /** NUTS-1-Kennung (in Deutschland = Bundesland, z. B. DE2 = Bayern). */
+  /** Erste 3 Zeichen der Kennung: in Deutschland NUTS-1 = Bundesland (z. B. DE2 = Bayern), im Ausland der Landesteil. */
   bl: string;
   /** 0 Landkreis, 1 kreisfreie Stadt, 2 Bezirk (Berlin/Hamburg), 3 Region im Ausland. */
   typ: number;
@@ -174,6 +181,50 @@ export function stelleErlaubt(x: number, y: number, erlaubt: (g: Gebiet) => bool
   return false;
 }
 
+/** Name des Bundeslands (bzw. im Ausland des Landes), zu dem ein Gebiet gehoert. */
+export const regionVon = (g: Gebiet): string => (g.land === 'DE' ? BUNDESLAENDER[g.bl] : LAND_NAMEN[g.land] ?? g.land) ?? g.bl;
+/** Name ohne Zusatz ("Landkreis ...", "(Stadt)"), z. B. fuer Bahnhofsnamen. */
+export const kurzName = (g: Gebiet): string => g.n.replace(/^Landkreis /, '').replace(/ \(Stadt\)$/, '');
+
+const imBundesland = new Map<string, Gebiet[]>();
+/** Alle Gebiete desselben Bundeslands (NUTS-1), alphabetisch. */
+export function gebieteIm(bl: string): Gebiet[] {
+  let l = imBundesland.get(bl);
+  if (!l) { l = GEBIETE.filter((g) => g.bl === bl).sort((a, b) => a.n.localeCompare(b.n, 'de')); imBundesland.set(bl, l); }
+  return l;
+}
+
+const pfadCache = new Map<number, string>();
+/** SVG-Pfad (Weltkoordinaten) eines Gebiets, fuer die Bundesland-Uebersicht. */
+export function svgPfad(g: Gebiet): string {
+  let d = pfadCache.get(g.id);
+  if (!d) {
+    d = g.ringe.map((r) => 'M' + r.map((v) => Math.round(v * 10) / 10).join(' ').replace(/(\S+ \S+) /g, '$1L') + 'Z').join('');
+    pfadCache.set(g.id, d);
+  }
+  return d;
+}
+
+const innenCache = new Map<number, { x: number; y: number }>();
+/** Ein Punkt gut im Inneren des Gebiets (weit weg vom Rand), z. B. fuer einen Bahnhof ohne angeklickte Stelle. */
+export function innererPunkt(g: Gebiet): { x: number; y: number } {
+  let p = innenCache.get(g.id);
+  if (p) return p;
+  let best = -1;
+  const N = 14;
+  for (let i = 0; i <= N; i++) {
+    for (let j = 0; j <= N; j++) {
+      const x = g.box.x0 + ((g.box.x1 - g.box.x0) * (i + 0.5)) / (N + 1), y = g.box.y0 + ((g.box.y1 - g.box.y0) * (j + 0.5)) / (N + 1);
+      if (!imGebiet(g, x, y)) continue;
+      const d = randAbstand(g, x, y);
+      if (d > best) { best = d; p = { x, y }; }
+    }
+  }
+  p = p ?? { x: (g.box.x0 + g.box.x1) / 2, y: (g.box.y0 + g.box.y1) / 2 };
+  innenCache.set(g.id, p);
+  return p;
+}
+
 /* ---------- Zeichnen ---------- */
 export interface GebietStil {
   /** Fuellfarbe je Gebiet (Besitz) oder null = nicht gefuellt. */
@@ -238,6 +289,46 @@ export function zeichneGebiete(ctx: CanvasRenderingContext2D, stil: GebietStil):
     for (const [n, la, lo] of BL_SCHRIFT) {
       ctx.fillText(n, (lo - KARTE_PROJ.lon0) * KARTE_PROJ.cos * KARTE_PROJ.s + KARTE_PROJ.rand, (KARTE_PROJ.lat0 - la) * KARTE_PROJ.s + KARTE_PROJ.rand);
     }
+  }
+  ctx.restore();
+}
+
+/**
+ * Gebietsnamen (Kurzform) in die Gebiete schreiben, sobald ein Gebiet gross genug dafuer ist. Die Schrift wird in
+ * Geraetepixeln gesetzt (schrift = Schriftgroesse), damit sie bei jedem Zoom gleich gross und scharf bleibt;
+ * ctx steht auf Weltkoordinaten. Lange Doppelnamen ("Charlottenburg-Wilmersdorf") werden notfalls umbrochen.
+ */
+export function beschrifteGebiete(ctx: CanvasRenderingContext2D, schrift: number): void {
+  const m = ctx.getTransform(), px = m.a;
+  if (px <= 0) return;
+  const sx0 = -m.e / px, sx1 = (ctx.canvas.width - m.e) / px, sy0 = -m.f / m.d, sy1 = (ctx.canvas.height - m.f) / m.d;
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.font = '600 ' + Math.round(schrift) + 'px system-ui, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = schrift * 0.28;
+  ctx.strokeStyle = 'rgba(255,255,255,.8)';
+  ctx.fillStyle = 'rgba(35,38,43,.88)';
+  for (const g of GEBIETE) {
+    const b = g.box;
+    if (b.x1 < sx0 || b.x0 > sx1 || b.y1 < sy0 || b.y0 > sy1) continue;
+    const bw = (b.x1 - b.x0) * px, bh = (b.y1 - b.y0) * m.d;
+    if (bw < schrift * 4 || bh < schrift * 1.6) continue;
+    const n = kurzName(g);
+    let zeilen = [n];
+    if (ctx.measureText(n).width > bw * 0.85) {
+      const i = n.indexOf('-', n.length / 3);
+      zeilen = i > 0 ? [n.slice(0, i + 1), n.slice(i + 1)] : [];
+      if (!zeilen.length || Math.max(...zeilen.map((z) => ctx.measureText(z).width)) > bw * 0.85 || bh < schrift * 3) continue;
+    }
+    const p = innererPunkt(g), x = m.a * p.x + m.e, y = m.d * p.y + m.f;
+    zeilen.forEach((z, j) => {
+      const yz = y + (j - (zeilen.length - 1) / 2) * schrift * 1.1;
+      ctx.strokeText(z, x, yz);
+      ctx.fillText(z, x, yz);
+    });
   }
   ctx.restore();
 }

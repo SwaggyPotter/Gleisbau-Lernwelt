@@ -3,7 +3,7 @@
  * Neue Modelle: GLB dort ablegen, hier eintragen -- Lizenz und Quelle sind Pflichtfelder
  * (die App-Repo ist oeffentlich, siehe Ki Datenspeicher/20-Bahnspiel-3D-Assets).
  */
-export type ModellKategorie = 'Lok' | 'Wagen' | 'Gleis';
+export type ModellKategorie = 'Lok' | 'Wagen' | 'Gleis' | 'Gebäude';
 
 export interface ModellEintrag {
   id: string;
@@ -26,6 +26,21 @@ const kenney = (id: string, name: string, kategorie: ModellKategorie): ModellEin
   lizenz: 'CC0 1.0',
   urheber: 'Kenney (Train Kit 1.1)',
   quelleUrl: KENNEY_QUELLE,
+});
+/** Gebaeude aus den Kenney City Kits (alle CC0, auch kommerziell frei nutzbar). */
+const KITS: Record<string, { ordner: string; urheber: string; quelle: string }> = {
+  stadt: { ordner: 'kenney-stadt', urheber: 'Kenney (City Kit Commercial 2.1)', quelle: 'https://kenney.nl/assets/city-kit-commercial' },
+  industrie: { ordner: 'kenney-industrie', urheber: 'Kenney (City Kit Industrial 2.0)', quelle: 'https://kenney.nl/assets/city-kit-industrial' },
+  vorort: { ordner: 'kenney-vorort', urheber: 'Kenney (City Kit Suburban 2.0)', quelle: 'https://kenney.nl/assets/city-kit-suburban' },
+};
+const gebaeude = (kit: string, id: string, name: string): ModellEintrag => ({
+  id: KITS[kit].ordner + '-' + id,
+  name,
+  kategorie: 'Gebäude',
+  datei: `assets/modelle/${KITS[kit].ordner}/${id}.glb`,
+  lizenz: 'CC0 1.0',
+  urheber: KITS[kit].urheber,
+  quelleUrl: KITS[kit].quelle,
 });
 
 export const MODELLE: ModellEintrag[] = [
@@ -51,6 +66,8 @@ export const MODELLE: ModellEintrag[] = [
   kenney('train-tram-classic', 'Straßenbahn (klassisch)', 'Lok'),
   kenney('train-diesel-c', 'Rangierlok', 'Lok'),
   kenney('train-diesel-box-a', 'Dieseltriebwagen (Regionalbahn)', 'Lok'),
+  kenney('train-tram-modern', 'Straßenbahn (modern)', 'Lok'),
+  kenney('train-tram-round', 'Straßenbahn (rund)', 'Lok'),
   kenney('train-electric-square-a', 'E-Lok (kantig)', 'Lok'),
   kenney('train-electric-city-b', 'S-Bahn-Wagen', 'Wagen'),
   kenney('train-electric-city-c', 'S-Bahn-Wagen (Ende)', 'Wagen'),
@@ -60,6 +77,10 @@ export const MODELLE: ModellEintrag[] = [
   kenney('train-electric-square-c', 'Intercity-Wagen (Ende)', 'Wagen'),
   kenney('train-electric-double-b', 'Doppelstockwagen', 'Wagen'),
   kenney('train-diesel-box-b', 'Regionalbahn-Wagen', 'Wagen'),
+  kenney('train-diesel-box-c', 'Regionalbahn-Wagen (Ende)', 'Wagen'),
+  kenney('train-electric-double-c', 'Doppelstockwagen (Ende)', 'Wagen'),
+  kenney('train-electric-subway-b', 'U-Bahn-Wagen', 'Wagen'),
+  kenney('train-electric-subway-c', 'U-Bahn-Wagen (Ende)', 'Wagen'),
   kenney('train-locomotive-passenger-b', 'Personenwagen (Holz)', 'Wagen'),
   kenney('train-carriage-lumber', 'Rungenwagen mit Stämmen', 'Wagen'),
   kenney('train-carriage-flatbed-wood', 'Flachwagen mit Holz', 'Wagen'),
@@ -81,6 +102,20 @@ export const MODELLE: ModellEintrag[] = [
   kenney('track', 'Gleisbett', 'Gleis'),
   kenney('track-detailed', 'Gleisbett (detailliert)', 'Gleis'),
   kenney('spline-track', 'Gleis (Spline)', 'Gleis'),
+  gebaeude('stadt', 'building-b', 'Bahnhofsgebäude'),
+  gebaeude('stadt', 'detail-overhang-wide', 'Bahnsteigdach (Vordach breit)'),
+  gebaeude('stadt', 'detail-awning-wide', 'Markise (breit)'),
+  ...'acdefghijklmn'.split('').map((c) => gebaeude('stadt', 'building-' + c, 'Geschäftshaus ' + c.toUpperCase())),
+  ...'abcde'.split('').map((c) => gebaeude('stadt', 'building-skyscraper-' + c, 'Hochhaus ' + c.toUpperCase())),
+  ...'abcdefghijklmnopqrstu'.split('').map((c) => gebaeude('vorort', 'building-type-' + c, 'Wohnhaus ' + c.toUpperCase())),
+  ...'abcdefghijklmnopqrst'.split('').map((c) => gebaeude('industrie', 'building-' + c, 'Halle/Fabrik ' + c.toUpperCase())),
+  gebaeude('industrie', 'shipping-container-a', 'Container A'),
+  gebaeude('industrie', 'shipping-container-b', 'Container B'),
+  gebaeude('industrie', 'shipping-container-c', 'Container C'),
+  gebaeude('industrie', 'water-tower', 'Wasserturm'),
+  gebaeude('industrie', 'detail-tank-large', 'Tank (groß)'),
+  gebaeude('industrie', 'detail-tank', 'Tank'),
+  gebaeude('industrie', 'chimney-large', 'Schornstein (groß)'),
 ];
 
 export const modellById = (id: string): ModellEintrag | undefined => MODELLE.find((m) => m.id === id);

@@ -10,8 +10,8 @@ import { aufLand, GROSSSTADT, KARTE_H, KARTE_W, SC, wx, wz } from './tycoon-kart
 
 /*
  * Landschaft fuer die 3D-Ansicht des Tycoon: Waelder, Buesche, Felsen und Haeuser um die Staedte.
- * Alle Modelle: Kenney Nature Kit / City Kit Suburban / City Kit Commercial (CC0), unter
- * src/assets/modelle/kenney-{natur,vorort,stadt}/. Jedes Modell wird zu EINEM Mesh verschmolzen
+ * Alle Modelle: Kenney Nature Kit / City Kit Suburban / Commercial / Industrial (CC0, auch kommerziell frei), unter
+ * src/assets/modelle/kenney-{natur,vorort,stadt,industrie}/. Jedes Modell wird zu EINEM Mesh verschmolzen
  * und per Thin Instances vervielfaeltigt -- hunderte Baeume kosten so nur wenige Draw Calls.
  */
 
@@ -19,10 +19,22 @@ const P = 'assets/modelle/';
 const BAEUME = ['tree_default', 'tree_oak', 'tree_pineRoundA', 'tree_pineTallA', 'tree_cone', 'tree_fat', 'tree_detailed']
   .map((n) => P + 'kenney-natur/' + n + '.glb');
 const KLEINKRAM = ['plant_bush', 'plant_bushLarge', 'rock_largeA', 'rock_largeC'].map((n) => P + 'kenney-natur/' + n + '.glb');
-const VORORT = 'abcdefgh'.split('').map((c) => P + 'kenney-vorort/building-type-' + c + '.glb');
-const STADT = 'abcdefgh'.split('').map((c) => P + 'kenney-stadt/building-' + c + '.glb');
-const HOCHHAUS = ['a', 'b'].map((c) => P + 'kenney-stadt/building-skyscraper-' + c + '.glb');
+const VORORT = 'abcdefghijklmnopqrstu'.split('').map((c) => P + 'kenney-vorort/building-type-' + c + '.glb');
+const STADT = 'acdefghijklmn'.split('').map((c) => P + 'kenney-stadt/building-' + c + '.glb');
+const HOCHHAUS = 'abcde'.split('').map((c) => P + 'kenney-stadt/building-skyscraper-' + c + '.glb');
 const IND = (n: string) => P + 'kenney-industrie/' + n + '.glb';
+/** Hallen und Lager fuer das Gueter-/Gewerbeviertel am Stadtrand (neben dem Bahnhof). */
+const HALLEN = 'abdefgijlnoqrst'.split('').map((c) => IND('building-' + c));
+const CONTAINER = 'abc'.split('').map((c) => IND('shipping-container-' + c));
+/** Bahnsteigdach: Kenney-Vordach mit Pfosten. */
+const DACH = P + 'kenney-stadt/detail-overhang-wide.glb';
+/** Gebaeude, Baeume usw. halb so gross wie bis 2026-10-26 (passend zur doppelt so grossen Karte). */
+const D = 0.5;
+/** Bahnhofsgebaeude der Spieler (Kenney City Kit Commercial, CC0). */
+const BAHNHOF_MODELL = P + 'kenney-stadt/building-b.glb';
+/** Baustellen auf Strecken: Kenney Car Kit (CC0) unter src/assets/modelle/kenney-fahrzeuge/. */
+const FZ = (n: string) => P + 'kenney-fahrzeuge/' + n + '.glb';
+const BAUSTELLE = [FZ('tractor-shovel'), FZ('truck-flat'), FZ('cone'), FZ('box')];
 
 /** 3D-Punkt (x, z) liegt auf Land? (Umkehrung von wx/wz.) */
 const imLand = (x: number, z: number) => aufLand(x / SC + KARTE_W / 2, -z / SC + KARTE_H / 2);
@@ -68,25 +80,54 @@ export class TycoonDeko {
     const nahStadt = (x: number, z: number, r: number) => sx.some((cx, i) => Math.hypot(x - cx, z - sz[i]) < r);
 
     const gebaeude: { x: number; z: number }[] = [];
+    // Jede Stadt bekommt einen Bahnhof vor dem Stadtsockel (Durchmesser 1,8, Kameraseite): Empfangsgebaeude + Bahnsteigdaecher.
+    staedte.forEach((c, i) => {
+      const gross = GROSSSTADT.has(c.n);
+      this.objekte.push({ modell: BAHNHOF_MODELL, x: sx[i], z: sz[i] - 1.5, dreh: Math.PI, groesse: gross ? 1.5 : 1.2, nachHoehe: false, maxHoehe: 1.6, stadt: i, frei: 0.6 });
+      gebaeude.push({ x: sx[i], z: sz[i] - 1.5 });
+      for (const dx of gross ? [-0.5, 0.5] : [0]) {
+        this.objekte.push({ modell: DACH, x: sx[i] + dx, z: sz[i] - 1.05, dreh: Math.PI / 2, groesse: 1.1, nachHoehe: false, maxHoehe: 0.9, stadt: i, frei: 0.35 });
+      }
+    });
     // Haeuser um jede Stadt: innen Stadtgebaeude (Grossstaedte mit Hochhaeusern), aussen Vorort.
     staedte.forEach((c, i) => {
       const gross = GROSSSTADT.has(c.n);
-      const anzahl = gross ? 13 : 8, rMax = gross ? 5.5 : 4.2;
+      const anzahl = gross ? 20 : 12, rMax = (gross ? 5.5 : 4.2) * D;
       for (let k = 0, versuche = 0; k < anzahl && versuche < 200; versuche++) {
-        const w = rnd() * Math.PI * 2, r = 2.1 + rnd() * (rMax - 2.1);
+        const w = rnd() * Math.PI * 2, r = 2.1 * D + rnd() * (rMax - 2.1 * D);
         const x = sx[i] + Math.cos(w) * r, z = sz[i] + Math.sin(w) * r;
         // Abstand zu allen Gebaeuden (auch der Nachbarstadt) und zu fremden Stadtmitten
-        if (gebaeude.some((h) => Math.hypot(h.x - x, h.z - z) < 1.55) || !imLand(x, z)) continue;
-        if (sx.some((cx, j) => j !== i && Math.hypot(x - cx, z - sz[j]) < 2.6)) continue;
+        if (gebaeude.some((h) => Math.hypot(h.x - x, h.z - z) < 1.55 * D) || !imLand(x, z)) continue;
+        if (sx.some((cx, j) => j !== i && Math.hypot(x - cx, z - sz[j]) < 2.6 * D)) continue;
         gebaeude.push({ x, z });
         k++;
-        const innen = r < 4;
+        const innen = r < 4 * D;
         // Grossstadt: innen Hochhaeuser/Geschaeftshaeuser. Kleinstadt: wenige Geschaeftshaeuser, sonst Vorort.
         const hoch = gross && innen && rnd() < 0.35;
         const modell = hoch ? pick(HOCHHAUS) : innen && (gross || rnd() < 0.3) ? pick(STADT) : pick(VORORT);
         // Gebaeude zur Stadtmitte drehen (in 90-Grad-Schritten wirkt es aufgeraeumter).
         const dreh = Math.round((Math.atan2(sx[i] - x, sz[i] - z)) / (Math.PI / 2)) * (Math.PI / 2);
-        this.objekte.push({ modell, x, z, dreh, groesse: innen ? 1.5 : 1.3, nachHoehe: false, maxHoehe: hoch ? 4.2 : modell.includes('vorort') ? 1.6 : 2.6, stadt: i, frei: 1.6 });
+        this.objekte.push({ modell, x, z, dreh, groesse: innen ? 1.5 : 1.3, nachHoehe: false, maxHoehe: hoch ? 4.2 : modell.includes('vorort') ? 1.6 : 2.6, stadt: i, frei: 1.6 * D });
+      }
+    });
+
+    // Am Stadtrand ein kleines Gueter-/Gewerbeviertel mit Hallen und Containern.
+    staedte.forEach((c, i) => {
+      const gross = GROSSSTADT.has(c.n);
+      const w0 = rnd() * Math.PI * 2, n = gross ? 7 : 3;
+      for (let k = 0, versuche = 0; k < n && versuche < 60; versuche++) {
+        const w = w0 + (rnd() - 0.5) * 1.2, r = (gross ? 5.9 : 4.6) * D + rnd() * 1.6 * D;
+        const x = sx[i] + Math.cos(w) * r, z = sz[i] + Math.sin(w) * r;
+        if (gebaeude.some((h) => Math.hypot(h.x - x, h.z - z) < 1.5 * D) || !imLand(x, z)) continue;
+        if (sx.some((cx, j) => j !== i && Math.hypot(x - cx, z - sz[j]) < 2.6 * D)) continue;
+        gebaeude.push({ x, z });
+        k++;
+        const dreh = Math.round(w / (Math.PI / 2)) * (Math.PI / 2);
+        this.objekte.push({ modell: pick(HALLEN), x, z, dreh, groesse: 1.6, nachHoehe: false, maxHoehe: 1.8, stadt: i, frei: 1.4 * D });
+        if (rnd() < 0.6) {
+          const cx = x + Math.cos(w + Math.PI / 2) * 1.0 * D, cz = z + Math.sin(w + Math.PI / 2) * 1.0 * D;
+          this.objekte.push({ modell: pick(CONTAINER), x: cx, z: cz, dreh, groesse: 0.55, nachHoehe: false, maxHoehe: 0.5, stadt: i, frei: 1.0 * D });
+        }
       }
     });
 
@@ -134,9 +175,11 @@ export class TycoonDeko {
   /** Pro Bild aufrufen; baut die Instanzen nur neu, wenn sich Strecken oder aufgedeckte Staedte aendern. */
   aktualisiere(d: TycoonWeltDaten): void {
     const S = d.S;
-    // Kohlelager je Stadt, Bahnstrom-Unterwerk an Staedten mit eigener Oberleitung.
+    // Kohlelager je Stadt, Bahnstrom-Unterwerk an Staedten/Bahnhoefen mit eigener Oberleitung, Bahnhofsgebaeude.
     const olStaedte = Array.from(new Set<number>(S.lines.filter((l: any) => l.ol).flatMap((l: any) => [l.a, l.b])));
-    const spielerKey = (S.lager || []).join(',') + '/' + olStaedte.join(',');
+    const bahnhoefe: any[] = S.bf || [];
+    const baustellen = S.lines.filter((l: any) => l.bau);
+    const spielerKey = (S.lager || []).join(',') + '/' + olStaedte.join(',') + '/' + bahnhoefe.map((b) => b.id + ':' + b.x + ':' + b.y).join(',') + '/' + baustellen.map((l: any) => l.id).join(',') + '/' + (S.gbf || []).join(',');
     const schluessel = S.lines.length + '|' + S.vis.join('') + '|' + this.vorbilder.size + '|' + this.geladen + '|' + spielerKey;
     if (schluessel === this.schluessel) return;
     this.schluessel = schluessel;
@@ -144,13 +187,20 @@ export class TycoonDeko {
     const gleise: { x: number; z: number }[][] = S.lines.map((L: any) => L.pts.map((p: any) => ({ x: wx(p.x), z: wz(p.y) })));
     const amGleis = (o: Objekt) => gleise.some((pts) => pts.some((p) => Math.abs(p.x - o.x) < o.frei + 1 && Math.hypot(p.x - o.x, p.z - o.z) < o.frei));
 
-    const platz = (c: number, winkel: number, modell: string, groesse: number): Objekt => {
-      const st = d.CITIES[c], x = wx(st.x) + Math.cos(winkel) * 2.6, z = wz(st.y) + Math.sin(winkel) * 2.6;
-      return { modell, x, z, dreh: winkel, groesse, nachHoehe: false, maxHoehe: 2, stadt: c, frei: 0 };
+    const platz = (c: number, winkel: number, modell: string, groesse: number, abstand = 2.6): Objekt => {
+      const st = d.knoten(c), x = wx(st.x) + Math.cos(winkel) * abstand, z = wz(st.y) + Math.sin(winkel) * abstand;
+      return { modell, x, z, dreh: winkel, groesse, nachHoehe: false, maxHoehe: 2, stadt: c < d.BF0 ? c : -1, frei: 0 };
     };
     this.spielerObjekte = [
       ...(S.lager || []).map((c: number) => platz(c, 0.9, IND('building-h'), 1.8)),
-      ...olStaedte.map((c) => platz(c, 2.5, IND('building-c'), 1.4)),
+      ...olStaedte.map((c) => platz(c, 2.5, IND('building-c'), 1.4, c < d.BF0 ? 2.6 : 1.8)),
+      ...bahnhoefe.map((b) => platz(d.BF0 + b.id, -Math.PI / 2, BAHNHOF_MODELL, 1.3, 0.9)),
+      // Bahnsteigdach ueber dem Bahnsteig (der Bahnsteig selbst kommt aus tycoon-3d.ts).
+      ...bahnhoefe.map((b) => ({ ...platz(d.BF0 + b.id, 0, DACH, 1.5, 0), dreh: Math.PI / 2, maxHoehe: 0.9 })),
+      ...baustellen.flatMap((L: any) => this.baustelle(L)),
+      // Gueterbahnhof: Lagerhalle und Container-Stapel neben dem Streckenende.
+      ...(S.gbf || []).flatMap((c: number) => [platz(c, 4.0, IND('building-a'), 1.5, c < d.BF0 ? 2.8 : 1.9),
+        platz(c, 3.6, CONTAINER[0], 0.5, c < d.BF0 ? 2.2 : 1.4), platz(c, 3.75, CONTAINER[1], 0.5, c < d.BF0 ? 2.4 : 1.6)]),
     ];
     const jeModell = new Map<string, Objekt[]>();
     for (const o of [...this.objekte, ...this.spielerObjekte]) {
@@ -160,7 +210,7 @@ export class TycoonDeko {
       jeModell.get(o.modell)!.push(o);
     }
     const alle = new Set([...this.objekte, ...this.spielerObjekte].map((o) => o.modell));
-    [IND('building-h'), IND('building-c')].forEach((m) => alle.add(m));
+    [IND('building-h'), IND('building-c'), IND('building-a'), ...CONTAINER, BAHNHOF_MODELL, DACH, ...BAUSTELLE].forEach((m) => alle.add(m));
     for (const modell of alle) {
       const v = this.vorbild(modell);
       if (!v) continue;
@@ -169,7 +219,7 @@ export class TycoonDeko {
       const g = v.max.subtract(v.min);
       const puffer = new Float32Array(liste.length * 16);
       liste.forEach((o, i) => {
-        const s = Math.min(o.nachHoehe ? o.groesse / Math.max(0.001, g.y) : o.groesse / Math.max(0.001, g.x, g.z), o.maxHoehe / Math.max(0.001, g.y));
+        const s = Math.min(o.nachHoehe ? o.groesse / Math.max(0.001, g.y) : o.groesse / Math.max(0.001, g.x, g.z), o.maxHoehe / Math.max(0.001, g.y)) * D;
         Matrix.Translation(-(v.min.x + v.max.x) / 2, -v.min.y, -(v.min.z + v.max.z) / 2)
           .multiply(Matrix.Scaling(s, s, s))
           .multiply(Matrix.RotationY(o.dreh))
@@ -179,6 +229,20 @@ export class TycoonDeko {
       v.mesh.thinInstanceSetBuffer('matrix', puffer, 16, true);
       v.mesh.setEnabled(true);
     }
+  }
+
+  /** Baustelle in der Streckenmitte: Radlader und Lkw neben dem Gleis, Leitkegel und Absperrung. */
+  private baustelle(L: any): Objekt[] {
+    const i = Math.floor(L.pts.length / 2), a = L.pts[Math.max(0, i - 1)], b = L.pts[Math.min(L.pts.length - 1, i + 1)], p = L.pts[i];
+    const x = wx(p.x), z = wz(p.y), dx = wx(b.x) - wx(a.x), dz = wz(b.y) - wz(a.y), l = Math.hypot(dx, dz) || 1;
+    const ux = dx / l, uz = dz / l, nx = -uz, nz = ux, dreh = Math.atan2(ux, uz);
+    const o = (modell: string, laengs: number, quer: number, groesse: number, maxHoehe: number, d0 = 0): Objekt =>
+      ({ modell, x: x + ux * laengs + nx * quer, z: z + uz * laengs + nz * quer, dreh: dreh + d0, groesse, nachHoehe: false, maxHoehe, stadt: -1, frei: 0 });
+    return [
+      o(BAUSTELLE[0], -0.7, 1.15, 1.2, 0.9, Math.PI / 2), o(BAUSTELLE[1], 0.9, 1.2, 1.3, 0.9),
+      ...[-1.2, -0.6, 0, 0.6, 1.2].map((t) => o(BAUSTELLE[2], t, -0.75, 0.2, 0.28)),
+      o(BAUSTELLE[3], 1.8, 0.8, 0.35, 0.35), o(BAUSTELLE[3], -1.8, 0.8, 0.35, 0.35),
+    ];
   }
 
   /** Zaehlt fertig geladene Vorbilder -- Teil des Schluessels, damit nach dem Laden neu verteilt wird. */

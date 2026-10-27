@@ -11,6 +11,75 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
+### 2026-10-27 (2) — Tycoon: 10 neue Spielmechaniken (lokal getestet, NICHT deployt)
+
+Tims Auftrag: alle 10 Ideen nacheinander bauen. Plan, Details und Lizenzregel: `20-Bahnspiel-3D-Assets/Tycoon-Ausbauplan.md`.
+Neue Dateien unter `src/app/modules/zusatz/tycoon/`: `tycoon-inspektion.ts`, `-wetter.ts`, `-baustelle.ts`, `-personal.ts`, `-gueter.ts`,
+`-kapazitaet.ts`, `-ausschreibung.ts`, `-clanprojekte.ts`, `-album.ts`; Logik in `tycoon-engine.ts`, 3D in `tycoon-3d.ts`/`tycoon-deko.ts`.
+
+- **Inspektionsfahrt** (Minispiel Fehler im Gleis antippen, Foto-Bonusfrage), **Wetter/Jahreszeiten** (Schutzmaßnahmen je Strecke, Wetter-Störungen, 2D/3D-Partikel),
+  **Baustellen** (Maßnahme + Sperrung + Arbeitsvorbereitung mit Fachfragen, 3D-Baustelle), **Personal** (4 Rollen, Lehrgänge, ab Stufe 3 Lernstand aus der Lernwelt),
+  **Güteraufträge** (Güterbahnhof, Waren je Stadt/Gebiet, 3 neue Güterzüge), **Kapazität** (zweites Gleis – auch in 3D –, Ks/ETCS, Pünktlichkeit),
+  **Abzweigstellen + Zuglauf** (Strecke teilen, Züge über mehrere Strecken, Knotenbonus, Weichenstörung), **Ausschreibungen** (gegen ausgedachte Mitbewerber),
+  **Clan-Großprojekte** (Server!), **Sammelalbum** (Zugtypen + 16 Abzeichen).
+- **Backend:** neue Tabellen `tycoon_clan_projekte`, `tycoon_clan_beitraege` (index.ts), Endpunkte `POST /tycoon/clan-projekt`, `POST /tycoon/clan-projekt/beitrag`,
+  `/tycoon/welt` liefert `clanProjekt` und `clanBoni`. SQL im Wegwerf-Container auf dem Server geprüft. → **Beim Deploy Backend zuerst.**
+- **Nebenbei behoben:** Spiel-Quiz mischt jetzt die Antworten (in 264 von 476 Fragen war die erste Antwort richtig). Handy: Knopfleiste als zweite Zeile (war vorher abgeschnitten).
+- **Neues Asset:** Kenney Car Kit 3.1 (CC0) → `src/assets/modelle/kenney-fahrzeuge/` (Radlader, Lkw, Leitkegel für Baustellen).
+- Alte Spielstände laden weiter (alle neuen Felder mit Standardwerten). `ng build` ok.
+
+---
+
+### 2026-10-27 — Tycoon: Karte kommerziell nutzbar, 3D-Kamera/Klicks, 2D Standard, mehr Gebäude
+
+- **Kartenlizenz** (Tims Wunsch: auch kommerziell erlaubt): Eurostat-GISCO/EuroGeographics-Grenzen (nur nicht-kommerziell) ersetzt. Deutschland: **BKG VG250** (Stand 01.01.2026, Ebene KRS, Datenlizenz Deutschland – Namensnennung 2.0), Ausland: **Natural Earth admin-1** (Public Domain; Departements, Provinzen, Kantone, Woiwodschaften – teils gröber als NUTS-3). Berlin/Hamburg-Bezirke weiter OSM (ODbL, kommerziell ok). Höhen (AWS Terrain Tiles) und Natural-Earth-Grundkarte waren schon ok. Vorbereitung per `npx mapshaper` (Befehle im Kopf von `tools/tycoon-karte/erzeuge-gebiete.cjs`): Ausland wird an der genauen deutschen Grenze abgeschnitten, Lücken gefüllt → lückenlose Grenzen (geprüft: Saar/Luxemburg, Basel, Neiße). 524 Gebiete (DE 400).
+- **IDs:** Deutsche Landkreise behalten ihre NUTS-IDs (Feld `NUTS` in VG250) → gekaufte Landkreise bleiben. Ausland neu: 6-stellig `<Land><Teil>X<Nr>`. **Backend-Migration** (`index.ts`): alte ausländische Gebiete (5-stellige NUTS-IDs außer DE) werden einmalig erstattet („Neue Karte: deine Gebiete im Ausland wurden erstattet“). Hanau (seit 2026 kreisfrei) ist in den Main-Kinzig-Kreis eingerechnet (gleiche NUTS-ID).
+- **Quellenvermerk** (`GEBIET_QUELLE`, HTML): „© BKG (2026) dl-de/by-2-0, Datenquellen: VG250 (vereinfacht und für das Spiel umgestaltet)“ mit den von BKG verlangten Links, steht im Panel „Dein Unternehmen“ und in der Bundesland-Übersicht.
+- **3D-Klicks:** Fangradien waren in 3D fest (Stadt 20 km!) → in Berlin traf man ständig Berlin. Jetzt wie in 2D in Bildschirmpixeln (`pixelJeEinheit` in `tycoon-3d.ts`, Engine `hit(p, kk)`/`zeichneZu(p, kk)`). Getestet: in der Berlin-Nahansicht treffen Klicks neben dem Sockel die Bezirke.
+- **3D-Kamera:** richtet sich beim Start auf das eigene Netz (Streckenenden + Bahnhöfe) aus, höchstens Abstand 75 (`START_RADIUS`) statt bis 380 → Städte, Gleise, Züge nicht mehr winzig. Schilder skalieren ab Abstand 110 (vorher 170).
+- **2D ist Standard** (neuer Speicherschlüssel `tycoon-ansicht3d-v2`, alte 3D-Wahl gilt nicht mehr).
+- **Mehr 3D-Gebäude** (alle Kenney CC0, auch kommerziell frei): City Kit Commercial (13 Geschäftshäuser, 5 Hochhäuser, Vordach), Suburban (21 Wohnhäuser), Industrial (20 Hallen, Container, Tanks), Train Kit (moderne/runde Straßenbahn, U-Bahn-Wagen, Doppelstock-/Regionalbahn-Endwagen). Jede Stadt hat jetzt einen Bahnhof (Empfangsgebäude + Bahnsteigdach) und ein kleines Güter-/Gewerbeviertel; Spieler-Bahnhöfe bekommen ein Bahnsteigdach. Katalog `/modelle` mit neuer Kategorie „Gebäude“. Ein fertiges CC0-Bahnhofsmodell gibt es nicht verlässlich (nur Prototypen/unklare Lizenzen) → aus Kenney-Teilen zusammengesetzt.
+- Lokal getestet (ng serve + Patchright, simuliertes Backend), `ng build` und Backend-`tsc` ok. **Am 2026-10-27 deployt (erst Backend inkl. Erstattungs-Migration, dann Frontend, nach Tims Freigabe). Nichts committet.**
+
+---
+
+### 2026-10-26 (spätabends) — Tycoon: tiefer zoomen, Gebietsnamen auf der Karte
+
+- 2D: Zoom bis 64-fach (vorher 16), Berlin füllt im Fokus den Bildschirm. Neu `beschrifteGebiete()` (`tycoon-gebiete.ts`): Landkreis-/Bezirksnamen in Bildschirmgröße, sobald ein Gebiet groß genug ist (lange Doppelnamen umbrochen).
+- Gleise (max. ~12 px) und Züge wachsen beim starken Zoomen nicht mehr mit.
+- 3D: Beim Bundesland-Fokus (kleine Länder) eigene, feine Detail-Bodentextur mit Bezirksnamen (`baueDetail`, zOffset), Kamera-Mindestabstand passend zur Größe (Berlin nah).
+- Lokal getestet (2D Berlin-Fokus + Mausrad, Landkreise; 3D Berlin-Fokus; keine Fehler), `ng build` ok. **Noch nicht deployt. Nichts committet.**
+
+### 2026-10-26 (abends) — Tycoon: Zoom/Bundesland-Fokus, Strecke ziehen, Testmodus, Update-Fix
+
+- **Alte Version trotz Neuladen:** Ursache war der Angular-Service-Worker ohne Update-Behandlung. `app.component.ts` prüft jetzt beim Start und alle 10 Min. auf eine neue Version (`SwUpdate`), aktiviert sie und lädt einmal neu; Registrierung nach 5 statt 30 s.
+- **Zurücksetzen:** eigene Gebiete wurden bis zum nächsten Welt-Abruf (bis 30 s) weiter als eigene angezeigt → Engine entfernt sie sofort, die Seite lädt die Welt direkt nach dem DELETE neu.
+- **Testmodus** (`TESTMODUS = true` in `tycoon-zuege.ts`, Tims Wunsch): alles kostenlos (Züge, Strecken, Ausbau, Oberleitung, Bahnhof, Kohlelager, Lack, Upgrades, Ausrüstung, Fremdfirma, Gebiete – der Server speichert trotzdem den Grundpreis für die Einnahmen) und keine Level-/Können-Sperren. Startgeld neu 50.000 €. Zum Abschalten `false` setzen.
+- **2D-Karte zoombar:** Mausrad bzw. zwei Finger = zoomen (bis 16×), Ziehen = verschieben, Tippen = auswählen. Städte/Bahnhöfe/Schrift wachsen nur mäßig mit (bis 2×), Gleise halb so breit wie vorher, Züge kleiner; herangezoomt werden die Gebietsgrenzen live (scharf) gezeichnet. Knopf „🌍 Zur Weltkarte“ oben links.
+- **Bundesland-Fokus:** im Panel „🔎 <Bundesland> auf der Karte heranzoomen“ – 2D passt das Land in die Karte ein, 3D fährt die Kamera hin (`fokus` in den Weltdaten). Die bisherige große Ansicht heißt jetzt „Übersicht im Fenster (mit Kaufliste)“.
+- **Strecke ziehen:** „Strecke herstellen“ (auch direkt im Gebiets-Panel, wenn dort ein Bahnhof steht) → auf Start drücken, gedrückt halten, über eigene Gebiete ziehen, am grün markierten Ziel loslassen = gebaut. Bewegen ohne Taste zeichnet nicht mehr. 3D: linke Taste/Finger zeichnet, rechte Maustaste verschiebt beim Zeichnen.
+- **3D:** Gebäude, Bäume usw. halb so groß (`D = 0.5` in `tycoon-deko.ts`), Namensschilder skalieren mit dem Kameraabstand, Auswahlring kleiner.
+- Lokal getestet (2D: Fokus, Zoom, Verschieben, Bahnhof gratis, Strecke per Ziehen; 3D: Fokus, keine Fehler), `ng build` ok. **Am 2026-10-26 deployt (Frontend, nach Tims Freigabe). Nichts committet.**
+
+---
+
+### 2026-10-26 (später) — Tycoon 3D: Karte doppelt so groß, Gleise halb so groß
+
+- Tims Wunsch: Landkreise/Bundesländer wirkten neben den Gleisen winzig. `SC` (3D-Einheiten je Welteinheit) 0,1 → 0,2, `UEBERHOEHUNG` mit verdoppelt (Relief sieht gleich aus). Gleis, Schwellen, Schienen, Oberleitung, Züge und Bahnsteige über den Faktor `G = 0.5` in `tycoon-3d.ts` halbiert; Schwellenabstand 0,3, Mastabstand 4 (sonst zu viele Instanzen). Kamera: Grenzen 3–840, Ausrichtung max. Radius 380. Stadt- und Bahnhofsschilder größer, damit sie lesbar bleiben. 2D-Karte unverändert.
+- Lokal getestet (3D, keine Fehler). **Am 2026-10-26 deployt (nur Frontend, nach Tims Freigabe). Nichts committet.**
+
+---
+
+### 2026-10-26 — Tycoon: Bundesland-Übersicht und Bahnhöfe
+
+- **Bundesland-Übersicht** (Tims Wunsch): Stadt, Gebiet oder Bahnhof anklicken → im Panel rechts eine Karte des ganzen Bundeslands (Berlin/Hamburg: die Bezirke; Ausland: NUTS-1-Region) als SVG mit Besitzfarben, Städten und Bahnhöfen. Gebiet antippen = auswählen, darunter die Kaufliste aller Gebiete des Landes. „🔍 Große Ansicht“ öffnet dieselbe Karte groß im Fenster (Karte links, gewähltes Gebiet + Liste rechts). Helfer in `tycoon-gebiete.ts`: `gebieteIm(bl)`, `svgPfad`, `innererPunkt`, `regionVon`, `kurzName`; das SVG wird im Engine-Panel gecacht (`landSVG`).
+- **Bahnhöfe:** je eigenem Gebiet ein Bahnhofsgebäude (`BAHNHOF` in `tycoon-zuege.ts`: 1.000 €, Abriss ohne Strecken gibt 500 € zurück). Er steht an der zuletzt im Gebiet angeklickten Stelle (gestrichelter Kreis), sonst an `innererPunkt`. Bahnhof anklicken → „🛤 Strecke herstellen“ (gleiches Zeichnen wie bei Städten; Ziele: aufgedeckte Städte + eigene Bahnhöfe). Mit nur einem Bahnhof erscheint der Hinweis „Um die Strecke zu vervollständigen, brauchst du ein weiteres Bahnhofsgebäude …“. Einnahmen: je Bahnhof und angeschlossener Strecke 0,4 €/s (24 €/min) × Zustandsfaktor, bei Störung halbiert (`bfRate`); Strecken zwischen Bahnhöfen bekommen wie alle anderen Fremdzüge, eigene Züge, Störungen und Inspektionen.
+- **Datenmodell:** `S.bf = [{ id, g, x, y }]`, `S.bfNext`, `S.bfSumme`; Streckenenden `L.a/L.b` = Stadt-Index 0..99 oder **1000 + Bahnhof-ID** (`knoten(i)` liefert Name/Position). 3D: Bahnsteig + Schild (`syncBahnhoefe`), Gebäude Kenney `kenney-stadt/building-b` über `TycoonDeko`.
+- **Backend:** Spielstand-Schema erlaubt Streckenenden bis 99.999 (vorher 99 → Speichern mit Bahnhof-Strecken würde sonst abgelehnt!), ebenso `POST /tycoon/verbindung`; `/tycoon/welt` ignoriert Bahnhof-Enden bei Spielerzahl je Stadt und Clan-Strecken. **Backend muss vor dem Frontend deployt werden.**
+- Lokal getestet (ng serve + Patchright, simuliertes Backend): Gebiet → Bahnhof bauen → Hinweis bei einem Bahnhof → zweiter Bahnhof → Strecke Bf ⇄ Bf gebaut, Einnahmen laufen, Speichern mit `bf`; Sachsen-Übersicht, Kauf aus der Liste, große Ansicht; 3D ohne Fehler. `tsc` Frontend/Backend ok. **Am 2026-10-26 deployt (erst Backend, dann Frontend, nach Tims Freigabe). Nichts committet.** Komponenten-CSS-Budget in `angular.json` von 10 auf 16 kB angehoben (Tycoon-SCSS 10,9 kB).
+
+---
+
 ### 2026-10-24 — Tycoon: Landkreise als Gebiete in ganz Deutschland, Strecken zeichnen
 
 - **Gebiete statt Stadtbezirke** (Tims Wunsch): ganz Deutschland ist in die 400 Landkreise/kreisfreien Städte aufgeteilt, Berlin und Hamburg in ihre Bezirke (OSM, wie bisher), Nachbarländer im Kartenausschnitt in NUTS-3-Regionen – zusammen 636 kaufbare Gebiete. Bundesland-Grenzen kräftiger und beschriftet, Staatsgrenzen am kräftigsten. Quelle: Eurostat GISCO NUTS 2024 1:1 Mio. als TopoJSON (`tools/tycoon-karte/erzeuge-gebiete.cjs <NUTS_RG_01M_2024_4326_LEVL_3.json>` → `tycoon-gebiete-daten.ts`, ~320 KB). Gemeinsame Grenzbögen werden einmal vereinfacht → keine Lücken zwischen Nachbarn; je Bogen Grenzart (Kreis/Land/Staat). **Lizenz: „© EuroGeographics bezüglich der Verwaltungsgrenzen“, nur nicht-kommerziell + Quellenangabe** (steht im Spiel-Panel). Deutschland-Umriss der Karte kommt jetzt aus denselben Daten. `tycoon-bezirke-daten.ts` auf Berlin/Hamburg gekürzt (`hole-bezirke.cjs` schreibt nur noch diese, `BEHALTEN`).

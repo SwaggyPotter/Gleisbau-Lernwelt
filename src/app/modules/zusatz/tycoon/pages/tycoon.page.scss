@@ -163,6 +163,7 @@
   .shop-zug button { white-space: nowrap; flex: none; }
   .lvl { font-weight: 600; color: #6a4fe0; }
   .shopbtn { font-weight: 600; }
+  @media (max-width: 1200px) { .shopbtn .lbl { display: none; } }
   .farbpunkt { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 6px; vertical-align: -2px; border: 1px solid rgba(0,0,0,.25); }
   .tabs { flex-wrap: wrap; }
   .bezirk { display: flex; align-items: center; gap: 6px; padding: 4px 0; border-top: 1px solid var(--line); }
@@ -186,17 +187,47 @@
   .scope-circle .scope, .scope-circle .reticle { position: absolute; inset: 0; width: 100%; height: 100%; }
   .readrow { display: flex; gap: 8px; margin-top: 8px; }
   .readrow input { flex: 1; min-width: 0; font: inherit; padding: 6px 10px; border: 1px solid var(--ink); border-radius: 6px; }
+  /* Sammelalbum */
+  .album { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin: 6px 0 10px; }
+  .album-karte { position: relative; border: 1px solid var(--line); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 2px; background: var(--card); }
+  .album-karte.zu { opacity: .55; background: #f1ede3; }
+  .album-karte .auge { position: absolute; top: 6px; right: 6px; }
   #modal .fb { margin-top: 8px; padding: 8px 10px; border-radius: 8px; color: #fff; }
   #modal .fb.good { background: #2e8b57; }
   #modal .fb.bad { background: #c0392b; }
   .tag { display: inline-block; padding: 1px 8px; border-radius: 10px; color: #fff; font-size: 12px; font-weight: 600; }
+  #weltbtn { display: none; position: absolute; top: 58px; left: 12px; z-index: 5; padding: 8px 14px; font-weight: 700; border-radius: 20px; background: #fff; border: 2px solid #23262b; box-shadow: 0 2px 8px rgba(0,0,0,.25); cursor: pointer; }
+  /* Bundesland-Uebersicht (Panel und grosse Ansicht) */
+  .landkarte { display: block; width: 100%; height: auto; max-height: 260px; margin: 4px 0 6px; background: #dfe9ef; border-radius: 8px; }
+  .landkarte.gross { max-height: 62vh; }
+  .landkarte path { stroke: #5a5a50; stroke-width: .7px; vector-effect: non-scaling-stroke; cursor: pointer; }
+  .landkarte path:hover { fill-opacity: .85; stroke: #e4572e; stroke-width: 1.4px; }
+  .landkarte path.lk-wahl { stroke: #e4572e; stroke-width: 2.6px; pointer-events: none; }
+  .landkarte .lk-stadt { fill: #fff; stroke: #23262b; stroke-width: 1.2px; vector-effect: non-scaling-stroke; pointer-events: none; }
+  .landkarte .lk-text { fill: #23262b; font-weight: 600; text-anchor: middle; font-family: system-ui, sans-serif; pointer-events: none; paint-order: stroke; stroke: #fff; stroke-width: 2.5px; vector-effect: non-scaling-stroke; }
+  .landkarte .lk-bf { fill: #23262b; stroke: #fff; stroke-width: 1px; vector-effect: non-scaling-stroke; cursor: pointer; }
+  .landliste .bezirk { font-size: 13px; }
+  .hinweis { background: #fff6dc; border: 1px solid #f2d27a; border-radius: 8px; padding: 8px 10px; font-size: 13px; }
+  .land-gross { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 14px; }
+  .land-seite { max-height: 62vh; overflow: auto; }
+  .land-seite .btns { display: flex; flex-direction: column; gap: 6px; margin: 8px 0; }
+}
+
+@media (max-width: 700px) {
+  .tycoon .land-gross { grid-template-columns: 1fr; }
+  .tycoon .land-seite { max-height: none; }
 }
 
 @media (max-width: 700px) {
   .tycoon {
     #panel { top: auto; left: 0; width: auto; height: 38%; border-left: 0; border-top: 1px solid var(--line); }
     #hint { bottom: calc(38% + 10px); left: 10px; right: 10px; max-width: none; }
-    #hud { gap: 10px; font-size: 12px; }
+    #hud { gap: 10px; font-size: 12px; overflow: visible; }
+    /* Handy: Knoepfe als zweite Leiste unter der Kopfzeile (seitlich wischbar). */
+    #hud .sp { position: absolute; top: 48px; left: 0; right: 0; margin: 0; padding: 5px 10px; background: rgba(244, 241, 234, .92);
+      border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+    #weltbtn { top: 102px; }
+    #toast { top: 106px; }
   }
   .tc-liste li { grid-template-columns: 28px 1fr auto; .ak { grid-column: 2 / 4; grid-row: auto; justify-content: flex-start; } .mt { grid-column: 2 / 4; } }
 }

@@ -7,7 +7,7 @@ import { KARTE_H, KARTE_W, SC } from './tycoon-karte';
  */
 
 /** 3D-Einheiten je Meter: etwa 8-fach ueberhoeht, damit Mittelgebirge sichtbar sind (Zugspitze ~ 2,6 Einheiten). */
-export const UEBERHOEHUNG = 0.00088;
+export const UEBERHOEHUNG = 0.00176;
 export const HOEHEN_QUELLE = 'Höhen: AWS Terrain Tiles (SRTM, GMTED2010, ETOPO1, EU-DEM)';
 
 let meter: Float32Array | null = null;

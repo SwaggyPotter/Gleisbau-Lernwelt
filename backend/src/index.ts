@@ -243,6 +243,12 @@ const runStartupMigrations = async () => {
     await pool.query(`WITH alt AS (DELETE FROM tycoon_bezirke WHERE stadt < 100 RETURNING owner, basis)
       INSERT INTO tycoon_gutschriften (user_id, betrag, text)
       SELECT owner, sum(basis)::int, 'Gebietsreform: deine alten Stadtbezirke wurden erstattet' FROM alt GROUP BY owner`);
+    // Kartenumstellung 2026-10-27 (kommerziell nutzbare Grenzen): auslaendische Gebiete hatten 5-stellige NUTS-IDs
+    // (Basis 36: 36^4..36^5-1), jetzt 6-stellige. Deutsche NUTS-IDs (DE000..DEZZZ) und OSM-Bezirke (< 36^4) bleiben.
+    await pool.query(`WITH alt AS (DELETE FROM tycoon_bezirke WHERE stadt = 100 AND bezirk BETWEEN 1679616 AND 60466175
+        AND bezirk NOT BETWEEN 22488192 AND 22534847 RETURNING owner, basis)
+      INSERT INTO tycoon_gutschriften (user_id, betrag, text)
+      SELECT owner, sum(basis)::int, 'Neue Karte: deine Gebiete im Ausland wurden erstattet' FROM alt GROUP BY owner`);
     await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_clans (
       id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
       name text NOT NULL UNIQUE,
@@ -254,6 +260,23 @@ const runStartupMigrations = async () => {
       user_id uuid PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
       clan_id uuid NOT NULL REFERENCES tycoon_clans(id) ON DELETE CASCADE,
       seit timestamptz NOT NULL DEFAULT now()
+    )`);
+    // Clan-Grossprojekte (Neubaustrecke, Bruecke, Tunnel): gemeinsames Ziel, Beitraege je Mitglied.
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_clan_projekte (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      clan_id uuid NOT NULL REFERENCES tycoon_clans(id) ON DELETE CASCADE,
+      art text NOT NULL,
+      ziel integer NOT NULL,
+      stand integer NOT NULL DEFAULT 0,
+      erstellt timestamptz NOT NULL DEFAULT now(),
+      fertig timestamptz
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_clan_beitraege (
+      projekt_id uuid NOT NULL REFERENCES tycoon_clan_projekte(id) ON DELETE CASCADE,
+      user_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      betrag integer NOT NULL,
+      schicht boolean NOT NULL DEFAULT false,
+      zeit timestamptz NOT NULL DEFAULT now()
     )`);
 
     await seedAchievements();

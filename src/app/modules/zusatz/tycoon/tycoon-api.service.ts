@@ -122,6 +122,14 @@ export class TycoonApiService {
     return this.http.post<{ mitglieder: number; xp: number }>(`${API_BASE_URL}/tycoon/verbindung`, { a, b, nameA, nameB, gebiete });
   }
 
+  clanProjektStarten(art: string): Observable<unknown> {
+    return this.http.post<unknown>(`${API_BASE_URL}/tycoon/clan-projekt`, { art });
+  }
+
+  clanBeitrag(betrag: number, schicht: boolean): Observable<{ stand: number; ziel: number; fertig: boolean }> {
+    return this.http.post<{ stand: number; ziel: number; fertig: boolean }>(`${API_BASE_URL}/tycoon/clan-projekt/beitrag`, { betrag, schicht });
+  }
+
   clans(): Observable<{ meinClan: string | null; farben: string[]; clans: TycoonClan[] }> {
     return this.http.get<{ meinClan: string | null; farben: string[]; clans: TycoonClan[] }>(`${API_BASE_URL}/tycoon/clans`);
   }

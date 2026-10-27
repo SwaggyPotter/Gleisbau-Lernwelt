@@ -10,7 +10,8 @@ const DEUTSCHLAND = DEUTSCHLAND_NUTS;
 export { DEUTSCHLAND, EUROPA, KARTE_H, KARTE_PROJ, KARTE_W, NACHBARN };
 
 /** Massstab 2D-Welt -> 3D und Umrechnung (Kartenmitte = 3D-Ursprung, Norden = +z). */
-export const SC = 0.1;
+/** 3D-Einheiten je Welteinheit (ca. 1 km). 0,2 seit 2026-10-26 (Karte doppelt so gross wie vorher). */
+export const SC = 0.2;
 export const wx = (x: number): number => (x - KARTE_W / 2) * SC;
 export const wz = (y: number): number => -(y - KARTE_H / 2) * SC;
 

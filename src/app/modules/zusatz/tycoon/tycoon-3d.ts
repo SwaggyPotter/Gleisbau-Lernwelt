@@ -27,9 +27,11 @@ import { CreateTorus } from '@babylonjs/core/Meshes/Builders/torusBuilder';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture';
 import { PointerEventTypes } from '@babylonjs/core/Events/pointerEvents';
+import { ParticleSystem } from '@babylonjs/core/Particles/particleSystem';
+import '@babylonjs/core/Particles/particleSystemComponent';
 import { TycoonDeko } from './tycoon-deko';
 import { EUROPA, KARTE_H, KARTE_W, SC, wx, wz, zeichneKarte } from './tycoon-karte';
-import { Gebiet, zeichneGebiete } from './tycoon-gebiete';
+import { beschrifteGebiete, Gebiet, zeichneGebiete } from './tycoon-gebiete';
 import { hoehe3D, hoeheWelt, reliefBild } from './tycoon-hoehen';
 import { HOEHEN } from './tycoon-hoehen-meta';
 import { ZUEGE, ZUG_FARBEN } from './tycoon-zuege';
@@ -37,7 +39,7 @@ import { ZUEGE, ZUG_FARBEN } from './tycoon-zuege';
 /** Was die 2D-Spiel-Engine der 3D-Ansicht pro Bild zur Verfuegung stellt (nur lesen). */
 export interface TycoonWeltDaten {
   S: any;
-  sel: { city: number | null; line: number | null };
+  sel: { city: number | null; line: number | null; bf?: number | null };
   CITIES: { n: string; x: number; y: number }[];
   DIFF: { col: string }[];
   posAt: (L: any, s: number) => { x: number; y: number; ang: number };
@@ -51,13 +53,22 @@ export interface TycoonWeltDaten {
   gebietFarbe: (g: Gebiet) => { farbe: string; deckung: number } | null;
   /** Aendert sich, wenn sich Gebietsbesitz aendert. */
   gebietSchluessel: string;
+  /** Streckenende (Stadt-Index oder ab BF0 eigener Bahnhof) als Name und 2D-Position. */
+  knoten: (i: number) => { n: string; x: number; y: number };
+  bfName: (b: any) => string;
+  BF0: number;
+  /** Bundesland-Fokus: Ausschnitt in 2D-Weltkoordinaten oder null (Weltkarte); ver aendert sich bei jedem Wechsel. */
+  fokus: { box: { x0: number; y0: number; x1: number; y1: number } | null; ver: number };
+  /** Jahreszeit (0 Fruehling .. 3 Winter) und aktuelle Wetterlage (Art, Ausschnitt in 2D-Weltkoordinaten), siehe tycoon-wetter.ts. */
+  jahreszeit?: number;
+  wetter?: { id: string; box: { x0: number; y0: number; x1: number; y1: number } } | null;
 }
 
 const MODELL_PFAD = 'assets/modelle/kenney/';
 /** Fremdzuege (zahlen Trassenentgelt): Gueterzug mit Diesellok. */
 const FREMD_MODELL: { lok: string; wagen: string[]; ende?: string } = { lok: 'train-diesel-b', wagen: ['train-carriage-box', 'train-carriage-tank'] };
 /** Abstand der Oberleitungsmasten (3D-Einheiten). */
-const MAST_ABSTAND = 3;
+const MAST_ABSTAND = 4;
 /** Modelle je Zug-Typ stehen in tycoon-zuege.ts (ZUEGE[typ].modell). */
 export const lokDatei = (typ: number): string => MODELL_PFAD + (ZUEGE[typ] ?? ZUEGE[1]).modell.lok + '.glb';
 /** Alle Fahrzeug-Dateien eines Zug-Typs in Reihenfolge (wie auf der Karte); umgedreht = letztes ist ein Endkopf. */
@@ -69,16 +80,23 @@ export const zugDateien = (typ: number, extraWagen = false): { dateien: string[]
   return { dateien, umgedreht: !!m.ende };
 };
 
-const WAGEN_LAENGE = 2.0;
-const WAGEN_ABSTAND = 2.15;
+/** Gleise, Zuege und Masten: halb so gross wie bis 2026-10-26 (die Karte ist dafuer doppelt so gross, siehe SC). */
+const G = 0.5;
+/** Hoechster Kameraabstand beim Ausrichten auf das eigene Netz (ca. 300 km Bildbreite), damit nichts winzig wirkt. */
+const START_RADIUS = 75;
+const WAGEN_LAENGE = 2.0 * G;
+const WAGEN_ABSTAND = 2.15 * G;
 /** Abstand der Schienen von der Gleismitte und Schwellenabstand (3D-Einheiten). */
-const SCHIENE = 0.27;
-const SCHWELLEN_ABSTAND = 0.42;
+const SCHIENE = 0.27 * G;
+/** Zweigleisig: Gleisachsen so weit neben der Streckenmitte. */
+const GLEIS_VERSATZ = 0.6 * G;
+const SCHWELLEN_ABSTAND = 0.3;
 
 /** Ein gebautes Gleis in 3D. Bei Ausbau (cls) wird es neu erzeugt. */
 interface Gleis {
   cls: number;
   ol: boolean;
+  gleise: number;
   schotter: Mesh;
   schienen: Mesh[];
   draht: Mesh | null;
@@ -122,28 +140,39 @@ export class TycoonWelt3D {
   /** Bodentextur des Spielgebiets: Karte ohne Gebiete (Kopie) + Gebietsflaechen, neu gezeichnet bei anderem Besitz/Auswahl. */
   private boden: { tex: DynamicTexture; basis: HTMLCanvasElement; b: { x0: number; y0: number; x1: number; y1: number } } | null = null;
   private bodenSchluessel = '';
+  /** Feinere Bodentextur nur fuer das herangezoomte Bundesland (z. B. Berlin mit seinen Bezirken), sonst null. */
+  private detail: { tex: DynamicTexture; basis: HTMLCanvasElement; b: { x0: number; y0: number; x1: number; y1: number }; mesh: Mesh } | null = null;
   /** Vorschau der gerade gezeichneten Strecke. */
   private zeichenTeile: Mesh[] = [];
   private zeichenStand = '';
   private zeichnetZuletzt = false;
   private lichter: { knoten: TransformNode; aktiv: boolean }[] = [];
+  private fokusVer = 0;
+  /** Bahnhoefe des Spielers: Bahnsteig + Namensschild (das Gebaeude stellt TycoonDeko auf). */
+  private bahnhoefe: Mesh[] = [];
+  private bahnhofSchluessel = '';
   private readonly farbMats = new Map<string, StandardMaterial>();
+  private readonly himmel: HemisphericLight;
+  private wetterPS: ParticleSystem | null = null;
+  private wetterId = '';
+  private jzZuletzt = -1;
   private tot = false;
 
   constructor(
     private readonly canvas: HTMLCanvasElement,
     private readonly daten: () => TycoonWeltDaten,
-    private readonly onKlick: (x: number, y: number) => void,
-    private readonly onZeiger: (x: number, y: number) => void = () => undefined,
+    private readonly onKlick: (x: number, y: number, kk: number) => void,
+    private readonly onZeiger: (x: number, y: number, kk: number) => void = () => undefined,
+    private readonly onLos: () => void = () => undefined,
   ) {
     this.engine = new Engine(canvas, true, { preserveDrawingBuffer: false, stencil: false, antialias: true }, true);
     this.engine.disableUniformBuffers = true;
     this.scene = new Scene(this.engine);
     this.scene.clearColor = new Color4(0.56, 0.70, 0.80, 1);
 
-    this.kamera = new ArcRotateCamera('kamera', -Math.PI / 2, 0.85, 78, new Vector3(4, 0, -2), this.scene);
-    this.kamera.lowerRadiusLimit = 8;
-    this.kamera.upperRadiusLimit = 420;
+    this.kamera = new ArcRotateCamera('kamera', -Math.PI / 2, 0.85, 156, new Vector3(8, 0, -4), this.scene);
+    this.kamera.lowerRadiusLimit = 3;
+    this.kamera.upperRadiusLimit = 840;
     this.kamera.upperBetaLimit = 1.35;
     this.kamera.wheelPrecision = 14;
     this.kamera.panningSensibility = 60;
@@ -151,6 +180,7 @@ export class TycoonWelt3D {
     const himmel = new HemisphericLight('himmel', new Vector3(0, 1, 0.3), this.scene);
     himmel.intensity = 0.7;
     himmel.groundColor = new Color3(0.5, 0.5, 0.55);
+    this.himmel = himmel;
     const sonne = new DirectionalLight('sonne', new Vector3(-0.4, -1, 0.5), this.scene);
     sonne.intensity = 0.55;
 
@@ -159,22 +189,22 @@ export class TycoonWelt3D {
     this.boden = this.gelaende('gelaende', { x0: sx0, y0: sy0, x1: sx1, y1: sy1 }, 5, null, 2048, 1.0, 0);
     this.gelaende('europa', EUROPA, 16, { x0: sx0 + 20, y0: sy0 + 20, x1: sx1 - 20, y1: sy1 - 20 }, 2048, 5, -0.04);
 
-    this.schwellen = CreateBox('schwelle', { width: 0.9, height: 0.07, depth: 0.2 }, this.scene);
+    this.schwellen = CreateBox('schwelle', { width: 0.9 * G, height: 0.07 * G, depth: 0.2 * G }, this.scene);
     this.schwellen.material = this.farbe('schwelleMat', '#6b5240');
     this.schwellen.isPickable = false;
     this.schwellen.alwaysSelectAsActiveMesh = true;
     this.schwellen.setEnabled(false);
     // Ab Ausbaustrecke: Betonschwellen
-    this.betonSchwellen = CreateBox('betonschwelle', { width: 0.9, height: 0.08, depth: 0.2 }, this.scene);
+    this.betonSchwellen = CreateBox('betonschwelle', { width: 0.9 * G, height: 0.08 * G, depth: 0.2 * G }, this.scene);
     this.betonSchwellen.material = this.farbe('betonMat', '#b4b2ab');
     this.betonSchwellen.isPickable = false;
     this.betonSchwellen.alwaysSelectAsActiveMesh = true;
     this.betonSchwellen.setEnabled(false);
     // Oberleitungsmast: Mast neben dem Gleis + Ausleger zur Gleismitte (lokal +x), als ein Mesh
-    const stange = CreateBox('mastStange', { width: 0.08, height: 1.65, depth: 0.08 }, this.scene);
-    stange.position.y = 0.82;
-    const arm = CreateBox('mastArm', { width: 0.85, height: 0.05, depth: 0.05 }, this.scene);
-    arm.position.set(0.42, 1.55, 0);
+    const stange = CreateBox('mastStange', { width: 0.08 * G, height: 1.65 * G, depth: 0.08 * G }, this.scene);
+    stange.position.y = 0.82 * G;
+    const arm = CreateBox('mastArm', { width: 0.85 * G, height: 0.05 * G, depth: 0.05 * G }, this.scene);
+    arm.position.set(0.42 * G, 1.55 * G, 0);
     this.masten = Mesh.MergeMeshes([stange, arm], true)!;
     this.masten.material = this.farbe('mastMat', '#5f6670');
     this.masten.isPickable = false;
@@ -191,15 +221,15 @@ export class TycoonWelt3D {
       sockel.position.set(wx(c.x), hoeheWelt(c.x, c.y) + 0.12, wz(c.y));
       sockel.material = this.farbe('stadtMat' + i, '#d9d4c7');
       sockel.isPickable = false;
-      const schild = CreatePlane('schild' + i, { width: 10, height: 2.5 }, this.scene);
-      schild.position.set(wx(c.x), hoeheWelt(c.x, c.y) + 5, wz(c.y));
+      const schild = CreatePlane('schild' + i, { width: 18, height: 4.5 }, this.scene);
+      schild.position.set(wx(c.x), hoeheWelt(c.x, c.y) + 7, wz(c.y));
       schild.billboardMode = Mesh.BILLBOARDMODE_ALL;
       schild.material = this.schildMaterial(c.n, i);
       schild.isPickable = false;
       this.staedte.push({ sockel, schild });
     });
     this.deko = new TycoonDeko(this.scene, CITIES);
-    this.auswahlRing = CreateTorus('auswahl', { diameter: 3.4, thickness: 0.35, tessellation: 28 }, this.scene);
+    this.auswahlRing = CreateTorus('auswahl', { diameter: 2.2, thickness: 0.22, tessellation: 28 }, this.scene);
     this.auswahlRing.material = this.farbe('auswahlMat', '#e4572e', true);
     this.auswahlRing.isPickable = false;
 
@@ -207,25 +237,30 @@ export class TycoonWelt3D {
     // Zeiger: Tippen = Klick ins Spiel. In der starren Ansicht zusaetzlich Ziehen = Karte verschieben,
     // zwei Finger = zoomen (Blickwinkel bleibt fest). In der freien Ansicht macht das die Babylon-Kamera.
     let runter: { x: number; y: number; t: number } | null = null;
+    /** Beim Zeichnen verschiebt die rechte Maustaste die Karte (die linke zeichnet). */
+    let rechts = false;
+    canvas.addEventListener('contextmenu', (e) => e.preventDefault());
     const zeiger = new Map<number, { x: number; y: number }>();
     let griff: Vector3 | null = null;
     let fingerAbstand = 0;
     /** Zeiger als 2D-Weltpunkt an die Engine (Strecke zeichnen). */
-    const melde = (e: PointerEvent) => { const p = this.bodenUnter(e.clientX, e.clientY); if (p) this.onZeiger(p.x / SC + KARTE_W / 2, -p.z / SC + KARTE_H / 2); };
+    const melde = (e: PointerEvent) => { const p = this.bodenUnter(e.clientX, e.clientY); if (p) this.onZeiger(p.x / SC + KARTE_W / 2, -p.z / SC + KARTE_H / 2, this.pixelJeEinheit(e.clientX, e.clientY, p)); };
     this.scene.onPointerObservable.add((pi) => {
       const e = pi.event as PointerEvent;
-      // Beim Zeichnen: Maus zeichnet ohne Taste (mit Taste wird verschoben), Finger/Stift zeichnet beim Ziehen.
-      const zeichnet = !!this.daten().zeichnung, finger = e.pointerType !== 'mouse';
+      // Beim Zeichnen: gedrueckt halten und ziehen (Maus links, Finger, Stift), Loslassen am Ziel baut die Strecke.
+      const zeichnet = !!this.daten().zeichnung;
       if (pi.type === PointerEventTypes.POINTERDOWN) {
         zeiger.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        rechts = e.pointerType === 'mouse' && e.button === 2;
         runter = zeiger.size === 1 ? { x: e.clientX, y: e.clientY, t: performance.now() } : null;
-        griff = zeiger.size === 1 && !(zeichnet && finger) ? this.bodenUnter(e.clientX, e.clientY) : null;
+        griff = zeiger.size === 1 && !(zeichnet && !rechts) ? this.bodenUnter(e.clientX, e.clientY) : null;
+        if (zeichnet && !rechts && zeiger.size === 1) melde(e);
         if (zeiger.size === 2) { const [a, b] = [...zeiger.values()]; fingerAbstand = Math.hypot(a.x - b.x, a.y - b.y); griff = this.bodenUnter((a.x + b.x) / 2, (a.y + b.y) / 2); }
         return;
       }
       if (pi.type === PointerEventTypes.POINTERMOVE) {
-        if (zeichnet && (finger ? zeiger.size === 1 && zeiger.has(e.pointerId) : !zeiger.size)) {
-          if (finger) zeiger.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        if (zeichnet && !rechts && zeiger.size === 1 && zeiger.has(e.pointerId)) {
+          zeiger.set(e.pointerId, { x: e.clientX, y: e.clientY });
           melde(e);
           return;
         }
@@ -252,16 +287,19 @@ export class TycoonWelt3D {
         return;
       }
       if (pi.type !== PointerEventTypes.POINTERUP) return;
+      const warZeichnen = zeichnet && !rechts && zeiger.size === 1 && zeiger.has(e.pointerId);
       zeiger.delete(e.pointerId);
+      rechts = false;
       // Von zwei auf einen Finger: dort weiter verschieben (nicht beim Zeichnen).
       const rest = [...zeiger.values()][0];
       griff = zeiger.size === 1 && !zeichnet ? this.bodenUnter(rest.x, rest.y) : null;
-      if (!runter) return;
-      const kurz = performance.now() - runter.t < 600 && Math.hypot(e.clientX - runter.x, e.clientY - runter.y) < 8;
+      const kurz = !!runter && performance.now() - runter.t < 600 && Math.hypot(e.clientX - runter.x, e.clientY - runter.y) < 8;
       runter = null;
-      if (!kurz) return;
-      const p = this.bodenUnter(e.clientX, e.clientY);
-      if (p) this.onKlick(p.x / SC + KARTE_W / 2, -p.z / SC + KARTE_H / 2);
+      if (kurz) {
+        const p = this.bodenUnter(e.clientX, e.clientY);
+        if (p) this.onKlick(p.x / SC + KARTE_W / 2, -p.z / SC + KARTE_H / 2, this.pixelJeEinheit(e.clientX, e.clientY, p));
+      }
+      if (warZeichnen) this.onLos();
     });
 
     this.scene.onBeforeRenderObservable.add(() => this.aktualisiere());
@@ -283,6 +321,16 @@ export class TycoonWelt3D {
       t = (hoehe3D(p.x, p.z) - ray.origin.y) / ray.direction.y;
     }
     return t > 0 ? ray.origin.add(ray.direction.scale(t)) : null;
+  }
+
+  /**
+   * Bildschirmpixel je Welteinheit an einem Bodenpunkt (waagerecht gemessen) -- damit Staedte, Gleise und Bahnhoefe
+   * wie in 2D in einem festen Pixelradius getroffen werden, egal wie nah die Kamera ist.
+   */
+  private pixelJeEinheit(clientX: number, clientY: number, p: Vector3): number {
+    const q = this.bodenUnter(clientX + 20, clientY);
+    const d = q ? Vector3.Distance(p, q) / SC : 0;
+    return d > 1e-6 ? 20 / d : 1;
   }
 
   /** Kameraziel auf dem Boden verschieben, innerhalb der Karte. */
@@ -312,7 +360,7 @@ export class TycoonWelt3D {
    */
   private gelaende(name: string, b: { x0: number; y0: number; x1: number; y1: number }, schritt: number,
     loch: { x0: number; y0: number; x1: number; y1: number } | null, texBreite: number, linie: number, versatz: number):
-    { tex: DynamicTexture; basis: HTMLCanvasElement; b: { x0: number; y0: number; x1: number; y1: number } } {
+    { tex: DynamicTexture; basis: HTMLCanvasElement; b: { x0: number; y0: number; x1: number; y1: number }; mesh: Mesh } {
     const nx = Math.ceil((b.x1 - b.x0) / schritt), nz = Math.ceil((b.y1 - b.y0) / schritt);
     const pos: number[] = [], uv: number[] = [], idx: number[] = [];
     for (let j = 0; j <= nz; j++) {
@@ -357,7 +405,7 @@ export class TycoonWelt3D {
     mat.specularColor = Color3.Black();
     mat.backFaceCulling = false;
     mesh.material = mat;
-    return { tex, basis, b };
+    return { tex, basis, b, mesh };
   }
 
   /** Gebiete (Besitz, Grenzen, Auswahl) auf die Bodentextur zeichnen, wenn sich etwas geaendert hat. */
@@ -365,14 +413,35 @@ export class TycoonWelt3D {
     const wahl = (d.sel as any).gebiet ?? null, key = d.gebietSchluessel + '|' + wahl;
     if (!this.boden || key === this.bodenSchluessel) return;
     this.bodenSchluessel = key;
-    const { tex, basis, b } = this.boden, ctx = tex.getContext() as unknown as CanvasRenderingContext2D;
-    ctx.drawImage(basis, 0, 0);
-    ctx.save();
-    ctx.scale(basis.width / (b.x1 - b.x0), basis.height / (b.y1 - b.y0));
-    ctx.translate(-b.x0, -b.y0);
-    zeichneGebiete(ctx, { farbe: d.gebietFarbe, linie: 1.6, wahl, namen: true, strich: '28,34,22' });
-    ctx.restore();
-    tex.update();
+    const zeichne = (t: { tex: DynamicTexture; basis: HTMLCanvasElement; b: { x0: number; y0: number; x1: number; y1: number } }, linie: number, fein: boolean) => {
+      const { tex, basis, b } = t, ctx = tex.getContext() as unknown as CanvasRenderingContext2D;
+      ctx.drawImage(basis, 0, 0);
+      ctx.save();
+      ctx.scale(basis.width / (b.x1 - b.x0), basis.height / (b.y1 - b.y0));
+      ctx.translate(-b.x0, -b.y0);
+      zeichneGebiete(ctx, { farbe: d.gebietFarbe, linie, wahl, namen: !fein, strich: '28,34,22' });
+      if (fein) beschrifteGebiete(ctx, 40);
+      ctx.restore();
+      tex.update();
+    };
+    zeichne(this.boden, 1.6, false);
+    // Linien in der Detailtextur etwa so dick (in Texturpixeln) wie in der groben.
+    if (this.detail) zeichne(this.detail, Math.max(this.detail.b.x1 - this.detail.b.x0, this.detail.b.y1 - this.detail.b.y0) / 500, true);
+  }
+
+  /** Detailboden fuer den Bundesland-Fokus neu anlegen (bzw. entfernen); kleine Laender bekommen ein feineres Netz. */
+  private baueDetail(b: { x0: number; y0: number; x1: number; y1: number } | null): void {
+    if (this.detail) {
+      this.detail.mesh.material?.dispose(true, true);
+      this.detail.mesh.dispose();
+      this.detail = null;
+    }
+    const gr = b ? Math.max(b.x1 - b.x0, b.y1 - b.y0) : Infinity;
+    if (!b || gr > 450) return;
+    this.detail = this.gelaende('detail', b, Math.max(0.5, gr / 160), null, 2048, gr / 900, 0.02);
+    // Liegt gleich hoch wie der grobe Boden: per Tiefenversatz gewinnt die Detailtextur.
+    (this.detail.mesh.material as StandardMaterial).zOffset = -1;
+    this.bodenSchluessel = '';
   }
 
   /** Vorschau der gerade gezeichneten Strecke: Schlauch ueber dem Gelaende, rot bis zur nicht erlaubten Stelle. */
@@ -389,16 +458,16 @@ export class TycoonWelt3D {
     this.zeichenTeile.forEach((m) => m.dispose());
     this.zeichenTeile = [];
     if (!z) return;
-    const auf = (p: { x: number; y: number }) => new Vector3(wx(p.x), hoeheWelt(p.x, p.y) + 0.35, wz(p.y));
-    const pts = z.ziel !== null ? [...z.pts, d.CITIES[z.ziel]] : z.pts;
+    const auf = (p: { x: number; y: number }) => new Vector3(wx(p.x), hoeheWelt(p.x, p.y) + 0.25, wz(p.y));
+    const pts = z.ziel !== null ? [...z.pts, d.knoten(z.ziel)] : z.pts;
     if (pts.length > 1) {
-      const m = CreateTube('zeichnung', { path: pts.map(auf), radius: 0.32, tessellation: 6 }, this.scene);
+      const m = CreateTube('zeichnung', { path: pts.map(auf), radius: 0.22, tessellation: 6 }, this.scene);
       m.material = this.farbMat(z.ziel !== null ? '#2e8b57' : '#23262b', 1, 0.5);
       m.isPickable = false;
       this.zeichenTeile.push(m);
     }
     if (z.fehl) {
-      const m = CreateTube('zeichnungFehl', { path: [auf(z.pts[z.pts.length - 1]), auf(z.fehl)], radius: 0.22, tessellation: 6 }, this.scene);
+      const m = CreateTube('zeichnungFehl', { path: [auf(z.pts[z.pts.length - 1]), auf(z.fehl)], radius: 0.15, tessellation: 6 }, this.scene);
       m.material = this.farbMat('#c0392b', 0.8, 0.6);
       m.isPickable = false;
       this.zeichenTeile.push(m);
@@ -426,12 +495,15 @@ export class TycoonWelt3D {
     return m;
   }
 
-  private schildMaterial(text: string, i: number): StandardMaterial {
+  private schildMaterial(text: string, i: number | string): StandardMaterial {
     const tex = new DynamicTexture('schildTex' + i, { width: 512, height: 128 }, this.scene, true);
     tex.hasAlpha = true;
     const ctx = tex.getContext() as unknown as CanvasRenderingContext2D;
     ctx.clearRect(0, 0, 512, 128);
     ctx.font = '700 60px system-ui, sans-serif';
+    // Lange Namen (z. B. Bahnhoefe) mit kleinerer Schrift, damit nichts abgeschnitten wird.
+    const breit = ctx.measureText(text).width;
+    if (breit > 456) ctx.font = '700 ' + Math.floor(60 * 456 / breit) + 'px system-ui, sans-serif';
     const w = Math.min(500, ctx.measureText(text).width + 44);
     ctx.fillStyle = 'rgba(255,255,255,0.92)';
     ctx.beginPath();
@@ -505,6 +577,63 @@ export class TycoonWelt3D {
     mats.forEach((m) => m!.dispose(false, false));
   }
 
+  /* ---------- Wetter und Jahreszeit ---------- */
+  /** Jahreszeit als Lichtfarbe; Wetterlage als Partikel um den Kamerapunkt, solange er ueber dem betroffenen Bundesland liegt. */
+  private syncWetter(d: TycoonWeltDaten): void {
+    const jz = d.jahreszeit ?? 0;
+    if (jz !== this.jzZuletzt) {
+      this.jzZuletzt = jz;
+      const l = [[1, 1, 1], [1, 0.97, 0.88], [1, 0.9, 0.78], [0.92, 0.96, 1]][jz];
+      this.himmel.diffuse = new Color3(l[0], l[1], l[2]);
+      this.himmel.groundColor = jz === 3 ? new Color3(0.82, 0.85, 0.9) : new Color3(0.5, 0.5, 0.55);
+      this.himmel.intensity = jz === 3 ? 0.85 : 0.7;
+    }
+    const t = this.kamera.target, w = d.wetter;
+    const drin = !!w && t.x >= wx(w.box.x0) && t.x <= wx(w.box.x1) && t.z <= wz(w.box.y0) && t.z >= wz(w.box.y1);
+    const id = drin ? w!.id : '';
+    if (id !== this.wetterId) {
+      this.wetterId = id;
+      this.wetterPS?.dispose();
+      this.wetterPS = id && id !== 'hitze' ? this.wetterPartikel(id) : null;
+      this.scene.clearColor = id === 'regen' || id === 'sturm' ? new Color4(0.45, 0.52, 0.58, 1) : id === 'schnee' ? new Color4(0.8, 0.83, 0.87, 1)
+        : id === 'hitze' ? new Color4(0.78, 0.74, 0.62, 1) : new Color4(0.56, 0.70, 0.80, 1);
+    }
+    const ps = this.wetterPS;
+    if (!ps) return;
+    // Partikel in einer Kiste ueber dem Kamerapunkt; Groesse und Tempo wachsen mit dem Kameraabstand.
+    const r = this.kamera.radius, regen = id === 'regen' || id === 'sturm';
+    (ps.emitter as Vector3).set(t.x, t.y + r * 0.45, t.z);
+    ps.minEmitBox.set(-r * 0.7, 0, -r * 0.7); ps.maxEmitBox.set(r * 0.7, r * 0.1, r * 0.7);
+    ps.minSize = r * (regen ? 0.008 : 0.006); ps.maxSize = r * (regen ? 0.014 : 0.012);
+    ps.minEmitPower = r * (regen ? 1.0 : 0.15); ps.maxEmitPower = r * (regen ? 1.3 : 0.25);
+  }
+  private wetterPartikel(id: string): ParticleSystem {
+    const ps = new ParticleSystem('wetter', id === 'laub' ? 300 : 2500, this.scene);
+    const tex = new DynamicTexture('wetterTex', { width: 32, height: 32 }, this.scene, false);
+    const g = tex.getContext() as unknown as CanvasRenderingContext2D;
+    g.clearRect(0, 0, 32, 32);
+    if (id === 'regen' || id === 'sturm') { g.fillStyle = 'rgba(200,215,235,1)'; g.fillRect(14, 0, 4, 32); }
+    else if (id === 'laub') { g.fillStyle = '#fff'; g.beginPath(); g.ellipse(16, 16, 14, 7, 0.6, 0, 7); g.fill(); }
+    else { const v = g.createRadialGradient(16, 16, 0, 16, 16, 16); v.addColorStop(0, 'rgba(255,255,255,1)'); v.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = v; g.fillRect(0, 0, 32, 32); }
+    tex.hasAlpha = true; tex.update();
+    ps.particleTexture = tex;
+    ps.emitter = new Vector3(0, 0, 0);
+    ps.minEmitBox = new Vector3(-1, 0, -1); ps.maxEmitBox = new Vector3(1, 0, 1);
+    const schraeg = id === 'sturm' ? 0.6 : id === 'laub' ? 0.4 : 0.1;
+    ps.direction1 = new Vector3(-schraeg * 0.3, -1, -0.1); ps.direction2 = new Vector3(schraeg, -1, 0.1);
+    // Lebensdauer in Babylon-Zeit (ca. 0,6 je Sekunde bei 60 Bildern).
+    ps.minLifeTime = id === 'regen' || id === 'sturm' ? 0.35 : 2; ps.maxLifeTime = id === 'regen' || id === 'sturm' ? 0.5 : 3;
+    ps.emitRate = id === 'laub' ? 90 : id === 'schnee' ? 700 : 1800;
+    if (id === 'laub') { ps.color1 = new Color4(0.85, 0.45, 0.12, 1); ps.color2 = new Color4(0.85, 0.65, 0.15, 1); ps.minAngularSpeed = -3; ps.maxAngularSpeed = 3; }
+    else if (id === 'schnee') { ps.color1 = new Color4(1, 1, 1, 0.95); ps.color2 = new Color4(0.92, 0.95, 1, 0.85); }
+    else { ps.color1 = new Color4(0.75, 0.82, 0.95, 0.55); ps.color2 = new Color4(0.7, 0.78, 0.9, 0.4); }
+    ps.colorDead = new Color4(1, 1, 1, 0);
+    ps.blendMode = ParticleSystem.BLENDMODE_STANDARD;
+    ps.isLocal = false;
+    ps.start();
+    return ps;
+  }
+
   /* ---------- Bild-Aktualisierung ---------- */
   private aktualisiere(): void {
     const d = this.daten();
@@ -512,7 +641,16 @@ export class TycoonWelt3D {
     if (!S) return;
     // Starre Ansicht: neu ausrichten, sobald sich die aufgedeckten Staedte aendern. Frei: nur beim Start.
     const sichtbar = S.vis.join('');
-    if (this.ausgerichtetAuf !== S || (!this.frei && sichtbar !== this.ausgerichtetSichtbar)) {
+    if (d.fokus.ver !== this.fokusVer) {
+      // Bundesland heranzoomen bzw. zurueck zur Weltkarte.
+      this.fokusVer = d.fokus.ver;
+      const b = d.fokus.box;
+      this.baueDetail(b);
+      // Rand und Mindestabstand passend zur Groesse, damit auch Berlin bildschirmfuellend wird.
+      if (b) this.rahmen(wx(b.x0), wx(b.x1), wz(b.y1), wz(b.y0), Math.max(wx(b.x1) - wx(b.x0), wz(b.y0) - wz(b.y1)) * 0.08, 4);
+      else { this.ausgerichtetSichtbar = ''; this.ausgerichtetAuf = null; }
+    }
+    if (!d.fokus.box && (this.ausgerichtetAuf !== S || (!this.frei && sichtbar !== this.ausgerichtetSichtbar))) {
       this.ausgerichtetAuf = S;
       this.ausgerichtetSichtbar = sichtbar;
       this.richteKameraAus(d);
@@ -523,25 +661,39 @@ export class TycoonWelt3D {
     this.syncZeichnung(d);
     this.syncBezirke(d);
     this.syncStaedte(d);
+    this.syncBahnhoefe(d);
+    this.skaliereSchilder();
     this.syncStoerungen(d);
     this.syncZuege(d);
+    this.syncWetter(d);
   }
 
-  /** Kamera auf die sichtbaren Staedte (= eigenes Netz samt Nachbarn) ausrichten. */
+  /**
+   * Kamera auf das eigene Netz (Streckenenden und Bahnhoefe; ohne Strecken: die aufgedeckten Staedte) ausrichten.
+   * Nah genug, dass Staedte, Gleise und Zuege gut zu sehen sind (Abstand hoechstens START_RADIUS) -- weiter
+   * herauszoomen geht mit Mausrad/zwei Fingern.
+   */
   private richteKameraAus(d: TycoonWeltDaten): void {
-    const sichtbar = d.CITIES.filter((_, i) => d.S.vis[i]);
-    if (!sichtbar.length) return;
-    const xs = sichtbar.map((c) => wx(c.x)), zs = sichtbar.map((c) => wz(c.y));
-    const minX = Math.min(...xs), maxX = Math.max(...xs), minZ = Math.min(...zs), maxZ = Math.max(...zs);
+    const S = d.S;
+    const enden: number[] = Array.from(new Set<number>(S.lines.flatMap((l: any) => [l.a, l.b])));
+    const punkte = (enden.length ? enden.map((i) => d.knoten(i)) : d.CITIES.filter((_, i) => S.vis[i]))
+      .concat((S.bf || []).map((b: any) => ({ x: b.x, y: b.y })));
+    if (!punkte.length) return;
+    const xs = punkte.map((c) => wx(c.x)), zs = punkte.map((c) => wz(c.y));
+    this.rahmen(Math.min(...xs), Math.max(...xs), Math.min(...zs), Math.max(...zs), 8, 30, START_RADIUS);
+  }
+
+  /** Kamera so setzen, dass der Bereich (3D-Koordinaten) neben dem Panel ganz zu sehen ist. */
+  private rahmen(minX: number, maxX: number, minZ: number, maxZ: number, rand: number, mindest = 40, hoechstens = 380): void {
     // Auf schmalen Bildschirmen (Hochformat) liegt das Panel unten und deckt ca. 38 % ab.
     const schmal = this.canvas.clientWidth < 700;
     const seitenverhaeltnis = this.canvas.clientWidth / Math.max(1, this.canvas.clientHeight * (schmal ? 0.62 : 1));
-    let radius = Math.max(30, Math.max(maxX - minX, maxZ - minZ) * 1.25 + 16);
+    let radius = Math.max(mindest, Math.max(maxX - minX, maxZ - minZ) * 1.25 + rand);
     if (seitenverhaeltnis < 1.3) radius *= 1.3 / Math.max(0.4, seitenverhaeltnis);
-    radius = Math.min(190, radius);
+    radius = Math.min(hoechstens, radius);
     // Breit: Panel rechts (300 px) -- Mittelpunkt nach rechts schieben. Schmal: Richtung Kamera, damit das Netz oben sitzt.
     const versatzX = schmal ? 0 : radius * 0.14;
-    const versatzZ = schmal ? -radius * 0.18 : -2;
+    const versatzZ = schmal ? -radius * 0.18 : -radius * 0.03;
     this.kamera.setTarget(new Vector3((minX + maxX) / 2 + versatzX, 0, (minZ + maxZ) / 2 + versatzZ));
     this.kamera.radius = radius;
     this.kamera.alpha = -Math.PI / 2;
@@ -555,9 +707,45 @@ export class TycoonWelt3D {
       st.sockel.setEnabled(sichtbar);
       st.schild.setEnabled(sichtbar);
     });
-    const c = d.sel.city !== null ? d.CITIES[d.sel.city] : null;
+    const c = d.sel.city !== null ? d.CITIES[d.sel.city] : d.sel.bf != null ? d.knoten(d.BF0 + d.sel.bf) : null;
     this.auswahlRing.setEnabled(!!c);
     if (c) this.auswahlRing.position.set(wx(c.x), hoeheWelt(c.x, c.y) + 0.4, wz(c.y));
+  }
+
+  /** Namensschilder werden beim Heranzoomen kleiner (sonst verdecken sie die Karte), in der Uebersicht volle Groesse. */
+  private schildSkala = 1;
+  private skaliereSchilder(): void {
+    const f = Math.round(Math.min(1, Math.max(0.12, this.kamera.radius / 110)) * 50) / 50;
+    if (f === this.schildSkala) return;
+    this.schildSkala = f;
+    this.staedte.forEach((st) => { st.schild.scaling.setAll(f); st.schild.position.y = st.sockel.position.y + 1 + 6 * f; });
+    this.bahnhoefe.forEach((m) => { if (m.name.startsWith('bfSchild')) { m.scaling.setAll(f); m.position.y = (m as any).basisY + 0.6 + 3.9 * f; } });
+  }
+
+  /** Bahnsteig und Namensschild je Bahnhof; neu gebaut, wenn Bahnhoefe dazukommen oder wegfallen. */
+  private syncBahnhoefe(d: TycoonWeltDaten): void {
+    const liste: any[] = d.S.bf || [];
+    const key = liste.map((b) => b.id + ':' + b.x + ':' + b.y).join(',');
+    if (key === this.bahnhofSchluessel) return;
+    this.bahnhofSchluessel = key;
+    // Schilder haben eigene Materialien (mit Textur), der Bahnsteig das geteilte farbMat.
+    this.bahnhoefe.forEach((m) => { if (m.name.startsWith('bfSchild')) m.material?.dispose(true, true); m.dispose(); });
+    this.bahnhoefe = [];
+    liste.forEach((b) => {
+      const y = hoeheWelt(b.x, b.y);
+      const steig = CreateBox('bahnsteig' + b.id, { width: 1.6 * G, height: 0.18 * G, depth: 0.7 * G }, this.scene);
+      steig.position.set(wx(b.x), y + 0.09 * G, wz(b.y));
+      steig.material = this.farbMat('#cfc8b8', 1, 0.1);
+      steig.isPickable = false;
+      const schild = CreatePlane('bfSchild' + b.id, { width: 10, height: 2.5 }, this.scene);
+      schild.position.set(wx(b.x), y + 0.6 + 3.9 * this.schildSkala, wz(b.y));
+      schild.scaling.setAll(this.schildSkala);
+      (schild as any).basisY = y;
+      schild.billboardMode = Mesh.BILLBOARDMODE_ALL;
+      schild.material = this.schildMaterial('🚉 ' + d.bfName(b), 'bf' + b.id);
+      schild.isPickable = false;
+      this.bahnhoefe.push(steig, schild);
+    });
   }
 
   private syncStrecken(d: TycoonWeltDaten): void {
@@ -572,7 +760,7 @@ export class TycoonWelt3D {
     // Neue Strecken anlegen, ausgebaute (andere Klasse) neu erzeugen.
     S.lines.forEach((L: any, i: number) => {
       const g = this.strecken[i];
-      if (g && g.cls === (L.cls ?? 0) && g.ol === !!L.ol) return;
+      if (g && g.cls === (L.cls ?? 0) && g.ol === !!L.ol && g.gleise === (L.gleise || 1)) return;
       if (g) this.entferneGleis(g);
       this.strecken[i] = this.baueGleis(L, i);
       neu = true;
@@ -608,7 +796,7 @@ export class TycoonWelt3D {
    */
   private baueGleis(L: any, i: number): Gleis {
     const cls = L.cls ?? 0;
-    const pfad: Vector3[] = L.pts.map((p: any) => new Vector3(wx(p.x), hoeheWelt(p.x, p.y) + 0.05, wz(p.y)));
+    const pfad: Vector3[] = L.pts.map((p: any) => new Vector3(wx(p.x), hoeheWelt(p.x, p.y) + 0.05 * G, wz(p.y)));
     // Quervektor (rechtwinklig zur Fahrtrichtung) je Punkt
     const quer = pfad.map((_p, k) => {
       const a = pfad[Math.max(0, k - 1)], b = pfad[Math.min(pfad.length - 1, k + 1)];
@@ -618,19 +806,22 @@ export class TycoonWelt3D {
       return new Vector3(-t.z, 0, t.x);
     });
     // Schotterbett: Band mit Boeschung, folgt dem Gelaende.
-    const profil = [[-0.85, -0.06], [-0.55, 0.06], [0.55, 0.06], [0.85, -0.06]];
+    // Zweigleisig: zwei Gleisachsen, Schotterbett entsprechend breiter.
+    const achsen = (L.gleise || 1) === 2 ? [-GLEIS_VERSATZ, GLEIS_VERSATZ] : [0], breit = (L.gleise || 1) === 2 ? GLEIS_VERSATZ : 0;
+    const profil = [[-0.85, -0.06], [-0.55, 0.06], [0.55, 0.06], [0.85, -0.06]].map(([q, y]) => [q * G + Math.sign(q) * breit, y * G]);
     const bahnen = profil.map(([q, y]) => pfad.map((p, k) => new Vector3(p.x + quer[k].x * q, p.y + y, p.z + quer[k].z * q)));
     const schotter = CreateRibbon('schotter' + i, { pathArray: bahnen, sideOrientation: Mesh.DOUBLESIDE }, this.scene);
     const schotterMat = this.farbe('schotterMat' + i, '#8d8478');
     schotter.material = schotterMat;
     schotter.isPickable = false;
-    const schienen = [-1, 1].map((seite) => {
-      const weg = pfad.map((p, k) => new Vector3(p.x + quer[k].x * SCHIENE * seite, p.y + 0.12, p.z + quer[k].z * SCHIENE * seite));
-      const m = CreateTube('schiene' + i + '_' + seite, { path: weg, radius: 0.045, tessellation: 5 }, this.scene);
+    const schienen = achsen.flatMap((a) => [-1, 1].map((seite) => {
+      const q0 = a + SCHIENE * seite;
+      const weg = pfad.map((p, k) => new Vector3(p.x + quer[k].x * q0, p.y + 0.12 * G, p.z + quer[k].z * q0));
+      const m = CreateTube('schiene' + i + '_' + a + '_' + seite, { path: weg, radius: 0.045 * G, tessellation: 5 }, this.scene);
       m.material = this.schieneMat;
       m.isPickable = false;
       return m;
-    });
+    }));
     /** Gleichmaessig entlang des Pfads verteilte Matrizen (Drehung in Fahrtrichtung, Versatz quer; hoehe relativ zum Gleis). */
     const verteile = (abstand: number, hoehe: number, querVersatz: number): number[] => {
       const out: number[] = [];
@@ -649,15 +840,17 @@ export class TycoonWelt3D {
       }
       return out;
     };
-    const schwellen = verteile(SCHWELLEN_ABSTAND, 0.07, 0);
+    const schwellen = achsen.flatMap((a) => verteile(SCHWELLEN_ABSTAND, 0.07 * G, a));
     let draht: Mesh | null = null, masten: number[] = [];
     if (L.ol) {
-      masten = verteile(MAST_ABSTAND, -0.05, 0.85);
-      draht = CreateTube('draht' + i, { path: pfad.map((p) => new Vector3(p.x, p.y + 1.5, p.z)), radius: 0.02, tessellation: 4 }, this.scene);
+      masten = verteile(MAST_ABSTAND, -0.05 * G, 0.85 * G + breit);
+      // Je Gleisachse ein Fahrdraht, zu einem Mesh verschmolzen.
+      const draehte = achsen.map((a) => CreateTube('draht' + i + '_' + a, { path: pfad.map((p, k) => new Vector3(p.x + quer[k].x * a, p.y + 1.5 * G, p.z + quer[k].z * a)), radius: 0.02 * G, tessellation: 4 }, this.scene));
+      draht = (draehte.length > 1 ? Mesh.MergeMeshes(draehte, true) : null) ?? draehte[0];
       draht.material = this.drahtMat;
       draht.isPickable = false;
     }
-    return { cls, ol: !!L.ol, schotter, schienen, draht, schotterMat, holz: cls >= 2 ? [] : schwellen, beton: cls >= 2 ? schwellen : [], masten };
+    return { cls, ol: !!L.ol, gleise: L.gleise || 1, schotter, schienen, draht, schotterMat, holz: cls >= 2 ? [] : schwellen, beton: cls >= 2 ? schwellen : [], masten };
   }
 
   private farbMat(hex: string, alpha: number, leuchten = 0.25): StandardMaterial {
@@ -783,7 +976,9 @@ export class TycoonWelt3D {
         w.setEnabled(true);
         const p = d.posAt(L, s);
         const dx = Math.cos(p.ang) * t.dir, dz = -Math.sin(p.ang) * t.dir;
-        w.position.set(wx(p.x), hoeheWelt(p.x, p.y) + 0.19, wz(p.y));
+        // Zweigleisig: jede Fahrtrichtung auf ihrem eigenen Gleis.
+        const v = (L.gleise || 1) === 2 ? GLEIS_VERSATZ : 0;
+        w.position.set(wx(p.x) + dz * v, hoeheWelt(p.x, p.y) + 0.19 * G, wz(p.y) - dx * v);
         w.rotation.y = Math.atan2(dx, dz) + ((w as any).umgedreht ? Math.PI : 0);
       });
     }

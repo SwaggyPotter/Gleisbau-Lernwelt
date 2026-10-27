@@ -1,13 +1,21 @@
 /**
  * Erzeugt src/app/modules/zusatz/tycoon/tycoon-gebiete-daten.ts: alle kaufbaren Gebiete des Tycoon.
- * Deutschland = die 400 Landkreise und kreisfreien Staedte (NUTS-3), dazu die NUTS-3-Regionen der Nachbarlaender
- * im Kartenausschnitt. Berlin und Hamburg werden zur Laufzeit durch ihre Bezirke ersetzt (tycoon-bezirke-daten.ts, OSM).
+ * Deutschland = die 400 Landkreise und kreisfreien Staedte, dazu Regionen (Departements, Provinzen, Kantone,
+ * Woiwodschaften ...) der Nachbarlaender im Kartenausschnitt. Berlin und Hamburg werden zur Laufzeit durch ihre
+ * Bezirke ersetzt (tycoon-bezirke-daten.ts, OSM).
  *
- * Quelle: Eurostat GISCO, NUTS 2024, 1:1 Mio., TopoJSON (EPSG:4326)
- *   https://gisco-services.ec.europa.eu/distribution/v2/nuts/topojson/NUTS_RG_01M_2024_4326_LEVL_3.json
- *   © EuroGeographics bezueglich der Verwaltungsgrenzen. Nutzung nur nicht-kommerziell und mit Quellenangabe.
+ * Quellen (beide auch kommerziell nutzbar):
+ *   Deutschland: BKG VG250 (Ebenen, Stand 01.01.), Ebene VG250_KRS, Datenlizenz Deutschland - Namensnennung 2.0,
+ *     "© GeoBasis-DE / BKG (Jahr)". https://daten.gdz.bkg.bund.de/produkte/vg/vg250_ebenen_0101/aktuell/
+ *     Als Kennung dient das Feld NUTS (gleiche IDs wie frueher mit Eurostat-Daten, Spielstaende bleiben gueltig).
+ *   Ausland: Natural Earth 1:10 Mio. admin_1_states_provinces (Public Domain).
  *
- * Aufruf: node tools/tycoon-karte/erzeuge-gebiete.cjs <pfad/zu/NUTS_RG_01M_2024_4326_LEVL_3.json>
+ * Vorbereitung mit mapshaper (npx mapshaper), im Ordner mit den entpackten Daten:
+ *   npx mapshaper -i VG250_KRS.shp -filter "GF==4" -each "A=this.area" -sort A descending  *     -dissolve NUTS copy-fields=GEN,BEZ -proj wgs84 -o format=geojson de.geojson
+ *   npx mapshaper -i de.geojson ne_10m_admin_1_states_provinces.shp combine-files -rename-layers de,aus  *     -filter target=aus "<LAENDER ohne DE>.indexOf(iso_a2)>=0" -filter-fields target=aus iso_a2,name,name_de,region,iso_3166_2  *     -erase target=aus de -merge-layers target=de,aus force name=alle -clean gap-fill-area=20km2  *     -o format=topojson quantization=1000000 gebiete-topo.json
+ * (-erase/-clean: die groben Natural-Earth-Grenzen werden an die genaue deutsche Grenze angepasst, Luecken gefuellt.)
+ *
+ * Aufruf: node tools/tycoon-karte/erzeuge-gebiete.cjs <pfad/zu/gebiete-topo.json>
  *
  * Die Grenzen bleiben als gemeinsame Boegen (TopoJSON-Arcs) erhalten: jeder Bogen wird nur einmal vereinfacht,
  * deshalb passen Nachbargebiete ohne Luecken aneinander. Je Bogen wird die Grenzart gespeichert
@@ -38,22 +46,40 @@ const flaeche = (r) => { let a = 0; for (let i = 0, j = r.length - 1; i < r.leng
 
 /* ---------- Gebiete auswaehlen ---------- */
 const geoms = Object.values(topo.objects)[0].geometries;
+/** Auslaendische Regionen bekommen 6-stellige Kennungen "<Land><Landesteil>X<Nr>" (Basis 36, nie gleich einer
+ * 5-stelligen NUTS-ID); die ersten 3 Zeichen sind wie bei NUTS-1 der Landesteil. Feste Sortierung nach ISO-Code. */
+const ausland = geoms.filter((g) => g.properties.iso_a2).map((g) => g.properties)
+  .sort((a, b) => (a.iso_3166_2 < b.iso_3166_2 ? -1 : 1));
+const auslandId = new Map();
+const teile = new Map();
+for (const p of ausland) {
+  const land = p.iso_a2;
+  if (!teile.has(land)) teile.set(land, [...new Set(ausland.filter((q) => q.iso_a2 === land).map((q) => q.region || ''))].sort());
+  const t = teile.get(land).indexOf(p.region || '');
+  const nr = ausland.filter((q) => q.iso_a2 === land).indexOf(p);
+  auslandId.set(p.iso_3166_2, land + t.toString(36).toUpperCase() + 'X' + nr.toString(36).toUpperCase().padStart(2, '0'));
+}
 const gebiete = [];
 for (const g of geoms) {
   const p = g.properties;
-  if (!LAENDER.has(p.CNTR_CODE)) continue;
+  const land = p.iso_a2 || 'DE';
+  if (!LAENDER.has(land)) continue;
   const polys = g.type === 'Polygon' ? [g.arcs] : g.type === 'MultiPolygon' ? g.arcs : [];
   // Ringe (inkl. Loecher, gezeichnet wird mit evenodd); winzige Inseln weglassen, das groesste Teil bleibt immer.
   let ringe = polys.flat().map((refs) => ({ refs, f: flaeche(ringPunkte(refs)) }));
+  if (!ringe.length) continue;
   const fmax = Math.max(...ringe.map((r) => r.f));
   ringe = ringe.filter((r) => r.f === fmax || r.f > 3);
   const pts = ringe.flatMap((r) => ringPunkte(r.refs));
   const imBild = pts.some(([x, y]) => x > 0 && x < KW && y > 0 && y < KH);
   if (!imBild) continue;
-  let n = p.CNTR_CODE === 'DE' ? p.NUTS_NAME : p.NAME_LATN, typ = p.CNTR_CODE === 'DE' ? 0 : 3;
-  const m = n.match(/^(.*), (Kreisfreie Stadt|Stadtkreis|Landkreis)$/);
-  if (m) { n = m[1]; typ = m[2] === 'Landkreis' ? 0 : 1; }
-  gebiete.push({ id: p.NUTS_ID, n: n.trim(), land: p.CNTR_CODE, typ, ringe: ringe.map((r) => r.refs) });
+  let id, n, typ;
+  if (land === 'DE') {
+    id = p.NUTS; n = p.GEN; typ = p.BEZ === 'Kreisfreie Stadt' || p.BEZ === 'Stadtkreis' ? 1 : 0;
+  } else {
+    id = auslandId.get(p.iso_3166_2); n = (p.name_de || p.name).replace(/^Département /, ''); typ = 3;
+  }
+  gebiete.push({ id, n: n.trim(), land, typ, ringe: ringe.map((r) => r.refs) });
 }
 
 /* ---------- Boegen klassifizieren und vereinfachen ---------- */
@@ -135,11 +161,11 @@ for (const [k, liste] of offen) {
 const ausgabe = gebiete.map((g) => ({ id: g.id, n: g.n, l: g.land, t: g.typ, r: g.ringe.map((refs) => refs.map((r) => (r < 0 ? ~neuIndex.get(~r) : neuIndex.get(r)))) }));
 const ziel = path.join(__dirname, '..', '..', 'src', 'app', 'modules', 'zusatz', 'tycoon', 'tycoon-gebiete-daten.ts');
 const text = `/* Automatisch erzeugt von tools/tycoon-karte/erzeuge-gebiete.cjs -- nicht von Hand aendern.
- * Verwaltungsgrenzen: Eurostat GISCO, NUTS 2024 (1:1 Mio.), © EuroGeographics bezueglich der Verwaltungsgrenzen.
- * Nutzung nur nicht-kommerziell und mit Quellenangabe.
+ * Verwaltungsgrenzen: Deutschland © GeoBasis-DE / BKG (VG250, Datenlizenz Deutschland - Namensnennung 2.0),
+ * Ausland: Natural Earth (Public Domain). Beides auch kommerziell nutzbar (BKG mit Quellenangabe).
  * GEBIET_BOEGEN: gemeinsame Grenzlinien in Weltkoordinaten x 10, delta-kodiert ("x0,y0,dx1,dy1,...").
  * GEBIET_STUFE: Grenzart je Bogen (1 Kreis, 2 Bundesland/Landesteil, 3 Staat/Kueste).
- * GEBIETE_ROH: NUTS-ID, Name n, Land l, Typ t (0 Landkreis, 1 kreisfreie Stadt, 3 Region im Ausland),
+ * GEBIETE_ROH: Kennung (DE: NUTS-ID, Ausland: <Land><Teil>X<Nr>), Name n, Land l, Typ t (0 Landkreis, 1 kreisfreie Stadt, 3 Region im Ausland),
  *   Ringe r als Bogen-Indizes (negativ ~i = rueckwaerts; Loecher zaehlen nach der evenodd-Regel). */
 /* eslint-disable */
 export const GEBIET_BOEGEN: string[] = ${JSON.stringify(kodiert)};

@@ -22,6 +22,8 @@ export interface ZugTyp {
   el: boolean;
   /** Dampfbetrieb: braucht ein Kohlelager in einer der beiden Endstaedte, sonst Kohlemangel. */
   kohle?: boolean;
+  /** Waren, die der Zug laden kann (Index in WAREN, tycoon-gueter.ts); ohne = Personenzug. */
+  gueter?: number[];
   /** Gleisverschleiss je Fahrt (Faktor). */
   wear: number;
   /** 2D-Farben: Lok, Wagen. */
@@ -32,16 +34,16 @@ export interface ZugTyp {
 }
 
 export const ZUEGE: ZugTyp[] = [
-  { n: 'Dampflok (Gebrauchtkauf)', kmh: 80, cost: 1200, rent: 0.55, upkeep: 1.6, len: 3, lvl: 1, el: false, kohle: true, wear: 1.1, col: '#7a5230', col2: '#b08a64',
+  { n: 'Dampflok (Gebrauchtkauf)', kmh: 80, cost: 1200, rent: 0.55, upkeep: 1.6, len: 3, lvl: 1, el: false, kohle: true, gueter: [0, 1], wear: 1.1, col: '#7a5230', col2: '#b08a64',
     modell: { lok: 'train-locomotive-a', wagen: ['train-carriage-coal', 'train-carriage-wood'] } },
-  { n: 'Diesellok (Güterzug)', kmh: 120, cost: 2500, rent: 1, upkeep: 1, len: 3, lvl: 1, el: false, wear: 1, col: '#ff7a00', col2: '#ffb066',
+  { n: 'Diesellok (Güterzug)', kmh: 120, cost: 2500, rent: 1, upkeep: 1, len: 3, lvl: 1, el: false, gueter: [2, 5], wear: 1, col: '#ff7a00', col2: '#ffb066',
     modell: { lok: 'train-diesel-a', wagen: ['train-carriage-container-red', 'train-carriage-container-blue'] } },
   { n: 'S-Bahn-Triebzug', kmh: 160, cost: 4500, rent: 1.7, upkeep: 1.1, len: 3, lvl: 3, el: true, wear: 0.9, col: '#2e86ab', col2: '#8cc1d6',
     modell: { lok: 'train-electric-city-a', wagen: ['train-electric-city-b', 'train-electric-city-c'] } },
   { n: 'ICE-Triebzug (300 km/h)', kmh: 300, cost: 18000, rent: 3.2, upkeep: 1.3, len: 5, lvl: 8, el: true, wear: 1.2, col: '#d9d9d9', col2: '#9aa5b1',
     modell: { lok: 'train-electric-bullet-a', wagen: ['train-electric-bullet-b', 'train-electric-bullet-c'], ende: 'train-electric-bullet-a' } },
   // Ausbau 2026-10-20
-  { n: 'Rangierlok mit Holzwagen', kmh: 70, cost: 900, rent: 0.45, upkeep: 0.6, len: 3, lvl: 1, el: false, wear: 1, col: '#e0b000', col2: '#a0703a',
+  { n: 'Rangierlok mit Holzwagen', kmh: 70, cost: 900, rent: 0.45, upkeep: 0.6, len: 3, lvl: 1, el: false, gueter: [0], wear: 1, col: '#e0b000', col2: '#a0703a',
     modell: { lok: 'train-diesel-c', wagen: ['train-carriage-lumber', 'train-carriage-flatbed-wood'] } },
   { n: 'Dampf-Personenzug', kmh: 100, cost: 2800, rent: 1.1, upkeep: 1.3, len: 3, lvl: 2, el: false, kohle: true, wear: 1, col: '#3b6e3b', col2: '#c0703a',
     modell: { lok: 'train-locomotive-passenger-a', wagen: ['train-locomotive-passenger-b'] } },
@@ -49,7 +51,7 @@ export const ZUEGE: ZugTyp[] = [
     modell: { lok: 'train-diesel-box-a', wagen: ['train-diesel-box-b'] } },
   { n: 'Regional-Express (Doppelstock)', kmh: 160, cost: 6000, rent: 2, upkeep: 1.15, len: 4, lvl: 3, el: true, wear: 1, col: '#c0392b', col2: '#e8a09a',
     modell: { lok: 'train-electric-square-a', wagen: ['train-electric-double-b'] } },
-  { n: 'Schwerer Güterzug (E-Lok)', kmh: 120, cost: 7000, rent: 2.8, upkeep: 1.5, len: 5, lvl: 4, el: true, wear: 1.6, col: '#6d4c41', col2: '#a1887f',
+  { n: 'Schwerer Güterzug (E-Lok)', kmh: 120, cost: 7000, rent: 2.8, upkeep: 1.5, len: 5, lvl: 4, el: true, gueter: [0, 1, 2, 3, 4, 5, 6], wear: 1.6, col: '#6d4c41', col2: '#a1887f',
     modell: { lok: 'train-electric-square-a', wagen: ['train-carriage-tank-large', 'train-carriage-container-green', 'train-carriage-dirt', 'train-carriage-lumber'] } },
   { n: 'Intercity', kmh: 200, cost: 10000, rent: 2.6, upkeep: 1.25, len: 5, lvl: 5, el: true, wear: 1, col: '#f5f5f5', col2: '#d0d6dc',
     modell: { lok: 'train-electric-square-a', wagen: ['train-electric-square-b', 'train-electric-square-c'], ende: 'train-electric-square-a' } },
@@ -57,6 +59,13 @@ export const ZUEGE: ZugTyp[] = [
     modell: { lok: 'train-electric-bullet-a', wagen: ['train-electric-bullet-c'], ende: 'train-electric-bullet-a' } },
   { n: 'Hochgeschwindigkeitszug (lang)', kmh: 300, cost: 21000, rent: 4, upkeep: 1.45, len: 6, lvl: 9, el: true, wear: 1.3, col: '#ffffff', col2: '#c5ccd3',
     modell: { lok: 'train-electric-bullet-a', wagen: ['train-electric-bullet-b', 'train-electric-bullet-c'], ende: 'train-electric-bullet-a' } },
+  // Gueterverkehr 2026-10-27
+  { n: 'Kesselwagenzug (Chemie)', kmh: 100, cost: 3200, rent: 1.15, upkeep: 1.1, len: 4, lvl: 3, el: false, gueter: [3], wear: 1.2, col: '#5d6d7e', col2: '#aab7c4',
+    modell: { lok: 'train-diesel-b', wagen: ['train-carriage-tank', 'train-carriage-tank-large'] } },
+  { n: 'Getreidezug (Schüttgut)', kmh: 100, cost: 2600, rent: 1, upkeep: 1, len: 4, lvl: 2, el: false, gueter: [4, 1], wear: 1.1, col: '#c9a227', col2: '#e3c76a',
+    modell: { lok: 'train-diesel-a', wagen: ['train-carriage-box', 'train-carriage-dirt'] } },
+  { n: 'Autotransportzug (E-Lok)', kmh: 120, cost: 5500, rent: 1.6, upkeep: 1.2, len: 5, lvl: 4, el: true, gueter: [6, 5], wear: 1.2, col: '#1f618d', col2: '#85929e',
+    modell: { lok: 'train-electric-square-a', wagen: ['train-carriage-flatbed'] } },
 ];
 
 export interface StreckenKlasse {
@@ -105,6 +114,11 @@ export const upgradePreis = (zugKosten: number, faktor: number): number => Math.
 
 /** Gebaeude in Staedten. */
 export const KOHLELAGER = { n: 'Kohlelager', preis: 2500, text: 'Versorgt Dampfloks auf allen Strecken, die hier enden. Ohne Kohle: nur 60 % Einnahmen und 80 % Tempo.' };
+/**
+ * Bahnhofsgebaeude: hoechstens eins je eigenem Gebiet. Bahnhoefe (und Staedte) werden mit Strecken verbunden;
+ * jeder Bahnhof bringt je angeschlossener Strecke laufend Geld (weniger bei Wartungsstau, halb bei Stoerung).
+ */
+export const BAHNHOF = { n: 'Bahnhof', preis: 1000, proStrecke: 0.4, text: 'Bringt je angeschlossener Strecke laufend Geld. Wartungsstau und Störungen auf der Strecke senken das.' };
 /** Oberleitung je Strecke: Preis je Laengeneinheit. */
 export const OBERLEITUNG = { n: 'Oberleitung', proEinheit: 4, lvl: 2, text: 'Strom für E-Loks und Triebzüge. Ohne Oberleitung fahren hier nur Diesel- und Dampfloks.' };
 
@@ -124,14 +138,32 @@ export const SKINS: Skin[] = [
 /** Ausruestung: einmal kaufen, wirkt dauerhaft auf das ganze Unternehmen. */
 export interface Ausruestung { id: string; n: string; text: string; lvl: number; preis: number; pokale: number }
 export const AUSRUESTUNG: Ausruestung[] = [
-  { id: 'stopfmaschine', n: 'Stopfmaschine', text: 'Stopft den Schotter unter den Schwellen nach: Gleisverschleiß −25 %.', lvl: 2, preis: 6000, pokale: 0 },
-  { id: 'schleifzug', n: 'Schienenschleifzug', text: 'Schleift Riffeln und Head Checks weg: Störungen kommen 30 % seltener.', lvl: 3, preis: 9000, pokale: 0 },
+  { id: 'stopfmaschine', n: 'Stopfmaschine', text: 'Stopft den Schotter unter den Schwellen nach: Gleisverschleiß −25 %. Baustellen „Stopfen“ ohne Miete.', lvl: 2, preis: 6000, pokale: 0 },
+  { id: 'schleifzug', n: 'Schienenschleifzug', text: 'Schleift Riffeln und Head Checks weg: Störungen kommen 30 % seltener. Schleif-Baustellen ohne Miete.', lvl: 3, preis: 9000, pokale: 0 },
   { id: 'werkstatt', n: 'Moderne Werkstatt', text: 'Wartungsstau kostet nur noch halb so viele Einnahmen.', lvl: 4, preis: 12000, pokale: 0 },
   { id: 'messzug', n: 'Gleismesszug', text: 'Findet Fehler früh: +50 % Bonus für selbst behobene Störungen.', lvl: 5, preis: 15000, pokale: 0 },
   { id: 'fahrgastinfo', n: 'Fahrgastinformation', text: 'Anzeigen und App für Fahrgäste: Miete +10 %.', lvl: 6, preis: 20000, pokale: 0 },
-  { id: 'umbauzug', n: 'Umbauzug', text: 'Erneuert Gleise in einem Durchgang: Streckenausbau −20 %.', lvl: 7, preis: 30000, pokale: 0 },
+  { id: 'umbauzug', n: 'Umbauzug', text: 'Erneuert Gleise in einem Durchgang: Streckenausbau −20 %. Gleiserneuerung ohne Miete.', lvl: 7, preis: 30000, pokale: 0 },
+  { id: 'reinigung', n: 'Bettungsreinigungsmaschine', text: 'Eigene Maschine für die Bettungsreinigung: Baustellen ohne Miete.', lvl: 4, preis: 14000, pokale: 0 },
   { id: 'schaufel', n: 'Goldene Schaufel (Duell-Preis)', text: 'Ehrenpreis für Duell-Profis: Miete +5 %.', lvl: 1, preis: 0, pokale: 12 },
 ];
+
+/**
+ * Testphase (Tim, 2026-10-26): alles kostenlos und ohne Level-Sperren, damit das Spiel frei ausprobiert werden kann.
+ * Zum Abschalten auf false setzen -- dann gelten wieder die Preise und Level oben.
+ */
+export const TESTMODUS = true;
+if (TESTMODUS) {
+  ZUEGE.forEach((z) => { z.cost = 0; z.lvl = 1; });
+  KLASSEN.forEach((k) => (k.lvl = 1));
+  ZUG_FARBEN.forEach((f) => (f.preis = 0));
+  ZUG_UPGRADES.forEach((u) => { u.faktor = 0; u.lvl = 1; });
+  [...SKINS, ...AUSRUESTUNG].forEach((x) => { x.preis = 0; x.pokale = 0; x.lvl = 1; });
+  KOHLELAGER.preis = 0;
+  BAHNHOF.preis = 0;
+  OBERLEITUNG.proEinheit = 0;
+  OBERLEITUNG.lvl = 1;
+}
 
 /** Benoetigte Erfahrungspunkte fuer Level 1, 2, 3, ... */
 export const LEVEL_XP = [0, 50, 150, 300, 500, 800, 1200, 1700, 2300, 3000];

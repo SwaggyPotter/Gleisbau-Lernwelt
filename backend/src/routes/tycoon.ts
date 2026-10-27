@@ -16,7 +16,8 @@ export const tycoonRouter = Router();
 const stateSchema = z.object({
   money: z.number().finite().min(-1e9).max(1e12),
   time: z.number().finite().min(0),
-  lines: z.array(z.object({ a: z.number().int().min(0).max(99), b: z.number().int().min(0).max(99) }).passthrough()).max(80),
+  // Streckenenden: 0..99 Stadt, ab 1000 eigener Bahnhof (Bahnhoefe stehen in state.bf).
+  lines: z.array(z.object({ a: z.number().int().min(0).max(99_999), b: z.number().int().min(0).max(99_999) }).passthrough()).max(80),
   own: z.array(z.object({}).passthrough()).max(400),
 }).passthrough();
 
@@ -253,14 +254,14 @@ const UEBERNAHME_FAKTOR = 3;
 
 tycoonRouter.get('/welt', asyncHandler(async (req, res) => {
   const ich = req.user!.id;
-  // Andere Spieler je Stadt (Endpunkte ihrer Strecken), davon "aktiv" = in den letzten 15 Minuten gespeichert.
+  // Andere Spieler je Stadt (Endpunkte ihrer Strecken; Bahnhoefe ab 1000 zaehlen nicht), davon "aktiv" = in den letzten 15 Minuten gespeichert.
   const staedte = await pool.query(
     `SELECT stadt, count(DISTINCT user_id)::int AS spieler,
             count(DISTINCT user_id) FILTER (WHERE updated_at > now() - interval '15 minutes')::int AS aktiv
        FROM (SELECT s.user_id, s.updated_at, (l->>'a')::int AS stadt FROM tycoon_saves s, jsonb_array_elements(COALESCE(s.state->'lines', '[]'::jsonb)) l
              UNION ALL
              SELECT s.user_id, s.updated_at, (l->>'b')::int FROM tycoon_saves s, jsonb_array_elements(COALESCE(s.state->'lines', '[]'::jsonb)) l) x
-      WHERE user_id <> $1
+      WHERE user_id <> $1 AND stadt < 1000
       GROUP BY stadt`,
     [ich],
   );
@@ -273,18 +274,21 @@ tycoonRouter.get('/welt', asyncHandler(async (req, res) => {
        LEFT JOIN tycoon_clans c ON c.id = m.clan_id`,
   );
   const meinClan = await pool.query('SELECT clan_id FROM tycoon_clan_mitglieder WHERE user_id = $1', [ich]);
-  // Strecken der anderen Clan-Mitglieder (fuer Bau-Regel und Clan-Bonus im Client).
+  // Strecken der anderen Clan-Mitglieder zwischen Staedten (fuer Bau-Regel und Clan-Bonus im Client; ihre Bahnhoefe kennt der Client nicht).
   const clanStrecken = await pool.query(
     `SELECT DISTINCT (l->>'a')::int AS a, (l->>'b')::int AS b
        FROM tycoon_clan_mitglieder m
        JOIN tycoon_clan_mitglieder ich ON ich.clan_id = m.clan_id AND ich.user_id = $1
        JOIN tycoon_saves s ON s.user_id = m.user_id, jsonb_array_elements(COALESCE(s.state->'lines', '[]'::jsonb)) l
-      WHERE m.user_id <> $1`,
+      WHERE m.user_id <> $1 AND (l->>'a')::int < 1000 AND (l->>'b')::int < 1000`,
     [ich],
   );
   const gut = await pool.query('SELECT count(*)::int AS n FROM tycoon_gutschriften WHERE user_id = $1 AND NOT abgeholt', [ich]);
+  const projekt = await clanProjekt(meinClan.rows[0]?.clan_id ?? null);
   res.json({
     ich: { id: ich, clanId: meinClan.rows[0]?.clan_id ?? null },
+    clanProjekt: projekt.aktiv,
+    clanBoni: projekt.boni,
     staedte: staedte.rows.map((r) => ({ stadt: r.stadt, spieler: r.spieler, aktiv: r.aktiv })),
     bezirke: bezirke.rows.map((r) => ({
       stadt: r.stadt, bezirk: r.bezirk, ownerId: r.owner, ownerName: r.full_name, basis: r.basis,
@@ -362,7 +366,7 @@ tycoonRouter.post('/gutschriften/abholen', asyncHandler(async (req, res) => {
  */
 tycoonRouter.post('/verbindung', asyncHandler(async (req, res) => {
   const { nameA, nameB, gebiete } = z.object({
-    a: z.number().int().min(0).max(99), b: z.number().int().min(0).max(99),
+    a: z.number().int().min(0).max(99_999), b: z.number().int().min(0).max(99_999),
     nameA: z.string().max(40), nameB: z.string().max(40),
     gebiete: z.array(z.number().int().min(0).max(2_000_000_000)).max(2).default([]),
   }).parse(req.body);
@@ -384,6 +388,59 @@ tycoonRouter.post('/verbindung', asyncHandler(async (req, res) => {
     }
   }
   res.json({ mitglieder: rows.length, xp: CLAN_BAU_XP });
+}));
+
+/* ---------- Clan-Grossprojekte ---------- */
+/** Ziel (Euro bzw. Gegenwert) je Projektart; Wirkung und Texte im Frontend (tycoon-clanprojekte.ts). */
+const CLAN_PROJEKTE: Record<string, number> = { nbs: 150_000, bruecke: 100_000, tunnel: 200_000 };
+/** Erfahrung fuer jedes Mitglied, wenn ein Projekt fertig wird. */
+const CLAN_PROJEKT_XP = 100;
+
+/** Laufendes Projekt des Clans (mit Beitraegen je Mitglied) und Arten der fertigen Projekte. */
+const clanProjekt = async (clanId: string | null) => {
+  if (!clanId) return { aktiv: null, boni: [] as string[] };
+  const { rows } = await pool.query('SELECT id, art, ziel, stand, fertig FROM tycoon_clan_projekte WHERE clan_id = $1 ORDER BY erstellt DESC', [clanId]);
+  const boni = Array.from(new Set(rows.filter((r) => r.fertig).map((r) => r.art as string)));
+  const a = rows.find((r) => !r.fertig);
+  if (!a) return { aktiv: null, boni };
+  const b = await pool.query(
+    `SELECT u.full_name AS name, sum(b.betrag)::int AS betrag FROM tycoon_clan_beitraege b JOIN users u ON u.id = b.user_id
+      WHERE b.projekt_id = $1 GROUP BY u.full_name ORDER BY 2 DESC LIMIT 20`, [a.id]);
+  return { aktiv: { id: a.id, art: a.art, ziel: a.ziel, stand: a.stand, beitraege: b.rows }, boni };
+};
+
+tycoonRouter.post('/clan-projekt', asyncHandler(async (req, res) => {
+  const { art } = z.object({ art: z.enum(['nbs', 'bruecke', 'tunnel']) }).parse(req.body);
+  const m = await pool.query('SELECT clan_id FROM tycoon_clan_mitglieder WHERE user_id = $1', [req.user!.id]);
+  const clanId = m.rows[0]?.clan_id;
+  if (!clanId) throw httpError(409, 'Du bist in keinem Clan.');
+  const offen = await pool.query('SELECT 1 FROM tycoon_clan_projekte WHERE clan_id = $1 AND fertig IS NULL', [clanId]);
+  if (offen.rowCount) throw httpError(409, 'Dein Clan baut schon an einem Projekt.');
+  await pool.query('INSERT INTO tycoon_clan_projekte (clan_id, art, ziel) VALUES ($1, $2, $3)', [clanId, art, CLAN_PROJEKTE[art]]);
+  res.json((await clanProjekt(clanId)).aktiv);
+}));
+
+/** Beitrag zum laufenden Projekt: Geld (vom Client abgezogen) oder Arbeitsschicht (Fachfragen, Gegenwert). */
+tycoonRouter.post('/clan-projekt/beitrag', asyncHandler(async (req, res) => {
+  const { betrag, schicht } = z.object({ betrag: z.number().int().min(1).max(50_000), schicht: z.boolean().default(false) }).parse(req.body);
+  const ich = req.user!.id;
+  const m = await pool.query('SELECT clan_id FROM tycoon_clan_mitglieder WHERE user_id = $1', [ich]);
+  const clanId = m.rows[0]?.clan_id;
+  if (!clanId) throw httpError(409, 'Du bist in keinem Clan.');
+  const { rows } = await pool.query(
+    `UPDATE tycoon_clan_projekte SET stand = LEAST(ziel, stand + $2),
+            fertig = CASE WHEN stand + $2 >= ziel THEN now() ELSE NULL END
+      WHERE clan_id = $1 AND fertig IS NULL RETURNING id, art, ziel, stand, fertig`, [clanId, betrag]);
+  const p = rows[0];
+  if (!p) throw httpError(409, 'Dein Clan hat gerade kein laufendes Projekt.');
+  await pool.query('INSERT INTO tycoon_clan_beitraege (projekt_id, user_id, betrag, schicht) VALUES ($1, $2, $3, $4)', [p.id, ich, betrag, schicht]);
+  if (p.fertig) {
+    await pool.query(
+      `INSERT INTO tycoon_gutschriften (user_id, betrag, xp, text)
+       SELECT user_id, 0, $2, 'Clan-Großprojekt fertig – der Bonus gilt jetzt für alle Mitglieder!' FROM tycoon_clan_mitglieder WHERE clan_id = $1`,
+      [clanId, CLAN_PROJEKT_XP]);
+  }
+  res.json({ stand: p.stand, ziel: p.ziel, fertig: !!p.fertig });
 }));
 
 /* ---------- Clans ---------- */

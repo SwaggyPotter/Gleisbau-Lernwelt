@@ -44,8 +44,11 @@
           <span id="day">Tag 1</span>
           <span id="lvl" class="lvl"></span>
           <span class="sp" id="speeds">
-            <button data-act="arbeiten" class="shopbtn">🛠 Arbeiten</button>
-            <button data-act="shop" class="shopbtn">🛒 Shop</button>
+            <button data-act="arbeiten" class="shopbtn" title="Arbeiten">🛠<span class="lbl"> Arbeiten</span></button>
+            <button data-act="personal" class="shopbtn" title="Personal">👷<span class="lbl"> Personal</span></button>
+            <button data-act="auftraege" class="shopbtn" title="Aufträge">📦<span class="lbl"> Aufträge</span></button>
+            <button data-act="album" class="shopbtn" title="Sammelalbum">🏅<span class="lbl"> Album</span></button>
+            <button data-act="shop" class="shopbtn" title="Shop">🛒<span class="lbl"> Shop</span></button>
             <button data-act="speed" data-arg="0">⏸</button>
             <button data-act="speed" data-arg="1" class="on">1×</button>
             <button data-act="speed" data-arg="2">2×</button>
@@ -55,6 +58,7 @@
         <canvas id="c"></canvas>
         <canvas id="c3d" #c3d *ngIf="ansicht3d"></canvas>
         <aside id="panel"></aside>
+        <button type="button" id="weltbtn" data-act="welt">🌍 Zur Weltkarte</button>
         <div id="hint"></div>
         <div id="toast"></div>
         <div id="modal"><div class="card" id="mcard"></div></div>

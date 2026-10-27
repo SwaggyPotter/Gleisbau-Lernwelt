@@ -11,7 +11,7 @@ import type { Engine3D } from '../shared/engine3d/engine3d';
 export class ModellePage implements AfterViewInit, OnDestroy {
   @ViewChild('leinwand', { static: true }) leinwand!: ElementRef<HTMLCanvasElement>;
 
-  readonly kategorien: ('Alle' | ModellKategorie)[] = ['Alle', 'Lok', 'Wagen', 'Gleis'];
+  readonly kategorien: ('Alle' | ModellKategorie)[] = ['Alle', 'Lok', 'Wagen', 'Gleis', 'Gebäude'];
   kategorie: 'Alle' | ModellKategorie = 'Lok';
   ausgewaehlt: ModellEintrag | null = null;
   diorama = false;

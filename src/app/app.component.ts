@@ -8,6 +8,8 @@ import { PresenceService } from './core/presence/presence.service';
 import { firstValueFrom } from 'rxjs';
 import { NeueErrungenschaft } from './core/auth/services/profil-sync.service';
 import { ThemeService } from './core/theme/theme.service';
+import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -33,6 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly siteGateState: SiteGateStateService,
     private readonly auth: AuthService,
     private readonly presence: PresenceService,
+    private readonly swUpdate: SwUpdate,
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +45,21 @@ export class AppComponent implements OnInit, OnDestroy {
     this.theme.init();
     window.addEventListener('glw-errungenschaft-freigeschaltet', this.onErrungenschaft);
     this.publicModeSub = this.siteGateState.publicMode$.subscribe(v => (this.publicMode = v));
+    this.neueVersionLaden();
+  }
+
+  /**
+   * Der Service Worker liefert sonst nach einem Deploy weiter die alte App aus (auch nach Strg+F5).
+   * Neue Version gefunden -> aktivieren und einmal neu laden. Beim Start und alle 10 Minuten nachsehen.
+   */
+  private neueVersionLaden(): void {
+    if (!this.swUpdate.isEnabled) return;
+    this.swUpdate.versionUpdates
+      .pipe(filter((e): e is VersionReadyEvent => e.type === 'VERSION_READY'))
+      .subscribe(() => { void this.swUpdate.activateUpdate().then(() => document.location.reload()); });
+    const pruefe = () => { this.swUpdate.checkForUpdate().catch(() => undefined); };
+    pruefe();
+    setInterval(pruefe, 10 * 60 * 1000);
   }
 
   /** Gespeicherte Gate-Zugangsdaten fuer den Admin-Login nutzen, falls noch keine Sitzung besteht. */

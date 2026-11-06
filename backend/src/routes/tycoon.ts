@@ -1,8 +1,10 @@
 import { Router } from 'express';
+import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { pool } from '../db/pool';
 import { asyncHandler } from '../middleware/async-handler';
 import { httpError } from '../middleware/error-handler';
+import { gemeinschaftRouter, trassenTakt, wertungTakt } from './tycoon-gemeinschaft';
 
 /**
  * Gleisbau Tycoon (nur angemeldete Nutzer, siehe api.ts: requireAuth).
@@ -12,6 +14,7 @@ import { httpError } from '../middleware/error-handler';
  * daher nur grob plausibilisiert, nicht manipulationssicher.
  */
 export const tycoonRouter = Router();
+tycoonRouter.use(gemeinschaftRouter);
 
 const stateSchema = z.object({
   money: z.number().finite().min(-1e9).max(1e12),
@@ -247,10 +250,8 @@ tycoonRouter.get('/view/:userId', asyncHandler(async (req, res) => {
 const AKTIV_TAGE = 7;
 /** Erfahrung fuer Clan-Mitglieder in den Endstaedten einer neuen Strecke. */
 const CLAN_BAU_XP = 20;
-/** Wie lange ein gerade gekaufter Bezirk vor Uebernahme geschuetzt ist. */
-const SCHUTZ_STUNDEN = 2;
-/** Uebernahme eines fremden Bezirks kostet so viel mal den Grundpreis; der bisherige Besitzer bekommt den Grundpreis erstattet. */
-const UEBERNAHME_FAKTOR = 3;
+/** Durchfahrt durch ein fremdes Gebiet: hoechstens dieser Anteil vom Grundpreis geht an den Besitzer (einmalig je Strecke). */
+const DURCHFAHRT_ANTEIL = 0.5;
 
 tycoonRouter.get('/welt', asyncHandler(async (req, res) => {
   const ich = req.user!.id;
@@ -267,13 +268,19 @@ tycoonRouter.get('/welt', asyncHandler(async (req, res) => {
   );
   const bezirke = await pool.query(
     `SELECT b.stadt, b.bezirk, b.owner, b.basis, b.geschuetzt_bis, u.full_name, m.clan_id, c.kuerzel, c.farbe,
-            COALESCE(s.updated_at > now() - make_interval(days => ${AKTIV_TAGE}), false) AS aktiv
+            COALESCE(s.updated_at > now() - make_interval(days => ${AKTIV_TAGE}), false) AS aktiv, (bot.user_id IS NOT NULL) AS bot
        FROM tycoon_bezirke b JOIN users u ON u.id = b.owner
+       LEFT JOIN tycoon_bots bot ON bot.user_id = b.owner
        LEFT JOIN tycoon_saves s ON s.user_id = b.owner
        LEFT JOIN tycoon_clan_mitglieder m ON m.user_id = b.owner
        LEFT JOIN tycoon_clans c ON c.id = m.clan_id`,
   );
   const meinClan = await pool.query('SELECT clan_id FROM tycoon_clan_mitglieder WHERE user_id = $1', [ich]);
+  // Strecken der Bot-Gegner (tycoon-bots.ts) als Punktfolgen, damit der Client sie auf der Karte zeigt.
+  const botStrecken = await pool.query(
+    `SELECT s.user_id AS owner, l->'p' AS p FROM tycoon_bots bot JOIN tycoon_saves s ON s.user_id = bot.user_id,
+            jsonb_array_elements(COALESCE(s.state->'lines', '[]'::jsonb)) l WHERE jsonb_typeof(l->'p') = 'array'`,
+  );
   // Strecken der anderen Clan-Mitglieder zwischen Staedten (fuer Bau-Regel und Clan-Bonus im Client; ihre Bahnhoefe kennt der Client nicht).
   const clanStrecken = await pool.query(
     `SELECT DISTINCT (l->>'a')::int AS a, (l->>'b')::int AS b
@@ -283,7 +290,11 @@ tycoonRouter.get('/welt', asyncHandler(async (req, res) => {
       WHERE m.user_id <> $1 AND (l->>'a')::int < 1000 AND (l->>'b')::int < 1000`,
     [ich],
   );
+  // Wochen/Saison weiterschalten (Preise als Gutschrift) und Trassenmiete abrechnen, bevor die offenen Gutschriften gezaehlt werden.
+  await wertungTakt();
+  const trassen = await trassenTakt(ich);
   const gut = await pool.query('SELECT count(*)::int AS n FROM tycoon_gutschriften WHERE user_id = $1 AND NOT abgeholt', [ich]);
+  const gebote = await pool.query("SELECT count(*)::int AS n FROM tycoon_gebietsgebote WHERE besitzer = $1 AND status = 'offen'", [ich]);
   const projekt = await clanProjekt(meinClan.rows[0]?.clan_id ?? null);
   res.json({
     ich: { id: ich, clanId: meinClan.rows[0]?.clan_id ?? null },
@@ -292,20 +303,23 @@ tycoonRouter.get('/welt', asyncHandler(async (req, res) => {
     staedte: staedte.rows.map((r) => ({ stadt: r.stadt, spieler: r.spieler, aktiv: r.aktiv })),
     bezirke: bezirke.rows.map((r) => ({
       stadt: r.stadt, bezirk: r.bezirk, ownerId: r.owner, ownerName: r.full_name, basis: r.basis,
-      geschuetztBis: r.geschuetzt_bis, clanId: r.clan_id, clanKuerzel: r.kuerzel, clanFarbe: r.farbe, aktiv: r.aktiv,
+      geschuetztBis: r.geschuetzt_bis, clanId: r.clan_id, clanKuerzel: r.kuerzel, clanFarbe: r.farbe, aktiv: r.aktiv, bot: r.bot,
     })),
+    botStrecken: botStrecken.rows.map((r) => ({ owner: r.owner, p: r.p })),
     clanStrecken: clanStrecken.rows.map((r) => [r.a, r.b]),
     gutschriftenOffen: gut.rows[0].n,
+    geboteOffen: gebote.rows[0].n,
+    trassen,
   });
 }));
 
 /** Wert von tycoon_bezirke.stadt fuer Gebiete (Landkreise/Bezirke, bezirk = Gebiets-ID); siehe tycoon-gebiete.ts im Frontend. */
 const GEBIET_STADT = 100;
 
-/** Gebiet kaufen (frei: Grundpreis) oder einem anderen Spieler abkaufen (3x Grundpreis, der bekommt den Grundpreis erstattet). */
+/** Freies Gebiet kaufen (Grundpreis). Gebiete anderer Spieler gibt es nur per Gebot (tycoon-gemeinschaft.ts) oder Markt. */
 tycoonRouter.post('/bezirke', asyncHandler(async (req, res) => {
   const { stadt, bezirk, basis } = z.object({
-    stadt: z.literal(GEBIET_STADT), bezirk: z.number().int().min(0).max(2_000_000_000), basis: z.number().int().min(100).max(20000),
+    stadt: z.literal(GEBIET_STADT), bezirk: z.number().int().min(0).max(2_147_483_647), basis: z.number().int().min(100).max(20000),
   }).parse(req.body);
   const ich = req.user!.id;
   const client = await pool.connect();
@@ -319,30 +333,18 @@ tycoonRouter.post('/bezirke', asyncHandler(async (req, res) => {
         WHERE b.stadt = $1 AND b.bezirk = $2 FOR UPDATE OF b`,
       [stadt, bezirk, ich],
     );
-    let preis = basis;
     if (alt.rowCount) {
       const a = alt.rows[0];
-      if (a.owner === ich) throw httpError(409, 'Der Bezirk gehört dir schon.');
-      if (a.clan_owner && a.clan_owner === a.clan_ich) throw httpError(409, 'Der Bezirk gehört deinem Clan.');
-      if (a.geschuetzt) throw httpError(409, 'Der Bezirk ist gerade erst gekauft worden und noch geschützt.');
-      preis = a.basis * UEBERNAHME_FAKTOR;
-      await client.query(
-        `UPDATE tycoon_bezirke SET owner = $3, seit = now(), geschuetzt_bis = now() + make_interval(hours => $4) WHERE stadt = $1 AND bezirk = $2`,
-        [stadt, bezirk, ich, SCHUTZ_STUNDEN],
-      );
-      const name = await client.query('SELECT full_name FROM users WHERE id = $1', [ich]);
-      await client.query(
-        'INSERT INTO tycoon_gutschriften (user_id, betrag, text) VALUES ($1, $2, $3)',
-        [a.owner, a.basis, `${name.rows[0]?.full_name ?? 'Jemand'} hat einen deiner Bezirke übernommen – Entschädigung`],
-      );
-    } else {
-      await client.query(
-        `INSERT INTO tycoon_bezirke (stadt, bezirk, owner, basis, geschuetzt_bis) VALUES ($1, $2, $3, $4, now() + make_interval(hours => $5))`,
-        [stadt, bezirk, ich, basis, SCHUTZ_STUNDEN],
-      );
+      if (a.owner === ich) throw httpError(409, 'Das Gebiet gehört dir schon.');
+      if (a.clan_owner && a.clan_owner === a.clan_ich) throw httpError(409, 'Das Gebiet gehört deinem Clan.');
+      throw httpError(409, 'Das Gebiet gehört schon jemandem – du kannst ein Gebot abgeben.');
     }
+    await client.query(
+      `INSERT INTO tycoon_bezirke (stadt, bezirk, owner, basis, geschuetzt_bis) VALUES ($1, $2, $3, $4, now())`,
+      [stadt, bezirk, ich, basis],
+    );
     await client.query('COMMIT');
-    res.json({ preis, uebernommen: !!alt.rowCount });
+    res.json({ preis: basis, uebernommen: false });
   } catch (err) {
     await client.query('ROLLBACK');
     throw err;
@@ -351,13 +353,38 @@ tycoonRouter.post('/bezirke', asyncHandler(async (req, res) => {
   }
 }));
 
+/**
+ * Strecke durch fremde Gebiete gebaut: der Besitzer jedes Gebiets bekommt die Durchfahrtsgebuehr als Gutschrift.
+ * Der Client bucht den Betrag selbst ab; hier wird er je Gebiet auf DURCHFAHRT_ANTEIL vom Grundpreis begrenzt.
+ */
+tycoonRouter.post('/durchfahrt', asyncHandler(async (req, res) => {
+  const { posten, strecke } = z.object({
+    posten: z.array(z.object({ gebiet: z.number().int().min(0).max(2_147_483_647), betrag: z.number().int().min(0).max(1_000_000) })).max(200),
+    strecke: z.string().max(90),
+  }).parse(req.body);
+  const ich = req.user!.id;
+  const name = await pool.query('SELECT full_name FROM users WHERE id = $1', [ich]);
+  let summe = 0;
+  for (const p of posten) {
+    if (p.betrag <= 0) continue;
+    const b = await pool.query('SELECT owner, basis FROM tycoon_bezirke WHERE stadt = $1 AND bezirk = $2 AND owner <> $3', [GEBIET_STADT, p.gebiet, ich]);
+    const r = b.rows[0];
+    if (!r) continue;
+    const betrag = Math.min(p.betrag, Math.round(r.basis * DURCHFAHRT_ANTEIL));
+    await pool.query('INSERT INTO tycoon_gutschriften (user_id, betrag, text) VALUES ($1, $2, $3)',
+      [r.owner, betrag, `Durchfahrt: ${name.rows[0]?.full_name ?? 'Jemand'} baut ${strecke} durch dein Gebiet`]);
+    summe += betrag;
+  }
+  res.json({ summe });
+}));
+
 /** Offene Gutschriften abholen (einmalig); der Client schreibt die Summe in seinen Spielstand. */
 tycoonRouter.post('/gutschriften/abholen', asyncHandler(async (req, res) => {
   const { rows } = await pool.query(
-    'UPDATE tycoon_gutschriften SET abgeholt = true WHERE user_id = $1 AND NOT abgeholt RETURNING betrag, xp, text',
+    'UPDATE tycoon_gutschriften SET abgeholt = true WHERE user_id = $1 AND NOT abgeholt RETURNING betrag, xp, pokale, text',
     [req.user!.id],
   );
-  res.json({ summe: rows.reduce((a, r) => a + r.betrag, 0), xp: rows.reduce((a, r) => a + r.xp, 0), eintraege: rows });
+  res.json({ summe: rows.reduce((a, r) => a + r.betrag, 0), xp: rows.reduce((a, r) => a + r.xp, 0), pokale: rows.reduce((a, r) => a + r.pokale, 0), eintraege: rows });
 }));
 
 /**
@@ -368,7 +395,7 @@ tycoonRouter.post('/verbindung', asyncHandler(async (req, res) => {
   const { nameA, nameB, gebiete } = z.object({
     a: z.number().int().min(0).max(99_999), b: z.number().int().min(0).max(99_999),
     nameA: z.string().max(40), nameB: z.string().max(40),
-    gebiete: z.array(z.number().int().min(0).max(2_000_000_000)).max(2).default([]),
+    gebiete: z.array(z.number().int().min(0).max(2_147_483_647)).max(2).default([]),
   }).parse(req.body);
   const ich = req.user!.id;
   const { rows } = await pool.query(
@@ -448,7 +475,8 @@ const CLAN_FARBEN = ['#e4572e', '#2e86ab', '#59a14f', '#b07aa1', '#f2a900', '#17
 
 tycoonRouter.get('/clans', asyncHandler(async (req, res) => {
   const { rows } = await pool.query(
-    `SELECT c.id, c.name, c.kuerzel, c.farbe,
+    `SELECT c.id, c.name, c.kuerzel, c.farbe, c.passwort_hash, c.gruender,
+            bool_or(m.user_id = c.gruender) AS gruender_dabei,
             count(m.user_id)::int AS mitglieder,
             COALESCE(sum(COALESCE((s.state->>'xp')::float, 0)), 0) AS xp,
             (SELECT count(*)::int FROM tycoon_bezirke b JOIN tycoon_clan_mitglieder mm ON mm.user_id = b.owner WHERE mm.clan_id = c.id) AS bezirke,
@@ -459,11 +487,20 @@ tycoonRouter.get('/clans', asyncHandler(async (req, res) => {
        LEFT JOIN tycoon_saves s ON s.user_id = m.user_id
       GROUP BY c.id ORDER BY bezirke DESC, xp DESC`,
   );
-  const mein = await pool.query('SELECT clan_id FROM tycoon_clan_mitglieder WHERE user_id = $1', [req.user!.id]);
+  const ich = req.user!.id;
+  const mein = await pool.query('SELECT clan_id FROM tycoon_clan_mitglieder WHERE user_id = $1', [ich]);
+  const meinClan: string | null = mein.rows[0]?.clan_id ?? null;
+  const fuerMich = await pool.query(
+    `SELECT e.clan_id, u.full_name AS von FROM tycoon_clan_einladungen e LEFT JOIN users u ON u.id = e.von WHERE e.user_id = $1 ORDER BY e.erstellt DESC`, [ich]);
+  const raus = meinClan ? await pool.query('SELECT user_id FROM tycoon_clan_einladungen WHERE clan_id = $1', [meinClan]) : { rows: [] as { user_id: string }[] };
   res.json({
-    meinClan: mein.rows[0]?.clan_id ?? null,
+    meinClan,
     farben: CLAN_FARBEN,
-    clans: rows.map((r) => ({ id: r.id, name: r.name, kuerzel: r.kuerzel, farbe: r.farbe, mitglieder: r.mitglieder, xp: Math.round(Number(r.xp)), bezirke: r.bezirke, namen: r.namen })),
+    // Darf ich das Passwort meines Clans aendern? Gruender, oder jedes Mitglied, wenn der Gruender nicht mehr dabei ist.
+    passwortRecht: !!meinClan && rows.some((r) => r.id === meinClan && (!r.gruender || r.gruender === ich || !r.gruender_dabei)),
+    einladungen: fuerMich.rows.map((r) => ({ clanId: r.clan_id, von: r.von ?? 'Ein Mitglied' })),
+    eingeladen: raus.rows.map((r) => r.user_id),
+    clans: rows.map((r) => ({ id: r.id, name: r.name, kuerzel: r.kuerzel, farbe: r.farbe, mitglieder: r.mitglieder, xp: Math.round(Number(r.xp)), bezirke: r.bezirke, namen: r.namen, passwort: !!r.passwort_hash })),
   });
 }));
 
@@ -473,26 +510,79 @@ async function austreten(userId: string): Promise<void> {
   if (r.rowCount) await pool.query('DELETE FROM tycoon_clans c WHERE c.id = $1 AND NOT EXISTS (SELECT 1 FROM tycoon_clan_mitglieder m WHERE m.clan_id = c.id)', [r.rows[0].clan_id]);
 }
 
+/** Leeres Passwort = Clan offen. */
+const clanPasswort = z.string().max(50).refine((p) => p === '' || p.trim().length >= 4, 'Passwort mindestens 4 Zeichen');
+const passwortHash = async (p: string) => (p === '' ? null : bcrypt.hash(p, 10));
+
 tycoonRouter.post('/clans', asyncHandler(async (req, res) => {
-  const { name, kuerzel, farbe } = z.object({
+  const { name, kuerzel, farbe, passwort } = z.object({
     name: z.string().trim().min(3).max(30),
     kuerzel: z.string().trim().min(2).max(4).regex(/^[A-Za-z0-9ÄÖÜäöüß]+$/),
     farbe: z.enum(CLAN_FARBEN as [string, ...string[]]),
+    passwort: clanPasswort.optional().default(''),
   }).parse(req.body);
   const dup = await pool.query('SELECT 1 FROM tycoon_clans WHERE lower(name) = lower($1) OR upper(kuerzel) = upper($2)', [name, kuerzel]);
   if (dup.rowCount) throw httpError(409, 'Name oder Kürzel ist schon vergeben.');
   await austreten(req.user!.id);
-  const { rows } = await pool.query('INSERT INTO tycoon_clans (name, kuerzel, farbe) VALUES ($1, $2, $3) RETURNING id', [name, kuerzel.toUpperCase(), farbe]);
+  const { rows } = await pool.query('INSERT INTO tycoon_clans (name, kuerzel, farbe, passwort_hash, gruender) VALUES ($1, $2, $3, $4, $5) RETURNING id',
+    [name, kuerzel.toUpperCase(), farbe, await passwortHash(passwort), req.user!.id]);
   await pool.query('INSERT INTO tycoon_clan_mitglieder (user_id, clan_id) VALUES ($1, $2)', [req.user!.id, rows[0].id]);
   res.status(201).json({ id: rows[0].id });
 }));
 
+/** Beitreten: mit Einladung immer, sonst nur mit dem Passwort, falls der Clan eines hat. */
 tycoonRouter.post('/clans/:id/beitreten', asyncHandler(async (req, res) => {
   const id = z.string().uuid().parse(req.params.id);
-  const da = await pool.query('SELECT 1 FROM tycoon_clans WHERE id = $1', [id]);
+  const { passwort } = z.object({ passwort: z.string().max(50).optional().default('') }).parse(req.body ?? {});
+  const ich = req.user!.id;
+  const da = await pool.query('SELECT passwort_hash FROM tycoon_clans WHERE id = $1', [id]);
   if (!da.rowCount) throw httpError(404, 'Clan nicht gefunden.');
-  await austreten(req.user!.id);
-  await pool.query('INSERT INTO tycoon_clan_mitglieder (user_id, clan_id) VALUES ($1, $2)', [req.user!.id, id]);
+  const hash: string | null = da.rows[0].passwort_hash;
+  if (hash) {
+    const einladung = await pool.query('SELECT 1 FROM tycoon_clan_einladungen WHERE clan_id = $1 AND user_id = $2', [id, ich]);
+    if (!einladung.rowCount && !(passwort && await bcrypt.compare(passwort, hash))) throw httpError(403, passwort ? 'Falsches Passwort.' : 'Der Clan hat ein Passwort.');
+  }
+  await austreten(ich);
+  await pool.query('INSERT INTO tycoon_clan_mitglieder (user_id, clan_id) VALUES ($1, $2)', [ich, id]);
+  await pool.query('DELETE FROM tycoon_clan_einladungen WHERE user_id = $1', [ich]);
+  res.json({ ok: true });
+}));
+
+/** Passwort setzen oder (leer) entfernen: Gruender, oder jedes Mitglied, wenn der Gruender ausgetreten ist. */
+tycoonRouter.post('/clans/passwort', asyncHandler(async (req, res) => {
+  const { passwort } = z.object({ passwort: clanPasswort }).parse(req.body);
+  const ich = req.user!.id;
+  const c = await pool.query(
+    `SELECT c.id, c.gruender, EXISTS (SELECT 1 FROM tycoon_clan_mitglieder g WHERE g.user_id = c.gruender AND g.clan_id = c.id) AS dabei
+       FROM tycoon_clan_mitglieder m JOIN tycoon_clans c ON c.id = m.clan_id WHERE m.user_id = $1`, [ich]);
+  const r = c.rows[0];
+  if (!r) throw httpError(409, 'Du bist in keinem Clan.');
+  if (r.gruender && r.gruender !== ich && r.dabei) throw httpError(403, 'Nur der Gründer kann das Passwort ändern.');
+  await pool.query('UPDATE tycoon_clans SET passwort_hash = $2 WHERE id = $1', [r.id, await passwortHash(passwort)]);
+  res.json({ passwort: passwort !== '' });
+}));
+
+/** Mitglied laedt einen Spieler ein; der bekommt einen Hinweis im Spiel und kann ohne Passwort beitreten. */
+tycoonRouter.post('/clans/einladen', asyncHandler(async (req, res) => {
+  const { userId } = z.object({ userId: z.string().uuid() }).parse(req.body);
+  const ich = req.user!.id;
+  const m = await pool.query('SELECT m.clan_id, c.name, u.full_name FROM tycoon_clan_mitglieder m JOIN tycoon_clans c ON c.id = m.clan_id JOIN users u ON u.id = m.user_id WHERE m.user_id = $1', [ich]);
+  const mc = m.rows[0];
+  if (!mc) throw httpError(409, 'Du bist in keinem Clan.');
+  const ziel = await pool.query('SELECT u.id, m.clan_id FROM users u LEFT JOIN tycoon_clan_mitglieder m ON m.user_id = u.id WHERE u.id = $1', [userId]);
+  if (!ziel.rowCount) throw httpError(404, 'Spieler nicht gefunden.');
+  if (ziel.rows[0].clan_id === mc.clan_id) throw httpError(409, 'Ist schon in deinem Clan.');
+  const neu = await pool.query('INSERT INTO tycoon_clan_einladungen (clan_id, user_id, von) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING', [mc.clan_id, userId, ich]);
+  if (neu.rowCount) {
+    await pool.query('INSERT INTO tycoon_gutschriften (user_id, betrag, text) VALUES ($1, 0, $2)',
+      [userId, `🛡 ${mc.full_name ?? 'Jemand'} lädt dich in den Clan „${mc.name}“ ein – annehmen unter „Clans“.`]);
+  }
+  res.json({ ok: true });
+}));
+
+tycoonRouter.post('/clans/:id/einladung-ablehnen', asyncHandler(async (req, res) => {
+  const id = z.string().uuid().parse(req.params.id);
+  await pool.query('DELETE FROM tycoon_clan_einladungen WHERE clan_id = $1 AND user_id = $2', [id, req.user!.id]);
   res.json({ ok: true });
 }));
 

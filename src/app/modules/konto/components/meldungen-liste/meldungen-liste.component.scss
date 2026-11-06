@@ -1,0 +1,21 @@
+/* Läuft innerhalb der Fragen-Seite (Theme-Variablen kommen von dort). */
+:host { display: block; }
+.block { margin: 18px 0; }
+.mono { font-family: var(--font-mono); }
+.meld-kopf, .m-head, .m-fuss { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.meldung {
+  background: var(--sp-surface); border: 1px solid var(--sp-border); border-radius: var(--sp-radius);
+  padding: 12px 14px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px;
+  &.erledigt { opacity: .6; }
+}
+.m-zeit, .m-fuss { color: var(--sp-text-muted); font-size: .85rem; }
+.m-frage { margin: 2px 0; }
+.m-kommentar { margin: 0; color: var(--sp-accent-2); }
+.gast-tag {
+  margin-left: 6px; font-family: var(--font-mono); font-size: 10px; text-transform: uppercase;
+  padding: 1px 6px; border-radius: 999px; border: 1px solid var(--sp-accent); color: var(--sp-accent);
+}
+.fehler { color: var(--sp-danger); }
+.leer-hinweis { color: var(--sp-text-muted); font-size: .9rem; }
+
+.m-notiz { margin: 4px 0 0; font-size: .85rem; color: var(--sp-success); }

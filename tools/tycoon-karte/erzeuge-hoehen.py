@@ -27,7 +27,7 @@ os.makedirs(CACHE, exist_ok=True)
 daten = io.open(os.path.join(ROOT, 'src/app/modules/zusatz/tycoon/tycoon-karte-daten.ts'), encoding='utf-8').read()
 P = json.loads(re.sub(r'(\w+):', r'"\1":', re.search(r'KARTE_PROJ = (\{[^}]+\})', daten).group(1)))
 
-LON_MIN, LON_MAX, LAT_MIN, LAT_MAX = -12.0, 36.0, 34.0, 71.0
+LON_MIN, LON_MAX, LAT_MIN, LAT_MAX = -16.0, 60.0, 30.0, 73.0
 ZOOM = 5
 ZELLE = 5          # Weltkoordinaten je Rasterzelle
 MAX_M = 4800.0

@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import pinoHttp from 'pino-http';
 import { apiRouter } from './routes/api';
+import { gastPruefen } from './routes/gast';
 import { healthRouter } from './routes/health';
 import { config } from './config';
 import { logger } from './logger';
@@ -36,6 +37,10 @@ export const createServer = () => {
   const jsonParser = express.json({ limit: '1mb' });
   app.use((req, res, next) => (req.path.startsWith('/api/photos') ? next() : jsonParser(req, res, next)));
   app.use(express.urlencoded({ extended: false }));
+
+  // Caddy fragt hier bei jedem /assets-Abruf eines Gastes nach (forward_auth) -- daher vor dem
+  // globalen Rate-Limit, sonst liefe ein Gast beim Laden vieler Bilder in HTTP 429.
+  app.get('/api/gast/pruefen', gastPruefen);
 
   app.use(
     rateLimit({

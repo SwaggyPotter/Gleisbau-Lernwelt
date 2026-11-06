@@ -98,7 +98,7 @@
       ],
       "correctIndex": 0,
       "explanation": "Nur mit Dichtheit und korrektem Gefaelle ist die Entwaesserungsfunktion gesichert.",
-      "source": "Dichtheitspr�fung nach DIN EN 1610 f�r Abwasserleitungen [2024]",
+      "source": "Dichtheitsprüfung nach DIN EN 1610 für Abwasserleitungen [2024]",
       "sourceUrl": "https://www.canal-control.de/was-wir-machen/dichtheitspruefung"
     },
     {
@@ -126,7 +126,7 @@
       ],
       "correctIndex": 0,
       "explanation": "Dokumentation macht Leistung, Pruefung und Verantwortung nachvollziehbar.",
-      "source": "Nachweispflichten im Bau: �bersicht [2024]",
+      "source": "Nachweispflichten im Bau: Übersicht [2024]",
       "sourceUrl": "https://baucockpit.app/blog/nachweispflichten-im-bau-ubersicht-und-umsetzung/"
     },
     {
@@ -287,18 +287,17 @@
     },
     {
       "id": "LF10-Q21",
-      "question": "Kontrolle nach den Arbeiten ist ...",
+      "question": "Warum ist nach Abschluss von Gleisbauarbeiten eine Kontrolle notwendig, bevor das Gleis wieder freigegeben wird?",
       "choices": [
-        "notwendig",
-        "unwichtig",
-        "nur bei Beton",
-        "nur fuer Fotos"
+        "Damit bestätigt ist, dass das Gleis funktionsfähig und betriebssicher ist",
+        "Sie ist nur vorgeschrieben, wenn betoniert wurde",
+        "Sie dient nur dazu, Fotos für die Dokumentation zu machen",
+        "Sie entfällt, wenn der Bautrupp erfahren ist"
       ],
       "correctIndex": 0,
-      "explanation": "Ohne Abschlusskontrolle sind Funktion und Sicherheit nicht abgesichert.",
-      "source": "DGUV Gleisbereich (24.8.2026): Kontrollen von Arbeitsschutz-Behörden (Eisenbahn-Bundesa…",
-      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/lern-und-infomaterial/index.jsp",
-      "imageKey": "q-lf10-bewehrung"
+      "explanation": "Ohne Abschlusskontrolle sind Funktion und Sicherheit nicht abgesichert. Erst nach der Kontrolle darf das Gleis wieder für den Betrieb freigegeben werden.",
+      "source": "DGUV – Sachgebiet Gleisbauarbeiten (Lern- und Infomaterial)",
+      "sourceUrl": "https://www.dguv.de/fb-bauwesen/sachgebiete/gleisbauarbeiten/lern-und-infomaterial/index.jsp"
     },
     {
       "id": "LF10-Q22",

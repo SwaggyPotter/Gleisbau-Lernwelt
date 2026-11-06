@@ -125,6 +125,11 @@ authRouter.patch('/me', requireAuth, asyncHandler(async (req, res) => {
     throw httpError(400, 'Keine Aenderung angegeben');
   }
 
+  // Gast-Kurzzeitkonten bleiben an ihr Gast-Passwort gebunden (sonst könnte man sich
+  // per eigenem Passwort über den Ablauf hinaus anmelden)
+  if (req.user!.gastBis && (email || newPassword)) {
+    throw httpError(403, 'Bei einem Gastzugang lassen sich E-Mail und Passwort nicht ändern');
+  }
   const sets: string[] = [];
   const values: unknown[] = [];
   let i = 1;

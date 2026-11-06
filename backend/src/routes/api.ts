@@ -14,6 +14,10 @@ import { chatRouter } from './chat';
 import { photosRouter } from './photos';
 import { imageReviewsRouter } from './image-reviews';
 import { tycoonRouter } from './tycoon';
+import { gastRouter } from './gast';
+import { meldungenRouter } from './meldungen';
+import { quizAenderungenRouter } from './quiz-aenderungen';
+import { appsRouter } from './apps';
 import { requireAuth, requireAdmin } from '../middleware/auth';
 
 export const apiRouter = Router();
@@ -33,3 +37,7 @@ apiRouter.use('/presence', presenceRouter);
 apiRouter.use('/forum', requireAuth, forumRouter);
 apiRouter.use('/chat', requireAuth, chatRouter);
 apiRouter.use('/tycoon', requireAuth, tycoonRouter);
+apiRouter.use('/gast', gastRouter);
+apiRouter.use('/meldungen', meldungenRouter);
+apiRouter.use('/apps', appsRouter);
+apiRouter.use('/quiz-aenderungen', quizAenderungenRouter);

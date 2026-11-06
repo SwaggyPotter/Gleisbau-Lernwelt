@@ -363,3 +363,79 @@ der Tabelle selbst — die hat nur Tim (Foto/Abschrift nötig), eine weitere
 Websuche wird sie nicht liefern (siehe oben, mehrfach bestätigt nicht
 öffentlich).
 
+
+
+## 🔎 Vierte Ergänzung von Claude (2026-11-03) — Ril-820.2010-Werte öffentlich belegt
+
+Anlass: Umbau des Schotterbedarfsrechners. Ergebnis: Die Geschwindigkeitsstufen
+der Ril 820.2010 sind über **frei zugängliche Dokumente** belegt, die sie zitieren.
+
+**Hauptquelle:** Krumnow, Dissertation TU Dresden (eingereicht 28.05.2025),
+Tabelle 4 „Ausrüstungsstandard für > 10.000 Lt/d, < 30.000 Lt/d, Auszug aus
+(DB Netz AG, Ril. 820.2010, 2018)“ — https://tud.qucosa.de/en/api/qucosa:101053/attachment/ATT-0/
+(per pdftotext gelesen):
+
+| v | Schiene | Schwellenabstand | Schotter vor Kopf | Bettungsdicke |
+|---|---|---|---|---|
+| ≤ 80 | 54E4 | 63 cm | 40 cm | 30 cm |
+| 80 < v ≤ 120 | 54E4 | 63 cm | 40 cm | 30 cm |
+| 120 < v < 160 | 54E4 | 60 cm | 40 cm | 30 cm |
+| = 160 | 60E2 | 60 cm | 40 cm | 30 cm |
+| > 160 | 60E2 | 60 cm | 50 cm | 30 cm (35 cm bei v > 230) |
+
+Fußnoten: B 90 W14 K900 bei v > 230; USM/Besohlung auf EÜ bei v > 160.
+Krumnow setzt in seiner Kostentabelle (Bezug 1 m Gleis) **3,3 t Schotter** an.
+
+**Bestätigt durch Planfeststellungsunterlagen (öffentlich):**
+- Gleisanschluss BMW Dingolfing (06.12.2024): Ril 820.2010A05 → 54 E4, B 70 W60,
+  **65 cm**, 40 cm vor Kopf, 30 cm Bettung; A06 (Ve 160, ≥ 30.000 Lt/d) → 60 E2,
+  60 cm, 40/30 cm. https://www.regierung.oberbayern.bayern.de/mam/dokumente/bereich2/pfv/eisenbahn/01_erlaeuterungsbericht.pdf
+- Hp Bayerisch Gmain (DB Netz, 11.06.2019): 10.000–30.000 Lt/d → 54 E4, B 70 W-2.4,
+  **65 cm**, 40/30 cm. https://www.uvp-portal.de/sites/default/files/2019-10/Unterlage_01_01_Erlaeuterungsbericht.pdf
+- **Widerspruch offen:** 63 cm (Ril-Stand 2018 laut Krumnow) und 65 cm (Planungen
+  2019/2024) für dieselbe Stufe. Vermutlich ist das eine neuere Ril-Fassung. Tim fragen, was in seinen Unterlagen steht.
+
+**Ril-820.2010-Text (Fassung 06/2013, inoffizielle Kopie auf pdfcoffee, nicht in der App verlinkt):**
+Bettungsdicke ≤ 60 cm; an bestehenden Kunstbauwerken mind. 25 cm (120 < v ≤ 160)
+bzw. 20 cm (v ≤ 120); Böschung 1:1,25 bei Arbeiten, 1:1,5 im Entwurf;
+Schwellenfächer tiefer kehren bei v > 140 (nicht r < 850 m); aufbereiteter
+Schotter bis v ≤ 230; gereinigter Schotter im gesamten Querschnitt; Y-Stahl 83 cm;
+Stromschiene/BÜ (+25 Schwellen) 60 cm; Schwellenkopf–Bahnsteig soll 30, min 10 cm.
+Anhänge: A04 ≤ 10.000 Lt/d, A05 10.000–30.000, A06 ≥ 30.000 Lt/d.
+**A04-Werte nicht gefunden.**
+
+**Wagen:** DB Bahnbau „Maschinentechnik“: MFS 100 86 t/68 m³, MFS 40 56 t/40 m³,
+Fas 53 t/31 m³. DB Cargo Facns 133: 55 m³, 42–68 t je Streckenklasse.
+
+**Lernkarten (buffl.co „Bautechnik“)** bestätigen die Prüfungsfragen-Typen
+(vor Kopf bei v > 160, Bettungsdicke, > 230 km/h, Tieferkehren wegen Eis, RC-Schotter).
+
+**Nicht gefunden:** Ril-823-Tabelle Z08 (t/km je Schwellenart), Wiederverwendungsquoten
+der Reinigungsmaschinen. In der App sind sie Aufgabenwerte.
+
+
+## 🔎 Fünfte Ergänzung von Claude (2026-11-04) — vor Kopf je Tempo, Y-Stahl, Gleisabstand
+
+- **Krumnow (TU Dresden 2025), Tabelle 4 S. 20** (Auszug Ril 820.2010, 2018, 10.000–30.000 Lt/d), selbst aus dem PDF gelesen: Spalten v ≤ 80 / 80–120 / 120–<160 / **v = 160 (eigene Spalte, 40 cm)** / v > 160 (**50 cm**). Bettung 30 cm, Fußnote 35 cm bei v > 230. Schwellen nur B 70 (B 90 > 230). Von Tim am 2026-11-04 als richtig bestätigt.
+- **Tecklenburger Nordbahn, Vorplanung**: nach Ril 820.2010 bis 100 km/h 65 cm, 30 cm Bettung „unter der nicht überhöhten Schiene“, 40 cm vor Kopf.
+- **30 cm vor Kopf**: nur im Y-Stahlschwellen-Vortrag (Zlín 2007, Herstellersicht): 30 cm vor Kopf, 30 cm darunter, DB teils 140 km/h. **20 cm**: DB-Ausschreibung Mannheim Rbf (Nordkurve 20/20, Gleise 003/10 mit 20 cm Bettung + 40 cm vor Kopf), HPA eingespannt.
+- **Y-Stahlschwelle**: Wikipedia „bei üblicher Verwendung bis 120 km/h“; DB-Fachbuch (nur Suchzitat) nicht über 160 km/h.
+- **Gleisabstand-Zuschlag (je 10 cm über 4,00 m +1 %)**: in zwei gezielten Suchen **nicht gefunden**. In der App als Ausbildungsregel von Tim gekennzeichnet. EBO-Regelgleisabstand 4,00 m (Wikipedia Gleisabstand).
+
+## 🔎 Sechste Ergänzung von Claude (2026-11-04) — Schwellenmaße öffentlich, Holz-Probe
+
+**Öffentliche Schwellenmaße:**
+- Holz: 2,60 × 0,26 × 0,16 m (Regelmaß DB; Wikipedia „Schwelle (Bahn)“, LfU Bayern Merkblatt Bahnschwellen). Holz-„Gruppen“: Wikipedia nennt nur Spannen (Breite 20,0–30,5 cm, Höhe 12,5–16,0 cm, nach DIN EN 13145), **Einzelmaße der Gruppen 1–5 öffentlich nicht gefunden**.
+- Betonschwellen (BSI-Schwellenbroschüre 2025, betonschwellenindustrie.de): B 70 W vormontiert ca. 304 kg (ohne Bef. ca. 280 kg), B 70 W-2,4 ca. 284 kg, B 75 W-300 ca. 450 kg (L = 2,80 m laut TUM-Arbeit), B 90 W ca. 355 kg vormontiert / B 90 So 337 kg, B 93 ca. 378 kg, B 58 W-54 ca. 249 kg (L = 2,40 m). B 70: 2,60 m, max. 0,30 × 0,21 m (Wikipedia).
+- Y-Stahlschwelle St 98: ca. 135 kg (DB-Zeichnungsverzeichnis), aus IB 100S-Trägern. Stahltrog: 2,40–2,60 m (Wikipedia), Gewicht nicht gefunden.
+
+**Holz-Probe (Modell: Trapez bis Schwellenoberkante, Böschung 1:1,5, Schwelle 2,60 × 0,26 × 0,16 = 0,1082 m³), m³/km verdichtet, vor Kopf 30 / 40 / 50 cm:**
+
+| | Bettung 30 | Bettung 35 |
+|---|---|---|
+| eingleisig 60 cm | 1609 / 1701 / 1793 | 1842 / 1944 / 2046 |
+| eingleisig 65 cm | 1623 / 1715 / 1807 | 1856 / 1958 / 2060 |
+| zweigleisig 4,00 m, 60 cm | 3269 / 3361 / 3453 | 3702 / 3804 / 3906 |
+| zweigleisig 4,00 m, 65 cm | 3297 / 3389 / 3481 | 3729 / 3831 / 3933 |
+
+Geometrisch ergibt 4,60 m statt 4,00 m Gleisabstand +8,1 %, die 1-%-Regel +6 %. Tim vergleicht am 2026-11-05 mit seiner Tabelle.

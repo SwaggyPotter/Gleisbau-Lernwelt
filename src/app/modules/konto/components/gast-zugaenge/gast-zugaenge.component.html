@@ -1,0 +1,73 @@
+<ion-card class="form-card">
+  <ion-card-content>
+    <p class="block-label">Gast-Login (befristet oder dauerhaft)</p>
+    <p class="erklaerung">
+      Ein Gast-Passwort lässt Leute ohne festes Konto auf die Seite. Jeder gibt auf der Login-Seite
+      seinen Namen und das Passwort ein und bekommt ein Kurzzeitkonto mit Chat, eigener Statistik und
+      Meldungen. Nach Ablauf wird der Zugang automatisch gesperrt – bei „Dauerhaft“ erst, wenn du ihn beendest.
+    </p>
+    <ion-input class="field" label="Wofür / für wen" labelPlacement="stacked" [(ngModel)]="bezeichnung" name="bez"
+               placeholder="z. B. Berufsschule Klasse GB24"></ion-input>
+    <p class="mini-label">Gültig für</p>
+    <ion-segment [value]="tage" (ionChange)="tage = +$any($event).detail.value">
+      <ion-segment-button *ngFor="let t of tageAuswahl" [value]="t">
+        <ion-label>{{ tageText(t) }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-input class="field" type="number" min="1" max="500" label="Max. Personen" labelPlacement="stacked" [(ngModel)]="maxNutzer" name="max"></ion-input>
+    <ion-button expand="block" [disabled]="busy || !bezeichnung.trim()" (click)="erstellen()">Gast-Login erstellen</ion-button>
+    <div class="neu" *ngIf="neuerCode">
+      <span>Gast-Passwort:</span>
+      <strong class="mono gross">{{ neuerCode.code }}</strong>
+      <span>{{ neuerCode.dauerhaft ? 'gilt dauerhaft' : 'gültig bis ' + datum(neuerCode.bis) }}</span>
+      <ion-button size="small" fill="outline" (click)="kopieren(neuerCode.code)">{{ kopiert ? 'Kopiert ✓' : 'Kopieren' }}</ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+<p class="fehler" *ngIf="ladefehler">{{ ladefehler }}</p>
+
+<section class="block">
+  <p class="block-label">Gast-Logins ({{ codes.length }})</p>
+  <div class="code-item" *ngFor="let c of codes" [class.inaktiv]="!c.aktiv">
+    <div class="ci-head">
+      <span class="mono ci-code">{{ c.code }}</span>
+      <span class="ci-status" [class.aktiv]="c.aktiv">{{ c.aktiv ? 'aktiv' : 'abgelaufen' }}</span>
+    </div>
+    <span class="ci-name">{{ c.bezeichnung }}</span>
+    <span class="ci-meta">{{ c.dauerhaft ? 'dauerhaft' : 'bis ' + datum(c.bis) }} · {{ c.genutzt }} von {{ c.maxNutzer }} Personen</span>
+    <div class="ci-aktionen">
+      <ion-button size="small" fill="outline" *ngIf="!c.dauerhaft" (click)="verlaengern(c, 7)">+ 7 Tage ab jetzt</ion-button>
+      <ion-button size="small" fill="outline" *ngIf="!c.dauerhaft" (click)="dauerhaftMachen(c)">Dauerhaft machen</ion-button>
+      <ion-button size="small" fill="outline" *ngIf="c.dauerhaft" (click)="verlaengern(c, 7)">Auf 7 Tage begrenzen</ion-button>
+      <ion-button size="small" fill="clear" color="danger" *ngIf="c.aktiv" (click)="beenden(c)">Sofort beenden</ion-button>
+    </div>
+    <div class="max-zeile">
+      <label>Max. Personen
+        <input type="number" min="1" max="500" [ngModel]="neueMax[c.code] ?? c.maxNutzer" (ngModelChange)="neueMax[c.code] = $event"
+               (keydown.enter)="maxSpeichern(c)" />
+      </label>
+      <ion-button size="small" fill="outline" [disabled]="neueMax[c.code] === undefined || +neueMax[c.code] === c.maxNutzer" (click)="maxSpeichern(c)">Übernehmen</ion-button>
+      <span class="fehler klein" *ngIf="maxFehler[c.code]">{{ maxFehler[c.code] }}</span>
+    </div>
+    <table class="gast-tabelle" *ngIf="c.gaeste.length">
+      <thead><tr><th>Gast</th><th>seit</th><th>Antworten</th><th>Quote</th><th>zuletzt</th><th>Chat</th><th>Meld.</th><th></th></tr></thead>
+      <tbody>
+        <tr *ngFor="let g of c.gaeste" [class.raus]="g.rausgeworfen">
+          <td>{{ g.name }}<span class="raus-tag" *ngIf="g.rausgeworfen">rausgeworfen</span></td>
+          <td>{{ datum(g.seit) }}</td>
+          <td class="mono">{{ g.richtig + g.falsch }}</td>
+          <td class="mono">{{ quote(g) }}</td>
+          <td>{{ datum(g.zuletzt) }}</td>
+          <td class="mono">{{ g.chat }}</td>
+          <td class="mono">{{ g.meldungen }}</td>
+          <td class="aktion">
+            <button type="button" class="raus-knopf" *ngIf="!g.rausgeworfen" (click)="rauswerfen(c, g)" title="Diesen Gast sofort abmelden und sperren">Rauswerfen</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="leer-hinweis" *ngIf="!c.gaeste.length">Noch niemand angemeldet.</p>
+  </div>
+  <p class="leer-hinweis" *ngIf="codes.length === 0">Noch keine Gast-Logins erstellt.</p>
+</section>

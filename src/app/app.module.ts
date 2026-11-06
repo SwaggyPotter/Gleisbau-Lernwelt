@@ -1,4 +1,5 @@
 import { NgModule, isDevMode } from '@angular/core';
+import { MeldeFlaggeComponent } from './core/melde-flagge/melde-flagge.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +13,7 @@ import { ChatWidgetComponent } from './core/chat/chat-widget.component';
 import { AuthInterceptor } from './core/auth/interceptors/auth.interceptor';
 
 @NgModule({
-  declarations: [AppComponent, SiteGateComponent, ChatWidgetComponent],
+  declarations: [AppComponent, SiteGateComponent, ChatWidgetComponent, MeldeFlaggeComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

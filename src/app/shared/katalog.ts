@@ -18,7 +18,15 @@ export type QuizTile = {
    */
   image?: string;
   imageCredit?: string;
+  /** Von Tim fachlich geprüft: bekommt auf der Startseite einen Haken (✓). */
+  geprueft?: boolean;
 };
+
+/**
+ * Standard-Freigabe für Gäste (Kurzzeitkonto mit Gast-Passwort), solange der Admin über das
+ * Drei-Punkte-Menü auf der Startseite nichts anderes eingestellt hat (core/app-status).
+ */
+export const GAST_STANDARD_IDS = ['quiz-schotterbett', 'spiel-nivellierlatte'];
 
 
 export const RECHENTRAINER_TILES: QuizTile[] = [
@@ -104,11 +112,12 @@ export const RECHENTRAINER_TILES: QuizTile[] = [
   },
   {
     id: 'quiz-schotterbett',
-    title: 'Schotterbett-Rechner',
-    description: 'Schwellenabstand, Schwellen pro Kilometer und Mindest-Bettungsstärke berechnen.',
+    title: 'Schotterberechnung',
+    description: 'Prüfungsnahe Schotter-Aufgaben mit Schottertabelle, Zeichenfläche und Lösungen: Schwellenanzahl, Schotterbedarf und Wagenanzahl.',
     icon: 'layers-outline',
     tag: 'Quiz',
     link: '/zusatz/schotterbett',
+    geprueft: true,
     image: 'assets/bilder/schotterbett-diagramm.svg',
     imageCredit: 'Eigene Grafik',
   },
@@ -162,6 +171,7 @@ export const SPIELE_TILES: QuizTile[] = [
     tag: 'Spiel',
     icon: 'analytics-outline',
     link: '/zusatz/nivellierlatte',
+    geprueft: true,
     image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Nivellierlatte-einfach.JPG?width=900',
     imageCredit: 'Wurzeltee, CC BY-SA 3.0, via Wikimedia Commons',
   },
@@ -448,4 +458,16 @@ export function lokaleKachelBilder(): string[] {
       .map(t => t.image)
       .filter((img): img is string => !!img && !img.startsWith('http')),
   )];
+}
+
+/** Ordner „Mehr“ auf der Startseite. */
+export const MEHR_TILES: QuizTile[] = [
+  { id: 'app-modelle', title: '3D-Modelle', description: 'Loks, Wagen und Gleise in 3D ansehen, Gleis-Diorama.', tag: 'App', icon: 'cube-outline', link: '/modelle' },
+  { id: 'app-offline', title: 'Offline nutzen', description: 'Inhalte für den Betrieb ohne Internet laden.', tag: 'App', icon: 'cloud-offline-outline', link: '/offline' },
+];
+export const FORUM_TILE: QuizTile = { id: 'app-forum', title: 'Forum', description: 'Austausch mit anderen Lernenden.', tag: 'Community', icon: 'chatbubbles-outline', link: '/forum' };
+
+/** Alle Kacheln der Startseite (für Status/Sichtbarkeit und die Gast-Sperre). */
+export function alleAppTiles(): QuizTile[] {
+  return [...SPIELE_TILES, ...RECHENTRAINER_TILES, ...GLEISBAU_LERNFELD_TILES, ...BAUBERUFE_TILES, ...WISSENSTEST_TILES, FORUM_TILE, ...MEHR_TILES];
 }

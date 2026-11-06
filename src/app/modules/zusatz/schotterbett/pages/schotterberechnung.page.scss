@@ -1,0 +1,281 @@
+// Schotterberechnung (Tims Prototyp, 2026-11-05) im eingestellten Design/Skin.
+// Alle Farben, Radien, Schatten und Schriften kommen aus den globalen --sp-*/--font-*
+// Tokens (src/theme/variables.scss, gesetzt vom ThemeService). Alles unter .sbx,
+// ViewEncapsulation.None, weil Tabelle/Felder per innerHTML entstehen und das
+// Umblatt-Blatt in <body> hängt.
+
+app-schotterberechnung {
+  ion-header ion-toolbar {
+    --background: var(--sp-surface);
+    --color: var(--sp-text);
+    --border-color: var(--sp-border);
+    ion-title { font-family: var(--font-display); }
+  }
+}
+
+.sbx-content { --background: var(--sp-bg); }
+
+.sbx {
+  --bg: var(--sp-bg);
+  --card: var(--sp-surface);
+  --card2: var(--sp-surface-2);
+  --ink: var(--sp-text);
+  --muted: var(--sp-text-muted);
+  --line: var(--sp-border-strong);
+  --line-soft: var(--sp-border);
+  --brand: var(--sp-accent);
+  --on-brand: var(--sp-on-primary);
+  --brand2: color-mix(in srgb, var(--sp-accent) 14%, var(--sp-surface));
+  --ok: var(--sp-success); --warn: var(--sp-warn); --bad: var(--sp-danger);
+  --radius: var(--sp-radius);
+  font-family: var(--font-body);
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+
+  * { box-sizing: border-box; }
+  button { font: inherit; color: inherit; }
+  b, strong { color: var(--ink); }
+  .col { display: flex; flex-direction: column; gap: 12px; min-height: 0; min-width: 0; }
+  .card {
+    background: var(--card); border: 1px solid var(--line-soft); border-radius: var(--radius);
+    box-shadow: var(--sp-shadow); padding: 12px 14px;
+  }
+
+  .btn {
+    border: 1px solid var(--line); background: var(--card2); color: var(--ink);
+    border-radius: var(--radius); padding: 10px 14px; min-height: 44px; cursor: pointer; touch-action: manipulation;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn.primary { background: var(--brand); border-color: var(--brand); color: var(--on-brand); font-weight: 600; }
+  .btn.small { min-height: 38px; padding: 6px 10px; }
+
+  /* ---------- Malfläche mit Aufgabe ---------- */
+  #leftCol { position: relative; }
+  .board { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; padding: 8px; }
+  .tools { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; }
+  .swatches { display: flex; gap: 6px; }
+  .swatch {
+    width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--card);
+    box-shadow: 0 0 0 1px var(--line); cursor: pointer; touch-action: manipulation; padding: 0;
+  }
+  .swatch.active { box-shadow: 0 0 0 3px var(--brand); }
+  .tool.active { background: var(--brand2); border-color: var(--brand); }
+  .sep { width: 1px; height: 28px; background: var(--line-soft); margin: 0 2px; }
+  .canvaswrap {
+    position: relative; flex: 1; min-height: 0; border-radius: var(--radius); border: 1px solid var(--line); overflow: hidden;
+    background-color: var(--card);
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  // Ebenen der Malfläche: Raster (Hintergrund) → Karten → Aufgabe (bleibt fest oben) → Striche
+  .welt { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-origin: 0 0; z-index: 0; }
+  .kartenlage { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .canvaswrap.ziel { outline: 3px dashed var(--brand); outline-offset: -6px; }
+  .aufgabe-blatt {
+    position: absolute; top: 0; left: 0; right: 0; padding: 10px 14px 8px; z-index: 1;
+    pointer-events: none; user-select: none;
+    background: color-mix(in srgb, var(--card) 72%, transparent);
+    border-bottom: 1px dashed var(--line);
+    font-size: .98rem; line-height: 1.42;
+    p { margin: .2rem 0; }
+    .gesucht { margin-top: 4px; }
+  }
+  .aufgabe-kopf {
+    font-family: var(--font-display); font-weight: 700; font-size: 1.02rem; margin-bottom: 2px;
+    #taskNo { font-family: var(--font-mono); font-weight: 400; color: var(--muted); font-size: .85em; }
+  }
+  // „Nur Werte“: Fließtext aus, kompakte Werteliste an
+  .nur-werte { display: none; }
+  .kompakt {
+    // Nur Werte: Aufgabe liegt durchsichtig direkt auf dem Blatt, die Malfläche reicht bis ganz oben
+    .aufgabe-blatt { background: none; border-bottom: 0; padding: 8px 12px 0; }
+    .nur-text { display: none; }
+    .nur-werte {
+      display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 2px;
+      .w {
+        display: inline-flex; align-items: baseline; gap: 6px; padding: 2px 8px;
+        border: 1px solid var(--line-soft); border-radius: 999px;
+        background: color-mix(in srgb, var(--card) 80%, transparent);
+        font-family: var(--font-mono); font-weight: 600; font-size: .86rem;
+      }
+      .w i { font-style: normal; font-family: var(--font-body); font-weight: 400; color: var(--muted); font-size: .8rem; }
+    }
+  }
+
+  // Karte: eine Schwellen-Zeile aus der Tabelle, liegt auf dem Blatt; Größe bleibt beim Zoomen gleich
+  .karte {
+    position: absolute; width: 460px; max-width: calc(100% - 24px); background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: 0 6px 20px rgba(0,0,0,.25); font-size: .95rem;   // gleiche Schriftgröße wie die Aufgabe
+    &.zieht { box-shadow: 0 14px 34px rgba(0,0,0,.4); }
+    .karte-kopf {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+      padding: 8px 10px; background: var(--brand2); border-bottom: 1px solid var(--line-soft);
+      border-radius: var(--radius) var(--radius) 0 0; font-family: var(--font-display); font-weight: 700; font-size: .95rem;
+    }
+    .karte-griff { cursor: grab; }
+    .karte-x { padding: 0 6px; color: var(--muted); cursor: pointer; font-size: 1.05rem; }
+    .karte-info { padding: 4px 10px; color: var(--muted); font-size: .85rem; }
+    table.schotter.mini { font-size: .95rem; }
+  }
+  .tablescroll { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  #tableHost.ausgegraut {
+    table.schotter thead, tbody tr:not(.gewaehlt), .footnote { opacity: .22; filter: grayscale(1); transition: opacity .15s; }
+    tbody tr.gewaehlt td { background: color-mix(in srgb, var(--brand) 22%, var(--card)); }
+  }
+  .tool-an { background: var(--brand2); border-color: var(--brand); }
+  .hinweis { background: var(--brand2); padding: 6px 10px; border-radius: var(--radius); font-size: .9rem; margin-top: 6px !important; }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; z-index: 2; }
+  label.chk { display: flex; gap: 6px; align-items: center; font-size: .9rem; color: var(--muted); min-height: 38px; }
+  input[type=range] { width: 90px; accent-color: var(--brand); }
+  input[type=checkbox] { accent-color: var(--brand); }
+
+  /* ---------- Ergebnisse (ausklappbar, klappt über die Malfläche auf) ---------- */
+  .answers { position: relative; flex: 0 0 auto; padding: 0; z-index: 5; }
+  .answers-kopf {
+    width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    min-height: 52px; padding: 10px 16px; background: none; border: 0; cursor: pointer;
+    font-family: var(--font-display); font-weight: 700; font-size: 1.02rem; text-align: left;
+    .stand { font-family: var(--font-mono); font-weight: 400; font-size: .82em; color: var(--muted); margin-left: 6px; }
+    .pfeil { color: var(--brand); transition: transform .2s; }
+  }
+  .answers-body {
+    display: none;
+    position: absolute; left: -1px; right: -1px; bottom: calc(100% - 1px);
+    max-height: min(70vh, 560px); overflow-y: auto;
+    background: var(--card); border: 1px solid var(--line); border-bottom: 0;
+    border-radius: var(--radius) var(--radius) 0 0;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, .28);
+    padding: 12px 14px;
+  }
+  .answers.offen {
+    border-top-left-radius: 0; border-top-right-radius: 0;
+    .answers-body { display: block; }
+    .pfeil { transform: rotate(180deg); }
+  }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; }
+  .field { display: flex; flex-direction: column; gap: 3px; font-size: .85rem; color: var(--muted); }
+  .field .in { display: flex; align-items: center; gap: 6px; }
+  .field input {
+    flex: 1; min-width: 0; font-size: 1.15rem; font-family: var(--font-mono); padding: 10px;
+    border: 2px solid var(--line); border-radius: var(--radius); min-height: 48px; color: var(--ink); background: var(--card2);
+  }
+  .field input:focus { outline: none; border-color: var(--brand); }
+  .field.ok input { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 14%, var(--card)); }
+  .field.warn input { border-color: var(--warn); background: color-mix(in srgb, var(--warn) 14%, var(--card)); }
+  .field.bad input { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 14%, var(--card)); }
+  .field .unit { min-width: 3.2em; color: var(--ink); }
+  .actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .solution { margin-top: 10px; padding: 10px 12px; background: var(--brand2); border-radius: var(--radius); font-size: .92rem; line-height: 1.5; display: none; }
+  .solution.show { display: block; }
+  .solution ol { margin: .3rem 0 0; padding-left: 1.3em; }
+
+  /* ---------- Tabelle ---------- */
+  .tablecard { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 10px 12px; }
+  .pager { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+  .pager .title { font-family: var(--font-display); font-weight: 700; text-align: center; flex: 1; font-size: .95rem; line-height: 1.25; }
+  .pager .btn { min-width: 52px; font-size: 1.3rem; }
+  .pager .btn[disabled] { opacity: .35; }
+  .dots { display: flex; gap: 8px; justify-content: center; margin-top: 6px; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--line); border: 0; padding: 0; cursor: pointer; }
+  .dot.active { background: var(--brand); }
+  .tablescroll { position: relative; flex: 1; min-height: 0; overflow: auto; touch-action: pan-y; }
+  .seite { background: var(--card); }
+  table.schotter {
+    border-collapse: collapse; width: 100%; table-layout: fixed;
+    font-size: clamp(.72rem, 1.25vw, .98rem); background: var(--card); color: var(--ink);
+  }
+  table.schotter th, table.schotter td {
+    border: 1px solid color-mix(in srgb, var(--ink) 55%, transparent);
+    padding: 4px 3px; text-align: center; vertical-align: middle; line-height: 1.2;
+  }
+  table.schotter th { background: var(--card2); font-weight: 700; }
+  table.schotter td.name { font-weight: 700; }
+  table.schotter td.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 600; cursor: pointer; }
+  table.schotter td.num.sel { background: color-mix(in srgb, var(--warn) 35%, var(--card)); outline: 2px solid var(--warn); outline-offset: -2px; }
+  table.schotter col.c-name { width: 21%; }
+  table.schotter col.c-dicke { width: 11%; }
+  .footnote { font-size: .9rem; margin: 10px 2px 0; line-height: 1.45; color: var(--muted); }
+}
+
+/* Umblatt-Blatt (hängt in <body>, folgt beim Wischen dem Finger) */
+.sbx.blatt {
+  position: fixed; overflow: hidden; z-index: 60; pointer-events: none;
+  background: var(--sp-surface); transform-origin: left center;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  border-radius: 4px; box-shadow: 0 8px 28px rgba(0, 0, 0, .35);
+  .shade {
+    position: absolute; inset: 0; opacity: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, .45), rgba(0, 0, 0, 0) 75%);
+  }
+  .glanz {
+    position: absolute; top: 0; bottom: 0; right: 0; width: 40%; opacity: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, .22), rgba(255, 255, 255, 0));
+  }
+}
+
+.sbx.app {
+  height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; padding: 12px;
+  background: var(--bg); overscroll-behavior: none;
+}
+@media (max-width: 900px) {
+  .sbx.app { grid-template-columns: 1fr; height: auto; min-height: 100%; }
+  .sbx .board { flex: 0 0 auto; height: 92vh; min-height: 720px; }
+  .sbx .tablecard { height: 85vh; }
+}
+
+/* Karte beim Ziehen aus der Tabelle (hängt in <body>, folgt dem Finger) */
+.sbx.geist {
+  position: fixed; z-index: 70; pointer-events: none; transform: translate(-30px, -20px) rotate(-2deg);
+  opacity: .95;
+  .karte { position: relative; }
+}
+app-schotterberechnung.vollbild ion-header { display: none; }
+
+/* Vollbild: Malfläche (mit Aufgabe oben und Ergebnis-Leiste unten) nimmt den ganzen Bildschirm ein */
+.sbx.app.vollbild #leftCol {
+  position: fixed; inset: 0; z-index: 40; padding: 10px; background: var(--bg); overflow: hidden;
+}
+.sbx.app.vollbild .board { flex: 1 1 auto; height: auto; min-height: 0; }
+
+/* Schwierigkeitsgrad + Bauabschnitte (2026-11-06) */
+.sbx select.stufe { appearance: auto; cursor: pointer; padding-right: 6px; }
+.sbx ul.abschnitte { margin: 4px 0 8px; padding-left: 18px; }
+.sbx ul.abschnitte li { margin: 2px 0; }
+.sbx .nur-werte .w.w-breit { flex-basis: 100%; }
+.sbx .solution ul { margin: 4px 0; padding-left: 18px; }
+
+/* Tippen auf der Schmierseite (2026-11-06) */
+.sbx .textlage { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-origin: 0 0; z-index: 3; pointer-events: none; }
+.sbx .notiz {
+  position: absolute; margin: 0; padding: 2px 4px; border: 1px dashed transparent; border-radius: 4px;
+  background: transparent; resize: none; overflow: hidden; white-space: pre; outline: none;
+  font-family: var(--font-mono); font-size: 18px; line-height: 1.35; font-weight: 600;
+  pointer-events: none; caret-color: var(--brand);
+}
+.sbx .notiz:focus { border-color: var(--brand); background: color-mix(in srgb, var(--card) 70%, transparent); }
+.sbx .canvaswrap.textmodus canvas { cursor: text; }
+.sbx .canvaswrap.textmodus .notiz { pointer-events: auto; }
+.sbx .canvaswrap.textmodus .notiz:hover { border-color: var(--line-soft); }
+
+/* Aufgabe melden (2026-11-06) */
+.sbx .melde-dialog {
+  position: fixed; inset: 0; z-index: 80; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.45); padding: 16px;
+}
+.sbx .melde-dialog[hidden] { display: none; }
+.sbx .melde-box {
+  width: min(440px, 100%); background: var(--card); color: var(--ink); border: 1px solid var(--line-soft);
+  border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.4);
+  label { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; color: var(--muted); }
+  select, textarea {
+    font: inherit; font-size: .95rem; color: var(--ink); background: var(--bg);
+    border: 1px solid var(--line-soft); border-radius: 8px; padding: 8px;
+  }
+  textarea { resize: vertical; }
+}
+.sbx .melde-hinweis { margin: 0; font-size: .82rem; color: var(--muted); }
+.sbx .melde-status { margin: 0; min-height: 1.2em; font-size: .85rem; }
+.sbx .melde-knoepfe { display: flex; justify-content: flex-end; gap: 8px; }

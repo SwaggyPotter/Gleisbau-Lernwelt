@@ -113,3 +113,8 @@
   text-align: center;
   padding: 30px 0;
 }
+
+.frage-bearbeiten {
+  margin-left: auto; align-self: center; flex: 0 0 auto; text-decoration: none;
+  color: var(--sp-accent); border: 1px solid var(--sp-border); border-radius: 6px; padding: 4px 10px; font-size: 1rem;
+}

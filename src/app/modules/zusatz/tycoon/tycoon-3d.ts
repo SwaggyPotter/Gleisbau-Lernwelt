@@ -23,6 +23,7 @@ import { CreateTube } from '@babylonjs/core/Meshes/Builders/tubeBuilder';
 import { CreateCylinder } from '@babylonjs/core/Meshes/Builders/cylinderBuilder';
 import { CreatePlane } from '@babylonjs/core/Meshes/Builders/planeBuilder';
 import { CreateSphere } from '@babylonjs/core/Meshes/Builders/sphereBuilder';
+import { CreateDisc } from '@babylonjs/core/Meshes/Builders/discBuilder';
 import { CreateTorus } from '@babylonjs/core/Meshes/Builders/torusBuilder';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { DynamicTexture } from '@babylonjs/core/Materials/Textures/dynamicTexture';
@@ -35,6 +36,10 @@ import { beschrifteGebiete, Gebiet, zeichneGebiete } from './tycoon-gebiete';
 import { hoehe3D, hoeheWelt, reliefBild } from './tycoon-hoehen';
 import { HOEHEN } from './tycoon-hoehen-meta';
 import { ZUEGE, ZUG_FARBEN } from './tycoon-zuege';
+
+type Box = { x0: number; y0: number; x1: number; y1: number };
+/** Gelaendenetz: Textur, Kopie des Kartenbilds (Grundlage fuer die Gebiete), Lage, Mesh und je Ecke Weltpunkt/Hoehe. */
+interface Gelaende { tex: DynamicTexture; basis: HTMLCanvasElement; b: Box; mesh: Mesh; welt: number[]; hoehen: number[]; pos: number[] }
 
 /** Was die 2D-Spiel-Engine der 3D-Ansicht pro Bild zur Verfuegung stellt (nur lesen). */
 export interface TycoonWeltDaten {
@@ -61,6 +66,8 @@ export interface TycoonWeltDaten {
   fokus: { box: { x0: number; y0: number; x1: number; y1: number } | null; ver: number };
   /** Jahreszeit (0 Fruehling .. 3 Winter) und aktuelle Wetterlage (Art, Ausschnitt in 2D-Weltkoordinaten), siehe tycoon-wetter.ts. */
   jahreszeit?: number;
+  /** Dunkelheit nach echter Uhrzeit (0 Tag .. 1 Nacht), siehe tycoon-ereignisse.ts. */
+  dunkel?: number;
   wetter?: { id: string; box: { x0: number; y0: number; x1: number; y1: number } } | null;
 }
 
@@ -75,7 +82,7 @@ export const lokDatei = (typ: number): string => MODELL_PFAD + (ZUEGE[typ] ?? ZU
 export const zugDateien = (typ: number, extraWagen = false): { dateien: string[]; umgedreht: boolean } => {
   const z = ZUEGE[typ] ?? ZUEGE[1], m = z.modell, dateien: string[] = [], n = z.len + (extraWagen ? 1 : 0);
   for (let i = 0; i < n; i++) {
-    dateien.push(MODELL_PFAD + (i === 0 ? m.lok : i === n - 1 && m.ende ? m.ende : m.wagen[(i - 1) % m.wagen.length]) + '.glb');
+    dateien.push(MODELL_PFAD + (i === 0 ? m.lok : i === n - 1 && m.ende ? m.ende : (m.wagen.length ? m.wagen[(i - 1) % m.wagen.length] : m.lok)) + '.glb');
   }
   return { dateien, umgedreht: !!m.ende };
 };
@@ -128,6 +135,14 @@ export class TycoonWelt3D {
   private readonly schieneMat: StandardMaterial;
   private readonly schieneAnMat: StandardMaterial;
   private frei = false;
+  /** Fuehrerstand-Mitfahrt: Kamera sitzt vorn im Zug mit dieser Id (null = aus). */
+  private mitZug: number | null = null;
+  private mitRichtung: Vector3 | null = null;
+  private normalMinZ: number | null = null;
+  /** Blick bei der Mitfahrt: 'hinten' = hinter dem Zug her, 'vorn' = Fuehrerstand. */
+  mitArt: 'hinten' | 'vorn' = 'hinten';
+  /** Wird gerufen, wenn die Mitfahrt von selbst endet (Zug weg). */
+  onMitfahrtEnde: (() => void) | null = null;
   private ausgerichtetSichtbar = '';
   private streckenS: any = null;
   private ausgerichtetAuf: any = null;
@@ -137,8 +152,18 @@ export class TycoonWelt3D {
   /** Aktivitaets-Lichter; neu gebaut, wenn sich die Aktivitaet aendert. */
   private bezirkSchluessel = '';
   private bezirkTeile: TransformNode[] = [];
-  /** Bodentextur des Spielgebiets: Karte ohne Gebiete (Kopie) + Gebietsflaechen, neu gezeichnet bei anderem Besitz/Auswahl. */
-  private boden: { tex: DynamicTexture; basis: HTMLCanvasElement; b: { x0: number; y0: number; x1: number; y1: number } } | null = null;
+  /**
+   * Feiner Boden um das Kameraziel (so gross wie frueher das Spielgebiet Deutschland); wandert mit, wenn die Kamera weit
+   * genug weg ist. Textur: Karte ohne Gebiete (Kopie) + Gebietsflaechen, neu gezeichnet bei anderem Besitz/Auswahl.
+   */
+  private boden: Gelaende | null = null;
+  /** Grober Boden fuer ganz Europa; unter dem feinen Boden abgesenkt (loch), mit Gebietsfarben fuer die Fernsicht. */
+  private europa: Gelaende | null = null;
+  private bodenGebaut = 0;
+  private europaSchluessel = '';
+  /** Kameraziel im letzten Bild und seit wann es dort steht (der feine Boden wandert erst nach, wenn sie ruht). */
+  private zielZuletzt = '';
+  private zielSeit = 0;
   private bodenSchluessel = '';
   /** Feinere Bodentextur nur fuer das herangezoomte Bundesland (z. B. Berlin mit seinen Bezirken), sonst null. */
   private detail: { tex: DynamicTexture; basis: HTMLCanvasElement; b: { x0: number; y0: number; x1: number; y1: number }; mesh: Mesh } | null = null;
@@ -153,6 +178,11 @@ export class TycoonWelt3D {
   private bahnhofSchluessel = '';
   private readonly farbMats = new Map<string, StandardMaterial>();
   private readonly himmel: HemisphericLight;
+  private readonly sonne: DirectionalLight;
+  /** Nacht: Lichtschein ueber den Staedten. */
+  private nachtLichter: Mesh[] = [];
+  private nachtSchluessel = '';
+  private dunkelZuletzt = -1;
   private wetterPS: ParticleSystem | null = null;
   private wetterId = '';
   private jzZuletzt = -1;
@@ -172,7 +202,7 @@ export class TycoonWelt3D {
 
     this.kamera = new ArcRotateCamera('kamera', -Math.PI / 2, 0.85, 156, new Vector3(8, 0, -4), this.scene);
     this.kamera.lowerRadiusLimit = 3;
-    this.kamera.upperRadiusLimit = 840;
+    this.kamera.upperRadiusLimit = 1100;
     this.kamera.upperBetaLimit = 1.35;
     this.kamera.wheelPrecision = 14;
     this.kamera.panningSensibility = 60;
@@ -183,11 +213,11 @@ export class TycoonWelt3D {
     this.himmel = himmel;
     const sonne = new DirectionalLight('sonne', new Vector3(-0.4, -1, 0.5), this.scene);
     sonne.intensity = 0.55;
+    this.sonne = sonne;
 
-    // Gelaende mit Hoehenrelief: fein fuer das Spielgebiet (+60 Rand), grob fuer ganz Europa (im Spielgebiet abgesenkt).
-    const RAND = 60, sx0 = -RAND, sy0 = -RAND, sx1 = KARTE_W + RAND, sy1 = KARTE_H + RAND;
-    this.boden = this.gelaende('gelaende', { x0: sx0, y0: sy0, x1: sx1, y1: sy1 }, 5, null, 2048, 1.0, 0);
-    this.gelaende('europa', EUROPA, 16, { x0: sx0 + 20, y0: sy0 + 20, x1: sx1 - 20, y1: sy1 - 20 }, 2048, 5, -0.04);
+    // Gelaende mit Hoehenrelief: grob fuer ganz Europa, fein um das Kameraziel (zuerst Deutschland, wie frueher das Spielgebiet).
+    this.europa = this.gelaende('europa', EUROPA, 16, null, 2048, 5, -0.04);
+    this.baueBoden(KARTE_W / 2, KARTE_H / 2);
 
     this.schwellen = CreateBox('schwelle', { width: 0.9 * G, height: 0.07 * G, depth: 0.2 * G }, this.scene);
     this.schwellen.material = this.farbe('schwelleMat', '#6b5240');
@@ -333,6 +363,12 @@ export class TycoonWelt3D {
     return d > 1e-6 ? 20 / d : 1;
   }
 
+  /** Bildschirmpunkt -> 2D-Weltpunkt (wie bei Klicks) mit Pixeln je Welteinheit, z. B. fuer Drag & Drop aus der Leiste. */
+  weltPunkt(clientX: number, clientY: number): { x: number; y: number; kk: number } | null {
+    const p = this.bodenUnter(clientX, clientY);
+    return p ? { x: p.x / SC + KARTE_W / 2, y: -p.z / SC + KARTE_H / 2, kk: this.pixelJeEinheit(clientX, clientY, p) } : null;
+  }
+
   /** Kameraziel auf dem Boden verschieben, innerhalb der Karte. */
   private verschiebe(dx: number, dz: number): void {
     const z = this.kamera.target;
@@ -343,6 +379,29 @@ export class TycoonWelt3D {
 
   private zoome(faktor: number): void {
     this.kamera.radius = Math.min(this.kamera.upperRadiusLimit ?? 200, Math.max(this.kamera.lowerRadiusLimit ?? 8, this.kamera.radius * faktor));
+  }
+
+  /** Mitfahren im Fuehrerstand eines Zuges (id) bzw. beenden (null). */
+  mitfahren(id: number | null): void {
+    this.mitZug = id; this.mitRichtung = null;
+    if (this.normalMinZ === null) this.normalMinZ = this.kamera.minZ;
+    if (id === null) { this.kamera.lowerRadiusLimit = 3; this.kamera.upperBetaLimit = 1.35; this.kamera.minZ = this.normalMinZ; this.ausgerichtetSichtbar = ''; this.ausgerichtetAuf = null; }
+    else { this.kamera.lowerRadiusLimit = 0.2; this.kamera.upperBetaLimit = 1.65; this.kamera.minZ = 0.04; }
+  }
+  /**
+   * Kamera an den Zug (pos = Lok, Fahrtrichtung dx/dz): vorn im Fuehrerstand oder schraeg dahinter. Die Position folgt
+   * exakt (die Zuege sind schnell, eine geglaettete Position haengt sonst im Zug), geglaettet wird nur die Blickrichtung --
+   * so dreht die Kamera am Streckenende weich mit, wenn der Zug wendet.
+   */
+  private fuehrerstand(pos: Vector3, dx: number, dz: number): void {
+    const r = this.mitRichtung ? this.mitRichtung.scale(0.82).add(new Vector3(dx, 0, dz).scale(0.18)) : new Vector3(dx, 0, dz);
+    r.normalize();
+    this.mitRichtung = r;
+    const vorn = this.mitArt === 'vorn';
+    const auge = vorn ? new Vector3(pos.x + dx * 0.75, pos.y + 0.5, pos.z + dz * 0.75) : new Vector3(pos.x - r.x * 3, pos.y + 1.4, pos.z - r.z * 3);
+    const ziel = vorn ? new Vector3(auge.x + r.x * 7, auge.y - 0.45, auge.z + r.z * 7) : new Vector3(pos.x + r.x * 3, pos.y, pos.z + r.z * 3);
+    this.kamera.setTarget(ziel);
+    this.kamera.setPosition(auge);
   }
 
   /** Freie Kamera (drehen, zoomen, verschieben) oder starre Kartenansicht, die dem Netz folgt. */
@@ -360,13 +419,14 @@ export class TycoonWelt3D {
    */
   private gelaende(name: string, b: { x0: number; y0: number; x1: number; y1: number }, schritt: number,
     loch: { x0: number; y0: number; x1: number; y1: number } | null, texBreite: number, linie: number, versatz: number):
-    { tex: DynamicTexture; basis: HTMLCanvasElement; b: { x0: number; y0: number; x1: number; y1: number }; mesh: Mesh } {
+    Gelaende {
     const nx = Math.ceil((b.x1 - b.x0) / schritt), nz = Math.ceil((b.y1 - b.y0) / schritt);
-    const pos: number[] = [], uv: number[] = [], idx: number[] = [];
+    const pos: number[] = [], uv: number[] = [], idx: number[] = [], welt: number[] = [], hoehen: number[] = [];
     for (let j = 0; j <= nz; j++) {
       for (let i = 0; i <= nx; i++) {
         const X = Math.min(b.x1, b.x0 + i * schritt), Y = Math.min(b.y1, b.y0 + j * schritt);
         let h = hoeheWelt(X, Y) + versatz;
+        welt.push(X, Y); hoehen.push(h);
         if (loch && X > loch.x0 && X < loch.x1 && Y > loch.y0 && Y < loch.y1) h -= 4;
         pos.push(wx(X), h, wz(Y));
         uv.push(i / nx, 1 - j / nz);
@@ -405,7 +465,42 @@ export class TycoonWelt3D {
     mat.specularColor = Color3.Black();
     mat.backFaceCulling = false;
     mesh.material = mat;
-    return { tex, basis, b, mesh };
+    return { tex, basis, b, mesh, welt, hoehen, pos };
+  }
+
+  /** Feiner Boden (so gross wie frueher das Spielgebiet) um den Weltpunkt (cx, cy); der grobe Boden wird dort abgesenkt. */
+  private static readonly BODEN_W = KARTE_W + 120;
+  private static readonly BODEN_H = KARTE_H + 120;
+  private baueBoden(cx: number, cy: number): void {
+    const W = TycoonWelt3D.BODEN_W, H = TycoonWelt3D.BODEN_H;
+    const x0 = Math.max(EUROPA.x0, Math.min(EUROPA.x1 - W, cx - W / 2)), y0 = Math.max(EUROPA.y0, Math.min(EUROPA.y1 - H, cy - H / 2));
+    if (this.boden) {
+      if (Math.abs(this.boden.b.x0 - x0) < 1 && Math.abs(this.boden.b.y0 - y0) < 1) return;
+      this.boden.mesh.material?.dispose(true, true);
+      this.boden.mesh.dispose();
+    }
+    this.boden = this.gelaende('gelaende', { x0, y0, x1: x0 + W, y1: y0 + H }, 5, null, 2048, 1.0, 0);
+    this.bodenGebaut = performance.now();
+    this.bodenSchluessel = '';
+    // Groben Boden unter dem feinen absenken (sonst stechen Berge des groben Netzes durch).
+    const e = this.europa;
+    if (e) {
+      const l = { x0: x0 + 20, y0: y0 + 20, x1: x0 + W - 20, y1: y0 + H - 20 };
+      for (let i = 0; i < e.hoehen.length; i++) {
+        const X = e.welt[i * 2], Y = e.welt[i * 2 + 1];
+        e.pos[i * 3 + 1] = e.hoehen[i] - (X > l.x0 && X < l.x1 && Y > l.y0 && Y < l.y1 ? 4 : 0);
+      }
+      e.mesh.updateVerticesData('position', e.pos);
+    }
+  }
+
+  /** Feinen Boden nachziehen, wenn das Kameraziel weit genug davon weg ist und die Kamera kurz ruht (Neubau kostet). */
+  private bodenFolgt(): void {
+    const t = this.kamera.target, jetzt = performance.now(), ziel = t.x.toFixed(1) + ',' + t.z.toFixed(1);
+    if (ziel !== this.zielZuletzt) { this.zielZuletzt = ziel; this.zielSeit = jetzt; return; }
+    if (!this.boden || jetzt - this.zielSeit < 400 || jetzt - this.bodenGebaut < 800) return;
+    const X = t.x / SC + KARTE_W / 2, Y = -t.z / SC + KARTE_H / 2, b = this.boden.b;
+    if (Math.abs(X - (b.x0 + b.x1) / 2) > TycoonWelt3D.BODEN_W * 0.3 || Math.abs(Y - (b.y0 + b.y1) / 2) > TycoonWelt3D.BODEN_H * 0.3) this.baueBoden(X, Y);
   }
 
   /** Gebiete (Besitz, Grenzen, Auswahl) auf die Bodentextur zeichnen, wenn sich etwas geaendert hat. */
@@ -425,6 +520,8 @@ export class TycoonWelt3D {
       tex.update();
     };
     zeichne(this.boden, 1.6, false);
+    // Grober Boden: Besitzfarben fuer die Fernsicht ueber ganz Europa (nur bei anderem Besitz, das ist die teuerste Textur).
+    if (this.europa && this.europaSchluessel !== d.gebietSchluessel) { this.europaSchluessel = d.gebietSchluessel; zeichne(this.europa, 3, false); }
     // Linien in der Detailtextur etwa so dick (in Texturpixeln) wie in der groben.
     if (this.detail) zeichne(this.detail, Math.max(this.detail.b.x1 - this.detail.b.x0, this.detail.b.y1 - this.detail.b.y0) / 500, true);
   }
@@ -577,6 +674,54 @@ export class TycoonWelt3D {
     mats.forEach((m) => m!.dispose(false, false));
   }
 
+  /* ---------- Tag und Nacht ---------- */
+  /** Nachts (echte Uhrzeit) Licht dimmen, Himmel dunkel, Staedte leuchten. */
+  private syncNacht(d: TycoonWeltDaten): void {
+    const dk = Math.round((d.dunkel ?? 0) * 50) / 50, S = d.S;
+    const key = dk > 0.15 ? JSON.stringify(S.vis) : '';
+    if (key !== this.nachtSchluessel) {
+      this.nachtSchluessel = key;
+      this.nachtLichter.forEach((m) => m.dispose());
+      this.nachtLichter = [];
+      if (key) d.CITIES.forEach((c, i) => {
+        if (!S.vis[i]) return;
+        const disc = CreateDisc('stadtlicht', { radius: 9, tessellation: 24 }, this.scene);
+        disc.rotation.x = Math.PI / 2;
+        disc.position.set(wx(c.x), hoeheWelt(c.x, c.y) + 0.35, wz(c.y));
+        disc.isPickable = false;
+        disc.material = this.nachtMat();
+        this.nachtLichter.push(disc);
+      });
+    }
+    if (dk === this.dunkelZuletzt) return;
+    this.dunkelZuletzt = dk;
+    const jz = d.jahreszeit ?? 0;
+    this.himmel.intensity = (jz === 3 ? 0.85 : 0.7) * (1 - 0.6 * dk);
+    this.sonne.intensity = 0.55 * (1 - 0.85 * dk);
+    const nm = this.nachtMat();
+    nm.alpha = 0.8 * dk;
+    if (dk > 0) this.scene.clearColor = new Color4(0.56 - 0.48 * dk, 0.70 - 0.6 * dk, 0.80 - 0.62 * dk, 1);
+    else this.wetterId = '-';
+  }
+  private nachtMat(): StandardMaterial {
+    let m = this.farbMats.get('nachtlicht');
+    if (!m) {
+      m = new StandardMaterial('nachtlicht', this.scene);
+      m.emissiveColor = Color3.FromHexString('#ffcf70');
+      m.disableLighting = true;
+      m.alpha = 0;
+      // Weicher Schein: Deckkraft als Kreisverlauf (innen hell, aussen durchsichtig).
+      const tex = new DynamicTexture('nachtlichtTex', { width: 64, height: 64 }, this.scene, false);
+      const g = tex.getContext() as CanvasRenderingContext2D, v = g.createRadialGradient(32, 32, 2, 32, 32, 32);
+      v.addColorStop(0, 'rgba(255,255,255,1)'); v.addColorStop(0.35, 'rgba(255,255,255,.55)'); v.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = v; g.fillRect(0, 0, 64, 64); tex.update();
+      tex.hasAlpha = true;
+      m.opacityTexture = tex;
+      this.farbMats.set('nachtlicht', m);
+    }
+    return m;
+  }
+
   /* ---------- Wetter und Jahreszeit ---------- */
   /** Jahreszeit als Lichtfarbe; Wetterlage als Partikel um den Kamerapunkt, solange er ueber dem betroffenen Bundesland liegt. */
   private syncWetter(d: TycoonWeltDaten): void {
@@ -586,7 +731,7 @@ export class TycoonWelt3D {
       const l = [[1, 1, 1], [1, 0.97, 0.88], [1, 0.9, 0.78], [0.92, 0.96, 1]][jz];
       this.himmel.diffuse = new Color3(l[0], l[1], l[2]);
       this.himmel.groundColor = jz === 3 ? new Color3(0.82, 0.85, 0.9) : new Color3(0.5, 0.5, 0.55);
-      this.himmel.intensity = jz === 3 ? 0.85 : 0.7;
+      this.himmel.intensity = (jz === 3 ? 0.85 : 0.7) * (1 - 0.6 * (d.dunkel ?? 0));
     }
     const t = this.kamera.target, w = d.wetter;
     const drin = !!w && t.x >= wx(w.box.x0) && t.x <= wx(w.box.x1) && t.z <= wz(w.box.y0) && t.z >= wz(w.box.y1);
@@ -595,8 +740,9 @@ export class TycoonWelt3D {
       this.wetterId = id;
       this.wetterPS?.dispose();
       this.wetterPS = id && id !== 'hitze' ? this.wetterPartikel(id) : null;
-      this.scene.clearColor = id === 'regen' || id === 'sturm' ? new Color4(0.45, 0.52, 0.58, 1) : id === 'schnee' ? new Color4(0.8, 0.83, 0.87, 1)
-        : id === 'hitze' ? new Color4(0.78, 0.74, 0.62, 1) : new Color4(0.56, 0.70, 0.80, 1);
+      const n = 1 - 0.8 * (d.dunkel ?? 0);
+      const c = id === 'regen' || id === 'sturm' ? [0.45, 0.52, 0.58] : id === 'schnee' ? [0.8, 0.83, 0.87] : id === 'hitze' ? [0.78, 0.74, 0.62] : [0.56, 0.70, 0.80];
+      this.scene.clearColor = new Color4(c[0] * n, c[1] * n, c[2] * n, 1);
     }
     const ps = this.wetterPS;
     if (!ps) return;
@@ -623,9 +769,11 @@ export class TycoonWelt3D {
     ps.direction1 = new Vector3(-schraeg * 0.3, -1, -0.1); ps.direction2 = new Vector3(schraeg, -1, 0.1);
     // Lebensdauer in Babylon-Zeit (ca. 0,6 je Sekunde bei 60 Bildern).
     ps.minLifeTime = id === 'regen' || id === 'sturm' ? 0.35 : 2; ps.maxLifeTime = id === 'regen' || id === 'sturm' ? 0.5 : 3;
-    ps.emitRate = id === 'laub' ? 90 : id === 'schnee' ? 700 : 1800;
+    ps.emitRate = id === 'laub' ? 90 : id === 'schnee' ? 700 : id === 'frost' ? 220 : 1800;
     if (id === 'laub') { ps.color1 = new Color4(0.85, 0.45, 0.12, 1); ps.color2 = new Color4(0.85, 0.65, 0.15, 1); ps.minAngularSpeed = -3; ps.maxAngularSpeed = 3; }
     else if (id === 'schnee') { ps.color1 = new Color4(1, 1, 1, 0.95); ps.color2 = new Color4(0.92, 0.95, 1, 0.85); }
+    // Frost: wenige, langsam sinkende Eiskristalle.
+    else if (id === 'frost') { ps.color1 = new Color4(0.85, 0.95, 1, 0.9); ps.color2 = new Color4(0.7, 0.88, 1, 0.7); ps.minEmitPower = 0.2; ps.maxEmitPower = 0.4; }
     else { ps.color1 = new Color4(0.75, 0.82, 0.95, 0.55); ps.color2 = new Color4(0.7, 0.78, 0.9, 0.4); }
     ps.colorDead = new Color4(1, 1, 1, 0);
     ps.blendMode = ParticleSystem.BLENDMODE_STANDARD;
@@ -650,11 +798,12 @@ export class TycoonWelt3D {
       if (b) this.rahmen(wx(b.x0), wx(b.x1), wz(b.y1), wz(b.y0), Math.max(wx(b.x1) - wx(b.x0), wz(b.y0) - wz(b.y1)) * 0.08, 4);
       else { this.ausgerichtetSichtbar = ''; this.ausgerichtetAuf = null; }
     }
-    if (!d.fokus.box && (this.ausgerichtetAuf !== S || (!this.frei && sichtbar !== this.ausgerichtetSichtbar))) {
+    if (this.mitZug === null && !d.fokus.box && (this.ausgerichtetAuf !== S || (!this.frei && sichtbar !== this.ausgerichtetSichtbar))) {
       this.ausgerichtetAuf = S;
       this.ausgerichtetSichtbar = sichtbar;
       this.richteKameraAus(d);
     }
+    this.bodenFolgt();
     this.syncStrecken(d);
     this.deko.aktualisiere(d);
     this.syncBoden(d);
@@ -666,6 +815,7 @@ export class TycoonWelt3D {
     this.syncStoerungen(d);
     this.syncZuege(d);
     this.syncWetter(d);
+    this.syncNacht(d);
   }
 
   /**
@@ -959,7 +1109,7 @@ export class TycoonWelt3D {
         for (let i = 0; i < anzahl; i++) {
           // Triebzuege: letzter Wagen ist wieder ein Triebkopf, umgedreht.
           const ende = i === anzahl - 1 && i > 0 && modell.ende;
-          const w = this.baueWagen(i === 0 ? modell.lok : ende ? modell.ende! : modell.wagen[(i - 1) % modell.wagen.length], farbe);
+          const w = this.baueWagen(i === 0 ? modell.lok : ende ? modell.ende! : (modell.wagen.length ? modell.wagen[(i - 1) % modell.wagen.length] : modell.lok), farbe);
           if (!w) break;
           if (ende) (w as any).umgedreht = true;
           wagen.push(w);
@@ -980,10 +1130,12 @@ export class TycoonWelt3D {
         const v = (L.gleise || 1) === 2 ? GLEIS_VERSATZ : 0;
         w.position.set(wx(p.x) + dz * v, hoeheWelt(p.x, p.y) + 0.19 * G, wz(p.y) - dx * v);
         w.rotation.y = Math.atan2(dx, dz) + ((w as any).umgedreht ? Math.PI : 0);
+        if (i === 0 && t.id === this.mitZug) this.fuehrerstand(w.position, dx, dz);
       });
     }
     for (const [id, z] of this.zuege) {
       if (!gesehen.has(id)) { z.wagen.forEach((w) => this.entsorge(w)); this.zuege.delete(id); }
     }
+    if (this.mitZug !== null && !S.trains.some((t: any) => t.id === this.mitZug)) { this.mitfahren(null); this.onMitfahrtEnde?.(); }
   }
 }

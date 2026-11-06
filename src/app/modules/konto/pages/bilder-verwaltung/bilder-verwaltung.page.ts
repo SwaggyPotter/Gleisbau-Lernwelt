@@ -1,7 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, forkJoin } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { BildEntscheidung, BildReview, BilderApiService, HochgeladenesFoto } from '../../services/bilder-api.service';
+import { catchError, of } from 'rxjs';
+import { ThemenquizDataService } from '../../../themenquiz/services/themenquiz-data.service';
+import { ThemenquizFile } from '../../../themenquiz/models/themenquiz.models';
+import { QuizAenderungenService, aenderungAnwenden, bildSchluessel } from '../../../../core/quiz-aenderungen/quiz-aenderungen.service';
+
+/** Wo ein Bild in den Quizfragen steckt (für „Verwendet in …“). */
+interface Verwendung {
+  topicId: string;
+  thema: string;
+  questionId: string;
+  frage: string;
+}
+
+interface Bildnachweis { key: string; file: string; credit: string; license: string; sourceUrl: string }
 
 interface KatalogBild {
   id: string;
@@ -25,6 +40,7 @@ interface BildZeile extends KatalogBild {
 }
 
 type Filter = 'alle' | 'offen' | 'keep' | 'remove' | 'unsure';
+type VerwendungFilter = 'alle' | 'quiz' | 'frei';
 
 @Component({
   selector: 'app-bilder-verwaltung',
@@ -42,7 +58,13 @@ export class BilderVerwaltungPage implements OnInit {
   zeilen: BildZeile[] = [];
   geladen = false;
   ladefehler = false;
-  filter: Filter = 'offen';
+  filter: Filter = 'alle';
+  verwendungFilter: VerwendungFilter = 'alle';
+  suche = '';
+  /** normalisierter Bildschlüssel → Fragen, in denen das Bild steckt */
+  private verwendung = new Map<string, Verwendung[]>();
+  verwendungGeladen = false;
+  aufgeklappt: Record<string, boolean> = {};
   quelle: 'alle' | 'foto' | 'upload' | 'app' = 'alle';
   hochladenLaeuft = false;
   hochladeStand = '';
@@ -50,17 +72,73 @@ export class BilderVerwaltungPage implements OnInit {
   loeschBestaetigung: string | null = null;
   kategorieFilter = '';
 
-  constructor(private readonly http: HttpClient, private readonly api: BilderApiService) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly api: BilderApiService,
+    private readonly themenquiz: ThemenquizDataService,
+    private readonly ae: QuizAenderungenService,
+  ) {}
+
+  /** Schlüssel eines Galerie-Eintrags, wie er in den Fragen (imageKey) steht. */
+  private schluessel(b: KatalogBild): string {
+    if (b.quelle === 'upload') return b.id;            // up:7
+    if (b.quelle === 'foto') return 'foto:' + b.id;    // foto:F001
+    return bildSchluessel(b.id);                       // app:X -> X
+  }
+
+  verwendungen(z: KatalogBild): Verwendung[] {
+    return this.verwendung.get(this.schluessel(z)) ?? [];
+  }
+
+  /** Themen, in denen das Bild vorkommt, mit Anzahl – für die Kurzzeile. */
+  themenKurz(z: KatalogBild): string {
+    const zaehler = new Map<string, number>();
+    for (const v of this.verwendungen(z)) zaehler.set(v.thema, (zaehler.get(v.thema) ?? 0) + 1);
+    return [...zaehler].map(([t, n]) => `${t} (${n})`).join(', ');
+  }
+
+  /** Alle Themenquiz-Fragen durchgehen (inkl. Admin-Änderungen) und merken, welches Bild wo steckt. */
+  private verwendungLaden(): void {
+    this.themenquiz.getTopics().subscribe({
+      next: topics => {
+        forkJoin({
+          quizzes: forkJoin(topics.map(t => this.themenquiz.getOriginalQuiz(t.topicId).pipe(catchError(() => of(null as ThemenquizFile | null))))),
+          ae: this.ae.aenderungen$.pipe(take(1)),
+        }).subscribe(({ quizzes, ae }) => {
+          const m = new Map<string, Verwendung[]>();
+          for (const quiz of quizzes) {
+            if (!quiz) continue;
+            for (const orig of quiz.questions) {
+              const q = aenderungAnwenden(orig, ae[quiz.topicId]?.[orig.id]);
+              if (!q.imageKey) continue;
+              const k = bildSchluessel(q.imageKey);
+              if (!m.has(k)) m.set(k, []);
+              m.get(k)!.push({ topicId: quiz.topicId, thema: quiz.title, questionId: q.id, frage: q.question });
+            }
+          }
+          this.verwendung = m;
+          this.verwendungGeladen = true;
+        });
+      },
+    });
+  }
 
   ngOnInit(): void {
     forkJoin({
       katalog: this.http.get<KatalogBild[]>('assets/bilder-katalog.json'),
+      nachweise: this.http.get<Bildnachweis[]>('assets/bilder/bildnachweise.json').pipe(catchError(() => of([] as Bildnachweis[]))),
       reviews: this.api.alle(),
       fotos: this.api.fotos(),
     }).subscribe({
-      next: ({ katalog, reviews, fotos }) => {
+      next: ({ katalog, nachweise, reviews, fotos }) => {
         const map = new Map<string, BildReview>(reviews.reviews.map(r => [r.imageId, r]));
         const uploads: KatalogBild[] = fotos.photos.map(f => this.uploadZuKatalog(f));
+        // Quiz-Bilder, die (noch) nicht im Bilder-Katalog stehen, trotzdem zeigen
+        const vorhanden = new Set(katalog.map(k => k.id));
+        for (const b of nachweise) {
+          if (vorhanden.has('app:' + b.key)) continue;
+          katalog.push({ id: 'app:' + b.key, quelle: 'app', url: b.file, beschreibung: b.key, kategorieVorschlag: '', credit: b.credit, lizenz: b.license, sourceUrl: b.sourceUrl });
+        }
         this.zeilen = [...uploads, ...katalog].map(b => {
           const r = map.get(b.id);
           return {
@@ -73,6 +151,7 @@ export class BilderVerwaltungPage implements OnInit {
           };
         });
         this.geladen = true;
+        this.verwendungLaden();
       },
       error: () => { this.ladefehler = true; this.geladen = true; },
     });
@@ -156,8 +235,11 @@ export class BilderVerwaltungPage implements OnInit {
   }
 
   get sichtbar(): BildZeile[] {
+    const q = this.suche.trim().toLowerCase();
     return this.zeilen.filter(z =>
       (this.quelle === 'alle' || z.quelle === this.quelle) &&
+      (this.verwendungFilter === 'alle' || (this.verwendungFilter === 'quiz') === this.verwendungen(z).length > 0) &&
+      (!q || (z.id + ' ' + z.beschreibung + ' ' + z.note + ' ' + z.category + ' ' + this.themenKurz(z)).toLowerCase().includes(q)) &&
       (!this.kategorieFilter || z.category === this.kategorieFilter) &&
       (this.filter === 'alle' ||
         (this.filter === 'offen' ? z.decision === null : z.decision === this.filter)),
@@ -185,7 +267,11 @@ export class BilderVerwaltungPage implements OnInit {
       category: z.category || null,
       note: z.note || null,
     }).subscribe({
-      next: () => (z.gespeichert = true),
+      next: () => {
+        z.gespeichert = true;
+        // „Entfernen“ wirkt sofort in den Quizfragen (auch ohne Neuladen in diesem Browser)
+        this.ae.bildEntferntSetzen(this.schluessel(z), z.decision === 'remove');
+      },
       error: () => (z.fehler = true),
     });
   }

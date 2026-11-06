@@ -29,6 +29,16 @@ export const requireAuth: RequestHandler = asyncHandler(async (req, _res, next) 
   next();
 });
 
+/** Wie requireAuth, aber ohne Token geht es anonym weiter (req.user bleibt leer). */
+export const optionalAuth: RequestHandler = asyncHandler(async (req, _res, next) => {
+  const token = extractToken(req.headers.authorization);
+  if (token) {
+    const user = await resolveSession(token);
+    if (user) req.user = user;
+  }
+  next();
+});
+
 export const requireAdmin: RequestHandler = (req, _res, next) => {
   if (req.user?.role !== 'admin') {
     throw httpError(403, 'Nur fuer Administratoren');

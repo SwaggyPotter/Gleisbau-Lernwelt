@@ -1,6 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Registrierungs-Schlüssel</ion-title>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>Schlüssel &amp; Gast-Login</ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/konto/profil" fill="clear">
         <ion-icon slot="start" name="person-outline"></ion-icon>
@@ -48,5 +49,7 @@
         <p class="leer-hinweis" *ngIf="keys.length === 0">Noch keine Schlüssel erstellt.</p>
       </div>
     </section>
+
+    <app-gast-zugaenge></app-gast-zugaenge>
   </div>
 </ion-content>

@@ -35,6 +35,240 @@ ion-header ion-toolbar {
 .page-shell {
   max-width: 720px;
   margin: 0 auto;
+
+  &.breit {
+    max-width: 1180px;
+  }
+}
+
+.page-shell.breit > .hero,
+.page-shell.breit > .modus-segment,
+.page-shell.breit > .info-card {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Aufgabe links, Schottertabelle rechts (Tablet quer / Desktop) */
+.arbeits-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.arbeits-haupt {
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .arbeits-layout {
+    grid-template-columns: minmax(0, 1fr) 430px;
+  }
+
+  .tabelle-panel {
+    position: sticky;
+    top: 12px;
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+.tabelle-panel {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  padding: 14px;
+  margin: 0 0 16px;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.tp-kopf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  .block-label {
+    margin: 0;
+  }
+}
+
+.tp-einheit-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--sp-accent-2);
+}
+
+.tp-einheit {
+  display: inline-flex;
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  overflow: hidden;
+
+  button {
+    background: transparent;
+    color: var(--sp-text-muted);
+    border: 0;
+    padding: 8px 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    min-height: 36px;
+    cursor: pointer;
+
+    &.aktiv {
+      background: var(--sp-accent);
+      color: var(--sp-on-primary);
+    }
+  }
+}
+
+.tp-blatt {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 0 6px;
+}
+
+.tp-pfeil {
+  height: 48px;
+  border-radius: 6px;
+  border: 1px solid var(--sp-border);
+  background: var(--sp-surface-2);
+  color: var(--sp-text);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+
+  &:active {
+    background: var(--sp-accent);
+    color: var(--sp-on-primary);
+  }
+}
+
+.tp-titel {
+  text-align: center;
+
+  strong {
+    display: block;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 16px;
+    color: var(--sp-accent);
+  }
+
+  span {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--sp-text-muted);
+  }
+}
+
+.tp-punkte {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 10px;
+
+  button {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 7px;
+      border-radius: 50%;
+      background: var(--sp-border);
+    }
+
+    &.aktiv::after {
+      background: var(--sp-accent);
+      inset: 5px;
+    }
+  }
+}
+
+.schotter-tabelle {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 14px;
+
+  thead th {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--sp-accent-2);
+    padding: 6px 4px;
+    border-bottom: 1px solid var(--sp-border);
+    text-align: center;
+    font-weight: 600;
+  }
+
+  tbody th {
+    text-align: left;
+    padding: 9px 4px;
+    color: var(--sp-text);
+    font-weight: 600;
+    border-bottom: 1px solid var(--sp-border);
+    white-space: nowrap;
+  }
+
+  .tp-km {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--sp-text-muted);
+  }
+
+  td {
+    text-align: right;
+    padding: 9px 6px;
+    border-bottom: 1px solid var(--sp-border);
+    color: var(--sp-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  tbody.gestreift td,
+  tbody.gestreift th {
+    background: var(--sp-surface-2);
+  }
+}
+
+.schotter-tabelle .tp-schwelle {
+  white-space: normal;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.25;
+  vertical-align: middle;
+}
+
+.schotter-tabelle .tp-bd {
+  text-align: center;
+  color: var(--sp-accent-2);
+  font-size: 12px;
+}
+
+.tp-hinweis {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--sp-text-muted);
+  margin: 10px 0 0;
+
+  &.klein {
+    font-size: 11px;
+    opacity: 0.85;
+  }
 }
 
 .hero {
@@ -424,4 +658,383 @@ ion-button {
 
   &.correct { background: rgba(111, 191, 115, 0.08); border-color: rgba(111, 191, 115, 0.35); }
   &.wrong { background: rgba(224, 128, 111, 0.08); border-color: rgba(224, 128, 111, 0.35); }
+}
+
+// ---------- Modus / Niveau ----------
+
+.modus-segment {
+  --background: var(--sp-surface-2);
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  margin-bottom: 16px;
+
+  ion-segment-button {
+    --color: var(--sp-text-muted);
+    --color-checked: var(--sp-on-primary);
+    --indicator-color: var(--sp-accent);
+    --background-checked: var(--sp-accent);
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 13px;
+    min-height: 40px;
+  }
+}
+
+.niveau-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.niveau-chip {
+  background: var(--sp-surface-2);
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  text-align: left;
+  color: var(--sp-text);
+  cursor: pointer;
+  font-family: var(--font-body);
+
+  strong {
+    display: block;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 15px;
+  }
+
+  span {
+    display: block;
+    font-size: 12px;
+    color: var(--sp-text-muted);
+    line-height: 1.4;
+    margin-top: 2px;
+  }
+
+  &.aktiv {
+    border-color: var(--sp-accent);
+    box-shadow: inset 0 0 0 1px var(--sp-accent);
+
+    strong { color: var(--sp-accent); }
+  }
+}
+
+// ---------- Textaufgabe ----------
+
+.aufgabentext {
+  background: var(--sp-surface-2);
+  border-left: 3px solid var(--sp-accent);
+  border-radius: 4px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+
+  p {
+    margin: 0 0 10px;
+    color: var(--sp-text);
+    font-size: 15px;
+    line-height: 1.65;
+
+    &:last-child { margin-bottom: 0; }
+  }
+}
+
+.teil-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.teil-zeile {
+  display: grid;
+  grid-template-columns: 28px 1fr minmax(170px, 230px);
+  align-items: center;
+  gap: 4px 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  background: var(--sp-surface);
+
+  &.richtig { border-color: rgba(111, 191, 115, 0.5); background: rgba(111, 191, 115, 0.06); }
+  &.falsch { border-color: rgba(224, 128, 111, 0.5); background: rgba(224, 128, 111, 0.06); }
+}
+
+.teil-nr {
+  font-family: var(--font-mono);
+  color: var(--sp-accent);
+  font-weight: 700;
+}
+
+.teil-frage {
+  font-size: 14px;
+  color: var(--sp-text);
+  line-height: 1.35;
+}
+
+.teil-eingabe {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .guess-input { min-width: 0; }
+  .unit { min-width: 40px; font-size: 13px; }
+}
+
+.teil-icon ion-icon {
+  font-size: 20px;
+  display: block;
+}
+
+.richtig .teil-icon ion-icon { color: var(--sp-success); }
+.falsch .teil-icon ion-icon { color: var(--sp-danger); }
+
+.teil-loesung {
+  grid-column: 2 / -1;
+  font-size: 13px;
+  color: var(--sp-text-muted);
+
+  .mono {
+    font-family: var(--font-mono);
+    color: var(--sp-text);
+  }
+
+  .rechenweg {
+    margin: 6px 0 0;
+    background: var(--sp-surface-2);
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--sp-text);
+  }
+}
+
+.folge-hinweis {
+  color: var(--sp-success);
+}
+
+.hinweis-klein {
+  font-size: 12px;
+  color: var(--sp-text-muted);
+  margin: 8px 0 0;
+  line-height: 1.5;
+}
+
+.ergebnis-box {
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  padding: 14px;
+  text-align: center;
+
+  strong {
+    display: block;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  &.correct { background: rgba(111, 191, 115, 0.08); border-color: rgba(111, 191, 115, 0.35); strong { color: var(--sp-success); } }
+  &.wrong { background: rgba(224, 128, 111, 0.08); border-color: rgba(224, 128, 111, 0.35); strong { color: var(--sp-danger); } }
+}
+
+ion-button.outline-btn {
+  --background: transparent;
+  --color: var(--sp-accent);
+  --border-color: var(--sp-accent);
+  margin-bottom: 10px;
+}
+
+@media (max-width: 560px) {
+  .niveau-row { grid-template-columns: 1fr; }
+
+  .teil-zeile {
+    grid-template-columns: 24px 1fr;
+  }
+
+  .teil-eingabe {
+    grid-column: 2 / -1;
+  }
+
+  .input-row {
+    flex-wrap: wrap;
+  }
+
+  .gesucht-name {
+    white-space: normal;
+    flex-basis: 100%;
+  }
+}
+
+// ---------- Freier Rechner ----------
+
+.feld-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.feld {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--sp-accent-2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  input,
+  select {
+    background: var(--sp-surface-2);
+    color: var(--sp-text);
+    border: 1px solid var(--sp-border);
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:disabled { opacity: 0.6; }
+  }
+}
+
+.feld-breit {
+  margin-bottom: 10px;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: var(--sp-text);
+  cursor: pointer;
+
+  input { accent-color: var(--sp-accent); width: 18px; height: 18px; }
+}
+
+.ergebnis-tabelle {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-bottom: 8px;
+
+  td {
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--sp-border);
+    color: var(--sp-text-muted);
+
+    &:last-child {
+      text-align: right;
+      font-family: var(--font-mono);
+      color: var(--sp-text);
+    }
+  }
+
+  tr.hervor td { color: var(--sp-text); font-weight: 600; }
+  tr.hervor td:last-child { color: var(--sp-accent); }
+}
+
+// ---------- Regelwerk ----------
+
+.tabelle-scroll {
+  overflow-x: auto;
+  margin-bottom: 12px;
+}
+
+.regel-tabelle {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--sp-accent-2);
+    text-align: left;
+    padding: 6px;
+    border-bottom: 1px solid var(--sp-border);
+  }
+
+  td {
+    padding: 6px;
+    border-bottom: 1px solid var(--sp-border);
+    color: var(--sp-text);
+    font-family: var(--font-mono);
+    white-space: nowrap;
+  }
+
+  .hervor-zelle { color: var(--sp-accent); font-weight: 700; }
+  .zelle-hinweis { color: var(--sp-text-muted); font-weight: 400; }
+}
+
+.regel-liste {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--sp-border);
+    font-size: 13px;
+
+    span { color: var(--sp-text-muted); }
+    strong { color: var(--sp-text); text-align: right; font-family: var(--font-mono); font-weight: 600; }
+  }
+}
+
+.info-card .gegeben-list { margin-bottom: 14px; }
+
+.quelle-belegt {
+  color: var(--sp-text-muted);
+}
+
+// ---------- Diagramme ----------
+
+.diagram-svg.tall { max-height: 210px; }
+
+.d-rail {
+  stroke: var(--sp-text);
+  stroke-width: 4;
+}
+
+.d-band {
+  fill: var(--sp-surface);
+  stroke: var(--sp-border);
+  stroke-width: 1.5;
+}
+
+.d-rad {
+  fill: var(--sp-text-muted);
+}
+
+.muted-guide { stroke: var(--sp-text-muted); }
+
+.dlabel.big {
+  font-size: 20px;
+  font-weight: 700;
+  fill: var(--sp-text);
+
+  &.accent { fill: var(--sp-accent); }
+}
+
+.dlabel.on-schwelle {
+  fill: var(--sp-on-primary);
+  font-size: 11px;
 }

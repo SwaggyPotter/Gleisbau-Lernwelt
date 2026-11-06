@@ -1,0 +1,23 @@
+<section class="block">
+  <div class="meld-kopf">
+    <p class="block-label">Meldungen zu Fragen ({{ offeneMeldungen }} offen)</p>
+    <ion-button size="small" fill="clear" (click)="zeigeErledigte = !zeigeErledigte">
+      {{ zeigeErledigte ? 'Erledigte ausblenden' : 'Erledigte zeigen' }}
+    </ion-button>
+  </div>
+  <p class="fehler" *ngIf="ladefehler">Meldungen konnten nicht geladen werden.</p>
+  <div class="meldung" *ngFor="let m of sichtbareMeldungen" [class.erledigt]="m.erledigt">
+    <div class="m-head">
+      <span>{{ m.von }}<span class="gast-tag" *ngIf="m.gast">Gast</span></span>
+      <span class="mono m-zeit">{{ datum(m.am) }}</span>
+    </div>
+    <p class="m-frage">{{ m.question }}</p>
+    <p class="m-kommentar" *ngIf="m.comment">„{{ m.comment }}“</p>
+    <p class="m-notiz" *ngIf="m.erledigt && m.notiz">✓ Behoben: {{ m.notiz }}</p>
+    <div class="m-fuss">
+      <span class="mono">{{ m.topic }} · {{ m.questionId }}</span>
+      <ion-button size="small" fill="outline" (click)="erledigt(m)">{{ m.erledigt ? 'Wieder öffnen' : 'Erledigt' }}</ion-button>
+    </div>
+  </div>
+  <p class="leer-hinweis" *ngIf="!ladefehler && sichtbareMeldungen.length === 0">Keine {{ zeigeErledigte ? '' : 'offenen ' }}Meldungen.</p>
+</section>

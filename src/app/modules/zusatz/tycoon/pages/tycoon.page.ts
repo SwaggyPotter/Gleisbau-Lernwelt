@@ -1,11 +1,12 @@
-import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, isDevMode, NgZone, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { startTycoon, TycoonHandle } from '../tycoon-engine';
-import { TycoonAnsicht, TycoonApiService, TycoonClan, TycoonDuell, TycoonEintrag } from '../tycoon-api.service';
+import { TycoonAngebot, TycoonAnsicht, TycoonApiService, TycoonClan, TycoonEintrag, TycoonFirma, TycoonGebot, TycoonWertung } from '../tycoon-api.service';
+import { ZUEGE } from '../tycoon-zuege';
 import { GEBIET_STADT, gebietMitId } from '../tycoon-gebiete';
 import { KLASSEN, levelAus } from '../tycoon-zuege';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { TycoonWelt3D, zugDateien } from '../tycoon-3d';
 import { ladeHoehen } from '../tycoon-hoehen';
 import { Engine3D } from '../../../../shared/engine3d/engine3d';
@@ -37,8 +38,27 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   ansicht3d = this.leseAnsicht();
   /** Freie Kamera (drehen/zoomen) statt starrer Kartenansicht. Standard: starr. */
   kameraFrei = this.lese(KAMERA_KEY, false);
+  /** Zug, in dessen Fuehrerstand gerade mitgefahren wird (3D), sonst null. */
+  mitZug: number | null = null;
 
-  tab: 'spiel' | 'rangliste' | 'duelle' | 'clans' = 'spiel';
+  tab: 'spiel' | 'rangliste' | 'clans' | 'wertung' | 'markt' = 'spiel';
+  /* Wertung, Boerse, Markt (backend/src/routes/tycoon-gemeinschaft.ts) */
+  wertung: TycoonWertung | null = null;
+  wertungFehler = false;
+  firmen: TycoonFirma[] = [];
+  boerseGebuehr = 0.01;
+  /** Wert aller eigenen Aktien zum aktuellen Kurs. */
+  get depotWert(): number { return this.firmen.reduce((a, f) => a + (f.stueck || 0) * f.kurs, 0); }
+  angebote: TycoonAngebot[] = [];
+  gebote: TycoonGebot[] = [];
+  marktMeldung = '';
+  angebotArt: 'gebiet' | 'zug' = 'zug';
+  angebotGebiet: number | null = null;
+  angebotZug: number | null = null;
+  angebotPreis = 5000;
+  private weltDaten: any = null;
+  readonly zugName = (t: number) => ZUEGE[t]?.n ?? 'Zug';
+  readonly gebietName = (g: number | null) => (g === null ? '' : gebietMitId(g)?.n ?? 'Gebiet');
   geladen = false;
   fehler = '';
   geteilt = false;
@@ -52,9 +72,9 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   rangGeladen = false;
   rangFehler = false;
   /** Sortierung der Rangliste. */
-  rangNach: 'level' | 'geld' | 'strecken' | 'bezirke' | 'siege' = 'level';
-  readonly rangKategorien: { id: 'level' | 'geld' | 'strecken' | 'bezirke' | 'siege'; n: string }[] = [
-    { id: 'level', n: 'Level' }, { id: 'geld', n: 'Guthaben' }, { id: 'strecken', n: 'Strecken' }, { id: 'bezirke', n: 'Gebiete' }, { id: 'siege', n: 'Duell-Siege' },
+  rangNach: 'level' | 'geld' | 'strecken' | 'bezirke' = 'level';
+  readonly rangKategorien: { id: 'level' | 'geld' | 'strecken' | 'bezirke'; n: string }[] = [
+    { id: 'level', n: 'Level' }, { id: 'geld', n: 'Guthaben' }, { id: 'strecken', n: 'Strecken' }, { id: 'bezirke', n: 'Gebiete' },
   ];
   clans: TycoonClan[] = [];
   meinClan: string | null = null;
@@ -63,12 +83,19 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   neuName = '';
   neuKuerzel = '';
   neuFarbe = '';
+  /** Leer = offener Clan. */
+  neuPasswort = '';
+  passwortRecht = false;
+  clanPasswortNeu = '';
+  clanEinladungen: { clanId: string; von: string }[] = [];
+  eingeladen = new Set<string>();
+  spielerSuche = '';
+  /** Clan, fuer den gerade das Passwortfeld offen ist. */
+  passwortFuer: string | null = null;
+  beitrittPasswort = '';
   private weltTimer: ReturnType<typeof setInterval> | null = null;
   readonly klassen = KLASSEN;
   readonly level = levelAus;
-  duelle: TycoonDuell[] = [];
-  duelleGeladen = false;
-  duellMeldung = '';
 
   private handle: TycoonHandle | null = null;
   private pending: unknown | null = null;
@@ -83,6 +110,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   constructor(private readonly api: TycoonApiService, private readonly route: ActivatedRoute, private readonly zone: NgZone) {}
 
   ngAfterViewInit(): void {
+    document.body.classList.add('tycoon-offen');
     const userId = this.route.snapshot.paramMap.get('userId');
     if (userId) {
       this.api.ansehen(userId).subscribe({
@@ -99,7 +127,12 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     });
   }
 
+  /** Body-Klasse, damit der Chat-Knopf der App im Spiel nicht über Menü und Karten-Knöpfen liegt. */
+  ionViewWillEnter(): void { document.body.classList.add('tycoon-offen'); }
+  ionViewWillLeave(): void { document.body.classList.remove('tycoon-offen'); }
+
   ngOnDestroy(): void {
+    document.body.classList.remove('tycoon-offen');
     this.destroyed = true;
     if (this.weltTimer) clearInterval(this.weltTimer);
     this.zeigeVorschau(null, 0);
@@ -115,9 +148,22 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
       state,
       readOnly,
       onSave: data => this.queueSave(data),
+      onMitfahren: (id) => this.zone.run(() => this.starteMitfahrt(id)),
+      weltPunkt: (cx, cy) => (this.ansicht3d && this.welt ? this.welt.weltPunkt(cx, cy) : null),
+      onAusschreibungNeu: (bl, richt, gegner) => this.api.ausschreibungNeu(bl, richt, gegner).subscribe({ next: () => this.ladeAusschreibungen(), error: () => undefined }),
+      onAusschreibungGebot: (id, gebot, versprechen) => this.api.ausschreibungGebot(id, gebot, versprechen).subscribe({ error: (err) => this.handle?.meldung(err?.error?.error ?? 'Gebot nicht möglich.') }),
+      onAusschreibungAbholen: (id) => this.api.ausschreibungAbholen(id).subscribe({ next: (r) => this.handle?.vertrag(r.bl, r.gebot, r.versprechen), error: () => undefined }),
+      onTrassenSuchen: (stadt) => this.api.trassen(stadt).subscribe({ next: (r) => this.handle?.zeigeTrassen(stadt, r.strecken), error: () => this.handle?.zeigeTrassen(stadt, []) }),
+      onTrasseMieten: (owner, ownerName, a, b, preisMin, p, info) => this.sicher().pipe(switchMap(() => this.api.trasseMieten(owner, a, b, preisMin))).subscribe({
+        next: (r) => this.handle?.trasseGemietet(r.id, owner, ownerName, a, b, preisMin, p, info),
+        error: (err) => this.handle?.meldung(err?.error?.error ?? 'Mieten nicht möglich.'),
+      }),
+      onTrasseKuendigen: (id) => this.api.trasseKuendigen(id).subscribe({ error: () => undefined }),
       onVorschau: (el, typ, farbe, extra) => this.zeigeVorschau(el, typ, farbe ?? null, !!extra),
       onGebiet: (gebiet, basis) => this.kaufeGebiet(gebiet, basis),
       onVerbindung: (a, b, nameA, nameB, gebiete) => this.meldeVerbindung(a, b, nameA, nameB, gebiete),
+      onGebot: (gebiet, betrag) => this.bieteFuerGebiet(gebiet, betrag),
+      onDurchfahrt: (posten, strecke) => this.sicher().pipe(switchMap(() => this.api.durchfahrt(posten, strecke))).subscribe({ error: () => undefined }),
       onClanProjekt: (art) => this.api.clanProjektStarten(art).subscribe({
         next: () => { this.handle?.meldung('🤝 Clan-Großprojekt gestartet!'); this.ladeWelt(); },
         error: (err) => this.handle?.meldung(err?.error?.error ?? 'Projekt konnte nicht gestartet werden.'),
@@ -135,6 +181,8 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
         this.besucher = 0;
       },
     });
+    // Nur lokal (ng serve): Handle fuer Browser-Tests erreichbar machen; im Produktions-Build nicht vorhanden.
+    if (isDevMode()) (window as unknown as { __tycoon?: TycoonHandle }).__tycoon = this.handle;
     this.starteWelt();
     if (!readOnly) {
       this.ladeWelt();
@@ -146,10 +194,14 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   private ladeWelt(): void {
     this.api.welt().subscribe({
       next: (w) => {
+        this.weltDaten = w;
         this.handle?.setzeWelt(w);
+        this.ladeAusschreibungen();
         if (w.gutschriftenOffen > 0) {
           this.api.gutschriftenAbholen().subscribe((g) => {
-            if (g.summe > 0 || g.xp > 0) this.handle?.gutschrift(g.summe, g.eintraege.length === 1 ? g.eintraege[0].text : g.eintraege.length + ' Gutschriften (Entschädigungen / Clan-Boni)', g.xp);
+            const text = g.eintraege.length === 1 ? g.eintraege[0].text : g.eintraege.length + ' Gutschriften (Entschädigungen, Clan-Boni, Wertungen, Miete, Markt)';
+            if (g.summe > 0 || g.xp > 0) this.handle?.gutschrift(g.summe, text, g.xp);
+            if (g.pokale > 0) this.handle?.belohnung(0, g.pokale, text);
           });
         }
       },
@@ -157,11 +209,124 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     });
   }
 
+  /** Ausschreibungen (Spieler gegen Spieler) in den Laendern mit eigenen Strecken. */
+  private ladeAusschreibungen(): void {
+    const h = this.handle;
+    if (!h) return;
+    this.api.ausschreibungen(h.bundeslaender()).subscribe({ next: (d) => this.handle?.setzeAusschreibungen(d), error: () => undefined });
+  }
+
+  ladeWertung(): void {
+    this.flush();
+    this.api.wertung().subscribe({ next: (w) => { this.wertung = w; this.wertungFehler = false; }, error: () => (this.wertungFehler = true) });
+  }
+
+  bisDatum(iso: string): string {
+    return new Date(iso).toLocaleDateString('de-DE', { timeZone: 'Europe/Berlin', day: '2-digit', month: '2-digit' });
+  }
+
+  ladeMarkt(): void {
+    this.flush();
+    this.api.boerse().subscribe({ next: (b) => { this.firmen = b.firmen; this.boerseGebuehr = b.gebuehr; }, error: () => (this.marktMeldung = 'Börse konnte nicht geladen werden.') });
+    this.api.markt().subscribe({ next: (m) => (this.angebote = m.angebote), error: () => (this.marktMeldung = 'Markt konnte nicht geladen werden.') });
+    this.api.gebote().subscribe({ next: (g) => (this.gebote = g.gebote), error: () => undefined });
+  }
+
+  get geboteFuerMich(): TycoonGebot[] { return this.gebote.filter((g) => !g.meins); }
+  get meineGebote(): TycoonGebot[] { return this.gebote.filter((g) => g.meins); }
+
+  /** Gebot abgeben: der Betrag wird gleich abgebucht (zurueckgehalten) und kommt bei Ablehnung als Gutschrift zurueck. */
+  private bieteFuerGebiet(gebiet: number, betrag: number): void {
+    const name = gebietMitId(gebiet)?.n ?? 'Gebiet';
+    this.sicher().pipe(switchMap(() => this.api.gebotAbgeben(gebiet, betrag))).subscribe({
+      next: (r) => { this.handle?.abbuchen(r.betrag, '💬 Gebot für ' + name + ' abgegeben (' + this.eur(r.betrag) + ' € zurückgehalten)'); this.ladeMarkt(); },
+      error: (err) => this.handle?.meldung(err?.error?.error ?? 'Gebot nicht möglich.'),
+    });
+  }
+
+  /** Gebot annehmen/ablehnen (fuer mein Gebiet) oder eigenes zurueckziehen; Geld kommt jeweils als Gutschrift. */
+  gebotAktion(g: TycoonGebot, aktion: 'annehmen' | 'ablehnen' | 'zurueck'): void {
+    this.marktMeldung = '';
+    if (aktion === 'annehmen' && !confirm(this.gebietName(g.gebiet) + ' für ' + this.eur(g.betrag) + ' € an ' + g.bieter + ' verkaufen?')) return;
+    this.sicher().pipe(switchMap(() => this.api.gebotAktion(g.id, aktion))).subscribe({
+      next: () => {
+        this.marktMeldung = aktion === 'annehmen' ? 'Verkauft – das Geld kommt als Gutschrift.' : aktion === 'ablehnen' ? 'Gebot abgelehnt.' : 'Gebot zurückgezogen – der Betrag kommt zurück.';
+        this.ladeWelt(); this.ladeMarkt();
+      },
+      error: (err) => { this.marktMeldung = err?.error?.error ?? 'Das ging nicht.'; this.ladeWelt(); this.ladeMarkt(); },
+    });
+  }
+
+  get geld(): number { return this.handle?.geld() ?? 0; }
+  get meineZuege(): { id: number; n: string; strecke: string; type: number }[] { return this.handle?.eigeneZuege() ?? []; }
+  get meineGebiete(): number[] {
+    const ich = this.weltDaten?.ich?.id;
+    return (this.weltDaten?.bezirke || []).filter((b: any) => b.stadt === GEBIET_STADT && b.ownerId === ich).map((b: any) => b.bezirk);
+  }
+
+  /** Aktien kaufen (n > 0) oder verkaufen (n < 0); Geld bucht das Spiel. */
+  aktie(f: TycoonFirma, n: number): void {
+    this.marktMeldung = '';
+    if (n > 0 && f.kurs * n * (1 + this.boerseGebuehr) > this.geld) { this.marktMeldung = 'Zu wenig Guthaben.'; return; }
+    this.sicher().pipe(switchMap(() => this.api.aktienHandel(f.userId, n))).subscribe({
+      next: (r) => {
+        const text = (n > 0 ? '📈 ' + n + ' Aktien von ' + f.name + ' gekauft' : '📉 ' + -n + ' Aktien von ' + f.name + ' verkauft') + ' (Kurs ' + r.kurs.toLocaleString('de-DE') + ' €)';
+        if (r.betrag < 0) this.handle?.abbuchen(-r.betrag, text + ' −' + this.eur(-r.betrag) + ' €');
+        else this.handle?.gutschrift(r.betrag, text);
+        this.ladeMarkt();
+      },
+      error: (err) => (this.marktMeldung = err?.error?.error ?? 'Handel nicht möglich.'),
+    });
+  }
+
+  kaufeAngebot(a: TycoonAngebot): void {
+    this.marktMeldung = '';
+    if (a.preis > this.geld) { this.marktMeldung = 'Zu wenig Guthaben.'; return; }
+    this.sicher().pipe(switchMap(() => this.api.marktKaufen(a.id))).subscribe({
+      next: (r) => {
+        this.handle?.abbuchen(r.preis, '🛒 Gekauft von ' + a.verkaeufer + ' (−' + this.eur(r.preis) + ' €)');
+        if (r.art === 'zug') this.handle?.zugAufnehmen(r.zug, '🚆 ' + this.zugName(r.zug?.type) + ' gekauft');
+        else this.ladeWelt();
+        this.ladeMarkt();
+      },
+      error: (err) => { this.marktMeldung = err?.error?.error ?? 'Kauf nicht möglich.'; this.ladeMarkt(); },
+    });
+  }
+
+  anbieten(): void {
+    this.marktMeldung = '';
+    const preis = Math.round(+this.angebotPreis);
+    if (!(preis >= 1)) { this.marktMeldung = 'Bitte einen Preis eingeben.'; return; }
+    if (this.angebotArt === 'gebiet') {
+      if (this.angebotGebiet === null) { this.marktMeldung = 'Bitte ein Gebiet wählen.'; return; }
+      this.api.anbieten('gebiet', preis, +this.angebotGebiet).subscribe({
+        next: () => { this.marktMeldung = 'Gebiet steht zum Verkauf.'; this.ladeMarkt(); },
+        error: (err) => (this.marktMeldung = err?.error?.error ?? 'Anbieten nicht möglich.'),
+      });
+      return;
+    }
+    if (this.angebotZug === null) { this.marktMeldung = 'Bitte einen Zug wählen.'; return; }
+    const zug = this.handle?.zugAbgeben(+this.angebotZug);
+    if (!zug) { this.marktMeldung = 'Zug nicht gefunden.'; return; }
+    this.angebotZug = null;
+    this.sicher().pipe(switchMap(() => this.api.anbieten('zug', preis, undefined, zug))).subscribe({
+      next: () => { this.marktMeldung = 'Zug steht zum Verkauf (bis dahin ist er aus dem Spiel genommen).'; this.ladeMarkt(); },
+      error: (err) => { this.handle?.zugAufnehmen(zug, 'Anbieten fehlgeschlagen – Zug zurück'); this.marktMeldung = err?.error?.error ?? 'Anbieten nicht möglich.'; },
+    });
+  }
+
+  zurueckziehen(a: TycoonAngebot): void {
+    this.api.marktZurueck(a.id).subscribe({
+      next: (r) => { if (r.art === 'zug' && r.zug) this.handle?.zugAufnehmen(r.zug, '🚆 Angebot zurückgezogen'); this.ladeMarkt(); },
+      error: (err) => { this.marktMeldung = err?.error?.error ?? 'Das ging nicht.'; this.ladeMarkt(); },
+    });
+  }
+
   private kaufeGebiet(gebiet: number, basis: number): void {
     this.sicher().pipe(switchMap(() => this.api.bezirkKaufen(GEBIET_STADT, gebiet, basis))).subscribe({
       next: (r) => {
         const name = gebietMitId(gebiet)?.n ?? 'Gebiet';
-        this.handle?.bezahlt(r.preis, (r.uebernommen ? '⚔ Gebiet übernommen: ' : '🗺 Gebiet gekauft: ') + name);
+        this.handle?.bezahlt(r.preis, '🗺 Gebiet gekauft: ' + name);
         this.ladeWelt();
       },
       error: (err) => { this.handle?.meldung(err?.error?.error ?? 'Kauf nicht möglich.'); this.ladeWelt(); },
@@ -178,21 +343,65 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
 
   ladeClans(): void {
     this.api.clans().subscribe({
-      next: (r) => { this.clans = r.clans; this.meinClan = r.meinClan; this.clanFarben = r.farben; if (!this.neuFarbe) this.neuFarbe = r.farben[0]; },
+      next: (r) => {
+        this.clans = r.clans; this.meinClan = r.meinClan; this.clanFarben = r.farben; if (!this.neuFarbe) this.neuFarbe = r.farben[0];
+        this.passwortRecht = r.passwortRecht; this.clanEinladungen = r.einladungen; this.eingeladen = new Set(r.eingeladen);
+      },
       error: () => (this.clanMeldung = 'Clans konnten nicht geladen werden.'),
     });
   }
 
+  get meinClanDaten(): TycoonClan | undefined { return this.clans.find((c) => c.id === this.meinClan); }
+  clanVon(id: string): TycoonClan | undefined { return this.clans.find((c) => c.id === id); }
+
+  /** Spieler, die man in den eigenen Clan einladen kann (aus der Rangliste), gefiltert nach Suche. */
+  get einladbar(): TycoonEintrag[] {
+    const k = this.meinClanDaten?.kuerzel, q = this.spielerSuche.trim().toLowerCase();
+    return this.rang.filter((e) => !e.isMe && (!k || e.clan !== k) && (!q || e.name.toLowerCase().includes(q)))
+      .sort((a, b) => a.name.localeCompare(b.name, 'de'));
+  }
+
   clanGruenden(): void {
     this.clanMeldung = '';
-    this.api.clanGruenden(this.neuName, this.neuKuerzel, this.neuFarbe).subscribe({
-      next: () => { this.clanMeldung = 'Clan „' + this.neuName + '“ gegründet!'; this.neuName = ''; this.neuKuerzel = ''; this.ladeClans(); this.ladeWelt(); },
-      error: (err) => (this.clanMeldung = err?.error?.error === 'Invalid request payload' ? 'Name 3–30 Zeichen, Kürzel 2–4 Buchstaben/Ziffern.' : err?.error?.error ?? 'Gründen nicht möglich.'),
+    this.api.clanGruenden(this.neuName, this.neuKuerzel, this.neuFarbe, this.neuPasswort).subscribe({
+      next: () => { this.clanMeldung = 'Clan „' + this.neuName + '“ gegründet!'; this.neuName = ''; this.neuKuerzel = ''; this.neuPasswort = ''; this.ladeClans(); this.ladeWelt(); },
+      error: (err) => (this.clanMeldung = err?.error?.error === 'Invalid request payload' ? 'Name 3–30 Zeichen, Kürzel 2–4 Buchstaben/Ziffern, Passwort leer oder mind. 4 Zeichen.' : err?.error?.error ?? 'Gründen nicht möglich.'),
     });
   }
 
-  clanBeitreten(c: TycoonClan): void {
-    this.api.clanBeitreten(c.id).subscribe({ next: () => { this.clanMeldung = 'Willkommen bei ' + c.name + '!'; this.ladeClans(); this.ladeWelt(); }, error: () => (this.clanMeldung = 'Beitritt nicht möglich.') });
+  /** Clan mit Passwort: erst das Eingabefeld zeigen (ausser man ist eingeladen). */
+  clanBeitreten(c: TycoonClan, ohnePasswort = false): void {
+    this.clanMeldung = '';
+    if (c.passwort && !ohnePasswort && this.passwortFuer !== c.id) { this.passwortFuer = c.id; this.beitrittPasswort = ''; return; }
+    this.api.clanBeitreten(c.id, ohnePasswort ? '' : this.beitrittPasswort).subscribe({
+      next: () => { this.clanMeldung = 'Willkommen bei ' + c.name + '!'; this.passwortFuer = null; this.beitrittPasswort = ''; this.ladeClans(); this.ladeWelt(); this.ladeRangliste(); },
+      error: (err) => (this.clanMeldung = err?.error?.error ?? 'Beitritt nicht möglich.'),
+    });
+  }
+
+  einladungAnnehmen(clanId: string): void {
+    const c = this.clanVon(clanId);
+    if (c) this.clanBeitreten(c, true);
+  }
+
+  einladungAblehnen(clanId: string): void {
+    this.api.clanEinladungAblehnen(clanId).subscribe({ next: () => this.ladeClans(), error: () => (this.clanMeldung = 'Das ging nicht.') });
+  }
+
+  einladen(e: TycoonEintrag): void {
+    this.clanMeldung = '';
+    this.api.clanEinladen(e.userId).subscribe({
+      next: () => { this.eingeladen.add(e.userId); this.clanMeldung = e.name + ' ist eingeladen.'; },
+      error: (err) => (this.clanMeldung = err?.error?.error ?? 'Einladen nicht möglich.'),
+    });
+  }
+
+  passwortSpeichern(): void {
+    this.clanMeldung = '';
+    this.api.clanPasswort(this.clanPasswortNeu).subscribe({
+      next: (r) => { this.clanMeldung = r.passwort ? 'Passwort gesetzt – Beitritt nur noch mit Passwort oder Einladung.' : 'Passwort entfernt – jeder darf beitreten.'; this.clanPasswortNeu = ''; this.ladeClans(); },
+      error: (err) => (this.clanMeldung = err?.error?.error === 'Invalid request payload' ? 'Passwort mindestens 4 Zeichen.' : err?.error?.error ?? 'Ändern nicht möglich.'),
+    });
   }
 
   clanAustreten(): void {
@@ -201,7 +410,26 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
 
   schalte3d(): void {
     this.ansicht3d = !this.ansicht3d;
+    if (!this.ansicht3d) this.mitZug = null;
     try { localStorage.setItem(ANSICHT_KEY, this.ansicht3d ? '1' : '0'); } catch { /* egal */ }
+  }
+
+  /** Im Fuehrerstand mitfahren: 3D einschalten (falls aus), dann Kamera auf den Zug. */
+  starteMitfahrt(id: number): void {
+    this.mitZug = id;
+    if (!this.ansicht3d) this.schalte3d();
+    this.welt?.mitfahren(id);
+  }
+
+  mitArt: 'hinten' | 'vorn' = 'hinten';
+  setzeMitArt(art: 'hinten' | 'vorn'): void {
+    this.mitArt = art;
+    if (this.welt) this.welt.mitArt = art;
+  }
+
+  beendeMitfahrt(): void {
+    this.mitZug = null;
+    this.welt?.mitfahren(null);
   }
 
   schalteKamera(): void {
@@ -229,6 +457,9 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     try {
       this.welt = this.zone.runOutsideAngular(() => new TycoonWelt3D(canvas, handle.welt, (x, y, kk) => handle.klickWelt(x, y, kk), (x, y, kk) => handle.zeigerWelt(x, y, kk), () => handle.losgelassen()));
       this.welt.setzeFreieKamera(this.kameraFrei);
+      this.welt.onMitfahrtEnde = () => this.zone.run(() => (this.mitZug = null));
+      this.welt.mitArt = this.mitArt;
+      if (this.mitZug !== null) this.welt.mitfahren(this.mitZug);
     } catch {
       // Kein WebGL: bei der 2D-Karte bleiben.
       this.welt = null;
@@ -280,16 +511,18 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     });
   }
 
-  wechsle(t: 'spiel' | 'rangliste' | 'duelle' | 'clans'): void {
+  wechsle(t: 'spiel' | 'rangliste' | 'clans' | 'wertung' | 'markt'): void {
     this.tab = t;
+    if (t === 'wertung') this.ladeWertung();
+    if (t === 'markt') this.ladeMarkt();
     if (t === 'rangliste') this.ladeRangliste();
-    if (t === 'duelle') this.ladeDuelle();
-    if (t === 'clans') this.ladeClans();
+    // Die Spielerliste zum Einladen ist die Rangliste.
+    if (t === 'clans') { this.ladeClans(); this.ladeRangliste(); }
   }
 
   get rangSortiert(): TycoonEintrag[] {
     const wert = (e: TycoonEintrag) =>
-      this.rangNach === 'geld' ? e.money : this.rangNach === 'strecken' ? e.lines : this.rangNach === 'bezirke' ? e.bezirke : this.rangNach === 'siege' ? e.siege : e.xp;
+      this.rangNach === 'geld' ? e.money : this.rangNach === 'strecken' ? e.lines : this.rangNach === 'bezirke' ? e.bezirke : e.xp;
     return [...this.rang].sort((a, b) => wert(b) - wert(a) || b.money - a.money);
   }
 
@@ -302,50 +535,9 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
     return this.api.speichern(data);
   }
 
-  herausfordern(e: TycoonEintrag, stunden: 1 | 24): void {
-    this.duellMeldung = '';
-    this.sicher().pipe(switchMap(() => this.api.herausfordern(e.userId, stunden))).subscribe({
-      next: () => { this.duellMeldung = 'Herausforderung an ' + e.name + ' verschickt (' + stunden + ' Std.). Sie startet, sobald angenommen wird.'; this.ladeDuelle(); },
-      error: (err) => (this.duellMeldung = err?.error?.error ?? err?.error?.message ?? 'Herausforderung nicht möglich.'),
-    });
-  }
-
-  ladeDuelle(): void {
-    this.api.duelle().subscribe({
-      next: (r) => { this.duelle = r.duelle; this.duelleGeladen = true; },
-      error: () => { this.duelleGeladen = true; this.duellMeldung = 'Duelle konnten nicht geladen werden.'; },
-    });
-  }
-
-  annehmen(d: TycoonDuell): void {
-    this.sicher().pipe(switchMap(() => this.api.duellAnnehmen(d.id))).subscribe({ next: () => this.ladeDuelle(), error: () => (this.duellMeldung = 'Annehmen fehlgeschlagen.') });
-  }
-
-  ablehnen(d: TycoonDuell): void {
-    this.api.duellAblehnen(d.id).subscribe({ next: () => this.ladeDuelle(), error: () => (this.duellMeldung = 'Das ging nicht.') });
-  }
-
-  abholen(d: TycoonDuell): void {
-    this.api.duellAbholen(d.id).pipe(map((r) => r)).subscribe({
-      next: (r) => {
-        const text = r.ergebnis === 'sieg' ? '🏆 Duell gewonnen!' : r.ergebnis === 'remis' ? 'Duell unentschieden.' : 'Duell verloren – trotzdem Erfahrung gesammelt.';
-        this.handle?.belohnung(r.xp, r.pokale, text);
-        this.duellMeldung = text + ' +' + r.pokale + ' 🏆, +' + r.xp + ' Erfahrung (im Spiel gutgeschrieben).';
-        this.ladeDuelle();
-      },
-      error: () => (this.duellMeldung = 'Belohnung konnte nicht abgeholt werden.'),
-    });
-  }
-
   /** Ganzzahl mit deutschem Tausenderpunkt (die Angular-Locale 'de' ist in der App nicht registriert). */
   eur(n: number): string {
     return Math.round(n || 0).toLocaleString('de-DE');
-  }
-
-  restzeit(d: TycoonDuell): string {
-    if (!d.ende) return '';
-    const min = Math.max(0, Math.round((new Date(d.ende).getTime() - Date.now()) / 60000));
-    return min >= 60 ? Math.floor(min / 60) + ' Std. ' + (min % 60) + ' Min.' : min + ' Min.';
   }
 
   ladeRangliste(): void {

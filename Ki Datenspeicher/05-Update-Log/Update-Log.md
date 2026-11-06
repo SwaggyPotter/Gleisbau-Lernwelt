@@ -3,6 +3,163 @@ tags: [update-log, historie]
 autor: Claude
 ---
 
+
+### 2026-11-06 (13) — Logo oben links, Melde-Flagge in jeder App, Gäste einzeln rauswerfen, Schotter-Karten behalten Größe (deployt 2026-11-06, Backend + Frontend; Spalte users.gast_gesperrt live)
+
+- **Autor:** Claude
+- Logo: neues Symbol `assets/icon/logo-gleis.svg` (Gleis von oben, in Akzentfarbe per CSS-Maske), als Link zur Startseite oben links in allen 41 Seiten-Kopfzeilen (`.glw-home`/`.glw-logo` in `src/styles.scss` – Achtung: `global.scss` wird nicht geladen, nur `styles.scss`).
+- Melde-Flagge `app-melde-flagge` (in `app.component.html`): kleiner ⚑-Knopf rechts über dem Chat, auf allen Seiten außer Startseite/Konto. Formular mit Grund + Beschreibung; Meldung geht über `QuestionReportService` (Postausgang) nach `question_reports` mit App-Name (aus `alleAppTiles()`), Adresse und sichtbarer Überschrift bzw. markiertem Text.
+- Gäste: `DELETE /api/gast/codes/:code/gaeste/:id` wirft einen einzelnen Gast raus (Sitzungen gelöscht, Konto gesperrt über neue Spalte `users.gast_gesperrt`, Platz wird frei). Verlängern belebt Rausgeworfene nicht wieder. Schlüssel-Seite: Knopf „Rauswerfen“ je Gast, Markierung „rausgeworfen“.
+- Schotterberechnung: aus der Tabelle gezogene Karten liegen in eigener Ebene `.kartenlage` und behalten beim Zoomen ihre Größe (nur der Platz wandert mit); Schrift jetzt so groß wie die Aufgabe (0,95 rem, Breite 460 px).
+- Lokal getestet (Logo führt zur Startseite, Flagge sendet richtige Daten, Rauswerfen ruft DELETE und markiert, Karte bleibt bei 40 % Zoom 460 px breit).
+
+### 2026-11-06 (12) — Galerie zeigt alle Bilder + „Im Quiz: …“, „Entfernen“ wirkt jetzt wirklich (deployt 2026-11-06, Backend + Frontend)
+
+- **Autor:** Claude
+- Befund: Tim hatte in der Bilder-Verwaltung schon 46 Bilder auf „Entfernen“ gesetzt – ohne Wirkung im Quiz. Die Editor-Galerie blendete genau diese aus („werden nicht angezeigt“).
+- Bilder-Verwaltung (`/konto/bilder`): Standardfilter „Alle“, Suche, Filter „in Quizfragen / ohne Quizfrage“, je Bild „Im Quiz: Thema (Anzahl)“ bzw. „Ausgeblendet in: …“ mit aufklappbarer Fragenliste und ✎-Link in den Editor. Quiz-Bilder, die nicht im Bilder-Katalog standen (3× q-schiene-…), werden ergänzt.
+- „Entfernen“ nimmt das Bild aus allen Quizfragen (Frage bleibt ohne Bild), „Behalten“/erneut tippen holt es zurück. Technisch: `GET /api/quiz-aenderungen` liefert zusätzlich `entfernteBilder` (aus image_reviews), `QuizAenderungenService.aufbereiten()` lässt sie weg – außer der Admin hat das Bild in genau dieser Frage im Editor gewählt.
+- Editor-Galerie zeigt jetzt auch entfernte Bilder (markiert „entfernt“), Fragenliste markiert ausgeblendete Bilder.
+- Wirkung beim Deploy: 14 Fragen verlieren ihr Bild (Messmittel 6, Handwerkzeuge 4, Trassenplan 3, LF10 1).
+
+### 2026-11-06 (11) — 6 Meldungen behoben (deployt 2026-11-06, Meldungen 1–6 in der DB als erledigt mit Notiz markiert)
+
+- **Autor:** Claude
+- Meldung 2 (`lf10` LF10-Q21, „Mehr auswahl“): Frage ausformuliert, vier plausible Antworten statt offensichtlicher, unpassendes Bewehrungsbild entfernt, abgeschnittene Quellenangabe repariert.
+- Meldung 4 (`messmittel` mm-q4) und Meldung 1 (messmittel-g3): Bild entfernt.
+- Meldung 3 (messmittel-g13, „Aufgabe falsch“): Die Frage verwechselte Krümmung und Höhenunterschied. Neu: „Wie nennt man den Höhenunterschied zwischen äußerer und innerer Schiene im Gleisbogen?“ → Überhöhung (Quelle: Wikipedia „Überhöhung“). Bild entfernt.
+- Meldungen 5+6 (messmittel-g1, „Bild weg“, „Frage kann raus“): Frage gelöscht, `topics.json` jetzt 20 Fragen.
+- Nebenbei: 3 kaputte Umlaute (Ersatzzeichen) in Quellenangaben von `lf10.json` repariert.
+- Die Meldungen werden erst nach dem Deploy in `question_reports` als erledigt markiert (mit Notiz).
+
+### 2026-11-06 (10) — Alle Meldungen an einem Ort, mit Postausgang und Erledigt-Notiz (deployt 2026-11-06, Backend + Frontend)
+
+- **Autor:** Claude
+- Alle Meldewege (Themenquiz, Gesamtquiz/Rechentrainer über `QuestionReportService`, Schotterberechnung) gehen in `question_reports` auf dem Server.
+- Browser-Postausgang `glw-meldungen-ausstehend`: Klappt das Senden nicht, wird die Meldung beim nächsten App-Start bzw. sobald wieder Netz da ist nachgeschickt. Alte, nur lokal gespeicherte Meldungen (`question-reports`) werden einmalig nachgeschickt (mit ursprünglichem Zeitpunkt).
+- Backend: neue Spalten `client_id` (eindeutig, verhindert Doppelte beim Nachschicken), `erledigt_am`, `erledigt_notiz`. `PATCH /meldungen/:id` nimmt optional `notiz`. Admin-Liste zeigt „✓ Behoben: …“.
+- Fix: Bild-Endpunkt `/api/quiz-aenderungen/bild/:id` sendet `Cross-Origin-Resource-Policy: same-site` (sonst blockiert der Browser hochgeladene Fotos auf app.…).
+- Arbeitsablauf „guck nach Meldungen und behebe die“ in Claudes Memory (`meldungen_workflow.md`).
+
+### 2026-11-06 (9) — Quizfragen als Admin bearbeiten, Bilder aus der Galerie (deployt 2026-11-06, Backend + Frontend)
+
+- **Autor:** Claude
+- Neue Admin-Seite `/konto/fragen-bearbeiten/:topicId`: Frage, Antworten (2–6, richtige per Kreis), Erklärung, Quelle/Link, Schwierigkeit und Bild ändern. Bildauswahl als Galerie mit Suche, Quellen- und Kategoriefilter (Tims Fotos `foto:F001`, hochgeladene Fotos `up:<id>`, Quiz-Bilder aus `bildnachweise.json`; Namen/Kategorien aus der Bilder-Verwaltung, „entfernen“-markierte ausgeblendet).
+- Einstiege: Drei-Punkte-Menü auf der Startseite → „✎ Bearbeiten“ (nur Themenquiz-/Lernfeld-Kacheln), Knopf „✎ Bearbeiten“ im Quiz neben „Frage melden“ (nur Admin), ✎ je Frage auf der Seite „Fragen“.
+- Speicherung: neue Tabelle `quiz_aenderungen` (vollständige Frage als jsonb), `GET /api/quiz-aenderungen` offen, `PUT/DELETE /:thema/:frage` nur Admin. Originale in `assets/themenquiz/*.json` bleiben unverändert, „Original wiederherstellen“ löscht die Änderung. Hochgeladene Fotos werden über `/api/quiz-aenderungen/bild/:id` nur ausgeliefert, wenn sie in einer Frage stecken.
+- Frontend: `ThemenquizDataService.getQuiz` legt die Änderungen über die Originale (Themenquiz, Quizduell, Fragen-Übersicht, Quellenverzeichnis). Nicht abgedeckt: Tycoon (lädt die JSONs direkt) und die Rechentrainer-Quiz (Nivellieren, Volumen, Prozent, Gesamtquiz – eigene Dateien ohne Bilder).
+- Meldungen-Check: In `question_reports` lagen 0 Einträge – frühere Quiz-Meldungen ohne Konto wurden nur lokal im Browser gespeichert (seit 2026-11-06 (7) gehen sie an den Server).
+- Lokal mit gemockter API getestet (Menü → Editor, Galerie-Suche, Speichern sendet korrekte Daten, Übersicht zeigt Änderung, Quiz-Knopf öffnet die richtige Frage).
+
+### 2026-11-06 (8) — Gast-Login: Personenzahl nachträglich ändern + Ril-823-Fußnote entfernt (deployt 2026-11-06, Backend + Frontend)
+
+- **Autor:** Claude
+- `PATCH /api/gast/codes/:code` nimmt jetzt `{ tage? , dauerhaft? , maxNutzer? }`. `maxNutzer` darf nicht unter die Zahl der schon Angemeldeten fallen (sonst 409).
+- Schlüssel-Seite: je Gast-Login ein Feld „Max. Personen“ mit „Übernehmen“ (Enter geht auch). Zusätzlich hat der Gast-Login-Kasten jetzt das Konto-Design (war nach dem Umbau hell).
+- Lokal mit gemockter API getestet (zu klein → Hinweis, 60 → übernommen, Screenshot).
+- Schotterberechnung: Fußnote „Lehrtabelle: … nicht identisch mit den Werten der Ril 823.“ unter der Tabelle entfernt (Wunsch Tim).
+
+### 2026-11-06 (7) — Schotteraufgaben melden, Meldungen auch ohne Konto, Gast-Login dauerhaft (deployt 2026-11-06, Backend + Frontend)
+
+- **Autor:** Claude
+- Schotterberechnung: Knopf „⚑ Melden“ öffnet einen Dialog mit Grund und Kommentar. Gesendet werden der Aufgabentext, alle Werte je Abschnitt und die Musterlösung an `POST /api/meldungen`. Tim sieht die Meldung auf der Admin-Seite „Fragen“.
+- Backend: `POST /meldungen` geht jetzt auch ohne Konto (`optionalAuth`, dann `anonym = true`, angezeigt als „ohne Konto (Seiten-Login)“), begrenzt auf 20 je 15 min pro IP. Lesen und Erledigt-Setzen bleiben nur für Admins. Neue Spalte `question_reports.anonym`, `question` ist jetzt bis 4000 Zeichen lang.
+- Quiz-Meldungen (`QuestionReportService`) gehen jetzt auch ohne Konto ans Backend.
+- Gast-Login „Dauerhaft“: in der Auswahl (1/3/7/14 Tage/Dauerhaft) und als Knopf „Dauerhaft machen“ bzw. „Auf 7 Tage begrenzen“ je Code. Intern ist das `expires_at = 2099-12-31`, das Ende kommt nur über „Sofort beenden“. Das Gast-Cookie ist auf 400 Tage gekappt und wird bei jedem App-Start erneuert.
+- Lokal getestet: Melde-Dialog mit gemockter API, Backend-Typprüfung, Build.
+
+### 2026-11-06 (6) — Kein automatisches Neuladen mehr bei neuer Version (deployt 2026-11-06, nur Frontend)
+
+- **Autor:** Claude
+- Ursache für Tims „Seite lädt sich allein neu, mitten in der Rechnung“: `app.component.ts` lud bei jedem neuen Service-Worker-Stand (also nach jedem Deploy) sofort neu.
+- Jetzt erscheint ein Hinweis „Neue Version verfügbar“ mit den Knöpfen „Jetzt laden“ und „Später“. Spätestens beim nächsten Seitenwechsel wird die neue Version geladen (`NavigationStart` → `activateUpdate` → Zielseite frisch laden).
+- Achtung: Wer noch die alte App offen hat, bekommt dieses eine Update noch mit dem alten Sofort-Neuladen.
+
+### 2026-11-06 (5) — Schotterberechnung: mit der Tastatur auf der Schmierseite schreiben und rechnen (deployt 2026-11-06, nur Frontend)
+
+- **Autor:** Claude
+- Neues Werkzeug „⌨️ Text“: ein Klick aufs Blatt setzt ein Textfeld. Am Rechner kann man auch einfach lostippen, dann erscheint das Feld an der letzten Mausposition.
+- Rechnen: eine Zeile mit „=“ abschließen hängt das Ergebnis an (eigener kleiner Rechner, kein eval). Erlaubt sind + − × x · * / ÷ : ( ) %, Komma als Dezimalzeichen und Punkt als Tausenderpunkt. Eine Beschriftung wie „Schwellen:“ vor der Rechnung wird ignoriert.
+- Textfelder liegen in einer eigenen Ebene über der Malfläche und zoomen und verschieben mit. „Alles löschen“ und „Neue Aufgabe“ räumen sie mit auf, ein leeres Feld verschwindet beim Verlassen.
+- Lokal getestet (Klick + Tippen, Lostippen, Rechenbeispiele, Zoom, Aufräumen, Screenshot).
+
+### 2026-11-06 (4) — Schotterberechnung: 4 Schwierigkeitsgrade, Kilometrierung, Schwellen je 1000 m (deployt 2026-11-06, nur Frontend)
+
+- **Autor:** Claude
+- Auswahl „Leicht / Mittel / Schwer / Experte“ in der Werkzeugleiste (gespeichert unter localStorage `glw-schotter-stufe`).
+  - Leicht: gerade Strecke (u = 0), 100 % Verschmutzung, Länge in km.
+  - Mittel: Verschmutzung 35–70 %, u = 0 oder 160 mm.
+  - Schwer: ein Bauabschnitt mit Kilometrierung („km 12,4 + 34,2“ = Hektometer + Meter), u auch 40/80/120 (interpolieren).
+  - Experte: 2–3 Bauabschnitte mit Kilometrierung, je Abschnitt eigene Überhöhung und Verschmutzung. Bedarf und Neuschotter werden je Abschnitt gerechnet und summiert.
+- Schwellen jetzt immer: 1000 m ÷ Teilung → aufgerundet (60 cm = 1667, 63 cm = 1588, 67 cm = 1493), × Länge in km → aufgerundet, × Gleise. Neues Ergebnisfeld „Schwellen (Anzahl)“.
+- Altschwelle ist jetzt immer eine andere Sorte als die neue Schwelle.
+- Lokal getestet (alle 4 Stufen, Lösungswege nachgerechnet, Screenshot Experte).
+
+### 2026-11-06 (3) — Login-Seite: Reiter „Anmelden“ / „Gastzugang“ (deployt 2026-11-06, nur Frontend)
+
+- **Autor:** Claude
+- Tims Meldung: Das Gast-Login-Feld lag zu weit unten. Jetzt zwei Reiter oben im Login-Kasten (`modus` in `site-gate.component.ts`), der Gast-Login ist mit einem Tipp ohne Scrollen erreichbar. Geprüft auf Handygröße 390×700, der Gast-Knopf sitzt bei 532 px.
+
+### 2026-11-06 (2) — Admin-Drei-Punkte-Menü: Status und Sichtbarkeit je App (deployt 2026-11-06, Backend + Frontend)
+
+- **Autor:** Claude
+- Backend: Tabelle `app_status` (tile_id, status geprueft/ungeprueft, sichtbarkeit gaeste/azubis/versteckt). `GET /api/apps` ist offen, `PUT /api/apps/:id` nur für Admins (`routes/apps.ts`).
+- Frontend: `core/app-status/app-status.service.ts` mit Cache in localStorage `glw-app-status`, damit der Guard ohne Netz entscheiden kann. Standard ohne Eintrag: Schotterberechnung und Nivellierlatte „geprüft + auch Gäste“, alle anderen „ungeprüft + nur Azubis“.
+- Startseite: Admins sehen oben links an jeder Kachel ⋮ (Menü mit Status und Sichtbarkeit). Grüner ✓ = geprüft, rotes ✕ = ungeprüft. „Versteckt“ blendet die App für alle außer dem Admin aus. Die Gast-Sperre (Kacheln + `site-gate.guard.ts`) folgt jetzt der Sichtbarkeit.
+- Forum- und „Mehr“-Kacheln liegen jetzt in `katalog.ts` (`FORUM_TILE`, `MEHR_TILES`, `alleAppTiles()`).
+- Lokal mit gemockter API getestet (Menü, Speichern, Screenshot).
+
+### 2026-11-06 — Startseite: Haken „fachlich geprüft“, Gäste nur Schotterberechnung + Nivellierlatte (deployt 2026-11-06, nur Frontend)
+
+- **Autor:** Claude
+- `QuizTile.geprueft` in `src/app/shared/katalog.ts`. Gesetzt bei Schotterberechnung (`/zusatz/schotterbett`, Kachel umbenannt von „Schotterbedarfsrechner“) und Nivellierlatte ablesen. Grüner ✓ an der Kachel, darüber eine kleine Info-Zeile, was der Haken bedeutet.
+- Gäste: `GAST_FREIGEGEBENE_LINKS` (katalog.ts). Alle anderen Kacheln sind grau mit Schloss und nicht klickbar. `site-gate.guard.ts` leitet Gäste bei anderen URLs auf `/dashboard` um (erlaubt bleiben Dashboard, Profil, Nachweise). Der Chat (Widget) bleibt für Gäste nutzbar.
+- Lokal geprüft (Normal- und Gast-Ansicht, Screenshot, URL-Sperre).
+
+### 2026-11-05 — Gastzugang mit Kurzzeitkonto + Meldungen ans Backend (deployt 2026-11-06: Backend, Caddyfile, Frontend)
+
+- **Login-Seite:** neuer Block „Gastzugang“ (Name + Gast-Passwort). Ergibt ein Kurzzeitkonto (`users.expires_at`, `users.gast_code`), Name erscheint als „Name (Gast)“. Chat, Statistik-Sync und Meldungen laufen darüber wie bei normalen Konten. Zugang bleibt auf dem Gerät gespeichert (`glw-site-auth = {gast, name, bis}`, Token in `glw-auth-token`), endet automatisch (Prüfung beim Start + jede Minute; beim Start fragt die App `/auth/me`, damit „Sofort beenden“/„Verlängern“ von Tim greift).
+- **Admin-Seite** `/konto/gaeste` (Dashboard-Link „Gäste“): Gast-Passwort erstellen (Bezeichnung, Tage Standard 7, max. Personen Standard 30, Format `GAST-XXXXXX`), Liste mit Gästen je Passwort inkl. Antworten/Quote/zuletzt aktiv/Chat-Nachrichten/Meldungen, „+7 Tage ab jetzt“, „Sofort beenden“ (Daten bleiben). Darunter alle **Meldungen zu Fragen** (auch normale Konten) mit Erledigt-Haken.
+- **Meldungen** gingen bisher nur in den localStorage des Melders (für Tim unsichtbar). Jetzt zusätzlich `POST /api/meldungen` (Tabelle `question_reports`).
+- **Backend:** `routes/gast.ts` (anmelden mit eigenem Rate-Limit 15/15 min, Admin-CRUD unter `/api/gast/codes`, `GET /api/gast/pruefen` für Caddy vor dem globalen Rate-Limit, 60-s-Cache), `routes/meldungen.ts`, `sessions.ts` (Ablauf je Konto, `gastBis` in `/auth/me`), Gäste dürfen E-Mail/Passwort nicht ändern.
+- **Caddyfile:** `/assets/*` ohne `glw_gate`-Cookie geht jetzt per `forward_auth` an `/api/gast/pruefen` (Cookie `glw_gast` = Sitzungstoken) statt pauschal 401. Normale Nutzer unberührt.
+- Deploy-Reihenfolge: Backend (Migrationen) → Caddyfile + reload → Frontend.
+
+- **Nachtrag 2026-11-06 (Claude):** Auf Tims Wunsch keine eigene „Gäste“-Seite mehr. Der Gast-Login (1/3/7/14 Tage, Standard 7) steht jetzt als zweiter Bereich auf der Admin-Seite **Schlüssel** (`components/gast-zugaenge`), die Meldungen stehen auf der Seite **Fragen** (`components/meldungen-liste`). `/konto/gaeste` leitet auf `/konto/schluessel` um. Deployt 2026-11-06; geprüft: Migrationen da, /assets ohne Cookie 401, mit glw_gate 200, falscher Gast-Token 401, /gast/codes ohne Admin 401. Echter Gast-Login-Durchlauf noch offen (Testeintrag in Prod-DB vom Auto-Mode blockiert). Backup der alten Caddyfile: deploy/Caddyfile.bak-2026-11-06 auf dem Server.
+
+### 2026-11-05 — Schotterberechnung: Tims Prototyp ersetzt die Schotterbedarfsrechner-Seite (deployt 2026-11-05)
+
+- `/zusatz/schotterbett` zeigt jetzt Tims Prototyp `schotterberechnung.html` als Angular-Seite (`pages/schotterberechnung.page.*`, Logik unverändert in `schotterberechnung.logik.ts`, nur auf das Seiten-Element begrenzt): links Textaufgabe + Whiteboard + Ergebnisfelder, rechts 6 blätterbare Lehrtabellen (1-/2-gleisig × 60/63/67 cm, Holz Gr. 1/2/4/5, B 58 … B 93, Stahltrog, Y-Stahl 0,60/0,65; Spalten vor Kopf 0,30/0,40/0,50 × u = 0/160).
+- Bewusst als Angular-Seite statt statischer HTML-Datei, damit sie hinter dem Login-Gate bleibt (Gate ist clientseitig).
+- Alte Seite (Prüfung/Üben/Rechner) weiter erreichbar unter `/zusatz/schotterbett/alt`.
+- Getestet: Build ok, Browser 1280 px und 390 px ohne Überlauf, Blättern, Whiteboard, Lösungsweg.
+- **Nachtrag (2026-11-05):** Seite nutzt jetzt das eingestellte Design/Skin (alle Farben, Radien, Schriften aus `--sp-*`/`--font-*`, getestet mit Signalwerk und Bahn-Clean). Tabelle lässt sich auf dem Tablet per Wischen umblättern, das Blatt folgt dem Finger (unter 1/3 Weg ohne Schwung federt es zurück). Aufgabentext steht oben auf der Malfläche (man kann darüber schreiben), „Neue Aufgabe“/„Regelwerte“ in der Werkzeugleiste. Ergebnisse sind eingeklappt und klappen über die Malfläche auf, im Kopf steht „x von 6 richtig“. Stiftfarben: Textfarbe des Designs plus Blau/Rot/Grün/Orange. Deployt 2026-11-05.
+- **Nachtrag 2 (2026-11-05):** Knopf „Nur Werte“ (Wahl bleibt gespeichert): statt Fließtext nur Strecke, Länge, Geschwindigkeit, Verschmutzung, Schüttdichte, Schwelle neu/alt mit Gewicht, Teilung/u, Nutzlast Schotter-/Schwellenwagen. Jede Aufgabe gibt EINE Schüttdichte vor (1,5 unverdichtet oder 1,7 verdichtet). Schwellenwagen über Gewicht, neue Schwellen und Altschwellen getrennt (Anzahl × kg ÷ Nutzlast). Gewichte Beton/Y aus BSI/DB-Zeichnungsverzeichnis, Holz Gr. 1/2/4/5 (100/95/90/85 kg) und Stahltrog (75 kg) geschätzte Übungswerte. Deployt 2026-11-05.
+- **Nachtrag 3 (2026-11-05):** Malfläche mit Zwei-Finger-Zoom/-Verschieben (0,4–5×, Strg+Mausrad am PC, 🔍-Knopf setzt zurück); Aufgabe bleibt dabei fest oben. „Nur Werte“ zeigt die Werte als kompakte Chips durchsichtig auf dem Blatt. Schwellen-Zeile in der Tabelle 0,45 s gedrückt halten → Tabelle grau, Zeile hervorgehoben → auf die Malfläche ziehen → Vollbild (App-Kopfleiste aus) und die Zeile liegt als Karte auf dem Blatt (am Kopf verschiebbar, ✕ entfernt, zoomt mit, man kann darauf schreiben). Vollbild-Knopf/Esc zum Beenden. Getestet mit Maus und Touch (CDP). Deployt 2026-11-05.
+
+### 2026-11-04 — Schotterbedarfsrechner: 3 Schwierigkeitsstufen, Schottertabelle zum Umblättern (gebaut, Deploy vom Auto-Mode blockiert)
+
+Tim: Regel bestätigt (bis einschl. 160 km/h 40 cm vor Kopf, ab 161 km/h 50 cm; Bettung 30 cm, über 230 km/h 35 cm). Textaufgabe leicht bis schwer mit Verschmutzung und Gleisabstand, Schottertabelle (60/63/65 … cm × vor Kopf 30/40/50 × Bettung 20/30/35) tablet-freundlich neben den Aufgaben.
+
+- Textaufgabe jetzt **Leicht** (Neubau eingleisig, Werte vorgegeben), **Mittel** (Bettungsreinigung, Werte aus v, Verschmutzung, lose m³), **Schwer** (zweigleisig, Gleisabstand 4,10–4,50 m → je 10 cm über 4,00 m 1 % Zuschlag, bei v ≤ 120 teils Brücke mit 20 cm Bettung). Alle Stufen lesen m³/km aus der Tabelle; Folgefehler beim Volumen aus dem Tabellenwert.
+- Neue `schotterbett/data/schottertabelle.ts`: 6 Seiten (ein-/zweigleisig × Bettung 20/30/35), Zeilen 60/63/65/70/75 cm, Spalten vor Kopf 30/40/50, m³/km oder t/km. Gerechnet mit dem Trapezmodell (B 70), **keine Ril-823-Originalwerte**. Ab 900 px rechts neben der Aufgabe (sticky), Pfeile/Punkte/Wischen.
+- Üben: neue Kategorie „Schottertabelle ablesen“, Fragen Y-Stahlschwelle (üblich bis 120 km/h) und „50 cm ab 161 km/h“. Quellen ergänzt (Krumnow Tab. 4 S. 20, Tecklenburger Nordbahn, Wikipedia Schwelle, Y-Stahl-Vortrag 2007).
+- Gleisabstand-Zuschlag 1 %/10 cm: **öffentlich nicht gefunden**, als Ausbildungsregel (Tim) gekennzeichnet.
+- Getestet: 6000 Zufallsaufgaben ok, Produktions-Build ok, Browser 1180 px + 390 px ok. Deploy offen.
+
+- **Nachtrag (später am 2026-11-04):** Textaufgabe auf Tims Prüfungsformat umgebaut: „Zwischen Bf X und Bf Y …“, zweigleisig mit „beide Gleise“ oder „nur Richtungsgleis“ (dann halber zweigleisiger Tabellenwert, Annahme), Gleisabstand 4,10–4,80 m, Wiederverwendung mal als Quote, mal als Verschmutzungsgrad, Schüttdichten frei gewählt (verd. 1,60–1,80, lose 1,40–1,55; bewusst nicht die Ausbildungswerte). Brückenvariante raus, t/km-Umschalter raus, alle Hinweise auf Ausbildungsunterlagen/Ril 823 aus der Oberfläche entfernt. Holzschwellen-Probe gerechnet (siehe Recherche 16, sechste Ergänzung) – Tim vergleicht mit seiner Tabelle, danach Tabelle je Schwellentyp (Zeilen Schwellentypen × Bettung 30/35, Spalten vor Kopf 30/40/50).
+
+- **Nachtrag 2 (2026-11-04):** Schottertabelle nach Tims Vorgabe umgebaut: Zeilen = Schwellentypen (Holz 2,60 × 0,26 × 0,16, B 58, B 70 2,40/2,60, B 75, B 90, B 93, Y-Stahl) mit je Bettung 30/35 cm, Spalten vor Kopf 30/40/50, Seiten = ein-/zweigleisig × Abstand 60/63/65. Neue Datei `schotterbett/data/schwellen.ts` (Volumen = Gewicht ÷ 2,5 bzw. 7,85 t/m³, Gewichte BSI-Broschüre 2025; Höhen von B 58/B 75/B 93 angenommen = B 70, in der Tabelle mit * markiert; Y-Stahl immer 83 cm, 2,00 m Auflage, 0,10 m hoch). Aufgaben wählen den Schwellentyp passend zum Tempo (Holz/B 58/Y bis 120 km/h). Rechner mit Schwellentyp-Auswahl. Stahltrog fehlt (kein öffentliches Gewicht/Maß). Deploy erneut vom Auto-Mode blockiert.
+
+### 2026-11-03 — Schotterbedarfsrechner: Textaufgaben, Ril-820.2010-Werte, freier Rechner (nicht deployt)
+
+Tim: Schotterrechner aufpäppeln, prüfungsnahe Textaufgabe (km-Bereich, Schwellenanzahl, Verschmutzungsgrad/Wiederverwendung, verdichtet/unverdichtet, Wagen aufrunden), Regelwerte recherchieren; „30/40 cm bei Hochleistungsstrecke“ war falsch.
+
+- Modul `zusatz/schotterbett` umgebaut, Titel jetzt „Schotterbedarfsrechner“. Drei Reiter: **Textaufgabe** (Einstieg: Neubau mit Schotter je m gegeben; Prüfung: Bettungsreinigung, vor Kopf/Bettungsdicke aus v selbst bestimmen, Trapez-Querschnitt, 11 Teilaufgaben a–k mit Rechenweg, Folgefehler bei der Wagenzahl), **Üben** (Ril-Regelwerte, Schwellen/km, Wagen aufrunden), **Rechner** (freie Eingabe).
+- Regelwerte zentral in `schotterbett/data/regelwerk.ts`, Rechenmodell in `services/schotter-rechnung.ts`. Regelwerk-Tabelle und Quellen unten auf der Seite.
+- Falschen Wert entfernt: Bettungsdicke ist 30 cm, erst über 230 km/h 35 cm; vor Kopf 40 cm, über 160 km/h 50 cm.
+- Recherche siehe [[08-Recherche-Gwen/16-Schotterberechnungstabellen]] (vierte Ergänzung).
+- Getestet: `ng build` ok, 2000 Zufallsaufgaben ohne ungültige Werte (3,1–3,7 t/m, passt zu Krumnows 3,3 t/m), Browser: Prüfen/Rechner/Mobil ok.
 # Update-Log
 
 Chronologie der wichtigsten Änderungen am Projekt, neueste zuerst. Basiert auf
@@ -11,7 +168,130 @@ Neue Einträge bitte **oben** anfügen.
 
 ---
 
-### 2026-10-27 (2) — Tycoon: 10 neue Spielmechaniken (lokal getestet, NICHT deployt)
+
+### 2026-10-31 — Tycoon: Bot-Gegner (Server) und Tutorial-Begrüßung in der Bildschirmmitte (deployt 2026-10-31)
+
+Tim: „ein paar Bots, die genauso auf der Karte arbeiten und Strecken bauen, damit man zu Beginn Gegner hat“; Tutorial-Fenster am Anfang in der Mitte.
+
+- **Bots** (`backend/src/tycoon-bots.ts`): echte Spieler-Einträge (`users` ohne Passwort/Key, E-Mail `tycoon-bot-<nr>@bots.gleisbau.invalid`, Name mit 🤖), markiert in neuer Tabelle `tycoon_bots (user_id, nr)` (Migration in `index.ts`). Dadurch funktionieren Besitz, Gebote, Durchfahrt, Rangliste, Wertung und Börse mit ihnen wie mit Menschen. Anzahl per Umgebungsvariable `TYCOON_BOTS` (Standard 6, höchstens 8, 0 = alle entfernen; Gebote auf ihre Gebiete werden dann zurückgezahlt). Firmen (ausgedacht): Elbtal-Schiene (DE), Nordlicht-Bahn (SE), Sonnenland-Bahn (IT), Rheintal-Gleis (FR), Weichselbahn (PL), Alpen-Express (AT), Meseta-Ferro (ES), Donau-Linie (DE).
+- Start: Heimatgebiet im Wunschland (einwohnerstark, Nachbarn und deren Nachbarn frei), dazu 2 Nachbarn mit Strecken. Takt alle 3 Minuten (`TYCOON_BOT_TAKT_MS` zum Testen): Einnahmen/Erfahrung, mit 40 % ein freies Nachbargebiet kaufen und per Strecke vom angrenzenden eigenen Bahnhof anschließen, ab und zu ein Zug. Höchstens 45 Gebiete je Bot.
+- **Gebote an Bots:** werden im nächsten Takt beantwortet – ab doppeltem Grundpreis angenommen (Gebiet wechselt, Bahnhof/Strecken des Bots dort verschwinden), sonst abgelehnt mit Hinweis auf den Preis; das Heimatgebiet nie.
+- Spielstand der Bots im normalen Format (Bahnhöfe, Strecken mit Punkten, Züge), `shared = true` → in der Rangliste „Ansehen“ möglich. `/welt` liefert `bezirke[].bot` und `botStrecken` (Punktfolgen).
+- Gebietsdaten für den Server: `tools/tycoon-karte/erzeuge-bot-daten.cjs` → `backend/src/tycoon-bots-daten.ts` (6.888 Gebiete: Land, Einwohner, Grundpreis, Punkt im Inneren, Nachbarn; 495 kB). Nach Änderungen an den Gebieten neu erzeugen.
+- **Frontend:** Bot-Strecken in Firmenfarbe mit kleinen Bahnhöfen und pendelnden Zügen (2D), Bot-Hinweis am Gebot-Knopf. Tutorial: Begrüßung in der Bildschirmmitte („Willkommen … 🗺 Startpunkt suchen“), danach Hinweis unten mittig.
+- Getestet: Server in Wegwerf-Umgebung auf michiserver (eigenes Docker-Netz + Postgres, danach gelöscht): 6 Bots angelegt, Gebot zu niedrig → abgelehnt + Rückzahlung, Gebot 2× → angenommen, Wachstum ohne Doppelvergabe, Reduktion auf 2 Bots räumt auf, keine Fehler im Log. Browser (gemockt): Begrüßung mittig, Bot-Gebiet/-Strecken sichtbar, keine Konsolenfehler; `ng build` und Backend-`tsc` ok.
+- **Deploy-Hinweis:** Backend zuerst (legt beim Start die Bots in der echten Datenbank an), dann Frontend. Bots in 3D noch nicht gezeichnet.
+
+### 2026-10-29 (2) — Tycoon: geführtes Tutorial mit Pfeilen, Fokus-Modus, Feld-Menü „Bauen“ (deployt 2026-10-29, nur Frontend)
+
+Tim: „man sieht nichts außer der Karte und der Tutorial-Anzeige“, blinkende Pfeile auf „hier klicken“, Erklärungen (Einwohner, was es bringt, wohin die Leute wollen), über dem gekauften Feld ein Menü mit „Bauen“ (Bahnhof usw.), jederzeit „Tutorial überspringen“.
+
+- **Fokus-Modus** (Klasse `tut-fokus`, Schritte 1–5): Menüleiste, Panel, Griff, Level, Tempo und Trupp-Leiste ausgeblendet, nur Karte, Geld, Uhr und Hinweis; der App-Chat-Knopf ebenfalls (`body.tycoon-fokus`). Panel nur, wenn beim Zeichnen eine Kreuzung „Bauen“ braucht. Handy: Hinweis unten, gewähltes Gebiet rückt in den freien oberen Teil.
+- **10 Schritte** (`TUT_V = 3`): Startpunkt wählen → Bahnhof bauen → Nachbargebiet kaufen → zweiten Bahnhof bauen → Strecke herstellen → Geld verdienen → Zug kaufen → Störung → Trupp → Netz ausbauen. Je Schritt `ziel` (Knopf bekommt `.tut-ziel`: leuchtet + hüpfender Pfeil 👇/👉/👈) und `karte` (hüpfender orangefarbener Pfeil mit Text auf der 2D-Karte, z. B. „⭐ Hier wollen die meisten hin“, „Bis hierher ziehen“, „Störung – tippe hier“).
+- **Infos im Hinweis** beim Antippen eines Gebiets: Einwohner („deine möglichen Fahrgäste“), €/Min. mit Strecke, Hauptpendlerziel, beim Nachbarn Anteil der Pendler zu den Nachbarn (⭐ = beste Wahl), Klimazone; Zeilen erscheinen nacheinander mit Zeigefinger; darunter „🚩 Hier starten“ bzw. „🛒 Kaufen“.
+- **Feld-Menü** `#feldmenue` (2D, schwebt über dem gewählten eigenen Gebiet/Bahnhof/der Stadt, auch außerhalb des Tutorials): „🏗 Bauen“ → 🚉 Bahnhof, 🏗 Güterbahnhof, 🏭 Kohlelager (je nach Lage), „🛤 Strecke herstellen“. In 3D stehen die Tutorial-Knöpfe im Hinweis.
+- **Bahnhof nicht mehr automatisch** (Tims neuer Wunsch: über „Bauen“); bereits automatisch angelegte Bahnhöfe bleiben. Gebiete mit Spielstadt: Stadt = Bahnhof wie bisher.
+- Getestet (Patchright, gemockt): kompletter Ablauf bis zur ersten Strecke am PC und Handy, alte Spielstände (Tutorial fertig), keine Konsolenfehler, `ng build` ok.
+
+### 2026-10-29 — Tycoon: Tutorial mit Startpunkt-Wahl, Bahnhof in jedem Gebiet, Spieluhr, Wetter nach Klimazone, Streckentrupps (deployt 2026-10-29, nur Frontend)
+
+Tims Wunsch: besserer Einstieg (Tutorial), Startpunkt frei in Europa wählen, Bahnhof automatisch je Gebiet, Einwohner/Pendler-Info, Datum und Uhrzeit, Winter im Norden (Schienenbruch) / Sommer im Süden (Verwerfung), Mitarbeiter per Drag & Drop auf Strecken (bis 95 % Störungen abgefangen, Lohn mindert Einnahmen).
+
+- **Tutorial neu** (8 Schritte, `TUT` in `tycoon-engine.ts`, Fassung `TUT_V = 2`): Startpunkt wählen → Nachbargebiet kaufen (freie Nachbarn pulsieren orange) → Bahnhöfe verbinden (eigene Bahnhöfe pulsieren) → Strecke ansehen → Zug kaufen → Störung beheben → Streckentrupp einsetzen → Netz ausbauen. Hinweis mit „Schritt n/8“ und „Überspringen“. Alte Spielstände (ohne `tutV`): mit Strecken = fertig, ohne = Start bei Schritt 0. Wetter, Ereignisse und die erste Störung erst ab Schritt „Störung beheben“.
+- **Startpunkt:** neues Spiel / „Spiel zurücksetzen“ → beliebiges freies Gebiet in Europa antippen, Panel „🚩 Hier starten“ mit Einwohnern, Pendlern, Klimazone. Belegte Gebiete: „Hier hat schon X angefangen“. Keine feste Startstadt mehr (`START_CITY` entfernt); bei der Wahl werden alle Städte blass zur Orientierung gezeigt. Nach dem Kauf: `S.heim`, 3 Städte in der Nähe aufgedeckt, Ansicht auf das Gebiet.
+- **Bahnhof in jedem eigenen Gebiet** (`sichereBahnhoefe()` bei jedem Welt-Laden): mit Spielstadt ist die Stadt der Bahnhof (wird aufgedeckt), sonst entsteht kostenlos ein Bahnhofsgebäude – egal ob gekauft, per Gebot oder vom Markt. Abreißen-Knopf entfernt. Bestehende Spieler bekommen beim nächsten Laden Bahnhöfe in allen eigenen Gebieten ohne Stadt.
+- **Nachbargebiete:** `nachbarn(id)` in `tycoon-gebiete.ts` über gemeinsame Grenzbögen (Berliner/Hamburger Bezirke geometrisch). Gebiets-Panel: „✓ Grenzt an dein Gebiet“.
+- **Pendler:** Gebiets- und Bahnhofs-Panel zeigen Pendler täglich (ca. 12 % der Einwohner, Schätzung) und die 4 Hauptziele (Schwerkraftmodell Einwohner/Entfernung² im Umkreis 150 km). Strecke zu einem Pendlerziel = Pendlerstrecke, +15 % Fahrgäste.
+- **Spieluhr** (`tycoon-zeit.ts`): 1 Spieltag = 150 s, Datum springt je Spieltag um 10 Tage (Jahr = 36 Spieltage, Start 1. März 2026, 6 Uhr). Kopfleiste „Mo, 1. März 2026 · 🕑 10:20 · 🌸 Frühling“, auf Handy/Tablet eigene Uhr-Kachel `#uhr`. Jahreszeit aus dem Monat (vorher: alle 5 Spieltage). **Tag/Nacht nach Spieluhr** statt echter Uhrzeit, Sonnenstand nach Datum und Breite des Heimatgebiets (Norden: lange Winternächte). Wochenende (Museumszug) = Spiel-Wochentag. `?nacht=1` geht weiter.
+- **Wetter nach Klimazone** (`klimaVon()`; Nord = NO/SE/FI/Baltikum/RU/BY, Süd = IT/ES/PT/GR/Balkan/RO/BG, sonst Mitte): Gewichte je Wetterart. Neu: **🥶 Strenger Frost** (Winter, v. a. Norden) → Störung **Schienenbruch (Frost)** (Fehlerart 11, Thema Schiene), Schutz = Spannungsausgleich (Neutraltemperatur). Hitze v. a. Süden und Mitte. 2D Eiskristalle, 3D Partikel. Klimazonen-Text im Gebiets-Panel.
+- **Streckentrupps** (`tycoon-trupps.ts`): Streckenläufer 50 % / Lohn 8 %, Instandhaltungsrotte 75 % / 15 %, Fachtrupp 90 % / 25 %, Bereitschaft 95 % / 38 % (Einsatz einmalig 500–6.000 €, im Testmodus 0). Lohn = Anteil jeder Einnahme der Strecke (Trassenentgelt und Miete), Hauptstrecken sind also am teuersten abzusichern. Ein Trupp fängt Verschleiß- und Wetterstörungen mit seiner Quote ab (Meldung, Zustand +3 %); die Tutorial-Störung nie. **Drag & Drop:** Leiste „👷 Trupps“ an der Karte (PC/Tablet oben rechts, Handy unten über dem Griff), Karte auf eine Strecke ziehen (2D und 3D, `weltPunkt()` in `tycoon-3d.ts`) oder antippen und dann Strecke antippen; außerdem Knöpfe im Strecken-Panel und Übersicht im Personal-Fenster. Löhne in der Übersicht. Symbol in 2D auf der Streckenmitte.
+- Kurzanleitung „?“ angepasst. Test-Zugang nur im Dev-Modus: `window.__tycoon` (`isDevMode()` in `tycoon.page.ts`).
+- Getestet (Patchright, API gemockt, PC 1280×800 und Handy 390×800): kompletter Tutorial-Ablauf bis Schritt 8 inkl. Drag & Drop, belegtes Gebiet abgelehnt, alter Spielstand (Tutorial fertig, 2 Bahnhöfe nachgelegt), Mitternacht/Mittag im Januar, 3D ohne Fehler; keine Konsolenfehler; `ng build` ok. Am 2026-10-29 deployt (nur Frontend, nicht committet). Kein Backend geändert.
+- Noch offen (nächste Runde): Ausschreibungs-Quiz-Turnier zwischen Spielern (braucht Server), eigener Güterbahnhof als zweites Gebäude im Gebiet mit Nebenbahn-Anschluss, Trupp-Symbole und Nachbar-Markierung in 3D.
+
+
+### 2026-10-28 (4) — Tycoon: ganz Europa spielbar (deployt 2026-10-28, Backend + Frontend; Erstattung 5.450 € gebucht)
+
+- **Karte:** ganz Europa bis Griechenland, Russland bis etwa Moskau (Kaliningrad, St. Petersburg, Karelien, Murmansk, Pskow … Moskau, Jaroslawl, Lipezk, Belgorod; Türkei, Zypern, Überseegebiete, Ceuta/Melilla weggelassen). **6.888 Gebiete** (DE 400 + Berliner/Hamburger Bezirke wie bisher, Ausland ~6.470) in etwa Landkreis-Größe, z. B. Polen 380 Powiats statt 16 Woiwodschaften, Frankreich 320 Arrondissements, Italien 107 Provinzen, Ukraine 487 Rajone. **405 Regionen** („Bundesländer“, Bundesland-Übersicht/Fokus), Namen deutsch wo Natural Earth sie kennt.
+- **Spanien und Rumänien:** keine passende Ebene → Gemeinden je Provinz/Kreis per k-Means zu ~1.500 km² zusammengefasst, benannt nach dem größten Ort (Natural Earth).
+- **Quellen:** geoBoundaries gbOpen (je Land CC0/PD, CC BY, CC BY-SA, ODbL, Etalab, OGL, swisstopo, INE – Liste `tools/tycoon-karte/QUELLEN-EUROPA.md`), Natural Earth (PD), DE weiter BKG. Alles kommerziell nutzbar; bei ODbL/CC BY-SA Weitergabe der Grenzdaten unter gleicher Lizenz (Spiel selbst nicht betroffen). Quellenvermerk im Gebietspanel erweitert.
+- **Einwohner Ausland:** geschätzt (Natural-Earth-Orte im Gebiet, Ballungsraum nach Nähe aufs Umland verteilt, ländliche Grunddichte aus Landesbevölkerung). Gebietspreise daraus wie bisher.
+- **Pipeline:** neu `tools/tycoon-karte/erzeuge-europa.cjs` (Ebenen je Land, Zusammenfassen, Regionen, Einwohner); `erzeuge-gebiete.cjs` auf Europa umgestellt (neue Kennungen `<Land>Y<Nr>`, Region `b`, Einwohner `e`, `REGIONEN`); `erzeuge-karte.cjs`/`erzeuge-hoehen.py` Ausschnitt −16…60° O, 30…73° N; `erzeuge-fluesse.cjs` ganz Europa (666 Flussläufe).
+- **Städte:** 231 neue (Hauptstädte, Großstädte, Bahnknoten) → 269. Werden wie bisher in der Nähe eigener Strecken aufgedeckt.
+- **2D:** Spielfläche `SPIEL` (alle Gebiete), Start weiter in der Deutschland-Ansicht, Knopf „🌍 Ganz Europa“. Hintergrund wird für den sichtbaren Ausschnitt in Bildschirmauflösung gezeichnet und beim Verschieben/Zoomen nur mitbewegt (neu erst nach 160 ms Ruhe). Relief einmal auf Land zugeschnitten (vorher clip() je Bild, das war über Europa sekundenlang), grobe Grenzbögen beim Herauszoomen, Flüsse nach Sichtbarkeit/Größe. Messung (RTX 4070): Neuzeichnen ~34 ms, Verschieben flüssig.
+- **3D:** grober Boden über ganz Europa mit Gebietsfarben; feiner Boden (so groß wie früher Deutschland) wandert mit der Kamera, wenn sie ruht. Deko (Wälder, Windräder …) über ganz Europa (gedeckelt). Max. Kamerahöhe 1100. 3D war im Testbrowser schon vorher langsam (Vergleich mit altem Stand: ähnlich).
+- **Server:** Migration erstattet alte Auslandsgebiete (Kennung mit X an 4. Stelle; live betrifft das 2 Gebiete, 5.450 €), zahlt offene Gebote darauf zurück, zieht Marktangebote zurück. Gebietskennungen bis 2.147.483.647 erlaubt (Kosovo-IDs > 2 Mrd.), Durchfahrt bis 200 Posten.
+- Sonst: „ins Ausland“ → „grenzüberschreitend“ (Enden in verschiedenen Ländern), Gebiets-Untertitel mit Region, Hilfe-Eintrag „Ganz Europa“, Start der Gebietsdaten 475 → 267 ms.
+- Getestet: alle Städte in Gebieten, Strecke Berlin → Posen über polnische Gebiete, Panel/Regionsübersicht Polen, Europa-/Spanien-Ansicht PC + Handy, 3D, alte Tests (Kreuzungen, 6 Geräte, Clan). Prod-Build ok (Tycoon-Paket 3,25 MB, ~0,9 MB übertragen).
+
+### 2026-10-28 (3) — Tycoon: Clan-Passwort + Einladungen, Duelle entfernt, schwebendes ✕ (deployt 2026-10-28, Backend + Frontend)
+
+- **Clan-Passwort:** optional beim Gründen, später setzen/ändern/entfernen (Gründer; ist er ausgetreten, jedes Mitglied). Gespeichert als bcrypt-Hash (`tycoon_clans.passwort_hash`, neue Spalte `gruender`). Clans mit Passwort zeigen 🔒; Beitreten öffnet ein Passwortfeld, falsches Passwort → 403 „Falsches Passwort.“
+- **Einladungen:** Clan-Reiter zeigt (wenn man in einem Clan ist) die Spielerliste aus der Rangliste mit Suche und „Einladen“. Tabelle `tycoon_clan_einladungen (clan_id, user_id, von)`. Eingeladene bekommen eine Gutschrift-Nachricht (0 €) und sehen oben „✉ Einladungen an dich“ (Annehmen ohne Passwort / Ablehnen). Beim Beitritt werden alle eigenen Einladungen gelöscht.
+- Neue Routen in `backend/src/routes/tycoon.ts`: `POST /clans/passwort`, `POST /clans/einladen`, `POST /clans/:id/einladung-ablehnen`; `POST /clans` und `/clans/:id/beitreten` nehmen `passwort`; `GET /clans` liefert `passwortRecht`, `einladungen`, `eingeladen`, `clans[].passwort`.
+- **Duelle raus (nur Frontend):** Reiter, Herausfordern-Knöpfe, Kategorie „Duell-Siege“ und API-Methoden entfernt. Backend-Routen und Tabelle `tycoon_duelle` bleiben unberührt (alte Daten bleiben erhalten). Pokale gibt es weiter über die Wertung; Shop-Texte angepasst („Pokal-Preis“).
+- **Info-Panel:** Details (Gebiet, Stadt, Strecke, Bahnhof, Abzweig, Gaststrecke) haben oben ein mitschwebendes ✕ (`#panel .px`, sticky) statt „Schließen“ ganz unten. Fenster (Modals) hatten schon ein ✕; der doppelte reine „Schließen“-Knopf unten wird dort jetzt entfernt (`renderModal`).
+- Getestet (Patchright, gemockt): ✕ auf PC und Handy, Fenster, Passwort falsch/richtig, Einladen, Rangliste ohne Duelle; Produktions-Build und Backend-`tsc` ok. Nicht gegen echte DB getestet.
+
+### 2026-10-28 (2) — Tycoon: Flüsse, Kreuzungen (Brücke/Tunnel), Durchfahrt und Gebote statt Wegkaufen (deployt 2026-10-28, Backend + Frontend)
+
+**Deploy-Hinweis:** Die neue Tabelle hieß zuerst `tycoon_gebote` – diesen Namen nutzen aber schon die Ausschreibungs-Gebote. Folge: Migration brach ab, `/api/tycoon/welt` lieferte kurz 500. Umbenannt in `tycoon_gebietsgebote` (Migration, `/welt`-Zähler, Gebots-Routen), neu deployt, `/welt` wieder 200.
+
+Tims Wunsch: Kreuzungen brauchen Brücke oder Tunnel (Wahl an einem grauen Feld), Flüsse mit teureren Brücken, kein gegenseitiges Wegkaufen mehr, stattdessen Gebote, und Durchbauen durch fremde Gebiete gegen Geld.
+
+- **Flüsse**: `tools/tycoon-karte/erzeuge-fluesse.cjs` → `tycoon-fluesse-daten.ts` (Natural Earth 1:10m Rivers + Rivers Europe, Public Domain; 121 Linien, ~59 kB). Größenklassen 1 Strom / 2 großer Fluss / 3 Fluss aus `scalerank`. In `zeichneKarte` gezeichnet, also in 2D und 3D sichtbar.
+- **`tycoon-kreuzungen.ts`**: `flussQuerungen` (Raster-Index, Flussschleifen innerhalb 4 Einheiten zählen einmal), `streckenKreuzungen` (ohne Anschlüsse an Streckenenden), Preise: Flussbrücke 400/250/120 €, Kreuzung Brücke 150 € (Bergland 260 €), Tunnel 300 € (Bergland ab 400 m: 140 €). Kunstbau-Preise wie die übrigen Baupreise: Lieferengpass ×1,5, Clan-Brücke −10 %, im Testmodus 0.
+- **Engine**: `bauplan()` fasst Gleis, Flussbrücken, Kreuzungen und Durchfahrt zusammen (Panel mit Aufstellung). Beim Zeichnen graue Felder an Kreuzungen (feste Bildschirmgröße, antippen = Brücke ↔ Tunnel, auch per Knopf im Panel). Mit Kreuzungen wird beim Loslassen nicht sofort gebaut, sondern erst mit „Bauen“. Gewählte Kreuzungen werden an der Strecke als `kr` gespeichert, Flussbrücken für alle Strecken berechnet (`L.fq`, nicht gespeichert) und gezeichnet. In 3D gibt es noch keine Brücken- oder Tunnelmodelle.
+- **Durchfahrt**: Strecken dürfen durch fremde Gebiete (`befahrbar` = eigene, aktive Clan- oder fremde Gebiete; freie müssen weiter gekauft werden). Die einmalige Gebühr beträgt 50 % vom Grundpreis je fremdem Gebiet. Neue Route `POST /tycoon/durchfahrt` schreibt dem Besitzer eine Gutschrift (Server begrenzt auf 50 % vom Grundpreis).
+- **Kein Wegkaufen**: `POST /tycoon/bezirke` lehnt fremde Gebiete ab (409). Die Konstanten für Schutzzeit und 3-fache Übernahme sind weg.
+- **Gebote**:
+  - Tabelle `tycoon_gebote` (Migration in `index.ts`), Routen `GET/POST /tycoon/gebote` und `POST /tycoon/gebote/:id/(annehmen|ablehnen|zurueck)` in `tycoon-gemeinschaft.ts`.
+  - Der Betrag wird beim Bieten abgebucht (zurückgehalten) und kommt bei Ablehnen oder Zurückziehen als Gutschrift zurück.
+  - Beim Annehmen geht das Gebiet an den Bieter, der Besitzer bekommt eine Gutschrift. Andere offene Gebote auf dasselbe Gebiet gehen zurück, ein Markt-Angebot des alten Besitzers wird zurückgezogen.
+  - `/welt` liefert `geboteOffen`, damit die Übersicht einen Hinweis zeigt.
+  - UI: im Gebiet-Panel der Knopf „💬 Gebot“ (Fenster mit Betrag), unter „Börse & Markt“ die Abschnitte „Gebote für deine Gebiete“ (Annehmen/Ablehnen) und „Deine Gebote“ (Zurückziehen).
+- Kurzanleitung ergänzt (Flüsse, Kreuzungen, Gebote).
+- Getestet (Patchright, API gemockt): Augsburg → Regensburg durch fremde Gebiete. Erkannt wurden 2 Donaubrücken, 1 Kreuzung mit München ⇄ Nürnberg (Wahl per Knopf), 6 Durchfahrtsgebiete; Bauen, Darstellung gezoomt, Gebotsfenster, 3D, Handy. Keine Konsolenfehler, Produktions-Build ok, Backend `tsc` ok. **Backend-Routen nicht gegen eine echte Datenbank getestet.**
+
+### 2026-10-28 — Tycoon: Layout für Handy, Tablet und PC (deployt 2026-10-28)
+
+Tim: „intuitiver … tablet freundlich … Handy Freundlichkeit … beim PC alles ein wenig verteilter“. Nur Darstellung/Bedienung, Spielregeln unverändert.
+
+- **Freie Kartenfläche wird gemessen** (`layout()` in `tycoon-engine.ts`): statt fest `W - 300` zählen Kopfleiste, Panel rechts und Menüleiste links/unten. Die Engine setzt `--karte-mitte/-links/-rechts/-unten` auf `.tycoon`; Dock, Toast, Hinweis, Weltkarte-Knopf und Karten-Knöpfe richten sich danach.
+- **Panel einklappbar**: Zustände `p-zu` / `p-halb` / `p-offen` als Klasse auf `.tycoon`, neuer Griff `#panelgriff` (zeigt die Panel-Überschrift). Auf Handys startet es zu und klappt bei Auswahl (Stadt, Gebiet, Strecke, Zeichnen) von selbst auf und danach wieder zu.
+- **Handy hochkant**: Menü als Navigationsleiste unten (alle 6 Punkte beschriftet), Panel als Blatt darüber (Griff antippen oder hoch/runter wischen). Das Blatt legt sich über die Karte, damit sie beim Klappen nicht springt.
+- **Handy quer** (≤ 500 px hoch): App-Kopfzeile ausgeblendet (⌂-Knopf in der Reiterleiste), Menü als schmale Leiste links, Panel rechts einklappbar.
+- **Tablet**: Dock unten mittig über der Karte, wieder mit Beschriftung; Panel einklappbar.
+- **PC** (ab 1200 px): Menü als Seitenleiste links über die volle Höhe, Panel 330 px (ab 1600 px: 370 px), mehr Abstand in der Kopfleiste.
+- **Karten-Knöpfe** ＋ / − / ? (in 3D nur ?), **Kurzanleitung** „So spielst du“ (Modal `hilfe`, Text je nach Finger oder Maus).
+- **Finger**: größere Tippflächen (`pointer: coarse`).
+- **Chat-Knopf** der App im Spiel klein und links gesetzt (`body.tycoon-offen`), ausgeblendet bei offenem Blatt oder Fenster (`tycoon-blatt-auf`, `:has`).
+- `angular.json`: Fehlergrenze `anyComponentStyle` 40 → 60 kB (Stylesheet jetzt ca. 39 kB).
+- Getestet (Patchright): Handy 390×800 und 844×390, Tablet 820×1180 und 1180×820, PC 1280×800 und 1920×1080; Griff, Wischen, Zoom, Hilfe, Streckenzeichnen, alle Menüfenster, 3D; keine Konsolenfehler.
+
+### 2026-10-27 (4) — Tycoon: neuer Menü-Look „Leitstand“ + Fix Streckenzeichnen (deployt 2026-10-28, nur Frontend)
+
+- **Fehler behoben:** Strecke zeichnen (v. a. zwischen zwei Bahnhöfen) ließ Bahnhöfe verschwinden, Konsole `Cannot read properties of undefined (reading 'x')`.
+  Ursache: `gelaendeVon` (tycoon-ereignisse.ts) bekam beim Zeichnungsstart nur einen Punkt (Kosten-Anzeige via `lineCost` → `gelaendeFaktor`) und griff auf `pts[1]` zu.
+  Fix: bei < 2 Punkten oder Länge 0 neutrales Gelände. Zusätzlich fordert die Bildschleife das nächste Bild vor dem Zeichnen an und fängt Fehler ab
+  (einmal in der Konsole) – ein Fehler friert das Spiel nicht mehr bis zum Neuladen ein.
+- **Menü-Look (nur Aufmachung, keine Spielregeln geändert):** dunkles Glas über der Karte, Signal-Orange als Akzent, Tokens `--ui-*` in `tycoon.page.scss`.
+  Kopfleiste mit Geld-/Tag-/Level-Kacheln (XP-Balken `#xpbar`), Tempo als Segment-Schalter; Menüknöpfe als Dock unten (Handy: Leiste unter der Kopfzeile);
+  Seitenpanel schwebend; Übersicht „Dein Unternehmen“ neu (Level-Ring, Kennzahl-Kacheln, Einnahmen mit Balken, Quellen ans Panel-Ende);
+  Fenster mit Farbakzent je Art (`data-art` auf `#mcard`), fester Kopfzeile, ✕ (nur wo es schon „Schließen/Abbrechen“ gab), Einblend-Animation;
+  Zeilen in Shop/Lernen/Personal als Karten, Tabs als Segment-Schalter. Reiter oben als Pillen; Rangliste/Wertung mit Medaillen (`.medaillen`),
+  Wertung mit Siegertreppchen und „Du“-Kacheln, Börse mit Guthaben/Aktienwert.
+- `angular.json`: Budget `anyComponentStyle` maximumError 16 kB → 40 kB (Spiel-Stylesheet ist größer geworden).
+- Getestet (Patchright, Desktop 1280 + Handy 390, 2D/3D, Tag/Nacht): alle Fenster, Minispiele, Quiz, Gemeinschafts-Reiter; keine Konsolenfehler; Prod-Build ok.
+
+### 2026-10-27 (3) — Tycoon Runde 2 (am 2026-10-27 deployt, Backend zuerst)
+
+Lernen-Fenster (Tagesaufgabe mit Serie, Fehlerbilder-Memory, Gleis vermessen, Stellwerk, Zwischenprüfung), echte Einwohner (Wikidata)
+mit Wachstum und „Lohnt sich?“, Ereignisse, Tunnel/Brücken nach Höhenprofil, Tag/Nacht nach echter Uhrzeit, 7 neue Züge (u. a. Nachtzug),
+Geräusche (selbst erzeugt), Führerstand-Mitfahrt, Stellwerk-/Lokschuppen-Gebäude, Sponsor-Video-Platzhalter, Zugnamen ohne DB-Marken.
+Backend: Wertungen (Woche/Saison), Börse, Ausschreibungen zwischen Spielern, Trassenmiete, Markt. Details: 20-Bahnspiel-3D-Assets/Tycoon-Ausbauplan.md.
+
+### 2026-10-27 (2) — Tycoon: 10 neue Spielmechaniken (am 2026-10-27 deployt)
 
 Tims Auftrag: alle 10 Ideen nacheinander bauen. Plan, Details und Lizenzregel: `20-Bahnspiel-3D-Assets/Tycoon-Ausbauplan.md`.
 Neue Dateien unter `src/app/modules/zusatz/tycoon/`: `tycoon-inspektion.ts`, `-wetter.ts`, `-baustelle.ts`, `-personal.ts`, `-gueter.ts`,

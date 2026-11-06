@@ -13,9 +13,12 @@ import { SchluesselPage } from './pages/schluessel/schluessel.page';
 import { BilderBenennenPage } from './pages/bilder-benennen/bilder-benennen.page';
 import { BilderVerwaltungPage } from './pages/bilder-verwaltung/bilder-verwaltung.page';
 import { FragenUebersichtPage } from './pages/fragen-uebersicht/fragen-uebersicht.page';
+import { FragenBearbeitenPage } from './pages/fragen-bearbeiten/fragen-bearbeiten.page';
+import { GastZugaengeComponent } from './components/gast-zugaenge/gast-zugaenge.component';
+import { MeldungenListeComponent } from './components/meldungen-liste/meldungen-liste.component';
 
 @NgModule({
-  declarations: [AnmeldenPage, RegistrierenPage, ProfilPage, SchluesselPage, FragenUebersichtPage, BilderVerwaltungPage, BilderBenennenPage],
+  declarations: [AnmeldenPage, RegistrierenPage, ProfilPage, SchluesselPage, FragenUebersichtPage, FragenBearbeitenPage, BilderVerwaltungPage, BilderBenennenPage, GastZugaengeComponent, MeldungenListeComponent],
   imports: [
     CommonModule,
     FormsModule,

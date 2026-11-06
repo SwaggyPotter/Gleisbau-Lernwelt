@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { ThemenquizDataService } from '../../../themenquiz/services/themenquiz-data.service';
+import { QuizBilderService } from '../../../../core/quiz-aenderungen/quiz-aenderungen.service';
 
 interface BildEintrag {
   key: string;
@@ -11,6 +12,7 @@ interface BildEintrag {
 
 interface FrageMitBild {
   id: string;
+  topicId?: string;
   question: string;
   imageKey?: string;
   bildUrl?: string;
@@ -40,21 +42,21 @@ export class FragenUebersichtPage implements OnInit {
   constructor(
     private readonly http: HttpClient,
     private readonly themenquiz: ThemenquizDataService,
+    private readonly bilder: QuizBilderService,
   ) {}
 
   ngOnInit(): void {
     this.themenquiz.getTopics().subscribe({
       next: topics => {
         forkJoin({
-          bildnachweise: this.http.get<BildEintrag[]>('assets/bilder/bildnachweise.json'),
+          bildquellen: this.bilder.quellen$,
           quizzes: forkJoin(topics.map(t => this.themenquiz.getQuiz(t.topicId))),
         }).subscribe({
-          next: ({ bildnachweise, quizzes }) => {
-            const bildMap = new Map(bildnachweise.map(b => [b.key, b]));
+          next: ({ quizzes }) => {
             this.gruppen = quizzes.map(q => {
               const fragen: FrageMitBild[] = q.questions.map(f => {
-                const bild = f.imageKey ? bildMap.get(f.imageKey) : undefined;
-                return { id: f.id, question: f.question, imageKey: f.imageKey, bildUrl: bild?.file, bildCredit: bild?.credit };
+                const bild = this.bilder.aufloesen(f.imageKey);
+                return { id: f.id, topicId: q.topicId, question: f.question, imageKey: f.imageKey, bildUrl: bild?.file, bildCredit: bild?.credit };
               });
               return {
                 topicId: q.topicId,

@@ -20,7 +20,7 @@ const g = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 const ringe = (f) => (f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates).map((p) => p[0]);
 
 // Ganz Europa wird gezeichnet (Spielgebiet bleibt W x H): Laender auf den Europa-Ausschnitt klemmen.
-const [EX0, EY0] = proj([-12, 71]), [EX1, EY1] = proj([36, 34]);
+const [EX0, EY0] = proj([-16, 73]), [EX1, EY1] = proj([60, 30]);
 const klemme = ([x, y]) => [Math.min(EX1, Math.max(EX0, x)), Math.min(EY1, Math.max(EY0, y))];
 const imBild = (pts) => pts.some(([x, y]) => x > EX0 && x < EX1 && y > EY0 && y < EY1);
 /** Douglas-Peucker fuer geschlossene Ringe (am entferntesten Punkt teilen). */

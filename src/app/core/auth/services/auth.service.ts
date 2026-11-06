@@ -70,6 +70,13 @@ export class AuthService {
     );
   }
 
+  /** Gastzugang: Gast-Passwort + Name ergibt ein Kurzzeitkonto (Chat, Statistik, Meldungen). */
+  gastAnmelden(code: string, name: string): Observable<{ user: AppUser; token: string }> {
+    return this.http.post<AuthResponse>(`${API_BASE_URL}/gast/anmelden`, { code, name }).pipe(
+      tap(res => this.applySession(res)),
+    );
+  }
+
   updateName(fullName: string): Observable<AppUser> {
     return this.updateAccount({ fullName });
   }

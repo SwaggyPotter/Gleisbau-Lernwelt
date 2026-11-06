@@ -8,14 +8,19 @@
  *   Deutschland: BKG VG250 (Ebenen, Stand 01.01.), Ebene VG250_KRS, Datenlizenz Deutschland - Namensnennung 2.0,
  *     "© GeoBasis-DE / BKG (Jahr)". https://daten.gdz.bkg.bund.de/produkte/vg/vg250_ebenen_0101/aktuell/
  *     Als Kennung dient das Feld NUTS (gleiche IDs wie frueher mit Eurostat-Daten, Spielstaende bleiben gueltig).
- *   Ausland: Natural Earth 1:10 Mio. admin_1_states_provinces (Public Domain).
+ *   Ausland (seit 2026-10-28 ganz Europa): geoBoundaries gbOpen, aufbereitet mit erzeuge-europa.cjs (Lizenzen dort).
  *
  * Vorbereitung mit mapshaper (npx mapshaper), im Ordner mit den entpackten Daten:
  *   npx mapshaper -i VG250_KRS.shp -filter "GF==4" -each "A=this.area" -sort A descending  *     -dissolve NUTS copy-fields=GEN,BEZ -proj wgs84 -o format=geojson de.geojson
  *   npx mapshaper -i de.geojson ne_10m_admin_1_states_provinces.shp combine-files -rename-layers de,aus  *     -filter target=aus "<LAENDER ohne DE>.indexOf(iso_a2)>=0" -filter-fields target=aus iso_a2,name,name_de,region,iso_3166_2  *     -erase target=aus de -merge-layers target=de,aus force name=alle -clean gap-fill-area=20km2  *     -o format=topojson quantization=1000000 gebiete-topo.json
  * (-erase/-clean: die groben Natural-Earth-Grenzen werden an die genaue deutsche Grenze angepasst, Luecken gefuellt.)
  *
- * Aufruf: node tools/tycoon-karte/erzeuge-gebiete.cjs <pfad/zu/gebiete-topo.json>
+ * Seit 2026-10-28 (ganz Europa, aus.geojson von erzeuge-europa.cjs):
+ *   npx mapshaper -i de.geojson aus.geojson combine-files -rename-layers de,aus -dissolve uid target=aus copy-fields=land,reg,rname,n sum-fields=ew
+ *     -erase target=aus de -merge-layers target=de,aus force name=alle -clean gap-fill-area=30km2
+ *     -o format=topojson quantization=2000000 europa-topo.json
+ *
+ * Aufruf: node tools/tycoon-karte/erzeuge-gebiete.cjs <pfad/zu/europa-topo.json> [Vereinfachung Ausland, Standard 0.9]
  *
  * Die Grenzen bleiben als gemeinsame Boegen (TopoJSON-Arcs) erhalten: jeder Bogen wird nur einmal vereinfacht,
  * deshalb passen Nachbargebiete ohne Luecken aneinander. Je Bogen wird die Grenzart gespeichert
@@ -25,12 +30,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const LAENDER = new Set(['DE', 'NL', 'BE', 'LU', 'FR', 'CH', 'LI', 'AT', 'CZ', 'PL', 'DK', 'SE']);
 
 /* ---------- Projektion wie tycoon-karte-daten.ts ---------- */
 const kartenDatei = fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'app', 'modules', 'zusatz', 'tycoon', 'tycoon-karte-daten.ts'), 'utf8');
 const P = JSON.parse(kartenDatei.match(/KARTE_PROJ = (\{[^}]+\})/)[1].replace(/(\w+):/g, '"$1":'));
-const KW = +kartenDatei.match(/KARTE_W = (\d+)/)[1], KH = +kartenDatei.match(/KARTE_H = (\d+)/)[1];
 const proj = (lon, lat) => [(lon - P.lon0) * P.cos * P.s + P.rand, (P.lat0 - lat) * P.s + P.rand];
 
 const topo = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
@@ -46,24 +49,19 @@ const flaeche = (r) => { let a = 0; for (let i = 0, j = r.length - 1; i < r.leng
 
 /* ---------- Gebiete auswaehlen ---------- */
 const geoms = Object.values(topo.objects)[0].geometries;
-/** Auslaendische Regionen bekommen 6-stellige Kennungen "<Land><Landesteil>X<Nr>" (Basis 36, nie gleich einer
- * 5-stelligen NUTS-ID); die ersten 3 Zeichen sind wie bei NUTS-1 der Landesteil. Feste Sortierung nach ISO-Code. */
-const ausland = geoms.filter((g) => g.properties.iso_a2).map((g) => g.properties)
-  .sort((a, b) => (a.iso_3166_2 < b.iso_3166_2 ? -1 : 1));
-const auslandId = new Map();
-const teile = new Map();
-for (const p of ausland) {
-  const land = p.iso_a2;
-  if (!teile.has(land)) teile.set(land, [...new Set(ausland.filter((q) => q.iso_a2 === land).map((q) => q.region || ''))].sort());
-  const t = teile.get(land).indexOf(p.region || '');
-  const nr = ausland.filter((q) => q.iso_a2 === land).indexOf(p);
-  auslandId.set(p.iso_3166_2, land + t.toString(36).toUpperCase() + 'X' + nr.toString(36).toUpperCase().padStart(2, '0'));
-}
+/**
+ * Auslaendische Gebiete (seit 2026-10-28): 6-stellige Kennung "<Land>Y<Nr>" (Nr Basis 36, 3 Stellen). Das Y an
+ * 3. Stelle unterscheidet sie von den alten Natural-Earth-Kennungen ("<Land><Teil>X<Nr>", Teil 0..F) und von den
+ * 5-stelligen NUTS-IDs; als Zahl zur Basis 36 passen sie in eine Postgres-integer-Spalte. Region (bl) = "<Land>" +
+ * Regionsnummer (2 Stellen Basis 36), 4 Zeichen, also nie gleich einem deutschen NUTS-1-Kuerzel.
+ */
+const auslandId = (p) => p.land + 'Y' + (+p.uid.split(':')[1]).toString(36).toUpperCase().padStart(3, '0');
+const auslandBl = (p) => p.land + (+p.reg).toString(36).toUpperCase().padStart(2, '0');
+const regionen = {};
 const gebiete = [];
 for (const g of geoms) {
   const p = g.properties;
-  const land = p.iso_a2 || 'DE';
-  if (!LAENDER.has(land)) continue;
+  const land = p.land || 'DE';
   const polys = g.type === 'Polygon' ? [g.arcs] : g.type === 'MultiPolygon' ? g.arcs : [];
   // Ringe (inkl. Loecher, gezeichnet wird mit evenodd); winzige Inseln weglassen, das groesste Teil bleibt immer.
   let ringe = polys.flat().map((refs) => ({ refs, f: flaeche(ringPunkte(refs)) }));
@@ -71,15 +69,15 @@ for (const g of geoms) {
   const fmax = Math.max(...ringe.map((r) => r.f));
   ringe = ringe.filter((r) => r.f === fmax || r.f > 3);
   const pts = ringe.flatMap((r) => ringPunkte(r.refs));
-  const imBild = pts.some(([x, y]) => x > 0 && x < KW && y > 0 && y < KH);
-  if (!imBild) continue;
-  let id, n, typ;
+  let id, n, typ, bl, ew = 0;
   if (land === 'DE') {
-    id = p.NUTS; n = p.GEN; typ = p.BEZ === 'Kreisfreie Stadt' || p.BEZ === 'Stadtkreis' ? 1 : 0;
+    id = p.NUTS; n = p.GEN; typ = p.BEZ === 'Kreisfreie Stadt' || p.BEZ === 'Stadtkreis' ? 1 : 0; bl = id.slice(0, 3);
   } else {
-    id = auslandId.get(p.iso_3166_2); n = (p.name_de || p.name).replace(/^Département /, ''); typ = 3;
+    // Kleinstaaten (ein Gebiet) haben keinen Namen, sie heissen wie das Land (tycoon-gebiete.ts).
+    id = auslandId(p); bl = auslandBl(p); typ = 3; n = p.n || ''; ew = +p.ew || 0;
+    if (p.rname) regionen[bl] = p.rname;
   }
-  gebiete.push({ id, n: n.trim(), land, typ, ringe: ringe.map((r) => r.refs) });
+  gebiete.push({ id, n: n.trim(), land, typ, bl, ew, ringe: ringe.map((r) => r.refs) });
 }
 
 /* ---------- Boegen klassifizieren und vereinfachen ---------- */
@@ -90,7 +88,7 @@ const neuIndex = new Map(genutzt.map((a, i) => [a, i]));
 const stufe = genutzt.map((a) => {
   const u = [...new Set(nutzer.get(a))].map((gi) => gebiete[gi]);
   if (u.length < 2 || u[0].land !== u[1].land) return 3;
-  return u[0].id.slice(0, 3) !== u[1].id.slice(0, 3) ? 2 : 1;
+  return u[0].bl !== u[1].bl ? 2 : 1;
 });
 
 /** Douglas-Peucker (offene Linie, Endpunkte bleiben). */
@@ -120,9 +118,11 @@ function vereinfache(pts, tol) {
   return dp(pts, tol);
 }
 const rund = (v) => Math.round(v * 10);
+/** Vereinfachung im Ausland (Welteinheiten ~ km); ganz Europa hat ~16x so viele Gebiete wie Deutschland. */
+const TOL_AUSLAND = +(process.argv[3] || 0.9);
 const kodiert = genutzt.map((a) => {
   const deutsch = nutzer.get(a).some((gi) => gebiete[gi].land === 'DE');
-  const pts = vereinfache(boegen[a], deutsch ? 0.3 : 0.7).map(([x, y]) => [rund(x), rund(y)]);
+  const pts = vereinfache(boegen[a], deutsch ? 0.3 : TOL_AUSLAND).map(([x, y]) => [rund(x), rund(y)]);
   // Delta-kodiert in Zehntel-Einheiten: "x0,y0,dx1,dy1,..."
   const out = [pts[0][0], pts[0][1]];
   for (let i = 1; i < pts.length; i++) out.push(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
@@ -158,23 +158,27 @@ for (const [k, liste] of offen) {
 }
 
 /* ---------- Schreiben ---------- */
-const ausgabe = gebiete.map((g) => ({ id: g.id, n: g.n, l: g.land, t: g.typ, r: g.ringe.map((refs) => refs.map((r) => (r < 0 ? ~neuIndex.get(~r) : neuIndex.get(r)))) }));
+const ausgabe = gebiete.map((g) => ({ id: g.id, n: g.n, l: g.land, t: g.typ, b: g.bl, e: g.ew, r: g.ringe.map((refs) => refs.map((r) => (r < 0 ? ~neuIndex.get(~r) : neuIndex.get(r)))) }));
 const ziel = path.join(__dirname, '..', '..', 'src', 'app', 'modules', 'zusatz', 'tycoon', 'tycoon-gebiete-daten.ts');
 const text = `/* Automatisch erzeugt von tools/tycoon-karte/erzeuge-gebiete.cjs -- nicht von Hand aendern.
  * Verwaltungsgrenzen: Deutschland © GeoBasis-DE / BKG (VG250, Datenlizenz Deutschland - Namensnennung 2.0),
- * Ausland: Natural Earth (Public Domain). Beides auch kommerziell nutzbar (BKG mit Quellenangabe).
+ * Ausland: geoBoundaries gbOpen (je Land CC0/CC BY/CC BY-SA/ODbL u. a., siehe erzeuge-europa.cjs), Namen teils Natural Earth.
+ * Alles auch kommerziell nutzbar (mit Quellenangabe).
  * GEBIET_BOEGEN: gemeinsame Grenzlinien in Weltkoordinaten x 10, delta-kodiert ("x0,y0,dx1,dy1,...").
  * GEBIET_STUFE: Grenzart je Bogen (1 Kreis, 2 Bundesland/Landesteil, 3 Staat/Kueste).
- * GEBIETE_ROH: Kennung (DE: NUTS-ID, Ausland: <Land><Teil>X<Nr>), Name n, Land l, Typ t (0 Landkreis, 1 kreisfreie Stadt, 3 Region im Ausland),
+ * GEBIETE_ROH: Kennung (DE: NUTS-ID, Ausland: <Land>Y<Nr>), Name n, Land l, Typ t (0 Landkreis, 1 kreisfreie Stadt, 3 Region im Ausland), Region b,
+ *   Einwohner e (nur Ausland, geschaetzt; Deutschland: tycoon-einwohner-daten.ts),
  *   Ringe r als Bogen-Indizes (negativ ~i = rueckwaerts; Loecher zaehlen nach der evenodd-Regel). */
 /* eslint-disable */
 export const GEBIET_BOEGEN: string[] = ${JSON.stringify(kodiert)};
 export const GEBIET_STUFE: number[] = ${JSON.stringify(stufe)};
-export const GEBIETE_ROH: { id: string; n: string; l: string; t: number; r: number[][] }[] = ${JSON.stringify(ausgabe)};
+export const GEBIETE_ROH: { id: string; n: string; l: string; t: number; b: string; e: number; r: number[][] }[] = ${JSON.stringify(ausgabe)};
+/** Namen der Regionen im Ausland (Kuerzel b -> Name). */
+export const REGIONEN: Record<string, string> = ${JSON.stringify(regionen)};
 /** Umriss Deutschlands (aus denselben Grenzen) als flache Zahlenlisten x0,y0,x1,y1,... in Weltkoordinaten. */
 export const DEUTSCHLAND_NUTS: number[][] = ${JSON.stringify(deRinge)};
 `;
 fs.writeFileSync(ziel, text);
 const punkte = kodiert.reduce((a, s) => a + s.split(',').length / 2, 0);
 console.log('Gebiete', gebiete.length, '(DE ' + gebiete.filter((g) => g.land === 'DE').length + ')', 'Boegen', kodiert.length, 'Punkte', punkte, 'DE-Ringe', deRinge.length, 'Bytes', text.length);
-console.log(gebiete.filter((g) => g.land === 'DE' && g.typ === 0).map((g) => g.n).join(' | '));
+

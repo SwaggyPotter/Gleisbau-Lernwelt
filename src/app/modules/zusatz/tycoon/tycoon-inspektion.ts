@@ -240,3 +240,17 @@ export function starteFahrt(cv: HTMLCanvasElement, o: { anzahl: number; tempo: n
   raf = requestAnimationFrame(schritt);
   return () => { laeuft = false; cancelAnimationFrame(raf); cv.removeEventListener('pointerdown', tippe); };
 }
+
+/** Ein Fehler (id aus FAHRT_ARTEN) als Bild (data-URL), z. B. fuer das Fehlerbilder-Memory; Bildgroesse w x h. */
+export function fehlerBild(id: string, w = 240, h = 150): string {
+  const cv = document.createElement('canvas'), dpr = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = w * dpr; cv.height = h * dpr;
+  const g = cv.getContext('2d')!;
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  // Gleis etwas groesser zeichnen, damit der Fehler gut zu sehen ist.
+  const sc = 1.9, breite = w / sc, mitte = breite / 2, i = Math.round(mitte / SCHWELLE);
+  const feats: Merkmal[] = [{ art: id, i, x: id === 'schwelle' || id === 'klemme' ? i * SCHWELLE : mitte, schiene: 0, w: 40, gefunden: false }];
+  g.scale(sc, sc);
+  zeichneGleis(g, breite, 0, h / sc, 0, feats, []);
+  return cv.toDataURL('image/png');
+}

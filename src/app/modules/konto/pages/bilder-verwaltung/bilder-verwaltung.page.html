@@ -1,5 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
     <ion-title>Bilder-Verwaltung</ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/konto/fragen" fill="clear">
@@ -15,7 +16,9 @@
     <section class="hero">
       <p class="eyebrow">Admin</p>
       <h1>Bilder-Verwaltung</h1>
-      <p class="lede">Jedes Bild beurteilen: soll es auf der Webseite bleiben, wie ist es kategorisiert. Alles wird auf dem Server gespeichert.</p>
+      <p class="lede">Alle Bilder der Lernwelt mit Angabe, in welchen Quizfragen sie stecken.
+        <strong>„Entfernen“</strong> nimmt das Bild sofort aus allen Quizfragen (die Frage bleibt, nur ohne Bild).
+        „Behalten“ oder nochmal auf „Entfernen“ tippen holt es zurück.</p>
     </section>
 
     <p class="fehler" *ngIf="ladefehler">Konnte nicht geladen werden (Backend erreichbar und als Admin angemeldet?).</p>
@@ -53,6 +56,12 @@
             <option value="foto">Fotos aus dem Chat</option>
             <option value="app">Bilder in der App</option>
           </select>
+          <select [(ngModel)]="verwendungFilter" name="verwendungFilter" aria-label="Verwendung">
+            <option value="alle">Verwendet und unverwendet</option>
+            <option value="quiz">Nur Bilder in Quizfragen</option>
+            <option value="frei">Nur Bilder ohne Quizfrage</option>
+          </select>
+          <input type="search" class="suche" [(ngModel)]="suche" name="suche" placeholder="Suchen (Name, Thema, Notiz)" aria-label="Suchen" />
           <select [(ngModel)]="kategorieFilter" name="kategorieFilter" aria-label="Kategorie">
             <option value="">Alle Kategorien</option>
             <option *ngFor="let k of kategorien" [value]="k">{{ k }}</option>
@@ -72,6 +81,21 @@
             <p class="bild-text">{{ z.beschreibung }}</p>
             <p class="bild-hinweis" *ngIf="z.hinweis">Sicherheit: {{ z.hinweis }}</p>
             <p class="bild-credit">{{ z.credit }}</p>
+            <div class="verwendung" *ngIf="verwendungGeladen">
+              <ng-container *ngIf="verwendungen(z) as v">
+                <p class="v-kopf" *ngIf="v.length; else frei">
+                  <span [class.v-weg]="z.decision === 'remove'">{{ z.decision === 'remove' ? 'Ausgeblendet in' : 'Im Quiz' }}: {{ themenKurz(z) }}</span>
+                  <button type="button" class="v-auf" (click)="aufgeklappt[z.id] = !aufgeklappt[z.id]">{{ aufgeklappt[z.id] ? 'weniger' : v.length + (v.length === 1 ? ' Frage zeigen' : ' Fragen zeigen') }}</button>
+                </p>
+                <ng-template #frei><p class="v-frei">In keiner Quizfrage</p></ng-template>
+                <ul class="v-liste" *ngIf="aufgeklappt[z.id]">
+                  <li *ngFor="let f of v">
+                    <a [routerLink]="['/konto/fragen-bearbeiten', f.topicId]" [queryParams]="{ frage: f.questionId }" title="Frage bearbeiten">✎</a>
+                    <span><b>{{ f.thema }}:</b> {{ f.frage }}</span>
+                  </li>
+                </ul>
+              </ng-container>
+            </div>
           </div>
           <div class="entscheidung">
             <button type="button" class="knopf keep" [class.aktiv]="z.decision === 'keep'" (click)="waehle(z, 'keep')">Behalten</button>

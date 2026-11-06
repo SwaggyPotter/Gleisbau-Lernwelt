@@ -1,5 +1,6 @@
 <ion-header [translucent]="true" class="dash-header">
   <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
     <ion-title class="brand">
       <span class="brand-mark">Gleisbau</span>
       <span class="brand-sub">Lernwelt</span>
@@ -37,14 +38,52 @@
 <ion-content class="dash-content" [fullscreen]="true">
  <div class="dash-shell home">
   <input class="home-suche" type="search" placeholder="App suchen" [value]="suche" (input)="suche = $any($event.target).value" />
+  <p class="info-zeile">
+    <span class="haken-mini">✓</span> = fachlich geprüft · <span class="kreuz-mini">✕</span> = noch nicht geprüft, Fehler möglich – gerne melden.
+    <ng-container *ngIf="gast"><br />Als Gast kannst du nur die farbigen Apps nutzen, die grauen sind gesperrt.</ng-container>
+  </p>
 
   <section *ngFor="let g of gruppen; trackBy: trackGruppe" class="ordner" [style.--ordner]="g.farbe">
     <h2>{{ g.titel }}</h2>
     <div class="grid">
-      <a *ngFor="let t of g.tiles; trackBy: trackByTileId" class="app" [routerLink]="t.link" [queryParams]="t.queryParams">
-        <span class="icon"><ion-icon [name]="t.icon"></ion-icon></span>
-        <span class="label">{{ t.title }}</span>
-      </a>
+      <div *ngFor="let t of g.tiles; trackBy: trackByTileId" class="app-zelle" [class.menue-offen]="menueFuer === t.id">
+        <ng-container *ngIf="einstellung(t) as e">
+          <span *ngIf="gesperrt(t); else offen" class="app gesperrt" aria-disabled="true" title="Für Gäste nicht freigegeben">
+            <span class="icon"><ion-icon [name]="t.icon"></ion-icon><span class="schloss"><ion-icon name="lock-closed"></ion-icon></span></span>
+            <span class="label">{{ t.title }}</span>
+          </span>
+          <ng-template #offen>
+            <a class="app" [class.versteckt]="e.sichtbarkeit === 'versteckt'" [routerLink]="t.link" [queryParams]="t.queryParams">
+              <span class="icon">
+                <ion-icon [name]="t.icon"></ion-icon>
+                <span class="haken" *ngIf="e.status === 'geprueft'" title="Fachlich geprüft">✓</span>
+                <span class="kreuz" *ngIf="e.status === 'ungeprueft'" title="Noch nicht geprüft">✕</span>
+              </span>
+              <span class="label">{{ t.title }}</span>
+              <span class="admin-sicht" *ngIf="istAdmin && e.sichtbarkeit !== 'azubis'">{{ e.sichtbarkeit === 'gaeste' ? 'auch Gäste' : 'versteckt' }}</span>
+            </a>
+          </ng-template>
+
+          <!-- Drei-Punkte-Menü oben links, nur für Admins -->
+          <button *ngIf="istAdmin" type="button" class="drei-punkte" title="Status und Sichtbarkeit" (click)="menueUmschalten(t, $event)">⋮</button>
+          <div *ngIf="istAdmin && menueFuer === t.id" class="app-menue" (click)="$event.stopPropagation()">
+            <p class="am-titel">{{ t.title }}</p>
+            <p class="am-label">Status</p>
+            <button type="button" [class.aktiv]="e.status === 'geprueft'" (click)="setzeEinstellung(t, { status: 'geprueft' }, $event)"><span class="haken-mini">✓</span> Geprüft</button>
+            <button type="button" [class.aktiv]="e.status === 'ungeprueft'" (click)="setzeEinstellung(t, { status: 'ungeprueft' }, $event)"><span class="kreuz-mini">✕</span> Ungeprüft</button>
+            <p class="am-label">Sichtbarkeit</p>
+            <button type="button" [class.aktiv]="e.sichtbarkeit === 'gaeste'" (click)="setzeEinstellung(t, { sichtbarkeit: 'gaeste' }, $event)">Für alle inkl. Gäste</button>
+            <button type="button" [class.aktiv]="e.sichtbarkeit === 'azubis'" (click)="setzeEinstellung(t, { sichtbarkeit: 'azubis' }, $event)">Nur Azubis (Gäste gesperrt)</button>
+            <button type="button" [class.aktiv]="e.sichtbarkeit === 'versteckt'" (click)="setzeEinstellung(t, { sichtbarkeit: 'versteckt' }, $event)">Versteckt (nur Admin)</button>
+            <ng-container *ngIf="bearbeitenLink(t) as bl">
+              <p class="am-label">Inhalt</p>
+              <a class="am-link" [routerLink]="bl" (click)="menueSchliessen()">✎ Bearbeiten (Fragen, Antworten, Bilder)</a>
+            </ng-container>
+            <p class="am-fehler" *ngIf="menueFehler">{{ menueFehler }}</p>
+            <button type="button" class="am-zu" (click)="menueSchliessen()">Schließen</button>
+          </div>
+        </ng-container>
+      </div>
     </div>
   </section>
   <p class="leer" *ngIf="gruppen.length === 0">Keine App gefunden.</p>

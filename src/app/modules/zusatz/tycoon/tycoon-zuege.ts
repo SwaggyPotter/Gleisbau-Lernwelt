@@ -26,6 +26,10 @@ export interface ZugTyp {
   gueter?: number[];
   /** Gleisverschleiss je Fahrt (Faktor). */
   wear: number;
+  /** Nachtzug: verdient nachts (echte Uhrzeit in Deutschland) bis doppelt, tagsueber weniger; grenzueberschreitend +30 %. */
+  nacht?: boolean;
+  /** Ausflugszug: am Wochenende (Sa/So) +50 % Miete. */
+  wochenende?: boolean;
   /** 2D-Farben: Lok, Wagen. */
   col: string;
   col2: string;
@@ -40,7 +44,7 @@ export const ZUEGE: ZugTyp[] = [
     modell: { lok: 'train-diesel-a', wagen: ['train-carriage-container-red', 'train-carriage-container-blue'] } },
   { n: 'S-Bahn-Triebzug', kmh: 160, cost: 4500, rent: 1.7, upkeep: 1.1, len: 3, lvl: 3, el: true, wear: 0.9, col: '#2e86ab', col2: '#8cc1d6',
     modell: { lok: 'train-electric-city-a', wagen: ['train-electric-city-b', 'train-electric-city-c'] } },
-  { n: 'ICE-Triebzug (300 km/h)', kmh: 300, cost: 18000, rent: 3.2, upkeep: 1.3, len: 5, lvl: 8, el: true, wear: 1.2, col: '#d9d9d9', col2: '#9aa5b1',
+  { n: 'Hochgeschwindigkeits-Triebzug (300 km/h)', kmh: 300, cost: 18000, rent: 3.2, upkeep: 1.3, len: 5, lvl: 8, el: true, wear: 1.2, col: '#d9d9d9', col2: '#9aa5b1',
     modell: { lok: 'train-electric-bullet-a', wagen: ['train-electric-bullet-b', 'train-electric-bullet-c'], ende: 'train-electric-bullet-a' } },
   // Ausbau 2026-10-20
   { n: 'Rangierlok mit Holzwagen', kmh: 70, cost: 900, rent: 0.45, upkeep: 0.6, len: 3, lvl: 1, el: false, gueter: [0], wear: 1, col: '#e0b000', col2: '#a0703a',
@@ -53,9 +57,9 @@ export const ZUEGE: ZugTyp[] = [
     modell: { lok: 'train-electric-square-a', wagen: ['train-electric-double-b'] } },
   { n: 'Schwerer Güterzug (E-Lok)', kmh: 120, cost: 7000, rent: 2.8, upkeep: 1.5, len: 5, lvl: 4, el: true, gueter: [0, 1, 2, 3, 4, 5, 6], wear: 1.6, col: '#6d4c41', col2: '#a1887f',
     modell: { lok: 'train-electric-square-a', wagen: ['train-carriage-tank-large', 'train-carriage-container-green', 'train-carriage-dirt', 'train-carriage-lumber'] } },
-  { n: 'Intercity', kmh: 200, cost: 10000, rent: 2.6, upkeep: 1.25, len: 5, lvl: 5, el: true, wear: 1, col: '#f5f5f5', col2: '#d0d6dc',
+  { n: 'Fernverkehrszug (200 km/h)', kmh: 200, cost: 10000, rent: 2.6, upkeep: 1.25, len: 5, lvl: 5, el: true, wear: 1, col: '#f5f5f5', col2: '#d0d6dc',
     modell: { lok: 'train-electric-square-a', wagen: ['train-electric-square-b', 'train-electric-square-c'], ende: 'train-electric-square-a' } },
-  { n: 'ICE (250 km/h)', kmh: 250, cost: 13000, rent: 2.9, upkeep: 1.3, len: 4, lvl: 6, el: true, wear: 1.1, col: '#e6e6e6', col2: '#b0bac4',
+  { n: 'Schnellfahr-Triebzug (250 km/h)', kmh: 250, cost: 13000, rent: 2.9, upkeep: 1.3, len: 4, lvl: 6, el: true, wear: 1.1, col: '#e6e6e6', col2: '#b0bac4',
     modell: { lok: 'train-electric-bullet-a', wagen: ['train-electric-bullet-c'], ende: 'train-electric-bullet-a' } },
   { n: 'Hochgeschwindigkeitszug (lang)', kmh: 300, cost: 21000, rent: 4, upkeep: 1.45, len: 6, lvl: 9, el: true, wear: 1.3, col: '#ffffff', col2: '#c5ccd3',
     modell: { lok: 'train-electric-bullet-a', wagen: ['train-electric-bullet-b', 'train-electric-bullet-c'], ende: 'train-electric-bullet-a' } },
@@ -66,6 +70,21 @@ export const ZUEGE: ZugTyp[] = [
     modell: { lok: 'train-diesel-a', wagen: ['train-carriage-box', 'train-carriage-dirt'] } },
   { n: 'Autotransportzug (E-Lok)', kmh: 120, cost: 5500, rent: 1.6, upkeep: 1.2, len: 5, lvl: 4, el: true, gueter: [6, 5], wear: 1.2, col: '#1f618d', col2: '#85929e',
     modell: { lok: 'train-electric-square-a', wagen: ['train-carriage-flatbed'] } },
+  // Ausbau 2026-10-27 (2): Nachtzuege und weitere Zugtypen aus dem Kenney Train Kit (CC0)
+  { n: 'Nachtzug (Schlafwagen)', kmh: 200, cost: 9000, rent: 2, upkeep: 1.2, len: 6, lvl: 5, el: true, nacht: true, wear: 1, col: '#1a237e', col2: '#3949ab',
+    modell: { lok: 'train-electric-square-a', wagen: ['train-electric-square-b'] } },
+  { n: 'Autoreisezug', kmh: 140, cost: 6500, rent: 1.6, upkeep: 1.2, len: 5, lvl: 4, el: false, nacht: true, wear: 1.2, col: '#4a148c', col2: '#9575cd',
+    modell: { lok: 'train-diesel-b', wagen: ['train-locomotive-passenger-b', 'train-carriage-flatbed'] } },
+  { n: 'Doppelstock-Triebzug', kmh: 160, cost: 7500, rent: 2.3, upkeep: 1.15, len: 3, lvl: 4, el: true, wear: 1, col: '#00897b', col2: '#80cbc4',
+    modell: { lok: 'train-electric-double-a', wagen: ['train-electric-double-b'], ende: 'train-electric-double-c' } },
+  { n: 'Stadtbahn-Triebzug', kmh: 100, cost: 3800, rent: 1.4, upkeep: 0.9, len: 3, lvl: 3, el: true, wear: 0.8, col: '#f9a825', col2: '#fff176',
+    modell: { lok: 'train-electric-subway-a', wagen: ['train-electric-subway-b'], ende: 'train-electric-subway-c' } },
+  { n: 'Tram-Train (Zweisystem)', kmh: 80, cost: 2200, rent: 0.95, upkeep: 0.8, len: 1, lvl: 2, el: true, wear: 0.6, col: '#e53935', col2: '#ef9a9a',
+    modell: { lok: 'train-tram-modern', wagen: [] } },
+  { n: 'Museums-Dampfzug', kmh: 80, cost: 3000, rent: 1.2, upkeep: 1.4, len: 3, lvl: 3, el: false, kohle: true, wochenende: true, wear: 1.1, col: '#1b5e20', col2: '#a1887f',
+    modell: { lok: 'train-locomotive-b', wagen: ['train-locomotive-passenger-b'] } },
+  { n: 'Dieseltriebwagen (Einzelwagen)', kmh: 120, cost: 2000, rent: 0.95, upkeep: 0.9, len: 1, lvl: 1, el: false, wear: 0.8, col: '#43a047', col2: '#a5d6a7',
+    modell: { lok: 'train-diesel-box-c', wagen: [] } },
 ];
 
 export interface StreckenKlasse {
@@ -122,7 +141,7 @@ export const BAHNHOF = { n: 'Bahnhof', preis: 1000, proStrecke: 0.4, text: 'Brin
 /** Oberleitung je Strecke: Preis je Laengeneinheit. */
 export const OBERLEITUNG = { n: 'Oberleitung', proEinheit: 4, lvl: 2, text: 'Strom für E-Loks und Triebzüge. Ohne Oberleitung fahren hier nur Diesel- und Dampfloks.' };
 
-/** Lackierungen fuer die eigenen Zuege. Bezahlt mit Geld (preis) oder Pokalen aus Duellen (pokale). */
+/** Lackierungen fuer die eigenen Zuege. Bezahlt mit Geld (preis) oder Pokalen aus der Wertung (pokale). */
 export interface Skin { id: string; n: string; farbe: string | null; lvl: number; preis: number; pokale: number }
 export const SKINS: Skin[] = [
   { id: 'standard', n: 'Werkslackierung', farbe: null, lvl: 1, preis: 0, pokale: 0 },
@@ -131,8 +150,8 @@ export const SKINS: Skin[] = [
   { id: 'waldgruen', n: 'Waldgrün', farbe: '#2e7d4f', lvl: 4, preis: 6000, pokale: 0 },
   { id: 'sonnengelb', n: 'Sonnengelb', farbe: '#f2c230', lvl: 5, preis: 8000, pokale: 0 },
   { id: 'gold', n: 'Gold', farbe: '#d4af37', lvl: 7, preis: 25000, pokale: 0 },
-  { id: 'chrom', n: 'Chrom (Duell-Preis)', farbe: '#c9d1d9', lvl: 1, preis: 0, pokale: 8 },
-  { id: 'champion', n: 'Champion-Violett (Duell-Preis)', farbe: '#7b4bc4', lvl: 1, preis: 0, pokale: 20 },
+  { id: 'chrom', n: 'Chrom (Pokal-Preis)', farbe: '#c9d1d9', lvl: 1, preis: 0, pokale: 8 },
+  { id: 'champion', n: 'Champion-Violett (Pokal-Preis)', farbe: '#7b4bc4', lvl: 1, preis: 0, pokale: 20 },
 ];
 
 /** Ausruestung: einmal kaufen, wirkt dauerhaft auf das ganze Unternehmen. */
@@ -145,7 +164,7 @@ export const AUSRUESTUNG: Ausruestung[] = [
   { id: 'fahrgastinfo', n: 'Fahrgastinformation', text: 'Anzeigen und App für Fahrgäste: Miete +10 %.', lvl: 6, preis: 20000, pokale: 0 },
   { id: 'umbauzug', n: 'Umbauzug', text: 'Erneuert Gleise in einem Durchgang: Streckenausbau −20 %. Gleiserneuerung ohne Miete.', lvl: 7, preis: 30000, pokale: 0 },
   { id: 'reinigung', n: 'Bettungsreinigungsmaschine', text: 'Eigene Maschine für die Bettungsreinigung: Baustellen ohne Miete.', lvl: 4, preis: 14000, pokale: 0 },
-  { id: 'schaufel', n: 'Goldene Schaufel (Duell-Preis)', text: 'Ehrenpreis für Duell-Profis: Miete +5 %.', lvl: 1, preis: 0, pokale: 12 },
+  { id: 'schaufel', n: 'Goldene Schaufel (Pokal-Preis)', text: 'Ehrenpreis für Wertungs-Profis: Miete +5 %.', lvl: 1, preis: 0, pokale: 12 },
 ];
 
 /**

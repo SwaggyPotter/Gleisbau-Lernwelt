@@ -58,8 +58,7 @@
       "correctIndex": 0,
       "explanation": "Die Pfeilhoehe ist der Abstand zwischen einer gedachten Sehne und dem Gleisbogen und dient zur rechnerischen Bestimmung des Kurvenradius.",
       "source": "Pfeilhöhenmessung Trackopedia",
-      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/gleisvermessung/pfeilhoehenmessung",
-      "imageKey": "q-messmittel-africa-railway-map-gauge"
+      "sourceUrl": "https://www.trackopedia.com/lexikon/gleisbau-und-instandhaltung/gleisvermessung/pfeilhoehenmessung"
     },
     {
       "id": "mm-q5",
@@ -106,21 +105,6 @@
       "imageKey": "q-messmittel-rail-profile"
     },
     {
-      "id": "messmittel-g1",
-      "question": "Welchen Messbereich hat ein Spurweitenmessgerät für die Abweichung von der Sollspurweite?",
-      "choices": [
-        "±0,5 mm bis +20 mm",
-        "-10 mm bis +40 mm",
-        "-5 mm bis +30 mm",
-        "0 mm bis +50 mm"
-      ],
-      "correctIndex": 1,
-      "explanation": "Nach den Produktspezifikationen lässt sich die Abweichung von der Sollspurweite im Bereich von -10 mm bis +40 mm messen.",
-      "source": "Spurweitenmessgerät Messbereich -10/+40mm für Abweichung",
-      "sourceUrl": "https://www.thormaehlen-gmbh.de/leistungen/herstellung-des-lueckenlosen-gleises/",
-      "imageKey": "q-messmittel-rail-gauge-world"
-    },
-    {
       "id": "messmittel-g2",
       "question": "Mit welcher Genauigkeit kann ein Spurweitenmessgerät die Spurweite bestimmen?",
       "choices": [
@@ -147,8 +131,7 @@
       "correctIndex": 1,
       "explanation": "Das l-förmige Spurlineal ist speziell für das Messen des Abstands zwischen der Innenseite des Eisenbahngleises und der Basismarke sowie der Höhe zwischen der Ebene auf der Schiene und der Basismarke ausgelegt.",
       "source": "Spurlineal für Abstandsmessung zur Basismarke",
-      "sourceUrl": "https://de.wikipedia.org/wiki/Schienenstoß",
-      "imageKey": "q-messmittel-railway-loading-gauge-uic-and-containers"
+      "sourceUrl": "https://de.wikipedia.org/wiki/Schienenstoß"
     },
     {
       "id": "messmittel-g4",
@@ -287,18 +270,17 @@
     },
     {
       "id": "messmittel-g13",
-      "question": "Welches Gerät dient zur Ermittlung der Krümmung (d. h. des Höhenunterschieds) zwischen den beiden Schienen?",
+      "question": "Wie nennt man den Höhenunterschied zwischen äußerer und innerer Schiene im Gleisbogen?",
       "choices": [
-        "Das Gleis- und Weichenspurmessgerät Typ GARNET-DL",
-        "Der VIG 1300 Visier- und Nivelliergeräte",
-        "Das WM-Wuppertaler Messlatten",
-        "Das Spurlineal"
+        "Überhöhung",
+        "Spurweite",
+        "Pfeilhöhe",
+        "Gleislage"
       ],
-      "correctIndex": 1,
-      "explanation": "Das VIG 1300 kann auch die Krümmung des Gleises (d. h. den Höhenunterschied zwischen den beiden Schienen) messen.",
-      "source": "Vogel & Plötscher (Stand heute)",
-      "sourceUrl": "https://www.vogelundploetscher.de/produkte/gleismesssysteme/vig-1300/",
-      "imageKey": "q-messmittel-railway-loading-gauge-uic-and-containers"
+      "correctIndex": 0,
+      "explanation": "Im Bogen liegt die äußere Schiene höher als die innere. Dieser Höhenunterschied heißt Überhöhung. Er wirkt der Fliehkraft entgegen, damit die resultierende Kraft möglichst senkrecht auf das Gleis wirkt.",
+      "source": "Überhöhung (Wikipedia)",
+      "sourceUrl": "https://de.wikipedia.org/wiki/%C3%9Cberh%C3%B6hung"
     },
     {
       "id": "messmittel-g14",

@@ -21,7 +21,7 @@ export const MODUL_LABELS: Record<string, string> = {
   'zusatz:trassierung': 'Trassierungsrechner',
   'zusatz:weichenrechner': 'Weichengeometrie-Rechner',
   'zusatz:schienendehnung': 'Schienenausdehnungs-Rechner',
-  'zusatz:schotterbett': 'Schotterbett-Rechner',
+  'zusatz:schotterbett': 'Schotterbedarfsrechner',
   'zusatz:volumen': 'Volumen berechnen',
   'zusatz:prozentrechnung': 'Prozentrechnung',
   'zusatz:nivellieren': 'Nivellieren im Gleisbau',

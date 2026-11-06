@@ -4,6 +4,7 @@ import { config } from './config';
 import { logger } from './logger';
 import { pool } from './db/pool';
 import { purgeDueDeletedUsers } from './user-deletion';
+import { starteTycoonBots } from './tycoon-bots';
 import { seedAchievements } from './achievements';
 
 const app = createServer();
@@ -21,6 +22,53 @@ const runStartupMigrations = async () => {
     await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS deletion_scheduled_at timestamptz');
     await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS deletion_due_at timestamptz');
     await pool.query('CREATE INDEX IF NOT EXISTS idx_users_deletion_due_at ON users(deletion_due_at)');
+
+    // Gastzugang (2026-11-05): Gast-Passwoerter + Kurzzeitkonten, Meldungen zu Fragen
+    await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS expires_at timestamptz');
+    await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS gast_code text');
+    await pool.query(`CREATE TABLE IF NOT EXISTS gast_codes (
+      code text PRIMARY KEY,
+      bezeichnung text NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now(),
+      expires_at timestamptz NOT NULL,
+      max_uses integer NOT NULL DEFAULT 30,
+      uses integer NOT NULL DEFAULT 0,
+      created_by uuid REFERENCES users(id) ON DELETE SET NULL
+    )`);
+    await pool.query('CREATE INDEX IF NOT EXISTS idx_users_gast_code ON users(gast_code)');
+    await pool.query(`CREATE TABLE IF NOT EXISTS question_reports (
+      id bigserial PRIMARY KEY,
+      user_id uuid REFERENCES users(id) ON DELETE SET NULL,
+      question_id text NOT NULL,
+      topic text NOT NULL,
+      question text NOT NULL,
+      reason text NOT NULL,
+      comment text,
+      erledigt boolean NOT NULL DEFAULT false,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )`);
+    await pool.query('ALTER TABLE question_reports ADD COLUMN IF NOT EXISTS anonym boolean NOT NULL DEFAULT false');
+    // Meldungen an einem Ort (2026-11-06): Doppelschutz beim Nachschicken + Notiz, was behoben wurde
+    await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS gast_gesperrt boolean NOT NULL DEFAULT false');
+    await pool.query('ALTER TABLE question_reports ADD COLUMN IF NOT EXISTS client_id text');
+    await pool.query('ALTER TABLE question_reports ADD COLUMN IF NOT EXISTS erledigt_am timestamptz');
+    await pool.query('ALTER TABLE question_reports ADD COLUMN IF NOT EXISTS erledigt_notiz text');
+    await pool.query('CREATE UNIQUE INDEX IF NOT EXISTS question_reports_client_id ON question_reports (client_id) WHERE client_id IS NOT NULL');
+    await pool.query(`CREATE TABLE IF NOT EXISTS app_status (
+      tile_id text PRIMARY KEY,
+      status text NOT NULL DEFAULT 'ungeprueft',
+      sichtbarkeit text NOT NULL DEFAULT 'azubis',
+      updated_at timestamptz NOT NULL DEFAULT now(),
+      updated_by uuid REFERENCES users(id) ON DELETE SET NULL
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS quiz_aenderungen (
+      topic_id text NOT NULL,
+      question_id text NOT NULL,
+      daten jsonb NOT NULL,
+      geaendert_am timestamptz NOT NULL DEFAULT now(),
+      geaendert_von uuid REFERENCES users(id) ON DELETE SET NULL,
+      PRIMARY KEY (topic_id, question_id)
+    )`);
 
     const adminPasswordHash = await bcrypt.hash(config.adminPassword, 10);
     await pool.query(
@@ -261,6 +309,16 @@ const runStartupMigrations = async () => {
       clan_id uuid NOT NULL REFERENCES tycoon_clans(id) ON DELETE CASCADE,
       seit timestamptz NOT NULL DEFAULT now()
     )`);
+    // Clan-Passwort (optional, bcrypt) und Gruender (darf es aendern); Einladungen ersetzen das Passwort.
+    await pool.query('ALTER TABLE tycoon_clans ADD COLUMN IF NOT EXISTS passwort_hash text');
+    await pool.query('ALTER TABLE tycoon_clans ADD COLUMN IF NOT EXISTS gruender uuid REFERENCES users(id) ON DELETE SET NULL');
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_clan_einladungen (
+      clan_id uuid NOT NULL REFERENCES tycoon_clans(id) ON DELETE CASCADE,
+      user_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      von uuid REFERENCES users(id) ON DELETE SET NULL,
+      erstellt timestamptz NOT NULL DEFAULT now(),
+      PRIMARY KEY (clan_id, user_id)
+    )`);
     // Clan-Grossprojekte (Neubaustrecke, Bruecke, Tunnel): gemeinsames Ziel, Beitraege je Mitglied.
     await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_clan_projekte (
       id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -278,6 +336,102 @@ const runStartupMigrations = async () => {
       schicht boolean NOT NULL DEFAULT false,
       zeit timestamptz NOT NULL DEFAULT now()
     )`);
+
+    // Gemeinschaft 2026-10-27 (routes/tycoon-gemeinschaft.ts): Wertungen, Boerse, Ausschreibungen, Trassen, Markt.
+    await pool.query('ALTER TABLE tycoon_gutschriften ADD COLUMN IF NOT EXISTS pokale integer NOT NULL DEFAULT 0');
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_wertung_basis (
+      periode text NOT NULL,
+      user_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      basis double precision NOT NULL,
+      PRIMARY KEY (periode, user_id)
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_wertung_vergeben (
+      periode text PRIMARY KEY,
+      zeit timestamptz NOT NULL DEFAULT now()
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_aktien (
+      user_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      firma uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      stueck integer NOT NULL,
+      einstand double precision NOT NULL,
+      PRIMARY KEY (user_id, firma)
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_ausschreibungen (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      bl text NOT NULL,
+      richt integer NOT NULL,
+      gegner jsonb NOT NULL DEFAULT '[]',
+      erstellt timestamptz NOT NULL DEFAULT now(),
+      bis timestamptz NOT NULL,
+      entschieden boolean NOT NULL DEFAULT false,
+      sieger uuid REFERENCES users(id) ON DELETE SET NULL,
+      sieger_gebot integer,
+      sieger_versprechen integer,
+      abgeholt boolean NOT NULL DEFAULT false
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_gebote (
+      ausschreibung uuid NOT NULL REFERENCES tycoon_ausschreibungen(id) ON DELETE CASCADE,
+      user_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      gebot integer NOT NULL,
+      versprechen integer NOT NULL,
+      wert double precision NOT NULL,
+      zeit timestamptz NOT NULL DEFAULT now(),
+      PRIMARY KEY (ausschreibung, user_id)
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_trassen (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      mieter uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      owner uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      a integer NOT NULL,
+      b integer NOT NULL,
+      preis_min integer NOT NULL,
+      seit timestamptz NOT NULL DEFAULT now(),
+      abgerechnet timestamptz NOT NULL DEFAULT now(),
+      ende timestamptz,
+      aktiv boolean NOT NULL DEFAULT true
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_angebote (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      verkaeufer uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      art text NOT NULL,
+      gebiet integer,
+      zug jsonb,
+      preis integer NOT NULL,
+      erstellt timestamptz NOT NULL DEFAULT now(),
+      kaeufer uuid REFERENCES users(id) ON DELETE SET NULL,
+      verkauft timestamptz,
+      zurueck boolean NOT NULL DEFAULT false
+    )`);
+    // Gebote fuer fremde Gebiete (statt Wegkaufen): Betrag ist beim Bieter schon abgebucht, bei Ablehnung/Rueckzug Gutschrift.
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_gebietsgebote (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      gebiet integer NOT NULL,
+      bieter uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      besitzer uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      betrag integer NOT NULL,
+      status text NOT NULL DEFAULT 'offen',
+      erstellt timestamptz NOT NULL DEFAULT now(),
+      erledigt timestamptz
+    )`);
+    await pool.query("CREATE INDEX IF NOT EXISTS tycoon_gebietsgebote_offen ON tycoon_gebietsgebote (besitzer) WHERE status = 'offen'");
+    // Bot-Gegner (tycoon-bots.ts): welche Nutzer Bots sind. /welt fragt die Tabelle ab, darum schon hier anlegen.
+    await pool.query(`CREATE TABLE IF NOT EXISTS tycoon_bots (
+      user_id uuid PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+      nr integer NOT NULL UNIQUE,
+      erstellt timestamptz NOT NULL DEFAULT now()
+    )`);
+    // Europakarte 2026-10-28: Auslandsgebiete haben neue Kennungen "<Land>Y<Nr>" (geoBoundaries). Die alten
+    // ("<Land><Teil>X<Nr>", Natural Earth: 6-stellig zur Basis 36 mit X = 33 an 4. Stelle) werden erstattet, offene
+    // Gebote darauf zurueckgezahlt und Marktangebote zurueckgezogen. Deutsche Kennungen (5-stellig, < 36^5) bleiben.
+    const altAusland = (feld: string) => `${feld} >= 60466176 AND (${feld} / 1296) % 36 = 33`;
+    await pool.query(`WITH alt AS (DELETE FROM tycoon_bezirke WHERE stadt = 100 AND ${altAusland('bezirk')} RETURNING owner, basis)
+      INSERT INTO tycoon_gutschriften (user_id, betrag, text)
+      SELECT owner, sum(basis)::int, 'Neue Europakarte: deine bisherigen Gebiete im Ausland wurden erstattet' FROM alt GROUP BY owner`);
+    await pool.query(`WITH g AS (UPDATE tycoon_gebietsgebote SET status = 'abgelehnt', erledigt = now()
+        WHERE status = 'offen' AND ${altAusland('gebiet')} RETURNING bieter, betrag)
+      INSERT INTO tycoon_gutschriften (user_id, betrag, text)
+      SELECT bieter, betrag, 'Gebot erstattet: das Gebiet gibt es auf der neuen Europakarte nicht mehr' FROM g`);
+    await pool.query(`UPDATE tycoon_angebote SET zurueck = true WHERE art = 'gebiet' AND verkauft IS NULL AND NOT zurueck AND ${altAusland('gebiet')}`);
 
     await seedAchievements();
     await purgeDueDeletedUsers();
@@ -300,4 +454,5 @@ runStartupMigrations().finally(() => {
     logger.info({ port: config.port, env: config.nodeEnv }, 'API listening');
   });
   startDeletionCleanupJob();
+  void starteTycoonBots();
 });

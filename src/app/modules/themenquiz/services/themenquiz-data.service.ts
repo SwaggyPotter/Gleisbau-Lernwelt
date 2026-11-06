@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { map, shareReplay, take } from 'rxjs/operators';
+import { QuizAenderungenService } from '../../../core/quiz-aenderungen/quiz-aenderungen.service';
 import { ThemenquizFile, ThemenquizProgress, ThemenquizTopic } from '../models/themenquiz.models';
 import { ProfilSyncService } from '../../../core/auth/services/profil-sync.service';
 
@@ -15,6 +16,7 @@ export class ThemenquizDataService {
   constructor(
     private readonly http: HttpClient,
     private readonly profilSync: ProfilSyncService,
+    private readonly aenderungen: QuizAenderungenService,
   ) {}
 
   getTopics(): Observable<ThemenquizTopic[]> {
@@ -26,7 +28,8 @@ export class ThemenquizDataService {
     return this.topics$;
   }
 
-  getQuiz(topicId: string): Observable<ThemenquizFile> {
+  /** Originalfragen ohne Admin-Änderungen (für „Original wiederherstellen“ im Editor). */
+  getOriginalQuiz(topicId: string): Observable<ThemenquizFile> {
     if (!this.quizCache.has(topicId)) {
       this.quizCache.set(
         topicId,
@@ -34,6 +37,17 @@ export class ThemenquizDataService {
       );
     }
     return this.quizCache.get(topicId)!;
+  }
+
+  /** Fragen mit den vom Admin gespeicherten Änderungen (Texte, Antworten, Bilder). */
+  getQuiz(topicId: string): Observable<ThemenquizFile> {
+    return combineLatest([this.getOriginalQuiz(topicId), this.aenderungen.aenderungen$]).pipe(
+      map(([quiz, ae]) => {
+        const t = ae[topicId] ?? {};
+        return { ...quiz, questions: quiz.questions.map(q => this.aenderungen.aufbereiten(q, t[q.id])) };
+      }),
+      take(1), // einmal liefern und abschließen (forkJoin/firstValueFrom bei den Aufrufern)
+    );
   }
 
   loadProgress(topicId: string): ThemenquizProgress {

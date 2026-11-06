@@ -39,12 +39,17 @@
 {$APP_DOMAIN} {
   encode zstd gzip
 
+  # Ohne Seiten-Cookie: Gastzugang pruefen (seit 2026-11-05). Die API liest das Cookie
+  # glw_gast (Sitzungstoken des Gast-Kurzzeitkontos) und antwortet 204 (gueltig) oder 401.
+  # Normale Nutzer mit glw_gate-Cookie laufen an dieser Pruefung vorbei.
   @daten {
     path /assets/*
     not path /assets/fonts/* /assets/icon/*
     not header Cookie *glw_gate=eca3dbf650628f397ba910a9382de9595488fe9996a4d1887fd36ca36493ad1c*
   }
-  respond @daten "Bitte in der App anmelden." 401
+  forward_auth @daten api:3000 {
+    uri /api/gast/pruefen
+  }
 
   header {
     Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"

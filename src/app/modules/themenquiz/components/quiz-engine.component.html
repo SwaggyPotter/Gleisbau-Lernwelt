@@ -10,8 +10,8 @@
     <figure class="question-image" *ngIf="currentImage() as img">
       <img [src]="img.file" alt="" />
       <figcaption>
-        {{ img.credit }} &middot; {{ img.license }}
-        <a [href]="img.sourceUrl" target="_blank" rel="noopener">Quelle</a>
+        {{ img.credit }}<ng-container *ngIf="img.license"> &middot; {{ img.license }}</ng-container>
+        <a *ngIf="img.sourceUrl" [href]="img.sourceUrl" target="_blank" rel="noopener">Quelle</a>
       </figcaption>
     </figure>
     <ion-list lines="none">
@@ -40,6 +40,7 @@
       <ion-chip outline="true">{{ answeredCount }}/{{ order.length }} beantwortet</ion-chip>
       <div class="spacer"></div>
       <ion-button size="small" fill="clear" class="ghost-btn" (click)="reportQuestion()">Frage melden</ion-button>
+      <ion-button size="small" fill="outline" class="admin-edit-btn" *ngIf="istAdmin" (click)="bearbeiten()" title="Nur für Admins: Frage, Antworten und Bild ändern">✎ Bearbeiten</ion-button>
       <ion-button size="small" (click)="next()" [disabled]="selectedIndex === null || currentIndex >= order.length - 1">
         Naechste Frage
       </ion-button>

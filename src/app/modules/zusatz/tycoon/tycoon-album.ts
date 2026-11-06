@@ -20,4 +20,10 @@ export const ABZEICHEN: Abzeichen[] = [
   { id: 'netz', n: 'Netzwerker', icon: '🔀', text: 'Ein Zug fährt einen Zuglauf über mindestens 3 Strecken.', lohn: 2000 },
   { id: 'vertrag', n: 'Vertragspartner', icon: '📜', text: 'Eine Ausschreibung gewonnen.', lohn: 1500 },
   { id: 'clan', n: 'Teamplayer', icon: '🤝', text: 'Zu einem Clan-Großprojekt beigetragen.', lohn: 800 },
+  // Lernen im Spiel (2026-10-27)
+  { id: 'serie7', n: 'Dranbleiber', icon: '📅', text: '7 Tage am Stück die tägliche Aufgabe geschafft.', lohn: 2500 },
+  { id: 'memory', n: 'Fehlerkenner', icon: '🧩', text: 'Fehlerbilder-Memory mit höchstens 1,5 Zügen je Paar.', lohn: 1000 },
+  { id: 'vermesser', n: 'Messprofi', icon: '📏', text: 'Alle Messungen beim Gleisvermessen richtig abgelesen.', lohn: 1000 },
+  { id: 'stellwerk', n: 'Fahrdienstleiter', icon: '🚦', text: 'Stellwerksdienst ohne Fehler und ohne Verspätung.', lohn: 1500 },
+  { id: 'pruefung', n: 'Geprüft', icon: '📝', text: 'Die Zwischenprüfung bestanden.', lohn: 2000 },
 ];

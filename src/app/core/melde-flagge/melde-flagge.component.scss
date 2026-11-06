@@ -1,0 +1,37 @@
+.flagge {
+  // über dem Chat-Knopf (rechts unten), damit links nichts verdeckt wird
+  position: fixed; right: 22px; bottom: calc(80px + env(safe-area-inset-bottom)); z-index: 9999;
+  width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.15rem; line-height: 1;
+  color: var(--sp-danger, #e0806f); background: var(--sp-surface, #16242f);
+  border: 1px solid color-mix(in srgb, var(--sp-danger, #e0806f) 55%, transparent);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .3); opacity: .85;
+  &:hover { opacity: 1; }
+}
+
+.hinter {
+  position: fixed; inset: 0; z-index: 10001; background: rgba(0, 0, 0, .5);
+  display: flex; align-items: center; justify-content: center; padding: 16px;
+}
+.box {
+  width: min(440px, 100%); box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; padding: 16px;
+  background: var(--sp-surface, #16242f); color: var(--sp-text, #eaf2f5);
+  border: 1px solid var(--sp-border, rgba(111, 168, 220, .22)); border-radius: 12px; box-shadow: 0 16px 48px rgba(0, 0, 0, .45);
+  font-family: var(--font-body, inherit);
+  label { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; color: var(--sp-text-muted, #8ca3af); }
+  select, textarea {
+    font: inherit; font-size: .95rem; color: var(--sp-text, #eaf2f5); background: var(--sp-bg, #0f1b24);
+    border: 1px solid var(--sp-border, rgba(111, 168, 220, .22)); border-radius: 8px; padding: 8px;
+  }
+  textarea { resize: vertical; }
+}
+.kopf { display: flex; justify-content: space-between; align-items: center; }
+.zu { background: none; border: none; color: var(--sp-text-muted, #8ca3af); font-size: 1.1rem; cursor: pointer; }
+.app { margin: 0; font-size: .85rem; color: var(--sp-accent, #ff8a3d); font-weight: 600; }
+.status { margin: 0; font-size: .85rem; color: var(--sp-danger, #e0806f); &.ok { color: var(--sp-success, #6fbf73); } }
+.knoepfe { display: flex; justify-content: flex-end; gap: 8px; }
+.btn {
+  font: inherit; cursor: pointer; padding: 8px 14px; border-radius: 8px;
+  border: 1px solid var(--sp-border, rgba(111, 168, 220, .22)); background: transparent; color: var(--sp-text, #eaf2f5);
+  &.primaer { background: var(--sp-accent, #ff8a3d); border-color: var(--sp-accent, #ff8a3d); color: var(--sp-on-primary, #0f1b24); font-weight: 600; }
+  &:disabled { opacity: .5; cursor: default; }
+}

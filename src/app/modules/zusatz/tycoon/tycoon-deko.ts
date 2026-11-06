@@ -6,7 +6,8 @@ import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import { Mesh } from '@babylonjs/core/Meshes/mesh';
 import type { TycoonWeltDaten } from './tycoon-3d';
 import { hoehe3D } from './tycoon-hoehen';
-import { aufLand, GROSSSTADT, KARTE_H, KARTE_W, SC, wx, wz } from './tycoon-karte';
+import { GROSSSTADT, KARTE_H, KARTE_W, SC, wx, wz } from './tycoon-karte';
+import { gebietAn, SPIEL } from './tycoon-gebiete';
 
 /*
  * Landschaft fuer die 3D-Ansicht des Tycoon: Waelder, Buesche, Felsen und Haeuser um die Staedte.
@@ -35,10 +36,15 @@ const BAHNHOF_MODELL = P + 'kenney-stadt/building-b.glb';
 /** Baustellen auf Strecken: Kenney Car Kit (CC0) unter src/assets/modelle/kenney-fahrzeuge/. */
 const FZ = (n: string) => P + 'kenney-fahrzeuge/' + n + '.glb';
 const BAUSTELLE = [FZ('tractor-shovel'), FZ('truck-flat'), FZ('cone'), FZ('box')];
+/** Stellwerk (Knoten, Abzweigstellen) und Lokschuppen (mit Ausruestung Werkstatt): Kenney Modular Buildings (CC0), src/assets/modelle/kenney-modular/. */
+const STELLWERK = P + 'kenney-modular/building-sample-tower-b.glb';
+const LOKSCHUPPEN = P + 'kenney-modular/building-sample-house-a.glb';
 
-/** 3D-Punkt (x, z) liegt auf Land? (Umkehrung von wx/wz.) */
-const imLand = (x: number, z: number) => aufLand(x / SC + KARTE_W / 2, -z / SC + KARTE_H / 2);
-const X0 = wx(0), X1 = wx(KARTE_W), Z0 = wz(KARTE_H), Z1 = wz(0);
+/** 3D-Punkt (x, z) liegt auf Land? (Umkehrung von wx/wz; ueber das Gebietsraster, das ist auch fuer ganz Europa schnell.) */
+const imLand = (x: number, z: number) => gebietAn(x / SC + KARTE_W / 2, -z / SC + KARTE_H / 2) !== null;
+/** Bereich fuer Baeume usw.: ganz Europa (Spielflaeche); MENGE = so viel mehr Flaeche als frueher Deutschland, gedeckelt. */
+const X0 = wx(SPIEL.x0), X1 = wx(SPIEL.x1), Z0 = wz(SPIEL.y1), Z1 = wz(SPIEL.y0);
+const MENGE = Math.min(6, ((SPIEL.x1 - SPIEL.x0) * (SPIEL.y1 - SPIEL.y0)) / (KARTE_W * KARTE_H));
 
 interface Objekt {
   modell: string;
@@ -136,11 +142,11 @@ export class TycoonDeko {
       if (!imLand(x, z) || nahStadt(x, z, 6)) return;
       this.objekte.push({ modell: pick(BAEUME), x, z, dreh: rnd() * Math.PI * 2, groesse: 1.4 + rnd() * 1.3, nachHoehe: true, maxHoehe: 9, stadt: -1, frei: 1.3 });
     };
-    for (let w = 0; w < 75; w++) {
+    for (let w = 0; w < 75 * MENGE; w++) {
       const cx = X0 + rnd() * (X1 - X0), cz = Z0 + rnd() * (Z1 - Z0), r = 1.5 + rnd() * 4, n = 5 + Math.floor(rnd() * 11);
       for (let k = 0; k < n; k++) { const a = rnd() * Math.PI * 2, d = Math.sqrt(rnd()) * r; baum(cx + Math.cos(a) * d, cz + Math.sin(a) * d); }
     }
-    for (let k = 0; k < 280; k++) baum(X0 + rnd() * (X1 - X0), Z0 + rnd() * (Z1 - Z0));
+    for (let k = 0; k < 280 * MENGE; k++) baum(X0 + rnd() * (X1 - X0), Z0 + rnd() * (Z1 - Z0));
     // Industrie: Windraeder im flachen Norden, Solarfelder, Kuehltuerme (Ruhrgebiet, Leipzig), Tanklager (Hamburg), Wassertuerme.
     const nordGrenze = wz(staedte[3].y); // ungefaehr Breite von Hannover
     for (let k = 0; k < 45; k++) {
@@ -148,7 +154,7 @@ export class TycoonDeko {
       if (!imLand(x, z) || nahStadt(x, z, 5)) continue;
       this.objekte.push({ modell: IND('windmill'), x, z, dreh: rnd() * Math.PI * 2, groesse: 3, nachHoehe: true, maxHoehe: 9, stadt: -1, frei: 1.2 });
     }
-    for (let k = 0; k < 18; k++) {
+    for (let k = 0; k < 18 * MENGE; k++) {
       const x = X0 + rnd() * (X1 - X0), z = Z0 + rnd() * (Z1 - Z0);
       if (!imLand(x, z) || nahStadt(x, z, 6)) continue;
       this.objekte.push({ modell: IND('solar-panel-landscape-group'), x, z, dreh: 0, groesse: 1.4, nachHoehe: false, maxHoehe: 9, stadt: -1, frei: 1.4 });
@@ -163,7 +169,7 @@ export class TycoonDeko {
     beiStadt(4, IND('chimney-large'), 2.2, true, 2);    // Leipzig
     beiStadt(1, IND('detail-tank-large'), 1.2, false, 3); // Hamburg
     [2, 13, 15, 22, 23].forEach((i) => beiStadt(i, IND('water-tower'), 1.8, true, 1));
-    for (let k = 0; k < 110; k++) {
+    for (let k = 0; k < 110 * MENGE; k++) {
       const x = X0 + rnd() * (X1 - X0), z = Z0 + rnd() * (Z1 - Z0);
       if (!imLand(x, z) || nahStadt(x, z, 6)) continue;
       this.objekte.push({ modell: pick(KLEINKRAM), x, z, dreh: rnd() * Math.PI * 2, groesse: 0.5 + rnd() * 0.6, nachHoehe: false, maxHoehe: 9, stadt: -1, frei: 1.1 });
@@ -179,7 +185,11 @@ export class TycoonDeko {
     const olStaedte = Array.from(new Set<number>(S.lines.filter((l: any) => l.ol).flatMap((l: any) => [l.a, l.b])));
     const bahnhoefe: any[] = S.bf || [];
     const baustellen = S.lines.filter((l: any) => l.bau);
-    const spielerKey = (S.lager || []).join(',') + '/' + olStaedte.join(',') + '/' + bahnhoefe.map((b) => b.id + ':' + b.x + ':' + b.y).join(',') + '/' + baustellen.map((l: any) => l.id).join(',') + '/' + (S.gbf || []).join(',');
+    const enden = new Map<number, number>();
+    S.lines.forEach((l: any) => [l.a, l.b].forEach((c: number) => enden.set(c, (enden.get(c) || 0) + 1)));
+    const knotenpunkte = [...enden].filter(([c, n]) => n >= 3 || (c >= d.BF0 && c < 50000 && n >= 2)).map(([c]) => c).filter((c) => c < 50000);
+    const schuppen = (S.ausr || []).includes('werkstatt') && enden.size ? [...enden].filter(([c]) => c < 50000).sort((a, b) => b[1] - a[1])[0]?.[0] : undefined;
+    const spielerKey = knotenpunkte.join(',') + '/' + (S.abz || []).map((z: any) => z.id).join(',') + '/' + schuppen + '/' + (S.lager || []).join(',') + '/' + olStaedte.join(',') + '/' + bahnhoefe.map((b) => b.id + ':' + b.x + ':' + b.y).join(',') + '/' + baustellen.map((l: any) => l.id).join(',') + '/' + (S.gbf || []).join(',');
     const schluessel = S.lines.length + '|' + S.vis.join('') + '|' + this.vorbilder.size + '|' + this.geladen + '|' + spielerKey;
     if (schluessel === this.schluessel) return;
     this.schluessel = schluessel;
@@ -201,6 +211,10 @@ export class TycoonDeko {
       // Gueterbahnhof: Lagerhalle und Container-Stapel neben dem Streckenende.
       ...(S.gbf || []).flatMap((c: number) => [platz(c, 4.0, IND('building-a'), 1.5, c < d.BF0 ? 2.8 : 1.9),
         platz(c, 3.6, CONTAINER[0], 0.5, c < d.BF0 ? 2.2 : 1.4), platz(c, 3.75, CONTAINER[1], 0.5, c < d.BF0 ? 2.4 : 1.6)]),
+      // Stellwerk an Knotenbahnhoefen und Abzweigstellen, Lokschuppen am groessten Knoten.
+      ...knotenpunkte.map((c) => ({ ...platz(c, 1.9, STELLWERK, 0.75, c < d.BF0 ? 2.4 : 1.5), maxHoehe: 1.3 })),
+      ...(S.abz || []).map((z: any) => ({ modell: STELLWERK, x: wx(z.x) + 0.9, z: wz(z.y) + 0.6, dreh: 0, groesse: 0.55, nachHoehe: false, maxHoehe: 0.95, stadt: -1, frei: 0 })),
+      ...(schuppen !== undefined ? [{ ...platz(schuppen, 5.2, LOKSCHUPPEN, 1.6, schuppen < d.BF0 ? 3.1 : 2.1), maxHoehe: 1.1 }] : []),
     ];
     const jeModell = new Map<string, Objekt[]>();
     for (const o of [...this.objekte, ...this.spielerObjekte]) {
@@ -210,7 +224,7 @@ export class TycoonDeko {
       jeModell.get(o.modell)!.push(o);
     }
     const alle = new Set([...this.objekte, ...this.spielerObjekte].map((o) => o.modell));
-    [IND('building-h'), IND('building-c'), IND('building-a'), ...CONTAINER, BAHNHOF_MODELL, DACH, ...BAUSTELLE].forEach((m) => alle.add(m));
+    [IND('building-h'), IND('building-c'), IND('building-a'), ...CONTAINER, BAHNHOF_MODELL, DACH, ...BAUSTELLE, STELLWERK, LOKSCHUPPEN].forEach((m) => alle.add(m));
     for (const modell of alle) {
       const v = this.vorbild(modell);
       if (!v) continue;

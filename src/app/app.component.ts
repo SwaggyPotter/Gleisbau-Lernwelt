@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { QuestionReportService } from './services/question-report.service';
 import { ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { hasStoredSiteAuth, syncGateCookie } from './core/site-gate/site-gate.component';
@@ -10,6 +11,7 @@ import { NeueErrungenschaft } from './core/auth/services/profil-sync.service';
 import { ThemeService } from './core/theme/theme.service';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter } from 'rxjs/operators';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -36,11 +38,17 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly auth: AuthService,
     private readonly presence: PresenceService,
     private readonly swUpdate: SwUpdate,
+    private readonly router: Router,
+    private readonly meldungen: QuestionReportService,
   ) {}
 
   ngOnInit(): void {
     void syncGateCookie();
+    // Meldungen, die offline oder vor dem Server-Umbau entstanden sind, nachschicken
+    setTimeout(() => this.meldungen.ausstehendeSenden(), 3000);
     if (hasStoredSiteAuth()) this.presence.start();
+    // Gastzugang läuft ab, während die App offen ist: einmal pro Minute prüfen und dann sperren
+    setInterval(() => { if (this.unlocked && !hasStoredSiteAuth()) location.reload(); }, 60 * 1000);
     void this.adminAutoLogin();
     this.theme.init();
     window.addEventListener('glw-errungenschaft-freigeschaltet', this.onErrungenschaft);
@@ -50,16 +58,43 @@ export class AppComponent implements OnInit, OnDestroy {
 
   /**
    * Der Service Worker liefert sonst nach einem Deploy weiter die alte App aus (auch nach Strg+F5).
-   * Neue Version gefunden -> aktivieren und einmal neu laden. Beim Start und alle 10 Minuten nachsehen.
+   * Neue Version gefunden -> NICHT sofort neu laden (Tim, 2026-11-06: mitten in einer Rechnung
+   * kam sonst plötzlich eine neue Aufgabe). Stattdessen kleiner Hinweis mit „Jetzt laden“, und
+   * spätestens beim nächsten Seitenwechsel wird die neue Version geladen.
+   * Beim Start und alle 10 Minuten nachsehen.
    */
+  private updateWartet = false;
+
   private neueVersionLaden(): void {
     if (!this.swUpdate.isEnabled) return;
     this.swUpdate.versionUpdates
       .pipe(filter((e): e is VersionReadyEvent => e.type === 'VERSION_READY'))
-      .subscribe(() => { void this.swUpdate.activateUpdate().then(() => document.location.reload()); });
+      .subscribe(() => {
+        if (this.updateWartet) return;
+        this.updateWartet = true;
+        void this.zeigeUpdateHinweis();
+      });
+    // Beim nächsten Seitenwechsel: neue Version aktivieren und die Zielseite frisch laden
+    this.router.events.pipe(filter((e): e is NavigationStart => e instanceof NavigationStart)).subscribe(e => {
+      if (!this.updateWartet) return;
+      this.updateWartet = false;
+      void this.swUpdate.activateUpdate().finally(() => window.location.assign(e.url));
+    });
     const pruefe = () => { this.swUpdate.checkForUpdate().catch(() => undefined); };
     pruefe();
     setInterval(pruefe, 10 * 60 * 1000);
+  }
+
+  private async zeigeUpdateHinweis(): Promise<void> {
+    const toast = await this.toastCtrl.create({
+      message: 'Neue Version verfügbar – wird beim nächsten Seitenwechsel geladen.',
+      position: 'bottom',
+      buttons: [
+        { text: 'Jetzt laden', handler: () => { void this.swUpdate.activateUpdate().finally(() => document.location.reload()); } },
+        { text: 'Später', role: 'cancel' },
+      ],
+    });
+    await toast.present();
   }
 
   /** Gespeicherte Gate-Zugangsdaten fuer den Admin-Login nutzen, falls noch keine Sitzung besteht. */

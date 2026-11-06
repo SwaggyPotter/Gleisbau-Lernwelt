@@ -9,7 +9,12 @@
         Zugangsdaten eingeben.
       </p>
 
-      <form (ngSubmit)="submit()" #f="ngForm">
+      <div class="reiter" role="tablist">
+        <button type="button" role="tab" [class.aktiv]="modus === 'konto'" [attr.aria-selected]="modus === 'konto'" (click)="modus = 'konto'">Anmelden</button>
+        <button type="button" role="tab" [class.aktiv]="modus === 'gast'" [attr.aria-selected]="modus === 'gast'" (click)="modus = 'gast'">Gastzugang</button>
+      </div>
+
+      <form *ngIf="modus === 'konto'" (ngSubmit)="submit()" #f="ngForm">
         <label class="field-label">Nutzername</label>
         <input type="text" name="user" [(ngModel)]="user" required autocomplete="username" />
 
@@ -22,6 +27,23 @@
           {{ busy ? 'Bitte warten...' : 'Anmelden' }}
         </button>
       </form>
+
+      <div class="gast-box" *ngIf="modus === 'gast'">
+        <p class="gast-text">Du hast ein Gast-Passwort bekommen? Name und Passwort eingeben, dann bist du für die vereinbarte Zeit dabei, mit Chat und eigener Statistik.</p>
+        <form (ngSubmit)="gastSubmit()" #g="ngForm">
+          <label class="field-label">Dein Name</label>
+          <input type="text" name="gastName" [(ngModel)]="gastName" required minlength="2" maxlength="40" autocomplete="nickname" />
+
+          <label class="field-label">Gast-Passwort</label>
+          <input type="text" name="gastCode" [(ngModel)]="gastCode" required autocomplete="off" autocapitalize="characters" placeholder="GAST-XXXXXX" />
+
+          <p class="form-error" *ngIf="gastFehler">{{ gastFehler }}</p>
+
+          <button type="submit" class="btn btn-primary" [disabled]="gastBusy || g.invalid">
+            {{ gastBusy ? 'Bitte warten...' : 'Als Gast weiter' }}
+          </button>
+        </form>
+      </div>
 
       <div class="oeffentlich-row">
         <span class="oeffentlich-divider">oder</span>

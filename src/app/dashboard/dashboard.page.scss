@@ -579,6 +579,48 @@ ion-badge {
     transform: scale(0.92);
   }
 
+  .icon { position: relative; }
+
+  .haken, .kreuz, .schloss {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    border: 2px solid var(--sp-bg, #fff);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  .haken { background: #2e9e4f; color: #fff; }
+  .kreuz { background: #d63b3b; color: #fff; font-size: 11px; }
+  .schloss {
+    background: #6b6b6b;
+    ion-icon { font-size: 12px; }
+  }
+
+  &.versteckt .icon { opacity: 0.4; filter: grayscale(0.6); }
+
+  .admin-sicht {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    color: var(--sp-accent, #2e86ab);
+  }
+
+  &.gesperrt {
+    cursor: not-allowed;
+    .icon { filter: grayscale(1); opacity: 0.45; box-shadow: none; }
+    .schloss { opacity: 1; }
+    .label { opacity: 0.5; }
+    &:active .icon { transform: none; }
+  }
+
   .label {
     font-size: 0.74rem;
     line-height: 1.15;
@@ -595,4 +637,109 @@ ion-badge {
 .leer {
   text-align: center;
   color: var(--sp-text);
+}
+
+.info-zeile {
+  margin: 6px 2px 14px;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--sp-text-muted, var(--sp-text));
+  opacity: 0.85;
+}
+.haken-mini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #2e9e4f;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  vertical-align: 1px;
+}
+
+.kreuz-mini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #d63b3b;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  vertical-align: 1px;
+}
+
+/* Drei-Punkte-Menü (nur Admin), oben links an der Kachel */
+.app-zelle {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  &.menue-offen { z-index: 20; }
+}
+.drei-punkte {
+  position: absolute;
+  top: -6px;
+  left: calc(50% - 39px);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--sp-border, rgba(127, 127, 127, 0.4));
+  background: var(--sp-surface, #222);
+  color: var(--sp-text);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+.app-menue {
+  position: absolute;
+  top: 20px;
+  left: calc(50% - 39px);
+  width: 220px;
+  background: var(--sp-surface, #222);
+  border: 1px solid var(--sp-border, rgba(127, 127, 127, 0.4));
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 30;
+
+  .am-titel { margin: 0 0 2px; font-weight: 700; font-size: 0.85rem; color: var(--sp-text); }
+  .am-label { margin: 6px 0 0; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--sp-text-muted, var(--sp-text)); opacity: 0.8; }
+  .am-fehler { margin: 4px 0 0; font-size: 0.75rem; color: #d63b3b; }
+
+  button {
+    text-align: left;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: var(--sp-text);
+    font-size: 0.82rem;
+    padding: 6px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    &:hover { background: color-mix(in srgb, var(--sp-text) 8%, transparent); }
+    &.aktiv { border-color: var(--sp-accent, #2e86ab); background: color-mix(in srgb, var(--sp-accent, #2e86ab) 15%, transparent); font-weight: 600; }
+  }
+  .am-zu { justify-content: center; margin-top: 4px; opacity: 0.8; }
+  .am-link {
+    display: block; text-decoration: none; color: var(--sp-accent, #2e86ab); font-size: 0.82rem; font-weight: 600;
+    padding: 6px 8px; border-radius: 6px; border: 1px solid color-mix(in srgb, var(--sp-accent, #2e86ab) 40%, transparent);
+    &:hover { background: color-mix(in srgb, var(--sp-accent, #2e86ab) 12%, transparent); }
+  }
+}
+@media (max-width: 600px) {
+  .app-menue { position: fixed; left: 16px; right: 16px; top: auto; bottom: 16px; width: auto; }
 }

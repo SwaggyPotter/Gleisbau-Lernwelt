@@ -1,0 +1,24 @@
+<button *ngIf="sichtbar && !offen" type="button" class="flagge" (click)="oeffnen()" title="Fehler in dieser App melden" aria-label="Fehler in dieser App melden">⚑</button>
+
+<div class="hinter" *ngIf="offen" (click)="offen = false">
+  <div class="box" role="dialog" aria-label="Fehler melden" (click)="$event.stopPropagation()" (keydown.escape)="offen = false">
+    <div class="kopf">
+      <b>⚑ Fehler melden</b>
+      <button type="button" class="zu" (click)="offen = false" aria-label="Schließen">✕</button>
+    </div>
+    <p class="app">{{ appName }}</p>
+    <label>Was ist los?
+      <select [(ngModel)]="grund">
+        <option *ngFor="let g of gruende" [value]="g">{{ g }}</option>
+      </select>
+    </label>
+    <label>Beschreibung
+      <textarea rows="4" maxlength="2000" [(ngModel)]="kommentar" placeholder="z. B. Bei Aufgabe 3 kommt 12 statt 11 raus …"></textarea>
+    </label>
+    <p class="status" *ngIf="status" [class.ok]="gesendet">{{ status }}</p>
+    <div class="knoepfe">
+      <button type="button" class="btn" (click)="offen = false">Abbrechen</button>
+      <button type="button" class="btn primaer" (click)="senden()" [disabled]="gesendet">Senden</button>
+    </div>
+  </div>
+</div>

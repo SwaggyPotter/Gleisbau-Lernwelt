@@ -1,18 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ThemenquizDifficulty, ThemenquizQuestion } from '../models/themenquiz.models';
 import { QuestionReportService } from '../../../services/question-report.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../core/auth/services/auth.service';
+import { QuizBild, QuizBilderService } from '../../../core/quiz-aenderungen/quiz-aenderungen.service';
 
 type ShuffledChoice = { text: string; originalIndex: number };
-
-interface Bildnachweis {
-  key: string;
-  file: string;
-  credit: string;
-  license: string;
-  sourceUrl: string;
-}
 
 @Component({
   selector: 'app-themenquiz-engine',
@@ -29,24 +23,34 @@ export class ThemenquizEngineComponent implements OnChanges, OnInit {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
     private reportSvc: QuestionReportService,
-    private http: HttpClient
+    private bilder: QuizBilderService,
+    private auth: AuthService,
+    private router: Router,
   ) {}
 
-  private bildnachweise: Record<string, Bildnachweis> = {};
+  private bilderBereit = false;
+  private bildCache: { key?: string; bild: QuizBild | null } = { bild: null };
 
   ngOnInit(): void {
-    this.http.get<Bildnachweis[]>('assets/bilder/bildnachweise.json').subscribe({
-      next: (list) => {
-        this.bildnachweise = Object.fromEntries(list.map((b) => [b.key, b]));
-      },
-      error: () => (this.bildnachweise = {}),
-    });
+    this.bilder.quellen$.subscribe(() => { this.bilderBereit = true; this.bildCache = { bild: null }; });
   }
 
-  currentImage(): Bildnachweis | null {
+  /** Nur Admins: Stift-Knopf an jeder Frage, führt in den Fragen-Editor. */
+  get istAdmin(): boolean {
+    return this.auth.isAdmin;
+  }
+
+  bearbeiten(): void {
+    const q = this.current;
+    if (!q) return;
+    this.router.navigate(['/konto/fragen-bearbeiten', this.topicId], { queryParams: { frage: q.id } });
+  }
+
+  currentImage(): QuizBild | null {
     const key = this.current?.imageKey;
-    if (!key) return null;
-    return this.bildnachweise[key] ?? null;
+    if (!key || !this.bilderBereit) return null;
+    if (this.bildCache.key !== key) this.bildCache = { key, bild: this.bilder.aufloesen(key) };
+    return this.bildCache.bild;
   }
 
   order: ThemenquizQuestion[] = [];

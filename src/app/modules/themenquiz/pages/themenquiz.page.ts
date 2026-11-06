@@ -48,6 +48,14 @@ export class ThemenquizPage implements OnInit, OnDestroy {
     );
   }
 
+  /** Zurück aus dem Fragen-Editor: geänderte Fragen übernehmen (nur wenn sich wirklich etwas geändert hat). */
+  ionViewWillEnter(): void {
+    if (!this.quiz || !this.topicId) return;
+    this.data.getQuiz(this.topicId).subscribe(q => {
+      if (JSON.stringify(q.questions) !== JSON.stringify(this.quiz?.questions)) this.quiz = q;
+    });
+  }
+
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }

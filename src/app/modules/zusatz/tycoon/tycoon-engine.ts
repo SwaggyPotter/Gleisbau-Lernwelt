@@ -6,21 +6,30 @@
  */
 
 import type { TycoonWeltDaten } from './tycoon-3d';
-import { CITIES, KARTE_H, KARTE_W, spielerFarbe, zeichneKarte } from './tycoon-karte';
+import { CITIES, KARTE_H, KARTE_PROJ, KARTE_W, spielerFarbe, zeichneKarte } from './tycoon-karte';
 import {
-  beschrifteGebiete, BUNDESLAENDER, Gebiet, GEBIET_QUELLE, GEBIET_STADT, gebietAn, gebieteIm, gebietMitId, gebietVonStadt, innererPunkt, kurzName, LAND_NAMEN, regionVon,
+  beschrifteGebiete, boxMitte, BUNDESLAENDER, Gebiet, gebieteUm, klimaVon, nachbarn, GEBIET_QUELLE, GEBIET_STADT, gebietAn, gebieteIm, gebietMitId, gebietVonStadt, innererPunkt, kurzName, LAND_NAMEN, regionVon, SPIEL,
   stelleErlaubt, svgPfad, umrandeGebiet, zeichneGebiete,
 } from './tycoon-gebiete';
-import { HOEHEN_QUELLE, ladeHoehen, reliefBild } from './tycoon-hoehen';
-import { FahrtErgebnis, starteFahrt, zeichneLegende } from './tycoon-inspektion';
+import { HOEHEN_QUELLE, hoehenGeladen, ladeHoehen, meterBei, reliefBild } from './tycoon-hoehen';
+import { EREIGNIS_TAKT, EREIGNISSE, Gelaende, gelaendeVon } from './tycoon-ereignisse';
+import { FAHRT_ARTEN, FahrtErgebnis, fehlerBild, starteFahrt, zeichneLegende } from './tycoon-inspektion';
+import { MEMORY, MemoryBild, memoryLohn, PRUEFUNG, PRUEFUNG_THEMEN, starteMemory, TAGES_FRAGEN, TAGES_NEED, tagesLohn, tagesThema, tagHeute, tageZwischen } from './tycoon-lernen';
+import { starteVermessung } from './tycoon-vermessung';
+import { starteStellwerk } from './tycoon-stellwerk';
+import { WERBUNG, werbungFrei, zeigeWerbung } from './tycoon-werbung';
+import { fahrGeraeusch, schalteTon, spiele, tonAn, tonStopp } from './tycoon-ton';
 import { ABZEICHEN } from './tycoon-album';
 import { BEITRAEGE, CLAN_PROJEKTE, SCHICHT_FRAGEN, SCHICHT_PAUSE, SCHICHT_WERT } from './tycoon-clanprojekte';
 import { Ausschreibung, AUSSCHREIBUNG_TAKT, FRIST, GEBOTE, MALUS, MITBEWERBER, Vertrag, VERTRAG, VERSPRECHEN } from './tycoon-ausschreibung';
 import { kapazitaet, MAX_FREMD, puenktFaktor, SIGNALE, ZWEIGLEISIG } from './tycoon-kapazitaet';
+import { flussQuerungen, FLUSS_BRUECKE, KreuzArt, KREUZ_BERG_M, KREUZ_NAME, KREUZ_PREIS, streckenKreuzungen } from './tycoon-kreuzungen';
 import { Auftrag, AUFTRAG_TAKT, GUETERBAHNHOF, MAX_AUFTRAEGE, WAREN, wareVonGebiet, wareVonStadt } from './tycoon-gueter';
 import { LEHRGANG_N, LEHRGANG_NEED, lehrgangPreis, lernstand, lernstandFuer, MAX_STUFE, ROLLEN } from './tycoon-personal';
 import { MASSNAHMEN, SPERRUNGEN, VORBEREITUNG_FRAGEN, VORBEREITUNG_SPAREN } from './tycoon-baustelle';
-import { JAHRESZEITEN, jahreszeitAus, SCHUTZ, TOENUNG, WETTER, zeichneWetter } from './tycoon-wetter';
+import { JAHRESZEITEN, KLIMA_TEXT, SCHUTZ, TOENUNG, WETTER, zeichneWetter } from './tycoon-wetter';
+import { datumText, dunkelAus, istWochenende, sonnenHoeheBei, spielzeit, TAG_SEK, uhrText } from './tycoon-zeit';
+import { TRUPPS, truppMit } from './tycoon-trupps';
 import { HOEHEN } from './tycoon-hoehen-meta';
 import { AUSRUESTUNG, BAHNHOF, KLASSEN, KOHLELAGER, TESTMODUS, LEVEL_XP, levelAus, OBERLEITUNG, SKINS, upgradePreis, ZUEGE, ZUG_FARBEN, ZUG_UPGRADES } from './tycoon-zuege';
 
@@ -35,11 +44,27 @@ export interface TycoonOptions {
   onVorschau?: (el: HTMLElement | null, typ: number, farbe?: string | null, extraWagen?: boolean) => void;
   /** Gebiet (Landkreis/Bezirk) kaufen/uebernehmen (Server); die Seite meldet Erfolg ueber handle.bezahlt() zurueck. */
   onGebiet?: (gebiet: number, basis: number) => void;
+  /** Gebot fuer ein fremdes Gebiet (Server, Betrag wird bis zur Entscheidung zurueckgehalten); Erfolg: handle.abbuchen. */
+  onGebot?: (gebiet: number, betrag: number) => void;
+  /** Strecke durch fremde Gebiete gebaut: Durchfahrtsgebuehr je Gebiet an den Besitzer (Server, als Gutschrift). */
+  onDurchfahrt?: (posten: { gebiet: number; betrag: number }[], strecke: string) => void;
   /** Neue Strecke gebaut zwischen Knoten a und b (Stadt oder Bahnhof; Server verteilt den Clan-Bonus). */
   onVerbindung?: (a: number, b: number, nameA: string, nameB: string, gebiete: number[]) => void;
   /** Clan-Grossprojekt starten bzw. beitragen (Server); Erfolg meldet die Seite ueber handle.clanBezahlt zurueck. */
   onClanProjekt?: (art: string) => void;
   onClanBeitrag?: (betrag: number, schicht: boolean) => void;
+  /** Ausschreibungen gegen andere Spieler (Server): neue anlegen, bieten, gewonnenen Vertrag abholen (Seite ruft handle.vertrag). */
+  onAusschreibungNeu?: (bl: string, richt: number, gegner: { n: string; gebot: number }[]) => void;
+  onAusschreibungGebot?: (id: string, gebot: number, versprechen: number) => void;
+  onAusschreibungAbholen?: (id: string) => void;
+  /** Strecken anderer Spieler an Stadt c suchen (Seite ruft handle.zeigeTrassen) bzw. eine mieten / kuendigen. */
+  onTrassenSuchen?: (stadt: number) => void;
+  onTrasseMieten?: (owner: string, ownerName: string, a: number, b: number, preisMin: number, p: number[] | null, info: { cls: number; ol: boolean; gleise: number }) => void;
+  onTrasseKuendigen?: (id: string) => void;
+  /** Im Fuehrerstand des Zuges (Id) mitfahren (3D-Ansicht). */
+  onMitfahren?: (zugId: number) => void;
+  /** Bildschirmpunkt -> 2D-Weltpunkt in der 3D-Ansicht (kk = Pixel je Welteinheit); null = 2D-Karte ist aktiv. */
+  weltPunkt?: (clientX: number, clientY: number) => { x: number; y: number; kk: number } | null;
 }
 
 export interface TycoonHandle {
@@ -57,6 +82,20 @@ export interface TycoonHandle {
   belohnung: (xp: number, pokale: number, text: string) => void;
   /** Beitrag zum Clan-Projekt angenommen: Betrag abziehen. */
   clanBezahlt: (betrag: number, text: string) => void;
+  /** Gemeinschaft (Boerse, Markt, Ausschreibungen, Trassen) -- siehe Seite und backend/src/routes/tycoon-gemeinschaft.ts. */
+  geld: () => number;
+  abbuchen: (betrag: number, text: string) => void;
+  eigeneZuege: () => { id: number; n: string; strecke: string; type: number }[];
+  /** Zug fuer den Markt aus dem Spiel nehmen (null, wenn es ihn nicht gibt). */
+  zugAbgeben: (id: number) => any | null;
+  /** Gekauften / zurueckgegebenen Zug ins Depot legen. */
+  zugAufnehmen: (zug: any, text: string) => void;
+  /** Bundeslaender mit eigenen Strecken (fuer die Ausschreibungen vom Server). */
+  bundeslaender: () => string[];
+  setzeAusschreibungen: (d: any) => void;
+  vertrag: (bl: string, gebot: number, versprechen: number) => void;
+  zeigeTrassen: (stadt: number, liste: any[]) => void;
+  trasseGemietet: (id: string, owner: string, ownerName: string, a: number, b: number, preisMin: number, p: number[] | null, info: { cls: number; ol: boolean; gleise: number }) => void;
   /** Klick an einer Stelle der 2D-Welt (KARTE_W x KARTE_H), z. B. aus der 3D-Ansicht. */
   /** Klick aus der 3D-Ansicht; kk = Bildschirmpixel je Welteinheit an der Klickstelle. */
   klickWelt: (x: number, y: number, kk: number) => void;
@@ -73,7 +112,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const CFG = {
     startMoney: 50000, lineCostPerUnit: TESTMODUS ? 0 : 5, trainCost: 2500, trainSpeed: 55, foreignFee: 0.2,
     foreignSpawn: [12, 24], ownRent: 0.12, ownUpkeep: 0.04, upkeepPerSec: 0.004, wearPerPass: 0.9,
-    careCostPerUnit: TESTMODUS ? 0 : 1.2, daySec: 60, unlockNeed: 3,
+    careCostPerUnit: TESTMODUS ? 0 : 1.2, daySec: TAG_SEK, unlockNeed: 3,
     // Bei einer Stoerung fahren die Zuege weiter, aber langsamer und mit weniger Einnahmen.
     faultSpeed: 0.5, faultIncome: 0.35,
   };
@@ -99,6 +138,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     { n: 'Unterspülte Bettung (Starkregen)', thema: 'bettung', themaN: 'Bettung' },
     // Abzweigstellen (Weichen)
     { n: 'Weichenstörung', thema: 'lf13', themaN: 'Weichen' },
+    // Frost (tycoon-wetter.ts)
+    { n: 'Schienenbruch (Frost)', thema: 'schiene', themaN: 'Schiene' },
   ];
   const FEHLER_WEICHE = 10;
   /** Zufaellige (Verschleiss-)Stoerungen nur aus diesen Arten; die uebrigen bringt das Wetter. */
@@ -110,8 +151,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     ['messmittel', 'Messmittel'], ['handwerkzeuge', 'Handwerkzeuge'], ['kleingeraete', 'Kleingeräte'], ['arbeitssicherheit', 'Arbeitssicherheit'],
   ];
   const modeInterval = (m: number) => MODES[m].min * 60 * (1 + Math.random() * 0.2);
-  // Staedte an echten Koordinaten: siehe tycoon-karte.ts.
-  const START_CITY = 0;
+  // Staedte an echten Koordinaten: siehe tycoon-karte.ts. Den Startpunkt waehlt der Spieler (Tutorial, Schritt 0).
   const DIFF = [
     // Alle Stoerungen werden mit dem Spiel "Nivellierlatte ablesen" behoben. Mit der Stufe wachsen
     // Zahl der Ablesungen, geforderte Treffer und Lattenentfernung (= weiter Ausschnitt, schwerer).
@@ -132,13 +172,13 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   /** Mietfaktor eines eigenen Zuges durch Upgrades. */
   const upgMiete = (t: any) => 1 + (hatUpg(t, 'komfort') ? 0.15 : 0) + (hatUpg(t, 'zusatzwagen') ? 0.2 : 0) + (hatUpg(t, 'wlan') ? 0.1 : 0);
   const zugFarbe = (t: any) => ZUG_FARBEN.find((f) => f.id === t.farbe)?.farbe ?? null;
-  const olKosten = (L: any) => Math.round((L.len * OBERLEITUNG.proEinheit) / 10) * 10;
+  const olKosten = (L: any) => Math.round((L.len * OBERLEITUNG.proEinheit) * foerder() / 10) * 10;
   /** 120 km/h entsprechen CFG.trainSpeed Welteinheiten pro Sekunde. */
   const pxs = (kmh: number) => CFG.trainSpeed * kmh / 120;
   const level = () => levelAus(S.xp || 0);
   const ausbauKosten = (L: any) => {
     const n = KLASSEN[(L.cls ?? 0) + 1];
-    return n ? Math.round(L.len * CFG.lineCostPerUnit * (n.bau - klasse(L).bau) * (hat('umbauzug') ? 0.8 : 1) / 10) * 10 : 0;
+    return n ? Math.round(L.len * CFG.lineCostPerUnit * (n.bau - klasse(L).bau) * (hat('umbauzug') ? 0.8 : 1) * (kbVon(L)?.faktor ?? 1) * engpass() / 10) * 10 : 0;
   };
   const pct = (f: number) => Math.round(f * 100) + ' %';
   /** Gekaufte Ausruestung vorhanden? */
@@ -158,6 +198,13 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const istClan = (x: any) => !!x && !!welt?.ich?.clanId && x.clanId === welt.ich.clanId && !istMein(x);
   /** Ueber dieses Gebiet darf gebaut werden: eigenes oder eines Clan-Mitglieds, das in den letzten 7 Tagen gespielt hat (ohne Serverdaten keine Sperre). */
   const erlaubt = (g: Gebiet) => { if (!welt) return true; const x = besitz(g.id); return istMein(x) || (istClan(x) && !!x.aktiv); };
+  /** Gebiet eines anderen Spielers (auch eines Clan-Mitglieds, das lange nicht gespielt hat): durchbauen gegen Gebuehr. */
+  const fremd = (g: Gebiet) => { if (!welt) return false; const x = besitz(g.id); return !!x && !istMein(x) && !(istClan(x) && x.aktiv); };
+  /** Hier darf die Strecke verlaufen: eigenes/Clan-Gebiet oder fremdes gegen Durchfahrtsgebuehr (freie erst kaufen). */
+  const befahrbar = (g: Gebiet) => erlaubt(g) || fremd(g);
+  /** Einmalige Durchfahrtsgebuehr je fremdem Gebiet (Anteil vom Grundpreis), geht an den Besitzer. */
+  const DURCHFAHRT_ANTEIL = 0.5;
+  const durchfahrtPreis = (g: Gebiet) => gebietPreis(Math.round((besitz(g.id)?.basis ?? g.basis) * DURCHFAHRT_ANTEIL / 10) * 10);
   /** Fuellfarbe eines Gebiets auf den Karten (Besitzer- bzw. Clanfarbe). */
   const gebietFarbe = (g: Gebiet) => { const x = besitz(g.id); return x ? { farbe: x.clanFarbe || spielerFarbe(x.ownerId), deckung: istMein(x) ? 0.68 : 0.45 } : null; };
   /** Strecken anderer Clan-Mitglieder (vom Server) als {a, b}. */
@@ -190,6 +237,64 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const praesenz = (c: number) => { const g = knotenGebiet(c); return !welt || (!!g && erlaubt(g)); };
   /** Bahnhof im Gebiet g (oder undefined). */
   const bfIn = (g: number) => (S.bf || []).find((b: any) => b.g === g);
+  /** Bahnhof eines Gebiets als Knoten: die Spielstadt darin (gilt als Bahnhof) oder das Bahnhofsgebaeude; null = keiner. */
+  const stationVon = (gid: number): number | null => {
+    const g = gebietMitId(gid);
+    if (!g) return null;
+    if (g.staedte.length) return g.staedte[0];
+    const b = bfIn(gid);
+    return b ? BF0 + b.id : null;
+  };
+  /** Kurz nach "Spiel zuruecksetzen" kann noch eine alte Welt (mit den eben freigegebenen Gebieten) ankommen. */
+  let resetT = -1e9;
+  /**
+   * Spielstaedte in eigenen Gebieten aufdecken: dort ist die Stadt der Bahnhof. In Gebieten ohne Stadt baut der Spieler
+   * den Bahnhof selbst (Feld-Menue "Bauen" auf der Karte oder im Panel).
+   */
+  const sichereBahnhoefe = () => {
+    if (RO || !welt || performance.now() - resetT < 4000) return;
+    const neu: string[] = [];
+    for (const id of meineGebiete()) gebietMitId(id)?.staedte.forEach((c) => { if (!S.vis[c]) { S.vis[c] = true; neu.push(CITIES[c].n); } });
+    if (!neu.length) return;
+    toast('🚉 ' + (neu.length <= 2 ? neu.join(' und ') : neu.length + ' Städte') + ' – hier kannst du Strecken anschließen.', 4500);
+    save();
+  };
+  /* ---------- Streckentrupps (tycoon-trupps.ts) ---------- */
+  const truppVon = (L: any) => truppMit(L.trupp);
+  const truppPreis = (x: { einsatz: number }) => (TESTMODUS ? 0 : x.einsatz);
+  /** Faengt der Trupp der Strecke die drohende Stoerung ab? Dann melden (etwas besserer Zustand) und true. */
+  const truppFaengt = (L: any, art: number): boolean => {
+    const t = truppVon(L);
+    if (!t || Math.random() >= t.schutz) return false;
+    L.cond = Math.min(100, L.cond + 3); L.abgefangen = (L.abgefangen || 0) + 1; zaehle('abgefangen');
+    toast(t.icon + ' ' + t.n + ' auf ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + ': drohende Störung (' + FEHLER_ARTEN[art].n + ') rechtzeitig behoben.', 4500);
+    return true;
+  };
+  /** Trupp einsetzen (id) oder abziehen (id leer); ein anderer Trupp ersetzt den alten. */
+  const setzeTrupp = (lid: number, id: string) => {
+    const L = S.lines[lid], x = truppMit(id);
+    if (!L) return;
+    if (L.gast) { toast('Auf gemieteten Trassen kümmert sich der Besitzer um die Instandhaltung.'); return; }
+    const name = knoten(L.a).n + ' ⇄ ' + knoten(L.b).n;
+    if (!x) { if (L.trupp) { L.trupp = null; toast('Trupp von ' + name + ' abgezogen.'); save(); } return; }
+    if (L.trupp === id) { toast('Dieser Trupp arbeitet schon auf ' + name + '.'); return; }
+    if (S.money < truppPreis(x)) { toast('Zu wenig Guthaben (' + fmt(truppPreis(x)) + ' nötig).'); return; }
+    S.money -= truppPreis(x); L.trupp = id; addXp(5); spiele('bau');
+    toast(x.icon + ' ' + x.n + ' arbeitet jetzt auf ' + name + ': fängt ' + pct(x.schutz) + ' der Störungen ab, Lohn ' + pct(x.lohn) + ' der Einnahmen.', 5500);
+    save();
+  };
+  const truppHTML = (L: any) => {
+    if (RO || L.gast) return '';
+    const t = truppVon(L);
+    let h = '<h3 style="margin-top:12px">👷 Streckentrupp</h3>';
+    if (t) h += '<div class="row"><span>' + t.icon + ' ' + t.n + '</span><b>fängt ' + pct(t.schutz) + ' ab</b></div><div class="row"><span>Lohn bisher (' + pct(t.lohn) + ' der Einnahmen)</span><span class="neg">' + sgn(-(L.lohn || 0)) + '</span></div>' +
+      '<div class="mut">' + t.text + ' Abgefangene Störungen: ' + (L.abgefangen || 0) + '.</div>';
+    else h += '<div class="mut">Kein Trupp – jede Störung löst du selbst (oder die Fremdfirma). Zieh einen Trupp aus der Leiste „👷 Trupps“ auf die Strecke oder wähle hier. Mehr Lohn = mehr abgefangen, aber nie alles.</div>';
+    h += '<div class="trupp-wahl">' + TRUPPS.map((x) => '<button class="sm' + (t?.id === x.id ? ' on' : '') + '" data-act="trupp" data-arg="' + L.id + ':' + x.id + '" ' + (t?.id === x.id || S.money < truppPreis(x) ? 'disabled' : '') + ' title="' + x.n + ': ' + x.text + '">' +
+      x.icon + ' ' + pct(x.schutz) + ' · Lohn ' + pct(x.lohn) + (truppPreis(x) ? ' · ' + fmt(truppPreis(x)) : '') + '</button>').join('') +
+      (t ? '<button class="sm" data-act="trupp" data-arg="' + L.id + ':">Abziehen</button>' : '') + '</div>';
+    return h;
+  };
   /** Strecken, die an Bahnhof b enden. */
   const bfStrecken = (b: any) => S.lines.filter((l: any) => l.a === BF0 + b.id || l.b === BF0 + b.id);
   /** Einnahmen eines Bahnhofs pro Sekunde: je angeschlossener Strecke, gemindert durch Wartungsstau, halbiert bei Stoerung. */
@@ -201,16 +306,139 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const x = besitz(id);
     if (!welt || !istMein(x) || !angeschlossen(id)) return 0;
     const stoerung = S.lines.some((l: any) => (l.fault || gesperrt(l)) && l.gebiete.includes(id));
-    return x.basis * 0.0015 * (stoerung ? 0.5 : 1) * (clanBonus(id) ? 1.25 : 1);
+    return x.basis * 0.0015 * (stoerung ? 0.5 : 1) * (clanBonus(id) ? 1.25 : 1) * wachs(id);
   };
   const meineGebiete = (): number[] => [...besitzNach.values()].filter(istMein).map((x) => x.bezirk);
   /** Wem gehoert's, als Text. */
   const besitzerText = (x: any) => !x ? 'frei' : istMein(x) ? 'deins' : x.ownerName + (x.clanKuerzel ? ' [' + x.clanKuerzel + ']' : '');
-  const gebietArt = (g: Gebiet) => ['Landkreis', 'Kreisfreie Stadt', 'Bezirk', 'Region'][g.typ] + ' · ' + (g.land === 'DE' ? BUNDESLAENDER[g.bl] : LAND_NAMEN[g.land] ?? g.land);
+  const gebietArt = (g: Gebiet) => ['Landkreis', 'Kreisfreie Stadt', 'Bezirk', 'Region'][g.typ] + ' · ' + regionVon(g);
   /** Was ein Gebiet den Spieler kostet (Testmodus: nichts; der Server merkt sich trotzdem den Grundpreis fuer die Einnahmen). */
   const gebietPreis = (n: number) => (TESTMODUS ? 0 : n);
+  /* ---------- Ereignisse, Gelaende, Tageszeit (tycoon-ereignisse.ts) ---------- */
+  const ereignis = () => (S.ereignis ? EREIGNISSE[S.ereignis.art] : null);
+  const ereignisAktiv = (id: string) => ereignis()?.id === id;
+  /** Lieferengpass verteuert Bau, Foerderprogramm verbilligt Oberleitung, zweites Gleis und Signale. */
+  const engpass = () => (ereignisAktiv('engpass') ? 1.5 : 1);
+  const foerder = () => (ereignisAktiv('foerder') ? 0.6 : 1);
+  const streikPreis = () => (TESTMODUS ? 0 : S.ereignis?.preis || 0);
+  const ereignisText = () => { const e = ereignis(); return e ? e.text.split('{ort}').join(S.ereignis.ort !== undefined ? knoten(S.ereignis.ort).n : '?').split('{preis}').join(fmt(streikPreis())) : ''; };
+  const ereignisTakt = (dt: number) => {
+    if (S.ereignis && S.time >= S.ereignis.bis) { toast(ereignis()!.icon + ' ' + ereignis()!.n + ' ist vorbei.'); S.ereignis = null; }
+    if (S.ereignis || !S.lines.length || S.tut < TUT_STOERUNG) return;
+    S.ereignisIn = (S.ereignisIn ?? 240) - dt;
+    if (S.ereignisIn > 0) return;
+    S.ereignisIn = rand(EREIGNIS_TAKT[0], EREIGNIS_TAKT[1]);
+    const staedte = [...new Set<number>(S.lines.flatMap((L: any) => [L.a, L.b]))].filter((c) => c < BF0);
+    const moegl = EREIGNISSE.map((_, i) => i).filter((i) => (EREIGNISSE[i].id !== 'streik' || S.trains.some((t: any) => t.own)) && (EREIGNISSE[i].id !== 'fest' || staedte.length));
+    const art = moegl[ri(0, moegl.length - 1)], e = EREIGNISSE[art];
+    S.ereignis = { art, bis: S.time + e.dauer, ort: staedte.length ? staedte[ri(0, staedte.length - 1)] : undefined, preis: Math.max(500, Math.round(S.money * 0.05 / 100) * 100) };
+    toast(e.icon + ' ' + e.n + ': ' + ereignisText(), 8000);
+    save();
+  };
+  const ereignisHTML = () => {
+    const e = ereignis();
+    if (!e) return '';
+    let h = '<div class="row"><span>Ereignis</span><b>' + e.icon + ' ' + e.n + ' · noch ' + Math.max(0, Math.ceil(S.ereignis.bis - S.time)) + ' s</b></div><div class="mut">' + ereignisText() + '</div>';
+    if (e.id === 'streik' && !RO) h += '<div class="btns"><button data-act="streikende" ' + (S.money < streikPreis() ? 'disabled' : '') + '>🤝 Tarifeinigung · ' + fmt(streikPreis()) + '</button></div>';
+    return h;
+  };
+  /** Gelaende einer Strecke (Tunnel/Bruecken/Berg), einmal berechnet, sobald die Hoehen geladen sind (nicht gespeichert). */
+  const kbVon = (L: any): Gelaende | null => { if (!L.kb && hoehenGeladen()) L.kb = gelaendeVon(L.pts, L.cum, meterBei); return L.kb || null; };
+  const gelaendeFaktor = (geo: { pts: any[]; cum: number[] }) => (hoehenGeladen() ? gelaendeVon(geo.pts, geo.cum, meterBei).faktor : 1);
+  const kunstText = (g: Gelaende | null) => (!g || g.tunnel + g.bruecke + g.berg === 0 ? '' : '⛰ ' + [g.tunnel ? g.tunnel + ' km Tunnel' : '', g.bruecke ? g.bruecke + ' km Brücken' : '', g.berg ? g.berg + ' km Bergstrecke' : ''].filter((x) => x).join(', '));
+  /** Dunkelheit (0 Tag .. 1 Nacht) nach Spieluhr und Kalender (tycoon-zeit.ts), in der Bildschleife laufend neu. */
+  let dunkel = 0, dunkelT = 0;
+  const zeit = () => spielzeit(S.time);
+  const wochenende = () => istWochenende(zeit());
+  /** Breite fuer den Sonnenstand: Heimatgebiet (Startpunkt), sonst Mitte Deutschlands -- im Norden sind Winternaechte lang. */
+  const heimBreite = () => { const g = S.heim ? gebietMitId(S.heim) : null; return g ? KARTE_PROJ.lat0 - (boxMitte(g).y - KARTE_PROJ.rand) / KARTE_PROJ.s : 51; };
+  const dunkelJetzt = () => { const z = zeit(); return dunkelAus(sonnenHoeheBei(z.doy, z.stunde, heimBreite())); };
+  /** Strecke ueber eine Staatsgrenze (Enden in verschiedenen Laendern; seit der Europakarte nicht mehr "nicht in Deutschland"). */
+  const insAusland = (L: any) => (knotenGebiet(L.a)?.land ?? 'DE') !== (knotenGebiet(L.b)?.land ?? 'DE');
+  /** Miet-Faktor fuer Nachtzuege (nachts bis doppelt, tagsueber 60 %, grenzueberschreitend +30 %) und Ausflugszuege (Wochenende +50 %). */
+  const zeitFaktor = (td: any, L: any) => (td.nacht ? (0.6 + 1.4 * dunkel) * (insAusland(L) ? 1.3 : 1) : 1) * (td.wochenende && wochenende() ? 1.5 : 1);
+  /* ---------- Einwohner und Wachstum ---------- */
+  /** Entwicklung eines Gebiets (0,75 .. 1,5): gute Anbindung laesst es wachsen, schlechte schrumpfen. */
+  const wachs = (gid: number): number => (S.wachs || {})[gid] ?? 1;
+  /** Fahrgast-Faktor nach Einwohnern: 200.000 Einwohner = 1, gedaempft (0,7 .. 1,6). */
+  const ewFaktor = (g: Gebiet | null | undefined) => (g ? Math.max(0.7, Math.min(1.6, Math.pow(g.ew / 200000, 0.35))) : 1);
+  /** Fahrgaeste einer Strecke: Mittel der beiden Endgebiete (Einwohner x Entwicklung). */
+  const fahrgastFaktor = (L: any) => {
+    const gs = [knotenGebiet(L.a), knotenGebiet(L.b)];
+    return gs.reduce((a, g) => a + ewFaktor(g) * (g ? wachs(g.id) : 1), 0) / 2 * (pendlerStrecke(L) ? PENDLER_BONUS : 1);
+  };
+  /* ---------- Pendler ---------- */
+  /** Strecke zwischen zwei Gebieten, zwischen denen viel gependelt wird: mehr Fahrgaeste. */
+  const PENDLER_BONUS = 1.15;
+  /** Anteil der Einwohner, die taeglich ueber die Gebietsgrenze pendeln (grobe Schaetzung). */
+  const PENDLER_ANTEIL = 0.12;
+  const pendlerCache = new Map<number, { g: Gebiet; anteil: number; km: number }[]>();
+  /**
+   * Wohin die Leute aus g fahren (geschaetzt, Schwerkraftmodell): Einwohner des Ziels / Entfernung^2 im Umkreis von
+   * 150 km, Anteil unter den 8 staerksten Zielen. Grosse Orte in der Naehe ziehen am meisten.
+   */
+  const pendlerZiele = (g: Gebiet) => {
+    let z = pendlerCache.get(g.id);
+    if (z) return z;
+    const m = boxMitte(g);
+    const kand = gebieteUm(m.x, m.y, 150).filter((o) => o.id !== g.id)
+      .map((o) => { const d = Math.max(8, dist(m, boxMitte(o))); return { g: o, w: o.ew / (d * d), km: Math.round(d * 0.97) }; })
+      .sort((a, b) => b.w - a.w).slice(0, 8);
+    const summe = kand.reduce((a, x) => a + x.w, 0) || 1;
+    z = kand.slice(0, 4).map((x) => ({ g: x.g, anteil: x.w / summe, km: x.km }));
+    pendlerCache.set(g.id, z);
+    return z;
+  };
+  const pendlerStrecke = (L: any) => {
+    const a = knotenGebiet(L.a), b = knotenGebiet(L.b);
+    return !!a && !!b && a !== b && (pendlerZiele(a).some((x) => x.g === b) || pendlerZiele(b).some((x) => x.g === a));
+  };
+  const pendlerHTML = (g: Gebiet) => {
+    const z = pendlerZiele(g);
+    if (!z.length) return '';
+    let h = '<div class="row"><span>🚶 Pendler täglich</span><b>ca. ' + (Math.round(g.ew * PENDLER_ANTEIL / 100) * 100).toLocaleString('de-DE') + '</b></div><div class="mut">Wohin sie fahren:</div>';
+    z.forEach((x) => {
+      const verbunden = S.lines.some((l: any) => l.gebiete.includes(g.id) && l.gebiete.includes(x.g.id));
+      h += '<div class="bezirk" data-act="gwahl" data-arg="' + x.g.id + '"><span class="bz-n">' + Math.round(x.anteil * 100) + ' % → ' + kurzName(x.g) +
+        ' <span class="mut">· ' + x.km + ' km · ' + besitzerText(besitz(x.g.id)) + '</span></span>' + (verbunden ? '<span class="pos" title="Schon verbunden">🛤</span>' : '') + '</div>';
+    });
+    return h + '<div class="mut">Geschätzt aus Einwohnern und Entfernung. Eine Strecke zu einem dieser Ziele ist eine Pendlerstrecke: +' + Math.round((PENDLER_BONUS - 1) * 100) + ' % Fahrgäste.</div>';
+  };
+  /** Klimazone des Gebiets: welches Wetter dort typisch ist. */
+  const klimaHTML = (g: Gebiet) => '<div class="mut">' + KLIMA_TEXT[klimaVon(g.land)] + '</div>';
+  let wachsT = 0;
+  const wachsTakt = (dt: number) => {
+    wachsT -= dt;
+    if (wachsT > 0) return;
+    wachsT = 5;
+    S.wachs = S.wachs || {};
+    const ids = new Set<number>(S.lines.flatMap((L: any) => L.gebiete));
+    for (const id of ids) {
+      const ls = S.lines.filter((L: any) => L.gebiete.includes(id));
+      const schlecht = ls.some((L: any) => L.fault || gesperrt(L) || puenkt(L) < 60);
+      const gut = !schlecht && ls.some((L: any) => S.trains.some((t: any) => t.own && t.line === L.id) && puenkt(L) >= 80);
+      const alt = wachs(id), neu = gut ? Math.min(1.5, alt + 0.004) : schlecht ? Math.max(0.75, alt - 0.003) : alt + Math.sign(1 - alt) * Math.min(0.001, Math.abs(1 - alt));
+      S.wachs[id] = Math.round(neu * 1000) / 1000;
+      const g = gebietMitId(id);
+      if (g && alt < 1.25 && neu >= 1.25) toast('📈 ' + kurzName(g) + ' wächst dank deiner guten Anbindung – mehr Fahrgäste!', 4500);
+      if (g && alt > 0.85 && neu <= 0.85) toast('📉 ' + kurzName(g) + ' schrumpft: Störungen und Verspätungen vertreiben die Fahrgäste.', 5000);
+    }
+  };
+  /** Einwohner, Entwicklung und "Lohnt sich?" fuer ein Gebiet (Panel). */
+  const einwohnerHTML = (g: Gebiet) => {
+    const w = wachs(g.id), x = besitz(g.id), basis = x ? x.basis : g.basis;
+    let h = '<div class="row"><span>👥 Einwohner</span><b>' + (g.ewGeschaetzt ? 'ca. ' : '') + g.ew.toLocaleString('de-DE') + '</b></div>';
+    if (Math.abs(w - 1) >= 0.01) h += '<div class="row"><span>Entwicklung</span><b class="' + (w >= 1 ? 'pos' : 'neg') + '">' + (w >= 1 ? '▲ +' : '▼ ') + Math.round((w - 1) * 100) + ' %</b></div>';
+    h += '<div class="mut">Fahrgäste: Züge von und nach hier verdienen ' + pct(ewFaktor(g) * w) + ' der normalen Miete. Gute Anbindung (eigener Zug, pünktlich, keine Störung) lässt das Gebiet wachsen, schlechte schrumpfen.</div>';
+    if (!istMein(x) && !RO) {
+      const preis = x ? basis * 3 : basis, proMin = basis * 0.0015 * 60 * w, min = proMin > 0 ? preis / proMin : 0;
+      h += '<div class="row"><span>Lohnt sich?</span><b>' + (min <= 20 ? '👍 schnell' : min <= 60 ? '👌 mittel' : '🐢 langsam') + '</b></div><div class="mut">Angeschlossen bringt es ca. ' + fmt(proMin) + '/Min. – der Preis von ' + fmt(preis) +
+        ' ist nach ca. ' + Math.round(min) + ' Min. wieder drin' + (TESTMODUS ? ' (im Testmodus kostet es gerade nichts)' : '') + '. Dazu kommen mehr Fahrgäste auf deinen Strecken hierher.</div>';
+    }
+    return h;
+  };
   /* ---------- Wetter und Jahreszeiten (tycoon-wetter.ts) ---------- */
-  const jahreszeit = () => jahreszeitAus(S.time, CFG.daySec);
+  const jahreszeit = () => zeit().jahreszeit;
   const wetterArt = () => (S.wetter ? WETTER[S.wetter.art] : null);
   const hatSchutz = (L: any, id: string) => (L.schutz || []).includes(id);
   /** Strecke fuehrt durch das Bundesland der Wetterlage und hat keinen passenden Schutz. */
@@ -242,6 +470,11 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       case 'netz': return S.trains.some((t: any) => (t.route?.length || 0) >= 3);
       case 'vertrag': return stat('vertraege') > 0;
       case 'clan': return stat('clan') > 0;
+      case 'serie7': return (S.taeglich?.best || 0) >= 7;
+      case 'memory': return stat('memoryPerfekt') > 0;
+      case 'vermesser': return stat('vermessenPerfekt') > 0;
+      case 'stellwerk': return stat('stellwerkPerfekt') > 0;
+      case 'pruefung': return stat('pruefung') > 0;
     }
     return false;
   };
@@ -255,7 +488,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const jz = jahreszeit(); S.stats = S.stats || {}; S.stats.jzGesehen = [...new Set([...(S.stats.jzGesehen || []), jz])];
     S.abzeichen = S.abzeichen || [];
     for (const a of ABZEICHEN) if (!S.abzeichen.includes(a.id) && abzeichenErfuellt(a.id)) {
-      S.abzeichen.push(a.id); S.money += a.lohn; addXp(15);
+      S.abzeichen.push(a.id); S.money += a.lohn; addXp(15); spiele('level');
       toast('🏅 Abzeichen „' + a.n + '“: ' + a.text + ' (+' + fmt(a.lohn) + ')', 5000);
       save();
       break;
@@ -276,13 +509,85 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     });
     return h + '</div><div class="opts"><button data-act="close">Schließen</button></div>';
   };
+  /* ---------- Lernen im Spiel (tycoon-lernen.ts, -vermessung.ts, -stellwerk.ts) ---------- */
+  /** Laufende Serie der taeglichen Aufgabe (zaehlt nur, wenn gestern oder heute erledigt). */
+  const tagesSerie = () => { const t = S.taeglich; if (!t?.tag) return 0; const d = tageZwischen(t.tag, tagHeute()); return d <= 1 ? t.serie || 0 : 0; };
+  const tagesErledigt = () => S.taeglich?.tag === tagHeute();
+  const lernWarten = (id: string) => Math.max(0, Math.ceil(((S.lernAb || {})[id] || 0) - S.time));
+  const lernPause = (id: string, sek: number) => { S.lernAb = { ...(S.lernAb || {}), [id]: S.time + sek }; };
+  const tagesFertig = () => {
+    const heute = tagHeute(), serie = tagesSerie() + 1, l = tagesLohn(serie);
+    S.taeglich = { tag: heute, serie, best: Math.max(serie, S.taeglich?.best || 0) };
+    S.money += l.geld; S.pokale = (S.pokale || 0) + l.pokal; addXp(l.xp);
+    toast('📅 Tägliche Aufgabe geschafft! Serie: ' + serie + (serie > 1 ? ' Tage' : ' Tag') + ' · +' + fmt(l.geld) + (l.pokal ? ' · +1 🏆 für 7 Tage am Stück!' : ''), 6000);
+  };
+  /** Bilder fuers Memory: selbst gezeichnete Fehler aus der Inspektionsfahrt und echte Fotos aus dem Themenquiz. */
+  const memoryBilder = (): MemoryBild[] => {
+    const fotos: MemoryBild[] = (fotoFragen || []).filter((f) => /Welcher Schienenfehler/.test(f.q.question)).map((f) => ({
+      name: String(f.q.choices[f.q.correctIndex]).split(' (')[0], bild: f.bild.file, credit: f.bild.credit, quelle: f.bild.sourceUrl }));
+    const gezeichnet: MemoryBild[] = FAHRT_ARTEN.map((a) => ({ name: a.n, bild: fehlerBild(a.id) }));
+    const alle = shuffle([...fotos, ...gezeichnet]), namen = new Set<string>(), wahl: MemoryBild[] = [];
+    for (const b of alle) if (!namen.has(b.name.toLowerCase()) && wahl.length < MEMORY.paare) { namen.add(b.name.toLowerCase()); wahl.push(b); }
+    return wahl;
+  };
+  const lernKarte = (icon: string, titel: string, text: string, knopf: string) =>
+    '<div class="shop-zug"><div class="shop-text"><b>' + icon + ' ' + titel + '</b><div class="mut">' + text + '</div></div>' + knopf + '</div>';
+  const lernKnopf = (id: string, act: string, txt: string) => { const w = lernWarten(id); return w > 0 ? '<button disabled>wieder in ' + w + ' s</button>' : '<button data-act="' + act + '">' + txt + '</button>'; };
+  const lernenHTML = () => {
+    const serie = tagesSerie(), heute = tagHeute(), [, themaN] = tagesThema(heute), l = tagesLohn(serie + 1);
+    let h = '<h2>🎓 Lernen</h2><div class="mut">Fachwissen bringt im Spiel Geld, Erfahrung und Abzeichen. Die Fragen stammen aus dem Themenquiz der Lernwelt.</div><div class="shop-liste">';
+    h += lernKarte('📅', 'Tägliche Aufgabe', 'Heute: ' + TAGES_FRAGEN + ' Fragen „' + themaN + '“, mind. ' + TAGES_NEED + ' richtig. Serie: <b>' + serie + (serie === 1 ? ' Tag' : ' Tage') + '</b> (Bestwert ' + (S.taeglich?.best || 0) + '). ' +
+      'Jeden Tag am Stück mehr Belohnung, jeder 7. Tag zusätzlich ein 🏆.', tagesErledigt() ? '<button disabled>✓ Heute erledigt</button>' : '<button data-act="ltag">Los · +' + fmt(l.geld) + '</button>');
+    h += lernKarte('🧩', 'Fehlerbilder-Memory', 'Finde zu jedem Bild eines Gleisfehlers den richtigen Namen. Wenige Züge = volle Prämie (bis ' + fmt(MEMORY.paare * MEMORY.lohnJePaar) + ').', lernKnopf('memory', 'lmem', 'Spielen'));
+    h += lernKarte('📏', 'Gleis vermessen', 'Spurweite und Überhöhung mit dem Gleismessgerät messen und ablesen (4 Messungen). Dein Vermesser erhöht die Prämie.', lernKnopf('vermessen', 'lverm', 'Messen'));
+    h += lernKarte('🚦', 'Stellwerk', 'Als Fahrdienstleiter Weichen stellen und Fahrstraßen einstellen: 6 Züge sicher durch den Bahnhof. Wenige Fehler und Wartezeiten = volle Prämie.', lernKnopf('stellwerk', 'lsw', 'Dienst antreten'));
+    h += lernKarte('📝', 'Zwischenprüfung', PRUEFUNG.fragen + ' Fragen quer durch die Themen, mind. ' + PRUEFUNG.need + ' richtig. Bestanden: +' + fmt(PRUEFUNG.lohn) + ' und das Abzeichen „Geprüft“.', lernKnopf('pruefung', 'lpr', 'Prüfung starten'));
+    return h + '</div><div class="opts"><button data-act="close">Schließen</button></div>';
+  };
+  /** Minispiel-Fenster (Memory, Vermessen, Stellwerk): Spiel laeuft in #lspiel, danach Ergebnis. */
+  const lernSpielHTML = () => {
+    const m = modal, titel = m.kind === 'memory' ? '🧩 Fehlerbilder-Memory' : m.kind === 'vermessen' ? '📏 Gleis vermessen' : '🚦 Stellwerk';
+    if (m.erg) return '<h2>' + titel + '</h2>' + m.erg + '<div class="opts"><button data-act="close">Fertig</button></div>';
+    return '<h2>' + titel + '</h2><div id="lspiel"></div><div class="opts"><button data-act="close">Abbrechen</button></div>';
+  };
+  const lernSpielStarten = () => {
+    const m = modal, el = $('#lspiel');
+    if (!el || m.stop || m.erg) return;
+    const ende = (html: string) => { if (modal !== m) return; m.stop = null; m.erg = html; renderModal(); save(); };
+    if (m.kind === 'memory') {
+      const bilder = memoryBilder();
+      m.stop = starteMemory(el, bilder, (e) => {
+        const f = memoryLohn(e, bilder.length), geld = Math.round(bilder.length * MEMORY.lohnJePaar * f / 10) * 10;
+        S.money += geld; addXp(5 + bilder.length); lernPause('memory', MEMORY.pause);
+        if (e.zuege <= bilder.length * 1.5) zaehle('memoryPerfekt');
+        const fotos = bilder.filter((b) => b.credit);
+        ende('<div class="fb good"><b>Alle ' + bilder.length + ' Paare in ' + e.zuege + ' Zügen gefunden!</b><br>Prämie +' + fmt(geld) + (f < 1 ? ' (mit weniger Zügen gibt es mehr)' : '') + '</div>' +
+          (fotos.length ? '<div class="mut">Fotos: ' + fotos.map((b) => b.quelle ? '<a href="' + b.quelle + '" target="_blank" rel="noopener">' + b.credit + '</a>' : b.credit).join(' · ') + '</div>' : ''));
+      });
+    } else if (m.kind === 'vermessen') {
+      m.stop = starteVermessung(el, { runden: 4, onEnde: (e) => {
+        const geld = Math.round(e.richtig * 300 * (1 + personal('vermesser')) / 10) * 10;
+        S.money += geld; addXp(e.richtig * 4); lernPause('vermessen', 90);
+        if (e.richtig === e.gesamt) zaehle('vermessenPerfekt');
+        ende('<div class="fb ' + (e.richtig >= e.gesamt / 2 ? 'good' : 'bad') + '"><b>' + e.richtig + ' von ' + e.gesamt + ' Messungen richtig abgelesen</b><br>Prämie +' + fmt(geld) + '</div>');
+      } });
+    } else {
+      m.stop = starteStellwerk(el, { zuege: 6, onEnde: (e) => {
+        const f = Math.max(0.3, 1 - e.fehler * 0.08 - e.verspaetung / 150), geld = Math.round(1500 * f * (1 + personal('fdl')) / 10) * 10;
+        S.money += geld; addXp(10 + Math.round(15 * f)); lernPause('stellwerk', 120);
+        if (!e.fehler && e.verspaetung === 0) zaehle('stellwerkPerfekt');
+        ende('<div class="fb ' + (f >= 0.7 ? 'good' : 'bad') + '"><b>' + e.zuege + ' Züge sicher abgefertigt</b> · ' + e.fehler + ' Fehler · ' + e.verspaetung + ' s Verspätung<br>Prämie +' + fmt(geld) + '</div>' +
+          '<div class="mut">Fahrstraße = gesicherter Fahrweg: Weichen in der richtigen Lage und verschlossen, Gleis frei, dann erst zeigt das Signal Fahrt (Hp 1) oder Langsamfahrt (Hp 2, über abzweigende Weichen).</div>');
+      } });
+    }
+  };
   /* ---------- Kapazitaet (tycoon-kapazitaet.ts) ---------- */
   const kap = (L: any) => kapazitaet(L.gleise || 1, L.signal || 0);
   const zuegeAuf = (L: any) => S.trains.filter((t: any) => t.line === L.id).length;
   /** Ueberlastet: mehr Zuege als Kapazitaet -> alle langsamer (hoechstens auf die Haelfte). */
   const kapTempo = (L: any) => { const n = zuegeAuf(L), k = kap(L); return n > k ? Math.max(0.5, k / n) : 1; };
   const puenkt = (L: any) => L.puenkt ?? 100;
-  const kapPreis = (L: any, jeEinheit: number) => (TESTMODUS ? 0 : Math.round(L.len * jeEinheit / 10) * 10);
+  const kapPreis = (L: any, jeEinheit: number) => (TESTMODUS ? 0 : Math.round(L.len * jeEinheit * foerder() / 10) * 10);
   /* ---------- Gueterverkehr (tycoon-gueter.ts) ---------- */
   /** Ware, die an einem Streckenende (Stadt oder eigener Bahnhof) geladen wird. */
   const wareVon = (c: number) => (c < BF0 ? wareVonStadt(c) : wareVonGebiet(bfMit(c - BF0)?.g ?? 0));
@@ -326,7 +631,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
    * Strecke wird gerade gezeichnet: Startstadt, Punkte bis hierher (nur ueber erlaubte Gebiete), Zielstadt sobald
    * erreicht, letzte nicht erlaubte Stelle (rot angezeigt) und ein Zaehler, damit die 3D-Ansicht neu zeichnet.
    */
-  let zeichnung: { von: number; pts: { x: number; y: number }[]; ziel: number | null; fehl: { x: number; y: number } | null; ver: number } | null = null;
+  let zeichnung: { von: number; pts: { x: number; y: number }[]; ziel: number | null; fehl: { x: number; y: number } | null; ver: number;
+    /** Gewaehlte Art je Kreuzung (Schluessel Strecke:Nr), sonst die guenstigere. */ wahl: Record<string, KreuzArt> } | null = null;
   let modal: any = null;
   const popups: any[] = [];
   let alive = true;
@@ -335,12 +641,11 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
 
   const fresh = () => {
     S = { money: CFG.startMoney, time: 0, speed: 1, lines: [], trains: [], vis: CITIES.map(() => false),
-      bf: [], bfNext: 1, skill: [0, 0, 0, 0], xp: 0, pokale: 0, skins: ['standard'], skin: 'standard', ausr: [], mode: 0, faultIn: modeInterval(0), wetter: null, wetterIn: 180, jz: 0, tut: 0, tutT: 0, faultsFixed: 0, passes: 0, anyFault: false, openedLine: false, nextId: 1 };
-    S.vis[START_CITY] = true;
-    revealNear(START_CITY, 3);
+      bf: [], bfNext: 1, skill: [0, 0, 0, 0], xp: 0, pokale: 0, skins: ['standard'], skin: 'standard', ausr: [], mode: 0, faultIn: modeInterval(0), wetter: null, wetterIn: 180, jz: 0, tut: 0, tutV: TUT_V, tutT: 0, heim: null, lohnSumme: 0, faultsFixed: 0, passes: 0, anyFault: false, openedLine: false, nextId: 1 };
   };
-  const revealNear = (i: number, n: number) => {
-    const c = knoten(i);
+  const revealNear = (i: number, n: number) => revealUm(knoten(i), n);
+  /** Die n naechsten noch verdeckten Staedte um einen Punkt aufdecken. */
+  const revealUm = (c: { x: number; y: number }, n: number) => {
     CITIES.map((o, j) => ({ j, d: dist(c, o) })).filter(o => !S.vis[o.j]).sort((a, b) => a.d - b.d).slice(0, n).forEach(o => S.vis[o.j] = true);
   };
 
@@ -415,8 +720,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const p0 = L.pts[i - 1], p1 = L.pts[i], seg = L.cum[i] - L.cum[i - 1] || 1, f = (s - L.cum[i - 1]) / seg;
     return { x: p0.x + (p1.x - p0.x) * f, y: p0.y + (p1.y - p0.y) * f, ang: Math.atan2(p1.y - p0.y, p1.x - p0.x) };
   };
-  const lineExists = (a: number, b: number) => S.lines.some((l: any) => (l.a === a && l.b === b) || (l.a === b && l.b === a));
-  const lineCost = (geo: any) => Math.round(geo.len * CFG.lineCostPerUnit * (clanBonus2('bruecke') ? 0.9 : 1) / 10) * 10;
+  const lineExists = (a: number, b: number) => S.lines.some((l: any) => !l.gast && ((l.a === a && l.b === b) || (l.a === b && l.b === a)));
+  const lineCost = (geo: any) => Math.round(geo.len * CFG.lineCostPerUnit * (clanBonus2('bruecke') ? 0.9 : 1) * gelaendeFaktor(geo) * engpass() / 10) * 10;
 
   /* ---------- Erfahrung / Level ---------- */
   const addXp = (n: number) => {
@@ -425,6 +730,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const nach = level();
     if (nach <= vor) return;
     const neu = [...TRAINS.filter((z) => z.lvl === nach).map((z) => z.n), ...KLASSEN.filter((k) => k.lvl === nach).map((k) => k.n)];
+    spiele('level');
     toast('⭐ Level ' + nach + '!' + (neu.length ? ' Neu: ' + neu.join(', ') : ''), 5000);
   };
 
@@ -438,6 +744,29 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     return L;
   };
 
+  /**
+   * Strecke entfernen: Die Strecken-Id ist der Index in S.lines -- alle Verweise (Zuege, Zuglaeufe, Auftraege, Auswahl)
+   * werden umnummeriert. Eigene Zuege der Strecke kommen ins Depot, Fremdzuege verschwinden.
+   */
+  const entferneStrecke = (id: number) => {
+    const L = S.lines[id];
+    if (!L) return;
+    const neu = (i: number) => (i > id ? i - 1 : i);
+    S.trains = S.trains.filter((t: any) => {
+      if (t.line !== id) return true;
+      if (t.own) S.depot = [...(S.depot || []), { type: t.type, farbe: t.farbe, upg: t.upg || [], trips: t.trips }];
+      return false;
+    });
+    S.lines.splice(id, 1);
+    S.lines.forEach((l: any, i: number) => (l.id = i));
+    S.trains.forEach((t: any) => {
+      t.line = neu(t.line);
+      if (t.route) { t.route = t.route.filter((r: number) => r !== id).map(neu); if (t.route.length < 2) { delete t.route; delete t.rdir; } }
+    });
+    S.auftraege = (S.auftraege || []).filter((a: any) => a.line !== id).map((a: any) => ({ ...a, line: neu(a.line) }));
+    sel = { city: null, line: null, gebiet: null };
+    if (modal) closeModal();
+  };
   /* ---------- Strecke zeichnen ---------- */
   /** Neuer Punkt erst ab diesem Abstand zum letzten (Welteinheiten). */
   const PUNKT_ABSTAND = 2.5;
@@ -445,13 +774,13 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   /** Erlaubt-Pruefung entlang einer Strecke in kleinen Schritten; liefert den Anteil (0..1), bis zu dem alles erlaubt ist. */
   const erlaubtBis = (a: { x: number; y: number }, b: { x: number; y: number }) => {
     const n = Math.max(1, Math.ceil(dist(a, b) / 0.8));
-    for (let i = 1; i <= n; i++) if (!stelleErlaubt(a.x + (b.x - a.x) * i / n, a.y + (b.y - a.y) * i / n, erlaubt)) return (i - 1) / n;
+    for (let i = 1; i <= n; i++) if (!stelleErlaubt(a.x + (b.x - a.x) * i / n, a.y + (b.y - a.y) * i / n, befahrbar)) return (i - 1) / n;
     return 1;
   };
   const starteZeichnen = (c: number) => {
     if (S.lines.length >= 80) { toast('Mehr als 80 Strecken gehen nicht.'); return; }
     if (!praesenz(c)) { toast('Das Gebiet von ' + knoten(c).n + ' gehört weder dir noch einem aktiven Clan-Mitglied – kauf es zuerst.', 4500); return; }
-    zeichnung = { von: c, pts: [{ x: knoten(c).x, y: knoten(c).y }], ziel: null, fehl: null, ver: 0 };
+    zeichnung = { von: c, pts: [{ x: knoten(c).x, y: knoten(c).y }], ziel: null, fehl: null, ver: 0, wahl: {} };
     sel = { city: null, line: null, gebiet: null };
     toast('Jetzt auf ' + knoten(c).n + ' drücken, gedrückt halten und bis zum Ziel ziehen – dort loslassen.', 4500);
   };
@@ -492,6 +821,60 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     } else if (z.fehl && dist(letzter, p) < PUNKT_ABSTAND) z.fehl = null;
     if (z.pts.length + ':' + z.ziel + ':' + !!z.fehl !== vorher || z.fehl) z.ver++;
   };
+  /** Preis eines Kunstbaus (Kreuzung, Flussbruecke): Lieferengpass teurer, Clan-Bruecke 10 % guenstiger, Testmodus 0. */
+  const kunstPreis = (n: number) => (TESTMODUS ? 0 : Math.round(n * engpass() * (clanBonus2('bruecke') ? 0.9 : 1) / 10) * 10);
+  const kreuzPreis = (art: KreuzArt, berg: boolean) => kunstPreis(KREUZ_PREIS[art][berg ? 'berg' : 'flach']);
+  type Bauplan = {
+    strecke: number; fluesse: (ReturnType<typeof flussQuerungen>[number] & { preis: number })[];
+    kreuz: { x: number; y: number; s: number; linie: number; key: string; berg: boolean; art: KreuzArt; preis: number }[];
+    durch: { g: Gebiet; betrag: number }[]; summe: number;
+  };
+  /**
+   * Alles, was eine neue Strecke kostet: Gleis (mit Gelaende), Flussbruecken, Kreuzungen mit eigenen Strecken
+   * (Bruecke/Tunnel laut wahl) und Durchfahrt durch fremde Gebiete.
+   */
+  const bauplan = (geo: { pts: any[]; cum: number[]; len: number }, von: number, ziel: number | null, wahl: Record<string, KreuzArt>): Bauplan => {
+    const strecke = lineCost(geo);
+    const fluesse = flussQuerungen(geo.pts, geo.cum).map((f) => ({ ...f, preis: kunstPreis(FLUSS_BRUECKE[f.k].preis) }));
+    const enden = [knoten(von), ...(ziel !== null ? [knoten(ziel)] : []), ...S.lines.flatMap((L: any) => [L.pts[0], L.pts[L.pts.length - 1]])];
+    const kreuz = streckenKreuzungen(geo.pts, geo.cum, S.lines, enden).map((q) => {
+      const berg = hoehenGeladen() && meterBei(q.x, q.y) > KREUZ_BERG_M, key = q.linie + ':' + q.nr;
+      const art: KreuzArt = wahl[key] || (kreuzPreis('bruecke', berg) <= kreuzPreis('tunnel', berg) ? 'bruecke' : 'tunnel');
+      return { ...q, key, berg, art, preis: kreuzPreis(art, berg) };
+    });
+    // Fremde Gebiete entlang der Linie (dort, wo sie nicht im eigenen/Clan-Gebiet liegt).
+    const durch = new Map<number, { g: Gebiet; betrag: number }>();
+    for (let i = 1; i < geo.pts.length; i++) {
+      const a = geo.pts[i - 1], b = geo.pts[i], n = Math.max(1, Math.ceil(dist(a, b) / 0.8));
+      for (let j = 0; j < n; j++) {
+        const x = a.x + (b.x - a.x) * j / n, y = a.y + (b.y - a.y) * j / n, g = gebietAn(x, y);
+        if (g && !durch.has(g.id) && fremd(g) && !stelleErlaubt(x, y, erlaubt)) durch.set(g.id, { g, betrag: durchfahrtPreis(g) });
+      }
+    }
+    const d = [...durch.values()];
+    return { strecke, fluesse, kreuz, durch: d, summe: strecke + fluesse.reduce((a, f) => a + f.preis, 0) + kreuz.reduce((a, q) => a + q.preis, 0) + d.reduce((a, q) => a + q.betrag, 0) };
+  };
+  let zKosten = { ver: -1, von: -1, wahl: '', kosten: 0, g: null as Gelaende | null, plan: null as Bauplan | null };
+  /** Baukosten der gerade gezeichneten Strecke inkl. Gelaende, Fluessen, Kreuzungen und Durchfahrt. */
+  const zeichnungKosten = (z: NonNullable<typeof zeichnung>) => {
+    const w = JSON.stringify(z.wahl);
+    if (zKosten.ver === z.ver && zKosten.von === z.von && zKosten.wahl === w) return zKosten;
+    const geo = mitLaenge(z.ziel !== null ? [...z.pts, knoten(z.ziel!)] : z.pts), plan = bauplan(geo, z.von, z.ziel, z.wahl);
+    zKosten = { ver: z.ver, von: z.von, wahl: w, kosten: plan.summe, g: hoehenGeladen() && geo.len > 4 ? gelaendeVon(geo.pts, geo.cum, meterBei) : null, plan };
+    return zKosten;
+  };
+  /** Graues Wahlfeld an einer Kreuzung im Fangradius (Bildschirmpixel) um p? */
+  const kreuzFeldBei = (p: { x: number; y: number }, kk = k) => {
+    if (!zeichnung) return null;
+    const pl = zeichnungKosten(zeichnung).plan;
+    return pl?.kreuz.find((q) => dist(q, p) * kk < 18) || null;
+  };
+  const wechsleKreuzung = (key: string, art?: KreuzArt) => {
+    const z = zeichnung, q = z && zeichnungKosten(z).plan?.kreuz.find((x) => x.key === key);
+    if (!z || !q) return;
+    z.wahl[key] = art || (q.art === 'bruecke' ? 'tunnel' : 'bruecke');
+    spiele('klick');
+  };
   const zeichnungLaenge = (z: NonNullable<typeof zeichnung>) => {
     let l = 0;
     for (let i = 1; i < z.pts.length; i++) l += dist(z.pts[i - 1], z.pts[i]);
@@ -505,14 +888,19 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const a = z.von, b = z.ziel;
     if (lineExists(a, b)) { toast('Die Strecke ' + knoten(a).n + ' ⇄ ' + knoten(b).n + ' gehört dir schon.'); return; }
     if (!praesenz(b)) { toast('Das Gebiet von ' + knoten(b).n + ' gehört weder dir noch einem aktiven Clan-Mitglied.', 4500); return; }
-    const p = zeichnungPunkte(z), cost = lineCost(geoAusPunkten(p));
+    const p = zeichnungPunkte(z), plan = bauplan(geoAusPunkten(p), a, b, z.wahl), cost = plan.summe;
     if (S.money < cost) { toast('Zu wenig Guthaben (' + fmt(cost) + ' nötig).'); return; }
     S.money -= cost;
-    addLine(a, b, p);
+    const L: any = addLine(a, b, p);
+    L.kr = plan.kreuz.map((q) => ({ s: Math.round(q.s * 10) / 10, art: q.art }));
+    if (plan.durch.length) opts.onDurchfahrt?.(plan.durch.slice(0, 200).map((d) => ({ gebiet: d.g.id, betrag: d.betrag })), knoten(a).n + ' ⇄ ' + knoten(b).n);
     revealNear(a, 2); revealNear(b, 2);
     addXp(15);
     opts.onVerbindung?.(a, b, knoten(a).n, knoten(b).n, [knotenGebiet(a)?.id, knotenGebiet(b)?.id].filter((g): g is number => g !== undefined));
-    toast('Strecke ' + knoten(a).n + ' ⇄ ' + knoten(b).n + ' gebaut (−' + fmt(cost) + ')');
+    spiele('bau');
+    const extra = [plan.fluesse.length ? plan.fluesse.length + ' Flussbrücke' + (plan.fluesse.length > 1 ? 'n' : '') : '', plan.kreuz.length ? plan.kreuz.length + ' Kreuzung' + (plan.kreuz.length > 1 ? 'en' : '') : '',
+      plan.durch.length ? 'Durchfahrt durch ' + plan.durch.length + ' fremde' + (plan.durch.length > 1 ? ' Gebiete' : 's Gebiet') : ''].filter((x) => x);
+    toast('Strecke ' + knoten(a).n + ' ⇄ ' + knoten(b).n + ' gebaut (−' + fmt(cost) + ')' + (extra.length ? ' · ' + extra.join(', ') : ''), extra.length ? 4500 : 2500);
     zeichnung = null;
     sel = { city: null, line: S.lines.length - 1, gebiet: null };
     save();
@@ -538,6 +926,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     S.money -= def.cost + fp;
     addXp(5);
     S.trains.push({ id: S.nextId++, line: id, own: true, type, dir: 1, s: 0, earned: 0, cost: 0, trips: 0, farbe, upg: [] });
+    spiele('horn');
     toast(def.n + ' gekauft (−' + fmt(def.cost) + ')');
     save();
   };
@@ -556,7 +945,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const bezahle = (x: { lvl: number; preis: number; pokale: number }) => {
     if (level() < x.lvl) { toast('Erst ab Level ' + x.lvl + '.'); return false; }
     if (x.pokale) {
-      if ((S.pokale || 0) < x.pokale) { toast('Zu wenig Pokale – gewinne Duelle!'); return false; }
+      if ((S.pokale || 0) < x.pokale) { toast('Zu wenig Pokale – hol dir welche in der Wertung!'); return false; }
       S.pokale -= x.pokale;
     } else {
       if (S.money < x.preis) { toast('Zu wenig Guthaben.'); return false; }
@@ -604,7 +993,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     S.bfNext = S.bfNext || 1;
     const b = { id: S.bfNext++, g: gid, x: Math.round(q.x * 10) / 10, y: Math.round(q.y * 10) / 10 };
     S.money -= BAHNHOF.preis; S.bf.push(b); addXp(10);
-    toast('🚉 ' + bfName(b) + ' gebaut (−' + fmt(BAHNHOF.preis) + ')' + (S.bf.length < 2 ? ' – jetzt „Strecke herstellen“!' : ''), 4000);
+    toast('🚉 ' + bfName(b) + ' gebaut (−' + fmt(BAHNHOF.preis) + ')' + (S.lines.length ? '' : meineStationen().length < 2 ? ' – für eine Strecke brauchst du noch einen zweiten Bahnhof.' : ' – jetzt „Strecke herstellen“!'), 4000);
     sel = { city: null, line: null, gebiet: null, bf: b.id };
     save();
   };
@@ -658,7 +1047,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const createFault = (first: boolean) => {
     if (!S.lines.length || S.lines.some((l: any) => l.fault)) return;
     // Linie nach Verschleiss gewichten
-    const wl = S.lines.map((l: any) => (l.bau ? 0 : 1 + (100 - l.cond) / 25 + (l.risiko || 0) * 1.5));
+    const wl = S.lines.map((l: any) => (l.bau || l.gast ? 0 : 1 + (100 - l.cond) / 25 + (l.risiko || 0) * 1.5));
     if (!wl.some((w: number) => w > 0)) return;
     let r = Math.random() * wl.reduce((a: number, b: number) => a + b), li = 0;
     while (!wl[li]) li++;
@@ -674,9 +1063,13 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     }
     // An Abzweigstellen geht ab und zu die Weiche kaputt (Stoerung dann nahe dem Abzweig).
     const weiche = (L.a >= ABZ0 || L.b >= ABZ0) && Math.random() < 0.3;
-    L.fault = weiche ? { t: L.a >= ABZ0 ? 0.08 : 0.92, diff, art: FEHLER_WEICHE } : { t: rand(.25, .75), diff, art: ri(0, FEHLER_VERSCHLEISS - 1) };
-    S.anyFault = true;
+    const f = weiche ? { t: L.a >= ABZ0 ? 0.08 : 0.92, diff, art: FEHLER_WEICHE } : { t: rand(.25, .75), diff, art: ri(0, FEHLER_VERSCHLEISS - 1) };
     S.faultIn = modeInterval(S.mode) * (hat('schleifzug') ? 1.3 : 1);
+    // Ein Streckentrupp faengt sie ggf. ab (die erste Stoerung im Tutorial nie).
+    if (!first && truppFaengt(L, f.art)) return;
+    L.fault = f;
+    S.anyFault = true;
+    spiele('stoerung');
     toast('⚠ ' + FEHLER_ARTEN[L.fault.art].n + ' auf ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + ' (' + DIFF[diff].n + ')');
   };
   const resolveFault = (L: any, how: string) => {
@@ -685,7 +1078,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (how === 'self-fail') { addXp(3); toast('Nicht geschafft – die Störung bleibt. Versuch es nochmal oder beauftrage die Fremdfirma.', 4000); return; }
     if (how === 'firm' && S.money < firmaPreis(d)) { toast('Zu wenig Guthaben für die Fremdfirma.'); return; }
     if (how === 'firm') { S.money -= firmaPreis(d); L.rep += firmaPreis(d); L.cond = Math.min(100, L.cond + 10); addXp(5); toast('Fremdfirma erledigt die Störung (−' + fmt(firmaPreis(d)) + ')'); }
-    if (how === 'self-ok') { const b = d.val * d.share * (hat('messzug') ? 1.5 : 1) * (1 + personal('gleisbauer')); S.money += b; L.cond = Math.min(100, L.cond + 20); S.skill[L.fault.diff]++; addXp(20 + 10 * L.fault.diff); toast('Selbst erledigt! Fremdkosten gespart, Bonus +' + fmt(b)); }
+    if (how === 'self-ok') { const b = d.val * d.share * (hat('messzug') ? 1.5 : 1) * (1 + personal('gleisbauer')); S.money += b; L.cond = Math.min(100, L.cond + 20); S.skill[L.fault.diff]++; addXp(20 + 10 * L.fault.diff); spiele('erfolg'); toast('Selbst erledigt! Fremdkosten gespart, Bonus +' + fmt(b)); }
     L.fault = null; S.faultsFixed++; L.risiko = Math.max(0, (L.risiko || 0) - 1);
   };
   const unlocked = (d: number) => TESTMODUS || d === 0 || S.skill[d - 1] >= CFG.unlockNeed;
@@ -704,20 +1097,24 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       }
       return;
     }
+    // Trassenmiete laeuft in echter Zeit (der Server rechnet sie dem Besitzer ebenso gut).
+    const miete = S.lines.reduce((a: number, L: any) => a + (L.gast ? L.gast.preisMin : 0), 0);
+    if (miete) { const m = miete / 60 * Math.min(dtReal, .25); S.money -= m; S.trassenSumme = (S.trassenSumme || 0) + m; }
     if (modal) return;
     const dt = Math.min(dtReal, .1) * S.speed;
     if (!dt) return;
     S.time += dt;
     for (const L of S.lines) {
+      if (L.gast) continue;
       L.spawnT -= dt;
       if (L.spawnT <= 0) {
-        L.spawnT = rand(CFG.foreignSpawn[0], CFG.foreignSpawn[1]);
+        L.spawnT = rand(CFG.foreignSpawn[0], CFG.foreignSpawn[1]) / fahrgastFaktor(L) / (ereignisAktiv('fest') && (L.a === S.ereignis.ort || L.b === S.ereignis.ort) ? 2 : 1);
         if (!gesperrt(L) && S.trains.filter((t: any) => t.line === L.id && !t.own).length < Math.min(MAX_FREMD, Math.max(1, kap(L) - S.trains.filter((t: any) => t.line === L.id && t.own).length))) spawnForeign(L);
       }
     }
     // Stoerungen: hoechstens eine pro Intervall aktiver Spielzeit (echte Zeit, nicht Spielgeschwindigkeit).
     if (!S.anyFault) {
-      if (S.passes >= 4) createFault(true);   // erste Stoerung = Tutorial, immer leicht
+      if (S.passes >= 4 && S.tut >= TUT_STOERUNG) createFault(true);   // erste Stoerung = Tutorial, immer leicht
     } else {
       S.faultIn -= Math.min(dtReal, .25);
       if (S.faultIn <= 0) createFault(false);   // wartet, solange noch eine Stoerung offen ist
@@ -728,6 +1125,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     auftragTakt(dt);
     ausschreibungTakt(dt);
     albumTakt(dt);
+    wachsTakt(dt);
+    ereignisTakt(dt);
     // Gebiete bringen laufend Geld (nur angeschlossene; Stoerung auf einer Strecke hindurch halbiert).
     if (welt) {
       let r = 0;
@@ -741,7 +1140,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     }
     for (const t of S.trains.slice()) {
       const L = S.lines[t.line];
-      t.s += t.dir * pxs(vKmh(t, L)) * (L.fault ? CFG.faultSpeed : 1) * wetterTempo(L) * bauTempo(L) * kapTempo(L) * dt;
+      t.s += t.dir * pxs(vKmh(t, L)) * (L.fault ? CFG.faultSpeed : 1) * wetterTempo(L) * bauTempo(L) * kapTempo(L) * (t.own && ereignisAktiv('streik') ? 0.3 : 1) * dt;
       if (t.s >= L.len || t.s <= 0) { t.s = Math.max(0, Math.min(L.len, t.s)); arrive(t, L); }
     }
     for (let i = popups.length - 1; i >= 0; i--) { popups[i].age += dtReal; if (popups[i].age > 1.4) popups.splice(i, 1); }
@@ -750,7 +1149,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const bauKosten = (L: any, mi: number, si: number) => {
     const m = MASSNAHMEN[mi], sp = SPERRUNGEN[si], f = TESTMODUS ? 0 : 1;
     const arbeit = Math.round(L.len * m.jeEinheit / 10) * 10 * f, miete = hat(m.maschine) ? 0 : m.miete * f, sev = Math.round(L.len * sp.sevJeEinheit / 10) * 10 * f;
-    return { arbeit, miete, sev, summe: arbeit + miete + sev };
+    const e = engpass();
+    return { arbeit: arbeit * e, miete, sev, summe: arbeit * e + miete + sev };
   };
   const bauDauer = (mi: number, si: number, richtig: number) => Math.round(MASSNAHMEN[mi].dauer * SPERRUNGEN[si].dauerF * (1 - VORBEREITUNG_SPAREN * richtig) * (1 - personal('gleisbauer')));
   const starteBau = (L: any, mi: number, si: number, richtig: number) => {
@@ -760,6 +1160,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     S.money -= k.summe; L.rep += k.summe;
     const dauer = bauDauer(mi, si, richtig);
     L.bau = { m: mi, sp: si, bis: S.time + dauer, dauer };
+    spiele('bau');
     addXp(5 + richtig * 3);
     toast('🚧 ' + MASSNAHMEN[mi].n + ' auf ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + ' gestartet (' + SPERRUNGEN[si].n + ', ' + dauer + ' s' + (richtig ? ', ' + richtig + '× gut vorbereitet' : '') + ')', 5000);
     save();
@@ -867,6 +1268,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const landStrecken = (bl: string) => S.lines.filter((L: any) => L.gebiete.some((id: number) => gebietMitId(id)?.bl === bl) && S.trains.some((t: any) => t.own && t.line === L.id));
   const landPuenkt = (bl: string) => { const ls = landStrecken(bl); return ls.length ? ls.reduce((a: number, L: any) => a + puenkt(L), 0) / ls.length : 0; };
   const landName = (bl: string) => { const g = gebieteIm(bl)[0]; return g ? regionVon(g) : bl; };
+  /** Ausschreibungen vom Server (Spieler gegen Spieler); null = ohne Server die alten, rein lokalen. */
+  let serverAus: any = null;
   const ausschreibungTakt = (dt: number) => {
     // Laufende Vertraege auszahlen.
     for (const v of (S.vertraege || []).slice() as Vertrag[]) {
@@ -883,6 +1286,17 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         toast('📜 Verkehrsvertrag ' + landName(v.bl) + ' beendet: ' + Math.round(quote * 100) + ' % der Zeit pünktlich' + (bonus ? ', Bonus +' + fmt(bonus) : '') + '.', 6000);
         save();
       }
+    }
+    if (serverAus && opts.onAusschreibungNeu) {
+      // Neue Ausschreibung beim Server anstossen (der legt sie nur an, wenn im Land gerade keine laeuft).
+      S.ausIn = (S.ausIn ?? 60) - dt;
+      if (S.ausIn > 0) return;
+      S.ausIn = AUSSCHREIBUNG_TAKT * rand(0.5, 0.9);
+      const bls = handleBundeslaender().filter((bl) => !(S.vertraege || []).some((v: Vertrag) => v.bl === bl) && !serverAus.offen.some((o: any) => o.bl === bl));
+      if (!bls.length) return;
+      const bl = bls[ri(0, bls.length - 1)], richt = Math.round((150 + 3 * gebieteIm(bl).length) / 10) * 10;
+      opts.onAusschreibungNeu(bl, richt, shuffle(MITBEWERBER.slice()).slice(0, ri(2, 3)).map((n) => ({ n, gebot: Math.round(richt * rand(0.78, 1.12)) })));
+      return;
     }
     // Laufende Ausschreibung entscheiden.
     const a: Ausschreibung | null = S.aus || null;
@@ -912,6 +1326,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     toast('📜 Ausschreibung: ' + landName(bl) + ' sucht einen Betreiber für den Regionalverkehr – Gebot abgeben unter 📦 Aufträge!', 6000);
   };
   const ausschreibungHTML = () => {
+    if (serverAus) return serverAusHTML();
     let h = '<h3>📜 Ausschreibungen der Länder</h3>';
     const a: Ausschreibung | null = S.aus || null;
     if (a) {
@@ -923,6 +1338,30 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       h += (a.gebot !== undefined ? '<div class="pos">✓ Gebot abgegeben: ' + fmt(a.gebot) + '/Min., ' + VERSPRECHEN[a.versprechen!].p + ' % – Entscheidung nach Fristende.</div>' : '') +
         (RO ? '' : '<div class="btns"><button data-act="ausab">' + (a.gebot !== undefined ? 'Gebot ändern' : '📜 Gebot abgeben') + '</button></div>') + '</div></div>';
     } else h += '<p class="mut">Gerade keine Ausschreibung. Sie kommen aus Bundesländern, durch die deine Strecken führen.</p>';
+    (S.vertraege || []).forEach((v: Vertrag) => {
+      const lp = landPuenkt(v.bl), ok = lp >= v.versprechen;
+      h += '<div class="shop-zug"><div class="shop-text"><b>📜 Vertrag ' + landName(v.bl) + '</b> <span class="mut">· noch ' + Math.max(0, Math.ceil(v.bis - S.time)) + ' s</span>' + barHTML((1 - (v.bis - S.time) / v.dauer) * 100, '#7b61ff') +
+        '<div class="' + (ok ? 'pos' : 'neg') + '">' + fmt(v.proMin * (ok ? 1 : MALUS)) + '/Min. · Pünktlichkeit ' + Math.round(lp) + ' % (versprochen ' + v.versprechen + ' %)</div></div></div>';
+    });
+    return h + '<div class="row"><span>Verdient mit Verkehrsverträgen</span><b class="pos">' + fmt(S.vertragSumme || 0) + '</b></div>';
+  };
+  /** Bundeslaender mit eigenen Strecken, auf denen eigene Zuege fahren. */
+  const handleBundeslaender = (): string[] => [...new Set(S.lines.filter((L: any) => S.trains.some((t: any) => t.own && t.line === L.id)).flatMap((l: any) => l.gebiete.map((id: number) => gebietMitId(id)?.bl)).filter((b: any) => !!b))] as string[];
+  /** Ausschreibungen vom Server: alle Spieler mit Strecken im Land bieten gegeneinander und gegen ausgedachte Firmen. */
+  const serverAusHTML = () => {
+    let h = '<h3>📜 Ausschreibungen der Länder</h3><div class="mut">Alle Spieler mit eigenen Zügen im Land können bieten – dazu ausgedachte Firmen. Gewertet: Zuschuss × Faktor fürs Pünktlichkeitsversprechen, das niedrigste gewinnt.</div>';
+    const offen = serverAus.offen || [];
+    if (!offen.length) h += '<p class="mut">Gerade keine Ausschreibung in deinen Ländern – neue kommen regelmäßig.</p>';
+    offen.forEach((a: any) => {
+      const gi = modal.gebote?.[a.id] ?? (a.meinGebot ? GEBOTE.findIndex((g) => Math.round(a.richt * g.f) === a.meinGebot) : 1), vi = modal.versp?.[a.id] ?? a.meinVersprechen ?? 0;
+      const rest = Math.max(0, Math.round((new Date(a.bis).getTime() - Date.now()) / 1000));
+      h += '<div class="shop-zug"><div class="shop-text"><b>' + landName(a.bl) + '</b> <span class="mut">· noch ' + Math.floor(rest / 60) + ':' + String(rest % 60).padStart(2, '0') + ' Min. · Richtwert ' + fmt(a.richt) + '/Min. · ' + a.bieter + ' Spieler, ' + a.gegner + ' Firmen</span>' +
+        '<div class="mut">Deine Pünktlichkeit dort jetzt: ' + Math.round(landPuenkt(a.bl)) + ' %.</div>';
+      h += '<div class="btns">' + GEBOTE.map((g, i) => '<button class="sm' + (i === gi ? ' on' : '') + '" data-act="sausg" data-arg="' + a.id + ':' + i + '">' + g.n + ': ' + fmt(Math.round(a.richt * g.f)) + '/Min.</button>').join('') + '</div>';
+      h += '<div class="btns">' + VERSPRECHEN.map((v, i) => '<button class="sm' + (i === vi ? ' on' : '') + '" data-act="sausv" data-arg="' + a.id + ':' + i + '">' + v.p + ' % pünktlich (×' + v.f.toLocaleString('de-DE') + ')</button>').join('') + '</div>';
+      h += (a.meinGebot ? '<div class="pos">✓ Dein Gebot: ' + fmt(a.meinGebot) + '/Min., ' + VERSPRECHEN[a.meinVersprechen].p + ' %</div>' : '') +
+        (RO ? '' : '<div class="btns"><button data-act="sausab" data-arg="' + a.id + '">' + (a.meinGebot ? 'Gebot ändern' : '📜 Gebot abgeben') + '</button></div>') + '</div></div>';
+    });
     (S.vertraege || []).forEach((v: Vertrag) => {
       const lp = landPuenkt(v.bl), ok = lp >= v.versprechen;
       h += '<div class="shop-zug"><div class="shop-text"><b>📜 Vertrag ' + landName(v.bl) + '</b> <span class="mut">· noch ' + Math.max(0, Math.ceil(v.bis - S.time)) + ' s</span>' + barHTML((1 - (v.bis - S.time) / v.dauer) * 100, '#7b61ff') +
@@ -995,7 +1434,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const b = L.b, alt = { ...L };
     // Erster Teil ersetzt die alte Strecke (gleiche Id), zweiter wird neu angehaengt.
     const g1 = geoAusPunkten(teil1);
-    Object.assign(L, { b: code, p: teil1, pts: g1.pts, cum: g1.cum, len: g1.len, gebiete: gebieteEntlang(g1.pts) });
+    Object.assign(L, { b: code, p: teil1, pts: g1.pts, cum: g1.cum, len: g1.len, gebiete: gebieteEntlang(g1.pts), kb: null });
     const L2: any = addLine(code, b, teil2);
     for (const f of ['cond', 'cls', 'ol', 'gleise', 'signal', 'schutz', 'neuBis', 'risiko', 'puenkt', 'inspAb', 'fahrtAb']) L2[f] = Array.isArray(alt[f]) ? [...alt[f]] : alt[f];
     L2.inF = 0; L2.inO = 0; L2.rep = 0; L2.verlust = 0; L2.color = L.color;
@@ -1089,7 +1528,15 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       else h += '<button data-act="plehr" data-arg="' + r.id + '" ' + (S.money < preis ? 'disabled' : '') + '>🎓 Lehrgang → Stufe ' + ziel + ' · ' + fmt(preis) + '</button>';
       h += '</div>';
     });
-    return h + '</div><div class="opts"><button data-act="close">Schließen</button></div>';
+    h += '</div><h3 style="margin-top:14px">👷 Streckentrupps</h3><div class="mut">Trupps setzt du direkt auf eine Strecke: aus der Leiste „👷 Trupps“ an der Karte ziehen oder bei der Strecke wählen. Sie fangen Störungen ab und bekommen dafür einen Anteil der Einnahmen dieser Strecke.</div>';
+    const mit = S.lines.filter((L: any) => truppVon(L));
+    if (!mit.length) h += '<p class="hinweis">Noch kein Trupp im Einsatz.</p>';
+    mit.forEach((L: any) => {
+      const t = truppVon(L)!;
+      h += '<div class="bezirk" data-act="linie" data-arg="' + L.id + '"><span class="farbpunkt" style="background:' + L.color + '"></span><span class="bz-n">' + t.icon + ' ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n +
+        ' <span class="mut">· fängt ' + pct(t.schutz) + ' ab · Lohn ' + pct(t.lohn) + ' · bisher ' + fmt(L.lohn || 0) + '</span></span></div>';
+    });
+    return h + '<div class="opts"><button data-act="close">Schließen</button></div>';
   };
   const stelleEin = (id: string) => {
     const r = ROLLEN.find((x) => x.id === id), preis = TESTMODUS ? 0 : r?.einstellen ?? 0;
@@ -1120,7 +1567,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       toast(JAHRESZEITEN[jz].icon + ' Jetzt ist ' + JAHRESZEITEN[jz].n + '. Achtung: ' + gefahr.map((w) => w.n + ' (Schutz: ' + SCHUTZ.find((x) => x.id === w.schutz)!.n + ')').join(', '), 6000);
     }
     if (S.wetter && S.time >= S.wetter.bis) { toast(wetterArt()!.icon + ' ' + wetterArt()!.n + ' ist vorbei.'); S.wetter = null; }
-    if (!S.wetter && S.lines.length && S.tut >= 3) { S.wetterIn = (S.wetterIn ?? 180) - dt; if (S.wetterIn <= 0) starteWetter(); }
+    if (!S.wetter && S.lines.length && S.tut >= TUT_STOERUNG) { S.wetterIn = (S.wetterIn ?? 180) - dt; if (S.wetterIn <= 0) starteWetter(); }
   };
   /** Neue Wetterlage der Jahreszeit ueber einem Bundesland, durch das eine eigene Strecke fuehrt. */
   const starteWetter = () => {
@@ -1128,7 +1575,11 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const arten = WETTER.map((w, i) => ({ w, i })).filter((x) => x.w.zeit === jahreszeit());
     const bls = [...new Set(S.lines.flatMap((l: any) => l.gebiete.map((id: number) => gebietMitId(id)?.bl)).filter((b: any) => !!b))] as string[];
     if (!arten.length || !bls.length) return;
-    const { w, i } = arten[ri(0, arten.length - 1)], bl = bls[ri(0, bls.length - 1)], gs = gebieteIm(bl);
+    // Passend zur Klimazone: im Norden eher Frost und Schnee, im Sueden eher Hitze (Gewichte in tycoon-wetter.ts).
+    const paare = arten.flatMap((a) => bls.map((bl) => ({ ...a, bl, g: a.w.klima[klimaVon(gebieteIm(bl)[0]?.land ?? 'DE')] })));
+    let q = Math.random() * paare.reduce((a, x) => a + x.g, 0), wahl = paare[0];
+    for (const x of paare) { wahl = x; if ((q -= x.g) <= 0) break; }
+    const { w, i, bl } = wahl, gs = gebieteIm(bl);
     if (!gs.length) return;
     const box = { x0: Infinity, y0: Infinity, x1: -Infinity, y1: -Infinity };
     gs.forEach((g) => { box.x0 = Math.min(box.x0, g.box.x0); box.y0 = Math.min(box.y0, g.box.y0); box.x1 = Math.max(box.x1, g.box.x1); box.y1 = Math.max(box.y1, g.box.y1); });
@@ -1140,10 +1591,15 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (w.fehler >= 0) {
       const frei = offen.filter((L: any) => !L.fault);
       if (frei.length && Math.random() < 0.6) {
-        const L = frei[ri(0, frei.length - 1)];
-        L.fault = { t: rand(.25, .75), diff: Math.min(maxFixable(), ri(0, 1)), art: w.fehler };
-        S.anyFault = true;
-        txt += ' ⚠ ' + FEHLER_ARTEN[w.fehler].n + ' auf ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + '!';
+        const L = frei[ri(0, frei.length - 1)], t = truppVon(L);
+        if (t && Math.random() < t.schutz) {
+          L.abgefangen = (L.abgefangen || 0) + 1; zaehle('abgefangen');
+          txt += ' ' + t.icon + ' Dein Trupp auf ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + ' hat eine Störung (' + FEHLER_ARTEN[w.fehler].n + ') verhindert.';
+        } else {
+          L.fault = { t: rand(.25, .75), diff: Math.min(maxFixable(), ri(0, 1)), art: w.fehler };
+          S.anyFault = true;
+          txt += ' ⚠ ' + FEHLER_ARTEN[w.fehler].n + ' auf ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + '!';
+        }
       }
     }
     toast(txt, 9000);
@@ -1201,57 +1657,126 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     });
     return h;
   };
+  /** Lohn des Streckentrupps: sein Anteil an einer Einnahme der Strecke (wird abgezogen und mitgezaehlt). */
+  const zahleLohn = (L: any, betrag: number) => {
+    const l = betrag * (truppVon(L)?.lohn ?? 0);
+    if (l > 0) { L.lohn = (L.lohn || 0) + l; S.lohnSumme = (S.lohnSumme || 0) + l; }
+    return l;
+  };
   const arrive = (t: any, L: any) => {
     const p = posAt(L, t.s);
     S.passes++;
-    L.cond = Math.max(0, L.cond - CFG.wearPerPass * klasse(L).wear * (t.own ? tdef(t).wear * (hatUpg(t, 'drehgestell') ? 0.7 : 1) : 1.4) * (hat('stopfmaschine') ? 0.75 : 1) * ((L.neuBis || 0) > S.time ? 0.5 : 1));
+    if (!L.gast) L.cond = Math.max(0, L.cond - CFG.wearPerPass * klasse(L).wear * (t.own ? tdef(t).wear * (hatUpg(t, 'drehgestell') ? 0.7 : 1) : 1.4) * (hat('stopfmaschine') ? 0.75 : 1) * ((L.neuBis || 0) > S.time ? 0.5 : 1));
     t.trips++;
     if (t.own) {
       // Keine Wartungskosten mehr: Wartungsstau und Stoerung senken nur die Einnahmen.
       const td = tdef(t), voll = L.len * CFG.ownRent * td.rent * upgMiete(t) * (1 + (hat('fahrgastinfo') ? 0.1 : 0) + (hat('schaufel') ? 0.05 : 0) + personal('lokfuehrer') + (clanBonus2('nbs') ? 0.05 : 0)) * (kohleMangel(t, L) ? 0.6 : 1) * (1 + 0.1 * ((t.route?.length || 1) - 1)) * (streckenAn(t.dir > 0 ? L.b : L.a).length >= 3 ? 1.15 : 1);
-      const inc = voll * condFaktor(L) * (L.fault ? CFG.faultIncome : 1) * wetterEinnahmen(L) * bauEinnahmen(L) * puenktFaktor(puenkt(L));
-      S.money += inc; L.inO += inc; t.earned += inc; L.verlust = (L.verlust || 0) + voll - inc;
+      const fest = ereignisAktiv('fest') && (L.a === S.ereignis.ort || L.b === S.ereignis.ort) ? 2 : 1, ferien = ereignisAktiv('ferien') && !td.gueter ? 1.25 : 1;
+      const inc = voll * (td.gueter ? 1 : fahrgastFaktor(L)) * zeitFaktor(td, L) * fest * ferien * condFaktor(L) * (L.fault ? CFG.faultIncome : 1) * wetterEinnahmen(L) * bauEinnahmen(L) * puenktFaktor(puenkt(L));
+      const netto = inc - zahleLohn(L, inc);
+      S.money += netto; L.inO += netto; t.earned += netto; L.verlust = (L.verlust || 0) + voll - inc;
+      spiele('kasse');
       addXp(1);
-      popups.push({ x: p.x, y: p.y, txt: '+' + Math.round(inc) + ' €', col: '#e07a00', age: 0 });
+      popups.push({ x: p.x, y: p.y, txt: '+' + Math.round(netto) + ' €', col: '#e07a00', age: 0 });
       liefere(t, L, t.dir > 0 ? L.b : L.a, p);
       weiterfahren(t, L);
     } else {
       const voll = L.len * CFG.foreignFee * klasse(L).entgelt * (1 + personal('fdl') + (clanBonus2('tunnel') ? 0.05 : 0)), fee = voll * condFaktor(L) * (L.fault ? CFG.faultIncome : 1) * wetterEinnahmen(L) * bauEinnahmen(L) * puenktFaktor(puenkt(L));
-      S.money += fee; L.inF += fee; L.verlust = (L.verlust || 0) + voll - fee;
-      popups.push({ x: p.x, y: p.y, txt: '+' + Math.round(fee) + ' €', col: '#2e8b57', age: 0 });
+      const netto = fee - zahleLohn(L, fee);
+      S.money += netto; L.inF += netto; L.verlust = (L.verlust || 0) + voll - fee;
+      popups.push({ x: p.x, y: p.y, txt: '+' + Math.round(netto) + ' €', col: '#2e8b57', age: 0 });
       S.trains.splice(S.trains.indexOf(t), 1);
     }
   };
 
   /* ---------- Layout / Eingabe ---------- */
   /**
-   * 2D-Ansicht: k0 = Massstab, bei dem die ganze Karte passt; zoom vergroessert darueber hinaus, (vx, vy) ist der
-   * Weltpunkt in der Mitte der freien Flaeche. Symbole (Staedte, Bahnhoefe, Schrift) bleiben beim Zoomen gleich gross.
+   * 2D-Ansicht: k0 = Massstab, bei dem ganz Europa (SPIEL) passt; zoom vergroessert darueber hinaus, (vx, vy) ist der
+   * Weltpunkt in der Mitte der freien Flaeche. kD = Massstab, bei dem Deutschland (0..KARTE_W x 0..KARTE_H) passt,
+   * dz = k / kD (1 = Deutschland-Ansicht, so startet das Spiel); Symbole und Beschriftung richten sich nach dz.
    */
-  let k0 = 1, aw = 0, ah = 0, zoom = 1, vx = KARTE_W / 2, vy = KARTE_H / 2;
-  // So weit, dass auch Berlin (ca. 48 Einheiten breit) auf dem Handy bildschirmfuellend wird.
-  const ZOOM_MAX = 64;
+  let k0 = 1, kD = 1, ax0 = 0, ay0 = HUD_H, aw = 0, ah = 0, zoom = 1, vx = KARTE_W / 2, vy = KARTE_H / 2, ersteAnsicht = true;
+  const dz = () => k / kD;
+  // So weit, dass auch Berlin (ca. 48 Einheiten breit) auf dem Handy bildschirmfuellend wird (64-fach ueber Deutschland).
+  const ZOOM_MAX = 64 * Math.max((SPIEL.x1 - SPIEL.x0) / KARTE_W, (SPIEL.y1 - SPIEL.y0) / KARTE_H);
   /** Bundesland-Fokus (2D und 3D): Ausschnitt oder null = Weltkarte; ver zaehlt hoch, damit die 3D-Kamera folgt. */
   const fokus: { box: { x0: number; y0: number; x1: number; y1: number } | null; ver: number; name: string } = { box: null, ver: 0, name: '' };
   const ansicht = () => {
     k = k0 * zoom;
-    vx = Math.max(0, Math.min(KARTE_W, vx)); vy = Math.max(0, Math.min(KARTE_H, vy));
-    ox = aw / 2 - vx * k; oy = HUD_H + ah / 2 - vy * k;
+    vx = Math.max(SPIEL.x0, Math.min(SPIEL.x1, vx)); vy = Math.max(SPIEL.y0, Math.min(SPIEL.y1, vy));
+    ox = ax0 + aw / 2 - vx * k; oy = ay0 + ah / 2 - vy * k;
   };
+  /** Geraeteform wie in tycoon.page.scss: Blatt = Handy hochkant, klein = Handy hochkant oder quer. */
+  const istBlatt = () => matchMedia('(max-width: 700px) and (min-height: 501px)').matches;
+  const istKlein = () => istBlatt() || matchMedia('(max-height: 500px)').matches;
+  /**
+   * Freie Kartenflaeche messen: Kopfleiste oben, dazu alles, was als Leiste am Rand liegt (Panel rechts oder als
+   * Blatt unten, Menue-Leiste links oder unten). Schwebende Teile (Dock in der Mitte) zaehlen nicht.
+   */
   const layout = () => {
     W = root.clientWidth; H = root.clientHeight; dpr = window.devicePixelRatio || 1;
     cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + 'px'; cv.style.height = H + 'px';
-    const narrow = W < 700;
-    aw = narrow ? W : W - 300; ah = narrow ? H - HUD_H - Math.round(H * .38) : H - HUD_H;
-    k0 = Math.max(0.1, Math.min(aw / KARTE_W, ah / KARTE_H) * .94);
+    const r0 = root.getBoundingClientRect();
+    let x0 = 0, y0 = HUD_H, x1 = W, y1 = H;
+    const hud = $('#hud'); if (hud) y0 = hud.getBoundingClientRect().bottom - r0.top;
+    // Handy hochkant: das Blatt legt sich ueber die Karte (sonst springt sie beim Auf- und Zuklappen); frei bleibt
+    // alles ueber der Navigationsleiste und dem eingeklappten Griff.
+    const blatt = istBlatt();
+    root.querySelectorAll(blatt ? '.hud-dock' : '#panel, #panelgriff, .hud-dock').forEach((el: any) => {
+      const r = el.getBoundingClientRect();
+      if (!r.width || !r.height || getComputedStyle(el).display === 'none') return;
+      const l = r.left - r0.left, t = r.top - r0.top, rr = r.right - r0.left;
+      if (rr <= 0 || l >= W || t >= H) return;
+      if (r.height > (y1 - y0) * .5 && l > W / 2) x1 = Math.min(x1, l);
+      else if (r.height > (y1 - y0) * .5 && rr < W / 2) x0 = Math.max(x0, rr);
+      else if (r.width > W * .6 && t > H / 2) y1 = Math.min(y1, t);
+    });
+    if (blatt) y1 -= $('#panelgriff')?.offsetHeight || 0;
+    ax0 = x0; ay0 = y0; aw = Math.max(60, x1 - x0); ah = Math.max(60, y1 - y0);
+    root.style.setProperty('--karte-mitte', Math.round(ax0 + aw / 2) + 'px');
+    root.style.setProperty('--karte-rechts', Math.round(W - ax0 - aw) + 'px');
+    root.style.setProperty('--karte-unten', Math.round(H - ay0 - ah) + 'px');
+    root.style.setProperty('--karte-links', Math.round(ax0) + 'px');
+    // Beim Groessenwechsel bleibt der Ausschnitt (dz) erhalten; beim ersten Mal startet die Ansicht auf Deutschland.
+    const dzAlt = ersteAnsicht ? 1 : k / kD;
+    k0 = Math.max(0.02, Math.min(aw / (SPIEL.x1 - SPIEL.x0), ah / (SPIEL.y1 - SPIEL.y0)) * .94);
+    kD = Math.max(0.1, Math.min(aw / KARTE_W, ah / KARTE_H) * .94);
+    if (aw > 60 && ah > 60) ersteAnsicht = false;
+    zoom = Math.max(1, Math.min(ZOOM_MAX, (dzAlt * kD) / k0));
     ansicht();
+  };
+  /**
+   * Panel-Zustand: 'zu' (nur Griff), 'halb' (Blatt halb hoch, nur Handy hochkant), 'offen'. Auf kleinen Geraeten
+   * startet es zu und klappt von selbst auf, sobald etwas ausgewaehlt wird (und wieder zu, wenn die Auswahl weg ist).
+   */
+  let panelZ: 'zu' | 'halb' | 'offen' = istKlein() ? 'zu' : 'offen', panelAuto = false, auswahlAlt = '';
+  const setzePanel = (z: 'zu' | 'halb' | 'offen', auto = false) => {
+    if (z === 'halb' && !istBlatt()) z = 'offen';
+    panelAuto = auto && z !== 'zu';
+    if (z === panelZ) return;
+    panelZ = z;
+    root.classList.remove('p-zu', 'p-halb', 'p-offen'); root.classList.add('p-' + z);
+    // Handy: Chat-Knopf der App ausblenden, solange das Blatt offen ist (er laege sonst ueber dem Inhalt).
+    document.body.classList.toggle('tycoon-blatt-auf', z !== 'zu');
+    // Nach der Klapp-Animation die Karte in die neue freie Flaeche einpassen.
+    window.setTimeout(layout, 280);
+  };
+  root.classList.add('p-' + panelZ);
+  document.body.classList.toggle('tycoon-blatt-auf', panelZ !== 'zu');
+  /** Auswahl geaendert (Stadt, Strecke, Gebiet, Zeichnen): Panel bei Bedarf aufklappen bzw. wieder einklappen. */
+  const panelFolgtAuswahl = () => {
+    const a = zeichnung ? 'z' : [sel.city, sel.line, sel.gebiet, sel.bf, sel.abz].map((x) => x ?? '').join(',');
+    if (a === auswahlAlt) return;
+    const leer = /^,*$/.test(a); auswahlAlt = a;
+    if (!leer && panelZ === 'zu') setzePanel(istBlatt() ? 'halb' : 'offen', true);
+    else if (leer && panelAuto) setzePanel('zu');
   };
   /** Um den Bildschirmpunkt (sx, sy) zoomen; der Weltpunkt darunter bleibt stehen. */
   const zoomeUm = (sx: number, sy: number, faktor: number) => {
     const wxp = (sx - ox) / k, wyp = (sy - oy) / k;
     zoom = Math.max(1, Math.min(ZOOM_MAX, zoom * faktor));
     const k2 = k0 * zoom;
-    vx = (aw / 2 - (sx - wxp * k2)) / k2; vy = (HUD_H + ah / 2 - (sy - wyp * k2)) / k2;
+    vx = (ax0 + aw / 2 - (sx - wxp * k2)) / k2; vy = (ay0 + ah / 2 - (sy - wyp * k2)) / k2;
     ansicht();
   };
   /** Ausschnitt (Weltkoordinaten) in die freie Flaeche einpassen. */
@@ -1270,7 +1795,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     fokus.box = { x0: b.x0 - r, y0: b.y0 - r, x1: b.x1 + r, y1: b.y1 + r }; fokus.ver++; fokus.name = regionVon(gs[0]);
     zeigeBox(fokus.box);
   };
-  const zurWeltkarte = () => { fokus.box = null; fokus.ver++; fokus.name = ''; zoom = 1; vx = KARTE_W / 2; vy = KARTE_H / 2; ansicht(); };
+  /** Ganz Europa zeigen. */
+  const zurWeltkarte = () => { fokus.box = null; fokus.ver++; fokus.name = ''; zoom = 1; vx = (SPIEL.x0 + SPIEL.x1) / 2; vy = (SPIEL.y0 + SPIEL.y1) / 2; ansicht(); };
   const toWorld = (e: PointerEvent) => {
     const r = cv.getBoundingClientRect();
     return { x: (e.clientX - r.left - ox) / k, y: (e.clientY - r.top - oy) / k };
@@ -1332,7 +1858,11 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     zeiger.set(e.pointerId, bildschirm(e));
     try { cv.setPointerCapture(e.pointerId); } catch { /* egal */ }
     if (zeiger.size === 2) { fingerZeichnet = false; druck = null; const [a, b] = [...zeiger.values()]; pinch = Math.hypot(a.x - b.x, a.y - b.y); return; }
-    if (zeichnung && !RO && !modal) { fingerZeichnet = true; klick(toWorld(e)); return; }
+    if (zeichnung && !RO && !modal) {
+      const q = kreuzFeldBei(toWorld(e));
+      if (q) { wechsleKreuzung(q.key); return; }
+      fingerZeichnet = true; klick(toWorld(e)); return;
+    }
     druck = { ...bildschirm(e), gezogen: false };
   };
   const onCanvasUp = (e: PointerEvent) => {
@@ -1344,7 +1874,12 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     druck = null;
   };
   /** Beim Zeichnen losgelassen: liegt das Ende an einem erlaubten Ziel, wird die Strecke gleich gebaut. */
-  const losgelassen = () => { if (zeichnung && zeichnung.ziel !== null && !modal) baueZeichnung(); };
+  const losgelassen = () => {
+    if (!zeichnung || zeichnung.ziel === null || modal) return;
+    // Kreuzt die Strecke eigene Strecken, erst Bruecke/Tunnel waehlen lassen (graue Felder), gebaut wird mit "Bauen".
+    if (zeichnungKosten(zeichnung).plan?.kreuz.length) { toast('Die Strecke kreuzt andere Strecken: an den grauen Feldern Brücke oder Tunnel wählen, dann „Bauen“.', 5000); return; }
+    baueZeichnung();
+  };
   const onWheel = (e: WheelEvent) => {
     e.preventDefault();
     const s = { x: e.clientX - cv.getBoundingClientRect().left, y: e.clientY - cv.getBoundingClientRect().top };
@@ -1353,12 +1888,21 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const klick = (p: { x: number; y: number }, kk = k) => {
     if (modal) return;
     const h = hit(p, kk);
+    if (truppWahl && !zeichnung && !RO) {
+      const id = truppWahl;
+      truppWahl = null;
+      if (h.line !== null && !S.lines[h.line].gast) { setzeTrupp(h.line, id); return; }
+      toast('Kein Trupp gesetzt – das war keine deiner Strecken.');
+    }
     if (zeichnung && !RO) {
+      // Graues Feld an einer Kreuzung: Bruecke/Tunnel wechseln (3D ruft klick direkt auf).
+      const q = kreuzFeldBei(p, kk);
+      if (q) { wechsleKreuzung(q.key); return; }
       // Zeichnen: Zielstadt/-bahnhof antippen = bauen, sonst wird die Strecke bis hierher verlaengert.
       const ziel = h.knoten;
       zeichneZu(ziel !== null ? knoten(ziel) : p, kk);
-      if (ziel !== null && ziel === zeichnung.ziel) baueZeichnung();
-      else if (ziel !== null && ziel !== zeichnung.von) toast('Bis ' + knoten(ziel).n + ' kommst du nicht nur über deine Gebiete – kauf die fehlenden oder bau drumherum.', 4500);
+      if (ziel !== null && ziel === zeichnung.ziel) losgelassen();
+      else if (ziel !== null && ziel !== zeichnung.von) toast('Bis ' + knoten(ziel).n + ' kommst du so nicht – dazwischen liegen freie Gebiete: kauf sie oder bau drumherum.', 4500);
       return;
     }
     if (h.fault !== null) { openFault(h.fault); return; }
@@ -1386,36 +1930,66 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   window.addEventListener('pointercancel', onCanvasUp);
   cv.addEventListener('wheel', onWheel, { passive: false });
   window.addEventListener('keydown', onKey);
-  const ro = new ResizeObserver(() => layout());
+  /** Panel-Griff: Antippen klappt auf/zu, auf dem Handy auch nach oben/unten wischen. */
+  let griffY: number | null = null;
+  const onGriffDown = (e: PointerEvent) => { griffY = e.clientY; try { (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId); } catch { /* egal */ } };
+  const onGriffUp = (e: PointerEvent) => {
+    if (griffY === null) return;
+    const dy = e.clientY - griffY; griffY = null;
+    if (istBlatt() && Math.abs(dy) > 30) setzePanel(dy < 0 ? (panelZ === 'zu' ? 'halb' : 'offen') : (panelZ === 'offen' ? 'halb' : 'zu'));
+    else setzePanel(panelZ === 'zu' ? (istBlatt() ? 'halb' : 'offen') : 'zu');
+    spiele('klick');
+  };
+  const griff = $('#panelgriff');
+  griff?.addEventListener('pointerdown', onGriffDown);
+  griff?.addEventListener('pointerup', onGriffUp);
+  const ro = new ResizeObserver(() => {
+    // Wechsel zwischen Blatt (Handy) und Seitenleiste: 'halb' gibt es nur als Blatt.
+    if (panelZ === 'halb' && !istBlatt()) setzePanel('offen');
+    layout();
+  });
   ro.observe(root);
 
   /* ---------- Zeichnen ---------- */
-  /** Hintergrundkarte (Meer, Relief, Grenzen) einmal vorrendern statt jedes Bild neu zu zeichnen. */
-  const KB = { x0: -300, y0: -250, x1: KARTE_W + 300, y1: KARTE_H + 250 }, KB_S = 1.2;
-  let kartenBild: HTMLCanvasElement | null = null, kartenMitRelief = false;
-  const holeKartenBild = () => {
-    const rel = reliefBild();
-    if (kartenBild && (kartenMitRelief || !rel)) return kartenBild;
-    const c = document.createElement('canvas');
-    c.width = Math.round((KB.x1 - KB.x0) * KB_S); c.height = Math.round((KB.y1 - KB.y0) * KB_S);
-    const g = c.getContext('2d')!;
-    g.scale(KB_S, KB_S); g.translate(-KB.x0, -KB.y0);
-    zeichneKarte(g, undefined, 1.4, rel ? { bild: rel, x0: HOEHEN.x0, y0: HOEHEN.y0, w: HOEHEN.breite * HOEHEN.zelle, h: HOEHEN.hoehe * HOEHEN.zelle } : null, KB);
-    kartenBild = c; kartenMitRelief = !!rel;
-    return c;
+  /**
+   * Hintergrund (Meer, Relief, Fluesse, Grenzen, Gebiete mit Besitzfarben) fuer genau den sichtbaren Ausschnitt in
+   * Bildschirmaufloesung. Neu gezeichnet nur, wenn sich Ausschnitt, Groesse oder Besitz aendern; fahrende Zuege usw.
+   * kommen jedes Bild darueber. (Ganz Europa als ein vorgerendertes Bild waere scharf zu gross fuer Handys.)
+   */
+  /** Bild des Ausschnitts und fuer welche Ansicht (k, ox, oy) es gezeichnet wurde. */
+  let sichtBild: HTMLCanvasElement | null = null, sichtFuer = '', sichtGrund = '', sichtK = 1, sichtOx = 0, sichtOy = 0;
+  /** Waehrend Verschieben/Zoomen nicht neu zeichnen, erst wenn die Ansicht kurz ruht (das alte Bild wird mitbewegt). */
+  let ansichtFuer = '', ansichtSeit = 0;
+  const RUHE_MS = 160;
+  /** Hintergrund zeichnen: neu, wenn noetig und die Ansicht ruht, sonst das vorhandene Bild passend verschoben/skaliert. */
+  const zeichneSicht = () => {
+    const rel = reliefBild(), jetzt = performance.now();
+    const grund = gebietSchluessel + '|' + W + 'x' + H + '@' + dpr + '|' + !!rel, blick = k.toFixed(5) + '|' + ox.toFixed(1) + '|' + oy.toFixed(1);
+    if (blick !== ansichtFuer) { ansichtFuer = blick; ansichtSeit = jetzt; }
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    if (sichtBild && sichtGrund === grund && sichtFuer !== grund + '|' + blick && jetzt - ansichtSeit < RUHE_MS) {
+      const f = k / sichtK;
+      ctx.fillStyle = '#bcd6e6'; ctx.fillRect(0, 0, cv.width, cv.height);
+      ctx.setTransform(f, 0, 0, f, dpr * (ox - f * sichtOx), dpr * (oy - f * sichtOy));
+      ctx.drawImage(sichtBild, 0, 0);
+      return;
+    }
+    ctx.drawImage(holeSichtBild(rel, grund + '|' + blick, grund), 0, 0);
   };
-  /** Gebietsflaechen und Grenzen ebenfalls vorrendern; neu nur bei anderem Besitz oder anderer Kartengroesse. */
-  let gebietsBild: HTMLCanvasElement | null = null, gebietsBildFuer = '';
-  const holeGebietsBild = () => {
-    const key = gebietSchluessel + '|' + k.toFixed(3);
-    if (gebietsBild && gebietsBildFuer === key) return gebietsBild;
-    const c = gebietsBild || document.createElement('canvas');
-    c.width = Math.round((KB.x1 - KB.x0) * KB_S); c.height = Math.round((KB.y1 - KB.y0) * KB_S);
+  const holeSichtBild = (rel: HTMLCanvasElement | null, key: string, grund: string) => {
+    if (sichtBild && sichtFuer === key) return sichtBild;
+    const c = sichtBild || document.createElement('canvas');
+    if (c.width !== Math.round(W * dpr) || c.height !== Math.round(H * dpr)) { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); }
+    sichtGrund = grund; sichtK = k; sichtOx = ox; sichtOy = oy;
     const g = c.getContext('2d')!;
-    g.scale(KB_S, KB_S); g.translate(-KB.x0, -KB.y0);
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.fillStyle = '#bcd6e6'; g.fillRect(0, 0, W, H);
+    g.translate(ox, oy); g.scale(k, k);
+    const bereich = { x0: -ox / k, y0: -oy / k, x1: (W - ox) / k, y1: (H - oy) / k };
     // Linien in Bildschirmpixeln etwa gleich dick, egal wie gross die Karte gerade ist.
-    zeichneGebiete(g, { farbe: gebietFarbe, linie: 1.4 / Math.max(0.3, k), namen: true });
-    gebietsBild = c; gebietsBildFuer = key;
+    zeichneKarte(g, undefined, 1.4 / Math.max(0.3, k / kD), rel ? { bild: rel, x0: HOEHEN.x0, y0: HOEHEN.y0, w: HOEHEN.breite * HOEHEN.zelle, h: HOEHEN.hoehe * HOEHEN.zelle } : null, bereich);
+    zeichneGebiete(g, { farbe: gebietFarbe, linie: 1.4 / k, namen: dz() < 3 });
+    sichtBild = c; sichtFuer = key;
     return c;
   };
   ladeHoehen();
@@ -1425,25 +1999,54 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (!plain) { const w = ctx.measureText(txt).width + 12; ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.fillRect(x - w / 2, y - 10, w, 20); }
     ctx.fillStyle = col; ctx.fillText(txt, x, y);
   };
+  /**
+   * Strecken der Bot-Gegner (Server, welt.botStrecken): in der Farbe der Firma, schmaler als die eigenen, mit kleinen
+   * Bahnhoefen an den Enden und einem Zug, der hin und her faehrt -- damit man sieht, dass dort gearbeitet wird.
+   */
+  const zeichneBotStrecken = (m: number, gw: number, KB: { x0: number; y0: number; x1: number; y1: number }) => {
+    const liste: { owner: string; p: number[] }[] = welt?.botStrecken || [];
+    if (!liste.length) return;
+    const t = performance.now() / 1000;
+    liste.forEach((b, i) => {
+      const p = b.p;
+      if (!Array.isArray(p) || p.length < 4) return;
+      const x0 = Math.min(p[0], p[p.length - 2]), x1 = Math.max(p[0], p[p.length - 2]), y0 = Math.min(p[1], p[p.length - 1]), y1 = Math.max(p[1], p[p.length - 1]);
+      if (x1 < KB.x0 - 20 || x0 > KB.x1 + 20 || y1 < KB.y0 - 20 || y0 > KB.y1 + 20) return;
+      const farbe = spielerFarbe(b.owner);
+      ctx.beginPath(); ctx.moveTo(p[0], p[1]);
+      for (let j = 2; j < p.length; j += 2) ctx.lineTo(p[j], p[j + 1]);
+      ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.lineWidth = gw * 1.35; ctx.stroke();
+      ctx.strokeStyle = farbe; ctx.lineWidth = gw * 0.8; ctx.stroke();
+      for (const j of [0, p.length - 2]) { ctx.fillStyle = '#fff'; ctx.fillRect(p[j] - 2.6 * m, p[j + 1] - 2.6 * m, 5.2 * m, 5.2 * m); ctx.lineWidth = 1.2 * m; ctx.strokeStyle = farbe; ctx.strokeRect(p[j] - 2.6 * m, p[j + 1] - 2.6 * m, 5.2 * m, 5.2 * m); }
+      // Zug: Pendelbewegung auf dem ersten Abschnitt, je Strecke versetzt.
+      const f = 0.5 - 0.5 * Math.cos(t * 0.6 + i * 1.7), zx = p[0] + (p[2] - p[0]) * f, zy = p[1] + (p[3] - p[1]) * f;
+      ctx.beginPath(); ctx.arc(zx, zy, 2.4 * m, 0, 7); ctx.fillStyle = farbe; ctx.fill(); ctx.lineWidth = 1 * m; ctx.strokeStyle = '#fff'; ctx.stroke();
+    });
+  };
   const draw = () => {
+    // Karte und Gebiete (Besitz farbig, Kreis-, Landes- und Staatsgrenzen) aus dem Bild des Ausschnitts.
+    zeichneSicht();
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.fillStyle = '#bcd6e6'; ctx.fillRect(0, 0, W, H);
     ctx.save(); ctx.translate(ox, oy); ctx.scale(k, k);
-    ctx.drawImage(holeKartenBild(), KB.x0, KB.y0, KB.x1 - KB.x0, KB.y1 - KB.y0);
-    // Gebiete (Landkreise, Bezirke): Besitz farbig, Kreis-, Landes- und Staatsgrenzen. Herangezoomt direkt zeichnen (scharf).
-    if (zoom <= 1.3) ctx.drawImage(holeGebietsBild(), KB.x0, KB.y0, KB.x1 - KB.x0, KB.y1 - KB.y0);
-    else zeichneGebiete(ctx, { farbe: gebietFarbe, linie: 1.4 / k, namen: zoom < 3 });
+    const KB = { x0: -ox / k, y0: -oy / k, x1: (W - ox) / k, y1: (H - oy) / k };
     const hg = zeichnung || hover.gebiet === null || hover.gebiet === sel.gebiet ? null : gebietMitId(hover.gebiet);
     if (hg) umrandeGebiet(ctx, hg, 'rgba(228,87,46,.55)', 1.6 / k);
+    // Tutorial: freie Nachbargebiete pulsierend orange umranden.
+    if (!RO && S.tut === TUT_NACHBAR && welt) {
+      const a = (0.55 + 0.35 * Math.sin(performance.now() / 260)).toFixed(2);
+      for (const g of freieNachbarn()) umrandeGebiet(ctx, g, 'rgba(255,150,30,' + a + ')', 3 / k);
+    }
     const sg = sel.gebiet !== null ? gebietMitId(sel.gebiet) : null;
     if (sg) { umrandeGebiet(ctx, sg, '#fff', 4.5 / k); umrandeGebiet(ctx, sg, '#e4572e', 2.5 / k); }
     ctx.fillStyle = TOENUNG[jahreszeit()]; ctx.fillRect(KB.x0, KB.y0, KB.x1 - KB.x0, KB.y1 - KB.y0);
+    if (dunkel > 0) { ctx.fillStyle = 'rgba(8,16,44,' + (0.55 * dunkel).toFixed(3) + ')'; ctx.fillRect(KB.x0, KB.y0, KB.x1 - KB.x0, KB.y1 - KB.y0); }
     // Herangezoomt: Namen der Landkreise/Bezirke, die gross genug dafuer sind.
-    if (zoom > 1.3) beschrifteGebiete(ctx, 12 * dpr);
+    if (dz() > 1.3) beschrifteGebiete(ctx, 12 * dpr);
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    // m: Symbole wachsen beim Zoomen nur maessig mit (bis doppelt so gross); gw: Gleisbreite (halb so breit wie frueher,
-    // mind. ca. 2,5 px, stark herangezoomt hoechstens 12 px, damit z. B. Berlin nicht unter dem Gleis verschwindet).
-    const m = (k0 / k) * Math.sqrt(Math.min(zoom, 4)), gw = Math.max(Math.min(3.5, 12 / k), 2.5 / k);
+    // m: Symbole wachsen beim Zoomen nur maessig mit (bis doppelt so gross), ueber ganz Europa werden sie kleiner;
+    // gw: Gleisbreite (mind. ca. 2,5 px, stark herangezoomt hoechstens 12 px, damit z. B. Berlin nicht unter dem Gleis verschwindet).
+    const m = (kD / k) * Math.sqrt(Math.max(0.35, Math.min(dz(), 4))), gw = Math.max(Math.min(3.5, 12 / k), 2.5 / k);
+    zeichneBotStrecken(m, gw, KB);
     for (const L of S.lines) {
       const on = sel.line === L.id || hover.line === L.id;
       path(L.pts);
@@ -1452,6 +2055,33 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       if ((L.gleise || 1) === 2) { path(L.pts); ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = gw * 0.25; ctx.stroke(); }
       path(L.pts); ctx.strokeStyle = L.cond < 25 ? '#ff2d2d' : L.cond < 50 ? '#ffb347' : '#fff';
       ctx.lineWidth = gw * 0.32; ctx.setLineDash([gw * 0.45, gw * 0.9]); ctx.stroke(); ctx.setLineDash([]);
+    }
+    // Tunnel (grau gestrichelt) und Bruecken (dunkel eingefasst).
+    for (const L of S.lines) {
+      const kb = kbVon(L);
+      if (!kb) continue;
+      for (const a of kb.abschnitte) {
+        if (a.art === 'berg') continue;
+        const pts: any[] = []; for (let s = a.s0; s <= a.s1; s += 1) pts.push(posAt(L, s)); pts.push(posAt(L, a.s1));
+        if (pts.length < 2) continue;
+        if (a.art === 'tunnel') { path(pts); ctx.strokeStyle = 'rgba(70,70,70,.9)'; ctx.lineWidth = gw * 1.25; ctx.setLineDash([gw * 0.8, gw * 0.6]); ctx.stroke(); ctx.setLineDash([]); }
+        else { path(pts); ctx.strokeStyle = '#3e2723'; ctx.lineWidth = gw * 2; ctx.stroke(); path(pts); ctx.strokeStyle = L.color; ctx.lineWidth = gw; ctx.stroke(); }
+      }
+    }
+    // Flussbruecken (fuer alle Strecken berechnet, nicht gespeichert) und Kreuzungen (beim Bau gewaehlt).
+    const stueck = (L: any, s: number, r: number) => { const pts: any[] = []; for (let t = Math.max(0, s - r); t < Math.min(L.len, s + r); t += 0.5) pts.push(posAt(L, t)); pts.push(posAt(L, Math.min(L.len, s + r))); return pts; };
+    const brueckeAn = (L: any, s: number, r: number) => {
+      const pts = stueck(L, s, r);
+      path(pts); ctx.strokeStyle = '#3e2723'; ctx.lineWidth = gw * 2.2; ctx.stroke();
+      path(pts); ctx.strokeStyle = L.color; ctx.lineWidth = gw; ctx.stroke();
+    };
+    for (const L of S.lines) {
+      if (!L.fq) L.fq = flussQuerungen(L.pts, L.cum);
+      for (const f of L.fq) brueckeAn(L, f.s, f.k === 1 ? 2.2 : f.k === 2 ? 1.7 : 1.3);
+      for (const q of L.kr || []) {
+        if (q.art === 'bruecke') brueckeAn(L, q.s, 1.4);
+        else { path(stueck(L, q.s, 1.8)); ctx.strokeStyle = 'rgba(70,70,70,.9)'; ctx.lineWidth = gw * 1.25; ctx.setLineDash([gw * 0.8, gw * 0.6]); ctx.stroke(); ctx.setLineDash([]); }
+      }
     }
     for (const L of S.lines) if (L.bau) {
       path(L.pts); ctx.strokeStyle = '#ff8a3d'; ctx.lineWidth = gw * 1.4; ctx.setLineDash([gw * 1.2, gw * 1.2]); ctx.stroke(); ctx.setLineDash([]);
@@ -1470,7 +2100,23 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         ctx.beginPath(); ctx.moveTo(ende.x, ende.y); ctx.lineTo(z.fehl.x, z.fehl.y);
         ctx.strokeStyle = 'rgba(192,57,43,.85)'; ctx.lineWidth = gw * 0.8; ctx.setLineDash([6 * m, 6 * m]); ctx.stroke(); ctx.setLineDash([]);
       }
-      const c = Math.round(zeichnungLaenge(z) * CFG.lineCostPerUnit / 10) * 10, at = z.ziel !== null ? knoten(z.ziel!) : z.fehl ?? ende;
+      // Flussquerungen (blau umrandet) und graue Wahlfelder an Kreuzungen (antippen = Bruecke/Tunnel wechseln).
+      const pl = zeichnungKosten(z).plan;
+      // Feste Bildschirmgroesse (1/k), damit die Felder auch weit herausgezoomt gut antippbar sind.
+      for (const f of pl?.fluesse || []) {
+        ctx.save(); ctx.translate(f.x, f.y); ctx.scale(1 / k, 1 / k);
+        ctx.beginPath(); ctx.arc(0, 0, 9, 0, Math.PI * 2); ctx.fillStyle = '#fff'; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = '#4f8fc6'; ctx.stroke();
+        ctx.font = '11px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#23262b'; ctx.fillText('🌉', 0, 1);
+        ctx.restore();
+      }
+      for (const q of pl?.kreuz || []) {
+        ctx.save(); ctx.translate(q.x, q.y); ctx.scale(1 / k, 1 / k);
+        ctx.beginPath(); ctx.roundRect(-17, -14, 34, 28, 8);
+        ctx.fillStyle = 'rgba(120,128,138,.95)'; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = '#fff'; ctx.stroke();
+        ctx.font = '15px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff'; ctx.fillText(q.art === 'bruecke' ? '🌉' : '🚇', 0, 1);
+        ctx.restore();
+      }
+      const c = zeichnungKosten(z).kosten, at = z.ziel !== null ? knoten(z.ziel!) : z.fehl ?? ende;
       ctx.save(); ctx.translate(at.x, at.y); ctx.scale(m, m);
       label(0, -24, (z.ziel !== null ? '✓ ' : '') + fmt(c), S.money >= c ? '#23262b' : '#c0392b');
       ctx.restore();
@@ -1488,6 +2134,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         ctx.fillStyle = t.own ? (zugFarbe(t) ?? skinFarbe() ?? (i === 0 ? tdef(t).col : tdef(t).col2)) : (i === 0 ? '#2f3a46' : '#5d6b7a');
         ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5;
         ctx.beginPath(); ctx.rect(-5, -3.5, 10, 7); ctx.fill(); ctx.stroke();
+        // Nachts Spitzenlicht am fuehrenden Fahrzeug.
+        if (i === 0 && dunkel > 0.3) { ctx.fillStyle = 'rgba(255,240,170,' + dunkel.toFixed(2) + ')'; ctx.beginPath(); ctx.arc(t.dir > 0 ? 6 : -6, 0, 2.2, 0, 7); ctx.fill(); }
         ctx.restore();
       }
     }
@@ -1507,6 +2155,24 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       ctx.lineWidth = 2.5; ctx.strokeStyle = '#fff'; ctx.stroke();
       ctx.fillStyle = '#fff'; ctx.font = '700 15px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('!', 0, 1);
       ctx.restore();
+    }
+    // Streckentrupps: Symbol in der Mitte der Strecke.
+    for (const L of S.lines) if (L.trupp && truppVon(L)) {
+      const p = posAt(L, L.len * 0.5);
+      ctx.save(); ctx.translate(p.x, p.y); ctx.scale(m, m);
+      ctx.beginPath(); ctx.arc(0, -13, 9, 0, 7); ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = L.color; ctx.stroke();
+      ctx.font = '12px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(truppVon(L)!.icon, 0, -12.5);
+      ctx.restore();
+    }
+    // Tutorial "Strecke bauen": die eigenen Bahnhoefe pulsieren.
+    if (!RO && S.tut === TUT_STRECKE && !zeichnung && welt) {
+      const r = (16 + 4 * Math.sin(performance.now() / 220)) * m;
+      for (const id of meineGebiete()) {
+        const c = stationVon(id);
+        if (c === null) continue;
+        const q = knoten(c);
+        ctx.beginPath(); ctx.arc(q.x, q.y, r, 0, 7); ctx.lineWidth = 3 * m; ctx.strokeStyle = 'rgba(255,150,30,.85)'; ctx.stroke();
+      }
     }
     // Bahnhoefe: kleines Haus mit Dach, Name darunter; beim Zeichnen moegliche Ziele gruen.
     for (const b of S.bf || []) {
@@ -1539,18 +2205,42 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       const q = knoten(c);
       ctx.save(); ctx.translate(q.x, q.y); ctx.scale(m, m); ctx.font = '13px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(WAREN[wareVon(c)].icon, 15, -12); ctx.restore();
     }
+    // Startpunkt-Wahl: alle Staedte blass zur Orientierung (nicht anklickbar, darunter liegt das Gebiet).
+    if (startWahl()) {
+      ctx.fillStyle = 'rgba(35,38,43,.8)'; ctx.font = '700 13px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      for (const c of CITIES) {
+        ctx.save(); ctx.translate(c.x, c.y); ctx.scale(m, m);
+        ctx.beginPath(); ctx.arc(0, 0, 5, 0, 7); ctx.fill(); ctx.fillText(c.n, 0, 7);
+        ctx.restore();
+      }
+    }
     for (let i = 0; i < CITIES.length; i++) {
       if (!S.vis[i]) continue;
       const c = CITIES[i], connected = S.lines.some((l: any) => l.a === i || l.b === i);
       const isSel = sel.city === i || zeichnung?.von === i || zeichnung?.ziel === i, isHov = hover.city === i;
       // Beim Zeichnen: moegliche Zielstaedte (Gebiet gehoert dir/deinem Clan) gruen markieren.
       ctx.save(); ctx.translate(c.x, c.y); ctx.scale(m, m);
+      if (dunkel > 0.15) {
+        // Stadtlicht: groessere Staedte leuchten weiter.
+        const r = 26 + 22 * ewFaktor(gebietVonStadt(i)), gl = ctx.createRadialGradient(0, 0, 4, 0, 0, r);
+        gl.addColorStop(0, 'rgba(255,214,120,' + (0.7 * dunkel).toFixed(2) + ')'); gl.addColorStop(1, 'rgba(255,214,120,0)');
+        ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill();
+      }
       if (zeichnung && i !== zeichnung.von && praesenz(i)) { ctx.beginPath(); ctx.arc(0, 0, 18, 0, 7); ctx.fillStyle = 'rgba(46,139,87,.35)'; ctx.fill(); }
       ctx.beginPath(); ctx.arc(0, 0, isSel || isHov ? 13 : 11, 0, 7);
       ctx.fillStyle = connected ? '#fff' : '#f4f1ea'; ctx.fill();
       ctx.lineWidth = isSel ? 5 : 3.5; ctx.strokeStyle = isSel ? '#e4572e' : '#23262b'; ctx.stroke();
       ctx.fillStyle = '#23262b'; ctx.font = '600 13px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
       ctx.fillText(c.n, 0, 17);
+      ctx.restore();
+    }
+    // Tutorial: huepfender Pfeil auf die naechste Stelle.
+    if (tutKarte) {
+      const hb = Math.abs(Math.sin(performance.now() / 240)) * 10;
+      ctx.save(); ctx.translate(tutKarte.x, tutKarte.y); ctx.scale(m, m); ctx.translate(0, -16 - hb);
+      ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-13, -18); ctx.lineTo(-5, -18); ctx.lineTo(-5, -36); ctx.lineTo(5, -36); ctx.lineTo(5, -18); ctx.lineTo(13, -18); ctx.closePath();
+      ctx.fillStyle = '#ff8a3d'; ctx.fill(); ctx.lineWidth = 3; ctx.strokeStyle = '#fff'; ctx.lineJoin = 'round'; ctx.stroke();
+      if (tutKarte.t) label(0, -50, tutKarte.t, '#c2410c');
       ctx.restore();
     }
     for (const p of popups) {
@@ -1567,16 +2257,26 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   let lastPanel = '';
   const barHTML = (v: number, col: string) => '<div class="bar"><i style="width:' + Math.round(v) + '%;background:' + col + '"></i></div>';
   const condCol = (c: number) => c < 25 ? '#d64545' : c < 50 ? '#e0a030' : '#4caf7d';
+  /** Details (Stadt, Gebiet, Strecke …) bekommen oben ein mitschwebendes ✕ statt „Schließen“ ganz unten. */
+  const ZU_UNTEN = '<div class="btns"><button class="sm" data-act="stadtzu">Schließen</button></div>';
   const panelHTML = () => {
+    const h = panelInhalt();
+    if ((zeichnung && !RO) || (sel.line === null && sel.bf == null && sel.abz == null && sel.city === null && sel.gebiet === null)) return h;
+    return '<button class="px" data-act="stadtzu" title="Schließen" aria-label="Schließen">✕</button>' + h.split(ZU_UNTEN).join('');
+  };
+  const panelInhalt = () => {
     if (zeichnung && !RO) return zeichnungHTML();
+    if (sel.line !== null && S.lines[sel.line]?.gast) return gastHTML(S.lines[sel.line]);
     if (sel.line !== null && S.lines[sel.line]) {
       const L = S.lines[sel.line];
       const own = S.trains.filter((t: any) => t.own && t.line === L.id);
       const care = Math.round(L.len * CFG.careCostPerUnit / 10) * 10;
       let h = '<h3 style="color:' + L.color + '">' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + '</h3>';
-      h += '<div class="mut">Länge ca. ' + Math.round(L.len * .97) + ' km</div>';
+      h += '<div class="mut">Länge ca. ' + Math.round(L.len * .97) + ' km' + (kunstText(kbVon(L)) ? ' · ' + kunstText(kbVon(L)) : '') + (insAusland(L) ? ' · 🌍 grenzüberschreitend' : '') + '</div>';
       h += '<div class="row"><span>Ausbau</span><b>' + klasse(L).n + '</b></div><div class="mut">max. ' + klasse(L).kmh + ' km/h' + (L.ol ? ' · ⚡ Oberleitung' : ' · ohne Oberleitung') + '</div>';
       h += '<div class="row"><span>Zustand</span><b>' + Math.round(L.cond) + ' %</b></div>' + barHTML(L.cond, condCol(L.cond));
+      h += '<div class="row"><span>👥 Fahrgäste</span><b>' + pct(fahrgastFaktor(L)) + '</b></div>' + (pendlerStrecke(L) ? '<div class="mut">🚶 Pendlerstrecke: +' + Math.round((PENDLER_BONUS - 1) * 100) + ' % Fahrgäste.</div>' : '');
+      if (truppVon(L)) h += '<div class="row"><span>👷 Lohn Streckentrupp</span><span class="neg">' + sgn(-(L.lohn || 0)) + '</span></div>';
       h += '<div class="row"><span>Trassenentgelt (Fremdzüge)</span><span class="pos">' + sgn(L.inF) + '</span></div>';
       h += '<div class="row"><span>Miete eigene Züge</span><span class="pos">' + sgn(L.inO) + '</span></div>';
       h += '<div class="row"><b>Einnahmen Strecke</b><b class="pos">' + sgn(L.inF + L.inO) + '</b></div>';
@@ -1586,13 +2286,15 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         if (gesperrt(L)) h += '<p class="neg"><b>🚧 Totalsperrung</b> – hier fährt gerade kein Zug, Bahnhöfe und Gebiete an der Strecke bringen nur die Hälfte.</p>';
         if (L.fault) h += '<p class="neg"><b>⚠ Störung (' + DIFF[L.fault.diff].n + ')</b> – Züge fahren langsamer und bringen nur ' + Math.round(CFG.faultIncome * 100) + ' % Einnahmen. Klicke das rote ! auf der Strecke.</p>';
         h += '<div class="btns"><button data-act="shop" data-arg="z:' + L.id + '">🛒 Zug kaufen …</button>' + ausbauKnopf(L) + olKnopf(L) + bauKnopf(L) + fahrtKnopf(L) + inspektionKnopf(L);
-        h += '<button data-act="care" data-arg="' + L.id + '" ' + (S.money < care || L.cond >= 95 ? 'disabled' : '') + '>Pflege durch Fremdfirma (' + fmt(care) + ')</button></div>';
+        h += '<button data-act="care" data-arg="' + L.id + '" ' + (S.money < care || L.cond >= 95 ? 'disabled' : '') + '>Pflege durch Fremdfirma (' + fmt(care) + ')</button>' +
+          '<button class="sm" data-act="stillegen" data-arg="' + L.id + '" title="Strecke abreißen; eigene Züge kommen ins Depot">Strecke stilllegen</button></div>';
       }
       if (!RO && !L.bau) {
         const geht = abzweigMoeglich(L, sel.punkt);
         h += '<div class="btns"><button data-act="abzbau" data-arg="' + L.id + '" ' + (geht && S.money >= ABZ_PREIS() ? '' : 'disabled') + '>🔀 Abzweigstelle an der angeklickten Stelle · ' + fmt(ABZ_PREIS()) + '</button></div>' +
           (geht ? '' : '<div class="mut">Für eine Abzweigstelle die Strecke an der gewünschten Stelle anklicken (nicht zu nah an den Enden).</div>');
       }
+      h += truppHTML(L);
       h += kapHTML(L);
       h += schutzHTML(L);
       h += '<b>Eigene Züge (' + own.length + ')</b>';
@@ -1602,7 +2304,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         h += '<div class="train"><div class="row"><span>' + tdef(t).n + ' #' + (i + 1) + ' <span class="mut">(' + vKmh(t, L) + ' km/h · ' + t.trips + ' Fahrten)</span></span><b class="' + (n >= 0 ? 'pos' : 'neg') + '">' + sgn(n) + '</b></div>' +
 
           (kohleMangel(t, L) ? '<div class="neg">⚠ Kohlemangel: Kohlelager in ' + knoten(L.a).n + ' oder ' + knoten(L.b).n + ' bauen (Stadt anklicken).</div>' : '') +
-          (RO ? '<button class="sm" data-act="show" data-arg="' + (t.type ?? 1) + '">3D ansehen</button>' : '<button class="sm" data-act="werk" data-arg="' + t.id + '">🔧 Werkstatt: Farbe & Upgrades</button>') + '</div>';
+          (RO ? '<button class="sm" data-act="show" data-arg="' + (t.type ?? 1) + '">3D ansehen</button>' : '<button class="sm" data-act="werk" data-arg="' + t.id + '">🔧 Werkstatt: Farbe & Upgrades</button>') +
+          '<button class="sm" data-act="mitfahren" data-arg="' + t.id + '" title="In der 3D-Ansicht im Führerstand mitfahren">🎥 Mitfahren</button></div>';
       });
       return h;
     }
@@ -1614,25 +2317,31 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const inF = S.lines.reduce((a: number, l: any) => a + l.inF, 0), inO = S.lines.reduce((a: number, l: any) => a + l.inO, 0);
     const verlust = S.lines.reduce((a: number, l: any) => a + (l.verlust || 0), 0), bez = S.bezirkSumme || 0, bfs = S.bfSumme || 0;
     const meineBezirke = welt ? meineGebiete().length : 0;
-    let h = '<h3>' + (RO ? 'Unternehmen' : 'Dein Unternehmen') + '</h3>';
     const lv = level(), von = LEVEL_XP[lv - 1], bis = LEVEL_XP[lv];
-    h += '<div class="row"><span>Level</span><b>' + lv + (bis === undefined ? ' (max.)' : '') + '</b></div>';
-    if (bis !== undefined) h += barHTML(((S.xp || 0) - von) / (bis - von) * 100, '#7b61ff') + '<div class="mut">' + Math.floor(S.xp || 0) + ' / ' + bis + ' Erfahrung – Fahrten, neue Strecken, Ausbau und behobene Störungen bringen Punkte.</div>';
+    const lvP = bis === undefined ? 100 : Math.max(0, Math.min(100, ((S.xp || 0) - von) / (bis - von) * 100));
     const jzA = JAHRESZEITEN[jahreszeit()], wa = wetterArt();
-    h += '<div class="row"><span>Jahreszeit</span><b>' + jzA.icon + ' ' + jzA.n + '</b></div>';
-    if (wa) h += '<div class="row"><span>Wetter</span><b>' + wa.icon + ' ' + wa.n + ' · ' + regionVon(gebieteIm(S.wetter.bl)[0]) + '</b></div><div class="mut">' + wa.text + '</div>';
-    h += '<div class="row"><span>Strecken</span><b>' + S.lines.length + '</b></div>';
-    h += '<div class="row"><span>Eigene Züge</span><b>' + own.length + '</b></div>';
-    h += '<div class="row"><span>Trassenentgelt gesamt</span><span class="pos">' + sgn(inF) + '</span></div>';
-    h += '<div class="row"><span>Mieteinnahmen gesamt</span><span class="pos">' + sgn(inO) + '</span></div>';
-    h += '<div class="row"><span>Gebiete (' + meineBezirke + ')</span><span class="pos">' + sgn(bez) + '</span></div>';
-    h += '<div class="row"><span>Bahnhöfe (' + (S.bf || []).length + ')</span><span class="pos">' + sgn(bfs) + '</span></div>';
-    h += '<div class="row"><span>Güteraufträge</span><span class="pos">' + sgn(S.gueterSumme || 0) + '</span></div>';
-    h += '<div class="row"><span>Verkehrsverträge</span><span class="pos">' + sgn(S.vertragSumme || 0) + '</span></div>';
-    h += '<div class="row"><b>Einnahmen gesamt</b><b class="pos">' + sgn(inF + inO + bez + bfs + (S.gueterSumme || 0) + (S.vertragSumme || 0)) + '</b></div>';
-    h += '<div class="row"><span>Entgangen durch Wartungsstau/Störungen</span><span class="neg">' + sgn(-verlust) + '</span></div>';
-    h += '<div class="mut">' + HOEHEN_QUELLE + ' · Karte: Natural Earth · ' + GEBIET_QUELLE + '</div>';
+    let h = '<div class="ov-kopf"><div class="ov-ring" style="--p:' + lvP.toFixed(1) + '"><b>' + lv + '</b><small>Level</small></div><div class="ov-name">' +
+      '<div class="ov-titel">' + (RO ? 'Unternehmen' : 'Dein Unternehmen') + '</div>' +
+      '<div class="mut">' + (bis === undefined ? 'Höchstes Level erreicht' : Math.floor(S.xp || 0).toLocaleString('de-DE') + ' / ' + bis.toLocaleString('de-DE') + ' Erfahrung') + '</div>' +
+      '<div class="ov-chips"><span class="chip">' + jzA.icon + ' ' + jzA.n + '</span><span class="chip">' + (dunkel > 0.6 ? '🌙 Nacht' : dunkel > 0.05 ? '🌆 Dämmerung' : '☀ Tag') + '</span>' +
+      (wochenende() ? '<span class="chip">Wochenende</span>' : '') + (wa ? '<span class="chip">' + wa.icon + ' ' + wa.n + '</span>' : '') + '</div></div></div>';
+    if (bis !== undefined) h += '<div class="mut ov-tipp">Fahrten, neue Strecken, Ausbau und behobene Störungen bringen Erfahrung.</div>';
+    if (wa) h += '<div class="ov-meldung"><b>' + wa.icon + ' ' + wa.n + ' · ' + regionVon(gebieteIm(S.wetter.bl)[0]) + '</b><div class="mut">' + wa.text + '</div></div>';
+    const ev = ereignisHTML();
+    if (ev) h += '<div class="ov-meldung">' + ev + '</div>';
+    const gebote = RO ? 0 : welt?.geboteOffen || 0;
+    if (gebote) h += '<div class="ov-meldung"><b>💬 ' + gebote + (gebote === 1 ? ' Gebot' : ' Gebote') + ' für deine Gebiete</b><div class="mut">Annehmen oder ablehnen unter „Börse &amp; Markt“ (oben).</div></div>';
+    const kachel = (ic: string, n: number, t: string) => '<div class="kachel"><span class="k-ic">' + ic + '</span><b>' + n.toLocaleString('de-DE') + '</b><small>' + t + '</small></div>';
+    h += '<div class="ov-kacheln">' + kachel('🛤', S.lines.length, 'Strecken') + kachel('🚆', own.length, 'Eigene Züge') + kachel('🗺', meineBezirke, 'Gebiete') + kachel('🚉', (S.bf || []).length, 'Bahnhöfe') + '</div>';
+    const quellen: [string, string, number][] = [['🚄', 'Trassenentgelt', inF], ['🎫', 'Mieteinnahmen', inO], ['🗺', 'Gebiete', bez], ['🚉', 'Bahnhöfe', bfs], ['📦', 'Güteraufträge', S.gueterSumme || 0], ['📜', 'Verkehrsverträge', S.vertragSumme || 0]];
+    const summe = quellen.reduce((a, q) => a + q[2], 0), groesste = Math.max(1, ...quellen.map((q) => q[2]));
+    h += '<div class="ov-summe"><small>Einnahmen gesamt</small><b class="pos">' + sgn(summe) + '</b></div><div class="ov-quellen">';
+    quellen.forEach(([ic, t, v]) => {
+      h += '<div class="ov-q"><span class="ov-qn">' + ic + ' ' + t + '</span><span class="pos">' + sgn(v) + '</span><i class="ov-qb"><i style="width:' + Math.round(Math.max(0, v) / groesste * 100) + '%"></i></i></div>';
+    });
+    h += '</div>' + (S.lohnSumme ? '<div class="row ov-verlust"><span>👷 Löhne Streckentrupps</span><span class="neg">' + sgn(-S.lohnSumme) + '</span></div>' : '') + '<div class="row ov-verlust"><span>Entgangen (Wartungsstau, Störungen)</span><span class="neg">' + sgn(-verlust) + '</span></div>';
     h += '<div class="mut">Laufende Kosten gibt es nicht – schlechter Zustand und Störungen senken nur die Einnahmen. Selbst beheben lohnt sich!</div>';
+    h += '<div class="row"><span>🕑 Spielzeit</span><b>' + datumText(zeit()) + ', ' + uhrText(zeit()) + '</b></div>';
     h += '<h3 style="margin-top:16px">Können (Eigenleistung)</h3>';
     DIFF.forEach((d, i) => {
       const u = unlocked(i);
@@ -1649,21 +2358,20 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (RO) {
       h += '<p class="mut" style="margin-top:14px">Du siehst das Netz nur zum Ansehen. Strecke anklicken = Details.</p>';
     } else {
-      h += '<p class="mut" style="margin-top:14px">Gebiet (Landkreis, Bezirk) auf der Karte anklicken = kaufen; rechts siehst du dann das ganze Bundesland und kannst dort weitere Gebiete kaufen. In eigenen Gebieten kannst du je einen 🚉 Bahnhof bauen. Stadt oder Bahnhof anklicken → „Strecke zeichnen/herstellen“ und über deine Gebiete bis zur nächsten Stadt oder zu deinem nächsten Bahnhof fahren. Strecke anklicken = Details & Züge. Rotes ! = Störung. Mit jeder Verbindung schalten sich neue Städte frei.</p>';
+      h += '<p class="mut" style="margin-top:14px">Gebiet (Landkreis, Bezirk) auf der Karte anklicken = kaufen; rechts siehst du dann das ganze Bundesland und kannst dort weitere Gebiete kaufen. In eigenen Gebieten baust du über „🏗 Bauen“ (über dem Gebiet) einen 🚉 Bahnhof – in Gebieten mit Stadt ist die Stadt der Bahnhof. Stadt oder Bahnhof anklicken → „Strecke zeichnen/herstellen“ und über deine Gebiete bis zur nächsten Stadt oder zu deinem nächsten Bahnhof fahren. Strecke anklicken = Details & Züge. Rotes ! = Störung. Mit jeder Verbindung schalten sich neue Städte frei.</p>';
       h += '<div class="btns"><button data-act="reset" class="sm">Spiel zurücksetzen</button></div>';
     }
+    h += '<div class="mut ov-quelle">' + HOEHEN_QUELLE + ' · Karte: Natural Earth · ' + GEBIET_QUELLE + ' · Einwohner: Wikidata (CC0)</div>';
     return h;
   };
-  const uhr = (iso: string) => new Date(iso).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-  /** Eine Gebietszeile mit Farbe, Besitzer und Kauf-/Uebernahme-Knopf (antippen = auf der Karte auswaehlen). */
+  /** Eine Gebietszeile mit Farbe, Besitzer und Kauf- bzw. Gebots-Knopf (antippen = auf der Karte auswaehlen). */
   const gebietZeile = (g: Gebiet) => {
     const x = besitz(g.id), farbe = x ? (x.clanFarbe || spielerFarbe(x.ownerId)) : '#d9d4c8';
     let knopf = '';
     if (!x) knopf = RO ? '' : '<button class="sm" data-act="gkauf" data-arg="' + g.id + '" ' + (S.money < gebietPreis(g.basis) ? 'disabled' : '') + '>Kaufen · ' + fmt(gebietPreis(g.basis)) + '</button>';
     else if (istMein(x)) knopf = '<span class="pos">✓</span>';
     else if (istClan(x)) knopf = '<span class="mut">Clan' + (x.aktiv ? '' : ' (inaktiv)') + '</span>';
-    else if (new Date(x.geschuetztBis).getTime() > Date.now()) knopf = '<span class="mut">🛡 bis ' + uhr(x.geschuetztBis) + '</span>';
-    else if (!RO) knopf = '<button class="sm" data-act="gkauf" data-arg="' + g.id + '" ' + (S.money < gebietPreis(x.basis * 3) ? 'disabled' : '') + '>Übernehmen · ' + fmt(gebietPreis(x.basis * 3)) + '</button>';
+    else if (!RO) knopf = '<button class="sm" data-act="gebot" data-arg="' + g.id + '">💬 Gebot</button>' + (x.bot ? '<div class="mut bot-tipp">🤖 Bot-Firma: antwortet nach ein paar Minuten – ab dem doppelten Grundpreis verkauft sie meist (das Heimatgebiet nie).</div>' : '');
     return '<div class="bezirk' + (sel.gebiet === g.id ? ' gewaehlt' : '') + '" data-act="gwahl" data-arg="' + g.id + '"><span class="farbpunkt" style="background:' + farbe + '"></span>' +
       '<span class="bz-n">' + g.n + (bfIn(g.id) ? ' 🚉' : '') + ' <span class="mut">· ' + besitzerText(x) + '</span></span>' + knopf + '</div>';
   };
@@ -1679,19 +2387,32 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const gebietHTML = (id: number) => {
     const g = gebietMitId(id);
     if (!g) return '';
+    if (startWahl()) return startHTML(g);
     let h = '<h3>' + g.n + '</h3><div class="mut">' + gebietArt(g) + ' · ca. ' + g.f.toLocaleString('de-DE') + ' km²</div>';
     if (!welt) h += '<p class="mut">' + (RO ? '' : 'Besitz wird geladen …') + '</p>';
     else {
-      h += gebietZeile(g) + gebietEinnahmen(g);
+      if (!RO && !besitz(g.id) && nachbarn(g.id).some((o) => istMein(besitz(o)))) h += '<div class="pos">✓ Grenzt an dein Gebiet – nach dem Kauf kannst du hier einen Bahnhof bauen.</div>';
+      h += gebietZeile(g) + gebietEinnahmen(g) + einwohnerHTML(g) + pendlerHTML(g) + klimaHTML(g);
       if (g.staedte.length) h += '<div class="row"><span>Städte</span><b>' + g.staedte.map((c) => CITIES[c].n).join(', ') + '</b></div>';
       const durch = S.lines.filter((l: any) => l.gebiete.includes(g.id));
       if (durch.length) h += '<div class="mut">Deine Strecken hier: ' + durch.map((l: any) => knoten(l.a).n + ' ⇄ ' + knoten(l.b).n).join(', ') + '</div>';
       h += bahnhofTeil(g);
-      if (!RO) h += '<div class="mut">Strecken darfst du nur über eigene Gebiete zeichnen (oder über die von aktiven Clan-Mitgliedern). Fremde Gebiete kosten das Dreifache; der bisherige Besitzer bekommt den Grundpreis erstattet. Frisch gekaufte Gebiete sind 2 Stunden geschützt.</div>';
+      if (!RO) h += '<div class="mut">Strecken führen frei über eigene Gebiete (und die aktiver Clan-Mitglieder). Durch fremde Gebiete darfst du gegen eine einmalige Durchfahrtsgebühr bauen' +
+        ' (' + Math.round(DURCHFAHRT_ANTEIL * 100) + ' % vom Grundpreis, geht an den Besitzer). Kaufen kannst du ein fremdes Gebiet nur, wenn der Besitzer dein Gebot annimmt.</div>';
       h += landHTML(g, false);
     }
     h += '<div class="mut">' + GEBIET_QUELLE + '</div><div class="btns"><button class="sm" data-act="stadtzu">Schließen</button></div>';
     return h;
+  };
+  /** Startpunkt-Wahl (Tutorial, Schritt 0): freies Gebiet irgendwo in Europa, belegte nicht. */
+  const startHTML = (g: Gebiet) => {
+    const x = besitz(g.id), preis = gebietPreis(g.basis);
+    let h = '<h3>🚩 ' + g.n + '</h3><div class="mut">' + gebietArt(g) + ' · ca. ' + g.f.toLocaleString('de-DE') + ' km²</div>';
+    if (x) h += '<p class="neg">Hier hat schon ' + besitzerText(x) + ' angefangen – such dir ein freies Gebiet aus.</p>';
+    else h += '<div class="btns"><button class="good" data-act="startwahl" data-arg="' + g.id + '" ' + (S.money < preis ? 'disabled' : '') + '>🚩 Hier starten · ' + fmt(preis) + '</button></div>' +
+      '<div class="mut">' + (g.staedte.length ? 'Dein erster Bahnhof ist ' + CITIES[g.staedte[0]].n : 'Hier baust du deinen ersten Bahnhof') + '. Danach kaufst du ein Nachbargebiet und verbindest die beiden Bahnhöfe.</div>';
+    h += einwohnerHTML(g) + pendlerHTML(g) + '<h3 style="margin-top:12px">Wetter hier</h3>' + klimaHTML(g);
+    return h + '<div class="mut">' + GEBIET_QUELLE + '</div>';
   };
   /** Panel einer Stadt: Aktivitaet anderer Spieler, ihr Gebiet und "Strecke zeichnen". */
   const stadtHTML = (c: number) => {
@@ -1701,11 +2422,12 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (!welt) {
       h += '<p class="mut">' + (RO ? '' : 'Gebiete werden geladen …') + '</p>';
     } else {
-      if (g) h += '<h3 style="margin-top:10px">Gebiet</h3>' + gebietZeile(g) + gebietEinnahmen(g) + bahnhofTeil(g);
+      if (g) h += '<h3 style="margin-top:10px">Gebiet</h3>' + gebietZeile(g) + gebietEinnahmen(g) + einwohnerHTML(g) + bahnhofTeil(g);
       const team = clanArbeiter(c), ich = eigenerBezirk(c);
       if (team.length || ich) h += '<div class="row"><span>Hier arbeitet</span><b>' + (ich ? 'du' : team.join(', ')) + '</b></div>';
       if (!RO) {
-        h += '<div class="btns"><button data-act="zeichne" data-arg="' + c + '" ' + (praesenz(c) ? '' : 'disabled') + '>🛤 Strecke von hier zeichnen</button></div>';
+        h += '<div class="btns"><button data-act="zeichne" data-arg="' + c + '" ' + (praesenz(c) ? '' : 'disabled') + '>🛤 Strecke von hier zeichnen</button>' +
+          (opts.onTrassenSuchen ? '<button class="sm" data-act="trsuche" data-arg="' + c + '">🤝 Strecken anderer Spieler mieten</button>' : '') + '</div>';
         h += '<div class="mut">' + (praesenz(c) ? 'Die Strecke folgt deinem Zeiger und geht nur über deine Gebiete (und die aktiver Clan-Mitglieder). Je länger, desto teurer.'
           : '✗ Für Strecken von und nach ' + C.n + ' muss dir (oder einem aktiven Clan-Mitglied) das Gebiet gehören.') + '</div>';
       }
@@ -1721,6 +2443,10 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   /** Bahnhof-Abschnitt im Gebiets-/Stadt-Panel: vorhandenen Bahnhof oeffnen oder einen bauen. */
   const bahnhofTeil = (g: Gebiet) => {
     const b = bfIn(g.id);
+    if (!b && g.staedte.length && istMein(besitz(g.id))) {
+      const c = g.staedte[0];
+      return '<div class="row"><span>🚉 Bahnhof</span><b>' + CITIES[c].n + '</b></div>' + (RO ? '' : '<div class="btns"><button data-act="zeichne" data-arg="' + c + '">🛤 Strecke von hier herstellen</button></div>');
+    }
     if (b) return '<div class="row"><span>🚉 Bahnhof</span><b>' + bfName(b) + '</b></div><div class="btns">' +
       (RO ? '' : '<button data-act="zeichne" data-arg="' + (BF0 + b.id) + '" ' + (praesenz(BF0 + b.id) ? '' : 'disabled') + '>🛤 Strecke vom Bahnhof herstellen</button>') +
       '<button class="sm" data-act="bf" data-arg="' + b.id + '">Bahnhof öffnen</button></div>';
@@ -1732,7 +2458,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   /** Panel eines Bahnhofs: Strecken, Einnahmen, "Strecke herstellen". */
   const bahnhofHTML = (id: number) => {
     const b = bfMit(id), g = gebietMitId(b.g), str = bfStrecken(b), andere = (S.bf || []).length - 1;
-    let h = '<h3>🚉 ' + bfName(b) + '</h3><div class="mut">Bahnhofsgebäude' + (g ? ' · ' + g.n + ' · ' + regionVon(g) : '') + '</div>';
+    let h = '<h3>🚉 ' + bfName(b) + '</h3><div class="mut">Bahnhofsgebäude' + (g ? ' · ' + g.n + ' · ' + regionVon(g) : '') + '</div>' + (g ? '<div class="row"><span>👥 Einwohner</span><b>' + (g.ewGeschaetzt ? 'ca. ' : '') + g.ew.toLocaleString('de-DE') + '</b></div>' + pendlerHTML(g) : '');
     h += '<div class="row"><span>Angeschlossene Strecken</span><b>' + str.length + '</b></div>';
     h += '<div class="row"><span>Einnahmen</span><b class="pos">' + fmt(bfRate(b) * 60) + ' / Min.</b></div>';
     if (str.length) {
@@ -1745,7 +2471,6 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     h += gbfTeil(BF0 + b.id);
     if (!RO) {
       h += '<div class="btns"><button data-act="zeichne" data-arg="' + (BF0 + b.id) + '" ' + (praesenz(BF0 + b.id) ? '' : 'disabled') + '>🛤 Strecke herstellen</button>';
-      if (!str.length) h += '<button class="sm" data-act="bfweg" data-arg="' + b.id + '">Abreißen (+' + fmt(BAHNHOF.preis / 2) + ')</button>';
       h += '</div>';
       if (!praesenz(BF0 + b.id)) h += '<p class="neg">Das Gebiet gehört dir nicht mehr – von hier kannst du keine neue Strecke bauen.</p>';
       if (andere < 1) h += '<p class="hinweis">' + BF_HINWEIS + '</p>';
@@ -1754,7 +2479,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     h += '<div class="btns"><button class="sm" data-act="stadtzu">Schließen</button></div>';
     return h;
   };
-  const BF_HINWEIS = 'ℹ Um die Strecke zu vervollständigen, brauchst du ein weiteres Bahnhofsgebäude: kauf ein weiteres Gebiet (am besten gleich daneben) und bau dort einen Bahnhof. Alternativ kannst du die Strecke zu einer Stadt in deinem Gebiet führen.';
+  const BF_HINWEIS = 'ℹ Für eine Strecke brauchst du einen zweiten Bahnhof: kauf ein weiteres Gebiet (am besten gleich daneben) und bau dort über „🏗 Bauen“ einen. Strecken dürfen auch in einer Stadt in deinem Gebiet enden.';
   /** Bundesland-Uebersicht als SVG: alle Gebiete (antippen = auswaehlen), Besitzfarben, Staedte und Bahnhoefe. */
   let landCache = { key: '', svg: '' };
   const landSVG = (bl: string, wahl: number | null, gross: boolean) => {
@@ -1802,41 +2527,93 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const landModalHTML = () => {
     const w = gebietMitId(modal.wahl)!, gs = gebieteIm(w.bl);
     let h = '<h2>🗺 ' + regionVon(w) + '</h2><div class="land-gross"><div class="land-karte">' + landSVG(w.bl, w.id, true) + '</div><div class="land-seite">';
-    h += '<b>' + w.n + '</b><div class="mut">' + gebietArt(w) + ' · ca. ' + w.f.toLocaleString('de-DE') + ' km²</div>' + gebietZeile(w) + gebietEinnahmen(w) + bahnhofTeil(w);
+    h += '<b>' + w.n + '</b><div class="mut">' + gebietArt(w) + ' · ca. ' + w.f.toLocaleString('de-DE') + ' km²</div>' + gebietZeile(w) + gebietEinnahmen(w) + einwohnerHTML(w) + bahnhofTeil(w);
     h += '<div class="mut" style="margin-top:8px">Alle ' + gs.length + ' Gebiete:</div><div class="landliste">' + gs.map(gebietZeile).join('') + '</div>';
     return h + '</div></div><div class="opts"><button data-act="close">Schließen</button></div>';
   };
   /** Panel waehrend eine Strecke gezeichnet wird. */
   const zeichnungHTML = () => {
-    const z = zeichnung!, len = zeichnungLaenge(z), c = Math.round(len * CFG.lineCostPerUnit / 10) * 10;
+    const z = zeichnung!, len = zeichnungLaenge(z), zk = zeichnungKosten(z), c = zk.kosten;
     let h = '<h3>🛤 Strecke zeichnen</h3>';
     h += '<div class="row"><span>Von</span><b>' + knoten(z.von).n + '</b></div>';
     h += '<div class="row"><span>Nach</span><b>' + (z.ziel !== null ? knoten(z.ziel!).n : '–') + '</b></div>';
     h += '<div class="row"><span>Länge</span><b>ca. ' + Math.round(len * 0.97) + ' km</b></div>';
-    h += '<div class="row"><span>Kosten</span><b class="' + (S.money >= c ? '' : 'neg') + '">' + fmt(c) + '</b></div>';
+    const pl = zk.plan!;
+    h += '<div class="row"><span>Gleis</span><b>' + fmt(pl.strecke) + '</b></div>';
+    if (kunstText(zk.g)) h += '<div class="mut">' + kunstText(zk.g) + ' – Kunstbauten machen die Strecke ' + pct(zk.g!.faktor) + ' so teuer wie im Flachland.</div>';
+    if (pl.fluesse.length) {
+      h += '<div class="row"><span>🌊 Flussbrücken (' + pl.fluesse.length + ')</span><b>' + fmt(pl.fluesse.reduce((a, f) => a + f.preis, 0)) + '</b></div>';
+      h += '<div class="mut">' + pl.fluesse.map((f) => f.n + ' (' + FLUSS_BRUECKE[f.k].n + ')').join(', ') + '</div>';
+    }
+    if (pl.kreuz.length) {
+      h += '<h3>Kreuzungen</h3><div class="mut">Hier kreuzt die neue Strecke eine vorhandene. Wähle je Kreuzung – auch direkt am grauen Feld auf der Karte.' +
+        ' Im Flachland ist die Brücke günstiger, im Bergland der Tunnel.</div>';
+      for (const q of pl.kreuz) {
+        const L = S.lines[q.linie];
+        h += '<div class="kreuz-zeile"><span class="kz-n">✕ ' + (L ? knoten(L.a).n + ' ⇄ ' + knoten(L.b).n : 'Strecke') + (q.berg ? ' <span class="mut">· Bergland</span>' : '') + '</span><span class="kz-wahl">';
+        for (const art of ['bruecke', 'tunnel'] as KreuzArt[]) h += '<button class="sm' + (q.art === art ? ' on' : '') + '" data-act="kreuz" data-arg="' + q.key + '|' + art + '">' + KREUZ_NAME[art] + ' · ' + fmt(kreuzPreis(art, q.berg)) + '</button>';
+        h += '</span></div>';
+      }
+    }
+    if (pl.durch.length) {
+      h += '<h3>Durchfahrt</h3><div class="mut">Die Strecke führt durch fremde Gebiete. Das kostet einmalig eine Gebühr, die der Besitzer bekommt – das Gebiet bleibt seins.</div>';
+      for (const d of pl.durch) h += '<div class="row"><span>' + d.g.n + ' <span class="mut">· ' + besitzerText(besitz(d.g.id)) + '</span></span><b>' + fmt(d.betrag) + '</b></div>';
+    }
+    h += '<div class="row zk-summe"><span>Kosten gesamt</span><b class="' + (S.money >= c ? '' : 'neg') + '">' + fmt(c) + '</b></div>';
+    if (ereignisAktiv('engpass')) h += '<div class="neg">📦 Lieferengpass: Bauen kostet gerade 50 % mehr.</div>';
     if (z.fehl) {
       // Erste nicht erlaubte Stelle zwischen Linienende und Zeiger: welches Gebiet versperrt den Weg?
       const a = z.pts[z.pts.length - 1], f = z.fehl, n = Math.max(1, Math.ceil(dist(a, f) / 0.8));
       let g: Gebiet | null = null, meer = false;
       for (let i = 1; i <= n && !g && !meer; i++) {
         const x = a.x + (f.x - a.x) * i / n, y = a.y + (f.y - a.y) * i / n;
-        if (stelleErlaubt(x, y, erlaubt)) continue;
+        if (stelleErlaubt(x, y, befahrbar)) continue;
         g = gebietAn(x, y); meer = !g;
       }
-      const x = g ? besitz(g.id) : null;
-      h += '<p class="neg">' + (g ? g.n + (x ? ' gehört ' + besitzerText(x) + (istClan(x) ? ' (seit über 7 Tagen nicht gespielt)' : '') : ' gehört noch niemandem') + ' – kauf es oder bau drumherum.'
-        : 'Hier geht keine Strecke (Meer).') + '</p>';
+      h += '<p class="neg">' + (g ? g.n + ' gehört noch niemandem – kauf es oder bau drumherum.' : 'Hier geht keine Strecke (Meer).') + '</p>';
       if (g) h += gebietZeile(g);
     }
     if (z.ziel !== null && lineExists(z.von, z.ziel)) h += '<p class="neg">Diese Verbindung hast du schon.</p>';
     if (z.von >= BF0 && z.ziel === null && (S.bf || []).length < 2) h += '<p class="hinweis">' + BF_HINWEIS + '</p>';
-    else if (z.ziel === null) h += '<p class="hinweis">Drück auf ' + knoten(z.von).n + ', halte gedrückt und zieh über deine Gebiete bis zum Ziel. Dort loslassen – dann wird die Strecke gebaut.</p>';
+    else if (z.ziel === null) h += '<p class="hinweis">Drück auf ' + knoten(z.von).n + ', halte gedrückt und zieh bis zum Ziel. Dort loslassen – dann wird die Strecke gebaut. Über eigene Gebiete frei, durch fremde gegen Durchfahrtsgebühr; freie Gebiete erst kaufen.</p>';
+    else if (pl.kreuz.length) h += '<p class="hinweis">Brücke oder Tunnel wählen, dann „Bauen“.</p>';
     h += '<div class="btns">';
     if (z.ziel !== null) h += '<button data-act="zbau" ' + (S.money < c || lineExists(z.von, z.ziel) ? 'disabled' : '') + '>✅ Bauen · ' + fmt(c) + '</button>';
     h += '<button class="sm" data-act="zzurueck" ' + (z.pts.length > 1 ? '' : 'disabled') + '>↶ Stück zurück</button><button class="sm" data-act="zab">Abbrechen</button></div>';
     h += '<div class="mut">Gedrückt halten und ziehen (Maus oder Finger), am grün markierten Ziel loslassen. Lässt du vorher los, bleibt das Stück stehen – einfach weiterziehen. ' +
       'Zurück über die eigene Linie fahren kürzt sie. Karte verschieben: 3D rechte Maustaste, Handy zwei Finger; zoomen mit dem Mausrad. Esc = Abbrechen.</div>';
     return h;
+  };
+  /** Panel einer gemieteten Trasse: Besitzer, Miete, eigene Zuege, kuendigen. */
+  const gastHTML = (L: any) => {
+    const own = S.trains.filter((t: any) => t.own && t.line === L.id);
+    let h = '<h3 style="color:' + L.color + '">🤝 ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + '</h3>';
+    h += '<div class="mut">Gemietete Trasse von <b>' + L.gast.ownerName + '</b> · ' + klasse(L).n + ', max. ' + klasse(L).kmh + ' km/h' + (L.ol ? ' · ⚡' : '') + '</div>';
+    h += '<div class="row"><span>Miete</span><b class="neg">' + fmt(L.gast.preisMin) + ' / Min.</b></div><div class="mut">Die Miete läuft, solange du spielst – auch ohne Zug. Ausbau und Instandhaltung macht der Besitzer.</div>';
+    h += '<div class="row"><span>Miete eigene Züge</span><span class="pos">' + sgn(L.inO) + '</span></div>';
+    if (!RO) h += '<div class="btns"><button data-act="shop" data-arg="z:' + L.id + '">🛒 Zug kaufen …</button><button class="sm" data-act="gastweg" data-arg="' + L.id + '">Trasse kündigen</button></div>';
+    h += '<b>Eigene Züge (' + own.length + ')</b>';
+    own.forEach((t: any) => { h += '<div class="train"><div class="row"><span>' + tdef(t).n + ' <span class="mut">(' + vKmh(t, L) + ' km/h)</span></span><b class="pos">' + sgn(t.earned) + '</b></div><button class="sm" data-act="mitfahren" data-arg="' + t.id + '">🎥 Mitfahren</button></div>'; });
+    return h + '<div class="btns"><button class="sm" data-act="stadtzu">Schließen</button></div>';
+  };
+  /** Liste fremder Strecken an einer Stadt (vom Server), zum Mieten. */
+  const trassenHTML = () => {
+    const m = modal;
+    let h = '<h2>🤝 Trassen mieten · ' + CITIES[m.stadt].n + '</h2><div class="mut">Strecken anderer Spieler an dieser Stadt. Gemietet fahren deine Züge darauf und bringen dir Miete; der Besitzer bekommt dafür je Minute einen festen Betrag.</div>';
+    if (m.laden) return h + '<p class="mut">Wird geladen …</p><div class="opts"><button data-act="close">Schließen</button></div>';
+    if (!m.liste.length) h += '<p class="mut">Hier hat gerade kein anderer Spieler eine Strecke.</p>';
+    h += '<div class="shop-liste">';
+    m.liste.forEach((x: any, i: number) => {
+      const schon = S.lines.some((L: any) => L.gast && L.gast.owner === x.owner && ((L.a === x.a && L.b === x.b) || (L.a === x.b && L.b === x.a)));
+      h += '<div class="shop-zug"><div class="shop-text"><b>' + CITIES[x.a].n + ' ⇄ ' + CITIES[x.b].n + '</b> <span class="mut">· ' + x.ownerName + '</span><div class="mut">' + (KLASSEN[x.cls] || KLASSEN[0]).n + (x.ol ? ' · ⚡ Oberleitung' : '') + ((x.gleise || 1) === 2 ? ' · zweigleisig' : '') + ' · Miete ' + fmt(x.preisMin) + '/Min.</div></div>' +
+        (schon ? '<button disabled>✓ gemietet</button>' : '<button data-act="trmiete" data-arg="' + i + '">Mieten</button>') + '</div>';
+    });
+    return h + '</div><div class="opts"><button data-act="close">Schließen</button></div>';
+  };
+  /** Mietpreis je Minute: nach Laenge und Ausbau (Server prueft nur die Grenzen). */
+  const trassenPreis = (x: any) => {
+    const g = Array.isArray(x.p) && x.p.length >= 4 ? geoAusPunkten(x.p) : null, len = g ? g.len : dist(CITIES[x.a], CITIES[x.b]) * 1.15;
+    return Math.max(10, Math.round(len * 0.25 * ((KLASSEN[x.cls] || KLASSEN[0]).entgelt || 1) / 5) * 5);
   };
   /** Inspektion: freiwillige Arbeit an einer Strecke (Fachfragen), bringt Zustand, Geld und Erfahrung. */
   const inspektionKnopf = (L: any, kurz = false) => {
@@ -1861,6 +2638,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     let h = '<h2>🛠 Arbeiten</h2><div class="mut">Selbst erledigen bringt Geld und Erfahrung, Fehlversuche kosten nichts. Störungen senken die Einnahmen der Strecke und deiner Gebiete entlang der Strecke.</div><div class="shop-liste">';
     let n = 0;
     S.lines.forEach((L: any) => {
+      if (L.gast) return;
       const name = knoten(L.a).n + ' ⇄ ' + knoten(L.b).n;
       if (L.bau) { n++; h += '<div class="shop-zug"><div class="shop-text"><b>🚧 ' + MASSNAHMEN[L.bau.m].n + '</b><div class="mut">' + name + '</div>' + bauKnopf(L) + '</div></div>'; }
       if (L.fault) {
@@ -1874,6 +2652,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         h += '<div class="shop-zug"><div class="shop-text"><b>🔧 Inspektion</b><div class="mut">' + name + ' · Zustand ' + Math.round(L.cond) + ' % · 3 Fachfragen, +30 % Zustand</div></div>' + inspektionKnopf(L, true) + '</div>';
       }
     });
+    if (ereignisAktiv('streik')) { n++; h += '<div class="shop-zug"><div class="shop-text"><b>✊ Streik</b><div class="mut">' + ereignisText() + '</div></div><button data-act="streikende" ' + (S.money < streikPreis() ? 'disabled' : '') + '>Einigen · ' + fmt(streikPreis()) + '</button></div>'; }
     if (!n) h += '<p class="mut">Gerade gibt es nichts zu tun – alles in Schuss!</p>';
     return h + '</div><div class="opts"><button data-act="close">Schließen</button></div>';
   };
@@ -1984,10 +2763,12 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     return { ...q, choices: reihe.map((i: number) => q.choices[i]), correctIndex: reihe.indexOf(q.correctIndex) };
   };
   /** zweck: 'stoerung' (Stoerung auf modal.line beheben), 'inspektion' oder 'bau' (Arbeitsvorbereitung). */
-  const startQuiz = (line: number, thema: string, themaN: string, n: number, need: number, zweck: 'stoerung' | 'inspektion' | 'bau' | 'lehrgang' | 'schicht', extra?: any) => {
+  const startQuiz = (line: number, thema: string, themaN: string, n: number, need: number, zweck: 'stoerung' | 'inspektion' | 'bau' | 'lehrgang' | 'schicht' | 'taeglich' | 'pruefung', extra?: any) => {
     modal = { kind: 'quiz', line, zweck, themaN, laden: true, extra };
     renderModal();
-    ladeFragen(thema).then((liste) => {
+    // Mehrere Themen (durch Komma getrennt): alle laden und mischen.
+    const laden = thema.includes(',') ? Promise.all(thema.split(',').map((t) => ladeFragen(t).catch(() => [] as any[]))).then((l) => { const a = l.flat(); if (!a.length) throw new Error('keine Fragen'); return a; }) : ladeFragen(thema);
+    laden.then((liste) => {
       if (modal?.kind !== 'quiz' || modal.line !== line) return;
       Object.assign(modal, { laden: false, fragen: shuffle(liste.slice()).slice(0, n).map(mischeAntworten), i: 0, ok: 0, need: Math.min(need, n), antwort: null });
       renderModal();
@@ -2000,7 +2781,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   };
   const quizHTML = () => {
     const q = modal, L = S.lines[q.line];
-    let h = '<h2>' + (q.zweck === 'schicht' ? '👷 Arbeitsschicht · Clan-Großprojekt</h2>' : q.zweck === 'lehrgang' ? '🎓 Lehrgang · ' + ROLLEN.find((r) => r.id === q.extra.rolle)!.n + '</h2>'
+    let h = '<h2>' + (q.zweck === 'taeglich' ? '📅 Tägliche Aufgabe · ' + q.themaN + '</h2>' : q.zweck === 'pruefung' ? '📝 Zwischenprüfung</h2>' : q.zweck === 'schicht' ? '👷 Arbeitsschicht · Clan-Großprojekt</h2>' : q.zweck === 'lehrgang' ? '🎓 Lehrgang · ' + ROLLEN.find((r) => r.id === q.extra.rolle)!.n + '</h2>'
       : (q.zweck === 'stoerung' ? '⚠ ' + FEHLER_ARTEN[L.fault?.art ?? 0].n : q.zweck === 'bau' ? '📋 Arbeitsvorbereitung' : '🔧 Inspektion') + ' <span class="mut">· ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + '</span></h2>');
     if (q.laden) return h + '<p class="mut">Fragen werden geladen …</p>';
     const f = q.fragen[q.i];
@@ -2022,7 +2803,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const quizAntwort = (i: number) => {
     const q = modal; if (q.antwort !== null || q.laden) return;
     q.antwort = i;
-    if (i === q.fragen[q.i].correctIndex) q.ok++;
+    if (i === q.fragen[q.i].correctIndex) { q.ok++; spiele('erfolg'); } else spiele('fehler');
     renderModal();
   };
   const quizWeiter = () => {
@@ -2032,6 +2813,11 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (q.zweck === 'stoerung') { if (L.fault) resolveFault(L, ok ? 'self-ok' : 'self-fail'); }
     else if (q.zweck === 'bau') starteBau(L, q.extra.m, q.extra.sp, q.ok);
     else if (q.zweck === 'lehrgang') lehrgangErgebnis(q.extra.rolle, ok);
+    else if (q.zweck === 'taeglich') { if (ok) tagesFertig(); else { addXp(2); toast('Leider nur ' + q.ok + ' richtig – versuch es gleich nochmal (andere Fragen).', 4500); } }
+    else if (q.zweck === 'pruefung') {
+      if (ok) { S.money += PRUEFUNG.lohn; addXp(PRUEFUNG.xp); zaehle('pruefung'); lernPause('pruefung', PRUEFUNG.pause); toast('📝 Zwischenprüfung bestanden: ' + q.ok + ' von ' + q.fragen.length + ' richtig! +' + fmt(PRUEFUNG.lohn), 6000); }
+      else { addXp(5); lernPause('pruefung', 120); toast('📝 Nicht bestanden (' + q.ok + ' von ' + q.fragen.length + ', nötig ' + q.need + '). In 2 Minuten nochmal – vorher in der Lernwelt üben!', 6000); }
+    }
     else if (q.zweck === 'schicht') { S.schichtAb = S.time + SCHICHT_PAUSE; addXp(q.ok * 2); if (q.ok) opts.onClanBeitrag?.(q.ok * SCHICHT_WERT, true); else toast('Keine Frage richtig – die Schicht zählt nicht.'); }
     else inspektionErgebnis(L, ok);
     closeModal(); save();
@@ -2054,49 +2840,405 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   };
   const updateHUD = () => {
     const m = $('#money'); m.textContent = fmt(S.money); m.classList.toggle('neg', S.money < 0);
-    $('#day').textContent = 'Tag ' + (Math.floor(S.time / CFG.daySec) + 1) + ' · ' + JAHRESZEITEN[jahreszeit()].icon + ' ' + JAHRESZEITEN[jahreszeit()].n + (S.wetter ? ' · ' + wetterArt()!.icon + ' ' + wetterArt()!.n : '');
+    const z = zeit(), uhr = (dunkel > 0.6 ? '🌙 ' : '🕑 ') + uhrText(z);
+    $('#day').textContent = datumText(z) + ' · ' + uhr + ' · ' + JAHRESZEITEN[z.jahreszeit].icon + ' ' + JAHRESZEITEN[z.jahreszeit].n + (S.wetter ? ' · ' + wetterArt()!.icon + ' ' + wetterArt()!.n : '') + (ereignis() ? ' · ' + ereignis()!.icon + ' ' + ereignis()!.n : '');
+    const uc = $('#uhr'); if (uc) uc.textContent = uhr + ' · ' + z.tagImMonat + '.' + (z.monat + 1) + '. ' + JAHRESZEITEN[z.jahreszeit].icon + (S.wetter ? ' ' + wetterArt()!.icon : '');
     const lvEl = $('#lvl');
     if (lvEl) lvEl.textContent = '⭐ Level ' + level() + ' · 🏆 ' + (S.pokale || 0);
-    root.querySelectorAll('#speeds button').forEach((b: any) => b.classList.toggle('on', +b.dataset.arg === S.speed));
+    const xb = $('#xpbar'), lvx = level(), xVon = LEVEL_XP[lvx - 1], xBis = LEVEL_XP[lvx];
+    if (xb) xb.style.width = (xBis === undefined ? 100 : Math.max(0, Math.min(100, ((S.xp || 0) - xVon) / (xBis - xVon) * 100))) + '%';
+    root.querySelectorAll('#speeds button[data-act="speed"]').forEach((b: any) => b.classList.toggle('on', +b.dataset.arg === S.speed));
+    const tb = $('#tonbtn'); if (tb) tb.textContent = tonAn() ? '🔊' : '🔇';
+    const lp = $('#lernpunkt'); if (lp) lp.style.display = RO || tagesErledigt() ? 'none' : 'block';
     const h = panelHTML();
-    if (h !== lastPanel) { $('#panel').innerHTML = h; lastPanel = h; }
+    if (h !== lastPanel) {
+      $('#panel').innerHTML = h; lastPanel = h;
+      // Griff zeigt, was gerade im Panel steht (Ueberschrift), damit man es auch eingeklappt erkennt.
+      const gt = $('#panelgriff-titel'), h3 = $('#panel h3, #panel .ov-titel');
+      if (gt) gt.textContent = (h3?.textContent || 'Übersicht').trim();
+    }
+    panelFolgtAuswahl();
     const wb = $('#weltbtn');
     if (wb) {
       const an = !!fokus.box || zoom > 1.05;
       wb.style.display = an ? 'block' : 'none';
-      if (an) wb.textContent = '🌍 Zur Weltkarte' + (fokus.name ? ' (aus ' + fokus.name + ')' : '');
+      if (an) wb.textContent = '🌍 Ganz Europa' + (fokus.name ? ' (aus ' + fokus.name + ')' : '');
     }
     tutorial();
+    truppLeiste();
+    feldMenue();
   };
 
   /* ---------- Tutorial ---------- */
-  const TUT = [
-    { t: 'Willkommen! Klicke Berlin an und kaufe sein Gebiet (Bezirk Mitte). Kaufe dann eine Kette von Gebieten (auf der Karte anklicken) bis zu einer anderen Stadt, z. B. über Brandenburg nach Leipzig. Danach bei Berlin „Strecke zeichnen“ und mit dem Zeiger über deine Gebiete bis zur Zielstadt fahren.', ok: () => S.lines.length > 0 },
-    { t: 'Gebaut! Fremdzüge nutzen deine Strecke und zahlen Trassenentgelt. Klicke die Strecke an für Details.', ok: () => S.openedLine },
-    { t: 'Kaufe jetzt einen eigenen Zug: „🛒 Zug kaufen“ bei der Strecke oder oben im Shop.', ok: () => S.trains.some((t: any) => t.own) },
-    { t: 'Verschleiß verursacht Störungen. Sobald ein rotes „!“ erscheint: anklicken und Aufgabe wählen.', ok: () => S.faultsFixed > 0 },
-    { t: 'Stark! Erweitere dein Netz – neue Verbindungen schalten neue Städte frei. Behalte Zustand & Kosten im Blick.', ok: () => S.tutT > 14, reset: true },
+  /**
+   * Gefuehrter Einstieg mit Pfeilen: Startpunkt waehlen -> Bahnhof bauen (Feld-Menue "Bauen" ueber dem Gebiet) ->
+   * Nachbargebiet kaufen (Stern = wohin die meisten pendeln) -> dort Bahnhof bauen -> Strecke herstellen -> Einnahmen
+   * ansehen -> Zug kaufen -> Stoerung beheben -> Streckentrupp einsetzen. Bis die erste Strecke steht, ist nur Karte und
+   * Hinweis zu sehen (Klasse tut-fokus). TUT_V: Fassung der Schrittfolge; aeltere Staende mit Strecken gelten als fertig.
+   */
+  const finger = () => matchMedia('(pointer: coarse)').matches;
+  const tippe = () => (finger() ? 'Tippe' : 'Klicke');
+  interface TutSchritt {
+    titel: string; t: () => string; ok: () => boolean; reset?: boolean;
+    /** Elemente, auf die der Pfeil zeigt (der erste sichtbare Treffer). */
+    ziel?: () => string[];
+    /** Stelle auf der 2D-Karte mit Pfeil und kurzem Text. */
+    karte?: () => { x: number; y: number; t: string } | null;
+    /** Zusatz im Hinweis, z. B. Infos zum gewaehlten Gebiet mit Knopf. */
+    extra?: () => string;
+  }
+  const heimGebiet = (): Gebiet | null => gebietMitId(S.heim ?? meineGebiete()[0] ?? -1) ?? null;
+  /** Gewaehltes freies Gebiet (Startpunkt, Nachbar) bzw. gewaehltes fremdes. */
+  const selFrei = () => (sel.gebiet !== null && welt && !besitz(sel.gebiet) ? gebietMitId(sel.gebiet) ?? null : null);
+  const selFremd = () => (sel.gebiet !== null && welt && besitz(sel.gebiet) && !istMein(besitz(sel.gebiet)) ? besitz(sel.gebiet) : null);
+  /** Eigenes Gebiet ohne Bahnhof (weder Stadt noch Bahnhofsgebaeude). */
+  const ohneBahnhof = (): number | undefined => meineGebiete().find((id) => stationVon(id) === null);
+  const meineStationen = (): number[] => meineGebiete().map(stationVon).filter((c): c is number => c !== null);
+  const ist3d = () => root.classList.contains('d3');
+  /** Freie Nachbarn mit Anteil der Pendler aus dem Startgebiet (Einwohner / Entfernung^2), staerkster zuerst. */
+  let nwFuer = '', nwListe: { g: Gebiet; anteil: number }[] = [];
+  const nachbarWerte = () => {
+    if (nwFuer !== gebietSchluessel) {
+      nwFuer = gebietSchluessel;
+      const h = heimGebiet(), m = h ? boxMitte(h) : null;
+      const l = freieNachbarn().map((g) => ({ g, w: m ? g.ew / Math.max(8, dist(m, boxMitte(g))) ** 2 : g.ew }));
+      const su = l.reduce((x, y) => x + y.w, 0) || 1;
+      nwListe = l.map((x) => ({ g: x.g, anteil: x.w / su })).sort((x, y) => y.anteil - x.anteil);
+    }
+    return nwListe;
+  };
+  /** Gebiets-Infos im Hinweis, Zeile fuer Zeile mit Zeigefinger eingeblendet, darunter der passende Knopf. */
+  const tutInfo = (g: Gebiet, zusatz: string, knopf: string) => {
+    const proMin = (besitz(g.id)?.basis ?? g.basis) * 0.0015 * 60 * wachs(g.id), z = pendlerZiele(g)[0];
+    const zeile = (t: string) => '<div class="tut-zeile"><span class="tut-zeig">👉</span><span>' + t + '</span></div>';
+    return '<div class="tut-gebiet"><b class="tut-name">' + g.n + '</b>' +
+      zeile('👥 <b>' + (g.ewGeschaetzt ? 'ca. ' : '') + g.ew.toLocaleString('de-DE') + '</b> Einwohner – das sind deine möglichen Fahrgäste.') +
+      zeile('💶 Mit Strecke bringt das Gebiet ca. <b>' + fmt(proMin) + ' pro Minute</b>.') +
+      (z ? zeile('🚶 Die meisten pendeln nach <b>' + kurzName(z.g) + '</b> (' + Math.round(z.anteil * 100) + ' %).') : '') + zusatz +
+      '<div class="tut-klima">' + KLIMA_TEXT[klimaVon(g.land)] + '</div>' + knopf + '</div>';
+  };
+  /** In 3D gibt es kein Feld-Menue auf der Karte: dann stehen Bauen/Strecke als Knopf im Hinweis. */
+  const knopf3d = (act: string, arg: string, t: string) => (ist3d() ? '<button class="good tut-knopf" data-act="' + act + '" data-arg="' + arg + '">' + t + '</button>' : '');
+  const bahnhofSchritt = (titel: string, t: string): TutSchritt => ({
+    titel,
+    t: () => t + (ist3d() ? '' : ' Über dem Feld steht „🏗 Bauen“ – ' + tippe().toLowerCase() + ' darauf und dann auf „🚉 Bahnhof“.'),
+    extra: () => { const id = ohneBahnhof(); return id === undefined ? '' : knopf3d('feldbau', 'bf:' + id, '🚉 Bahnhof bauen · ' + fmt(BAHNHOF.preis)); },
+    ziel: () => ['#feldmenue [data-act="feldbau"][data-arg^="bf:"]', '#feldmenue [data-arg="bauen"]', '#hint [data-act="feldbau"]'],
+    karte: () => { const id = ohneBahnhof(); if (id === undefined || feldAnker()?.gid === id) return null; return { ...innererPunkt(gebietMitId(id)!), t: tippe() + ' hier' }; },
+    ok: () => !!welt && meineGebiete().length > 0 && ohneBahnhof() === undefined,
+  });
+  const mitteVon = (L: any) => posAt(L, L.len * 0.5);
+  const TUT: TutSchritt[] = [
+    { titel: 'Startpunkt wählen',
+      t: () => tutIntro() ? '<b class="tut-gross">Willkommen bei Gleisbau Tycoon! 🚆</b>Du baust dein eigenes Bahnnetz – in ganz Europa. Kauf Gebiete, bau Bahnhöfe, verbinde sie mit Strecken und verdien Geld mit Zügen. Störungen löst du mit deinem Fachwissen.<br><br>Du bist nicht allein: 🤖 Bot-Firmen und andere Spieler bauen auch – ihre Gebiete und Strecken sind farbig.'
+        : selFrei() ? 'Gute Wahl? Das bringt dir dieses Gebiet:'
+        : selFremd() ? 'Hier hat schon ' + selFremd().ownerName + ' angefangen – such dir ein freies Gebiet aus.'
+          : tippe() + ' auf der Karte ein freies Gebiet an – irgendwo in Europa. Farbige gehören schon anderen Spielern; mit − siehst du mehr von Europa.',
+      extra: () => { if (tutIntro()) return '<button class="good tut-knopf" data-act="tutlos">🗺 Startpunkt suchen</button>'; const g = selFrei(); return g ? tutInfo(g, '', '<button class="good tut-knopf" data-act="startwahl" data-arg="' + g.id + '" ' + (S.money < gebietPreis(g.basis) ? 'disabled' : '') + '>🚩 Hier starten · ' + fmt(gebietPreis(g.basis)) + '</button>') : ''; },
+      ziel: () => ['#hint [data-act="tutlos"]', '#hint [data-act="startwahl"]'],
+      ok: () => !!welt && meineGebiete().length > 0 },
+    bahnhofSchritt('Bahnhof bauen', 'Das ist jetzt dein Gebiet! Damit Züge hier halten, brauchst du einen Bahnhof.'),
+    { titel: 'Nachbargebiet kaufen',
+      t: () => { const g = selFrei(); return g ? (nachbarWerte().some((x) => x.g === g) ? 'Das grenzt an dein Gebiet:' : 'Das grenzt nicht an dein Gebiet – nimm am besten eines der orange umrandeten.')
+        : selFremd() ? 'Das gehört schon ' + selFremd().ownerName + ' – nimm ein freies Nachbargebiet.'
+          : 'Jetzt brauchst du ein Ziel: Kauf ein angrenzendes Gebiet (orange umrandet). ⭐ zeigt, wohin die meisten Leute aus deinem Gebiet wollen – das bringt die meisten Fahrgäste.'; },
+      extra: () => {
+        const g = selFrei();
+        if (!g) return '';
+        const n = nachbarWerte(), x = n.find((y) => y.g === g), best = n[0]?.g === g;
+        const zusatz = x ? '<div class="tut-zeile"><span class="tut-zeig">👉</span><span>' + (best ? '⭐ ' : '') + '<b>' + Math.round(x.anteil * 100) + ' %</b> der Pendler zu deinen Nachbarn wollen hierher' + (best ? ' – die beste Wahl!' : '.') + '</span></div>' : '';
+        return tutInfo(g, zusatz, '<button class="good tut-knopf" data-act="gkauf" data-arg="' + g.id + '" ' + (S.money < gebietPreis(g.basis) ? 'disabled' : '') + '>🛒 Kaufen · ' + fmt(gebietPreis(g.basis)) + '</button>');
+      },
+      ziel: () => ['#hint [data-act="gkauf"]'],
+      karte: () => { if (selFrei()) return null; const b = nachbarWerte()[0]; return b ? { ...innererPunkt(b.g), t: '⭐ Hier wollen die meisten hin' } : null; },
+      ok: () => !!welt && meineGebiete().length >= 2 },
+    bahnhofSchritt('Zweiten Bahnhof bauen', 'Gekauft! Auch hier brauchst du einen Bahnhof – dann kannst du beide verbinden.'),
+    { titel: 'Strecke herstellen',
+      t: () => zeichnung ? 'Halte gedrückt und zieh bis zum anderen Bahnhof (Pfeil) – dort loslassen.'
+        : feldAnker() && stationVon(feldAnker()!.gid) !== null ? (ist3d() ? '' : 'Jetzt „🛤 Strecke herstellen“ ' + (finger() ? 'antippen' : 'anklicken') + '.')
+          : tippe() + ' auf einen deiner Bahnhöfe (Pfeil).',
+      extra: () => { const st = meineStationen()[0]; return st === undefined || zeichnung ? '' : knopf3d('zeichne', String(st), '🛤 Strecke herstellen'); },
+      ziel: () => ['#feldmenue [data-act="zeichne"]', '#hint [data-act="zeichne"]'],
+      karte: () => {
+        const st = meineStationen();
+        if (zeichnung) { const z = st.find((c) => c !== zeichnung!.von); return z === undefined ? null : { ...knoten(z), t: 'Bis hierher ziehen' }; }
+        return feldAnker() || !st.length ? null : { ...knoten(st[0]), t: tippe() + ' hier' };
+      },
+      ok: () => S.lines.length > 0 },
+    { titel: 'Geld verdienen',
+      t: () => 'Deine erste Strecke! Fremde Züge fahren darüber und zahlen dir Trassenentgelt (grüne Zahlen). ' + tippe() + ' die Strecke an – dort siehst du Einnahmen und Zustand.',
+      karte: () => (sel.line === null && S.lines[0] ? { ...mitteVon(S.lines[0]), t: tippe() + ' die Strecke an' } : null),
+      ok: () => S.openedLine },
+    { titel: 'Eigener Zug',
+      t: () => 'Eigene Züge bringen zusätzlich Miete (orange Zahlen) und schalten Güteraufträge frei: bei der Strecke „🛒 Zug kaufen …“, dann einen Zug wählen.',
+      ziel: () => ['#mcard [data-act="buyok"]', '#mcard [data-act="pick"]', '#panel [data-act="shop"][data-arg^="z:"]'],
+      karte: () => (sel.line === null && !modal && S.lines[0] ? { ...mitteVon(S.lines[0]), t: tippe() + ' die Strecke an' } : null),
+      ok: () => S.trains.some((t: any) => t.own) },
+    { titel: 'Störung beheben',
+      t: () => 'Züge verschleißen das Gleis – bald gibt es eine Störung. Sobald ein rotes „!“ erscheint: antippen und die Aufgabe selbst lösen. Das spart die Fremdfirma und bringt Bonus.',
+      karte: () => { const L = S.lines.find((l: any) => l.fault); return L && !modal ? { ...posAt(L, L.len * L.fault.t), t: 'Störung – ' + tippe().toLowerCase() + ' hier' } : null; },
+      ok: () => S.faultsFixed > 0 },
+    { titel: 'Streckentrupp einsetzen',
+      t: () => 'Du kannst nicht überall sein: Zieh einen Trupp aus der Leiste „👷 Trupps“ auf eine Strecke (oder wähl ihn bei der Strecke). Je nach Lohn fängt er 50–95 % der Störungen ab und bekommt dafür einen Anteil der Einnahmen dieser Strecke.',
+      ziel: () => ['#trupps .tr-karte[data-arg="laeufer"]'],
+      ok: () => S.lines.some((L: any) => L.trupp) },
+    { titel: 'Netz ausbauen',
+      t: () => 'Stark! Kauf weitere Gebiete, bau dort über „🏗 Bauen“ Bahnhöfe und verbinde sie. Im Gebiet siehst du Einwohner und wohin die Leute pendeln – Pendlerstrecken bringen mehr Fahrgäste. Am meisten verdienst du mit eigenem Wissen: 🎓 Lernen und selbst behobene Störungen.',
+      ok: () => false, reset: true },
   ];
-  let tutStart = 0;
+  const TUT_V = 3, TUT_START = 0, TUT_NACHBAR = 2, TUT_STRECKE = 4, TUT_STOERUNG = 7, TUT_TRUPP = 8;
+  /** Bis hier (ausschliesslich) nur Karte und Hinweis: Menue, Panel und Leisten sind ausgeblendet. */
+  const TUT_FOKUS_BIS = 5;
+  /** Startpunkt-Wahl laeuft: noch kein eigenes Gebiet (nur mit geladener Welt, sonst ist Besitz unbekannt). */
+  const startWahl = () => !RO && S.tut === TUT_START && !!welt && meineGebiete().length === 0;
+  /** Freie Nachbargebiete der eigenen (Tutorial-Hinweis auf der Karte), je Besitzstand einmal berechnet. */
+  let nachbarFuer = '', nachbarListe: Gebiet[] = [];
+  const freieNachbarn = (): Gebiet[] => {
+    if (nachbarFuer !== gebietSchluessel) {
+      nachbarFuer = gebietSchluessel;
+      const ids = new Set<number>(meineGebiete().flatMap((id) => nachbarn(id)).filter((id) => !besitz(id)));
+      nachbarListe = [...ids].slice(0, 40).map((id) => gebietMitId(id)!).filter((g) => !!g);
+    }
+    return nachbarListe;
+  };
+  let tutStart = 0, lastHint = '', fokusAlt = false, zielEl: Element | null = null, tutWahlAlt = '';
+  /** Pfeil auf der 2D-Karte (aus dem aktuellen Schritt, in draw() gezeichnet). */
+  let tutKarte: { x: number; y: number; t: string } | null = null;
+  /** Laufender Kauf des Startgebiets (bezahlt() schliesst ihn ab). */
+  let startKauf: number | null = null;
+  /** Begruessung in der Bildschirmmitte, bis "Startpunkt suchen" gedrueckt (oder ein Gebiet angetippt) wurde. */
+  let introGesehen = false;
+  const tutIntro = () => S.tut === TUT_START && !introGesehen && sel.gebiet === null && !RO;
+  const setzeZiel = (e: Element | null) => {
+    if (zielEl === e) return;
+    zielEl?.classList.remove('tut-ziel');
+    e?.classList.add('tut-ziel');
+    zielEl = e;
+  };
   const tutorial = () => {
     const el = $('#hint');
-    if (RO || S.tut >= TUT.length) { el.style.display = 'none'; return; }
-    const s: any = TUT[S.tut];
+    const aktiv = !RO && S.tut < TUT.length, fokusJetzt = aktiv && S.tut < TUT_FOKUS_BIS;
+    if (fokusJetzt !== fokusAlt) { fokusAlt = fokusJetzt; root.classList.toggle('tut-fokus', fokusJetzt); document.body.classList.toggle('tycoon-fokus', fokusJetzt); layout(); }
+    // Beim Zeichnen braucht es das Panel nur fuer Kreuzungen (Bruecke/Tunnel waehlen, dann "Bauen") -- sonst bleibt die Karte frei.
+    root.classList.toggle('tut-zeichnen', fokusJetzt && !!zeichnung && !!zeichnungKosten(zeichnung).plan?.kreuz.length);
+    // Handy hochkant: der Hinweis liegt unten -- ein neu gewaehltes Gebiet in den freien oberen Teil der Karte ruecken.
+    const wahl = fokusJetzt && istBlatt() ? sel.gebiet ?? sel.bf ?? sel.city ?? null : null;
+    if (wahl !== null && wahl + ':' + (sel.bf ?? '') !== tutWahlAlt) {
+      const q = sel.bf != null ? bfMit(sel.bf) : sel.city !== null ? CITIES[sel.city] : sel.gebiet !== null && gebietMitId(sel.gebiet) ? innererPunkt(gebietMitId(sel.gebiet)!) : null;
+      if (q) { vx = q.x; vy = q.y + 0.25 * ah / k; ansicht(); }
+    }
+    tutWahlAlt = wahl === null ? '' : wahl + ':' + (sel.bf ?? '');
+    if (!aktiv) { el.style.display = 'none'; lastHint = ''; tutKarte = null; setzeZiel(null); return; }
+    const s = TUT[S.tut];
     if (s.reset && !tutStart) tutStart = S.tutT;
-    el.style.display = 'block'; el.textContent = s.t;
-    if (s.reset ? (S.tutT - tutStart > 12) : s.ok()) { S.tut++; tutStart = 0; save(); }
+    const h = '<div class="tut-kopf"><b>Schritt ' + (S.tut + 1) + '/' + TUT.length + ' · ' + s.titel + '</b><button type="button" class="tut-weg" data-act="tutweg" title="Tutorial beenden">Tutorial überspringen</button></div>' +
+      '<div class="tut-text">' + s.t() + '</div>' + (s.extra?.() ?? '');
+    el.style.display = 'block';
+    if (h !== lastHint) { el.innerHTML = h; lastHint = h; zielEl = null; }
+    el.classList.toggle('start', fokusJetzt);
+    el.classList.toggle('mitte', tutIntro());
+    let ziel: Element | null = null;
+    for (const q of s.ziel?.() ?? []) { const e = root.querySelector(q) as HTMLElement | null; if (e && e.offsetParent !== null) { ziel = e; break; } }
+    setzeZiel(ziel);
+    tutKarte = s.karte?.() ?? null;
+    if (s.reset ? (S.tutT - tutStart > 25) : s.ok()) {
+      S.tut++; tutStart = 0; spiele('erfolg'); save();
+      // Zum Nachbargebiet: Feld-Menue des Startgebiets zu, damit der Stern-Pfeil frei liegt.
+      if (S.tut === TUT_NACHBAR) sel = { city: null, line: null, gebiet: null };
+    }
+  };
+
+  /* ---------- Feld-Menue: ueber dem gewaehlten eigenen Gebiet (2D) "Bauen" und "Strecke herstellen" ---------- */
+  let feldModus = '', feldFuer = '', lastFeld = '';
+  /** Ankerpunkt des Feld-Menues: eigener Bahnhof, Stadt im eigenen Gebiet oder eigenes Gebiet; null = kein Menue. */
+  const feldAnker = (): { x: number; y: number; gid: number } | null => {
+    if (RO || zeichnung || modal || ist3d() || !welt) return null;
+    if (sel.bf != null) { const b = bfMit(sel.bf); return b && istMein(besitz(b.g)) ? { x: b.x, y: b.y, gid: b.g } : null; }
+    if (sel.city !== null) { const g = gebietVonStadt(sel.city); return g && istMein(besitz(g.id)) ? { x: CITIES[sel.city].x, y: CITIES[sel.city].y, gid: g.id } : null; }
+    if (sel.gebiet !== null && istMein(besitz(sel.gebiet))) {
+      const g = gebietMitId(sel.gebiet);
+      if (!g) return null;
+      const st = stationVon(g.id), q = st !== null ? knoten(st) : innererPunkt(g);
+      return { x: q.x, y: q.y, gid: g.id };
+    }
+    return null;
+  };
+  const feldMenue = () => {
+    const el = $('#feldmenue');
+    if (!el) return;
+    const a = feldAnker();
+    if (!a) { el.style.display = 'none'; feldModus = ''; return; }
+    if (feldFuer !== String(a.gid)) { feldFuer = String(a.gid); feldModus = ''; }
+    const g = gebietMitId(a.gid)!, st = stationVon(a.gid);
+    const eintrag = (art: string, t: string, preis: number, text: string) =>
+      '<button class="fm-bau" data-act="feldbau" data-arg="' + art + ':' + a.gid + '" ' + (S.money < preis ? 'disabled' : '') + '><b>' + t + '</b><small>' + fmt(preis) + ' · ' + text + '</small></button>';
+    let h = '<div class="fm-titel">' + kurzName(g) + '</div>';
+    if (feldModus === 'bauen') {
+      let l = '';
+      if (st === null) l += eintrag('bf', '🚉 Bahnhof', BAHNHOF.preis, 'Personenverkehr: hier halten Züge, je Strecke laufend Geld');
+      else {
+        if (!hatGbf(st)) l += eintrag('gbf', '🏗 Güterbahnhof', gbfPreis(), 'lädt ' + WAREN[wareVon(st)].icon + ' ' + WAREN[wareVon(st)].n + ' für Güteraufträge');
+        if (st < BF0 && !(S.lager || []).includes(st)) l += eintrag('lager', '🏭 Kohlelager', KOHLELAGER.preis, 'versorgt Dampfloks');
+      }
+      h += '<div class="fm-liste">' + (l || '<div class="fm-leer">Hier ist schon alles gebaut.</div>') + '</div><button class="fm-zurueck" data-act="feldmenue" data-arg="">‹ Zurück</button>';
+    } else {
+      h += '<div class="fm-knoepfe"><button data-act="feldmenue" data-arg="bauen">🏗 Bauen</button>' + (st !== null ? '<button data-act="zeichne" data-arg="' + st + '">🛤 Strecke herstellen</button>' : '') + '</div>';
+    }
+    if (h !== lastFeld) { el.innerHTML = h; lastFeld = h; zielEl = null; }
+    const r = cv.getBoundingClientRect(), r0 = root.getBoundingClientRect();
+    el.style.display = 'block';
+    el.style.left = Math.round(a.x * k + ox + r.left - r0.left) + 'px';
+    el.style.top = Math.round(a.y * k + oy + r.top - r0.top) + 'px';
+  };
+  const feldBau = (arg: string) => {
+    const [art, gid] = arg.split(':'), st = stationVon(+gid);
+    feldModus = '';
+    if (art === 'bf') baueBahnhof(+gid, sel.gebiet === +gid ? sel.punkt : null);
+    else if (art === 'gbf' && st !== null) baueGbf(st);
+    else if (art === 'lager' && st !== null) baueKohlelager(st);
+  };
+
+  /* ---------- Streckentrupps: Leiste und Drag & Drop ---------- */
+  let truppLeisteAuf = true, truppWahl: string | null = null, lastTrupps = '';
+  const truppLeiste = () => {
+    const el = $('#trupps');
+    if (!el) return;
+    const an = !RO && S.lines.some((L: any) => !L.gast) && S.tut >= TUT_TRUPP && !zeichnung;
+    let h = '';
+    if (an) {
+      h = '<button type="button" class="tr-knopf' + (truppLeisteAuf ? ' on' : '') + '" data-act="truppleiste" title="Streckentrupps">👷 Trupps</button>';
+      if (truppLeisteAuf) {
+        h += '<div class="tr-karten">' + TRUPPS.map((x) => '<div class="tr-karte' + (truppWahl === x.id ? ' on' : '') + (S.money < truppPreis(x) ? ' arm' : '') + '" data-act="truppzieh" data-arg="' + x.id + '" title="' + x.n + ': ' + x.text + '">' +
+          '<span class="tr-ic">' + x.icon + '</span><b>' + pct(x.schutz) + '</b><small>Lohn ' + pct(x.lohn) + '</small>' + (truppPreis(x) ? '<small>' + fmt(truppPreis(x)) + '</small>' : '') + '</div>').join('') + '</div>';
+        h += '<div class="tr-tipp">' + (truppWahl ? '👉 Jetzt die Strecke antippen …' : 'Auf eine Strecke ziehen – oder antippen, dann die Strecke.') + '</div>';
+      }
+    }
+    if (h !== lastTrupps) { el.innerHTML = h; lastTrupps = h; }
+    el.style.display = an ? 'flex' : 'none';
+  };
+  /** Bildschirmpunkt ueber der Karte -> Strecke darunter (2D oder 3D), sonst null. */
+  const streckeUnter = (cx: number, cy: number): number | null => {
+    const el = document.elementFromPoint(cx, cy) as HTMLElement | null;
+    if (!el || (el.id !== 'c' && el.id !== 'c3d')) return null;
+    let w = el.id === 'c3d' ? opts.weltPunkt?.(cx, cy) ?? null : null;
+    if (!w) { const r = cv.getBoundingClientRect(); w = { x: (cx - r.left - ox) / k, y: (cy - r.top - oy) / k, kk: k }; }
+    // Naechste eigene Strecke im Umkreis (Bahnhoefe und Staedte darauf zaehlen nicht, anders als beim Klick).
+    let best: number | null = null, bd = 16 / w.kk;
+    for (const L of S.lines) {
+      if (L.gast) continue;
+      for (let i = 1; i < L.pts.length; i++) { const d = segDist(w, L.pts[i - 1], L.pts[i]); if (d < bd) { bd = d; best = L.id; } }
+    }
+    return best;
+  };
+  /** Trupp-Karte gedrueckt: ziehen = Geist folgt dem Zeiger, ueber einer Strecke loslassen setzt ihn ein; nur antippen = waehlen. */
+  const starteTruppZug = (id: string, e: PointerEvent) => {
+    const x = truppMit(id);
+    if (!x) return;
+    const start = { x: e.clientX, y: e.clientY };
+    let geist: HTMLElement | null = null;
+    const move = (ev: PointerEvent) => {
+      if (!geist && Math.hypot(ev.clientX - start.x, ev.clientY - start.y) < 6) return;
+      if (!geist) { geist = document.createElement('div'); geist.className = 'tycoon-truppgeist'; geist.textContent = x.icon; document.body.appendChild(geist); truppWahl = null; }
+      geist.style.left = ev.clientX + 'px'; geist.style.top = ev.clientY + 'px';
+      const l = streckeUnter(ev.clientX, ev.clientY);
+      hover.line = l; geist.classList.toggle('ok', l !== null);
+    };
+    const up = (ev: PointerEvent) => {
+      window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up);
+      if (!geist) {
+        truppWahl = truppWahl === id ? null : id;
+        if (truppWahl) toast(x.icon + ' ' + x.n + ': jetzt die Strecke antippen.');
+        return;
+      }
+      geist.remove(); geist = null; hover.line = null;
+      const l = ev.type === 'pointerup' ? streckeUnter(ev.clientX, ev.clientY) : null;
+      if (l !== null) setzeTrupp(l, id); else toast('Lass den Trupp über einer deiner Strecken los.');
+    };
+    window.addEventListener('pointermove', move); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
   };
 
   /* ---------- Modal: Stoerung & Mini-Aufgaben ---------- */
   const openFault = (id: number) => { modal = { kind: 'fault', line: id }; renderModal(); };
   const closeModal = () => { modal?.stop?.(); modal = null; $('#modal').style.display = 'none'; opts.onVorschau?.(null, 0); };
+  /** Rahmen um jedes Fenster: Art als data-Attribut (Farbakzent im CSS) und ✕, wenn das Fenster ohnehin einen Schließen-Knopf hat. */
   const renderModal = () => {
+    renderModalInhalt();
+    const box = $('#mcard');
+    if (!modal) return;
+    box.dataset.art = modal.kind;
+    if (box.querySelector('[data-act="close"]') && !box.querySelector(':scope > .mx')) box.insertAdjacentHTML('afterbegin', '<button class="mx" data-act="close" title="Schließen" aria-label="Schließen">✕</button>');
+    // Ein reiner „Schließen“-Knopf unten ist neben dem mitschwebenden ✕ doppelt.
+    box.querySelectorAll('.opts > button[data-act="close"]').forEach((b: any) => {
+      if (b.textContent.trim() !== 'Schließen') return;
+      const o = b.parentElement; b.remove();
+      if (!o.children.length) o.remove();
+    });
+  };
+  /** Gebot fuer ein fremdes Gebiet: der Betrag wird gleich zurueckgehalten und kommt zurueck, wenn der Besitzer ablehnt. */
+  const gebotHTML = (id: number) => {
+    const g = gebietMitId(id), x = besitz(id);
+    if (!g || !x) return '<h2>💬 Gebot</h2><p class="mut">Das Gebiet gehört gerade niemandem.</p><div class="opts"><button data-act="close">Schließen</button></div>';
+    const vorschlag = Math.max(10, Math.round((x.basis || g.basis) * 2 / 10) * 10);
+    let h = '<h2>💬 Gebot für ' + g.n + '</h2>';
+    h += '<div class="row"><span>Besitzer</span><b>' + besitzerText(x) + '</b></div><div class="row"><span>Grundpreis</span><b>' + fmt(x.basis || g.basis) + '</b></div>';
+    h += '<p class="mut">Wegkaufen geht nicht mehr – du machst ein Angebot, und ' + x.ownerName + ' entscheidet. Dein Betrag wird so lange zurückgehalten;' +
+      ' lehnt der Besitzer ab oder ziehst du das Gebot zurück, bekommst du ihn wieder. Offene Gebote siehst du unter „Börse & Markt“.</p>';
+    h += '<div class="readrow"><input id="gebotbetrag" type="number" min="1" step="10" inputmode="numeric" value="' + Math.min(vorschlag, Math.floor(S.money)) + '" aria-label="Betrag in Euro" /><span class="mut" style="align-self:center">€ · Guthaben ' + fmt(S.money) + '</span></div>';
+    h += '<div class="opts"><button class="good" data-act="gebotsenden">💬 Gebot abgeben</button><button data-act="close">Abbrechen</button></div>';
+    return h;
+  };
+  /** Kurzanleitung: Bedienung je nach Geraet (Finger oder Maus) und die ersten Schritte. */
+  const hilfeHTML = () => {
+    const finger = matchMedia('(pointer: coarse)').matches;
+    const z = (ic: string, t: string, d: string) => '<div class="hilfe-z"><span class="hilfe-ic">' + ic + '</span><div><b>' + t + '</b><div class="mut">' + d + '</div></div></div>';
+    let h = '<h2>❔ So spielst du</h2><h3>Bedienung</h3><div class="hilfe">';
+    h += finger
+      ? z('👆', 'Antippen', 'Stadt, Gebiet, Strecke oder Bahnhof auswählen – Details erscheinen im Blatt bzw. Panel.')
+        + z('✋', 'Mit einem Finger ziehen', 'Karte verschieben.') + z('🤏', 'Zwei Finger', 'Zoomen – oder die Knöpfe ＋ / − an der Karte.')
+      : z('🖱', 'Klicken', 'Stadt, Gebiet, Strecke oder Bahnhof auswählen – Details erscheinen rechts.')
+        + z('✋', 'Ziehen', 'Karte verschieben.') + z('🔍', 'Mausrad', 'Zoomen – oder die Knöpfe ＋ / − an der Karte. Esc bricht ab.');
+    h += z('📋', 'Panel', finger ? 'Griff antippen oder hoch/runter wischen zum Auf- und Zuklappen.' : 'Mit dem Griff am Rand ein- und ausklappen, dann ist mehr Karte frei.');
+    h += z('🌍', 'Ganz Europa', 'Gespielt wird in ganz Europa bis Griechenland und Moskau. „Ganz Europa“ oben links zeigt alles, herangezoomt siehst du die Kreise und Bezirke jedes Landes.');
+    h += '</div><h3>Erste Schritte</h3><div class="hilfe">';
+    h += z('1', 'Gebiete kaufen und bauen', 'Gebiet antippen und kaufen, dann über dem Gebiet „🏗 Bauen“ → 🚉 Bahnhof (mit Stadt: die Stadt ist der Bahnhof). Am besten Nachbargebiete kaufen.');
+    h += z('2', 'Strecke herstellen', 'Bahnhof antippen → „Strecke herstellen“, dann mit gedrücktem ' + (finger ? 'Finger' : 'Zeiger') + ' bis zum anderen Bahnhof fahren und loslassen. Durch fremde Gebiete gegen Durchfahrtsgebühr.');
+    h += z('🚶', 'Einwohner und Pendler', 'Im Gebiet siehst du Einwohner und wohin die Leute pendeln. Strecken zu diesen Zielen bringen mehr Fahrgäste.');
+    h += z('🌉', 'Flüsse und Kreuzungen', 'Über Flüsse kommen Brücken (je größer der Fluss, desto teurer). Kreuzt du eine eigene Strecke, wählst du am grauen Feld Brücke oder Tunnel.');
+    h += z('💬', 'Fremde Gebiete', 'Wegkaufen geht nicht – mach dem Besitzer ein Gebot (Gebiet antippen → „Gebot“).');
+    h += z('3', 'Züge und Geld', 'Fremdzüge zahlen Trassenentgelt. Eigene Züge gibt es im 🛒 Shop.');
+    h += z('4', 'Störungen', 'Ein rotes „!“ auf der Strecke antippen und die Aufgabe lösen.');
+    h += z('👷', 'Streckentrupps', 'Aus der Leiste „👷 Trupps“ auf eine Strecke ziehen: fangen 50–95 % der Störungen ab, kosten aber einen Anteil der Einnahmen.');
+    h += z('🕑', 'Spielzeit und Wetter', 'Tag, Uhrzeit und Jahreszeit laufen mit dem Spiel. Im Norden bringt der Winter Frost (Schienenbrüche), im Süden der Sommer Hitze (Gleisverwerfungen).');
+    h += '</div><h3>Menü</h3><div class="hilfe hilfe-menue">';
+    h += z('🛠', 'Arbeiten', 'Selbst anpacken: bringt Geld und Erfahrung.') + z('🎓', 'Lernen', 'Fachwissen-Aufgaben, roter Punkt = heute noch offen.') + z('👷', 'Personal', 'Leute einstellen und per Lehrgang befördern.')
+      + z('📦', 'Aufträge', 'Güteraufträge an deinen Güterbahnhöfen.') + z('🏅', 'Album', 'Sammelalbum: Züge und Abzeichen.') + z('🛒', 'Shop', 'Züge und Ausrüstung kaufen.');
+    h += '</div><div class="opts"><button data-act="close">Los geht’s</button></div>';
+    return h;
+  };
+  const renderModalInhalt = () => {
     const box = $('#mcard'); $('#modal').style.display = 'flex';
     box.className = 'card' + (modal.kind === 'shop' ? ' breit' : '');
     if (modal.kind === 'shop') { box.innerHTML = shopHTML(); opts.onVorschau?.($('#lok3d'), modal.ansicht ?? 1); return; }
     if (modal.kind === 'arbeit') { box.innerHTML = arbeitHTML(); return; }
+    if (modal.kind === 'hilfe') { box.innerHTML = hilfeHTML(); return; }
+    if (modal.kind === 'gebot') { box.innerHTML = gebotHTML(modal.gebiet); return; }
     if (modal.kind === 'land') { box.className = 'card breit'; box.innerHTML = landModalHTML(); return; }
     if (modal.kind === 'quiz') { box.innerHTML = quizHTML(); return; }
+    if (modal.kind === 'trassen') { box.innerHTML = trassenHTML(); return; }
+    if (modal.kind === 'werbung') {
+      box.innerHTML = '<h2>📺 Sponsor-Video</h2><div id="wspiel"></div><div class="mut">Danach behebt die Fremdfirma die Störung kostenlos.</div><div class="opts"><button data-act="close">Abbrechen</button></div>';
+      const m = modal;
+      m.stop = zeigeWerbung($('#wspiel'), (ok) => {
+        if (modal !== m) return;
+        const L = S.lines[m.line];
+        S.werbung = [...(S.werbung || []).filter((t: number) => Date.now() - t < 3600_000), Date.now()];
+        if (ok && L?.fault) { L.fault = null; S.faultsFixed++; L.cond = Math.min(100, L.cond + 10); L.risiko = Math.max(0, (L.risiko || 0) - 1); addXp(5); toast('📺 Danke! Die Fremdfirma hat die Störung kostenlos behoben.', 4000); }
+        m.stop = null; closeModal(); save();
+      });
+      return;
+    }
+    if (modal.kind === 'lernen') { box.className = 'card breit'; box.innerHTML = lernenHTML(); return; }
+    if (modal.kind === 'memory' || modal.kind === 'vermessen' || modal.kind === 'stellwerk') { box.className = 'card breit'; box.innerHTML = lernSpielHTML(); lernSpielStarten(); return; }
     if (modal.kind === 'album') { box.className = 'card breit'; box.innerHTML = albumHTML(); return; }
     if (modal.kind === 'auftraege') { box.innerHTML = auftraegeHTML(); return; }
     if (modal.kind === 'personal') { box.className = 'card breit'; box.innerHTML = personalHTML(); return; }
@@ -2126,6 +3268,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         '<p class="mut">Solange die Störung besteht, fahren die Züge langsamer und bringen nur ' + Math.round(CFG.faultIncome * 100) + ' % Einnahmen; deine Gebiete entlang der Strecke nur die Hälfte.</p>' +
         '<div class="opts">' +
         '<button data-act="firm" ' + (S.money < firmaPreis(d) ? 'disabled' : '') + '>Fremdfirma beauftragen (−' + fmt(firmaPreis(d)) + ')</button>' +
+        (WERBUNG.aktiv ? (werbungFrei(S.werbung) ? '<button data-act="werbung">📺 Sponsor-Video ansehen: Fremdfirma gratis</button>' : '<button disabled>📺 Sponsor-Video: höchstens ' + WERBUNG.proStunde + '× pro Stunde</button>') : '') +
         '<button data-act="self" ' + (can ? '' : 'disabled') + '>Selbst erledigen – spart ' + fmt(d.val) + ' + Bonus ' + fmt(d.val * d.share) + ' (' + Math.round(d.share * 100) + ' %)</button>' +
         (can ? '' : '<div class="mut">🔒 Frei nach ' + CFG.unlockNeed + ' geschafften „' + DIFF[f.diff - 1].n + '“-Aufgaben (' + S.skill[f.diff - 1] + '/' + CFG.unlockNeed + ').</div>') +
         '<div class="mut">Ein Fehlversuch kostet nichts – die Störung bleibt dann einfach bestehen.</div>' +
@@ -2187,7 +3330,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       return '<button data-act="' + act + '" data-arg="' + id + '" ' + (geht ? '' : 'disabled') + '>' + preis + '</button>';
     };
     if (modal.tab === 'a' || modal.tab === 'k') {
-      h += '<div class="mut">🏆 Pokale gibt es für Duelle (Reiter „Duelle“ über dem Spiel). Du hast ' + (S.pokale || 0) + ' 🏆.</div><div class="shop-liste">';
+      h += '<div class="mut">🏆 Pokale gibt es als Preis in der Wochen- und Saisonwertung (Reiter „Wertung“ über dem Spiel). Du hast ' + (S.pokale || 0) + ' 🏆.</div><div class="shop-liste">';
       if (modal.tab === 'a') {
         AUSRUESTUNG.forEach((a) => {
           h += '<div class="shop-zug' + (lv < a.lvl && !hat(a.id) ? ' zu' : '') + '"><div><b>' + a.n + '</b><div class="mut">' + a.text + '</div></div>' + kaufKnopf('ausr', a.id, a, hat(a.id)) + '</div>';
@@ -2215,7 +3358,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       TRAINS.map((z, i) => ({ z, i })).sort((a, b) => a.z.lvl - b.z.lvl || a.z.cost - b.z.cost).forEach(({ z, i }) => {
         const zu = lv < z.lvl, ohneOL = z.el && !L.ol, eff = Math.min(z.kmh, K.kmh);
         h += '<div class="shop-zug' + (zu ? ' zu' : '') + (i === modal.ansicht ? ' gewaehlt' : '') + '" data-zug="' + i + '">' +
-          '<button class="sm auge" data-act="sieh" data-arg="' + i + '" title="In 3D ansehen">👁</button><div class="shop-text"><b>' + z.n + '</b>' + (z.el ? ' <span class="tag" style="background:#2e86ab">⚡ elektrisch</span>' : '') + (z.gueter ? ' <span class="tag" style="background:#8d6e63">' + z.gueter.map((w) => WAREN[w].icon).join('') + '</span>' : '') +
+          '<button class="sm auge" data-act="sieh" data-arg="' + i + '" title="In 3D ansehen">👁</button><div class="shop-text"><b>' + z.n + '</b>' + (z.el ? ' <span class="tag" style="background:#2e86ab">⚡ elektrisch</span>' : '') + (z.gueter ? ' <span class="tag" style="background:#8d6e63">' + z.gueter.map((w) => WAREN[w].icon).join('') + '</span>' : '') + (z.nacht ? ' <span class="tag" style="background:#283593" title="Nachts (echte Uhrzeit) bis doppelte Miete, tagsüber 60 %, grenzüberschreitend +30 %">🌙 Nachtzug</span>' : '') + (z.wochenende ? ' <span class="tag" style="background:#6d4c41" title="Sa/So +50 % Miete">🎟 Wochenende</span>' : '') +
           '<div class="mut">bis ' + z.kmh + ' km/h' + (eff < z.kmh ? ' (hier ' + eff + ')' : '') + ' · Miete ' + pct(z.rent) + ' · Gleisverschleiß ' + pct(z.wear) + ' · ' + z.len + ' Fahrzeuge</div></div>';
         h += zu ? '<button disabled>🔒 Level ' + z.lvl + '</button>'
           : ohneOL ? '<button disabled title="Erst Oberleitung auf der Strecke bauen">braucht Oberleitung</button>'
@@ -2226,6 +3369,11 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     } else if (modal.tab === 'w') {
       const eigene = S.trains.filter((t: any) => t.own);
       h += '<div class="mut">Hier lackierst du einzelne Züge um und rüstest sie nach.</div><div class="shop-liste">';
+      if ((S.depot || []).length) {
+        h += '<h3>🏚 Depot</h3><div class="mut">Gekaufte oder zurückgegebene Züge. Einsetzen auf: <select id="depotLine">' + S.lines.map((l: any) => '<option value="' + l.id + '">' + knoten(l.a).n + ' ⇄ ' + knoten(l.b).n + '</option>').join('') + '</select></div>';
+        (S.depot as any[]).forEach((z, i) => { const d = TRAINS[z.type] || TRAINS[1]; h += '<div class="shop-zug"><div class="shop-text"><b>' + d.n + '</b><div class="mut">' + (z.upg || []).length + ' Upgrades' + (d.el ? ' · braucht Oberleitung' : '') + '</div></div><button data-act="depotein" data-arg="' + i + '" ' + (S.lines.length ? '' : 'disabled') + '>Einsetzen</button></div>'; });
+        h += '<h3>Im Einsatz</h3>';
+      }
       if (!eigene.length) h += '<p class="mut">Du hast noch keine eigenen Züge.</p>';
       eigene.forEach((t: any) => {
         const L2 = S.lines[t.line], f = zugFarbe(t) ?? skinFarbe();
@@ -2312,8 +3460,34 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const b = (e.target as HTMLElement).closest('[data-act]') as HTMLButtonElement | null;
     if (!b || b.disabled) return;
     const a = b.dataset['act'], arg = b.dataset['arg'];
-    if (RO && a !== 'show' && a !== 'album' && a !== 'close' && a !== 'gwahl' && a !== 'stadtzu' && a !== 'land' && a !== 'fokus' && a !== 'welt') return;
-    if (a === 'speed') S.speed = +arg!;
+    if (b.tagName === 'BUTTON') spiele('klick');
+    if (RO && a !== 'ton' && a !== 'mitfahren' && a !== 'show' && a !== 'album' && a !== 'close' && a !== 'gwahl' && a !== 'stadtzu' && a !== 'land' && a !== 'fokus' && a !== 'welt' && a !== 'zoom' && a !== 'hilfe') return;
+    if (a === 'ton') schalteTon(!tonAn());
+    else if (a === 'mitfahren') opts.onMitfahren?.(+arg!);
+    else if (a === 'stillegen') {
+      const L = S.lines[+arg!];
+      if (L && !L.gast && confirm('Strecke ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + ' wirklich stilllegen? Das Geld für den Bau ist weg, eigene Züge kommen ins Depot.')) { entferneStrecke(L.id); toast('Strecke stillgelegt – deine Züge stehen im Depot (Shop → Deine Züge).', 4500); save(); }
+    }
+    else if (a === 'gastweg') { const L = S.lines[+arg!]; if (L?.gast && confirm('Trasse kündigen? Deine Züge darauf kommen ins Depot.')) { opts.onTrasseKuendigen?.(L.gast.id); entferneStrecke(L.id); toast('Trasse gekündigt.'); save(); } }
+    else if (a === 'trsuche') { modal = { kind: 'trassen', stadt: +arg!, laden: true, liste: [] }; renderModal(); opts.onTrassenSuchen?.(+arg!); }
+    else if (a === 'trmiete' && modal?.kind === 'trassen') { const x = modal.liste[+arg!]; if (x) opts.onTrasseMieten?.(x.owner, x.ownerName, x.a, x.b, x.preisMin, x.p, { cls: x.cls, ol: x.ol, gleise: x.gleise }); }
+    else if (a === 'depotein') {
+      const z = (S.depot || [])[+arg!], L = S.lines[+(($('#depotLine') as HTMLSelectElement | null)?.value ?? -1)];
+      if (!z || !L) return;
+      if ((TRAINS[z.type] || TRAINS[1]).el && !L.ol) { toast('Diese Strecke hat keine Oberleitung.'); return; }
+      S.depot.splice(+arg!, 1);
+      S.trains.push({ id: S.nextId++, line: L.id, own: true, type: z.type, dir: 1, s: 0, earned: 0, cost: 0, trips: z.trips || 0, farbe: z.farbe || 'werk', upg: z.upg || [] });
+      spiele('horn'); toast((TRAINS[z.type] || TRAINS[1]).n + ' fährt jetzt auf ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + '.'); save(); renderModal();
+    }
+    else if ((a === 'sausg' || a === 'sausv') && modal?.kind === 'auftraege') { const [id, i] = arg!.split(':'); const k = a === 'sausg' ? 'gebote' : 'versp'; modal[k] = { ...(modal[k] || {}), [id]: +i }; renderModal(); }
+    else if (a === 'sausab' && modal?.kind === 'auftraege' && serverAus) {
+      const o = serverAus.offen.find((x: any) => x.id === arg);
+      if (!o) return;
+      const gi = modal.gebote?.[o.id] ?? 1, vi = modal.versp?.[o.id] ?? 0;
+      o.meinGebot = Math.round(o.richt * GEBOTE[gi].f); o.meinVersprechen = vi;
+      opts.onAusschreibungGebot?.(o.id, o.meinGebot, vi); toast('📜 Gebot für ' + landName(o.bl) + ' abgegeben – Entscheidung nach Fristende.'); renderModal();
+    }
+    else if (a === 'speed') S.speed = +arg!;
     else if (a === 'mode') { S.mode = +arg!; S.faultIn = Math.min(S.faultIn, modeInterval(S.mode)); save(); }
     else if (a === 'buy') { const [lid, ty] = arg!.split(':'); buyTrain(+lid, ty === undefined ? 1 : +ty); }
     else if (a === 'care') careLine(+arg!);
@@ -2345,6 +3519,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     else if (a === 'gleis2') baueZweitesGleis(+arg!);
     else if (a === 'signal') baueSignale(+arg!);
     else if (a === 'schutz') { const [lid, sid] = arg!.split(':'); kaufeSchutz(+lid, sid); }
+    else if (a === 'werbung' && modal?.kind === 'fault' && werbungFrei(S.werbung)) { modal = { kind: 'werbung', line: modal.line }; renderModal(); }
     else if (a === 'firm') { resolveFault(S.lines[modal.line], 'firm'); closeModal(); save(); }
     else if (a === 'self') {
       const L = S.lines[modal.line], art = FEHLER_ARTEN[L.fault.art ?? 0];
@@ -2352,6 +3527,16 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       else startSelf();
     }
     else if (a === 'album') { modal = { kind: 'album' }; renderModal(); }
+    else if (a === 'streikende' && ereignisAktiv('streik')) {
+      if (S.money < streikPreis()) toast('Zu wenig Guthaben.');
+      else { S.money -= streikPreis(); S.ereignis = null; addXp(5); toast('🤝 Tarifeinigung: Der Streik ist vorbei, deine Züge fahren wieder normal.', 4500); save(); if (modal?.kind === 'arbeit') renderModal(); }
+    }
+    else if (a === 'lernen') { modal = { kind: 'lernen' }; renderModal(); ladeFotoFragen(); }
+    else if (a === 'ltag' && !tagesErledigt()) { const [t, tn] = tagesThema(tagHeute()); startQuiz(-1, t, tn, TAGES_FRAGEN, TAGES_NEED, 'taeglich'); }
+    else if (a === 'lmem' && !lernWarten('memory')) { modal = { kind: 'memory' }; renderModal(); }
+    else if (a === 'lverm' && !lernWarten('vermessen')) { modal = { kind: 'vermessen' }; renderModal(); }
+    else if (a === 'lsw' && !lernWarten('stellwerk')) { modal = { kind: 'stellwerk' }; renderModal(); }
+    else if (a === 'lpr' && !lernWarten('pruefung')) startQuiz(-1, PRUEFUNG_THEMEN.join(','), 'gemischt', PRUEFUNG.fragen, PRUEFUNG.need, 'pruefung');
     else if (a === 'auftraege') { modal = { kind: 'auftraege' }; renderModal(); }
     else if (a === 'gbf') baueGbf(+arg!);
     else if (a === 'cpstart') opts.onClanProjekt?.(arg!);
@@ -2396,19 +3581,47 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     else if (a === 'land') { modal = { kind: 'land', wahl: +arg! }; renderModal(); }
     else if (a === 'fokus') { if (modal?.kind === 'land') closeModal(); fokussiere(arg!); }
     else if (a === 'welt') zurWeltkarte();
+    else if (a === 'zoom') zoomeUm(ax0 + aw / 2, ay0 + ah / 2, +arg! > 0 ? 1.5 : 1 / 1.5);
+    else if (a === 'hilfe') { modal = { kind: 'hilfe' }; renderModal(); }
     else if (a === 'bfbau') { baueBahnhof(+arg!, sel.gebiet === +arg! ? sel.punkt : null); if (modal?.kind === 'land') closeModal(); }
     else if (a === 'bf') { sel = { city: null, line: null, gebiet: null, bf: +arg! }; if (modal?.kind === 'land') closeModal(); }
     else if (a === 'bfweg') reisseBahnhofAb(+arg!);
     else if (a === 'linie') { sel = { city: null, line: +arg!, gebiet: null }; S.openedLine = true; }
+    else if (a === 'gebot') { modal = { kind: 'gebot', gebiet: +arg! }; renderModal(); }
+    else if (a === 'gebotsenden' && modal?.kind === 'gebot') {
+      const betrag = Math.round(+($('#gebotbetrag')?.value || 0));
+      if (!(betrag >= 1)) { toast('Bitte einen Betrag eingeben.'); return; }
+      if (betrag > S.money) { toast('So viel Guthaben hast du nicht.'); return; }
+      opts.onGebot?.(modal.gebiet, betrag); closeModal();
+    }
+    else if (a === 'startwahl') {
+      const g = gebietMitId(+arg!);
+      if (!g || besitz(g.id)) { toast('Dieses Gebiet ist schon vergeben.'); return; }
+      if (S.money < gebietPreis(g.basis)) { toast('Zu wenig Guthaben.'); return; }
+      startKauf = g.id;
+      opts.onGebiet?.(g.id, g.basis);
+    }
+    else if (a === 'trupp') { const [l, id] = arg!.split(':'); setzeTrupp(+l, id); }
+    else if (a === 'feldmenue') feldModus = arg || '';
+    else if (a === 'tutlos') introGesehen = true;
+    else if (a === 'feldbau') feldBau(arg!);
+    else if (a === 'truppzieh') starteTruppZug(arg!, e);
+    else if (a === 'truppleiste') { truppLeisteAuf = !truppLeisteAuf; truppWahl = null; }
+    else if (a === 'tutweg') {
+      if (!confirm('Tutorial überspringen? Die Kurzanleitung findest du weiter unter „?“ an der Karte.')) return;
+      S.tut = TUT.length; save();
+    }
     else if (a === 'gkauf') {
       const g = gebietMitId(+arg!), x = besitz(+arg!);
       if (!g) return;
-      const preis = gebietPreis(x ? x.basis * 3 : g.basis);
+      if (x) { modal = { kind: 'gebot', gebiet: g.id }; renderModal(); return; }
+      const preis = gebietPreis(g.basis);
       if (S.money < preis) toast('Zu wenig Guthaben (' + fmt(preis) + ' nötig).');
       else opts.onGebiet?.(g.id, g.basis);
     }
     else if (a === 'zeichne') { starteZeichnen(+arg!); if (zeichnung && zeichnung.von >= BF0 && (S.bf || []).length < 2) toast(BF_HINWEIS, 6000); }
     else if (a === 'zbau') baueZeichnung();
+    else if (a === 'kreuz') { const [key, art] = arg!.split('|'); wechsleKreuzung(key, art as KreuzArt); }
     else if (a === 'zzurueck') zeichnungZurueck();
     else if (a === 'zab') zeichnung = null;
     else if (a === 'submit') submitReading();
@@ -2420,7 +3633,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     }
     else if (a === 'reset') {
       if (!confirm('Spielstand wirklich löschen?')) return;
-      opts.onReset?.(); fresh(); sel = { city: null, line: null, gebiet: null }; zeichnung = null; tutStart = 0;
+      opts.onReset?.(); fresh(); sel = { city: null, line: null, gebiet: null }; zeichnung = null; tutStart = 0; introGesehen = false; resetT = performance.now(); startKauf = null; truppWahl = null;
       // Der Server gibt die Gebiete frei; bis die Welt neu geladen ist, nicht mehr als eigene anzeigen.
       besitzNach = new Map([...besitzNach].filter(([, x]) => !istMein(x)));
       gebietSchluessel = 'reset' + Date.now();
@@ -2439,9 +3652,9 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   let toastT: any;
   const toast = (t: string, ms = 2600) => { const e = $('#toast'); e.textContent = t; e.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => e.classList.remove('show'), ms); };
   const serialize = () => ({
-    money: S.money, bezirkSumme: S.bezirkSumme, bf: S.bf, bfNext: S.bfNext, bfSumme: S.bfSumme, time: S.time, vis: S.vis, skill: S.skill, xp: S.xp, pokale: S.pokale, skins: S.skins, skin: S.skin, ausr: S.ausr, lager: S.lager, mode: S.mode, faultIn: S.faultIn, wetter: S.wetter, wetterIn: S.wetterIn, jz: S.jz, personal: S.personal, lehrAb: S.lehrAb, schichtAb: S.schichtAb, stats: S.stats, album: S.album, abzeichen: S.abzeichen, aus: S.aus, ausIn: S.ausIn, vertraege: S.vertraege, vertragSumme: S.vertragSumme, abz: S.abz, abzNext: S.abzNext, gbf: S.gbf, auftraege: S.auftraege, auftragIn: S.auftragIn, auftragNr: S.auftragNr, gueterSumme: S.gueterSumme, tut: S.tut, faultsFixed: S.faultsFixed, passes: S.passes,
+    money: S.money, bezirkSumme: S.bezirkSumme, bf: S.bf, bfNext: S.bfNext, bfSumme: S.bfSumme, time: S.time, vis: S.vis, skill: S.skill, xp: S.xp, pokale: S.pokale, skins: S.skins, skin: S.skin, ausr: S.ausr, lager: S.lager, mode: S.mode, faultIn: S.faultIn, wetter: S.wetter, wetterIn: S.wetterIn, jz: S.jz, personal: S.personal, lehrAb: S.lehrAb, schichtAb: S.schichtAb, depot: S.depot, trassenSumme: S.trassenSumme, ausGesehen: S.ausGesehen, werbung: S.werbung, wachs: S.wachs, ereignis: S.ereignis, ereignisIn: S.ereignisIn, taeglich: S.taeglich, lernAb: S.lernAb, stats: S.stats, album: S.album, abzeichen: S.abzeichen, aus: S.aus, ausIn: S.ausIn, vertraege: S.vertraege, vertragSumme: S.vertragSumme, abz: S.abz, abzNext: S.abzNext, gbf: S.gbf, auftraege: S.auftraege, auftragIn: S.auftragIn, auftragNr: S.auftragNr, gueterSumme: S.gueterSumme, tut: S.tut, tutV: S.tutV, heim: S.heim, lohnSumme: S.lohnSumme, faultsFixed: S.faultsFixed, passes: S.passes,
     anyFault: S.anyFault, openedLine: S.openedLine, nextId: S.nextId,
-    lines: S.lines.map((l: any) => ({ a: l.a, b: l.b, p: l.p, cond: l.cond, inF: l.inF, inO: l.inO, up: l.up, rep: l.rep, fault: l.fault, color: l.color, cls: l.cls, ol: l.ol, verlust: l.verlust, inspAb: l.inspAb, fahrtAb: l.fahrtAb, risiko: l.risiko, schutz: l.schutz, bau: l.bau, neuBis: l.neuBis, gleise: l.gleise, signal: l.signal, puenkt: l.puenkt })),
+    lines: S.lines.map((l: any) => ({ a: l.a, b: l.b, p: l.p, gast: l.gast, cond: l.cond, inF: l.inF, inO: l.inO, up: l.up, rep: l.rep, fault: l.fault, color: l.color, cls: l.cls, ol: l.ol, verlust: l.verlust, inspAb: l.inspAb, fahrtAb: l.fahrtAb, risiko: l.risiko, schutz: l.schutz, bau: l.bau, neuBis: l.neuBis, gleise: l.gleise, signal: l.signal, puenkt: l.puenkt, kr: l.kr, trupp: l.trupp, lohn: l.lohn, abgefangen: l.abgefangen })),
     own: S.trains.filter((t: any) => t.own),
   });
   const save = () => { if (RO || !alive) return; opts.onSave(serialize(), S.money); };
@@ -2452,14 +3665,17 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       // vis auf die aktuelle Staedteliste bringen (alte Staende kennen weniger Staedte).
       const bf = Array.isArray(d.bf) ? d.bf : [];
       Object.assign(S, { money: Math.max(0, d.money || 0), bezirkSumme: d.bezirkSumme || 0, bf, bfNext: d.bfNext ?? bf.reduce((m: number, b: any) => Math.max(m, b.id + 1), 1), bfSumme: d.bfSumme || 0, time: d.time, vis: CITIES.map((_, i) => !!d.vis?.[i]), skill: d.skill, mode: d.mode ?? 0, faultIn: d.faultIn ?? modeInterval(d.mode ?? 0), tut: d.tut, faultsFixed: d.faultsFixed, passes: d.passes, anyFault: d.anyFault, openedLine: d.openedLine, nextId: d.nextId });
-      d.lines.forEach((o: any) => { const L: any = addLine(o.a, o.b, Array.isArray(o.p) ? o.p : undefined); Object.assign(L, { cond: o.cond, inF: o.inF, inO: o.inO, up: o.up, rep: o.rep, fault: o.fault, color: o.color, cls: o.cls ?? 1, ol: o.ol ?? (o.cls ?? 1) >= 1, verlust: o.verlust || 0, inspAb: o.inspAb || 0, fahrtAb: o.fahrtAb || 0, risiko: o.risiko || 0, schutz: o.schutz || [], bau: o.bau || null, neuBis: o.neuBis || 0, gleise: o.gleise || 1, signal: o.signal || 0, puenkt: o.puenkt ?? 100 }); });
+      d.lines.forEach((o: any) => { const L: any = addLine(o.a, o.b, Array.isArray(o.p) ? o.p : undefined); Object.assign(L, { cond: o.cond, inF: o.inF, inO: o.inO, up: o.up, rep: o.rep, fault: o.fault, color: o.color, cls: o.cls ?? 1, ol: o.ol ?? (o.cls ?? 1) >= 1, verlust: o.verlust || 0, inspAb: o.inspAb || 0, fahrtAb: o.fahrtAb || 0, risiko: o.risiko || 0, schutz: o.schutz || [], bau: o.bau || null, neuBis: o.neuBis || 0, gleise: o.gleise || 1, signal: o.signal || 0, puenkt: o.puenkt ?? 100, gast: o.gast || undefined, kr: Array.isArray(o.kr) ? o.kr : undefined, trupp: o.trupp || null, lohn: o.lohn || 0, abgefangen: o.abgefangen || 0 }); });
       S.trains = d.own || [];
       // Alte Staende ohne Erfahrung: aus dem bisherigen Fortschritt schaetzen. Alte Strecken gelten als Hauptbahn (cls 1, s. o.).
-      S.schichtAb = d.schichtAb ?? 0; S.stats = d.stats ?? {}; S.album = d.album ?? []; S.abzeichen = d.abzeichen ?? [];
+      S.schichtAb = d.schichtAb ?? 0; S.depot = d.depot ?? []; S.trassenSumme = d.trassenSumme ?? 0; S.ausGesehen = d.ausGesehen ?? []; S.werbung = d.werbung ?? []; S.wachs = d.wachs ?? {}; S.ereignis = d.ereignis ?? null; S.ereignisIn = d.ereignisIn ?? 240; S.taeglich = d.taeglich ?? null; S.lernAb = d.lernAb ?? {}; S.stats = d.stats ?? {}; S.album = d.album ?? []; S.abzeichen = d.abzeichen ?? [];
       S.aus = d.aus ?? null; S.ausIn = d.ausIn ?? 120; S.vertraege = d.vertraege ?? []; S.vertragSumme = d.vertragSumme ?? 0;
       S.abz = Array.isArray(d.abz) ? d.abz : []; S.abzNext = d.abzNext ?? S.abz.reduce((m: number, z: any) => Math.max(m, z.id + 1), 1);
       S.gbf = d.gbf ?? []; S.auftraege = d.auftraege ?? []; S.auftragIn = d.auftragIn ?? 30; S.auftragNr = d.auftragNr ?? 0; S.gueterSumme = d.gueterSumme ?? 0;
       S.personal = d.personal ?? {}; S.lehrAb = d.lehrAb ?? {};
+      // Neue Tutorial-Folge (TUT_V): wer schon Strecken hat, ist durch; sonst beginnt sie von vorn (bekannte Schritte gehen schnell durch).
+      S.tut = d.tutV === TUT_V ? d.tut ?? 0 : d.lines.length ? TUT.length : 0; S.tutV = TUT_V;
+      S.heim = d.heim ?? null; S.lohnSumme = d.lohnSumme ?? 0;
       S.wetter = d.wetter ?? null; S.wetterIn = d.wetterIn ?? 180; S.jz = d.jz ?? jahreszeit();
       S.pokale = d.pokale ?? 0; S.skins = d.skins ?? ['standard']; S.skin = d.skin ?? 'standard'; S.ausr = d.ausr ?? []; S.lager = d.lager ?? [];
       S.xp = d.xp ?? (S.lines.length * 15 + (S.faultsFixed || 0) * 10 + S.trains.reduce((a: number, t: any) => a + (t.trips || 0), 0));
@@ -2469,30 +3685,57 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     } catch { return false; }
   };
 
+  /** Zum Testen: ?nacht=1 in der Adresse erzwingt Nacht (0 = Tag). */
+  const TAGESZEIT_TEST: number | null = (() => { const v = new URLSearchParams(location.search).get('nacht'); return v === null ? null : +v; })();
   /* ---------- Start ---------- */
   layout();
   if (!load(opts.state)) fresh();
   const saveTimer = RO ? 0 : window.setInterval(save, 10000);
   const onHide = () => { if (document.visibilityState === 'hidden') save(); };
   document.addEventListener('visibilitychange', onHide);
-  let last = performance.now();
+  let last = performance.now(), tonT = 0, schleifenFehler = false;
   const loop = (now: number) => {
     if (!alive) return;
-    const dt = (now - last) / 1000; last = now;
-    update(Math.min(dt, .25)); draw(); updateHUD();
+    // Naechstes Bild zuerst anfordern: ein Fehler in einem Bild soll das Spiel nicht bis zum Neuladen einfrieren.
     raf = requestAnimationFrame(loop);
+    const dt = (now - last) / 1000; last = now;
+    try {
+      dunkelT -= dt; if (dunkelT <= 0) { dunkel = TAGESZEIT_TEST ?? dunkelJetzt(); dunkelT = 0.5; }
+      tonT -= dt; if (tonT <= 0) { tonT = 1; fahrGeraeusch(modal || !S.speed || document.hidden ? 0 : S.trains.filter((t: any) => t.own).length / 6); }
+      update(Math.min(dt, .25)); draw(); updateHUD();
+    } catch (e) {
+      if (!schleifenFehler) { schleifenFehler = true; console.error('Tycoon-Bild fehlgeschlagen', e); }
+    }
   };
   raf = requestAnimationFrame(loop);
 
   return {
-    welt: () => ({ S, sel, CITIES, DIFF, posAt, skin: skinFarbe(), welt, zeichnung, gebietFarbe, gebietSchluessel, knoten, bfName, BF0, fokus, jahreszeit: jahreszeit(), wetter: S.wetter ? { id: wetterArt()!.id, box: S.wetter.box } : null }),
+    welt: () => ({ S, sel, CITIES, DIFF, posAt, skin: skinFarbe(), welt, zeichnung, gebietFarbe, gebietSchluessel, knoten, bfName, BF0, fokus, jahreszeit: jahreszeit(), dunkel, wetter: S.wetter ? { id: wetterArt()!.id, box: S.wetter.box } : null }),
     setzeWelt: (w: any) => {
       welt = w;
       besitzNach = new Map((w?.bezirke || []).filter((x: any) => x.stadt === GEBIET_STADT).map((x: any) => [x.bezirk, x]));
       gebietSchluessel = JSON.stringify([w?.ich, [...besitzNach.values()].map((x) => [x.bezirk, x.ownerId, x.clanFarbe, x.aktiv])]);
+      const gemietet = new Set((w?.trassen?.gemietet || []).map((t: any) => t.id));
+      if (w?.trassen) for (let i = S.lines.length - 1; i >= 0; i--) if (S.lines[i].gast && !gemietet.has(S.lines[i].gast.id)) { toast('🤝 Trasse ' + knoten(S.lines[i].a).n + ' ⇄ ' + knoten(S.lines[i].b).n + ' ist beendet.'); entferneStrecke(i); }
+      sichereBahnhoefe();
       if (modal?.kind === 'land' || modal?.kind === 'auftraege') renderModal();
     },
-    bezahlt: (preis: number, text: string) => { S.money = Math.max(0, S.money - gebietPreis(preis)); addXp(8); toast(text, 3500); save(); if (modal?.kind === 'land') renderModal(); },
+    bezahlt: (preis: number, text: string) => {
+      S.money = Math.max(0, S.money - gebietPreis(preis)); addXp(8);
+      if (S.tut < TUT_FOKUS_BIS && sel.gebiet !== null) sel = { city: null, line: null, gebiet: sel.gebiet };
+      if (startKauf !== null) {
+        // Startpunkt: Heimat (Sonnenstand), Staedte in der Naehe aufdecken, Ansicht dorthin.
+        const g = gebietMitId(startKauf);
+        startKauf = null;
+        if (g) {
+          S.heim = g.id; revealUm(boxMitte(g), 3); sel = { city: null, line: null, gebiet: g.id };
+          const b = g.box, rand = Math.max(b.x1 - b.x0, b.y1 - b.y0) * 1.6 + 20;
+          zeigeBox({ x0: b.x0 - rand, y0: b.y0 - rand, x1: b.x1 + rand, y1: b.y1 + rand });
+          text = '🚩 Dein Startpunkt: ' + g.n + '!';
+        }
+      }
+      toast(text, 3500); save(); if (modal?.kind === 'land') renderModal();
+    },
     gutschrift: (betrag: number, text: string, xp = 0) => {
       S.money += betrag;
       toast(text + (betrag ? ' +' + fmt(betrag) : '') + (xp ? ' +' + xp + ' Erfahrung' : ''), 5000);
@@ -2507,6 +3750,54 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       save();
     },
     clanBezahlt: (betrag: number, text: string) => { zaehle('clan'); S.money = Math.max(0, S.money - betrag); addXp(betrag ? Math.min(20, Math.round(betrag / 1000)) : 5); toast(text, 4000); save(); if (modal?.kind === 'auftraege') renderModal(); },
+    geld: () => S.money,
+    abbuchen: (betrag: number, text: string) => { S.money -= betrag; toast(text, 4000); save(); },
+    eigeneZuege: () => S.trains.filter((t: any) => t.own).map((t: any) => ({ id: t.id, n: tdef(t).n, type: t.type ?? 1, strecke: S.lines[t.line] ? knoten(S.lines[t.line].a).n + ' ⇄ ' + knoten(S.lines[t.line].b).n : '' })),
+    zugAbgeben: (id: number) => {
+      const t = zugVon(id);
+      if (!t) return null;
+      S.trains.splice(S.trains.indexOf(t), 1);
+      save();
+      return { type: t.type ?? 1, farbe: t.farbe, upg: t.upg || [], trips: t.trips || 0 };
+    },
+    zugAufnehmen: (zug: any, text: string) => {
+      S.depot = [...(S.depot || []), { type: +zug.type || 1, farbe: zug.farbe, upg: Array.isArray(zug.upg) ? zug.upg : [], trips: zug.trips || 0 }];
+      toast(text + ' – er steht im Depot (Shop → Deine Züge).', 5000); save();
+    },
+    bundeslaender: () => handleBundeslaender(),
+    setzeAusschreibungen: (d: any) => {
+      serverAus = d;
+      S.aus = null;
+      S.ausGesehen = S.ausGesehen || [];
+      for (const e of d.ergebnisse || []) {
+        if (e.gewonnen) { if (!S.ausGesehen.includes(e.id + 'w')) { S.ausGesehen.push(e.id + 'w'); opts.onAusschreibungAbholen?.(e.id); } continue; }
+        if (S.ausGesehen.includes(e.id)) continue;
+        S.ausGesehen.push(e.id);
+        toast('📜 Ausschreibung ' + landName(e.bl) + ' verloren – ' + (e.sieger ? e.sieger + ' war günstiger.' : 'eine Firma war günstiger.'), 6000);
+      }
+      S.ausGesehen = S.ausGesehen.slice(-60);
+      if (modal?.kind === 'auftraege') renderModal();
+    },
+    vertrag: (bl: string, gebot: number, versprechen: number) => {
+      S.vertraege = [...(S.vertraege || []), { bl, proMin: gebot, versprechen: VERSPRECHEN[versprechen]?.p ?? 80, bis: S.time + VERTRAG, dauer: VERTRAG, erfuellt: 0 }];
+      addXp(20); zaehle('vertraege'); spiele('level');
+      toast('🏆 Zuschlag gegen die Konkurrenz! Du betreibst den Regionalverkehr in ' + landName(bl) + ': ' + fmt(gebot) + ' pro Minute.', 7000);
+      save();
+    },
+    zeigeTrassen: (stadt: number, liste: any[]) => {
+      if (modal?.kind !== 'trassen' || modal.stadt !== stadt) return;
+      modal.laden = false;
+      modal.liste = liste.filter((x) => x.a < CITIES.length && x.b < CITIES.length).map((x) => ({ ...x, preisMin: trassenPreis(x) }));
+      renderModal();
+    },
+    trasseGemietet: (id: string, owner: string, ownerName: string, a: number, b: number, preisMin: number, p: number[] | null, info: { cls: number; ol: boolean; gleise: number }) => {
+      const L: any = addLine(a, b, Array.isArray(p) && p.length >= 4 ? p : undefined);
+      Object.assign(L, { gast: { id, owner, ownerName, preisMin }, cls: info.cls, ol: info.ol, gleise: info.gleise || 1, color: '#7f8c8d' });
+      S.vis[a] = true; S.vis[b] = true;
+      closeModal(); sel = { city: null, line: L.id, gebiet: null };
+      toast('🤝 Trasse ' + knoten(a).n + ' ⇄ ' + knoten(b).n + ' von ' + ownerName + ' gemietet (' + fmt(preisMin) + '/Min.) – jetzt einen Zug einsetzen!', 6000);
+      save();
+    },
     klickWelt: (x: number, y: number, kk: number) => klick({ x, y }, kk),
     zeigerWelt: (x: number, y: number, kk: number) => { if (zeichnung && !modal) zeichneZu({ x, y }, kk); },
     losgelassen: () => losgelassen(),
@@ -2516,12 +3807,16 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       cancelAnimationFrame(raf);
       clearInterval(saveTimer);
       clearTimeout(toastT);
+      tonStopp();
       ro.disconnect();
       cv.removeEventListener('pointermove', onMove);
       cv.removeEventListener('pointerdown', onCanvasDown);
       window.removeEventListener('pointerup', onCanvasUp);
       window.removeEventListener('pointercancel', onCanvasUp);
       cv.removeEventListener('wheel', onWheel);
+      griff?.removeEventListener('pointerdown', onGriffDown);
+      griff?.removeEventListener('pointerup', onGriffUp);
+      document.body.classList.remove('tycoon-blatt-auf', 'tycoon-fokus');
       root.removeEventListener('pointerdown', onActionDown);
       root.removeEventListener('keydown', onEnter);
       root.removeEventListener('change', onChange);

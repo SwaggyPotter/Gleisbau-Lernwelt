@@ -1,0 +1,166 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a>
+      <ion-back-button defaultHref="/dashboard" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Fragen bearbeiten</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="zumQuiz()" [disabled]="!topicId">
+        <ion-icon slot="start" name="play-outline"></ion-icon>
+        <span class="toolbar-action-label">Zum Quiz</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Admin</p>
+      <h1>{{ titel || 'Fragen bearbeiten' }}</h1>
+      <p class="lede">
+        Frage antippen, Text, Antworten und Bild ändern, speichern. Gilt sofort für alle Azubis und Gäste.
+        Die Originalfragen bleiben erhalten – „Original wiederherstellen“ macht alles rückgängig.
+      </p>
+    </section>
+
+    <div class="kopf">
+      <label class="feld">
+        <span>Thema</span>
+        <select [ngModel]="topicId" (ngModelChange)="themaWechseln($event)">
+          <option *ngFor="let t of themen" [value]="t.topicId">{{ t.title }}</option>
+        </select>
+      </label>
+      <label class="feld wachsen">
+        <span>Suchen</span>
+        <input type="search" [(ngModel)]="suche" placeholder="Text in Frage oder Antwort" />
+      </label>
+      <span class="zaehler" *ngIf="geladen">{{ fragen.length }} Fragen · {{ anzahlGeaendert }} geändert</span>
+    </div>
+
+    <p class="fehler" *ngIf="ladefehler">{{ ladefehler }}</p>
+    <p class="leer-hinweis" *ngIf="!geladen">Lade Fragen…</p>
+
+    <div class="liste" *ngIf="geladen && !ladefehler">
+      <div class="frage" *ngFor="let q of sichtbareFragen" [id]="'frage-' + q.id" [class.offen]="offen === q.id">
+        <button type="button" class="frage-kopf" (click)="oeffnen(q)">
+          <span class="thumb-wrap" *ngIf="bild(q.imageKey) as b; else keinBild" [class.ausgeblendet]="bildAusgeblendet(q)">
+            <img [src]="b.file" alt="" class="thumb" loading="lazy" />
+            <span class="thumb-tag" *ngIf="bildAusgeblendet(q)">ausgeblendet</span>
+          </span>
+          <ng-template #keinBild><span class="thumb leer"><ion-icon name="image-outline"></ion-icon></span></ng-template>
+          <span class="frage-text">
+            <span class="text">{{ q.question }}</span>
+            <span class="meta">
+              <span class="mono">{{ q.id }}</span>
+              <span class="badge geaendert" *ngIf="geaendert(q)">geändert</span>
+              <span class="richtig">✓ {{ q.choices[q.correctIndex] }}</span>
+            </span>
+          </span>
+          <span class="pfeil">{{ offen === q.id ? '▲' : '✎' }}</span>
+        </button>
+
+        <div class="editor" *ngIf="offen === q.id && entwurf as e">
+          <label class="feld">
+            <span>Frage</span>
+            <textarea rows="3" [(ngModel)]="e.question" maxlength="1000"></textarea>
+          </label>
+
+          <div class="feld">
+            <span>Antworten <small>(Kreis = richtige Antwort)</small></span>
+            <div class="antwort" *ngFor="let c of e.choices; let i = index; trackBy: trackIndex" [class.ist-richtig]="e.correctIndex === i">
+              <input type="radio" [name]="'richtig-' + q.id" [checked]="e.correctIndex === i" (change)="e.correctIndex = i" [attr.aria-label]="'Antwort ' + (i + 1) + ' ist richtig'" />
+              <input type="text" [(ngModel)]="e.choices[i]" maxlength="400" [placeholder]="'Antwort ' + (i + 1)" />
+              <button type="button" class="mini" (click)="antwortWeg(i)" [disabled]="e.choices.length <= 2" title="Antwort entfernen">✕</button>
+            </div>
+            <button type="button" class="link" (click)="antwortDazu()" *ngIf="e.choices.length < 6">+ Antwort hinzufügen</button>
+          </div>
+
+          <label class="feld">
+            <span>Erklärung (nach dem Antworten)</span>
+            <textarea rows="3" [(ngModel)]="e.explanation" maxlength="2000"></textarea>
+          </label>
+
+          <div class="zwei">
+            <label class="feld">
+              <span>Quelle</span>
+              <input type="text" [(ngModel)]="e.source" maxlength="300" placeholder="z. B. EBO § 5" />
+            </label>
+            <label class="feld">
+              <span>Quellen-Link</span>
+              <input type="url" [(ngModel)]="e.sourceUrl" maxlength="500" placeholder="https://…" />
+            </label>
+          </div>
+
+          <label class="feld klein">
+            <span>Schwierigkeit</span>
+            <select [(ngModel)]="e.difficulty">
+              <option *ngFor="let s of schwierigkeiten" [ngValue]="s.wert">{{ s.text }}</option>
+            </select>
+          </label>
+
+          <div class="feld">
+            <span>Bild</span>
+            <div class="bild-zeile">
+              <img *ngIf="vorschau(e.imageKey) as v; else keinBild2" [src]="v" alt="" class="bild-gross" />
+              <ng-template #keinBild2><span class="bild-gross leer">kein Bild</span></ng-template>
+              <div class="bild-knoepfe">
+                <button type="button" class="btn" (click)="galerieOeffnen()">Bild aus Galerie wählen</button>
+                <button type="button" class="btn" (click)="e.imageKey = ''" [disabled]="!e.imageKey">Bild entfernen</button>
+                <small class="mono" *ngIf="e.imageKey">{{ e.imageKey }}</small>
+                <small *ngIf="bild(e.imageKey) as b">{{ b.credit }}</small>
+                <small class="warn" *ngIf="entwurfBildEntfernt()">In der Bilder-Verwaltung auf „Entfernen“ gesetzt. Wenn du es hier speicherst, wird es in dieser Frage trotzdem gezeigt.</small>
+              </div>
+            </div>
+          </div>
+
+          <p class="fehler" *ngIf="fehler">{{ fehler }}</p>
+          <p class="ok" *ngIf="meldung">{{ meldung }}</p>
+
+          <div class="aktionen">
+            <button type="button" class="btn primaer" (click)="speichern()" [disabled]="busy">Speichern</button>
+            <button type="button" class="btn" (click)="schliessen()">Schließen</button>
+            <button type="button" class="btn gefahr" *ngIf="geaendert(q)" (click)="originalWiederherstellen()" [disabled]="busy">Original wiederherstellen</button>
+          </div>
+        </div>
+      </div>
+      <p class="leer-hinweis" *ngIf="sichtbareFragen.length === 0">Keine Frage gefunden.</p>
+    </div>
+  </div>
+
+  <!-- Galerie -->
+  <div class="galerie-hinter" *ngIf="galerieOffen" (click)="galerieOffen = false">
+    <div class="galerie" (click)="$event.stopPropagation()" role="dialog" aria-label="Bild auswählen">
+      <div class="galerie-kopf">
+        <b>Bild auswählen</b>
+        <button type="button" class="mini" (click)="galerieOffen = false" title="Schließen">✕</button>
+      </div>
+      <div class="galerie-filter">
+        <input type="search" [(ngModel)]="galerieSuche" placeholder="Suchen (Name, Kategorie, Urheber)" />
+        <select [(ngModel)]="galerieQuelle">
+          <option value="alle">Alle Quellen</option>
+          <option value="foto">Tims Fotos</option>
+          <option value="upload">Hochgeladen</option>
+          <option value="quiz">Quiz-Bilder (Wikimedia)</option>
+        </select>
+        <select [(ngModel)]="galerieKategorie">
+          <option value="">Alle Kategorien</option>
+          <option *ngFor="let k of galerieKategorien" [value]="k">{{ k }}</option>
+        </select>
+        <label class="haken"><input type="checkbox" [(ngModel)]="galerieEntfernteZeigen" /> auch auf „Entfernen“ gesetzte zeigen</label>
+      </div>
+      <p class="leer-hinweis" *ngIf="!galerieGeladen">Lade Galerie…</p>
+      <div class="galerie-raster" *ngIf="galerieGeladen">
+        <button type="button" class="kachel" *ngFor="let g of galerieSichtbar; trackBy: trackBild"
+                [class.gewaehlt]="entwurf?.imageKey === g.key" [class.entfernt]="g.entfernt" (click)="bildWaehlen(g.key)" [title]="g.info">
+          <img [src]="g.thumb" alt="" loading="lazy" />
+          <span class="k-tag" *ngIf="g.entfernt">entfernt</span>
+          <span class="k-name">{{ g.name }}</span>
+          <span class="k-meta">{{ g.kategorie || g.info }}<ng-container *ngIf="verwendung(g.key) as n"> · {{ n }}× im Thema</ng-container></span>
+        </button>
+        <p class="leer-hinweis" *ngIf="galerieSichtbar.length === 0">Kein Bild gefunden.</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

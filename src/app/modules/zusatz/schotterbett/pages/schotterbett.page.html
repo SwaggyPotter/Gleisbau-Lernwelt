@@ -1,6 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Schotterbett-Rechner</ion-title>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>Schotterbedarfsrechner</ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/dashboard" fill="clear">
         <ion-icon slot="start" name="grid-outline"></ion-icon>
@@ -11,13 +12,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="game-content">
-  <div class="page-shell">
+  <div class="page-shell" [class.breit]="modus !== 'rechner'">
     <section class="hero">
-      <p class="eyebrow">Zusatzmodul</p>
-      <h1>Schotterbett-Rechner</h1>
+      <p class="eyebrow">Zusatzmodul · Lernfeld 10</p>
+      <h1>Schotterbedarfsrechner</h1>
       <p class="lede">
-        Schwellenabstand, Schwellen pro Kilometer und Mindest-Bettungsstärke
-        berechnen — Werte für eingleisige Strecken, mit echten Quellen belegt.
+        Prüfungsnahe Textaufgaben zu Schwellenanzahl, Schotterbedarf und Wagenanzahl,
+        dazu die Regelwerte aus Ril 820.2010 zum Üben und ein freier Rechner.
       </p>
       <div class="stat-row">
         <div class="stat"><span>Serie</span><strong>{{ progress.streak }}</strong></div>
@@ -27,139 +28,422 @@
       </div>
     </section>
 
-    <section class="kategorie-row">
-      <ion-select
-        class="kategorie-select"
-        interface="action-sheet"
-        label="Aufgaben-Kategorie"
-        labelPlacement="stacked"
-        [value]="ausgewaehlteKategorie"
-        (ionChange)="onKategorieChange($any($event).detail.value)"
-      >
-        <ion-select-option [value]="zufallId">Zufällig (alle Kategorien)</ion-select-option>
-        <ion-select-option *ngFor="let k of kategorien" [value]="k.id">{{ k.label }}</ion-select-option>
-      </ion-select>
-    </section>
+    <ion-segment class="modus-segment" [value]="modus" (ionChange)="onModusChange($any($event).detail.value)">
+      <ion-segment-button value="pruefung"><ion-label>Textaufgabe</ion-label></ion-segment-button>
+      <ion-segment-button value="ueben"><ion-label>Üben</ion-label></ion-segment-button>
+      <ion-segment-button value="rechner"><ion-label>Rechner</ion-label></ion-segment-button>
+    </ion-segment>
 
-    <ion-card class="aufgabe-card">
-      <ion-card-header>
-        <ion-card-subtitle>{{ aktuelleKategorieInfo?.label }}</ion-card-subtitle>
-        <ion-card-title class="formel-title">{{ aktuelleKategorieInfo?.formel }}</ion-card-title>
-      </ion-card-header>
+    <div class="arbeits-layout" *ngIf="modus !== 'rechner'">
+    <div class="arbeits-haupt">
+    <!-- ================= PRÜFUNGSAUFGABE ================= -->
+    <ng-container *ngIf="modus === 'pruefung'">
+      <div class="niveau-row">
+        <button type="button" class="niveau-chip" *ngFor="let n of niveaus" [class.aktiv]="niveau === n.id" (click)="onNiveauChange(n.id)">
+          <strong>{{ n.titel }}</strong><span>{{ n.text }}</span>
+        </button>
+      </div>
 
-      <ion-card-content>
-        <div class="diagram-wrap" [ngSwitch]="diagramm">
-          <svg *ngSwitchCase="'querschnitt'" viewBox="0 0 400 160" class="diagram-svg">
-            <line x1="20" y1="135" x2="380" y2="135" class="d-base"/>
-            <polygon points="120,95 280,95 330,135 70,135" class="d-fill"/>
-            <polyline points="70,135 120,95 280,95 330,135" class="d-outline"/>
-            <rect x="160" y="80" width="80" height="15" class="d-schwelle"/>
-            <line x1="360" y1="95" x2="360" y2="135" class="d-guide"/>
-            <line x1="330" y1="95" x2="365" y2="95" class="d-guide"/>
-            <line x1="330" y1="135" x2="365" y2="135" class="d-guide"/>
-            <text x="375" y="118" text-anchor="middle" class="dlabel" transform="rotate(90 375 118)">Bettungsstärke</text>
-            <text x="95" y="118" text-anchor="middle" class="dlabel accent">Böschung</text>
-            <text x="140" y="88" text-anchor="middle" class="dlabel">Schotterschulter</text>
-            <text x="200" y="20" text-anchor="middle" class="dlabel muted">BEISPIELQUERSCHNITT — KEINE NORM</text>
-          </svg>
+      <ion-card class="aufgabe-card">
+        <ion-card-header>
+          <ion-card-subtitle>Textaufgabe</ion-card-subtitle>
+          <ion-card-title class="info-title">{{ pa.titel }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div class="aufgabentext">
+            <p *ngFor="let absatz of pa.absaetze">{{ absatz }}</p>
+          </div>
 
-          <svg *ngSwitchCase="'staerke'" viewBox="0 0 400 160" class="diagram-svg">
-            <line x1="20" y1="140" x2="380" y2="140" class="d-base"/>
-            <rect x="90" y="80" width="60" height="60" class="d-fill"/>
-            <rect x="90" y="80" width="60" height="60" class="d-outline-rect"/>
-            <text x="120" y="70" text-anchor="middle" class="dlabel">30 cm</text>
-            <text x="120" y="155" text-anchor="middle" class="dlabel muted">Standard</text>
-            <rect x="250" y="60" width="60" height="80" class="d-fill accent-fill"/>
-            <rect x="250" y="60" width="60" height="80" class="d-outline-rect accent"/>
-            <text x="280" y="50" text-anchor="middle" class="dlabel accent">40 cm</text>
-            <text x="280" y="155" text-anchor="middle" class="dlabel muted">Hochleistung</text>
-          </svg>
-        </div>
+          <div class="diagram-wrap">
+            <svg viewBox="0 0 420 170" class="diagram-svg tall" role="img" aria-label="Skizze Bettungsquerschnitt">
+              <line x1="10" y1="140" x2="410" y2="140" class="d-base"/>
+              <polygon points="110,70 310,70 380,140 40,140" class="d-fill"/>
+              <polyline points="40,140 110,70 310,70 380,140" class="d-outline"/>
+              <rect x="130" y="70" width="160" height="22" class="d-schwelle"/>
+              <text x="210" y="85" text-anchor="middle" class="dlabel on-schwelle">Schwelle {{ fmt(pa.skizze.schwellenlaengeM, 2) }} m</text>
+              <!-- vor Kopf -->
+              <line x1="290" y1="58" x2="310" y2="58" class="d-guide"/>
+              <text x="300" y="50" text-anchor="middle" class="dlabel accent">{{ geprueft ? pa.skizze.vorKopfCm + ' cm' : 'vor Kopf ?' }}</text>
+              <!-- Bettungsdicke -->
+              <line x1="210" y1="92" x2="210" y2="140" class="d-guide"/>
+              <text x="218" y="122" class="dlabel accent">{{ geprueft ? 'Bettung ' + pa.skizze.bettungsdickeCm + ' cm' : 'Bettungsdicke ?' }}</text>
+              <!-- Höhe gesamt -->
+              <line x1="395" y1="70" x2="395" y2="140" class="d-guide muted-guide"/>
+              <text x="404" y="110" text-anchor="middle" class="dlabel">h</text>
+              <text x="100" y="128" text-anchor="middle" class="dlabel">1 : 1,5</text>
+              <text x="210" y="158" text-anchor="middle" class="dlabel">Planum · b(unten)</text>
+              <text x="210" y="18" text-anchor="middle" class="dlabel muted">b(oben) = Schwellenlänge + 2 × vor Kopf</text>
+            </svg>
+          </div>
 
-        <div class="gegeben-block">
-          <p class="block-label">Gegeben</p>
-          <div class="gegeben-list">
-            <div class="gegeben-item" *ngFor="let g of aufgabe.gegeben">
-              <span class="g-label">{{ g.label }}</span>
-              <span class="g-wert">{{ g.wert }}</span>
+          <div class="gegeben-block">
+            <p class="block-label">Gegeben</p>
+            <div class="gegeben-list">
+              <div class="gegeben-item" *ngFor="let g of pa.gegeben">
+                <span class="g-label">{{ g.label }}</span>
+                <span class="g-wert">{{ g.wert }}</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="gesucht-block" *ngIf="feedback === null">
-          <p class="block-label">Gesucht</p>
-          <div class="input-row">
-            <span class="gesucht-name">{{ aufgabe.gesuchtLabel }}</span>
-            <ion-input
-              class="guess-input"
-              type="text"
-              inputmode="decimal"
-              placeholder="z. B. 1667"
-              [value]="eingabe"
-              (ionInput)="eingabe = $any($event.detail).value ?? ''"
-              (keyup.enter)="pruefen()"
-            ></ion-input>
-            <span class="unit" *ngIf="aufgabe.gesuchtEinheit">{{ aufgabe.gesuchtEinheit }}</span>
+          <div class="gesucht-block">
+            <p class="block-label">Gesucht – Ergebnisse eintragen</p>
+            <div class="teil-liste">
+              <div class="teil-zeile" *ngFor="let t of pa.teilaufgaben"
+                   [class.richtig]="status[t.key] === 'richtig' || status[t.key] === 'folgefehler'"
+                   [class.falsch]="status[t.key] === 'falsch' || status[t.key] === 'leer'">
+                <span class="teil-nr">{{ t.nr }})</span>
+                <span class="teil-frage">{{ t.frage }}</span>
+                <div class="teil-eingabe">
+                  <ion-input
+                    class="guess-input"
+                    type="text"
+                    inputmode="decimal"
+                    [value]="antworten[t.key] ?? ''"
+                    (ionInput)="antworten[t.key] = $any($event.detail).value ?? ''"
+                    (keyup.enter)="pruefeAlle()"
+                  ></ion-input>
+                  <span class="unit">{{ t.einheit }}</span>
+                  <span class="teil-icon" *ngIf="geprueft">
+                    <ion-icon [name]="status[t.key] === 'richtig' || status[t.key] === 'folgefehler' ? 'checkmark-circle' : 'close-circle'"></ion-icon>
+                  </span>
+                </div>
+                <div class="teil-loesung" *ngIf="geprueft">
+                  <span *ngIf="status[t.key] === 'folgefehler'" class="folge-hinweis">Folgerichtig gerechnet. </span>
+                  <span>Lösung: <strong class="mono">{{ korrektFormatiert(t) }} {{ t.einheit }}</strong></span>
+                  <p class="rechenweg" *ngIf="rechenwegOffen || status[t.key] !== 'richtig'">{{ t.rechenweg }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="aktion-row" *ngIf="!geprueft">
+              <ion-button expand="block" (click)="pruefeAlle()">Alles prüfen</ion-button>
+              <p class="hinweis-klein" *ngIf="!alleAusgefuellt()">Leere Felder zählen als falsch. Kommazahlen mit Komma oder Punkt.</p>
+            </div>
+
+            <div class="ergebnis-box" *ngIf="geprueft" [class.correct]="alleRichtig" [class.wrong]="!alleRichtig">
+              <strong>{{ anzahlRichtig }} von {{ pa.teilaufgaben.length }} richtig</strong>
+              <ion-button fill="outline" size="small" class="outline-btn" (click)="rechenwegOffen = !rechenwegOffen">
+                {{ rechenwegOffen ? 'Nur Fehler erklären' : 'Kompletten Rechenweg zeigen' }}
+              </ion-button>
+              <ion-button fill="outline" size="small" class="outline-btn" (click)="zurPassendenSeite()">Passende Tabellenseite zeigen</ion-button>
+              <ion-button expand="block" (click)="neuePruefungsaufgabe()">Neue Aufgabe</ion-button>
+            </div>
           </div>
-          <ion-button expand="block" (click)="pruefen()">Prüfen</ion-button>
-        </div>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
 
-        <div class="feedback-box" *ngIf="feedback !== null" [class.correct]="feedback === 'correct'" [class.wrong]="feedback === 'wrong'">
-          <strong>{{ feedback === 'correct' ? 'Richtig!' : 'Leider falsch.' }}</strong>
-          <p class="korrekt-zeile">
-            {{ aufgabe.gesuchtLabel }} = <span class="mono">{{ korrekterWertFormatiert }} {{ aufgabe.gesuchtEinheit }}</span>
+    <!-- ================= ÜBEN ================= -->
+    <ng-container *ngIf="modus === 'ueben'">
+      <section class="kategorie-row">
+        <ion-select
+          class="kategorie-select"
+          interface="action-sheet"
+          label="Aufgaben-Kategorie"
+          labelPlacement="stacked"
+          [value]="ausgewaehlteKategorie"
+          (ionChange)="onKategorieChange($any($event).detail.value)"
+        >
+          <ion-select-option [value]="zufallId">Zufällig (alle Kategorien)</ion-select-option>
+          <ion-select-option *ngFor="let k of kategorien" [value]="k.id">{{ k.label }}</ion-select-option>
+        </ion-select>
+      </section>
+
+      <ion-card class="aufgabe-card">
+        <ion-card-header>
+          <ion-card-subtitle>{{ aktuelleKategorieInfo?.label }}</ion-card-subtitle>
+          <ion-card-title class="formel-title">{{ aktuelleKategorieInfo?.formel }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <div class="diagram-wrap" [ngSwitch]="diagramm">
+            <svg *ngSwitchCase="'querschnitt'" viewBox="0 0 400 120" class="diagram-svg" role="img" aria-label="Schwellen im Abstand a">
+              <line x1="20" y1="40" x2="380" y2="40" class="d-rail"/>
+              <line x1="20" y1="80" x2="380" y2="80" class="d-rail"/>
+              <rect *ngFor="let x of [40, 100, 160, 220, 280, 340]" [attr.x]="x" y="28" width="22" height="64" class="d-schwelle"/>
+              <line x1="51" y1="108" x2="111" y2="108" class="d-guide"/>
+              <text x="81" y="104" text-anchor="middle" class="dlabel accent">a</text>
+              <text x="250" y="114" text-anchor="middle" class="dlabel muted">1000 m ÷ a = Schwellen je km</text>
+            </svg>
+
+            <svg *ngSwitchCase="'regelwerte'" viewBox="0 0 400 170" class="diagram-svg tall" role="img" aria-label="Regelwerte nach Geschwindigkeit">
+              <text x="200" y="16" text-anchor="middle" class="dlabel muted">RIL 820.2010 · GESCHWINDIGKEITSSTUFEN</text>
+              <g *ngFor="let s of [{x: 20, t: 'v ≤ 160', vk: 40, bd: 30}, {x: 150, t: '160 < v ≤ 230', vk: 50, bd: 30}, {x: 280, t: 'v > 230', vk: 50, bd: 35}]">
+                <rect [attr.x]="s.x" y="30" width="110" height="110" rx="4" class="d-band"/>
+                <text [attr.x]="s.x + 55" y="52" text-anchor="middle" class="dlabel">{{ s.t }}</text>
+                <text [attr.x]="s.x + 55" y="84" text-anchor="middle" class="dlabel big" [class.accent]="s.vk === 50">{{ s.vk }} cm</text>
+                <text [attr.x]="s.x + 55" y="98" text-anchor="middle" class="dlabel muted">vor Kopf</text>
+                <text [attr.x]="s.x + 55" y="122" text-anchor="middle" class="dlabel big" [class.accent]="s.bd === 35">{{ s.bd }} cm</text>
+                <text [attr.x]="s.x + 55" y="135" text-anchor="middle" class="dlabel muted">Bettungsdicke</text>
+              </g>
+              <text x="200" y="160" text-anchor="middle" class="dlabel muted">km/h</text>
+            </svg>
+
+            <svg *ngSwitchCase="'tabelle'" viewBox="0 0 400 120" class="diagram-svg" role="img" aria-label="Tabelle ablesen">
+              <rect x="90" y="14" width="220" height="92" rx="4" class="d-band"/>
+              <line x1="90" y1="36" x2="310" y2="36" class="d-guide muted-guide"/>
+              <line x1="150" y1="14" x2="150" y2="106" class="d-guide muted-guide"/>
+              <text x="120" y="29" text-anchor="middle" class="dlabel muted">a</text>
+              <text x="230" y="29" text-anchor="middle" class="dlabel muted">vor Kopf 30 · 40 · 50</text>
+              <text x="120" y="70" text-anchor="middle" class="dlabel accent">Zeile</text>
+              <text x="230" y="70" text-anchor="middle" class="dlabel big accent">m³/km</text>
+              <text x="200" y="118" text-anchor="middle" class="dlabel muted">Seite = Gleise + Abstand · Zeile = Schwelle + Bettung</text>
+            </svg>
+
+            <svg *ngSwitchCase="'wagen'" viewBox="0 0 400 110" class="diagram-svg" role="img" aria-label="Wagen aufrunden">
+              <line x1="10" y1="88" x2="390" y2="88" class="d-base"/>
+              <g *ngFor="let x of [20, 110, 200]">
+                <rect [attr.x]="x" y="30" width="80" height="48" class="d-outline-rect"/>
+                <rect [attr.x]="x + 2" y="32" width="76" height="44" class="d-fill"/>
+                <circle [attr.cx]="x + 18" cy="84" r="5" class="d-rad"/><circle [attr.cx]="x + 62" cy="84" r="5" class="d-rad"/>
+              </g>
+              <rect x="290" y="30" width="80" height="48" class="d-outline-rect accent"/>
+              <rect x="292" y="58" width="76" height="18" class="accent-fill"/>
+              <circle cx="308" cy="84" r="5" class="d-rad"/><circle cx="352" cy="84" r="5" class="d-rad"/>
+              <text x="330" y="22" text-anchor="middle" class="dlabel accent">Rest → ganzer Wagen</text>
+            </svg>
+          </div>
+
+          <div class="gegeben-block">
+            <p class="block-label">Gegeben</p>
+            <div class="gegeben-list">
+              <div class="gegeben-item" *ngFor="let g of aufgabe.gegeben">
+                <span class="g-label">{{ g.label }}</span>
+                <span class="g-wert">{{ g.wert }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="gesucht-block" *ngIf="feedback === null">
+            <p class="block-label">Gesucht</p>
+            <div class="input-row">
+              <span class="gesucht-name">{{ aufgabe.gesuchtLabel }}</span>
+              <ion-input
+                class="guess-input"
+                type="text"
+                inputmode="decimal"
+                placeholder="Wert"
+                [value]="eingabe"
+                (ionInput)="eingabe = $any($event.detail).value ?? ''"
+                (keyup.enter)="pruefen()"
+              ></ion-input>
+              <span class="unit" *ngIf="aufgabe.gesuchtEinheit">{{ aufgabe.gesuchtEinheit }}</span>
+            </div>
+            <ion-button expand="block" (click)="pruefen()">Prüfen</ion-button>
+          </div>
+
+          <div class="feedback-box" *ngIf="feedback !== null" [class.correct]="feedback === 'correct'" [class.wrong]="feedback === 'wrong'">
+            <strong>{{ feedback === 'correct' ? 'Richtig!' : 'Leider falsch.' }}</strong>
+            <p class="korrekt-zeile">
+              {{ aufgabe.gesuchtLabel }} = <span class="mono">{{ korrekterWertFormatiert }} {{ aufgabe.gesuchtEinheit }}</span>
+            </p>
+            <p class="rechenweg">{{ aufgabe.rechenweg }}</p>
+            <ion-button expand="block" (click)="neueAufgabe()">Nächste Aufgabe</ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+    </div>
+
+    <!-- ================= SCHOTTERTABELLE (umblättern) ================= -->
+    <aside class="tabelle-panel" (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)">
+      <div class="tp-kopf">
+        <p class="block-label">Schottertabelle</p>
+        <span class="tp-einheit-label">m³/km</span>
+      </div>
+      <div class="tp-blatt">
+        <button type="button" class="tp-pfeil" (click)="blaettern(-1)" aria-label="Vorherige Seite">‹</button>
+        <div class="tp-titel">
+          <strong>{{ aktuelleSeite.gleise === 2 ? 'Zweigleisig' : 'Eingleisig' }} · {{ aktuelleSeite.abstandCm }} cm</strong>
+          <span>Schwellenabstand {{ aktuelleSeite.abstandCm }} cm ({{ fmt(100000 / aktuelleSeite.abstandCm, 0) }}/km) · Seite {{ seite + 1 }} / {{ seiten.length }}</span>
+        </div>
+        <button type="button" class="tp-pfeil" (click)="blaettern(1)" aria-label="Nächste Seite">›</button>
+      </div>
+      <div class="tp-punkte">
+        <button type="button" *ngFor="let s of seiten; let i = index" [class.aktiv]="i === seite" (click)="seite = i"
+                [attr.aria-label]="(s.gleise === 2 ? 'zweigleisig' : 'eingleisig') + ' Abstand ' + s.abstandCm + ' cm'"></button>
+      </div>
+      <table class="schotter-tabelle">
+        <thead>
+          <tr><th rowspan="2">Schwelle</th><th rowspan="2">Bet&shy;tung</th><th colspan="3">Schotter vor Kopf</th></tr>
+          <tr><th *ngFor="let vk of tabVorKopf">{{ vk }} cm</th></tr>
+        </thead>
+        <tbody *ngFor="let sw of tabSchwellen; let odd = odd" [class.gestreift]="odd">
+          <tr *ngFor="let bd of tabBettung; let first = first">
+            <th *ngIf="first" rowspan="2" class="tp-schwelle">
+              {{ sw.name }}
+              <span class="tp-km">{{ fmt(sw.laengeM, 2) }} m · h {{ fmt(sw.hoeheM, 3) }} m{{ sw.hoeheAngenommen ? '*' : '' }} · {{ fmt(sw.volumenM3, 3) }} m³</span>
+              <span class="tp-km" *ngIf="sw.abstandFestCm">immer a = {{ sw.abstandFestCm }} cm</span>
+            </th>
+            <td class="tp-bd">{{ bd }}</td>
+            <td *ngFor="let vk of tabVorKopf">{{ tabWert(sw, bd, vk) }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="tp-hinweis">
+        Schotterbedarf in m³ je km Gleis{{ aktuelleSeite.gleise === 2 ? ' (beide Gleise, Gleisabstand 4,00 m)' : '' }},
+        verdichtet, Schwellen abgezogen. Bettung in cm unter der Schwelle. Böschung 1 : 1,5, ohne Überhöhung.
+        Schwellenvolumen = Gewicht ÷ 2,5 t/m³ (Beton) bzw. 7,85 t/m³ (Stahl). * Höhe angenommen wie B 70.
+        <ng-container *ngIf="aktuelleSeite.gleise === 2"><br><strong>Gleisabstand über 4,00 m:</strong> je 10 cm 1 % Schotter dazu.</ng-container>
+      </p>
+      <p class="tp-hinweis klein">Selbst gerechnetes Lernmodell, keine Regelwerkswerte. Wischen oder Pfeile zum Umblättern.</p>
+    </aside>
+    </div>
+
+    <!-- ================= FREIER RECHNER ================= -->
+    <ng-container *ngIf="modus === 'rechner'">
+      <ion-card class="aufgabe-card">
+        <ion-card-header>
+          <ion-card-subtitle>Eigene Werte</ion-card-subtitle>
+          <ion-card-title class="info-title">Schotterbedarf berechnen</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p class="block-label">Strecke</p>
+          <div class="feld-grid">
+            <label class="feld"><span>von km</span><input type="number" step="0.001" [(ngModel)]="rechner.vonKm"></label>
+            <label class="feld"><span>bis km</span><input type="number" step="0.001" [(ngModel)]="rechner.bisKm"></label>
+            <label class="feld"><span>v zul [km/h]</span><input type="number" step="10" [(ngModel)]="rechner.v" (ngModelChange)="onRechnerV()"></label>
+            <label class="feld"><span>Schwellenabstand [cm]</span><input type="number" step="1" [(ngModel)]="rechner.schwellenabstandCm"></label>
+          </div>
+
+          <p class="block-label">Bettung</p>
+          <label class="check-row">
+            <input type="checkbox" [(ngModel)]="rechner.ril" (ngModelChange)="onRechnerV()">
+            <span>Werte aus Ril 820.2010 nach Geschwindigkeit übernehmen</span>
+          </label>
+          <label class="feld feld-breit"><span>Schwellentyp (füllt Länge, Höhe, Volumen)</span>
+            <select [(ngModel)]="rechner.schwelle" (ngModelChange)="onRechnerSchwelle()">
+              <option *ngFor="let sw of tabSchwellen" [value]="sw.id">{{ sw.name }}</option>
+            </select>
+          </label>
+          <div class="feld-grid">
+            <label class="feld"><span>vor Kopf [cm]</span><input type="number" step="5" [(ngModel)]="rechner.vorKopfCm" [disabled]="rechner.ril"></label>
+            <label class="feld"><span>Bettungsdicke [cm]</span><input type="number" step="5" [(ngModel)]="rechner.bettungsdickeCm" [disabled]="rechner.ril"></label>
+            <label class="feld"><span>Böschung 1 :</span><input type="number" step="0.25" [(ngModel)]="rechner.boeschungN"></label>
+            <label class="feld"><span>Schwellenlänge [m]</span><input type="number" step="0.1" [(ngModel)]="rechner.schwellenlaengeM"></label>
+            <label class="feld"><span>Schwellenhöhe [m]</span><input type="number" step="0.01" [(ngModel)]="rechner.schwellenhoeheM"></label>
+            <label class="feld"><span>Volumen je Schwelle [m³]</span><input type="number" step="0.01" [(ngModel)]="rechner.schwellenvolumenM3"></label>
+          </div>
+
+          <p class="block-label">Material und Transport</p>
+          <div class="feld-grid">
+            <label class="feld"><span>ρ verdichtet [t/m³]</span><input type="number" step="0.05" [(ngModel)]="rechner.dichteVerdichtet"></label>
+            <label class="feld"><span>ρ unverdichtet [t/m³]</span><input type="number" step="0.05" [(ngModel)]="rechner.dichteUnverdichtet"></label>
+            <label class="feld"><span>Verschmutzung [%] (0 = Neubau)</span><input type="number" step="5" min="0" max="100" [(ngModel)]="rechner.verschmutzungProzent"></label>
+            <label class="feld"><span>Zuladung je Wagen [t]</span><input type="number" step="1" [(ngModel)]="rechner.wagenKapazitaetT"></label>
+          </div>
+
+          <ng-container *ngIf="rechnerErgebnis as e; else ungueltig">
+            <p class="block-label">Ergebnis</p>
+            <table class="ergebnis-tabelle">
+              <tr><td>Baulänge</td><td>{{ fmt(rechnerLaengeM, 0) }} m</td></tr>
+              <tr><td>Schwellen (aufgerundet)</td><td>{{ e.schwellenAnzahl }} Stück</td></tr>
+              <tr><td>Höhe Bettungskörper h</td><td>{{ fmt(e.hoeheM, 2) }} m</td></tr>
+              <tr><td>Breite oben / unten</td><td>{{ fmt(e.breiteObenM, 2) }} / {{ fmt(e.breiteUntenM, 2) }} m</td></tr>
+              <tr><td>Querschnittsfläche</td><td>{{ fmt(e.querschnittM2, 3) }} m²</td></tr>
+              <tr><td>abzgl. Schwellen je m</td><td>{{ fmt(e.schwellenVolumenProM, 3) }} m³/m</td></tr>
+              <tr><td>Schotter je m Gleis</td><td>{{ fmt(e.volumenProM, 3) }} m³/m · {{ fmt(e.volumenProM * rechner.dichteVerdichtet, 2) }} t/m</td></tr>
+              <tr class="hervor"><td>Schottervolumen verdichtet</td><td>{{ fmt(e.volumenVerdichtetM3, 1) }} m³</td></tr>
+              <tr class="hervor"><td>Schotterbedarf</td><td>{{ fmt(e.masseT, 1) }} t</td></tr>
+              <tr><td>entspricht lose (unverdichtet)</td><td>{{ fmt(e.volumenUnverdichtetM3, 1) }} m³</td></tr>
+              <tr><td>wiederverwendet ({{ 100 - rechner.verschmutzungProzent }} %)</td><td>{{ fmt(e.wiederverwendetT, 1) }} t</td></tr>
+              <tr class="hervor"><td>Neuschotter</td><td>{{ fmt(e.neuschotterT, 1) }} t</td></tr>
+              <tr class="hervor"><td>Wagen à {{ rechner.wagenKapazitaetT }} t</td><td>{{ e.wagen }} Wagen ({{ fmt(e.neuschotterT / rechner.wagenKapazitaetT, 2) }} aufgerundet)</td></tr>
+            </table>
+          </ng-container>
+          <ng-template #ungueltig>
+            <p class="hinweis-klein">Bitte alle Felder mit gültigen Zahlen füllen.</p>
+          </ng-template>
+          <p class="hinweis-klein">
+            Vereinfachtes Rechenmodell: Trapez von Planum bis Schwellenoberkante, ein Gleis, ohne Überhöhung.
+            Schwellenhöhe und -volumen sind Näherungswerte. Die Schüttdichten sind frei wählbare Beispielwerte.
           </p>
-          <p class="rechenweg">{{ aufgabe.rechenweg }}</p>
-          <ion-button expand="block" (click)="neueAufgabe()">Nächste Aufgabe</ion-button>
-        </div>
-      </ion-card-content>
-    </ion-card>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
 
+    <!-- ================= REGELWERK-ÜBERSICHT ================= -->
     <ion-card class="info-card">
       <ion-card-header>
-        <ion-card-subtitle>Hintergrund</ion-card-subtitle>
-        <ion-card-title class="info-title">Was steckt hinter einer Oberbauanordnung?</ion-card-title>
+        <ion-card-subtitle>Nachschlagen</ion-card-subtitle>
+        <ion-card-title class="info-title">Regelwerte Schotteroberbau (Ril 820.2010)</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <p>
-          Die Kombination aus Schwellentyp, Schienentyp, Befestigungsart und
-          Schwellenabstand wird bei der Deutschen Bahn als
-          <strong>Oberbauanordnung</strong> in einem festen Code
-          zusammengefasst, geregelt in der DB-Richtlinie
-          <strong>Ril 820 „Grundlagen des Oberbaus"</strong>. Ein reales
-          Beispiel aus der Gleisbauer-Ausbildung (Lernfeld 10):
+          Ausrüstungsstandard für Gleise mit <strong>10.000 bis 30.000 Lasttonnen pro Tag</strong>
+          (Anhang 05). Die Werte hängen von der zulässigen Geschwindigkeit ab:
         </p>
+        <div class="tabelle-scroll">
+          <table class="regel-tabelle">
+            <thead>
+              <tr><th>Geschwindigkeit</th><th>Schiene</th><th>Schwellen&shy;abstand</th><th>vor Kopf</th><th>Bettungs&shy;dicke</th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let s of ausruestung">
+                <td>{{ s.bereich }}</td>
+                <td>{{ s.schiene }}</td>
+                <td>{{ s.schwellenabstandCm }} cm</td>
+                <td [class.hervor-zelle]="s.vorKopfCm === 50">{{ s.vorKopfCm }} cm</td>
+                <td [class.hervor-zelle]="s.bettungsdickeCm === 35">{{ s.bettungsdickeCm }} cm<span *ngIf="s.hinweis" class="zelle-hinweis"> · {{ s.hinweis }}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="hinweis-box">
+          <strong>Merksatz:</strong> Bis einschließlich 160 km/h 40 cm vor Kopf, ab 161 km/h 50 cm. Y-Stahlschwellen (üblich bis 120 km/h) kommen dort nie hin.
+          Die Bettungsdicke bleibt bei 30 cm und steigt erst über 230 km/h auf 35 cm.
+          Eine pauschale „40 cm Bettung bei Hochleistungsstrecken“ steht nicht in der Ril 820.2010.
+          <br><br>
+          <strong>Schwellenabstand bis 120 km/h:</strong> In der Ril-Fassung von 2018 stehen 63 cm.
+          Planungsunterlagen der DB von 2019 und 2024 nennen für dieselbe Belastungsstufe 65 cm.
+          Im Zweifel gilt die Fassung, die euer Betrieb verwendet.
+        </p>
+
+        <p class="block-label">Weitere Regeln</p>
+        <ul class="regel-liste">
+          <li *ngFor="let r of einzelregeln"><span>{{ r.thema }}</span><strong>{{ r.wert }}</strong></li>
+        </ul>
+
+        <p class="block-label">Schwellen je Kilometer</p>
+        <div class="gegeben-list">
+          <div class="gegeben-item"><span class="g-label">60 cm</span><span class="g-wert">1667 /km</span></div>
+          <div class="gegeben-item"><span class="g-label">63 cm</span><span class="g-wert">1587 /km</span></div>
+          <div class="gegeben-item"><span class="g-label">65 cm</span><span class="g-wert">1538 /km</span></div>
+          <div class="gegeben-item"><span class="g-label">70 cm</span><span class="g-wert">1429 /km</span></div>
+          <div class="gegeben-item"><span class="g-label">75 cm</span><span class="g-wert">1333 /km</span></div>
+          <div class="gegeben-item"><span class="g-label">83 cm (Y-Stahl)</span><span class="g-wert">1205 /km</span></div>
+        </div>
+
+        <p class="block-label">Oberbauform lesen</p>
         <p class="code-example">W14K-60-B70-1667</p>
         <ul class="code-breakdown">
-          <li><strong>W14K</strong> — Befestigungsart (W-Befestigung, Spannklemme Skl 14)</li>
-          <li><strong>60</strong> — Schwellenabstand in cm</li>
-          <li><strong>B70</strong> — Schwellentyp (Spannbetonschwelle B70)</li>
-          <li><strong>1667</strong> — Schwellen je Kilometer (1000 m ÷ 0,60 m)</li>
+          <li><strong>W14K</strong>: Befestigungsart (W-Befestigung, Spannklemme Skl 14)</li>
+          <li><strong>60</strong>: Schwellenabstand in cm</li>
+          <li><strong>B70</strong>: Schwellentyp (Spannbetonschwelle B 70)</li>
+          <li><strong>1667</strong>: Schwellen je Kilometer (1000 m ÷ 0,60 m)</li>
         </ul>
+
+        <p class="block-label">Typische Schotterwagen</p>
+        <ul class="regel-liste">
+          <li><span>Materialförder- und Silowagen MFS 100 (DB Bahnbau)</span><strong>86 t / 68 m³</strong></li>
+          <li><span>Materialförder- und Silowagen MFS 40 (DB Bahnbau)</span><strong>56 t / 40 m³</strong></li>
+          <li><span>Schüttgutwagen Facns 133 (DB Cargo)</span><strong>55 m³, 42–68 t je nach Streckenklasse</strong></li>
+        </ul>
+
         <p class="hinweis-box">
-          Die vollständige DB-Tabelle mit allen Kombinationen und den
-          zugehörigen Überhöhungswerten (0–160 mm) ist nicht frei im Internet
-          zugänglich — sie steht nur im kostenpflichtigen DB-Regelwerk
-          (Ril 820) bzw. vergleichbaren Fachquellen. Die Werte auf dieser
-          Seite stammen stattdessen aus frei zugänglichen Fachpublikationen
-          (siehe Quellen).
+          Die Ril 820.2010 ist nicht frei veröffentlicht. Die Werte hier stammen aus
+          öffentlichen Dokumenten, die sie zitieren: einer Dissertation der TU Dresden und
+          Planfeststellungsunterlagen der DB. Schüttdichten und Schottertabelle sind
+          Beispielwerte aus einem eigenen Rechenmodell.
         </p>
+
         <p class="quellen-label">Quellen</p>
         <ul class="quellen-liste">
-          <li>
-            <a href="https://www.plassertheurer.com/fileadmin/user_upload/Mediathek/Publikationen/etr_070102.pdf" target="_blank" rel="noopener">
-              Plasser &amp; Theurer / ETR: „Oberbauschotter Teil 1" (Jan/Feb 2008)
-            </a> — Bettungsstärke-Mindestwerte
-          </li>
-          <li>
-            <a href="https://hubbs.schule/mediathek/schienen-montieren-und-oberbau-fertigstellen-pdf" target="_blank" rel="noopener">
-              KMK-Curriculum Lernfeld 10, HubbS
-            </a> — Beispiel-Oberbauanordnung „W14K-60-B70-1667"
-          </li>
-          <li>
-            <a href="https://www.bahnausbau-muenchen.de/files/WPS%20PFA6/10_Querschnitte/10-01-01_6-EB-4-R001-B9_Regelquerschnitt_Str-5606_freie%20Strecke-Regionalverkehr-eingleisig.pdf" target="_blank" rel="noopener">
-              DB Netz AG Planfeststellung Walpertskirchener Spange
-            </a> — Regelquerschnitt eingleisig, u = 0/160 mm
+          <li *ngFor="let q of quellen">
+            <a *ngIf="q.url; else ohneLink" [href]="q.url" target="_blank" rel="noopener">{{ q.titel }}</a>
+            <ng-template #ohneLink><span>{{ q.titel }}</span></ng-template>
+            <span class="quelle-belegt"> – {{ q.belegt }}</span>
           </li>
         </ul>
       </ion-card-content>

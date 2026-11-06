@@ -6,6 +6,7 @@ import { SchluesselPage } from './pages/schluessel/schluessel.page';
 import { BilderBenennenPage } from './pages/bilder-benennen/bilder-benennen.page';
 import { BilderVerwaltungPage } from './pages/bilder-verwaltung/bilder-verwaltung.page';
 import { FragenUebersichtPage } from './pages/fragen-uebersicht/fragen-uebersicht.page';
+import { FragenBearbeitenPage } from './pages/fragen-bearbeiten/fragen-bearbeiten.page';
 import { authGuard } from '../../core/auth/guards/auth.guard';
 import { adminGuard } from '../../core/auth/guards/admin.guard';
 
@@ -17,4 +18,7 @@ export const KONTO_ROUTES: Routes = [
   { path: 'benennen', component: BilderBenennenPage, canActivate: [authGuard, adminGuard] },
   { path: 'bilder', component: BilderVerwaltungPage, canActivate: [authGuard, adminGuard] },
   { path: 'fragen', component: FragenUebersichtPage, canActivate: [authGuard, adminGuard] },
+  { path: 'fragen-bearbeiten/:topicId', component: FragenBearbeitenPage, canActivate: [authGuard, adminGuard] },
+  { path: 'fragen-bearbeiten', redirectTo: 'fragen-bearbeiten/grundlagen', pathMatch: 'full' },
+  { path: 'gaeste', redirectTo: 'schluessel', pathMatch: 'full' },
 ];

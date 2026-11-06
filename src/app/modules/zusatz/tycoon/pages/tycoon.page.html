@@ -1,5 +1,6 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="tc-kopf">
   <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
     <ion-title>Gleisbau Tycoon</ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/dashboard" fill="clear">
@@ -14,13 +15,15 @@
   <div class="tc-wrap">
     <div class="tc-bar">
       <ng-container *ngIf="!ansichtVon">
+        <button type="button" class="tc-heim" routerLink="/dashboard" title="Zur Übersicht" aria-label="Zur Übersicht">⌂</button>
         <button type="button" [class.on]="tab === 'spiel'" (click)="wechsle('spiel')">Spiel</button>
         <button type="button" [class.on]="tab === 'rangliste'" (click)="wechsle('rangliste')">Rangliste</button>
-        <button type="button" [class.on]="tab === 'duelle'" (click)="wechsle('duelle')">⚔ Duelle</button>
         <button type="button" [class.on]="tab === 'clans'" (click)="wechsle('clans')">🛡 Clans</button>
+        <button type="button" [class.on]="tab === 'wertung'" (click)="wechsle('wertung')">🏁 Wertung</button>
+        <button type="button" [class.on]="tab === 'markt'" (click)="wechsle('markt')">📈 Börse &amp; Markt</button>
         <label class="tc-share" *ngIf="geladen && !fehler">
           <input type="checkbox" [checked]="geteilt" [disabled]="teilenBusy" (change)="teilen($any($event.target).checked)" />
-          Netz zum Ansehen freigeben
+          <span class="tc-lang">Netz zum Ansehen freigeben</span><span class="tc-kurz">Teilen</span>
         </label>
         <span class="tc-meta" *ngIf="geladen && !fehler">👁 {{ besucher }} Besucher</span>
         <span class="tc-meta" *ngIf="geladen && !fehler">{{ status }}</span>
@@ -37,28 +40,47 @@
     <p class="tc-fehler" *ngIf="!geladen">Lade …</p>
 
     <div class="tc-main" [hidden]="tab !== 'spiel' || !!fehler">
-      <div class="tycoon" #gameRoot [class.ro]="!!ansichtVon">
+      <div class="tycoon" #gameRoot [class.ro]="!!ansichtVon" [class.d3]="ansicht3d">
         <div id="hud">
-          <b>🚆 {{ ansichtVon ? ansichtVon.name : 'Gleisbau Tycoon' }}</b>
-          <span>Guthaben: <span id="money">0 €</span></span>
-          <span id="day">Tag 1</span>
-          <span id="lvl" class="lvl"></span>
-          <span class="sp" id="speeds">
-            <button data-act="arbeiten" class="shopbtn" title="Arbeiten">🛠<span class="lbl"> Arbeiten</span></button>
-            <button data-act="personal" class="shopbtn" title="Personal">👷<span class="lbl"> Personal</span></button>
-            <button data-act="auftraege" class="shopbtn" title="Aufträge">📦<span class="lbl"> Aufträge</span></button>
-            <button data-act="album" class="shopbtn" title="Sammelalbum">🏅<span class="lbl"> Album</span></button>
-            <button data-act="shop" class="shopbtn" title="Shop">🛒<span class="lbl"> Shop</span></button>
-            <button data-act="speed" data-arg="0">⏸</button>
-            <button data-act="speed" data-arg="1" class="on">1×</button>
-            <button data-act="speed" data-arg="2">2×</button>
-            <button data-act="speed" data-arg="4">4×</button>
+          <div class="hud-marke"><span class="hud-logo">🚆</span><b>{{ ansichtVon ? ansichtVon.name : 'Gleisbau Tycoon' }}</b></div>
+          <div class="hud-pill hud-geld" title="Guthaben"><span class="hud-ic">€</span><span id="money">0 €</span></div>
+          <div class="hud-pill hud-tag" title="Spieltag, Jahreszeit, Wetter, Ereignis"><span id="day">Tag 1</span></div>
+          <div class="hud-pill hud-lvl" title="Level und Pokale"><span id="lvl" class="lvl"></span><i class="hud-xp"><i id="xpbar"></i></i></div>
+          <span class="sp hud-tempo" id="speeds">
+            <button data-act="ton" id="tonbtn" title="Geräusche an/aus">🔊</button>
+            <span class="hud-trenner"></span>
+            <button data-act="speed" data-arg="0" title="Pause">⏸</button>
+            <button data-act="speed" data-arg="1" class="on" title="Normal">1×</button>
+            <button data-act="speed" data-arg="2" title="Schnell">2×</button>
+            <button data-act="speed" data-arg="4" title="Sehr schnell">4×</button>
           </span>
         </div>
+        <nav class="sp hud-dock" aria-label="Spielmenü">
+          <button data-act="arbeiten" class="shopbtn" title="Arbeiten"><span class="ic">🛠</span><span class="lbl">Arbeiten</span></button>
+          <button data-act="lernen" class="shopbtn lernbtn" title="Lernen"><span class="ic">🎓</span><span class="lbl">Lernen</span><i id="lernpunkt" class="punkt"></i></button>
+          <button data-act="personal" class="shopbtn" title="Personal"><span class="ic">👷</span><span class="lbl">Personal</span></button>
+          <button data-act="auftraege" class="shopbtn" title="Aufträge"><span class="ic">📦</span><span class="lbl">Aufträge</span></button>
+          <button data-act="album" class="shopbtn" title="Sammelalbum"><span class="ic">🏅</span><span class="lbl">Album</span></button>
+          <button data-act="shop" class="shopbtn dock-shop" title="Shop"><span class="ic">🛒</span><span class="lbl">Shop</span></button>
+        </nav>
         <canvas id="c"></canvas>
         <canvas id="c3d" #c3d *ngIf="ansicht3d"></canvas>
+        <button type="button" id="panelgriff" aria-label="Panel auf- oder zuklappen"><i class="griff-strich"></i><span class="griff-pfeil"></span><span id="panelgriff-titel">Übersicht</span></button>
         <aside id="panel"></aside>
+        <div class="kartenknoepfe" aria-label="Karte">
+          <button type="button" class="kk-zoom" data-act="zoom" data-arg="1" title="Hineinzoomen" aria-label="Hineinzoomen">＋</button>
+          <button type="button" class="kk-zoom" data-act="zoom" data-arg="-1" title="Herauszoomen" aria-label="Herauszoomen">−</button>
+          <button type="button" data-act="hilfe" title="So spielst du" aria-label="Hilfe">?</button>
+        </div>
         <button type="button" id="weltbtn" data-act="welt">🌍 Zur Weltkarte</button>
+        <div class="mitfahrt-ende" *ngIf="mitZug !== null && ansicht3d">
+          <button type="button" [class.on]="mitArt === 'hinten'" (click)="setzeMitArt('hinten')">🎥 Hinterher</button>
+          <button type="button" [class.on]="mitArt === 'vorn'" (click)="setzeMitArt('vorn')">🚆 Führerstand</button>
+          <button type="button" (click)="beendeMitfahrt()">⏹ Beenden</button>
+        </div>
+        <div id="uhr" title="Spielzeit"></div>
+        <div id="feldmenue" aria-label="Feld-Menü"></div>
+        <div id="trupps" aria-label="Streckentrupps"></div>
         <div id="hint"></div>
         <div id="toast"></div>
         <div id="modal"><div class="card" id="mcard"></div></div>
@@ -72,81 +94,233 @@
       </div>
       <p class="tc-fehler" *ngIf="rangFehler">Rangliste konnte nicht geladen werden.</p>
       <p *ngIf="rangGeladen && !rangFehler && rang.length === 0">Noch niemand im Spiel.</p>
-      <p class="tc-hinweis" *ngIf="duellMeldung">{{ duellMeldung }}</p>
-      <ol class="tc-liste">
+      <ol class="tc-liste medaillen">
         <li *ngFor="let e of rangSortiert; let i = index" [class.me]="e.isMe">
           <span class="rk">{{ i + 1 }}</span>
           <span class="nm">{{ e.name }}<small *ngIf="e.clan"> [{{ e.clan }}]</small><small *ngIf="e.isMe"> (du)</small></span>
           <span class="mo">⭐ {{ level(e.xp) }} · {{ eur(e.money) }} €</span>
-          <span class="mt">{{ e.lines }} Strecken · {{ e.bezirke }} Gebiete · {{ e.trains }} Züge · bis {{ klassen[e.maxCls]?.kmh || 100 }} km/h · 🏆 {{ e.siege }} Siege · 👁 {{ e.visitors }}</span>
+          <span class="mt">{{ e.lines }} Strecken · {{ e.bezirke }} Gebiete · {{ e.trains }} Züge · bis {{ klassen[e.maxCls]?.kmh || 100 }} km/h · 👁 {{ e.visitors }}</span>
           <span class="ak">
             <button type="button" *ngIf="e.shared || e.isMe" [routerLink]="['/zusatz/tycoon', e.userId]">Ansehen</button>
-            <ng-container *ngIf="!e.isMe">
-              <button type="button" (click)="herausfordern(e, 1)" title="Wer erwirtschaftet in 1 Stunde mehr Einnahmen?">⚔ 1 Std.</button>
-              <button type="button" (click)="herausfordern(e, 24)" title="Wer erwirtschaftet in 24 Stunden mehr Einnahmen?">⚔ 24 Std.</button>
-            </ng-container>
           </span>
         </li>
       </ol>
       <button type="button" (click)="ladeRangliste()">Aktualisieren</button>
     </div>
 
-    <div class="tc-rang" [hidden]="tab !== 'duelle'">
-      <h2>⚔ Duelle</h2>
-      <p class="tc-erklaerung">Fordere in der Rangliste jemanden heraus. Sobald das Duell angenommen ist, zählt, wer in der Laufzeit
-        (1 oder 24 Stunden) <b>mehr Einnahmen</b> erwirtschaftet – Trassenentgelt plus Miete. Es läuft nur, solange gespielt wird.
-        Belohnung: Sieg 3 🏆 + 100 Erfahrung, Unentschieden 2 🏆 + 50, Niederlage 1 🏆 + 20. Pokale gibt es im Shop gegen besondere Lackierungen und Ausrüstung.</p>
-      <p class="tc-hinweis" *ngIf="duellMeldung">{{ duellMeldung }}</p>
-      <p *ngIf="duelleGeladen && duelle.length === 0">Noch keine Duelle. Fordere jemanden in der Rangliste heraus!</p>
+    <div class="tc-rang" [hidden]="tab !== 'wertung'">
+      <h2>🏁 Wertung</h2>
+      <p class="tc-erklaerung">Gezählt wird, wie viel du im Zeitraum einnimmst (Strecken, Gebiete, Bahnhöfe, Aufträge, Verträge). Die Woche endet Sonntagnacht,
+        die Saison mit dem Quartal. Preise kommen automatisch als Gutschrift ins Spiel – Woche: Platz 1–3 Pokale und Geld, der beste Clan für jedes Mitglied Pokale;
+        Saison: Platz 1–10 große Preise.</p>
+      <p class="tc-fehler" *ngIf="wertungFehler">Wertung konnte nicht geladen werden.</p>
+      <ng-container *ngIf="wertung as w">
+        <h3>Woche {{ w.woche.key }} <small>(bis {{ bisDatum(w.woche.ende) }})</small></h3>
+        <div class="tc-ich" *ngIf="w.woche.ich">
+          <div class="tc-wert"><small>Dein Platz diese Woche</small><b>{{ w.woche.ich.platz }}.</b></div>
+          <div class="tc-wert"><small>Deine Einnahmen</small><b>{{ eur(w.woche.ich.punkte) }} €</b></div>
+          <div class="tc-wert" *ngIf="w.saison.ich"><small>Saison {{ w.saison.key }}</small><b>{{ w.saison.ich.platz }}. Platz</b></div>
+        </div>
+        <div class="tc-podest" *ngIf="w.woche.spieler.length">
+          <ng-container *ngFor="let i of [1, 0, 2]">
+            <div class="pd" *ngIf="w.woche.spieler[i] as e" [class.p1]="i === 0" [class.p2]="i === 1" [class.p3]="i === 2" [class.me]="e.ich">
+              <span class="pd-name">{{ e.name }}</span>
+              <span class="pd-wert">{{ eur(e.punkte) }} €</span>
+              <span class="pd-sockel">{{ i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉' }}</span>
+            </div>
+          </ng-container>
+        </div>
+        <ol class="tc-liste medaillen">
+          <li *ngFor="let e of w.woche.spieler" [class.me]="e.ich">
+            <span class="rk">{{ e.platz }}</span><span class="nm">{{ e.name }}<small *ngIf="e.clan"> [{{ e.clan }}]</small></span>
+            <span class="mo">{{ eur(e.punkte) }} €</span><span class="mt">{{ e.platz <= 3 ? '🏆 ' + w.preise.woche[e.platz - 1].pokale + ' Pokale + ' + eur(w.preise.woche[e.platz - 1].geld) + ' €' : '' }}</span>
+          </li>
+        </ol>
+        <h3>Clan-Wochenwertung</h3>
+        <p *ngIf="!w.woche.clans.length">Noch kein Clan hat diese Woche Einnahmen.</p>
+        <ol class="tc-liste medaillen">
+          <li *ngFor="let c of w.woche.clans; let i = index">
+            <span class="rk"><span class="clanpunkt" [style.background]="c.farbe"></span></span><span class="nm">{{ c.name }} <small>[{{ c.kuerzel }}]</small></span>
+            <span class="mo">{{ eur(c.punkte) }} €</span><span class="mt">{{ c.mitglieder }} Mitglieder{{ i < 2 ? ' · Preis: je Mitglied ' + w.preise.clan[i].pokale + ' 🏆' : '' }}</span>
+          </li>
+        </ol>
+        <h3>Saison {{ w.saison.key }} <small>(bis {{ bisDatum(w.saison.ende) }})</small></h3>
+        <p *ngIf="w.saison.ich">Du: Platz {{ w.saison.ich.platz }} · {{ eur(w.saison.ich.punkte) }} € Einnahmen</p>
+        <ol class="tc-liste medaillen">
+          <li *ngFor="let e of w.saison.spieler" [class.me]="e.ich">
+            <span class="rk">{{ e.platz }}</span><span class="nm">{{ e.name }}<small *ngIf="e.clan"> [{{ e.clan }}]</small></span><span class="mo">{{ eur(e.punkte) }} €</span>
+            <span class="mt">{{ e.platz <= 3 ? '🏆 ' + w.preise.saison[e.platz - 1].pokale + ' Pokale + ' + eur(w.preise.saison[e.platz - 1].geld) + ' €' : e.platz <= w.preise.saisonRest.bis ? '🏆 ' + w.preise.saisonRest.pokale + ' Pokale + ' + eur(w.preise.saisonRest.geld) + ' €' : '' }}</span>
+          </li>
+        </ol>
+      </ng-container>
+      <button type="button" (click)="ladeWertung()">Aktualisieren</button>
+    </div>
+
+    <div class="tc-rang" [hidden]="tab !== 'markt'">
+      <h2>📈 Börse</h2>
+      <p class="tc-erklaerung">Jede Firma hat einen Aktienkurs: Er steigt mit Einnahmen, Strecken und Gebieten – und fällt, wenn jemand länger nicht spielt.
+        Kauf und Verkauf kosten {{ boerseGebuehr * 100 }} % Gebühr.</p>
+      <div class="tc-ich">
+        <div class="tc-wert"><small>Guthaben</small><b>{{ eur(geld) }} €</b></div>
+        <div class="tc-wert"><small>Wert deiner Aktien</small><b>{{ eur(depotWert) }} €</b></div>
+      </div>
+      <p class="tc-hinweis" *ngIf="marktMeldung">{{ marktMeldung }}</p>
       <ol class="tc-liste">
-        <li *ngFor="let d of duelle" [class.me]="d.status === 'fertig' && d.ergebnis === 'sieg'">
-          <span class="rk">{{ d.status === 'fertig' ? (d.ergebnis === 'sieg' ? '🏆' : d.ergebnis === 'remis' ? '🤝' : '–') : d.status === 'laeuft' ? '⏱' : '✉' }}</span>
-          <span class="nm">{{ d.rolle === 'gegner' && d.status === 'offen' ? d.gegnerName + ' fordert dich heraus' : 'gegen ' + d.gegnerName }} <small>({{ d.stunden }} Std.)</small></span>
-          <span class="mo" *ngIf="d.status !== 'offen'">Du +{{ eur(d.meinZuwachs) }} € · {{ d.gegnerName }} +{{ eur(d.gegnerZuwachs) }} €</span>
-          <span class="mt">
-            <ng-container *ngIf="d.status === 'offen' && d.rolle === 'herausforderer'">Wartet auf Annahme.</ng-container>
-            <ng-container *ngIf="d.status === 'laeuft'">Läuft noch {{ restzeit(d) }}</ng-container>
-            <ng-container *ngIf="d.status === 'fertig'">{{ d.ergebnis === 'sieg' ? 'Gewonnen!' : d.ergebnis === 'remis' ? 'Unentschieden.' : 'Verloren.' }}{{ d.abgeholt ? ' Belohnung abgeholt.' : '' }}</ng-container>
-          </span>
-          <span class="ak">
-            <ng-container *ngIf="d.status === 'offen' && d.rolle === 'gegner'">
-              <button type="button" (click)="annehmen(d)">Annehmen</button>
-              <button type="button" (click)="ablehnen(d)">Ablehnen</button>
-            </ng-container>
-            <button type="button" *ngIf="d.status === 'offen' && d.rolle === 'herausforderer'" (click)="ablehnen(d)">Zurückziehen</button>
-            <button type="button" *ngIf="d.status === 'fertig' && !d.abgeholt" (click)="abholen(d)">Belohnung abholen</button>
+        <li *ngFor="let f of firmen" [class.me]="f.ich">
+          <span class="rk">{{ f.aktiv ? '🟢' : '⚪' }}</span>
+          <span class="nm">{{ f.name }}<small *ngIf="f.clan"> [{{ f.clan }}]</small><small *ngIf="f.ich"> (du)</small></span>
+          <span class="mo">{{ f.kurs.toLocaleString('de-DE') }} € / Aktie</span>
+          <span class="mt">Diese Woche {{ eur(f.woche) }} € eingenommen<ng-container *ngIf="f.stueck"> · Du hast {{ f.stueck }} Stück (Wert {{ eur(f.stueck * f.kurs) }} €<ng-container *ngIf="f.einstand !== null">, gekauft zu {{ f.einstand.toLocaleString('de-DE', { maximumFractionDigits: 2 }) }} €</ng-container>)</ng-container></span>
+          <span class="ak" *ngIf="!f.ich">
+            <button type="button" (click)="aktie(f, 1)">+1</button>
+            <button type="button" (click)="aktie(f, 10)">+10</button>
+            <button type="button" *ngIf="f.stueck" (click)="aktie(f, -f.stueck)">Alle verkaufen</button>
           </span>
         </li>
       </ol>
-      <button type="button" (click)="ladeDuelle()">Aktualisieren</button>
+      <p *ngIf="!firmen.length">Noch keine Firmen an der Börse.</p>
+
+      <h2>🤝 Markt</h2>
+      <p class="tc-erklaerung">Gebiete und Züge an andere Spieler verkaufen. Ein angebotener Zug ist bis zum Verkauf aus deinem Spiel genommen (Zurückziehen holt ihn zurück).
+        Gekaufte Züge stehen im Depot (Shop → Deine Züge).</p>
+      <ol class="tc-liste">
+        <li *ngFor="let a of angebote" [class.me]="a.meins">
+          <span class="rk">{{ a.art === 'zug' ? '🚆' : '🗺' }}</span>
+          <span class="nm">{{ a.art === 'zug' ? zugName(a.zug?.type) : gebietName(a.gebiet) }} <small>· von {{ a.verkaeufer }}</small></span>
+          <span class="mo">{{ eur(a.preis) }} €</span>
+          <span class="mt" *ngIf="a.art === 'zug'">{{ (a.zug?.upg || []).length }} Upgrades</span>
+          <span class="ak">
+            <button type="button" *ngIf="!a.meins" (click)="kaufeAngebot(a)">Kaufen</button>
+            <button type="button" *ngIf="a.meins" (click)="zurueckziehen(a)">Zurückziehen</button>
+          </span>
+        </li>
+      </ol>
+      <p *ngIf="!angebote.length">Gerade nichts im Angebot.</p>
+      <h3>💬 Gebote für deine Gebiete</h3>
+      <p class="tc-erklaerung">Fremde Gebiete kann niemand mehr wegkaufen – wer eins haben will, macht dir ein Gebot. Nimmst du an, geht das Gebiet an den Bieter
+        und du bekommst das Geld; lehnst du ab, bekommt er es zurück.</p>
+      <p *ngIf="!geboteFuerMich.length">Keine offenen Gebote.</p>
+      <ol class="tc-liste">
+        <li *ngFor="let g of geboteFuerMich">
+          <span class="rk">💬</span>
+          <span class="nm">{{ gebietName(g.gebiet) }} <small>· von {{ g.bieter }}</small></span>
+          <span class="mo">{{ eur(g.betrag) }} €</span>
+          <span class="ak">
+            <button type="button" (click)="gebotAktion(g, 'annehmen')">Annehmen</button>
+            <button type="button" (click)="gebotAktion(g, 'ablehnen')">Ablehnen</button>
+          </span>
+        </li>
+      </ol>
+      <ng-container *ngIf="meineGebote.length">
+        <h3>Deine Gebote</h3>
+        <ol class="tc-liste">
+          <li *ngFor="let g of meineGebote" class="me">
+            <span class="rk">⏳</span>
+            <span class="nm">{{ gebietName(g.gebiet) }} <small>· gehört {{ g.besitzer }}</small></span>
+            <span class="mo">{{ eur(g.betrag) }} €</span>
+            <span class="mt">Wartet auf Antwort – der Betrag ist so lange zurückgehalten.</span>
+            <span class="ak"><button type="button" (click)="gebotAktion(g, 'zurueck')">Zurückziehen</button></span>
+          </li>
+        </ol>
+      </ng-container>
+      <h3>Etwas anbieten</h3>
+      <div class="tc-form">
+        <select [(ngModel)]="angebotArt"><option value="zug">Zug</option><option value="gebiet">Gebiet</option></select>
+        <select *ngIf="angebotArt === 'zug'" [(ngModel)]="angebotZug">
+          <option [ngValue]="null">Zug wählen …</option>
+          <option *ngFor="let z of meineZuege" [ngValue]="z.id">{{ z.n }} ({{ z.strecke }})</option>
+        </select>
+        <select *ngIf="angebotArt === 'gebiet'" [(ngModel)]="angebotGebiet">
+          <option [ngValue]="null">Gebiet wählen …</option>
+          <option *ngFor="let g of meineGebiete" [ngValue]="g">{{ gebietName(g) }}</option>
+        </select>
+        <input type="number" [(ngModel)]="angebotPreis" min="1" class="kurz" placeholder="Preis" />
+        <button type="button" (click)="anbieten()">Anbieten</button>
+      </div>
+      <button type="button" (click)="ladeMarkt()">Aktualisieren</button>
     </div>
 
     <div class="tc-rang" [hidden]="tab !== 'clans'">
       <h2>🛡 Clans</h2>
       <p class="tc-erklaerung">Schließt euch zusammen: Gebiete von Clan-Mitgliedern nehmt ihr euch nicht gegenseitig weg, sie leuchten in der
-        Clanfarbe, und ihr dürft Strecken über die Gebiete aktiver Clan-Mitglieder zeichnen. Wer in einen anderen Clan wechselt, verlässt den alten.</p>
+        Clanfarbe, und ihr dürft Strecken über die Gebiete aktiver Clan-Mitglieder zeichnen. Wer in einen anderen Clan wechselt, verlässt den alten.
+        Clans mit 🔒 brauchen ein Passwort – oder eine Einladung.</p>
       <p class="tc-hinweis" *ngIf="clanMeldung">{{ clanMeldung }}</p>
+
+      <ng-container *ngIf="clanEinladungen.length">
+        <h3>✉ Einladungen an dich</h3>
+        <ol class="tc-liste">
+          <ng-container *ngFor="let e of clanEinladungen">
+            <li *ngIf="clanVon(e.clanId) as c">
+              <span class="rk"><span class="clanpunkt" [style.background]="c.farbe"></span></span>
+              <span class="nm">{{ c.name }} <small>[{{ c.kuerzel }}]</small></span>
+              <span class="mt">{{ e.von }} lädt dich ein · {{ c.mitglieder }} Mitglieder</span>
+              <span class="ak">
+                <button type="button" (click)="einladungAnnehmen(e.clanId)">Annehmen</button>
+                <button type="button" (click)="einladungAblehnen(e.clanId)">Ablehnen</button>
+              </span>
+            </li>
+          </ng-container>
+        </ol>
+      </ng-container>
+
       <ol class="tc-liste">
         <li *ngFor="let c of clans; let i = index" [class.me]="c.id === meinClan">
           <span class="rk"><span class="clanpunkt" [style.background]="c.farbe"></span></span>
-          <span class="nm">{{ c.name }} <small>[{{ c.kuerzel }}]</small><small *ngIf="c.id === meinClan"> (dein Clan)</small></span>
+          <span class="nm">{{ c.passwort ? '🔒 ' : '' }}{{ c.name }} <small>[{{ c.kuerzel }}]</small><small *ngIf="c.id === meinClan"> (dein Clan)</small></span>
           <span class="mo">{{ c.bezirke }} Gebiete · ⭐ {{ eur(c.xp) }}</span>
           <span class="mt">{{ c.mitglieder }} Mitglieder: {{ c.namen.join(', ') }}</span>
           <span class="ak">
-            <button type="button" *ngIf="c.id !== meinClan" (click)="clanBeitreten(c)">Beitreten</button>
+            <ng-container *ngIf="c.id !== meinClan">
+              <ng-container *ngIf="passwortFuer === c.id">
+                <input type="password" class="tc-pw" [(ngModel)]="beitrittPasswort" placeholder="Passwort" maxlength="50" (keyup.enter)="clanBeitreten(c)" autocomplete="off" />
+                <button type="button" (click)="clanBeitreten(c)" [disabled]="!beitrittPasswort">OK</button>
+                <button type="button" (click)="passwortFuer = null">Abbrechen</button>
+              </ng-container>
+              <button type="button" *ngIf="passwortFuer !== c.id" (click)="clanBeitreten(c)">{{ c.passwort ? '🔒 Beitreten' : 'Beitreten' }}</button>
+            </ng-container>
             <button type="button" *ngIf="c.id === meinClan" (click)="clanAustreten()">Austreten</button>
           </span>
         </li>
       </ol>
       <p *ngIf="clans.length === 0">Noch gibt es keinen Clan – gründe den ersten!</p>
+
+      <ng-container *ngIf="meinClanDaten as mc">
+        <h3>🔒 Passwort deines Clans</h3>
+        <p class="tc-erklaerung" *ngIf="passwortRecht">{{ mc.passwort ? 'Dein Clan hat ein Passwort. Neues eintragen zum Ändern – oder leer lassen und „Entfernen“, dann darf jeder beitreten.' : 'Dein Clan ist offen – jeder darf beitreten. Mit einem Passwort kommen nur noch Leute rein, die es kennen oder eingeladen sind.' }}</p>
+        <p class="tc-erklaerung" *ngIf="!passwortRecht">{{ mc.passwort ? 'Dein Clan hat ein Passwort.' : 'Dein Clan ist offen.' }} Ändern kann es der Gründer.</p>
+        <div class="tc-form" *ngIf="passwortRecht">
+          <input type="password" [(ngModel)]="clanPasswortNeu" placeholder="Neues Passwort (mind. 4 Zeichen)" maxlength="50" autocomplete="new-password" />
+          <button type="button" (click)="passwortSpeichern()" [disabled]="clanPasswortNeu.trim().length < 4">{{ mc.passwort ? 'Ändern' : 'Setzen' }}</button>
+          <button type="button" *ngIf="mc.passwort" (click)="clanPasswortNeu = ''; passwortSpeichern()">Entfernen</button>
+        </div>
+
+        <h3>✉ Spieler einladen</h3>
+        <p class="tc-erklaerung">Eingeladene bekommen einen Hinweis im Spiel und können ohne Passwort beitreten.</p>
+        <div class="tc-form">
+          <input type="search" [(ngModel)]="spielerSuche" placeholder="Spieler suchen …" maxlength="40" />
+        </div>
+        <p *ngIf="rangGeladen && einladbar.length === 0">Niemand gefunden.</p>
+        <ol class="tc-liste tc-einladen">
+          <li *ngFor="let e of einladbar">
+            <span class="nm">{{ e.name }}<small *ngIf="e.clan"> [{{ e.clan }}]</small></span>
+            <span class="mt">⭐ Level {{ level(e.xp) }} · {{ e.bezirke }} Gebiete</span>
+            <span class="ak">
+              <button type="button" (click)="einladen(e)" [disabled]="eingeladen.has(e.userId)">{{ eingeladen.has(e.userId) ? '✓ Eingeladen' : 'Einladen' }}</button>
+            </span>
+          </li>
+        </ol>
+      </ng-container>
+
       <h3>Clan gründen</h3>
       <div class="tc-form">
         <input type="text" [(ngModel)]="neuName" placeholder="Name (z. B. Schotterbande)" maxlength="30" />
         <input type="text" [(ngModel)]="neuKuerzel" placeholder="Kürzel (2–4)" maxlength="4" class="kurz" />
+        <input type="password" [(ngModel)]="neuPasswort" placeholder="Passwort (optional)" maxlength="50" autocomplete="new-password" />
         <span class="farbwahl">
           <button type="button" *ngFor="let f of clanFarben" class="clanpunkt" [style.background]="f" [class.on]="neuFarbe === f" (click)="neuFarbe = f" [attr.aria-label]="'Farbe ' + f"></button>
         </span>
-        <button type="button" (click)="clanGruenden()" [disabled]="neuName.trim().length < 3 || neuKuerzel.trim().length < 2">Gründen</button>
+        <button type="button" (click)="clanGruenden()" [disabled]="neuName.trim().length < 3 || neuKuerzel.trim().length < 2 || (neuPasswort !== '' && neuPasswort.trim().length < 4)">Gründen</button>
       </div>
     </div>
   </div>

@@ -1,0 +1,65 @@
+// Gleiches Konto-Design wie die Schlüssel-Seite (Karten, Felder, Knöpfe)
+@use '../../konto-theme' as theme;
+
+@include theme.page-base;
+
+:host { display: block; margin-top: 28px; @include theme.theme-vars; }
+
+.block { margin: 18px 0; }
+.mono { font-family: var(--font-mono); }
+.erklaerung { color: var(--sp-text-muted); font-size: .9rem; margin: 0 0 10px; }
+.mini-label { color: var(--sp-text-muted); font-size: .8rem; margin: 12px 0 4px; }
+ion-segment { margin-bottom: 8px; }
+
+.neu {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 12px;
+  padding: 10px 12px; border: 1px dashed var(--sp-accent); border-radius: var(--sp-radius);
+  .gross { font-size: 1.3rem; letter-spacing: .06em; color: var(--sp-accent); }
+}
+
+.code-item {
+  background: var(--sp-surface); border: 1px solid var(--sp-border); border-radius: var(--sp-radius);
+  padding: 12px 14px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px;
+  &.inaktiv { opacity: .6; }
+}
+.ci-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.ci-code { font-weight: 700; font-size: 1.05rem; }
+.ci-status {
+  font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; padding: 2px 8px;
+  border-radius: 999px; border: 1px solid var(--sp-border); color: var(--sp-text-muted);
+  &.aktiv { color: var(--sp-success); border-color: var(--sp-success); }
+}
+.ci-name { font-weight: 600; }
+.ci-meta { color: var(--sp-text-muted); font-size: .85rem; }
+.ci-aktionen { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.gast-tabelle {
+  width: 100%; border-collapse: collapse; margin-top: 6px; font-size: .85rem;
+  th, td { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--sp-border); }
+  th { color: var(--sp-text-muted); font-weight: 600; font-size: .78rem; }
+}
+@media (max-width: 600px) {
+  .gast-tabelle th:nth-child(2), .gast-tabelle td:nth-child(2),
+  .gast-tabelle th:nth-child(5), .gast-tabelle td:nth-child(5) { display: none; }
+}
+
+.fehler { color: var(--sp-danger); }
+.leer-hinweis { color: var(--sp-text-muted); font-size: .9rem; }
+
+.max-zeile {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 2px;
+  label { display: flex; align-items: center; gap: 8px; color: var(--sp-text-muted); font-size: .85rem; }
+  input {
+    width: 80px; padding: 5px 8px; font: inherit; font-family: var(--font-mono); color: var(--sp-text);
+    background: var(--sp-bg); border: 1px solid var(--sp-border); border-radius: 6px;
+  }
+}
+.fehler.klein { font-size: .8rem; }
+
+.gast-tabelle tr.raus td { opacity: .5; }
+.raus-tag { margin-left: 6px; font-size: .7rem; color: var(--sp-danger); text-transform: uppercase; }
+.gast-tabelle td.aktion { text-align: right; white-space: nowrap; }
+.raus-knopf {
+  font: inherit; font-size: .78rem; cursor: pointer; padding: 3px 8px; border-radius: 5px;
+  background: transparent; color: var(--sp-danger); border: 1px solid var(--sp-danger);
+}

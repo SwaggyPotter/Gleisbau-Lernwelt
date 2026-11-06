@@ -1,0 +1,111 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>Schotterberechnung</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Übersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="sbx-content">
+  <div class="sbx app" #root>
+
+    <!-- ================= LINKS: Malfläche mit Aufgabe / Ergebnisse ================= -->
+    <div class="col" id="leftCol">
+      <section class="card board">
+        <div class="tools" id="tools">
+          <button class="btn small primary" id="newTask" type="button">Neue Aufgabe ↻</button>
+          <select class="btn small stufe" id="stufe" aria-label="Schwierigkeitsgrad"></select>
+          <button class="btn small" id="nurWerte" type="button" aria-pressed="false">Nur Werte</button>
+          <button class="btn small" id="hint" type="button">Regelwerte</button>
+          <button class="btn small" id="melden" type="button" title="Fehler in dieser Aufgabe melden">⚑ Melden</button>
+          <span class="sep"></span>
+          <button class="btn small tool active" data-tool="pen" title="Stift" type="button">✏️ Stift</button>
+          <button class="btn small tool" data-tool="eraser" title="Radierer" type="button">🧽 Radierer</button>
+          <button class="btn small tool" data-tool="text" title="Mit der Tastatur schreiben und rechnen (Zeile mit = abschließen)" type="button">⌨️ Text</button>
+          <span class="sep"></span>
+          <span id="swatches" class="swatches"></span>
+          <span class="sep"></span>
+          <input type="range" id="size" min="1" max="14" value="3" aria-label="Strichstärke">
+          <span class="sep"></span>
+          <button class="btn small" id="undo" type="button">↶ Zurück</button>
+          <button class="btn small" id="clear" type="button">Alles löschen</button>
+          <span class="sep"></span>
+          <button class="btn small" id="zoomReset" type="button" title="Zoom zurücksetzen">🔍 <span id="zoomWert">100 %</span></button>
+          <button class="btn small" id="vollbild" type="button">Vollbild</button>
+          <label class="chk"><input type="checkbox" id="penOnly"> Nur Stift</label>
+        </div>
+        <div class="canvaswrap" id="canvasWrap">
+          <div class="welt" id="welt"></div>
+          <div class="aufgabe-blatt">
+            <div class="aufgabe-kopf">Aufgabe <span id="taskNo"></span></div>
+            <div id="taskText"></div>
+            <p id="hintText" class="hinweis" style="display:none">
+              Einschotterung vor Kopf: bis 160 km/h <b>0,40 m</b>, über 160 km/h <b>0,50 m</b>.<br>
+              Bettungsdicke: <b>0,30 m</b>, bei über 230 km/h <b>0,35 m</b>.
+            </p>
+          </div>
+          <canvas id="board"></canvas>
+        </div>
+      </section>
+
+      <section class="card answers" id="answers">
+        <button class="answers-kopf" id="answersToggle" type="button" aria-expanded="false">
+          <span>Ergebnisse <span id="answersStand" class="stand"></span></span>
+          <span class="pfeil">▲</span>
+        </button>
+        <div class="answers-body">
+          <div class="fields" id="fields"></div>
+          <div class="actions">
+            <button class="btn primary" id="check" type="button">Prüfen</button>
+            <button class="btn" id="showSol" type="button">Lösungsweg</button>
+            <button class="btn" id="answersZu" type="button">Einklappen ▼</button>
+          </div>
+          <div class="solution" id="solution"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Aufgabe melden -->
+    <div class="melde-dialog" id="meldeDialog" hidden role="dialog" aria-label="Aufgabe melden">
+      <div class="melde-box">
+        <b>Aufgabe melden</b>
+        <p class="melde-hinweis">Die ganze Aufgabe mit Werten und Musterlösung wird mitgeschickt.</p>
+        <label>Was stimmt nicht?
+          <select id="meldeGrund">
+            <option>Lösung ist falsch</option>
+            <option>Aufgabe ist unklar</option>
+            <option>Tabellenwert passt nicht</option>
+            <option>Rechtschreibung / Darstellung</option>
+            <option>Sonstiges</option>
+          </select>
+        </label>
+        <label>Kommentar (freiwillig)
+          <textarea id="meldeKommentar" rows="3" maxlength="1500" placeholder="z. B. Bei den Schwellenwagen komme ich auf 12 statt 11 …"></textarea>
+        </label>
+        <p class="melde-status" id="meldeStatus"></p>
+        <div class="melde-knoepfe">
+          <button class="btn" id="meldeAbbrechen" type="button">Abbrechen</button>
+          <button class="btn primary" id="meldeSenden" type="button">Senden</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= RECHTS: Tabelle zum Blättern ================= -->
+    <div class="col">
+      <section class="card tablecard">
+        <div class="pager">
+          <button class="btn" id="prev" aria-label="Vorherige Tabelle" type="button">‹</button>
+          <div class="title" id="tableTitle"></div>
+          <button class="btn" id="next" aria-label="Nächste Tabelle" type="button">›</button>
+        </div>
+        <div class="tablescroll" id="tableScroll"><div id="tableHost"></div></div>
+        <div class="dots" id="dots"></div>
+      </section>
+    </div>
+  </div>
+</ion-content>

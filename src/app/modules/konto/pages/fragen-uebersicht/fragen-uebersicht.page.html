@@ -1,5 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
     <ion-title>Fragen &amp; Bilder</ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/konto/profil" fill="clear">
@@ -18,6 +19,8 @@
       <p class="lede">Alle Themenquiz-Fragen nach Thema sortiert, mit Vorschau des zugeordneten Bildes.</p>
     </section>
 
+    <app-meldungen-liste></app-meldungen-liste>
+
     <p class="fehler" *ngIf="ladefehler">Konnte nicht geladen werden.</p>
 
     <ng-container *ngIf="geladen && !ladefehler">
@@ -27,6 +30,7 @@
         <div class="stat"><span>Ohne Bild</span><strong>{{ gesamtOhneBild }}</strong></div>
       </div>
 
+      <p class="lede">Zum Ändern einer Frage (Text, Antworten, Bild) auf ✎ tippen.</p>
       <ion-item class="filter-item" lines="none">
         <ion-label>Nur Fragen ohne Bild anzeigen</ion-label>
         <ion-toggle [(ngModel)]="nurOhneBild" name="nurOhneBild"></ion-toggle>
@@ -51,6 +55,7 @@
                 <span class="frage-meta" *ngIf="f.bildUrl">{{ f.imageKey }} · {{ f.bildCredit }}</span>
                 <span class="frage-meta kein-bild-hinweis" *ngIf="!f.bildUrl">kein Bild hinterlegt</span>
               </div>
+              <a class="frage-bearbeiten" [routerLink]="['/konto/fragen-bearbeiten', g.topicId]" [queryParams]="{ frage: f.id }" title="Frage bearbeiten">✎</a>
             </div>
           </div>
         </ion-accordion>

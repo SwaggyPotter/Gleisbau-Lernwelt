@@ -1,4 +1,26 @@
 /* Komponente nutzt ViewEncapsulation.None -- Spiel-Regeln sind auf .tycoon begrenzt. */
+/*
+ * Look "Leitstand": dunkles Glas ueber der hellen Karte, Signal-Orange als Akzent, Gruen/Rot fuer Geld,
+ * Violett fuer Erfahrung, Gold fuer Pokale. Alle Spiel-Menues (HUD, Dock, Panel, Fenster) nutzen dieselben Tokens.
+ */
+.tc-wrap, .tycoon {
+  --ui-glas: rgba(15, 25, 35, .84);
+  --ui-glas2: rgba(24, 38, 51, .92);
+  --ui-flaeche: rgba(255, 255, 255, .045);
+  --ui-flaeche2: rgba(255, 255, 255, .08);
+  --ui-rand: rgba(255, 255, 255, .09);
+  --ui-rand2: rgba(255, 255, 255, .16);
+  --ui-text: #e9f0f4;
+  --ui-mut: #9aabb8;
+  --ui-akzent: #ff8a3d;
+  --ui-akzent2: #ffb36b;
+  --ui-gut: #3ecf8e;
+  --ui-schlecht: #ff6b5b;
+  --ui-xp: #9b87ff;
+  --ui-gold: #f5c451;
+  --ui-schatten: 0 10px 30px rgba(0, 0, 0, .35), 0 1px 0 rgba(255, 255, 255, .05) inset;
+}
+
 .tc-content {
   --background: var(--skin-bg, #0f1b24);
 }
@@ -12,55 +34,76 @@
   [hidden] { display: none !important; }
 }
 
+/* ---------- Reiter ueber dem Spiel ---------- */
 .tc-bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   padding: 8px 12px;
-  background: var(--skin-surface, #16242f);
-  border-bottom: 1px solid var(--skin-border, rgba(111, 168, 220, 0.22));
+  background: linear-gradient(180deg, #13202b, #0f1922);
+  border-bottom: 1px solid var(--ui-rand);
   font-size: 14px;
 
   button {
     font: inherit;
+    font-weight: 600;
     cursor: pointer;
-    padding: 5px 12px;
-    border-radius: 6px;
-    border: 1px solid var(--skin-border, rgba(111, 168, 220, 0.4));
-    background: transparent;
-    color: inherit;
+    padding: 6px 13px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: var(--ui-flaeche);
+    color: var(--ui-mut);
+    transition: background .15s, color .15s, box-shadow .15s;
 
-    &.on { background: var(--skin-accent, #ff8a3d); color: var(--skin-on-primary, #0f1b24); border-color: transparent; }
+    &:hover { background: var(--ui-flaeche2); color: var(--ui-text); }
+    &.on {
+      background: linear-gradient(180deg, var(--ui-akzent2), var(--ui-akzent));
+      color: #1a1008;
+      box-shadow: 0 0 0 1px rgba(255, 138, 61, .35), 0 4px 14px rgba(255, 138, 61, .28);
+    }
   }
 
   .tc-3d { margin-left: auto; }
-  .tc-share { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
-  .tc-meta { color: var(--skin-text-muted, #8ca3af); }
+  .tc-heim, .tc-kurz { display: none; }
+  .tc-share { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; padding: 5px 10px; border-radius: 999px; background: var(--ui-flaeche); color: var(--ui-mut); font-size: 13px; }
+  .tc-share input { accent-color: var(--ui-akzent); }
+  .tc-meta { color: var(--ui-mut); font-size: 13px; }
 }
 
 .tc-fehler { padding: 12px; color: var(--skin-danger, #e0806f); }
 
 .tc-main { flex: 1; min-height: 0; }
 
+/* ---------- Seiten Rangliste, Duelle, Clans, Wertung, Boerse ---------- */
 .tc-rang {
   flex: 1;
   overflow: auto;
-  padding: 16px clamp(12px, 4vw, 40px);
-  max-width: 820px;
+  padding: 20px clamp(12px, 4vw, 40px) 40px;
+  max-width: 860px;
   width: 100%;
   margin: 0 auto;
 
-  h2 { margin: 0 0 12px; }
+  h2 {
+    display: flex; align-items: center; gap: 10px;
+    margin: 6px 0 12px; font-size: 22px; letter-spacing: .01em;
+    &::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--ui-rand2), transparent); }
+  }
+  h3 { margin: 22px 0 8px; font-size: 16px; small { color: var(--ui-mut); font-weight: 400; } }
   button {
     font: inherit;
+    font-weight: 600;
     cursor: pointer;
-    padding: 5px 12px;
-    border-radius: 6px;
-    border: 1px solid var(--skin-border, rgba(111, 168, 220, 0.4));
-    background: transparent;
+    padding: 6px 13px;
+    border-radius: 8px;
+    border: 1px solid var(--ui-rand2);
+    background: var(--ui-flaeche);
     color: inherit;
+    transition: background .15s, border-color .15s;
+    &:hover:not(:disabled) { background: var(--ui-flaeche2); border-color: var(--ui-akzent); }
+    &:disabled { opacity: .4; cursor: not-allowed; }
   }
+  > button:last-child { margin-top: 4px; }
 }
 
 .tc-liste {
@@ -73,132 +116,412 @@
 
   li {
     display: grid;
-    grid-template-columns: 34px 1fr auto auto;
+    grid-template-columns: 40px 1fr auto auto;
     gap: 4px 12px;
     align-items: center;
-    padding: 10px 12px;
-    background: var(--skin-surface, #16242f);
-    border: 1px solid var(--skin-border, rgba(111, 168, 220, 0.22));
-    border-radius: 8px;
+    padding: 12px 14px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .025));
+    border: 1px solid var(--ui-rand);
+    border-radius: 12px;
+    transition: border-color .15s, transform .15s;
 
-    &.me { border-color: var(--skin-accent, #ff8a3d); }
-    .rk { font-weight: 700; font-size: 18px; text-align: center; }
-    .nm { font-weight: 600; small { font-weight: 400; color: var(--skin-text-muted, #8ca3af); } }
-    .mo { font-weight: 700; font-variant-numeric: tabular-nums; }
-    .mt { grid-column: 2 / 4; font-size: 12px; color: var(--skin-text-muted, #8ca3af); }
+    &:hover { border-color: var(--ui-rand2); }
+    &.me { border-color: var(--ui-akzent); box-shadow: 0 0 0 1px rgba(255, 138, 61, .25), 0 6px 20px rgba(255, 138, 61, .12); }
+    .rk {
+      display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+      font-weight: 800; font-size: 15px; background: var(--ui-flaeche2); color: var(--ui-text);
+    }
+    .nm { font-weight: 700; small { font-weight: 400; color: var(--ui-mut); } }
+    .mo { font-weight: 800; font-variant-numeric: tabular-nums; }
+    .mt { grid-column: 2 / 4; font-size: 12px; color: var(--ui-mut); }
     .ak { grid-column: 4; grid-row: 1 / 3; display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
   }
 }
+/* Medaillen fuer Platz 1-3 in Ranglisten (nicht bei Duellen/Markt, die nutzen eigene Symbole). */
+.tc-liste.medaillen li:nth-child(1) .rk { background: radial-gradient(circle at 35% 30%, #fff3c4, #f5c451 45%, #b8860b); color: #3b2a00; box-shadow: 0 0 14px rgba(245, 196, 81, .45); }
+.tc-liste.medaillen li:nth-child(2) .rk { background: radial-gradient(circle at 35% 30%, #ffffff, #c9d3dc 45%, #8592a0); color: #1f2730; }
+.tc-liste.medaillen li:nth-child(3) .rk { background: radial-gradient(circle at 35% 30%, #ffe0c2, #d98c4a 45%, #8a4f1d); color: #2b1506; }
 
-.tc-kat { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;
-  button.on { background: var(--skin-accent, #ff8a3d); color: var(--skin-on-primary, #0f1b24); border-color: transparent; } }
-.tc-hinweis { padding: 8px 12px; border-radius: 8px; background: var(--skin-surface, #16242f); border: 1px solid var(--skin-accent, #ff8a3d); }
-.tc-erklaerung { color: var(--skin-text-muted, #8ca3af); font-size: 14px; }
+/* Podest: die ersten drei der Wochenwertung gross */
+.tc-podest {
+  display: flex; justify-content: center; align-items: flex-end; gap: 10px; margin: 6px 0 14px;
+  .pd { flex: 0 1 200px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; min-width: 0; }
+  .pd-name { font-weight: 800; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pd-wert { font-size: 13px; color: var(--ui-mut); font-variant-numeric: tabular-nums; }
+  .pd-sockel {
+    width: 100%; display: grid; place-items: center; border-radius: 12px 12px 4px 4px; font-size: 26px; font-weight: 900;
+    border: 1px solid var(--ui-rand2); background: linear-gradient(180deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .02));
+  }
+  .p1 .pd-sockel { height: 96px; background: linear-gradient(180deg, rgba(245, 196, 81, .45), rgba(245, 196, 81, .08)); border-color: rgba(245, 196, 81, .6); }
+  .p2 .pd-sockel { height: 72px; background: linear-gradient(180deg, rgba(201, 211, 220, .35), rgba(201, 211, 220, .06)); }
+  .p3 .pd-sockel { height: 56px; background: linear-gradient(180deg, rgba(217, 140, 74, .4), rgba(217, 140, 74, .06)); }
+  .pd.me .pd-name { color: var(--ui-akzent2); }
+}
+
+/* Kopf-Kachel "Du" auf Wertung/Boerse */
+.tc-ich {
+  display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 12px;
+  .tc-wert { flex: 1 1 150px; padding: 12px 14px; border-radius: 12px; background: var(--ui-flaeche); border: 1px solid var(--ui-rand);
+    small { display: block; color: var(--ui-mut); font-size: 12px; } b { font-size: 20px; font-variant-numeric: tabular-nums; } }
+}
+
+.tc-kat { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px;
+  button { border-radius: 999px; }
+  button.on { background: linear-gradient(180deg, var(--ui-akzent2), var(--ui-akzent)); color: #1a1008; border-color: transparent; } }
+.tc-hinweis { padding: 10px 14px; border-radius: 10px; background: rgba(255, 138, 61, .1); border: 1px solid rgba(255, 138, 61, .5); }
+.tc-erklaerung { color: var(--ui-mut); font-size: 14px; line-height: 1.5; padding: 10px 14px; border-radius: 10px; background: var(--ui-flaeche); border-left: 3px solid var(--ui-akzent); }
 .clanpunkt { display: inline-block; width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .5); padding: 0; vertical-align: middle; }
-.tc-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
-  input { font: inherit; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--skin-border, rgba(111, 168, 220, 0.4)); background: transparent; color: inherit; min-width: 0; flex: 1 1 200px; }
+.tc-liste li .rk .clanpunkt { width: 22px; height: 22px; }
+.tc-pw { font: inherit; width: 130px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--ui-rand2); background: rgba(0, 0, 0, .2); color: inherit; }
+.tc-pw:focus { outline: none; border-color: var(--ui-akzent); }
+.tc-einladen { max-height: 340px; overflow: auto; }
+.tc-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px; border-radius: 12px; background: var(--ui-flaeche); border: 1px solid var(--ui-rand); margin-bottom: 12px;
+  input { font: inherit; padding: 7px 11px; border-radius: 8px; border: 1px solid var(--ui-rand2); background: rgba(0, 0, 0, .2); color: inherit; min-width: 0; flex: 1 1 200px; }
+  input:focus, select:focus { outline: none; border-color: var(--ui-akzent); box-shadow: 0 0 0 3px rgba(255, 138, 61, .2); }
   input.kurz { flex: 0 1 110px; }
+  select { font: inherit; padding: 7px 11px; border-radius: 8px; border: 1px solid var(--ui-rand2); background: #15222d; color: inherit; min-width: 0; max-width: 100%; }
   .farbwahl { display: flex; gap: 6px; }
   .farbwahl .clanpunkt { width: 24px; height: 24px; cursor: pointer; }
-  .farbwahl .clanpunkt.on { border-color: #fff; box-shadow: 0 0 0 2px var(--skin-accent, #ff8a3d); } }
+  .farbwahl .clanpunkt.on { border-color: #fff; box-shadow: 0 0 0 2px var(--ui-akzent); } }
 
 /* ---------- Spiel (aus der Demo uebernommen, auf .tycoon begrenzt) ---------- */
 .tycoon {
-  --bg: #f4f1ea; --ink: #23262b; --mut: #6b7078; --card: #fff; --line: #d9d4c8;
+  /* Alte Namen auf das dunkle Schema umgebogen, damit auch erzeugtes HTML passt. */
+  --pw: 300px;
+  --bg: #f4f1ea; --ink: var(--ui-text); --mut: var(--ui-mut); --card: var(--ui-glas2); --line: var(--ui-rand);
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
   background: var(--bg);
-  color: var(--ink);
-  font: 14px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--ui-text);
+  font: 14px/1.45 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   user-select: none;
 
   * { box-sizing: border-box; }
 
-  #hud { position: absolute; top: 0; left: 0; right: 0; height: 48px; display: flex; align-items: center; gap: 18px; padding: 0 14px; background: rgba(244, 241, 234, .92); border-bottom: 1px solid var(--line); z-index: 5; white-space: nowrap; overflow: hidden; }
-  #hud b { font-size: 16px; }
-  #money { font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; }
-  #money.neg { color: #c0392b; }
-  .sp { margin-left: auto; display: flex; gap: 4px; }
+  /* Knoepfe allgemein */
+  button {
+    font: inherit; font-weight: 600; cursor: pointer;
+    border: 1px solid var(--ui-rand2); background: rgba(255, 255, 255, .06); color: var(--ui-text);
+    padding: 7px 12px; border-radius: 9px;
+    transition: background .15s, border-color .15s, transform .08s, box-shadow .15s;
+  }
+  button:hover:not(:disabled) { background: rgba(255, 255, 255, .12); border-color: rgba(255, 179, 107, .7); }
+  button:active:not(:disabled) { transform: translateY(1px); }
+  button:disabled { opacity: .38; cursor: not-allowed; }
+  button.on { background: linear-gradient(180deg, var(--ui-akzent2), var(--ui-akzent)); color: #1a1008; border-color: transparent; }
+  button.sm { padding: 4px 9px; font-size: 12px; border-radius: 7px; }
+
+  /* ---------- Kopfleiste ---------- */
+  #hud {
+    position: absolute; top: 0; left: 0; right: 0; height: 48px; display: flex; align-items: center; gap: 8px; padding: 0 10px;
+    background: linear-gradient(180deg, rgba(12, 20, 28, .94), rgba(15, 25, 35, .86));
+    -webkit-backdrop-filter: blur(10px) saturate(140%); backdrop-filter: blur(10px) saturate(140%);
+    border-bottom: 1px solid var(--ui-rand); box-shadow: 0 4px 18px rgba(0, 0, 0, .25);
+    z-index: 5; white-space: nowrap; overflow: hidden;
+  }
+  .hud-marke { display: flex; align-items: center; gap: 8px; padding-right: 6px; min-width: 0;
+    b { font-size: 15px; letter-spacing: .02em; overflow: hidden; text-overflow: ellipsis; } }
+  .hud-logo { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; font-size: 16px;
+    background: linear-gradient(135deg, var(--ui-akzent2), var(--ui-akzent)); box-shadow: 0 3px 10px rgba(255, 138, 61, .35); }
+  .hud-pill {
+    display: flex; align-items: center; gap: 7px; height: 32px; padding: 0 12px; border-radius: 999px; min-width: 0;
+    background: var(--ui-flaeche2); border: 1px solid var(--ui-rand); font-size: 13px;
+  }
+  .hud-geld { padding-left: 4px; }
+  .hud-ic { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; font-weight: 900; font-size: 13px;
+    background: radial-gradient(circle at 35% 30%, #fff3c4, var(--ui-gold) 50%, #b8860b); color: #3b2a00; }
+  #money { font-weight: 800; font-size: 16px; font-variant-numeric: tabular-nums; color: #fff; }
+  #money.neg { color: var(--ui-schlecht); }
+  .hud-tag { flex: 0 1 auto; color: var(--ui-mut);
+    #day { overflow: hidden; text-overflow: ellipsis; } }
+  .hud-lvl { position: relative; overflow: hidden; }
+  .lvl { font-weight: 700; color: #d9d2ff; }
+  .hud-xp { position: absolute; left: 10px; right: 10px; bottom: 3px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .1); overflow: hidden;
+    i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--ui-xp), #c6b9ff); transition: width .4s; } }
+  .hud-tempo { margin-left: auto; display: flex; align-items: center; gap: 2px; padding: 3px; border-radius: 999px; background: rgba(0, 0, 0, .25); border: 1px solid var(--ui-rand);
+    button { border: 0; background: transparent; padding: 4px 10px; border-radius: 999px; color: var(--ui-mut); font-size: 13px; }
+    button:hover:not(:disabled) { background: rgba(255, 255, 255, .1); color: var(--ui-text); }
+    button.on { background: linear-gradient(180deg, var(--ui-akzent2), var(--ui-akzent)); color: #1a1008; } }
+  .hud-trenner { width: 1px; height: 18px; background: var(--ui-rand2); margin: 0 3px; }
   &.ro .sp { display: none; }
-  button { font: inherit; cursor: pointer; border: 1px solid var(--ink); background: var(--card); color: var(--ink); padding: 6px 10px; border-radius: 6px; }
-  button:hover:not(:disabled) { background: var(--ink); color: #fff; }
-  button:disabled { opacity: .4; cursor: not-allowed; }
-  button.on { background: var(--ink); color: #fff; }
-  button.sm { padding: 3px 8px; font-size: 12px; }
+
+  /* ---------- Menue-Dock unten ---------- */
+  .hud-dock {
+    position: absolute; bottom: 14px; left: var(--karte-mitte, 50%); transform: translateX(-50%); z-index: 5; max-width: calc(100% - 24px);
+    display: flex; gap: 4px; padding: 6px; border-radius: 18px;
+    background: var(--ui-glas); -webkit-backdrop-filter: blur(12px) saturate(150%); backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid var(--ui-rand2); box-shadow: var(--ui-schatten);
+  }
+  .hud-dock .shopbtn {
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-width: 64px; min-height: 52px; padding: 7px 8px 6px;
+    border: 0; border-radius: 13px; background: transparent; color: var(--ui-mut); font-size: 11px; letter-spacing: .02em;
+    .ic { font-size: 21px; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .35)); transition: transform .15s; }
+    &:hover:not(:disabled) { background: rgba(255, 255, 255, .09); color: var(--ui-text); .ic { transform: translateY(-2px) scale(1.08); } }
+  }
+  .hud-dock .dock-shop { background: linear-gradient(180deg, rgba(255, 179, 107, .22), rgba(255, 138, 61, .12)); color: var(--ui-akzent2);
+    box-shadow: inset 0 0 0 1px rgba(255, 138, 61, .35); }
+  .lernbtn .punkt { display: none; position: absolute; top: 5px; right: 14px; width: 10px; height: 10px; border-radius: 50%; background: var(--ui-schlecht);
+    box-shadow: 0 0 0 2px #14202b; animation: tc-puls 1.6s ease-in-out infinite; }
+  @keyframes tc-puls { 0%, 100% { box-shadow: 0 0 0 2px #14202b, 0 0 0 2px rgba(255, 107, 91, .6); } 50% { box-shadow: 0 0 0 2px #14202b, 0 0 0 7px rgba(255, 107, 91, 0); } }
+
   #c { position: absolute; inset: 0; touch-action: none; }
   #c3d { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; touch-action: none; outline: none; }
-  .lok3d { height: 220px; margin: 6px 0 10px; border-radius: 8px; overflow: hidden; background: #e9eef2; }
+  .lok3d { height: 220px; margin: 6px 0 10px; border-radius: 12px; overflow: hidden; background: #e9eef2; box-shadow: inset 0 0 0 1px var(--ui-rand2); }
   .lok3d canvas { display: block; width: 100%; height: 100%; touch-action: none; outline: none; }
-  #panel { position: absolute; top: 48px; right: 0; bottom: 0; width: 300px; padding: 14px; background: rgba(255, 255, 255, .88); border-left: 1px solid var(--line); overflow: auto; z-index: 4; }
-  #panel h3 { margin: 0 0 6px; font-size: 16px; }
-  #panel .row { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
-  #panel .mut { color: var(--mut); font-size: 12px; }
+
+  /* ---------- Seitenpanel (Uebersicht und Details) ---------- */
+  #panel {
+    position: absolute; top: 60px; right: 12px; bottom: 12px; width: var(--pw); padding: 14px; z-index: 4; overflow: auto; overscroll-behavior: contain;
+    transition: transform .26s cubic-bezier(.2, .8, .3, 1), opacity .2s, height .26s cubic-bezier(.2, .8, .3, 1), bottom .26s;
+    background: var(--ui-glas); -webkit-backdrop-filter: blur(12px) saturate(150%); backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid var(--ui-rand2); border-radius: 16px; box-shadow: var(--ui-schatten);
+    scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, .18) transparent;
+  }
+  &.p-zu #panel { transform: translateX(calc(100% + 24px)); opacity: 0; pointer-events: none; }
+  /* ✕ der Details: schwebt beim Scrollen oben rechts mit. */
+  #panel .px {
+    position: sticky; top: 0; float: right; z-index: 3; margin: -4px -4px 0 8px; width: 32px; height: 32px; padding: 0; border-radius: 50%;
+    display: grid; place-items: center; font-size: 14px; background: #1b2a37; border: 1px solid var(--ui-rand2); color: var(--ui-mut);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .35); cursor: pointer;
+  }
+  #panel .px:hover { background: var(--ui-schlecht); border-color: transparent; color: #fff; }
+
+  /* Griff am Panel: an der Seite eine Lasche (zu: senkrechte Beschriftung), auf dem Handy die Kante des Blatts. */
+  #panelgriff {
+    position: absolute; z-index: 5; top: 74px; right: calc(var(--pw) + 12px); width: 24px; height: 60px; padding: 0;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    border-radius: 11px 0 0 11px; border: 1px solid var(--ui-rand2); border-right: 0; color: var(--ui-mut);
+    background: var(--ui-glas); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: -4px 4px 14px rgba(0, 0, 0, .25);
+    transition: right .26s cubic-bezier(.2, .8, .3, 1), background .15s; touch-action: none;
+  }
+  #panelgriff:hover { background: var(--ui-glas2); color: var(--ui-text); border-color: rgba(255, 179, 107, .7); }
+  .griff-pfeil::before { content: '›'; font-size: 20px; line-height: 1; }
+  .griff-strich, #panelgriff-titel { display: none; }
+  &.p-zu #panelgriff { right: 0; width: auto; height: auto; max-height: 60%; padding: 12px 7px; writing-mode: vertical-rl; color: var(--ui-text); font-size: 13px;
+    border-color: rgba(255, 138, 61, .55); }
+  &.p-zu .griff-pfeil::before { content: '‹'; }
+  &.p-zu #panelgriff-titel { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* Karten-Knoepfe (Zoom, Hilfe) unten rechts an der freien Kartenflaeche */
+  .kartenknoepfe { position: absolute; z-index: 4; right: calc(var(--karte-rechts, 0px) + 12px); bottom: calc(var(--karte-unten, 0px) + 14px);
+    display: flex; flex-direction: column; gap: 1px; border-radius: 14px; overflow: hidden; transition: right .26s, bottom .26s;
+    background: var(--ui-glas); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid var(--ui-rand2); box-shadow: var(--ui-schatten);
+    button { width: 42px; height: 40px; padding: 0; border: 0; border-radius: 0; background: transparent; font-size: 19px; font-weight: 700; color: var(--ui-text); }
+    button + button { border-top: 1px solid var(--ui-rand); }
+    button:hover:not(:disabled) { background: rgba(255, 255, 255, .1); }
+    button[data-act='hilfe'] { font-size: 16px; color: var(--ui-akzent2); } }
+  &.d3 .kk-zoom { display: none; }
+  &.ro .kartenknoepfe button[data-act='hilfe'] { display: none; }
+
+  /* Kurzanleitung */
+  .hilfe { display: flex; flex-direction: column; gap: 6px; }
+  .hilfe-menue { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+  .hilfe-z { display: flex; gap: 10px; align-items: flex-start; padding: 8px 10px; border-radius: 11px; background: var(--ui-flaeche); border: 1px solid var(--ui-rand); }
+  .hilfe-ic { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; font-size: 16px; font-weight: 800;
+    background: var(--ui-flaeche2); color: var(--ui-akzent2); }
+
+  #panel h3 { margin: 14px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--ui-akzent2); }
+  #panel > h3:first-child { margin-top: 0; font-size: 17px; text-transform: none; letter-spacing: .01em; color: #fff; }
+  #panel .row { display: flex; justify-content: space-between; gap: 8px; padding: 3px 0; }
+  #panel .mut { color: var(--ui-mut); font-size: 12px; }
   #panel .btns { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
-  .bar { height: 8px; background: #e6e1d6; border-radius: 4px; overflow: hidden; margin: 2px 0 6px; }
-  .bar i { display: block; height: 100%; }
-  .pos { color: #2e8b57; }
-  .neg { color: #c0392b; }
-  .train { border-top: 1px solid var(--line); padding: 6px 0; }
-  #hint { position: absolute; left: 14px; bottom: 14px; max-width: 360px; background: var(--ink); color: #fff; padding: 10px 14px; border-radius: 8px; z-index: 4; display: none; }
-  #toast { position: absolute; left: 50%; top: 60px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 8px 14px; border-radius: 8px; z-index: 9; opacity: 0; transition: opacity .25s; pointer-events: none; }
-  #toast.show { opacity: 1; }
-  #modal { position: absolute; inset: 0; background: rgba(20, 22, 26, .45); display: none; align-items: center; justify-content: center; z-index: 8; }
-  #modal .card { background: var(--card); border-radius: 12px; padding: 20px; width: min(440px, 92%); max-height: 100%; overflow: auto; box-shadow: 0 10px 40px rgba(0, 0, 0, .3); }
-  #modal h2 { margin: 0 0 8px; font-size: 18px; }
-  #modal .mut { color: var(--mut); font-size: 12px; }
-  #modal .row { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
-  #modal .card.breit { width: min(720px, 96%); }
-  #modal h3 { margin: 14px 0 6px; font-size: 15px; }
-  .tabs { display: flex; gap: 6px; margin: 6px 0 10px; }
-  .shop-wahl { display: block; margin-bottom: 8px; font-size: 13px; }
-  .shop-wahl select { display: block; width: 100%; margin-top: 4px; font: inherit; padding: 5px 8px; border: 1px solid var(--ink); border-radius: 6px; background: var(--card); color: var(--ink); }
-  .shop-zug { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
-  .shop-zug.zu { opacity: .55; }
-  .shop-zug.gewaehlt { background: rgba(123, 97, 255, .08); box-shadow: inset 3px 0 0 #7b61ff; }
+  .bar { height: 7px; background: rgba(255, 255, 255, .09); border-radius: 4px; overflow: hidden; margin: 3px 0 6px; }
+  .bar i { display: block; height: 100%; border-radius: 4px; }
+  .pos { color: var(--ui-gut); }
+  .neg { color: var(--ui-schlecht); }
+  .train { margin-top: 8px; padding: 9px 10px; border-radius: 11px; background: var(--ui-flaeche); border: 1px solid var(--ui-rand);
+    button.sm { margin: 6px 6px 0 0; } }
+
+  /* Uebersicht "Dein Unternehmen" */
+  .ov-kopf { display: flex; align-items: center; gap: 12px; }
+  .ov-ring {
+    --p: 0; flex: none; position: relative; width: 66px; height: 66px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: conic-gradient(var(--ui-xp) calc(var(--p) * 1%), rgba(255, 255, 255, .1) 0);
+    box-shadow: 0 0 18px rgba(155, 135, 255, .3);
+    &::before { content: ''; position: absolute; inset: 5px; border-radius: 50%; background: #16222d; }
+    b, small { position: relative; line-height: 1; }
+    b { font-size: 22px; font-weight: 900; }
+    small { font-size: 9px; text-transform: uppercase; letter-spacing: .1em; color: var(--ui-mut); margin-top: 2px; }
+  }
+  .ov-name { min-width: 0; }
+  .ov-titel { font-size: 17px; font-weight: 800; color: #fff; }
+  .ov-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .chip { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600;
+    background: var(--ui-flaeche2); border: 1px solid var(--ui-rand); color: var(--ui-text); }
+  .ov-tipp { margin: 8px 0 2px; }
+  .ov-meldung { margin-top: 10px; padding: 8px 10px; border-radius: 11px; background: rgba(255, 138, 61, .09); border: 1px solid rgba(255, 138, 61, .35);
+    .row { padding: 0; } .btns { margin: 8px 0 0; } }
+  .ov-kacheln { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 12px; }
+  .kachel { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 8px; align-items: center;
+    padding: 9px 10px; border-radius: 12px; background: linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .025)); border: 1px solid var(--ui-rand);
+    .k-ic { grid-row: 1 / 3; font-size: 20px; }
+    b { font-size: 18px; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; }
+    small { font-size: 11px; color: var(--ui-mut); } }
+  .ov-summe { display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; padding: 10px 12px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(62, 207, 142, .16), rgba(62, 207, 142, .04)); border: 1px solid rgba(62, 207, 142, .35);
+    small { color: var(--ui-mut); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+    b { font-size: 20px; font-weight: 900; font-variant-numeric: tabular-nums; } }
+  .ov-quellen { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .ov-q { display: grid; grid-template-columns: 1fr auto; row-gap: 3px; font-size: 13px;
+    .pos { font-variant-numeric: tabular-nums; font-weight: 600; } }
+  .ov-qb { grid-column: 1 / 3; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .07); overflow: hidden;
+    i { display: block; height: 100%; border-radius: 2px; background: linear-gradient(90deg, #2bb47a, var(--ui-gut)); } }
+  .ov-verlust .neg { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .ov-verlust { margin-top: 8px; padding-top: 8px !important; border-top: 1px dashed var(--ui-rand2); font-size: 13px; }
+  .ov-quelle { margin-top: 14px; opacity: .7; font-size: 10.5px !important; line-height: 1.4; }
+  #panel .ov-quelle a { color: var(--ui-mut); }
+  #panel a { color: #7cc4e4; }
+
+  /* Hinweise, Meldungen */
+  #hint { position: absolute; left: calc(var(--karte-links, 0px) + 14px); bottom: 96px; max-width: min(360px, calc(100% - 28px)); padding: 12px 14px 12px 42px; border-radius: 14px; z-index: 4; display: none;
+    background: var(--ui-glas2); color: var(--ui-text); border: 1px solid rgba(255, 138, 61, .5); box-shadow: var(--ui-schatten);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  #hint::before { content: '💡'; position: absolute; left: 13px; top: 11px; font-size: 18px; }
+  #toast { position: absolute; left: var(--karte-mitte, 50%); top: 62px; transform: translateX(-50%) translateY(-6px); z-index: 9; opacity: 0; pointer-events: none;
+    padding: 9px 16px; border-radius: 999px; background: var(--ui-glas2); color: #fff; font-weight: 600; border: 1px solid var(--ui-rand2); box-shadow: var(--ui-schatten);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: opacity .25s, transform .25s; max-width: min(640px, 92%); white-space: normal; text-align: center; }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ---------- Fenster (Modals) ---------- */
+  #modal { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(8, 14, 20, .45), rgba(8, 14, 20, .7));
+    -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 8; padding: 12px; }
+  #modal .card {
+    --art: var(--ui-akzent);
+    position: relative; width: min(460px, 94%); max-height: 100%; overflow: auto; padding: 0 20px 18px; border-radius: 18px;
+    background: linear-gradient(180deg, #1b2a37, #131e28 160px); color: var(--ui-text);
+    border: 1px solid var(--ui-rand2); box-shadow: 0 24px 70px rgba(0, 0, 0, .55), 0 0 0 1px rgba(0, 0, 0, .3);
+    border-top: 3px solid var(--art);
+    animation: tc-auf .22s cubic-bezier(.2, .9, .3, 1.2);
+    scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, .18) transparent;
+  }
+  @keyframes tc-auf { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
+  #modal .card.breit { width: min(740px, 96%); }
+  /* Farbakzent je Fensterart */
+  #modal .card[data-art='lernen'], #modal .card[data-art='memory'], #modal .card[data-art='vermessen'], #modal .card[data-art='stellwerk'], #modal .card[data-art='quiz'] { --art: #3ecf8e; }
+  #modal .card[data-art='fault'], #modal .card[data-art='werbung'] { --art: #ff6b5b; }
+  #modal .card[data-art='album'] { --art: #f5c451; }
+  #modal .card[data-art='personal'] { --art: #9b87ff; }
+  #modal .card[data-art='auftraege'], #modal .card[data-art='trassen'] { --art: #4fb3e8; }
+  #modal .card[data-art='bau'], #modal .card[data-art='arbeit'], #modal .card[data-art='fahrt'] { --art: #ffb36b; }
+
+  #modal h2 {
+    position: sticky; top: 0; z-index: 2; margin: 0 -20px 12px; padding: 16px 56px 13px 20px; font-size: 19px; font-weight: 800; letter-spacing: .01em;
+    background: linear-gradient(180deg, #1b2a37 75%, rgba(27, 42, 55, 0)); color: #fff;
+  }
+  #modal h2 small, #modal h2 .mut { font-weight: 500; }
+  #modal .mx {
+    position: sticky; top: 12px; float: right; z-index: 3; margin: 12px -8px -44px 0; width: 32px; height: 32px; padding: 0; border-radius: 50%;
+    display: grid; place-items: center; font-size: 14px; background: rgba(255, 255, 255, .08); border: 1px solid var(--ui-rand2); color: var(--ui-mut);
+  }
+  #modal .mx:hover { background: var(--ui-schlecht); border-color: transparent; color: #fff; }
+  #modal .card > :not(h2):first-child:not(.mx) { margin-top: 18px; }
+  #modal .mut { color: var(--ui-mut); font-size: 12.5px; }
+  #modal .row { display: flex; justify-content: space-between; gap: 8px; padding: 3px 0; }
+  #modal h3 { margin: 18px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--art); }
+  #modal a { color: #7cc4e4; }
+  #modal button[data-act='close'] { background: transparent; color: var(--ui-mut); border-color: var(--ui-rand2); }
+  #modal button[data-act='close']:hover { color: var(--ui-text); background: rgba(255, 255, 255, .06); }
+  #modal .opts { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  #modal .opts button { text-align: left; padding: 10px 14px; border-radius: 11px; }
+  #modal .opts button[data-act='close'] { text-align: center; }
+  #modal .opts button.good, #modal button.good { background: linear-gradient(180deg, #47d898, #2bb47a); color: #052616; border-color: transparent; opacity: 1; }
+  #modal .opts button.bad, #modal button.bad { background: linear-gradient(180deg, #ff7f70, #e0503f); color: #2a0703; border-color: transparent; opacity: 1; }
+  #modal .fb { margin-top: 10px; padding: 9px 12px; border-radius: 10px; color: #fff; font-weight: 600; }
+  #modal .fb.good { background: rgba(62, 207, 142, .22); border: 1px solid rgba(62, 207, 142, .6); }
+  #modal .fb.bad { background: rgba(255, 107, 91, .2); border: 1px solid rgba(255, 107, 91, .6); }
+
+  .tabs { display: flex; flex-wrap: wrap; gap: 3px; margin: 4px 0 12px; padding: 3px; border-radius: 12px; background: rgba(0, 0, 0, .25); border: 1px solid var(--ui-rand);
+    button { flex: 1 1 auto; border: 0; background: transparent; color: var(--ui-mut); border-radius: 9px; padding: 6px 10px; }
+    button:hover:not(:disabled) { background: rgba(255, 255, 255, .08); }
+    button.on { background: linear-gradient(180deg, var(--ui-akzent2), var(--ui-akzent)); color: #1a1008; } }
+  .shop-wahl { display: block; margin-bottom: 10px; font-size: 13px; color: var(--ui-mut); }
+  .shop-wahl select, select { display: block; width: 100%; margin-top: 4px; font: inherit; padding: 7px 10px; border: 1px solid var(--ui-rand2); border-radius: 9px; background: #15222d; color: var(--ui-text); }
+  /* Zeilen in Fenstern (Shop, Lernen, Arbeiten, Personal ...): als Karten */
+  .shop-liste { display: flex; flex-direction: column; gap: 6px; }
+  .shop-zug {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 11px 12px; margin-top: 6px;
+    border-radius: 13px; background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .025)); border: 1px solid var(--ui-rand);
+    transition: border-color .15s, background .15s;
+  }
+  .shop-liste .shop-zug { margin-top: 0; }
+  .shop-zug:hover { border-color: var(--ui-rand2); background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .035)); }
+  .shop-zug.zu { opacity: .5; }
+  .shop-zug.gewaehlt { border-color: var(--ui-akzent); box-shadow: 0 0 0 1px rgba(255, 138, 61, .3), 0 6px 18px rgba(255, 138, 61, .12); }
   .shop-zug .shop-text { flex: 1; min-width: 0; }
+  .shop-zug .shop-text > b:first-child, .shop-zug .shop-text > :first-child b { font-size: 14.5px; }
   .shop-zug .auge { flex: none; }
-  .shop-ansicht { text-align: center; font-weight: 600; margin: -4px 0 8px; }
-  .shop-zug button { white-space: nowrap; flex: none; }
-  .lvl { font-weight: 600; color: #6a4fe0; }
+  .shop-zug > button:not(.auge), .shop-zug .knoepfe > button { white-space: nowrap; flex: none;
+    background: linear-gradient(180deg, rgba(255, 179, 107, .25), rgba(255, 138, 61, .15)); border-color: rgba(255, 138, 61, .55); color: #ffd2ad; }
+  .shop-zug > button:not(.auge):hover:not(:disabled), .shop-zug .knoepfe > button:hover:not(:disabled) { background: linear-gradient(180deg, var(--ui-akzent2), var(--ui-akzent)); color: #1a1008; }
+  .shop-ansicht { text-align: center; font-weight: 700; margin: -4px 0 10px; }
+  .lvl.shop, .shop-zug .lvl { color: #c6b9ff; }
   .shopbtn { font-weight: 600; }
-  @media (max-width: 1200px) { .shopbtn .lbl { display: none; } }
-  .farbpunkt { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 6px; vertical-align: -2px; border: 1px solid rgba(0,0,0,.25); }
-  .tabs { flex-wrap: wrap; }
-  .bezirk { display: flex; align-items: center; gap: 6px; padding: 4px 0; border-top: 1px solid var(--line); }
+  /* Strecke zeichnen: Kreuzungen (Bruecke/Tunnel waehlen) und Summe */
+  .kreuz-zeile { display: flex; flex-direction: column; gap: 5px; margin: 6px 0; padding: 8px 10px; border-radius: 10px; background: var(--ui-flaeche); border: 1px solid var(--ui-rand); }
+  .kreuz-zeile .kz-wahl { display: flex; gap: 6px; flex-wrap: wrap; }
+  .kreuz-zeile .kz-wahl button { flex: 1 1 auto; }
+  #panel .zk-summe { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--ui-rand2); font-size: 15px; }
+  .farbpunkt { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 6px; vertical-align: -2px; border: 2px solid rgba(255, 255, 255, .35); }
+  .bezirk { display: flex; align-items: center; gap: 6px; padding: 6px 8px; margin: 3px 0; border-radius: 9px; cursor: pointer; transition: background .15s; }
+  .bezirk:hover { background: var(--ui-flaeche2); }
   .bezirk .bz-n { flex: 1; min-width: 0; }
   .bezirk button { flex: none; }
-  .bezirk { cursor: pointer; }
+  .bezirk.gewaehlt { background: rgba(255, 138, 61, .12); box-shadow: inset 3px 0 0 var(--ui-akzent); }
   .farbwahl-zug { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
-  .farbfeld { width: 30px; height: 30px; padding: 0; border-radius: 50%; border: 2px solid rgba(0, 0, 0, .25); }
-  .farbfeld.on { border: 3px solid #23262b; box-shadow: 0 0 0 2px #fff inset; }
+  .farbfeld { width: 30px; height: 30px; padding: 0; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .25); }
+  .farbfeld.on { border: 3px solid #fff; box-shadow: 0 0 0 2px var(--ui-akzent); }
   .knoepfe { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
-  .bezirk.gewaehlt { background: rgba(228, 87, 46, .08); box-shadow: inset 3px 0 0 #e4572e; }
-  #modal .opts button.good { background: #2e8b57; color: #fff; border-color: #2e8b57; opacity: 1; }
-  #modal .opts button.bad { background: #c0392b; color: #fff; border-color: #c0392b; opacity: 1; }
-  #modal a { color: #2e86ab; }
-  #modal .opts { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
-  #modal button.good { background: #2e8b57; color: #fff; border-color: #2e8b57; }
-  #modal button.bad { background: #c0392b; color: #fff; border-color: #c0392b; }
   input, button { user-select: text; }
   .modes { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0; }
-  .scope-circle { position: relative; width: 240px; height: 240px; margin: 8px auto; border-radius: 50%; overflow: hidden; border: 3px solid #23262b; background: #fff; }
+  .scope-circle { position: relative; width: 240px; height: 240px; margin: 8px auto; border-radius: 50%; overflow: hidden; border: 4px solid #0b1218; background: #fff; box-shadow: 0 0 0 2px var(--ui-rand2), 0 10px 30px rgba(0, 0, 0, .4); }
   .scope-circle .scope, .scope-circle .reticle { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .readrow { display: flex; gap: 8px; margin-top: 8px; }
-  .readrow input { flex: 1; min-width: 0; font: inherit; padding: 6px 10px; border: 1px solid var(--ink); border-radius: 6px; }
+  .readrow { display: flex; gap: 8px; margin-top: 10px; }
+  .readrow input { flex: 1; min-width: 0; font: inherit; padding: 8px 11px; border: 1px solid var(--ui-rand2); border-radius: 9px; background: rgba(0, 0, 0, .25); color: var(--ui-text); }
+  .readrow input:focus { outline: none; border-color: var(--ui-akzent); }
+  .tag { display: inline-block; padding: 1px 8px; border-radius: 10px; color: #fff; font-size: 12px; font-weight: 700; text-shadow: 0 1px 1px rgba(0, 0, 0, .25); }
+  .hinweis { background: rgba(245, 196, 81, .1); border: 1px solid rgba(245, 196, 81, .45); color: #f7e3b0; border-radius: 11px; padding: 9px 12px; font-size: 13px; }
+
   /* Sammelalbum */
-  .album { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin: 6px 0 10px; }
-  .album-karte { position: relative; border: 1px solid var(--line); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 2px; background: var(--card); }
-  .album-karte.zu { opacity: .55; background: #f1ede3; }
+  .album { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin: 6px 0 12px; }
+  .album-karte { position: relative; border: 1px solid var(--ui-rand2); border-radius: 13px; padding: 10px; display: flex; flex-direction: column; gap: 2px;
+    background: linear-gradient(160deg, rgba(245, 196, 81, .14), rgba(255, 255, 255, .03) 55%); box-shadow: 0 4px 14px rgba(0, 0, 0, .2); }
+  .album-karte.zu { opacity: 1; background: repeating-linear-gradient(135deg, rgba(255, 255, 255, .03) 0 8px, rgba(255, 255, 255, .015) 8px 16px); border-style: dashed; box-shadow: none; color: var(--ui-mut); }
   .album-karte .auge { position: absolute; top: 6px; right: 6px; }
-  #modal .fb { margin-top: 8px; padding: 8px 10px; border-radius: 8px; color: #fff; }
-  #modal .fb.good { background: #2e8b57; }
-  #modal .fb.bad { background: #c0392b; }
-  .tag { display: inline-block; padding: 1px 8px; border-radius: 10px; color: #fff; font-size: 12px; font-weight: 600; }
-  #weltbtn { display: none; position: absolute; top: 58px; left: 12px; z-index: 5; padding: 8px 14px; font-weight: 700; border-radius: 20px; background: #fff; border: 2px solid #23262b; box-shadow: 0 2px 8px rgba(0,0,0,.25); cursor: pointer; }
+
+  /* Lernen: Memory (Karten drehen sich), Vermessen, Stellwerk, Werbung */
+  .werbung-flaeche { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; aspect-ratio: 16 / 9; border-radius: 12px; text-align: center; padding: 12px;
+    background: repeating-linear-gradient(135deg, rgba(255, 255, 255, .05) 0 14px, rgba(255, 255, 255, .02) 14px 28px); border: 2px dashed var(--ui-rand2); color: var(--ui-mut); }
+  .werbung-zeit { margin: 8px 0 4px; font-size: 14px; }
+  .lernbtn { position: relative; }
+  .mem-kopf { display: flex; justify-content: space-between; font-weight: 700; margin: 4px 0 10px; }
+  .mem-feld { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .mem-karte { aspect-ratio: 4 / 3; padding: 0; border: 0; background: none; perspective: 700px; cursor: pointer; transition: opacity .4s, transform .4s; }
+  .mem-karte:hover:not(:disabled) { background: none; }
+  .mem-innen { position: relative; display: block; width: 100%; height: 100%; transition: transform .45s; transform-style: preserve-3d; }
+  .mem-karte.offen .mem-innen { transform: rotateY(180deg); }
+  .mem-karte.weg { opacity: .35; transform: scale(.94); cursor: default; }
+  .mem-rueck, .mem-vorn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; border-radius: 10px; backface-visibility: hidden; overflow: hidden; }
+  .mem-rueck { background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, .18), transparent 50%), repeating-linear-gradient(45deg, #ff8a3d 0 10px, #f07a2c 10px 20px); color: #fff; font-size: 30px; font-weight: 900; border: 2px solid #b85a1c; text-shadow: 0 2px 4px rgba(0, 0, 0, .3); }
+  .mem-vorn { transform: rotateY(180deg); background: #fff; color: #23262b; border: 2px solid #3ecf8e; padding: 4px; text-align: center; font-size: 13px; line-height: 1.2; }
+  .mem-vorn img { width: 100%; height: 100%; object-fit: cover; border-radius: 7px; }
+  .vm-cv, .sw-cv { width: 100%; display: block; border-radius: 12px; touch-action: none; box-shadow: inset 0 0 0 1px var(--ui-rand2); }
+  .vm-text, .sw-info { margin: 10px 0 4px; font-size: 14px; }
+  .sw-cv { cursor: pointer; }
+  .sw-log { min-height: 64px; font-size: 13px; margin-top: 6px; padding: 8px 10px; border-radius: 10px; background: rgba(0, 0, 0, .25); font-family: ui-monospace, Consolas, monospace; }
+  .vm-steuer .btns { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  /* Mitfahrt und Weltkarte-Knopf */
+  .mitfahrt-ende { position: absolute; top: 60px; left: var(--karte-mitte, 50%); transform: translateX(-50%); z-index: 6; display: flex; gap: 4px; padding: 4px; border-radius: 999px;
+    background: var(--ui-glas2); border: 1px solid var(--ui-rand2); box-shadow: var(--ui-schatten); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .mitfahrt-ende button { padding: 6px 14px; font-weight: 700; border-radius: 999px; background: transparent; color: var(--ui-mut); border: 0; cursor: pointer; white-space: nowrap; }
+  .mitfahrt-ende button.on { background: linear-gradient(180deg, var(--ui-akzent2), var(--ui-akzent)); color: #1a1008; }
+  #weltbtn { display: none; position: absolute; top: 60px; left: calc(var(--karte-links, 0px) + 12px); z-index: 5; padding: 8px 15px; font-weight: 700; border-radius: 999px; cursor: pointer;
+    background: var(--ui-glas2); color: #fff; border: 1px solid var(--ui-rand2); box-shadow: var(--ui-schatten); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+
   /* Bundesland-Uebersicht (Panel und grosse Ansicht) */
-  .landkarte { display: block; width: 100%; height: auto; max-height: 260px; margin: 4px 0 6px; background: #dfe9ef; border-radius: 8px; }
+  .landkarte { display: block; width: 100%; height: auto; max-height: 260px; margin: 4px 0 6px; background: #dfe9ef; border-radius: 12px; }
   .landkarte.gross { max-height: 62vh; }
   .landkarte path { stroke: #5a5a50; stroke-width: .7px; vector-effect: non-scaling-stroke; cursor: pointer; }
   .landkarte path:hover { fill-opacity: .85; stroke: #e4572e; stroke-width: 1.4px; }
@@ -207,27 +530,263 @@
   .landkarte .lk-text { fill: #23262b; font-weight: 600; text-anchor: middle; font-family: system-ui, sans-serif; pointer-events: none; paint-order: stroke; stroke: #fff; stroke-width: 2.5px; vector-effect: non-scaling-stroke; }
   .landkarte .lk-bf { fill: #23262b; stroke: #fff; stroke-width: 1px; vector-effect: non-scaling-stroke; cursor: pointer; }
   .landliste .bezirk { font-size: 13px; }
-  .hinweis { background: #fff6dc; border: 1px solid #f2d27a; border-radius: 8px; padding: 8px 10px; font-size: 13px; }
   .land-gross { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 14px; }
   .land-seite { max-height: 62vh; overflow: auto; }
   .land-seite .btns { display: flex; flex-direction: column; gap: 6px; margin: 8px 0; }
 }
 
+/* Ohne backdrop-filter (alte Browser): Glas deckender, damit Text lesbar bleibt. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .tycoon { --ui-glas: rgba(15, 25, 35, .96); --ui-glas2: rgba(24, 38, 51, .98); }
+}
+
+/* ---------- Geraete ----------
+ * PC (ab 1200 px): Menue als Leiste links, Panel rechts breiter, Karte dazwischen.
+ * Tablet (701-1199 px): Menue-Dock unten mittig mit Beschriftung, Panel rechts einklappbar.
+ * Handy hochkant: Menue als Navigationsleiste unten, Panel als Blatt darueber (zu / halb / offen).
+ * Handy quer (bis 500 px hoch): App-Kopf weg, Menue schmal links, Panel rechts einklappbar.
+ */
+
+/* Chat-Knopf der App: im Spiel klein und so gesetzt, dass er nichts verdeckt. */
+body.tycoon-offen .chat-knopf { right: auto; left: 16px; bottom: 16px; width: 46px; height: 46px; font-size: 22px; }
+/* Bei offenem Spiel-Fenster weg, damit er nicht ueber Knoepfen liegt. */
+body.tycoon-offen:has(.tycoon #modal[style*='flex']) .chat-knopf { display: none; }
+
+/* Finger: groessere Tippflaechen */
+@media (pointer: coarse) {
+  .tycoon {
+    .hud-tempo button { min-width: 38px; min-height: 34px; }
+    .kartenknoepfe button { width: 48px; height: 46px; }
+    #modal .opts button { min-height: 46px; }
+    .tabs button { min-height: 40px; }
+    button.sm { min-height: 34px; padding: 6px 11px; }
+    .bezirk { padding: 9px 8px; }
+  }
+}
+
+/* ---------- PC ---------- */
+@media (min-width: 1200px) and (min-height: 501px) {
+  .tycoon {
+    --pw: 330px;
+    #hud { gap: 12px; padding: 0 14px; }
+    /* Menue-Leiste links ueber die ganze Hoehe, unten bleibt Platz fuer den Chat-Knopf */
+    .hud-dock { top: 60px; bottom: 12px; left: 12px; transform: none; flex-direction: column; gap: 4px; width: 86px; padding: 8px 6px 70px; border-radius: 18px; }
+    .hud-dock .shopbtn { width: 100%; min-height: 64px; font-size: 12px; .ic { font-size: 24px; } }
+    .lernbtn .punkt { right: 18px; }
+    #hint { bottom: 16px; }
+  }
+  body.tycoon-offen .chat-knopf { left: 32px; bottom: 26px; }
+}
+@media (min-width: 1600px) and (min-height: 501px) {
+  .tycoon { --pw: 370px;
+    #panel { padding: 18px; }
+    #modal .card { width: min(540px, 94%); }
+    #modal .card.breit { width: min(900px, 96%); } }
+}
+@media (max-width: 1100px) {
+  .tycoon .hud-tag { display: none; }
+}
+
+/* ---------- Tablet ---------- */
+@media (min-width: 701px) and (max-width: 1199px) and (min-height: 501px) {
+  .tycoon #hint { bottom: 92px; left: calc(var(--karte-links, 0px) + 74px); max-width: min(340px, calc(100% - var(--pw) - 100px)); }
+}
+@media (min-width: 701px) and (max-width: 860px) and (min-height: 501px) {
+  .tycoon { --pw: 280px;
+    .hud-dock .shopbtn { min-width: 54px; padding: 7px 4px 6px; font-size: 10.5px; }
+    .hud-marke b { display: none; } }
+}
+
+/* ---------- Allgemein schmal ---------- */
 @media (max-width: 700px) {
   .tycoon .land-gross { grid-template-columns: 1fr; }
   .tycoon .land-seite { max-height: none; }
+  .tycoon {
+    #hud { gap: 6px; padding: 0 6px; font-size: 12px; }
+    .hud-marke b { display: none; }
+    .hud-logo { width: 28px; height: 28px; }
+    .hud-pill { padding: 0 9px; height: 30px; }
+    #money { font-size: 14px; }
+    .lvl { font-size: 12px; }
+    .hud-tempo button { padding: 4px 7px; }
+    #modal { padding: 6px; }
+    #modal .card, #modal .card.breit { width: 100%; padding: 0 14px 14px; }
+    #modal h2 { margin: 0 -14px 10px; padding: 14px 50px 11px 14px; font-size: 17px; }
+  }
+  .tycoon .mem-feld { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tc-liste li { grid-template-columns: 34px 1fr auto; .ak { grid-column: 2 / 4; grid-row: auto; justify-content: flex-start; } .mt { grid-column: 2 / 4; } }
+  .tc-bar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding: 6px 8px; button { white-space: nowrap; flex: none; } .tc-share, .tc-meta { flex: none; white-space: nowrap; } }
+  .tc-bar .tc-lang { display: none; }
+  .tc-bar .tc-kurz { display: inline; }
 }
 
-@media (max-width: 700px) {
+/* ---------- Handy hochkant ---------- */
+@media (max-width: 700px) and (min-height: 501px) {
   .tycoon {
-    #panel { top: auto; left: 0; width: auto; height: 38%; border-left: 0; border-top: 1px solid var(--line); }
-    #hint { bottom: calc(38% + 10px); left: 10px; right: 10px; max-width: none; }
-    #hud { gap: 10px; font-size: 12px; overflow: visible; }
-    /* Handy: Knoepfe als zweite Leiste unter der Kopfzeile (seitlich wischbar). */
-    #hud .sp { position: absolute; top: 48px; left: 0; right: 0; margin: 0; padding: 5px 10px; background: rgba(244, 241, 234, .92);
-      border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
-    #weltbtn { top: 102px; }
-    #toast { top: 106px; }
+    --nav-h: 62px; --blatt: 0px;
+    &.ro { --nav-h: 0px; }
+    &.p-halb { --blatt: 46%; }
+    &.p-offen { --blatt: calc(100% - 48px - var(--nav-h) - 46px); }
+    /* Navigationsleiste unten (wie in Handy-Apps), alle sechs Punkte mit Beschriftung */
+    .hud-dock { top: auto; bottom: 0; left: 0; right: 0; transform: none; max-width: none; height: var(--nav-h); padding: 4px 4px calc(4px + env(safe-area-inset-bottom));
+      gap: 0; border-radius: 0; border-width: 1px 0 0; background: rgba(12, 20, 28, .96); z-index: 6; }
+    .hud-dock .shopbtn { flex: 1 1 0; min-width: 0; min-height: 0; padding: 4px 2px; font-size: 10.5px; border-radius: 11px; .ic { font-size: 20px; } }
+    .lernbtn .punkt { top: 3px; right: calc(50% - 18px); }
+    /* Panel als Blatt ueber der Leiste, der Griff ist seine Oberkante */
+    #panel, &.p-zu #panel { top: auto; left: 0; right: 0; bottom: var(--nav-h); width: auto; height: var(--blatt); transform: none; opacity: 1;
+      border-radius: 0; border-width: 0; box-shadow: none; padding: 4px 14px 14px; }
+    &.p-zu #panel { padding-top: 0; padding-bottom: 0; visibility: hidden; }
+    #panelgriff, &.p-zu #panelgriff { top: auto; left: 0; right: 0; bottom: calc(var(--nav-h) + var(--blatt)); width: auto; height: 46px; max-height: none; writing-mode: horizontal-tb;
+      padding: 10px 16px 0; border-radius: 18px 18px 0 0; border: 1px solid var(--ui-rand2); border-bottom: 0; justify-content: flex-start; gap: 8px;
+      color: var(--ui-text); font-weight: 700; font-size: 14px; box-shadow: 0 -8px 24px rgba(0, 0, 0, .3); transition: bottom .26s cubic-bezier(.2, .8, .3, 1); }
+    .griff-strich { display: block; position: absolute; top: 6px; left: 50%; width: 40px; height: 4px; margin-left: -20px; border-radius: 2px; background: var(--ui-rand2); }
+    #panelgriff-titel { display: block; flex: 1; min-width: 0; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .griff-pfeil { order: 2; }
+    .griff-pfeil::before, &.p-zu .griff-pfeil::before { content: '▴'; font-size: 18px; color: var(--ui-akzent2); }
+    &.p-offen .griff-pfeil::before { content: '▾'; }
+    #hint { top: 92px; bottom: auto; left: 10px; right: 10px; max-width: none; z-index: 6; }
+    /* Blatt offen: Karten-Knoepfe weg, Meldungen oben statt ueber dem Blatt */
+    &.p-halb .kartenknoepfe, &.p-offen .kartenknoepfe { display: none; }
+
+    #toast { top: 56px; left: 50%; }
+    .kartenknoepfe { right: 10px; bottom: calc(var(--karte-unten, 0px) + 12px); }
+    #weltbtn { left: 10px; top: 58px; }
+    .mitfahrt-ende { top: 58px; left: 50%; }
   }
-  .tc-liste li { grid-template-columns: 28px 1fr auto; .ak { grid-column: 2 / 4; grid-row: auto; justify-content: flex-start; } .mt { grid-column: 2 / 4; } }
+  body.tycoon-offen .chat-knopf { left: 10px; bottom: calc(62px + 46px + 12px + env(safe-area-inset-bottom)); width: 42px; height: 42px; font-size: 20px; }
+  body.tycoon-offen.tycoon-blatt-auf .chat-knopf { display: none; }
+}
+
+/* ---------- Handy quer (und sehr flache Fenster) ---------- */
+@media (max-height: 500px) {
+  body.tycoon-offen ion-header.tc-kopf { display: none; }
+  .tc-bar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding: 4px 8px; gap: 4px;
+    button { white-space: nowrap; flex: none; padding: 4px 11px; } .tc-share, .tc-meta { flex: none; white-space: nowrap; }
+    .tc-heim { display: inline-block; font-size: 16px; padding: 2px 10px; } .tc-lang { display: none; } .tc-kurz { display: inline; } }
+  .tycoon {
+    --pw: 270px;
+    #hud { height: 42px; }
+    .hud-dock { top: 48px; bottom: 6px; left: 6px; transform: none; flex-direction: column; width: 56px; padding: 4px; gap: 2px; border-radius: 14px; overflow-y: auto; scrollbar-width: none; }
+    .hud-dock .shopbtn { flex: 1 1 0; min-width: 0; min-height: 38px; max-height: 52px; padding: 2px; .lbl { display: none; } .ic { font-size: 19px; } }
+    .lernbtn .punkt { top: 4px; right: 6px; }
+    #panel { top: 48px; bottom: 6px; right: 6px; padding: 10px 12px; }
+    #panelgriff { top: 58px; right: calc(var(--pw) + 6px); }
+    #hint { bottom: 8px; max-width: min(320px, calc(100% - var(--karte-links, 0px) - 80px)); padding: 8px 10px 8px 36px; font-size: 12.5px; }
+    #hint::before { left: 10px; top: 7px; font-size: 15px; }
+    #toast { top: 50px; }
+    #weltbtn, .mitfahrt-ende { top: 50px; }
+    #modal { padding: 4px; }
+    #modal .card, #modal .card.breit { width: min(640px, 100%); }
+  }
+  /* Chat unten rechts, solange das Panel zu ist (die Leiste links braucht die volle Hoehe) */
+  body.tycoon-offen .chat-knopf { left: auto; right: 10px; bottom: 10px; width: 42px; height: 42px; font-size: 19px; }
+  body.tycoon-offen.tycoon-blatt-auf .chat-knopf { display: none; }
+  .tycoon.p-zu .kartenknoepfe { bottom: 62px; }
+}
+
+/* ---------- Spieluhr, Tutorial, Streckentrupps (2026-10-29) ---------- */
+.tycoon {
+  #uhr { display: none; position: absolute; top: 60px; right: calc(var(--karte-rechts, 0px) + 12px); z-index: 4; padding: 5px 11px; border-radius: 999px;
+    background: var(--ui-glas2); color: var(--ui-text); border: 1px solid var(--ui-rand2); font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums;
+    box-shadow: var(--ui-schatten); pointer-events: none; }
+  #hint .tut-kopf { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px;
+    b { color: var(--ui-akzent2); font-size: 13px; } }
+  #hint .tut-weg { border: 0; background: transparent; color: var(--ui-mut); font-size: 11.5px; text-decoration: underline; cursor: pointer; padding: 2px 0; }
+  #hint.start { border-color: var(--ui-akzent); box-shadow: 0 0 0 3px rgba(255, 138, 61, .25), var(--ui-schatten); }
+  #trupps { display: none; position: absolute; top: 60px; right: calc(var(--karte-rechts, 0px) + 12px); z-index: 4; flex-direction: column; align-items: flex-end; gap: 6px;
+    max-width: calc(100% - var(--karte-rechts, 0px) - 24px); }
+  #trupps .tr-knopf { border-radius: 999px; padding: 6px 13px; font-weight: 700; background: var(--ui-glas2); color: var(--ui-text); border: 1px solid var(--ui-rand2); box-shadow: var(--ui-schatten); cursor: pointer; }
+  #trupps .tr-knopf.on { border-color: var(--ui-akzent); }
+  #trupps .tr-karten { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  #trupps .tr-karte { display: flex; flex-direction: column; align-items: center; width: 66px; padding: 6px 4px; border-radius: 12px; cursor: grab; user-select: none; touch-action: none;
+    background: var(--ui-glas2); color: var(--ui-text); border: 1px solid var(--ui-rand2); box-shadow: var(--ui-schatten); font-size: 12px; line-height: 1.25;
+    .tr-ic { font-size: 22px; } small { color: var(--ui-mut); font-size: 10.5px; } }
+  #trupps .tr-karte.on { border-color: var(--ui-akzent); box-shadow: 0 0 0 2px rgba(255, 138, 61, .45); }
+  #trupps .tr-karte.arm { opacity: .5; }
+  #trupps .tr-tipp { font-size: 11.5px; color: var(--ui-text); background: var(--ui-glas2); padding: 4px 9px; border-radius: 999px; }
+  .trupp-wahl { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 4px; button.on { border-color: var(--ui-akzent); } }
+}
+@media (max-width: 1100px) {
+  .tycoon #uhr { display: block; }
+}
+@media (min-width: 701px) and (max-width: 1100px) {
+  .tycoon #trupps { top: 96px; }
+}
+@media (max-height: 500px) {
+  .tycoon #uhr { top: 50px; }
+  .tycoon #trupps { top: 84px; }
+  .tycoon #trupps .tr-karte { width: 58px; padding: 4px 3px; .tr-ic { font-size: 18px; } }
+}
+/* Handy hochkant: Uhr oben rechts (Weltkarte-Knopf links daneben), Trupp-Leiste unten ueber dem Griff -- nicht unter dem Hinweis */
+@media (max-width: 700px) and (min-height: 501px) {
+  .tycoon {
+    #uhr { top: 58px; right: 10px; z-index: 7; }
+    /* ueber dem Chat-Knopf der App (sitzt links unten ueber dem Griff) */
+    #trupps { top: auto; bottom: calc(var(--nav-h) + 112px); left: 10px; right: 70px; align-items: flex-start; max-width: none; }
+    #trupps .tr-tipp { display: none; }
+    #trupps .tr-karten { justify-content: flex-start; }
+    #trupps .tr-karte { width: 60px; }
+    &.p-halb #trupps, &.p-offen #trupps { display: none !important; }
+  }
+}
+/* Geist beim Ziehen eines Trupps (haengt am body, damit er ueber allem liegt). */
+.tycoon-truppgeist { position: fixed; z-index: 10000; pointer-events: none; transform: translate(-50%, -60%); width: 46px; height: 46px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 26px; background: rgba(24, 38, 51, .92); border: 2px dashed #9aabb8; box-shadow: 0 6px 18px rgba(0, 0, 0, .35); }
+.tycoon-truppgeist.ok { border: 2px solid #3ecf8e; background: rgba(20, 70, 50, .95); }
+
+/* ---------- Tutorial mit Pfeilen, Fokus-Modus, Feld-Menue (2026-10-29, Runde 2) ---------- */
+.tycoon {
+  /* Fokus: bis die erste Strecke steht, nur Karte, Geld und Hinweis */
+  &.tut-fokus {
+    .hud-dock, #panelgriff, #trupps, .hud-lvl, .hud-tempo { display: none !important; }
+    &:not(.tut-zeichnen) #panel { display: none !important; }
+    #hint { max-width: min(430px, calc(100% - 28px)); }
+  }
+  #hint .tut-text { margin-bottom: 4px; }
+  #hint .tut-gebiet { margin-top: 8px; padding: 10px 12px; border-radius: 12px; background: rgba(255, 255, 255, .06); border: 1px solid var(--ui-rand); }
+  #hint .tut-name { display: block; margin-bottom: 6px; font-size: 14px; }
+  #hint .tut-zeile { display: flex; gap: 8px; align-items: flex-start; margin: 5px 0; opacity: 0; animation: tut-rein .35s ease forwards; font-size: 13px; }
+  #hint .tut-zeile:nth-of-type(1) { animation-delay: .1s; }
+  #hint .tut-zeile:nth-of-type(2) { animation-delay: .7s; }
+  #hint .tut-zeile:nth-of-type(3) { animation-delay: 1.3s; }
+  #hint .tut-zeile:nth-of-type(4) { animation-delay: 1.9s; }
+  #hint .tut-zeig { display: inline-block; animation: tut-schub 1s ease-in-out infinite; }
+  #hint .tut-klima { margin: 6px 0 2px; font-size: 12px; color: var(--ui-mut); }
+  #hint .tut-knopf { width: 100%; margin-top: 8px; padding: 10px 12px; font-weight: 800; font-size: 14px; }
+  /* Ziel des Tutorials: leuchtet und bekommt einen huepfenden Pfeil */
+  .tut-ziel { position: relative; animation: tut-leuchten 1.2s ease-in-out infinite; z-index: 1; }
+  .tut-ziel::after { content: '👈'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 20px; pointer-events: none; animation: tut-schub 0.9s ease-in-out infinite; }
+  #hint .tut-ziel::after, #feldmenue .tut-ziel::after, #trupps .tut-ziel::after { content: '👇'; right: auto; left: 50%; top: -30px; transform: translateX(-50%); animation: tut-huepf 0.8s ease-in-out infinite; }
+  #hint .tut-knopf.tut-ziel::after { content: '👉'; left: 10px; top: 50%; transform: translateY(-50%); animation: tut-schub 0.9s ease-in-out infinite; }
+
+  /* Feld-Menue: schwebt ueber dem gewaehlten eigenen Gebiet */
+  #feldmenue { display: none; position: absolute; z-index: 7; transform: translate(-50%, calc(-100% - 22px)); min-width: 190px; max-width: 260px; padding: 8px; border-radius: 14px;
+    background: var(--ui-glas2); color: var(--ui-text); border: 1px solid var(--ui-rand2); box-shadow: var(--ui-schatten);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  #feldmenue::before { content: ''; position: absolute; left: 50%; bottom: -8px; margin-left: -8px; border: 8px solid transparent; border-bottom: 0; border-top-color: var(--ui-glas2); }
+  #feldmenue .fm-titel { font-weight: 800; font-size: 12.5px; color: var(--ui-akzent2); margin: 0 4px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #feldmenue .fm-knoepfe, #feldmenue .fm-liste { display: flex; flex-direction: column; gap: 6px; }
+  #feldmenue button { width: 100%; padding: 8px 10px; border-radius: 10px; font-weight: 700; text-align: left; cursor: pointer; }
+  #feldmenue .fm-bau { display: flex; flex-direction: column; gap: 2px; small { font-weight: 500; font-size: 11px; color: var(--ui-mut); } }
+  #feldmenue .fm-zurueck { margin-top: 6px; background: transparent; border: 0; color: var(--ui-mut); font-weight: 600; padding: 4px 6px; }
+  #feldmenue .fm-leer { font-size: 12px; color: var(--ui-mut); padding: 4px; }
+}
+@keyframes tut-rein { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+@keyframes tut-schub { 0%, 100% { margin-right: 0; margin-left: 0; translate: 0 0; } 50% { translate: 5px 0; } }
+@keyframes tut-huepf { 0%, 100% { translate: 0 0; } 50% { translate: 0 6px; } }
+@keyframes tut-leuchten { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 138, 61, .0), 0 0 0 2px rgba(255, 138, 61, .9); } 50% { box-shadow: 0 0 0 7px rgba(255, 138, 61, .25), 0 0 0 2px rgba(255, 138, 61, 1); } }
+/* Im Fokus-Modus des Tutorials liegt der Hinweis unten links: Chat-Knopf der App so lange weg. */
+body.tycoon-fokus .chat-knopf { display: none !important; }
+/* Handy hochkant im Fokus: keine Navigationsleiste, der Hinweis sitzt unten in Daumenreichweite. */
+@media (max-width: 700px) and (min-height: 501px) {
+  .tycoon.tut-fokus #hint { top: auto; bottom: 10px; max-height: 55%; overflow: auto; }
+}
+/* Tutorial-Fenster: Begruessung in der Bildschirmmitte, danach unten in der Mitte (Karte bleibt frei). */
+.tycoon.tut-fokus #hint { left: 50%; right: auto; transform: translateX(-50%); bottom: 18px; width: min(440px, calc(100% - 28px)); max-width: none; }
+.tycoon.tut-fokus #hint.mitte { top: 50%; bottom: auto; transform: translate(-50%, -50%); width: min(470px, calc(100% - 28px)); padding: 18px 20px 18px 46px; font-size: 14px; }
+.tycoon #hint .tut-gross { display: block; font-size: 18px; margin-bottom: 8px; color: #fff; }
+.tycoon .bot-tipp { flex-basis: 100%; margin-top: 4px; }
+@media (max-width: 700px) and (min-height: 501px) {
+  .tycoon.tut-fokus #hint { left: 10px; right: 10px; width: auto; transform: none; bottom: 10px; }
+  .tycoon.tut-fokus #hint.mitte { top: 50%; bottom: auto; transform: translateY(-50%); }
 }

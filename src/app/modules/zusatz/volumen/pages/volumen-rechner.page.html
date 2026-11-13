@@ -1,0 +1,177 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>Volumen berechnen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/zusatz/volumen/quiz" fill="clear">
+        <ion-icon slot="start" name="help-circle-outline"></ion-icon>
+        <span class="toolbar-action-label">Quiz (10 Fragen)</span>
+      </ion-button>
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Übersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="vbx-content">
+  <div class="vbx smb-root" [attr.data-melde-kontext]="meldeKontext">
+
+    <!-- ============ LINKS: Aufgabe + Schmierblatt + Ergebnisse ============ -->
+    <div class="col links" #linkeSpalte>
+      <section class="card board">
+        <div class="tools">
+          <button class="btn small primary" type="button" (click)="neu()">Neue Aufgabe ↻</button>
+          <select class="btn small wahl" [(ngModel)]="art" (ngModelChange)="einstellungGeaendert()" aria-label="Aufgabenart">
+            <option value="trapez">Trapez mit Schotter</option>
+            <option value="alle">Alle Körper</option>
+          </select>
+          <select class="btn small wahl" [(ngModel)]="stufe" (ngModelChange)="einstellungGeaendert()" aria-label="Schwierigkeitsgrad">
+            <option value="leicht">Leicht</option>
+            <option value="mittel">Mittel</option>
+            <option value="schwer">Schwer</option>
+          </select>
+          <button class="btn small" type="button" [class.tool-an]="nurWerte" (click)="nurWerteUmschalten()">{{ nurWerte ? 'Ganzer Text' : 'Nur Werte' }}</button>
+          <button class="btn small" type="button" (click)="formelAufsBlatt()" title="Formel als Karte aufs Schmierblatt legen">📌 Formel</button>
+          <span class="sep"></span>
+          <span class="smb-werkzeuge" #werkzeuge></span>
+        </div>
+
+        <div class="flaeche" #flaeche>
+          <div class="aufgabe-blatt" [class.kompakt]="nurWerte">
+            <div class="aufgabe-kopf">{{ aufgabe.titel }} <span class="nr">#{{ aufgabe.nr }} · {{ stufeName }}</span></div>
+            <div *ngIf="!nurWerte" class="aufgabe-text" [innerHTML]="aufgabe.text"></div>
+            <div *ngIf="nurWerte" class="nur-werte">
+              <span class="w" *ngFor="let w of aufgabe.werte"><i>{{ w.name }}</i>{{ w.wert }}</span>
+              <span class="w gesucht-w"><i>Gesucht</i>{{ aufgabe.felder.length }} Werte (siehe Ergebnisse)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card answers" [class.offen]="ergebnisseOffen">
+        <button class="answers-kopf" type="button" (click)="ergebnisseOffen = !ergebnisseOffen" [attr.aria-expanded]="ergebnisseOffen">
+          <span>Ergebnisse <span class="stand">{{ stand }}</span></span>
+          <span class="pfeil">▲</span>
+        </button>
+        <div class="answers-body">
+          <div class="fields">
+            <label class="field" *ngFor="let feld of aufgabe.felder" [ngClass]="bewertung[feld.key] || ''">
+              <span>{{ feld.label }}</span>
+              <span class="in">
+                <input inputmode="decimal" autocomplete="off" placeholder="…" [(ngModel)]="eingaben[feld.key]" (keydown.enter)="pruefen()">
+                <span class="unit">{{ feld.einheit }}</span>
+              </span>
+            </label>
+          </div>
+          <p class="toleranz">Auf 1 % genau ist grün, bis 5 % gelb. Anzahlen müssen genau stimmen.</p>
+          <div class="actions">
+            <button class="btn primary" type="button" (click)="pruefen()">Prüfen</button>
+            <button class="btn" type="button" (click)="loesungZeigen = !loesungZeigen">{{ loesungZeigen ? 'Lösungsweg ausblenden' : 'Lösungsweg' }}</button>
+            <button class="btn" type="button" (click)="ergebnisseOffen = false">Einklappen ▼</button>
+          </div>
+          <div class="solution" *ngIf="loesungZeigen">
+            <b>Lösungsweg</b>
+            <ol><li *ngFor="let s of aufgabe.weg" [innerHTML]="s"></li></ol>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ RECHTS: 3D-Modell + Rechner ============ -->
+    <div class="col rechts">
+      <section class="card modellcard">
+        <div class="modus-tabs" role="tablist">
+          <button type="button" role="tab" [class.aktiv]="modus === 'aufgabe'" [attr.aria-selected]="modus === 'aufgabe'" (click)="modusSetzen('aufgabe')">Modell zur Aufgabe</button>
+          <button type="button" role="tab" [class.aktiv]="modus === 'rechner'" [attr.aria-selected]="modus === 'rechner'" (click)="modusSetzen('rechner')">Freier Rechner</button>
+        </div>
+
+        <div class="koerper-wahl" *ngIf="modus === 'rechner'">
+          <button type="button" *ngFor="let k of koerperListe" class="chip" [class.aktiv]="rk === k.id" (click)="rechnerKoerper(k.id)">{{ k.name }}</button>
+        </div>
+
+        <div class="modell" [class.ist-2d]="ansicht === '2d'">
+          <canvas #modellCanvas class="modell-canvas" aria-label="3D-Modell des Körpers, mit Finger oder Maus drehbar"></canvas>
+          <div class="v3d-labels" #labelHost></div>
+          <div class="v2d" #zeichnung aria-label="2D-Zeichnung des Körpers mit Maßen"></div>
+          <p class="modell-fehler" *ngIf="modellFehler && ansicht === '3d'">{{ modellFehler }}</p>
+          <div class="ansicht-wahl" role="group" aria-label="Ansicht">
+            <button type="button" [class.aktiv]="ansicht === '3d'" [attr.aria-pressed]="ansicht === '3d'" (click)="ansichtSetzen('3d')">3D</button>
+            <button type="button" [class.aktiv]="ansicht === '2d'" [attr.aria-pressed]="ansicht === '2d'" (click)="ansichtSetzen('2d')">2D</button>
+          </div>
+          <span class="modell-tipp" *ngIf="ansicht === '3d'">Drehen: ziehen · Zoomen: zwei Finger oder Mausrad</span>
+        </div>
+
+        <!-- Modell zur Aufgabe -->
+        <div class="info" *ngIf="modus === 'aufgabe'">
+          <div class="info-zeile">
+            <span><b>{{ aufgabeKoerper.name }}</b> · {{ aufgabe.stoffName }}</span>
+            <button class="btn small" type="button" (click)="formelZeigen = !formelZeigen">{{ formelZeigen ? 'Formel ausblenden' : 'Formel zeigen' }}</button>
+          </div>
+          <div class="formel" *ngIf="formelZeigen" [innerHTML]="aufgabeKoerper.formel"></div>
+        </div>
+
+        <!-- Freier Rechner -->
+        <div class="rechner" *ngIf="modus === 'rechner'">
+          <p class="beispiel">{{ rDef.beispiel }}</p>
+          <div class="reihe">
+            <label class="klein">Maße in
+              <select [(ngModel)]="einheit" (ngModelChange)="modellZeigen()">
+                <option value="m">m</option><option value="cm">cm</option><option value="mm">mm</option>
+              </select>
+            </label>
+            <label class="klein chk" *ngIf="rk === 'trapez'">
+              <input type="checkbox" [(ngModel)]="boeschung" (ngModelChange)="modellZeigen()"> untere Breite über Böschung 1 : n
+            </label>
+          </div>
+          <div class="masse">
+            <ng-container *ngFor="let m of rDef.masse">
+              <label class="mass" *ngIf="!(rk === 'trapez' && boeschung && m.key === 'c')">
+                <span><b>{{ m.zeichen }}</b> {{ m.name }}</span>
+                <span class="in">
+                  <input type="number" min="0" step="any" inputmode="decimal" [ngModel]="anzeigeWert(m.key)" (ngModelChange)="wertSetzen(m.key, $event)">
+                  <span class="unit">{{ einheit }}</span>
+                </span>
+              </label>
+            </ng-container>
+            <label class="mass" *ngIf="rk === 'trapez' && boeschung">
+              <span><b>n</b> Böschung 1 : n</span>
+              <span class="in"><input type="number" min="0" step="0.25" [(ngModel)]="boeschungN" (ngModelChange)="modellZeigen()"></span>
+            </label>
+          </div>
+          <div class="reihe" *ngIf="!rFlach">
+            <label class="klein breit">Stoff
+              <select [(ngModel)]="stoffKey" (ngModelChange)="modellZeigen()">
+                <optgroup *ngFor="let g of stoffGruppen" [label]="g">
+                  <ng-container *ngFor="let s of stoffe"><option *ngIf="s.gruppe === g" [value]="s.key">{{ s.name }} ({{ f(s.dichte) }} t/m³)</option></ng-container>
+                </optgroup>
+                <option value="eigen">Eigene Dichte …</option>
+              </select>
+            </label>
+            <label class="klein" *ngIf="stoffKey === 'eigen'">Dichte
+              <span class="in">
+                <input type="number" min="0" step="any" [(ngModel)]="eigeneDichte">
+                <select [(ngModel)]="eigeneDichteKg"><option [ngValue]="false">t/m³</option><option [ngValue]="true">kg/m³</option></select>
+              </span>
+            </label>
+          </div>
+          <p class="quelle" *ngIf="rStoff && !rFlach">Quelle: {{ rStoff.quelle }}</p>
+
+          <p class="fehler" *ngIf="rFehler">{{ rFehler }}</p>
+          <div class="ergebnis" *ngIf="!rFehler">
+            <div class="kacheln">
+              <div class="kachel" *ngIf="rk === 'trapez' && boeschung"><i>untere Breite c</i><b>{{ einheitText(rMasse['c']) }}</b></div>
+              <div class="kachel" *ngIf="rA !== null" [class.haupt]="rFlach"><i>Fläche A</i><b>{{ f(rA, 4) }} m²</b></div>
+              <ng-container *ngIf="!rFlach">
+                <div class="kachel"><i>Volumen V</i><b>{{ f(rV, 4) }} m³</b><small *ngIf="rV < 10">= {{ f(rV * 1000, 1) }} Liter</small></div>
+                <div class="kachel haupt"><i>Gewicht</i><b>{{ f(rV * rDichte, 3) }} t</b><small>= {{ f(rV * rDichte * 1000, 1) }} kg</small></div>
+              </ng-container>
+            </div>
+            <p class="beispiel" *ngIf="rFlach">Ebene Fläche – für Volumen und Gewicht Quader bzw. Dreiecks-Prisma wählen.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</ion-content>

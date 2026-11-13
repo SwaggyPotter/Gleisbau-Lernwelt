@@ -1,0 +1,32 @@
+.akt {
+  .akt-zahlen {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 14px;
+    div { border: 1px solid var(--sp-border); border-radius: var(--sp-radius); background: var(--sp-surface); padding: 10px 12px; display: flex; flex-direction: column; }
+    strong { font-size: 1.6rem; line-height: 1.1; }
+    span { color: var(--sp-text-muted); font-size: .85rem; }
+  }
+  .akt-filter { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px;
+    input { flex: 1; min-width: 160px; min-height: 40px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--sp-border); background: var(--sp-surface); color: var(--sp-text); font: inherit; }
+  }
+  .akt-tabs { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--sp-border); border-radius: 999px; background: var(--sp-surface-2);
+    button { font: inherit; font-weight: 700; font-size: .9rem; border: 0; background: none; color: var(--sp-text-muted); min-height: 36px; padding: 4px 14px; border-radius: 999px; cursor: pointer; }
+    button.aktiv { background: var(--sp-accent, #22c55e); color: #fff; }
+  }
+  .akt-fehler { color: #d9534f; }
+  .akt-leer { color: var(--sp-text-muted); }
+  .akt-liste { display: flex; flex-direction: column; gap: 8px; }
+  .akt-karte { border: 1px solid var(--sp-border); border-radius: var(--sp-radius); background: var(--sp-surface); padding: 10px 12px; }
+  .akt-kopf { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .akt-name { font-size: 1.02rem; }
+  .akt-zuletzt { margin-left: auto; color: var(--sp-text-muted); font-size: .9rem; white-space: nowrap; }
+  .akt-badge { font-size: .72rem; font-weight: 700; padding: 1px 7px; border-radius: 999px; background: #e0a43a33; color: #e0a43a;
+    &.admin { background: #3b82f633; color: #60a5fa; } }
+  .akt-punkt { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; background: #6b7280;
+    &.jetzt { background: #22c55e; box-shadow: 0 0 0 3px #22c55e33; }
+    &.heute { background: #84cc16; }
+    &.woche { background: #e0a43a; } }
+  .akt-werte { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 6px; font-size: .88rem; color: var(--sp-text-muted);
+    b { color: var(--sp-text); } .leise { opacity: .75; } }
+  .akt-apps { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .akt-app { font-size: .8rem; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--sp-border); background: var(--sp-surface-2); }
+}

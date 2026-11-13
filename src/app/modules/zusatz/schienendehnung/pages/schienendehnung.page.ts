@@ -1,71 +1,61 @@
-import { Component } from '@angular/core';
-import { AufgabenGeneratorService, KATEGORIEN, diagrammFuer } from '../services/aufgaben-generator.service';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuswahlAufgabe } from '../../../berufsschule/formelsammlung/kern/typen';
+import { FORMEL_TEX, LEGENDE, SCHIENENDEHNUNG_APP } from '../services/dehnung-app';
 import { SchienendehnungDataService } from '../services/schienendehnung-data.service';
-import { formatDE, parseDE } from '../services/schienendehnung-utils';
-import { Aufgabe, DiagrammTyp, KategorieId, KategorieInfo, SchienendehnungProgress } from '../models/schienendehnung.models';
 
-const ZUFALL = 'zufall';
+type Ansicht = 'rechnen' | 'quiz';
+type Variante = 'dehnung' | 'luecke';
 
+/** Leere „Aufgabe“ für die Rechenfläche im Rechnen-Modus (keine festen Werte oben auf dem Blatt). */
+const LEERES_BLATT: AuswahlAufgabe = {
+  id: 'schienendehnung-rechnen', appId: SCHIENENDEHNUNG_APP.id, formelId: 'dl-temperatur', modus: 'ueben', stufe: 1,
+  gegeben: [], frage: '', tipp: '', formelLatex: '', schritte: [], art: 'auswahl', optionen: [], richtig: 0,
+};
+
+/**
+ * Schienenausdehnungs-Rechner (Umbau 2026-11-11):
+ *  - Rechnen: Skizze mit Legende (was ist was), Formel, Rechner mit Rechenweg – daneben die Rechenfläche
+ *  - Quiz:    Aufgaben in 3 Stufen, Lösung eingeben, Schmierblatt und Taschenrechner zum Aufklappen
+ * Bausteine und Styles kommen aus der Formelsammlung (FormelKomponentenModule, formelsammlung.scss).
+ */
 @Component({
   selector: 'app-schienendehnung',
   templateUrl: './schienendehnung.page.html',
-  styleUrls: ['./schienendehnung.page.scss'],
+  styleUrls: ['../../../berufsschule/formelsammlung/formelsammlung.scss', './schienendehnung.page.scss'],
+  encapsulation: ViewEncapsulation.None,
   standalone: false,
 })
 export class SchienendehnungPage {
-  readonly zufallId = ZUFALL;
-  readonly kategorien: KategorieInfo[] = KATEGORIEN;
-
-  ausgewaehlteKategorie: string = ZUFALL;
-  aufgabe!: Aufgabe;
-  eingabe = '';
-  feedback: 'correct' | 'wrong' | null = null;
-  progress!: SchienendehnungProgress;
+  readonly app = SCHIENENDEHNUNG_APP;
+  readonly leeresBlatt = LEERES_BLATT;
+  ansicht: Ansicht = 'rechnen';
+  variante: Variante = SCHIENENDEHNUNG_APP.rechner[0].id as Variante;
 
   constructor(
-    private readonly generator: AufgabenGeneratorService,
+    route: ActivatedRoute,
+    private readonly router: Router,
     private readonly data: SchienendehnungDataService,
   ) {
-    this.progress = this.data.loadProgress();
-    this.neueAufgabe();
+    route.queryParamMap.subscribe(q => { this.ansicht = q.get('modus') === 'quiz' ? 'quiz' : 'rechnen'; });
   }
 
-  get diagramm(): DiagrammTyp {
-    return diagrammFuer(this.aufgabe.kategorie);
+  get legende() { return LEGENDE[this.variante]; }
+  get formelTex(): string { return FORMEL_TEX[this.variante]; }
+  get varianteTitel(): string {
+    return this.variante === 'luecke' ? 'Lückenschluss am Schienenstoß' : 'Längenänderung durch Temperatur';
   }
 
-  get aktuelleKategorieInfo(): KategorieInfo | undefined {
-    return this.kategorien.find(k => k.id === this.aufgabe.kategorie);
+  ansichtSetzen(a: Ansicht): void {
+    this.router.navigate([], { queryParams: { modus: a === 'quiz' ? 'quiz' : null }, queryParamsHandling: 'merge', replaceUrl: true });
   }
 
-  get quote(): number {
-    return this.progress.total === 0 ? 0 : Math.round((this.progress.correct / this.progress.total) * 100);
+  varianteGewechselt(id: string): void {
+    this.variante = id === 'luecke' ? 'luecke' : 'dehnung';
   }
 
-  get korrekterWertFormatiert(): string {
-    return formatDE(this.aufgabe.korrekterWert, this.aufgabe.nachkommastellen);
-  }
-
-  onKategorieChange(value: string | number | undefined | null): void {
-    if (typeof value !== 'string' || value === this.ausgewaehlteKategorie) return;
-    this.ausgewaehlteKategorie = value;
-    this.neueAufgabe();
-  }
-
-  neueAufgabe(): void {
-    const kategorie = this.ausgewaehlteKategorie === ZUFALL ? undefined : (this.ausgewaehlteKategorie as KategorieId);
-    this.aufgabe = this.generator.generate(kategorie);
-    this.eingabe = '';
-    this.feedback = null;
-  }
-
-  pruefen(): void {
-    if (this.feedback !== null) return;
-    const wert = parseDE(this.eingabe);
-    if (isNaN(wert)) return;
-
-    const diff = Math.abs(wert - this.aufgabe.korrekterWert);
-    this.feedback = diff <= this.aufgabe.toleranzAbs ? 'correct' : 'wrong';
-    this.progress = this.data.recordResult(this.feedback === 'correct');
+  /** Quiz-Ergebnis zusätzlich in die bisherige Statistik (Lernfortschritt „zusatz:schienendehnung“). */
+  ergebnis(richtig: boolean): void {
+    this.data.recordResult(richtig);
   }
 }

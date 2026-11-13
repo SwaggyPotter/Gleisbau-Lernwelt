@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { hochzahlenEinsetzen, zeilenErgebnis } from '../../../../shared/schmierblatt/einheiten-rechner';
 import { API_BASE_URL } from '../../../../core/api-config';
 import { meldungZwischenspeichern } from '../../../../services/question-report.service';
 /**
@@ -112,6 +113,16 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
   const $ = (s: string) => root.querySelector(s) as any;
   const $$ = (s: string) => Array.from(root.querySelectorAll(s)) as any[];
   const blaetter: HTMLElement[] = [];
+
+  /* ---------- „Mustafas Rechner-Idee“ (Meldung #7, 2026-11-10) ----------
+     Schaltbar, damit Mustafa (und Tim) sie ausprobieren können, bevor sie Standard wird:
+     Rechnen mit Einheiten (1t + 2t = 3t, 3t/m³ × 1,5m³ = 4,5t), m2 → m² beim Tippen,
+     Schriftfarbe für Textfelder, bei Schwer/Experte Schwellenteilung aus einem Aufmaß ermitteln.
+     An per Knopf (gemerkt) oder über den Link ?idee=mustafa (Postfach-Nachricht). */
+  const IDEE_KEY = 'glw-schotter-mustafa-idee';
+  let idee = false;
+  try{ idee = localStorage.getItem(IDEE_KEY)==='1' || new URLSearchParams(location.search).get('idee')==='mustafa'; }catch{}
+  try{ if(idee) localStorage.setItem(IDEE_KEY,'1'); }catch{}
 
   /* ===================== TABELLE rendern + blättern ===================== */
   let page = 0, busy = false;
@@ -285,8 +296,16 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
   $('#swatches').onclick = (e: any)=>{
     const s=e.target.closest('.swatch'); if(!s) return;
     color=s.dataset.c; $$('.swatch').forEach(x=>x.classList.toggle('active',x===s));
+    // Schriftfarbe (Mustafa, Meldung #7): im Text-Werkzeug färbt die Farbe das gerade bearbeitete Textfeld
+    // und gilt für alle neuen Textfelder – das Werkzeug bleibt dann „Text“.
+    if(idee && tool==='text'){
+      if(aktiveNotiz && aktiveNotiz.el.isConnected){ aktiveNotiz.el.style.color = color.startsWith('--') ? `var(${color})` : color; aktiveNotiz.el.focus(); }
+      return;
+    }
     setTool('pen');
   };
+  // Farbknopf antippen soll das Textfeld nicht verlassen (sonst verschwindet ein leeres Feld)
+  $('#swatches').addEventListener('pointerdown',(e: Event)=>{ if(idee && tool==='text') e.preventDefault(); });
   function setTool(t: string){ tool=t; $$('.tool').forEach(b=>b.classList.toggle('active',b.dataset.tool===t)); wrap.classList.toggle('textmodus', t==='text'); }
   $$('.tool').forEach(b=>b.onclick=()=>setTool(b.dataset.tool));
 
@@ -349,44 +368,128 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
   }
 
   /* ---------- Karten: aus der Tabelle gezogene Schwellen-Zeilen auf dem Blatt ---------- */
-  interface Karte { el: HTMLElement; x: number; y: number; }
+  // Tim, 2026-11-08: Karte antippen → auswählen, dann an der Ecke größer/kleiner ziehen (g = eigene Größe).
+  // ＋ im Kartenkopf öffnet die ganze Tabelle, daraus weitere Ausschnitte holen.
+  interface Karte { el: HTMLElement; x: number; y: number; g: number; ti: number; gi: number; }
   let karten: Karte[] = [];
   // Tim, 2026-11-06: Karten behalten beim Zoomen ihre Größe (wie die Aufgabe), nur ihr Platz auf dem Blatt wandert mit.
   const kartenlage = document.createElement('div'); kartenlage.className='kartenlage';
   wrap.insertBefore(kartenlage, welt.nextSibling);
-  function setzeKarte(k: Karte){ k.el.style.left=(k.x*view.s+view.tx)+'px'; k.el.style.top=(k.y*view.s+view.ty)+'px'; }
+  function setzeKarte(k: Karte){
+    k.el.style.left=(k.x*view.s+view.tx)+'px'; k.el.style.top=(k.y*view.s+view.ty)+'px';
+    k.el.style.transform=`scale(${k.g})`; k.el.style.setProperty('--g', String(k.g));
+  }
+  function waehleKarte(k: Karte|null){ karten.forEach(x=>x.el.classList.toggle('gewaehlt', x===k)); }
   kartenAnsicht = ()=>karten.forEach(setzeKarte);
   function karteHTML(t: Tabelle, gi: number){
     const g=t.gruppen[gi];
-    let h=`<div class="karte-kopf"><span class="karte-griff">⠿ ${g.name}</span><span class="karte-x" title="Entfernen">✕</span></div>`;
+    let h=`<div class="karte-kopf"><span class="karte-griff">⠿ ${g.name}</span><span class="karte-knoepfe"><span class="karte-plus" title="Weiteren Ausschnitt aus der Tabelle holen">＋</span><span class="karte-x" title="Entfernen">✕</span></span></div>`;
     h+=`<div class="karte-info">${t.gleise}-gleisig · Schwellenteilung ${t.teilung} cm · m³/km</div>`;
     h+=`<table class="schotter mini"><colgroup><col style="width:19%"><col><col><col><col><col><col></colgroup><thead><tr><th rowspan="2">Bettung</th>${t.breiten.map(b=>`<th colspan="2">${fmt(b)} m</th>`).join('')}</tr>`;
     h+=`<tr>${t.breiten.map(()=>t.uWerte.map(u=>`<th>u=${u}</th>`).join('')).join('')}</tr></thead><tbody>`;
     g.zeilen.forEach(z=>{ h+=`<tr><td><b>${fmt(z.dicke)} m</b></td>${z.w.map(v=>`<td class="${typeof v==='number'?'num':''}">${v===null?'':v}</td>`).join('')}</tr>`; });
-    return h+`</tbody></table>`;
+    return h+`</tbody></table><span class="karte-groesse" title="Größe ändern"></span>`;
   }
-  function neueKarte(t: Tabelle, gi: number, x: number, y: number){
+  function neueKarte(t: Tabelle, gi: number, x: number, y: number, g=1){
     const el=document.createElement('div'); el.className='karte'; el.innerHTML=karteHTML(t,gi);
     kartenlage.appendChild(el);
-    const k={el,x,y}; karten.push(k); setzeKarte(k); return k;
+    const k: Karte={el,x,y,g,ti:SCHOTTER_TABELLEN.indexOf(t),gi}; karten.push(k); setzeKarte(k); return k;
   }
-  function entferneKarten(){ karten.forEach(k=>k.el.remove()); karten=[]; }
+  function entferneKarten(){ karten.forEach(k=>k.el.remove()); karten=[]; if(!wahl.hidden) wahlZu(); }
   // Die Malfläche liegt über den Karten (man kann auf ihnen schreiben); Griff und ✕ werden per Trefferprüfung bedient.
-  function karteUnter(cx: number, cy: number): { k: Karte; teil: 'griff'|'x' }|null {
+  type KartenTeil = 'groesse'|'x'|'plus'|'griff'|'flaeche';
+  const TEIL_SEL: Record<KartenTeil,string> = { groesse:'.karte-groesse', x:'.karte-x', plus:'.karte-plus', griff:'.karte-kopf', flaeche:'' };
+  function karteUnter(cx: number, cy: number): { k: Karte; teil: KartenTeil }|null {
+    const drin=(r: DOMRect, rand=0)=>cx>=r.left-rand&&cx<=r.right+rand&&cy>=r.top-rand&&cy<=r.bottom+rand;
     for(let i=karten.length-1;i>=0;i--){
       const k=karten[i];
-      for(const teil of ['x','griff'] as const){
-        const r=(k.el.querySelector(teil==='x'?'.karte-x':'.karte-kopf') as HTMLElement).getBoundingClientRect();
-        if(cx>=r.left&&cx<=r.right&&cy>=r.top&&cy<=r.bottom) return {k,teil};
+      for(const teil of ['groesse','x','plus','griff','flaeche'] as KartenTeil[]){
+        if(teil==='groesse' && !k.el.classList.contains('gewaehlt')) continue;
+        const el = teil==='flaeche' ? k.el : k.el.querySelector(TEIL_SEL[teil]) as HTMLElement;
+        if(el && drin(el.getBoundingClientRect(), teil==='groesse'||teil==='x'||teil==='plus' ? 6 : 0)) return {k,teil};
       }
     }
     return null;
   }
 
+  /* ---------- ＋ auf einer Karte: ganze Tabelle über dem Blatt, weiteren Ausschnitt holen ----------
+     Zeile antippen → neue Karte direkt unter der Karte; Zeile gedrückt halten und ziehen → frei aufs Blatt legen. */
+  const wahl = document.createElement('div'); wahl.className='tabellen-wahl'; wahl.hidden=true;
+  wahl.innerHTML=`<div class="tw-kopf"><button type="button" class="btn tw-prev" aria-label="Vorherige Tabelle">‹</button>`
+    +`<div class="tw-titel"></div><button type="button" class="btn tw-next" aria-label="Nächste Tabelle">›</button>`
+    +`<button type="button" class="btn tw-zu" aria-label="Schließen">✕</button></div>`
+    +`<p class="tw-hinweis">Schwellenart antippen – oder gedrückt halten und aufs Blatt ziehen.</p>`
+    +`<div class="tw-scroll"><div class="tw-host"></div></div>`;
+  wrap.appendChild(wahl);
+  let wahlQuelle: Karte|null = null, wahlSeite = 0;
+  function wahlZeigen(){
+    const t=SCHOTTER_TABELLEN[wahlSeite];
+    (wahl.querySelector('.tw-titel') as HTMLElement).textContent=t.titel;
+    (wahl.querySelector('.tw-prev') as HTMLButtonElement).disabled = wahlSeite===0;
+    (wahl.querySelector('.tw-next') as HTMLButtonElement).disabled = wahlSeite===SCHOTTER_TABELLEN.length-1;
+    (wahl.querySelector('.tw-host') as HTMLElement).innerHTML=tableHTML(t);
+    (wahl.querySelector('.tw-scroll') as HTMLElement).scrollTop=0;
+  }
+  function tabellenWahl(k: Karte|null){
+    wahlQuelle=k; wahlSeite = k && k.ti>=0 ? k.ti : page; wahlZeigen(); wahl.hidden=false;
+  }
+  function wahlZu(){ wahl.hidden=true; wahl.classList.remove('zieht'); wahlQuelle=null; }
+  (wahl.querySelector('.tw-prev') as HTMLElement).onclick=()=>{ if(wahlSeite>0){ wahlSeite--; wahlZeigen(); } };
+  (wahl.querySelector('.tw-next') as HTMLElement).onclick=()=>{ if(wahlSeite<SCHOTTER_TABELLEN.length-1){ wahlSeite++; wahlZeigen(); } };
+  (wahl.querySelector('.tw-zu') as HTMLElement).onclick=wahlZu;
+  (function wahlZiehen(){
+    const sc=wahl.querySelector('.tw-scroll') as HTMLElement;
+    let timer: any=null, id: number|null=null, sx=0, sy=0, gi=-1, zieht=false, geist: HTMLElement|null=null;
+    const ende=()=>{ clearTimeout(timer); timer=null; id=null; zieht=false; geist?.remove(); geist=null; wahl.classList.remove('zieht'); wrap.classList.remove('ziel'); };
+    const ueberWrap=(x: number,y: number)=>{ const r=wrap.getBoundingClientRect(); return x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom; };
+    sc.addEventListener('pointerdown',(e: PointerEvent)=>{
+      const tr=(e.target as HTMLElement).closest('.tw-host tbody tr') as HTMLElement|null;
+      if(!tr||id!==null) return;
+      id=e.pointerId; sx=e.clientX; sy=e.clientY; gi=+tr.dataset['g']!;
+      timer=setTimeout(()=>{
+        timer=null; zieht=true; wahl.classList.add('zieht');
+        geist=document.createElement('div'); geist.className='sbx geist';
+        geist.innerHTML=`<div class="karte">${karteHTML(SCHOTTER_TABELLEN[wahlSeite],gi)}</div>`;
+        geist.style.left=sx+'px'; geist.style.top=sy+'px';
+        document.body.appendChild(geist); blaetter.push(geist);
+        try{ sc.setPointerCapture(e.pointerId); }catch{}
+        if(navigator.vibrate) try{ navigator.vibrate(15); }catch{}
+      }, 450);
+    });
+    sc.addEventListener('pointermove',(e: PointerEvent)=>{
+      if(e.pointerId!==id) return;
+      if(timer && Math.hypot(e.clientX-sx,e.clientY-sy)>10){ clearTimeout(timer); timer=null; id=null; return; }   // bewegt: scrollen
+      if(!zieht||!geist) return;
+      geist.style.left=e.clientX+'px'; geist.style.top=e.clientY+'px';
+      wrap.classList.toggle('ziel', ueberWrap(e.clientX,e.clientY));
+    });
+    sc.addEventListener('pointerup',(e: PointerEvent)=>{
+      if(e.pointerId!==id) return;
+      const t=SCHOTTER_TABELLEN[wahlSeite], q=wahlQuelle, g0=q?.g ?? 1;
+      if(timer){                                          // kurz angetippt: unter die Karte legen
+        ende();
+        const nx = q ? q.x : (24-view.tx)/view.s;
+        const ny = q ? q.y + (q.el.getBoundingClientRect().height + 12)/view.s : (120-view.ty)/view.s;
+        waehleKarte(neueKarte(t, gi, nx, ny, g0)); wahlZu(); return;
+      }
+      if(zieht && ueberWrap(e.clientX,e.clientY)){        // gezogen: dort ablegen, wo losgelassen wurde
+        const r=cv.getBoundingClientRect();
+        const bx=e.clientX-r.left-30, by=e.clientY-r.top-20;
+        ende(); waehleKarte(neueKarte(t, gi, (bx-view.tx)/view.s, (by-view.ty)/view.s, g0)); wahlZu(); return;
+      }
+      ende();
+    });
+    sc.addEventListener('pointercancel',(e: PointerEvent)=>{ if(e.pointerId===id) ende(); });
+    sc.addEventListener('touchmove',(e: TouchEvent)=>{ if(zieht) e.preventDefault(); },{ passive:false });
+    sc.addEventListener('contextmenu',(e: Event)=>{ if(zieht||timer) e.preventDefault(); });
+  })();
+
   /* ---------- Zeiger auf der Malfläche: Stift/Finger schreibt, zwei Finger zoomen, Griff zieht Karte ---------- */
   const finger = new Map<number,{x:number;y:number}>();
   let pinch: { d0:number; s0:number; mx:number; my:number; wx:number; wy:number }|null = null;
-  let kartenZug: { k: Karte; id: number; ox: number; oy: number }|null = null;
+  let kartenZug: { k: Karte; id: number; ox: number; oy: number; sx: number; sy: number; bewegt: boolean }|null = null;
+  let groessenZug: { k: Karte; id: number; g0: number; l: number; t: number; d0: number }|null = null;
+  let tippAufKarte: { k: Karte; id: number; sx: number; sy: number; t0: number; strich: any }|null = null;
   let schieben: { id:number; x:number; y:number }|null = null;      // „Nur Stift“: ein Finger verschiebt
   function pinchStart(){
     const [a,b]=[...finger.values()];
@@ -395,12 +498,20 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
   }
   cv.addEventListener('pointerdown',e=>{
     if(tool==='text' && finger.size===0){ e.preventDefault(); const p=pt(e); neueNotiz(p.x, p.y-12); return; }
-    const treffer = karteUnter(e.clientX, e.clientY);
-    if(treffer){
+    const treffer = finger.size===0 ? karteUnter(e.clientX, e.clientY) : null;
+    if(treffer && treffer.teil!=='flaeche'){
+      e.preventDefault();
       if(treffer.teil==='x'){ treffer.k.el.remove(); karten=karten.filter(k=>k!==treffer.k); return; }
-      const p=pt(e); kartenZug={ k:treffer.k, id:e.pointerId, ox:p.x-treffer.k.x, oy:p.y-treffer.k.y };
+      if(treffer.teil==='plus'){ tabellenWahl(treffer.k); return; }
+      if(treffer.teil==='groesse'){
+        const r=treffer.k.el.getBoundingClientRect();
+        groessenZug={ k:treffer.k, id:e.pointerId, g0:treffer.k.g, l:r.left, t:r.top, d0:Math.max(20,Math.hypot(e.clientX-r.left,e.clientY-r.top)) };
+        cv.setPointerCapture(e.pointerId); return;
+      }
+      const p=pt(e); kartenZug={ k:treffer.k, id:e.pointerId, ox:p.x-treffer.k.x, oy:p.y-treffer.k.y, sx:e.clientX, sy:e.clientY, bewegt:false };
       treffer.k.el.classList.add('zieht'); cv.setPointerCapture(e.pointerId); return;
     }
+    if(finger.size===0) waehleKarte(treffer ? karten.find(k=>k===treffer.k && k.el.classList.contains('gewaehlt')) ?? null : null);
     if(e.pointerType==='touch'){
       finger.set(e.pointerId, bildPunkt(e));
       if(finger.size===2){
@@ -413,9 +524,17 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
     }
     cv.setPointerCapture(e.pointerId);
     cur={tool,color,pts:[pt(e)],id:e.pointerId,touch:e.pointerType==='touch'}; strokes.push(cur); drawStroke(cur);
+    // Kurzes Antippen der Tabelle wählt die Karte aus (der Punkt wird dann wieder entfernt)
+    tippAufKarte = treffer ? { k:treffer.k, id:e.pointerId, sx:e.clientX, sy:e.clientY, t0:performance.now(), strich:cur } : null;
   });
   cv.addEventListener('pointermove',e=>{
+    if(groessenZug && e.pointerId===groessenZug.id){
+      const z=groessenZug, d=Math.hypot(e.clientX-z.l, e.clientY-z.t);
+      z.k.g=Math.min(2.5, Math.max(0.35, z.g0*d/z.d0)); setzeKarte(z.k); return;
+    }
     if(kartenZug && e.pointerId===kartenZug.id){
+      if(!kartenZug.bewegt && Math.hypot(e.clientX-kartenZug.sx, e.clientY-kartenZug.sy) < 6) return;
+      kartenZug.bewegt=true;
       const p=pt(e); kartenZug.k.x=p.x-kartenZug.ox; kartenZug.k.y=p.y-kartenZug.oy; setzeKarte(kartenZug.k); return;
     }
     if(finger.has(e.pointerId)){
@@ -439,7 +558,17 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
     const part={...cur,pts:cur.pts.slice(Math.max(0,start))}; drawStroke(part);
   });
   const zeigerEnde=(e: PointerEvent)=>{
-    if(kartenZug && e.pointerId===kartenZug.id){ kartenZug.k.el.classList.remove('zieht'); kartenZug=null; }
+    if(groessenZug && e.pointerId===groessenZug.id) groessenZug=null;
+    if(kartenZug && e.pointerId===kartenZug.id){
+      kartenZug.k.el.classList.remove('zieht');
+      if(!kartenZug.bewegt && e.type==='pointerup') waehleKarte(kartenZug.k.el.classList.contains('gewaehlt') ? null : kartenZug.k);
+      kartenZug=null;
+    }
+    if(tippAufKarte && e.pointerId===tippAufKarte.id){
+      const t=tippAufKarte; tippAufKarte=null;
+      const kurz = e.type==='pointerup' && performance.now()-t.t0 < 350 && Math.hypot(e.clientX-t.sx, e.clientY-t.sy) < 6 && t.strich.pts.length <= 4;
+      if(kurz){ const i=strokes.indexOf(t.strich); if(i>=0) strokes.splice(i,1); redraw(); waehleKarte(t.k); }
+    }
     if(finger.delete(e.pointerId)){
       if(finger.size<2) pinch=null;
       if(schieben && schieben.id===e.pointerId) schieben=null;
@@ -464,7 +593,11 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
     $('#vollbild').classList.toggle('tool-an', an);
   }
   $('#vollbild').onclick = ()=>vollbild(!root.classList.contains('vollbild'));
-  const taste=(e: KeyboardEvent)=>{ if(e.key==='Escape' && root.classList.contains('vollbild')) vollbild(false); };
+  const taste=(e: KeyboardEvent)=>{
+    if(e.key!=='Escape') return;
+    if(!wahl.hidden){ wahlZu(); return; }
+    if(root.classList.contains('vollbild')) vollbild(false);
+  };
   document.addEventListener('keydown', taste);
 
   /* ---------- Tippen auf der Schmierseite (Tim, 2026-11-06) ----------
@@ -474,6 +607,7 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
      Erlaubt: + − × · * / ÷ : ( ) % sowie Komma als Dezimalzeichen und Punkt als Tausenderpunkt. */
   interface Notiz { el: HTMLTextAreaElement; x: number; y: number; }
   let notizen: Notiz[] = [];
+  let aktiveNotiz: Notiz|null = null;                         // zuletzt bearbeitetes Textfeld (für Farbwechsel)
   let letzterBlattPunkt: { x: number; y: number } | null = null;
 
   function rechne(ausdruck: string): number|null {
@@ -501,8 +635,8 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
     n.el.style.width = Math.max(4, ...zeilen.map(z=>z.length+2))+'ch';
     n.el.rows = Math.max(1, zeilen.length);
   }
-  function entferneNotiz(n: Notiz){ n.el.remove(); notizen=notizen.filter(x=>x!==n); }
-  function entferneNotizen(){ notizen.forEach(n=>n.el.remove()); notizen=[]; }
+  function entferneNotiz(n: Notiz){ n.el.remove(); notizen=notizen.filter(x=>x!==n); if(aktiveNotiz===n) aktiveNotiz=null; }
+  function entferneNotizen(){ notizen.forEach(n=>n.el.remove()); notizen=[]; aktiveNotiz=null; }
 
   function neueNotiz(x: number, y: number, start=''){
     const el=document.createElement('textarea');
@@ -513,7 +647,12 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
     const n: Notiz={ el, x, y }; notizen.push(n);
     el.style.left=x+'px'; el.style.top=y+'px';
     passeNotizAn(n);
-    el.addEventListener('input',()=>passeNotizAn(n));
+    el.addEventListener('input',()=>{
+      const neu = idee ? hochzahlenEinsetzen(el.value) : null;  // Mustafas Idee: m2 → m², m3 → m³
+      if(neu!==null){ const p=el.selectionStart; el.value=neu; el.setSelectionRange(p,p); }
+      passeNotizAn(n);
+    });
+    el.addEventListener('focus',()=>{ aktiveNotiz=n; });
     el.addEventListener('keydown',(e: KeyboardEvent)=>{
       e.stopPropagation();
       if(e.key==='Escape'){ el.blur(); return; }
@@ -524,11 +663,16 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
         const ohneGleich = e.key==='=' ? zeile : zeile.replace(/=\s*$/,'');
         // nach dem letzten „=“; eine Beschriftung wie „Abschnitt 1:“ davor gehört nicht zur Rechnung
         const teil = ohneGleich.slice(ohneGleich.lastIndexOf('=')+1).replace(/^.*[A-Za-zÄÖÜäöüß][^:]*:\s*/,'');
-        const m=/[\d.,+\-−–×xX·*/÷:()%\s]+$/.exec(teil);
-        const v = m ? rechne(m[0]) : null;
-        if(v===null) return;                                    // kein Rechenausdruck: normal weiterschreiben
+        let ergebnis: string|null;
+        if(idee){
+          ergebnis = zeilenErgebnis(teil);                      // Mustafas Idee: auch mit Einheiten (3t/m³ × 1,5m³ → 4,5t)
+        } else {
+          const m=/[\d.,+\-−–×xX·*/÷:()%\s]+$/.exec(teil);
+          const v = m ? rechne(m[0]) : null;
+          ergebnis = v===null ? null : v.toLocaleString('de-DE',{ maximumFractionDigits: 4 });
+        }
+        if(ergebnis===null) return;                             // kein Rechenausdruck: normal weiterschreiben
         e.preventDefault();
-        const ergebnis = v.toLocaleString('de-DE',{ maximumFractionDigits: 4 });
         const einfuegen = (e.key==='=' ? (/\s$/.test(zeile)?'':' ')+'= ' : ' ') + ergebnis + (e.key==='Enter' ? '\n' : '');
         el.setRangeText(einfuegen, el.selectionStart, el.selectionEnd, 'end');
         passeNotizAn(n);
@@ -716,8 +860,12 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
     const sol = { breite:r.breite, dicke:r.dicke, bedarf, neu, alt:neu, wNeu:Math.ceil(tNeu/nutz-1e-9), wAb:Math.ceil(tAb/nutz-1e-9),
       schwellen, wSchwNeu:Math.ceil(tSchwNeu/swNutz-1e-9), wSchwAlt:Math.ceil(tSchwAlt/swNutz-1e-9), tNeu, tAb, proKm, proGleis, tSchwNeu, tSchwAlt };
     const ein = abschnitte[0];
+    // Schwer/Experte (Mustafa, Meldung #7): Teilung nicht vorgeben, sondern aus einem Aufmaß ermitteln lassen.
+    // Gemessen von Schwellenmitte der ersten bis zur letzten Schwelle: Teilung = Länge ÷ (Schwellen − 1).
+    const faecher = rnd([20, 25, 30, 40, 50]);
+    const aufmass = idee && (stufe==='schwer' || stufe==='experte') ? { schwellen: faecher+1, laengeM: faecher*t.teilung/100 } : null;
     task={t,g,z,bi,v,km,laengeM,strecke,erneuert,nutz,swNutz,dichte,altName,kgNeu,kgAlt,von,nach,sol,grp,zeile,r,abschnitte,stufe,
-          u:ein.u, wert:ein.wert, verschm:ein.verschm};
+          u:ein.u, wert:ein.wert, verschm:ein.verschm, aufmass};
 
     const gl = strecke===1 ? 'eingleisigen Strecke' : 'zweigleisigen Strecke';
     const was = strecke===1 ? 'wird das Gleis' : (erneuert===2 ? 'werden beide Gleise' : 'wird ein Gleis');
@@ -740,7 +888,9 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
     $('#taskText').innerHTML = `
       <div class="nur-text">
       <p>Auf der ${gl} <b>${von} – ${nach}</b> ${ortText} ${was} erneuert.</p>
-      <p>Neue Schwellen: <b>${grp.name}</b> (je <b>${fmt(kgNeu,0)} kg</b>), Schwellenteilung <b>${t.teilung} cm</b>.
+      <p>Neue Schwellen: <b>${grp.name}</b> (je <b>${fmt(kgNeu,0)} kg</b>), ${aufmass
+        ? `Schwellenteilung selbst ermitteln: Beim Aufmaß liegen auf <b>${fmt(aufmass.laengeM,2)} m</b> (Schwellenmitte erste bis letzte Schwelle) genau <b>${aufmass.schwellen} Schwellen</b>`
+        : `Schwellenteilung <b>${t.teilung} cm</b>`}.
          Ausgebaut werden Altschwellen <b>${altName}</b> (je <b>${fmt(kgAlt,0)} kg</b>).</p>
       ${abschnittText}
       <p>Schotterwagen: <b>${nutz} t</b> Nutzlast. Schwellenwagen: <b>${swNutz} t</b> Nutzlast.
@@ -755,7 +905,7 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
         <span class="w"><i>Schüttdichte</i>${fmt(dichte.wert)} t/m³</span>
         <span class="w"><i>Schwelle neu</i>${grp.name} · ${fmt(kgNeu,0)} kg</span>
         <span class="w"><i>Schwelle alt</i>${altName} · ${fmt(kgAlt,0)} kg</span>
-        <span class="w"><i>Teilung</i>${t.teilung} cm</span>
+        <span class="w"><i>Teilung</i>${aufmass ? `? (${aufmass.schwellen} Schwellen auf ${fmt(aufmass.laengeM,2)} m)` : t.teilung+' cm'}</span>
         <span class="w"><i>Schotterwagen</i>${nutz} t</span>
         <span class="w"><i>Schwellenwagen</i>${swNutz} t</span>
       </div>`;
@@ -837,6 +987,7 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
          <li>Neuschotter = Bedarf × Verschmutzungsgrad = ${fmt(s.bedarf)} × ${abs[0].verschm} % = <b>${fmt(s.neu)} m³</b>${abs[0].verschm===100?' (alles wird getauscht)':''}</li>`;
     $('#solution').innerHTML = `<b>Lösungsweg</b><ol>
       <li>Regelwerte bei ${T.v} km/h: Einschotterung vor Kopf <b>${fmt(s.breite)} m</b>, Bettungsdicke <b>${fmt(s.dicke)} m</b></li>
+      ${T.aufmass ? `<li>Schwellenteilung aus dem Aufmaß: ${T.aufmass.schwellen} Schwellen → ${T.aufmass.schwellen-1} Abstände; ${fmt(T.aufmass.laengeM,2)} m ÷ ${T.aufmass.schwellen-1} = ${fmt(t.teilung/100,2)} m = <b>${t.teilung} cm</b> → Tabelle mit ${t.teilung} cm aufschlagen</li>` : ''}
       ${schritte}
       <li>Neuschotter: ${fmt(s.neu)} m³ × ${fmt(T.dichte.wert)} t/m³ = ${fmt(s.tNeu)} t → ÷ ${T.nutz} t = <b>${s.wNeu} Wagen</b> (aufgerundet)</li>
       <li>Altschotter (Abtransport) = verschmutzter Anteil = <b>${fmt(s.alt)} m³</b>; ${fmt(s.alt)} m³ × ${fmt(T.dichte.wert)} t/m³ = ${fmt(s.tAb)} t → ÷ ${T.nutz} t = <b>${s.wAb} Wagen</b> (aufgerundet)</li>
@@ -905,6 +1056,24 @@ export function starteSchotterberechnung(root: HTMLElement): () => void {
   };
 
   /* Start */
+  function ideeAnzeigen(){
+    const k=$('#ideeMustafa') as HTMLButtonElement|null;
+    if(k){ k.classList.toggle('tool-an', idee); k.setAttribute('aria-pressed', String(idee)); }
+    const leiste=$('#ideeLeiste') as HTMLElement|null;
+    if(leiste) leiste.hidden=!idee;
+  }
+  if($('#ideeMustafa')) $('#ideeMustafa').onclick=()=>{
+    idee=!idee;
+    try{ localStorage.setItem(IDEE_KEY, idee?'1':'0'); }catch{}
+    ideeAnzeigen(); neueAufgabe();
+  };
+  if($('#ideeRueckmeldung')) $('#ideeRueckmeldung').onclick=()=>{
+    meldenOeffnen(true);
+    const grund=$('#meldeGrund') as HTMLSelectElement;
+    const opt=Array.from(grund.options).find(o=>/Idee/.test(o.text)); if(opt) grund.value=opt.value;
+    ($('#meldeKommentar') as HTMLTextAreaElement).value='Mustafas Rechner-Idee: passt so / passt noch nicht, weil … ';
+  };
+  ideeAnzeigen();
   renderTable(); neueAufgabe();
 
   return () => { ro.disconnect(); mo.disconnect(); document.removeEventListener('keydown', taste); document.removeEventListener('keydown', tippen); cancelAnimationFrame(raf); blaetter.forEach(l=>l.remove()); };

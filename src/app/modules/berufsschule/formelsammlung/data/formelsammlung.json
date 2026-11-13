@@ -1,0 +1,644 @@
+{
+  "version": 1,
+  "stand": "2026-11-06",
+  "quelle": "Formelsammlung aus dem Berufsschulunterricht (von Tim abgetippt). Werte mit status \"unklar\" sind noch nicht bestätigt.",
+  "kapitel": [
+    { "id": "01", "titel": "Überprüfen von Gleisbögen (Pfeilhöhe)" },
+    { "id": "02", "titel": "Kreisbögen abstecken von der x-Achse" },
+    { "id": "03", "titel": "Übergangsbogen (kubische Parabel)" },
+    { "id": "04", "titel": "Ausrunden von Neigungswechseln" },
+    { "id": "05", "titel": "Gleisverziehungen" },
+    { "id": "06", "titel": "Temperatur und Kräfte im Gleis" },
+    { "id": "07-09", "titel": "Kräfte am Fahrzeug" },
+    { "id": "10", "titel": "Querbeschleunigung" },
+    { "id": "11-12", "titel": "Weichen" },
+    { "id": "13-15", "titel": "Überhöhung" },
+    { "id": "16-17", "titel": "Überhöhungsrampen" },
+    { "id": "18", "titel": "Überhöhung entlang der Rampe" },
+    { "id": "19-20", "titel": "Krümmung und Ruck-Kriterium" },
+    { "id": "21", "titel": "Mindestlänge Übergangsbogen" },
+    { "id": "22-23", "titel": "Zweiggleisradius bei Weichen" },
+    { "id": "A", "titel": "Anhang: Rampenformeln (Erdbau)" }
+  ],
+  "apps": [
+    { "id": "pfeilhoehe", "nr": 1, "titel": "Pfeilhöhe", "kapitel": "01", "kurz": "Gleisbögen mit der Sehne überprüfen: hf, r und Sehnenlänge.", "icon": "analytics-outline" },
+    { "id": "kreisbogen", "nr": 2, "titel": "Kreisbogen von der x-Achse", "kapitel": "02", "kurz": "Ordinaten y genau und mit Näherung – wann ist die Näherung erlaubt?", "icon": "radio-button-off-outline" },
+    { "id": "uebergangsbogen", "nr": 3, "titel": "Übergangsbogen abstecken", "kapitel": "03", "kurz": "Kubische Parabel: Ordinaten y entlang des Übergangsbogens.", "icon": "trending-up-outline" },
+    { "id": "ausrundung", "nr": 4, "titel": "Ausrunden von Neigungswechseln", "kapitel": "04", "kurz": "Ausrundungsradius, Tangentenlänge, Kuppe oder Wanne, Absteckmaß y.", "icon": "git-commit-outline" },
+    { "id": "gleisverziehung", "nr": 5, "titel": "Gleisverziehungen", "kapitel": "05", "kurz": "S-Verziehung mit und ohne Zwischengerade.", "icon": "swap-horizontal-outline" },
+    { "id": "temperatur", "nr": 6, "titel": "Temperatur und Kräfte im Gleis", "kapitel": "06", "kurz": "Längenänderung, Spannung und Kraft in der Schiene.", "icon": "thermometer-outline" },
+    { "id": "atmend", "nr": 7, "titel": "Atmendes Gleisende", "kapitel": "06", "kurz": "Länge des atmenden Bereichs aus Längskraft und Verschiebewiderstand.", "icon": "pulse-outline" },
+    { "id": "fahrzeugkraefte", "nr": 8, "titel": "Kräfte am Fahrzeug", "kapitel": "07-09", "kurz": "Fliehkraft, Hangabtriebskraft und Vertikalkraft.", "icon": "speedometer-outline" },
+    { "id": "querbeschleunigung", "nr": 9, "titel": "Querbeschleunigung", "kapitel": "10", "kurz": "Freie Seitenbeschleunigung aus v, r und Überhöhung.", "icon": "navigate-outline" },
+    { "id": "weichen", "nr": 10, "titel": "Weichen", "kapitel": "11-12", "kurz": "Zulässige Geschwindigkeit und Zwischengerade in Gleisverbindungen.", "icon": "git-branch-outline" },
+    { "id": "ueberhoehung", "nr": 11, "titel": "Überhöhung", "kapitel": "13-15", "kurz": "u0, Regelüberhöhung, Mindestüberhöhung, Fehlbetrag – und Radius umgestellt.", "icon": "reorder-three-outline" },
+    { "id": "rampen", "nr": 12, "titel": "Überhöhungsrampen", "kapitel": "16-17", "kurz": "Rampenlänge und Rampenneigung 1 : m gegen Tabelle 7 prüfen.", "icon": "trending-up-outline" },
+    { "id": "rampenverlauf", "nr": 13, "titel": "Überhöhung entlang der Rampe", "kapitel": "18", "kurz": "ux an jedem Punkt der geraden und S-förmigen Rampe.", "icon": "stats-chart-outline" },
+    { "id": "kruemmung", "nr": 14, "titel": "Krümmung und Ruck-Kriterium", "kapitel": "19-20", "kurz": "Ist ein Übergangsbogen nötig? Entscheidung mit Rechenweg.", "icon": "help-circle-outline" },
+    { "id": "uebergangslaenge", "nr": 15, "titel": "Mindestlänge Übergangsbogen", "kapitel": "21", "kurz": "Klothoide, Bloss und Schramm im Vergleich.", "icon": "bar-chart-outline" },
+    { "id": "zweiggleis", "nr": 16, "titel": "Zweiggleisradius bei Weichen", "kapitel": "22-23", "kurz": "Innenbogen- und Außenbogenweiche.", "icon": "git-network-outline" },
+    { "id": "rampenvolumen", "nr": 17, "titel": "Rampenvolumen im Erdbau", "kapitel": "A", "kurz": "Erdrampe, die an einer Wand senkrecht endet: allgemeine Formel und Variante l2 = l3.", "icon": "cube-outline" }
+  ],
+  "formeln": [
+    {
+      "id": "hf-sehne", "app": "pfeilhoehe", "kapitel": "01", "titel": "Pfeilhöhe aus Sehnenlänge (Messpunkt Mitte)",
+      "latex": "h_f = \\frac{l_s^2}{8 \\cdot r}",
+      "variablen": [
+        { "symbol": "h_f", "name": "Pfeilhöhe", "einheit": "m", "bereich": [0.005, 0.5] },
+        { "symbol": "l_s", "name": "Sehnenlänge", "einheit": "m", "bereich": [5, 40] },
+        { "symbol": "r", "name": "Radius", "einheit": "m", "bereich": [150, 10000] }
+      ],
+      "grenzen": ["Näherungsformel: gilt für flache Bögen, bei denen die Sehne viel kürzer als der Radius ist (im Gleisbau praktisch immer erfüllt)."],
+      "hinweis": "Merkhilfe: „Sehne zum Quadrat durch acht r“. Pfeilhöhe in m kommt raus – für die Messung meist in mm umrechnen (× 1000)."
+    },
+    {
+      "id": "hf-halbsehne", "app": "pfeilhoehe", "kapitel": "01", "titel": "Pfeilhöhe aus halber Sehne",
+      "latex": "h_f = \\frac{\\left(\\frac{l_s}{2}\\right)^2}{2 \\cdot r}",
+      "variablen": [
+        { "symbol": "h_f", "name": "Pfeilhöhe", "einheit": "m", "bereich": [0.005, 0.5] },
+        { "symbol": "l_s", "name": "Sehnenlänge", "einheit": "m", "bereich": [5, 40] },
+        { "symbol": "r", "name": "Radius", "einheit": "m", "bereich": [150, 10000] }
+      ],
+      "grenzen": ["Wie die Sehnenformel – es ist dieselbe Formel, nur anders geschrieben."],
+      "hinweis": "(ls/2)² / (2r) = ls² / (4 · 2r) = ls² / (8r). Beide Wege führen zum gleichen Ergebnis."
+    },
+    {
+      "id": "hf-ab", "app": "pfeilhoehe", "kapitel": "01", "titel": "Pfeilhöhe an beliebigem Messpunkt",
+      "latex": "h_f = \\frac{a \\cdot b}{2 \\cdot r}",
+      "variablen": [
+        { "symbol": "h_f", "name": "Pfeilhöhe am Messpunkt", "einheit": "m", "bereich": [0.005, 0.5] },
+        { "symbol": "a", "name": "Sehnenabschnitt vom Sehnenanfang bis Messpunkt", "einheit": "m", "bereich": [1, 39] },
+        { "symbol": "b", "name": "Sehnenabschnitt vom Messpunkt bis Sehnenende", "einheit": "m", "bereich": [1, 39] },
+        { "symbol": "r", "name": "Radius", "einheit": "m", "bereich": [150, 10000] }
+      ],
+      "grenzen": ["a + b = ls. Liegt der Messpunkt in der Mitte (a = b = ls/2), ergibt sich wieder ls² / (8r)."],
+      "hinweis": "Immer nehmen, wenn der Messpunkt NICHT in der Sehnenmitte liegt."
+    },
+    {
+      "id": "y-kreis-genau", "app": "kreisbogen", "kapitel": "02", "titel": "Ordinate von der x-Achse (genau)",
+      "latex": "y = r - \\sqrt{r^2 - x^2}",
+      "variablen": [
+        { "symbol": "y", "name": "Ordinate (Abstand von der Tangente)", "einheit": "m", "bereich": [0.001, 50] },
+        { "symbol": "x", "name": "Abszisse (Abstand vom Bogenanfang auf der Tangente)", "einheit": "m", "bereich": [1, 200] },
+        { "symbol": "r", "name": "Radius", "einheit": "m", "bereich": [150, 10000] }
+      ],
+      "grenzen": ["x muss kleiner als r sein (sonst Wurzel aus negativer Zahl)."],
+      "hinweis": "Gilt immer – auch wenn die Näherung nicht mehr erlaubt ist."
+    },
+    {
+      "id": "y-kreis-naeherung", "app": "kreisbogen", "kapitel": "02", "titel": "Ordinate von der x-Achse (Näherung)",
+      "latex": "y \\approx \\frac{x^2}{2 \\cdot r}",
+      "variablen": [
+        { "symbol": "y", "name": "Ordinate", "einheit": "m", "bereich": [0.001, 50] },
+        { "symbol": "x", "name": "Abszisse", "einheit": "m", "bereich": [1, 200] },
+        { "symbol": "r", "name": "Radius", "einheit": "m", "bereich": [150, 10000] }
+      ],
+      "grenzen": ["Nur gültig bis x = r / 10."],
+      "hinweis": "Merkhilfe: „x zum Quadrat durch zwei r“ – dieselbe Bauart wie die Ausrundungs-Ordinate y = x² / (2·ra)."
+    },
+    {
+      "id": "y-kubisch", "app": "uebergangsbogen", "kapitel": "03", "titel": "Ordinate im Übergangsbogen (kubische Parabel)",
+      "latex": "y = \\frac{x^3}{6 \\cdot r \\cdot l_\\text{ü}}",
+      "variablen": [
+        { "symbol": "y", "name": "Ordinate", "einheit": "m", "bereich": [0.001, 5] },
+        { "symbol": "x", "name": "Abszisse ab Übergangsbogenanfang", "einheit": "m", "bereich": [1, 200] },
+        { "symbol": "r", "name": "Radius des anschließenden Kreisbogens", "einheit": "m", "bereich": [150, 10000] },
+        { "symbol": "l_\\text{ü}", "name": "Länge des Übergangsbogens", "einheit": "m", "bereich": [20, 300] }
+      ],
+      "grenzen": ["0 ≤ x ≤ lü."],
+      "hinweis": "Einheiten: m = m³ / (6 · m · m)."
+    },
+    {
+      "id": "ra-regel", "app": "ausrundung", "kapitel": "04", "titel": "Ausrundungsradius – Regelwert",
+      "latex": "\\text{reg } r_a = 0{,}40 \\cdot v_e^2",
+      "variablen": [
+        { "symbol": "r_a", "name": "Ausrundungsradius", "einheit": "m", "bereich": [2000, 40000] },
+        { "symbol": "v_e", "name": "Entwurfsgeschwindigkeit (Zahlenwert in km/h)", "einheit": "km/h", "bereich": [40, 300] }
+      ],
+      "grenzen": ["In jedem Fall mindestens 2000 m."],
+      "hinweis": "ve als Zahl in km/h einsetzen, Ergebnis ist der Radius in m."
+    },
+    {
+      "id": "ra-ermessen", "app": "ausrundung", "kapitel": "04", "titel": "Ausrundungsradius – Ermessensgrenzwert",
+      "latex": "\\text{min } r_a = 0{,}25 \\cdot v_e^2",
+      "variablen": [
+        { "symbol": "r_a", "name": "Ausrundungsradius", "einheit": "m", "bereich": [2000, 40000] },
+        { "symbol": "v_e", "name": "Entwurfsgeschwindigkeit", "einheit": "km/h", "bereich": [40, 300] }
+      ],
+      "grenzen": ["In jedem Fall mindestens 2000 m."],
+      "hinweis": "Handnotiz: bei Straßenbahn immer mit 0,25 rechnen."
+    },
+    {
+      "id": "ra-genehmigung", "app": "ausrundung", "kapitel": "04", "titel": "Ausrundungsradius – Genehmigungsbereich",
+      "latex": "r_a = 0{,}16 \\cdot v_e^2 \\;(\\text{Kuppe}) \\qquad r_a = 0{,}13 \\cdot v_e^2 \\;(\\text{Wanne})",
+      "variablen": [
+        { "symbol": "r_a", "name": "Ausrundungsradius", "einheit": "m", "bereich": [2000, 40000] },
+        { "symbol": "v_e", "name": "Entwurfsgeschwindigkeit", "einheit": "km/h", "bereich": [40, 300] }
+      ],
+      "grenzen": ["In jedem Fall mindestens 2000 m."],
+      "hinweis": "Kuppe 0,16 – Wanne 0,13: in der Wanne wird man in den Sitz gedrückt, das ist angenehmer, deshalb darf der Radius kleiner sein."
+    },
+    {
+      "id": "lta-gleich", "app": "ausrundung", "kapitel": "04", "titel": "Tangentenlänge – gleichgerichtete Neigung (oder Waagerechte → Neigung)",
+      "latex": "l_{ta} = \\frac{r_a}{2} \\cdot \\frac{s_1 - s_2}{1000}",
+      "variablen": [
+        { "symbol": "l_{ta}", "name": "Tangentenlänge der Ausrundung", "einheit": "m", "bereich": [5, 200] },
+        { "symbol": "r_a", "name": "Ausrundungsradius", "einheit": "m", "bereich": [2000, 40000] },
+        { "symbol": "s_1", "name": "Neigung vor dem Neigungswechsel", "einheit": "‰", "bereich": [0, 40] },
+        { "symbol": "s_2", "name": "Neigung nach dem Neigungswechsel", "einheit": "‰", "bereich": [0, 40] }
+      ],
+      "grenzen": ["Beide Neigungen gehen in dieselbe Richtung (beide Steigung oder beide Gefälle) oder eine Seite ist waagerecht (s = 0)."],
+      "hinweis": "Gleiche Richtung → abziehen. Immer die größere minus die kleinere Neigung nehmen, damit lta positiv wird."
+    },
+    {
+      "id": "lta-entgegen", "app": "ausrundung", "kapitel": "04", "titel": "Tangentenlänge – entgegengesetzte Neigung (Kuppe/Wanne)",
+      "latex": "l_{ta} = \\frac{r_a}{2} \\cdot \\frac{s_1 + s_2}{1000}",
+      "variablen": [
+        { "symbol": "l_{ta}", "name": "Tangentenlänge der Ausrundung", "einheit": "m", "bereich": [5, 200] },
+        { "symbol": "r_a", "name": "Ausrundungsradius", "einheit": "m", "bereich": [2000, 40000] },
+        { "symbol": "s_1", "name": "Neigung vor dem Neigungswechsel", "einheit": "‰", "bereich": [0, 40] },
+        { "symbol": "s_2", "name": "Neigung nach dem Neigungswechsel", "einheit": "‰", "bereich": [0, 40] }
+      ],
+      "grenzen": ["Eine Seite Steigung, die andere Gefälle."],
+      "hinweis": "Entgegengesetzt → addieren. Steigung → Gefälle = Kuppe, Gefälle → Steigung = Wanne."
+    },
+    {
+      "id": "ra-aus-lta", "app": "ausrundung", "kapitel": "04", "titel": "Ausrundungsradius aus Tangentenlänge",
+      "latex": "r_a = \\frac{2000 \\cdot l_{ta}}{s_1 \\mp s_2}",
+      "variablen": [
+        { "symbol": "r_a", "name": "Ausrundungsradius", "einheit": "m", "bereich": [2000, 40000] },
+        { "symbol": "l_{ta}", "name": "Tangentenlänge", "einheit": "m", "bereich": [5, 200] },
+        { "symbol": "s_1, s_2", "name": "Neigungen", "einheit": "‰", "bereich": [0, 40] }
+      ],
+      "grenzen": ["Minus bei gleichgerichteter Neigung, plus bei entgegengesetzter Neigung."],
+      "hinweis": "Umgestellte Tangentenformel: die 2 und die 1000 wandern auf die andere Seite → 2000."
+    },
+    {
+      "id": "la-ausrundung", "app": "ausrundung", "kapitel": "04", "titel": "Länge der Ausrundung",
+      "latex": "l_a \\approx 2 \\cdot l_{ta}",
+      "variablen": [
+        { "symbol": "l_a", "name": "Länge der Ausrundung (AA bis AE)", "einheit": "m", "bereich": [10, 400] },
+        { "symbol": "l_{ta}", "name": "Tangentenlänge", "einheit": "m", "bereich": [5, 200] }
+      ],
+      "grenzen": [],
+      "hinweis": "Von AA bis TS und von TS bis AE ist jeweils eine Tangentenlänge."
+    },
+    {
+      "id": "y-ausrundung", "app": "ausrundung", "kapitel": "04", "titel": "Absteckmaß (Ordinate) in der Ausrundung",
+      "latex": "y = \\frac{x^2}{2 \\cdot r_a}",
+      "variablen": [
+        { "symbol": "y", "name": "Ordinate (senkrechter Abstand Tangente – Ausrundung)", "einheit": "m", "bereich": [0.001, 2] },
+        { "symbol": "x", "name": "Abstand vom AA bzw. AE", "einheit": "m", "bereich": [0, 200] },
+        { "symbol": "r_a", "name": "Ausrundungsradius", "einheit": "m", "bereich": [2000, 40000] }
+      ],
+      "grenzen": ["0 ≤ x ≤ lta. Größte Ordinate am TS: x = lta."],
+      "hinweis": "y kommt in m heraus – für die Absteckung meist in mm (× 1000)."
+    },
+    {
+      "id": "lvz-ohne", "app": "gleisverziehung", "kapitel": "05", "titel": "Verziehungslänge ohne Zwischengerade",
+      "latex": "l_{vz} = 2 \\cdot \\sqrt{r \\cdot \\Delta e}",
+      "variablen": [
+        { "symbol": "l_{vz}", "name": "Verziehungslänge", "einheit": "m", "bereich": [20, 300] },
+        { "symbol": "r", "name": "Radius der Verziehungsbögen", "einheit": "m", "bereich": [500, 40000] },
+        { "symbol": "\\Delta e", "name": "Verziehungsmaß (seitlicher Versatz)", "einheit": "m", "bereich": [0.1, 6] }
+      ],
+      "grenzen": ["r ≥ ve² / 2"],
+      "hinweis": ""
+    },
+    {
+      "id": "lvz-mit", "app": "gleisverziehung", "kapitel": "05", "titel": "Verziehungslänge mit Zwischengerade",
+      "latex": "l_{vz} = 2 \\cdot \\sqrt{r \\cdot \\Delta e + l_g^2} \\quad (\\text{unklar})",
+      "variablen": [
+        { "symbol": "l_{vz}", "name": "Verziehungslänge", "einheit": "m", "bereich": [20, 300] },
+        { "symbol": "r", "name": "Radius der Verziehungsbögen", "einheit": "m", "bereich": [500, 40000] },
+        { "symbol": "\\Delta e", "name": "Verziehungsmaß", "einheit": "m", "bereich": [0.1, 6] },
+        { "symbol": "l_g", "name": "Länge der Zwischengeraden", "einheit": "m", "bereich": [10, 120] }
+      ],
+      "grenzen": ["r ≥ ve² / 2"],
+      "hinweis": "",
+      "status": "unklar",
+      "unklar": "Foto schlecht lesbar – Stellung von lg (unter der Wurzel? quadriert? /4?) noch nicht bestätigt. Nicht verwenden, bis geklärt."
+    },
+    {
+      "id": "lg-verziehung", "app": "gleisverziehung", "kapitel": "05", "titel": "Mindestlänge Zwischengerade",
+      "latex": "l_g \\ge 0{,}4 \\cdot v_e \\;(v_e \\le 200) \\qquad l_g \\ge 0{,}6 \\cdot v_e \\;(v_e > 200)",
+      "variablen": [
+        { "symbol": "l_g", "name": "Länge der Zwischengeraden", "einheit": "m", "bereich": [10, 200] },
+        { "symbol": "v_e", "name": "Entwurfsgeschwindigkeit", "einheit": "km/h", "bereich": [40, 300] }
+      ],
+      "grenzen": [],
+      "hinweis": ""
+    },
+    {
+      "id": "dl-temperatur", "app": "temperatur", "kapitel": "06", "titel": "Längenänderung durch Temperatur",
+      "latex": "\\Delta l = l \\cdot \\alpha \\cdot \\Delta T",
+      "variablen": [
+        { "symbol": "\\Delta l", "name": "Längenänderung", "einheit": "mm", "bereich": [0.1, 200] },
+        { "symbol": "l", "name": "Ausgangslänge", "einheit": "mm", "bereich": [1000, 1200000] },
+        { "symbol": "\\alpha", "name": "Wärmeausdehnungskoeffizient Stahl = 11,5 · 10⁻⁶", "einheit": "1/K", "bereich": [0.0000115, 0.0000115] },
+        { "symbol": "\\Delta T", "name": "Temperaturänderung", "einheit": "K", "bereich": [1, 60] }
+      ],
+      "grenzen": [],
+      "hinweis": "l in mm einsetzen, dann kommt Δl in mm heraus."
+    },
+    {
+      "id": "sigma-temperatur", "app": "temperatur", "kapitel": "06", "titel": "Spannung durch behinderte Längenänderung",
+      "latex": "\\sigma = \\alpha \\cdot E \\cdot \\Delta T",
+      "variablen": [
+        { "symbol": "\\sigma", "name": "Spannung", "einheit": "N/mm²", "bereich": [1, 200] },
+        { "symbol": "E", "name": "Elastizitätsmodul Stahl = 2,1 · 10⁵", "einheit": "N/mm²", "bereich": [210000, 210000] },
+        { "symbol": "\\Delta T", "name": "Temperaturänderung", "einheit": "K", "bereich": [1, 60] }
+      ],
+      "grenzen": [],
+      "hinweis": ""
+    },
+    {
+      "id": "f-profil", "app": "temperatur", "kapitel": "06", "titel": "Kraft in der Schiene",
+      "latex": "F = \\sigma \\cdot A_\\text{Profil}",
+      "variablen": [
+        { "symbol": "F", "name": "Kraft", "einheit": "N", "bereich": [1000, 2000000] },
+        { "symbol": "A_\\text{Profil}", "name": "Querschnittsfläche des Schienenprofils", "einheit": "mm²", "bereich": [5000, 9000] }
+      ],
+      "grenzen": [],
+      "hinweis": "Erwärmung im verschweißten Gleis → Druckkraft, Abkühlung → Zugkraft."
+    },
+    {
+      "id": "f-laengskraft", "app": "temperatur", "kapitel": "06", "titel": "Längskraft aus Kraft pro Kelvin",
+      "latex": "F = F_\\text{Schiene} \\cdot \\Delta T",
+      "variablen": [
+        { "symbol": "F", "name": "Längskraft", "einheit": "kN", "bereich": [10, 2000] },
+        { "symbol": "F_\\text{Schiene}", "name": "Kraft pro Kelvin des Profils", "einheit": "kN/K", "bereich": [12, 20] },
+        { "symbol": "\\Delta T", "name": "Temperaturänderung", "einheit": "K", "bereich": [1, 60] }
+      ],
+      "grenzen": [],
+      "hinweis": "F_Schiene = A · α · E (z. B. S54: 16,78 kN/K)."
+    },
+    {
+      "id": "l-atmend", "app": "atmend", "kapitel": "06", "titel": "Länge des atmenden Gleisendes",
+      "latex": "l_\\text{atm} = \\frac{A_\\text{Schiene} \\cdot E \\cdot \\alpha \\cdot \\Delta T}{p}",
+      "variablen": [
+        { "symbol": "l_\\text{atm}", "name": "Länge des atmenden Bereichs", "einheit": "m", "bereich": [20, 300] },
+        { "symbol": "A_\\text{Schiene}", "name": "Querschnittsfläche", "einheit": "mm²", "bereich": [5000, 9000] },
+        { "symbol": "p", "name": "Längsverschiebewiderstand (100 N/cm stark, 70 N/cm locker verdichtet)", "einheit": "N/cm", "bereich": [70, 100] }
+      ],
+      "grenzen": [],
+      "hinweis": "Einheiten-Falle: N geteilt durch N/cm ergibt cm – am Ende in m umrechnen."
+    },
+    {
+      "id": "fliehkraft", "app": "fahrzeugkraefte", "kapitel": "07-09", "titel": "Fliehkraft",
+      "latex": "F = \\frac{m \\cdot v^2}{r}",
+      "variablen": [
+        { "symbol": "F", "name": "Fliehkraft", "einheit": "N", "bereich": [100, 1000000] },
+        { "symbol": "m", "name": "Masse", "einheit": "kg", "bereich": [1000, 2000000] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "m/s", "bereich": [1, 90] },
+        { "symbol": "r", "name": "Radius", "einheit": "m", "bereich": [100, 10000] }
+      ],
+      "grenzen": [],
+      "hinweis": "v in m/s! km/h ÷ 3,6 = m/s."
+    },
+    {
+      "id": "hangabtrieb", "app": "fahrzeugkraefte", "kapitel": "07-09", "titel": "Hangabtriebskraft",
+      "latex": "H = G \\cdot \\sin \\alpha",
+      "variablen": [
+        { "symbol": "H", "name": "Hangabtriebskraft", "einheit": "N", "bereich": [1, 1000000] },
+        { "symbol": "G", "name": "Gewichtskraft", "einheit": "N", "bereich": [1000, 20000000] },
+        { "symbol": "\\alpha", "name": "Neigungswinkel", "einheit": "°", "bereich": [0, 5] }
+      ],
+      "grenzen": [],
+      "hinweis": "Neigung in ‰ → Winkel: α = arctan(s / 1000)."
+    },
+    {
+      "id": "vertikalkraft", "app": "fahrzeugkraefte", "kapitel": "07-09", "titel": "Vertikalkraft (Normalkraft)",
+      "latex": "V = G \\cdot \\cos \\alpha",
+      "variablen": [
+        { "symbol": "V", "name": "Vertikalkraft", "einheit": "N", "bereich": [1000, 20000000] },
+        { "symbol": "G", "name": "Gewichtskraft", "einheit": "N", "bereich": [1000, 20000000] },
+        { "symbol": "\\alpha", "name": "Neigungswinkel", "einheit": "°", "bereich": [0, 5] }
+      ],
+      "grenzen": [],
+      "hinweis": ""
+    },
+    {
+      "id": "querbeschleunigung", "app": "querbeschleunigung", "kapitel": "10", "titel": "Freie Querbeschleunigung",
+      "latex": "a_q = \\frac{v^2}{12{,}96 \\cdot r} - \\frac{u}{153}",
+      "variablen": [
+        { "symbol": "a_q", "name": "Freie Querbeschleunigung", "einheit": "m/s²", "bereich": [-1, 1.5] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "km/h", "bereich": [20, 300] },
+        { "symbol": "r", "name": "Radius", "einheit": "m", "bereich": [100, 10000] },
+        { "symbol": "u", "name": "Überhöhung", "einheit": "mm", "bereich": [0, 180] }
+      ],
+      "grenzen": [],
+      "hinweis": "12,96 = 3,6² (km/h → m/s). 153 ≈ 1500 / 9,81."
+    },
+    {
+      "id": "v-weiche", "app": "weichen", "kapitel": "11-12", "titel": "Zulässige Geschwindigkeit in nicht überhöhten Weichen",
+      "latex": "v = 2{,}91 \\cdot \\sqrt{r}",
+      "variablen": [
+        { "symbol": "v", "name": "Zulässige Geschwindigkeit", "einheit": "km/h", "bereich": [20, 200] },
+        { "symbol": "r", "name": "Zweiggleisradius", "einheit": "m", "bereich": [100, 7000] }
+      ],
+      "grenzen": ["Gilt bei einem Überhöhungsfehlbetrag von 100 mm."],
+      "hinweis": ""
+    },
+    {
+      "id": "lg-weiche", "app": "weichen", "kapitel": "11-12", "titel": "Erforderliche Zwischengerade in Gleisverbindungen",
+      "latex": "l_g = c - 2 \\cdot l_t",
+      "variablen": [
+        { "symbol": "l_g", "name": "Zwischengerade", "einheit": "m", "bereich": [0, 50] },
+        { "symbol": "c", "name": "Abstand", "einheit": "m", "bereich": [10, 100] },
+        { "symbol": "l_t", "name": "Tangentenlänge der Weiche", "einheit": "m", "bereich": [5, 40] }
+      ],
+      "grenzen": ["Gerades Herzstück: das gerade Endstück l_Hg darf zu lg dazugerechnet werden. Bogenherzstück: nur lg steht zur Verfügung."],
+      "hinweis": ""
+    },
+    {
+      "id": "u0", "app": "ueberhoehung", "kapitel": "13-15", "titel": "Ausgleichende Überhöhung",
+      "latex": "u_0 = \\frac{11{,}8 \\cdot v^2}{r}",
+      "variablen": [
+        { "symbol": "u_0", "name": "Ausgleichende Überhöhung", "einheit": "mm", "bereich": [5, 400] },
+        { "symbol": "v", "name": "Geschwindigkeit (Zahlenwert in km/h)", "einheit": "km/h", "bereich": [30, 300] },
+        { "symbol": "r", "name": "Radius", "einheit": "m", "bereich": [150, 10000] }
+      ],
+      "grenzen": ["Bei u = u0 heben sich Fliehkraft und Hangabtrieb auf: keine freie Seitenbeschleunigung."],
+      "hinweis": "Einheiten: mm = 11,8 · (km/h)² / m. Die 11,8 enthält schon Spurmittenabstand 1500 mm, g und km/h → m/s."
+    },
+    {
+      "id": "regu-alt", "app": "ueberhoehung", "kapitel": "13-15", "titel": "Regelüberhöhung (alt)",
+      "latex": "\\text{reg } u = \\frac{7{,}1 \\cdot v^2}{r}",
+      "variablen": [
+        { "symbol": "u", "name": "Regelüberhöhung", "einheit": "mm", "bereich": [5, 200] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "km/h", "bereich": [30, 300] },
+        { "symbol": "r", "name": "Radius", "einheit": "m", "bereich": [150, 10000] }
+      ],
+      "grenzen": [],
+      "hinweis": "Alter Faktor 7,1."
+    },
+    {
+      "id": "regu-neu", "app": "ueberhoehung", "kapitel": "13-15", "titel": "Regelüberhöhung (neu)",
+      "latex": "\\text{reg } u = \\frac{6{,}5 \\cdot v^2}{r}",
+      "variablen": [
+        { "symbol": "u", "name": "Regelüberhöhung", "einheit": "mm", "bereich": [5, 200] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "km/h", "bereich": [30, 300] },
+        { "symbol": "r", "name": "Radius", "einheit": "m", "bereich": [150, 10000] }
+      ],
+      "grenzen": [],
+      "hinweis": "Neuer Faktor 6,5 – fragt der Lehrer nicht ausdrücklich nach „alt“, den neuen nehmen."
+    },
+    {
+      "id": "minu", "app": "ueberhoehung", "kapitel": "13-15", "titel": "Mindestüberhöhung",
+      "latex": "\\text{min } u = u_0 - \\text{zul } u_f = \\frac{11{,}8 \\cdot \\text{zul } v^2}{r} - \\text{zul } u_f",
+      "variablen": [
+        { "symbol": "\\text{min } u", "name": "Mindestüberhöhung", "einheit": "mm", "bereich": [0, 200] },
+        { "symbol": "\\text{zul } v", "name": "Zulässige Geschwindigkeit", "einheit": "km/h", "bereich": [30, 300] },
+        { "symbol": "\\text{zul } u_f", "name": "Zulässiger Überhöhungsfehlbetrag", "einheit": "mm", "bereich": [50, 150] }
+      ],
+      "grenzen": ["Ergibt sich ein Wert ≤ 0, ist rechnerisch keine Überhöhung nötig."],
+      "hinweis": ""
+    },
+    {
+      "id": "r-aus-minu", "app": "ueberhoehung", "kapitel": "13-15", "titel": "Radius aus Mindestüberhöhung (Handnotiz)",
+      "latex": "r = \\frac{11{,}8 \\cdot v^2}{\\text{min } u + \\text{zul } u_f}",
+      "variablen": [
+        { "symbol": "r", "name": "Radius", "einheit": "m", "bereich": [150, 10000] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "km/h", "bereich": [30, 300] },
+        { "symbol": "\\text{min } u", "name": "(vorhandene) Überhöhung", "einheit": "mm", "bereich": [0, 180] },
+        { "symbol": "\\text{zul } u_f", "name": "Zulässiger Überhöhungsfehlbetrag", "einheit": "mm", "bereich": [50, 150] }
+      ],
+      "grenzen": [],
+      "hinweis": "Kleinster Radius, der bei dieser Überhöhung und diesem Fehlbetrag noch mit v befahren werden darf."
+    },
+    {
+      "id": "uf", "app": "ueberhoehung", "kapitel": "13-15", "titel": "Überhöhungsfehlbetrag",
+      "latex": "u_f = u_0 - u",
+      "variablen": [
+        { "symbol": "u_f", "name": "Überhöhungsfehlbetrag", "einheit": "mm", "bereich": [-150, 200] },
+        { "symbol": "u_0", "name": "Ausgleichende Überhöhung", "einheit": "mm", "bereich": [5, 400] },
+        { "symbol": "u", "name": "Vorhandene Überhöhung", "einheit": "mm", "bereich": [0, 180] }
+      ],
+      "grenzen": [],
+      "hinweis": "uf positiv → Zug fährt schneller als „ausgeglichen“ (nach außen gedrückt). uf negativ → Überhöhungsüberschuss, Zug fährt langsamer (nach innen gedrückt)."
+    },
+    {
+      "id": "rampenneigung", "app": "rampen", "kapitel": "16-17", "titel": "Neigung der Überhöhungsrampe",
+      "latex": "1 : m \\quad\\text{mit}\\quad m = \\frac{l_R \\cdot 1000}{\\Delta u}",
+      "variablen": [
+        { "symbol": "m", "name": "Neigungsverhältnis", "einheit": "-", "bereich": [300, 4000] },
+        { "symbol": "l_R", "name": "Rampenlänge", "einheit": "m", "bereich": [10, 300] },
+        { "symbol": "\\Delta u", "name": "Überhöhungsänderung", "einheit": "mm", "bereich": [10, 180] }
+      ],
+      "grenzen": ["Tabelle 7 (Ril 800.0110): Mindestwert gerade 1:3000 / geschwungen 1:1500; Regelwert 1:600 oder flacher; Ermessensgrenze 1:400; EBO-Grenze Hauptbahn 1:400 (§ 6 (4) EBO)."],
+      "hinweis": "Rampenlänge in mm durch Δu in mm: lR · 1000 / Δu. Größeres m = flachere Rampe."
+    },
+    {
+      "id": "lr-gerade", "app": "rampen", "kapitel": "16-17", "titel": "Länge der geraden Rampe",
+      "latex": "l_R = \\frac{10 \\cdot v \\cdot \\Delta u}{1000}",
+      "variablen": [
+        { "symbol": "l_R", "name": "Rampenlänge", "einheit": "m", "bereich": [10, 300] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "km/h", "bereich": [30, 300] },
+        { "symbol": "\\Delta u", "name": "Überhöhungsänderung", "einheit": "mm", "bereich": [10, 180] }
+      ],
+      "grenzen": [],
+      "hinweis": "m = Faktor · km/h · mm / 1000."
+    },
+    {
+      "id": "lr-bloss", "app": "rampen", "kapitel": "16-17", "titel": "Länge der S-förmigen Rampe nach Bloss",
+      "latex": "l_{RB} = \\frac{7{,}5 \\cdot v \\cdot \\Delta u}{1000}",
+      "variablen": [
+        { "symbol": "l_{RB}", "name": "Rampenlänge Bloss", "einheit": "m", "bereich": [10, 300] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "km/h", "bereich": [30, 300] },
+        { "symbol": "\\Delta u", "name": "Überhöhungsänderung", "einheit": "mm", "bereich": [10, 180] }
+      ],
+      "grenzen": [],
+      "hinweis": ""
+    },
+    {
+      "id": "lr-schramm", "app": "rampen", "kapitel": "16-17", "titel": "Länge der S-förmigen Rampe nach Schramm",
+      "latex": "l_{RS} = \\frac{10 \\cdot v \\cdot \\Delta u}{1000} \\quad (\\text{Faktor unklar})",
+      "variablen": [
+        { "symbol": "l_{RS}", "name": "Rampenlänge Schramm", "einheit": "m", "bereich": [10, 300] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "km/h", "bereich": [30, 300] },
+        { "symbol": "\\Delta u", "name": "Überhöhungsänderung", "einheit": "mm", "bereich": [10, 180] }
+      ],
+      "grenzen": [],
+      "hinweis": "",
+      "status": "unklar",
+      "unklar": "Faktor bei Schramm aus dem Foto nicht sicher (10 wie bei gerader Rampe?)."
+    },
+    {
+      "id": "ux-gerade", "app": "rampenverlauf", "kapitel": "18", "titel": "Überhöhung in der geraden Rampe",
+      "latex": "u_x = \\frac{u \\cdot x}{l_R}",
+      "variablen": [
+        { "symbol": "u_x", "name": "Überhöhung an der Stelle x", "einheit": "mm", "bereich": [0, 180] },
+        { "symbol": "u", "name": "Überhöhung am Rampenende", "einheit": "mm", "bereich": [10, 180] },
+        { "symbol": "x", "name": "Abstand vom Rampenanfang", "einheit": "m", "bereich": [0, 300] },
+        { "symbol": "l_R", "name": "Rampenlänge", "einheit": "m", "bereich": [10, 300] }
+      ],
+      "grenzen": ["0 ≤ x ≤ lR"],
+      "hinweis": ""
+    },
+    {
+      "id": "ux-s-1", "app": "rampenverlauf", "kapitel": "18", "titel": "S-förmige Rampe, erste Hälfte",
+      "latex": "u_x = \\frac{2 \\cdot u_E \\cdot x^2}{l_{RS}^2}",
+      "variablen": [
+        { "symbol": "u_x", "name": "Überhöhung an der Stelle x", "einheit": "mm", "bereich": [0, 180] },
+        { "symbol": "u_E", "name": "Überhöhung am Rampenende", "einheit": "mm", "bereich": [10, 180] },
+        { "symbol": "x", "name": "Abstand vom Rampenanfang", "einheit": "m", "bereich": [0, 150] },
+        { "symbol": "l_{RS}", "name": "Rampenlänge", "einheit": "m", "bereich": [10, 300] }
+      ],
+      "grenzen": ["0 ≤ x ≤ lRS / 2"],
+      "hinweis": "Im Original als 18.3.1 nummeriert; Rampenlänge hier einheitlich lRS genannt."
+    },
+    {
+      "id": "ux-s-2", "app": "rampenverlauf", "kapitel": "18", "titel": "S-förmige Rampe, zweite Hälfte",
+      "latex": "u_x = u_E - \\frac{2 \\cdot u_E \\cdot (l_{RS} - x)^2}{l_{RS}^2}",
+      "variablen": [
+        { "symbol": "u_x", "name": "Überhöhung an der Stelle x", "einheit": "mm", "bereich": [0, 180] },
+        { "symbol": "u_E", "name": "Überhöhung am Rampenende", "einheit": "mm", "bereich": [10, 180] },
+        { "symbol": "x", "name": "Abstand vom Rampenanfang", "einheit": "m", "bereich": [0, 300] },
+        { "symbol": "l_{RS}", "name": "Rampenlänge", "einheit": "m", "bereich": [10, 300] }
+      ],
+      "grenzen": ["lRS / 2 ≤ x ≤ lRS"],
+      "hinweis": "Praxistrick: x vom Rampenende her messen, Formel der ersten Hälfte nehmen, Ergebnis von uE abziehen. (Im Original doppelt als 18.3.1 nummeriert, gemeint ist 18.3.2.)"
+    },
+    {
+      "id": "kruemmung", "app": "kruemmung", "kapitel": "19-20", "titel": "Krümmung",
+      "latex": "k = \\frac{1}{r} \\cdot 1000",
+      "variablen": [
+        { "symbol": "k", "name": "Krümmung", "einheit": "1/km", "bereich": [0.1, 7] },
+        { "symbol": "r", "name": "Radius", "einheit": "m", "bereich": [150, 10000] }
+      ],
+      "grenzen": [],
+      "hinweis": ""
+    },
+    {
+      "id": "ruck-gerade", "app": "kruemmung", "kapitel": "19-20", "titel": "Übergangsbogen nötig zwischen Gerade und Bogen ★",
+      "latex": "\\Delta k = \\frac{1000}{r} > \\frac{9000}{v^2}",
+      "variablen": [
+        { "symbol": "\\Delta k", "name": "Krümmungsänderung", "einheit": "1/km", "bereich": [0.1, 7] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "km/h", "bereich": [30, 300] }
+      ],
+      "grenzen": ["Prüfungsrelevant (im Original mit Sternchen)."],
+      "hinweis": ""
+    },
+    {
+      "id": "ruck-gleichsinnig", "app": "kruemmung", "kapitel": "19-20", "titel": "Übergangsbogen nötig zwischen gleichsinnigen Bögen ★",
+      "latex": "\\Delta k = \\frac{1000}{r_2} - \\frac{1000}{r_1} > \\frac{9000}{v^2}",
+      "variablen": [
+        { "symbol": "r_1, r_2", "name": "Radien der beiden Bögen", "einheit": "m", "bereich": [150, 10000] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "km/h", "bereich": [30, 300] }
+      ],
+      "grenzen": ["Prüfungsrelevant (im Original mit Sternchen)."],
+      "hinweis": ""
+    },
+    {
+      "id": "ruck-gegenbogen", "app": "kruemmung", "kapitel": "19-20", "titel": "Übergangsbogen nötig zwischen Gegenbögen ★",
+      "latex": "\\sum k > 10",
+      "variablen": [
+        { "symbol": "\\sum k", "name": "Summe der Krümmungen beider Bögen", "einheit": "1/km", "bereich": [0.2, 14] }
+      ],
+      "grenzen": ["Prüfungsrelevant (im Original mit Sternchen). Das „Summe k > 10“ am Seitenende von Kap. 21 gehört hierher (20.3)."],
+      "hinweis": ""
+    },
+    {
+      "id": "lu-klothoide", "app": "uebergangslaenge", "kapitel": "21", "titel": "Mindestlänge Übergangsbogen – Klothoide",
+      "latex": "\\text{min } l_u = \\frac{4 \\cdot v \\cdot \\Delta u}{1000}",
+      "variablen": [
+        { "symbol": "l_u", "name": "Länge Übergangsbogen", "einheit": "m", "bereich": [10, 300] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "km/h", "bereich": [30, 300] },
+        { "symbol": "\\Delta u", "name": "Überhöhungsänderung", "einheit": "mm", "bereich": [10, 180] }
+      ],
+      "grenzen": [],
+      "hinweis": "Klothoide = kubische Parabel (gerade Krümmungslinie)."
+    },
+    {
+      "id": "lu-bloss", "app": "uebergangslaenge", "kapitel": "21", "titel": "Mindestlänge Übergangsbogen – Bloss",
+      "latex": "\\text{min } l_u = \\frac{4{,}5 \\cdot v \\cdot \\Delta u}{1000}",
+      "variablen": [
+        { "symbol": "l_u", "name": "Länge Übergangsbogen", "einheit": "m", "bereich": [10, 300] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "km/h", "bereich": [30, 300] },
+        { "symbol": "\\Delta u", "name": "Überhöhungsänderung", "einheit": "mm", "bereich": [10, 180] }
+      ],
+      "grenzen": [],
+      "hinweis": ""
+    },
+    {
+      "id": "lu-schramm", "app": "uebergangslaenge", "kapitel": "21", "titel": "Mindestlänge Übergangsbogen – Schramm (S-förmig)",
+      "latex": "\\text{min } l_u = \\frac{6 \\cdot v \\cdot \\Delta u}{1000}",
+      "variablen": [
+        { "symbol": "l_u", "name": "Länge Übergangsbogen", "einheit": "m", "bereich": [10, 300] },
+        { "symbol": "v", "name": "Geschwindigkeit", "einheit": "km/h", "bereich": [30, 300] },
+        { "symbol": "\\Delta u", "name": "Überhöhungsänderung", "einheit": "mm", "bereich": [10, 180] }
+      ],
+      "grenzen": [],
+      "hinweis": ""
+    },
+    {
+      "id": "rz-innen", "app": "zweiggleis", "kapitel": "22-23", "titel": "Zweiggleisradius Innenbogenweiche",
+      "latex": "r_z = \\frac{r_G \\cdot r_{St} - t^2}{r_G + r_{St}}",
+      "variablen": [
+        { "symbol": "r_z", "name": "Zweiggleisradius", "einheit": "m", "bereich": [100, 10000] },
+        { "symbol": "r_G", "name": "Radius der Grundform", "einheit": "m", "bereich": [190, 2500] },
+        { "symbol": "r_{St}", "name": "Radius des Stammgleises", "einheit": "m", "bereich": [300, 10000] },
+        { "symbol": "t", "name": "Tangentenlänge", "einheit": "m", "bereich": [5, 60] }
+      ],
+      "grenzen": [],
+      "hinweis": ""
+    },
+    {
+      "id": "rz-aussen", "app": "zweiggleis", "kapitel": "22-23", "titel": "Zweiggleisradius Außenbogenweiche",
+      "latex": "r_\\text{Zweiggleis} = \\frac{r_\\text{Grundform} \\cdot r_\\text{Stammgleis} + l_t^2}{r_\\text{Grundform} - r_\\text{Stammgleis}}",
+      "variablen": [
+        { "symbol": "r_\\text{Zweiggleis}", "name": "Zweiggleisradius", "einheit": "m", "bereich": [100, 10000] },
+        { "symbol": "r_\\text{Grundform}", "name": "Radius der Grundform", "einheit": "m", "bereich": [190, 2500] },
+        { "symbol": "r_\\text{Stammgleis}", "name": "Radius des Stammgleises", "einheit": "m", "bereich": [300, 10000] },
+        { "symbol": "l_t", "name": "Tangentenlänge (Bezeichner unklar: lt oder t)", "einheit": "m", "bereich": [5, 60] }
+      ],
+      "grenzen": [],
+      "hinweis": "",
+      "status": "unklar",
+      "unklar": "In Kap. 23 ist nicht eindeutig, ob „lt“ oder „t“ gemeint ist. Außerdem auffällig: Nenner rGrundform − rStammgleis wird negativ, wenn das Stammgleis den größeren Radius hat – bitte mit dem Original abgleichen."
+    },
+    {
+      "id": "v-rampe", "app": "rampenvolumen", "kapitel": "A", "titel": "Rampenvolumen allgemein (l1, l2, l3 verschieden)",
+      "latex": "V = \\frac{h_K \\cdot h}{6} \\cdot (l_1 + l_2 + l_3)",
+      "variablen": [
+        { "symbol": "V", "name": "Volumen", "einheit": "m³", "bereich": [1, 5000] },
+        { "symbol": "h_K", "name": "Waagerechte Länge der Rampe (Wand → Rampenfuß) – gedeutet, bitte prüfen", "einheit": "m", "bereich": [2, 100] },
+        { "symbol": "h", "name": "Höhe an der Wand", "einheit": "m", "bereich": [0.5, 10] },
+        { "symbol": "l_1, l_2, l_3", "name": "Kanten parallel zur Wand: unten an der Wand, oben an der Wand, am Rampenfuß", "einheit": "m", "bereich": [1, 100] }
+      ],
+      "grenzen": [],
+      "hinweis": "Quelle laut Formelsammlung: Richter, Straßen- und Tiefbau; Bläsi, Fachstufen Straßenbauer. Deutung von hK und l1…l3 aus der Herleitung (2 Pyramiden + 1 Dreiecksäule) – noch mit der Skizze aus dem Unterricht abgleichen."
+    },
+    {
+      "id": "v-rampe-variante", "app": "rampenvolumen", "kapitel": "A", "titel": "Rampenvolumen – Variante (l2 = l3)",
+      "latex": "V = \\frac{h_K \\cdot h}{6} \\cdot (l_1 + 2 \\cdot l_2)",
+      "variablen": [
+        { "symbol": "V", "name": "Volumen", "einheit": "m³", "bereich": [1, 5000] }
+      ],
+      "grenzen": [],
+      "hinweis": "Herleitung: 2 dreiseitige Pyramiden außen (V = ⅓ · AG · h) + 1 Dreiecksäule mittig (V = AG · h)."
+    }
+  ],
+  "profile": [
+    { "name": "S41 (10 R)", "flaeche": 5271, "status": "unklar" },
+    { "name": "S41 (14 R)", "flaeche": 5217, "status": "unklar" },
+    { "name": "S49", "flaeche": 6297, "fProKelvin": 15.207255 },
+    { "name": "S54", "flaeche": 6948, "fProKelvin": 16.77942 },
+    { "name": "UIC60", "flaeche": 7687, "fProKelvin": 18.564105 },
+    { "name": "R65", "flaeche": 8256 }
+  ],
+  "konstanten": {
+    "alphaStahl": 0.0000115,
+    "eStahl": 210000,
+    "mindestAusrundungsradius": 2000,
+    "naeherungsgrenzeKreis": "x <= r/10"
+  },
+  "unklar": [
+    { "app": "gleisverziehung", "text": "5.2 mit Zwischengerade: Formel lvz = 2·√(r·Δe + lg²) aus dem Foto unsicher." },
+    { "app": "temperatur", "text": "S41-Profilflächen (10 R: 5271 mm², 14 R: 5217 mm²) wirken vertauscht." },
+    { "app": "rampen", "text": "Faktor bei der S-förmigen Rampe nach Schramm (10?)." },
+    { "app": "zweiggleis", "text": "Kap. 23: „lt“ oder „t“? Vorzeichen im Nenner der Außenbogenweiche prüfen." },
+    { "app": "ausrundung", "text": "Handnotiz Straßenbahn „immer 0,25“: gilt dort auch der Mindestradius 2000 m?" }
+  ]
+}

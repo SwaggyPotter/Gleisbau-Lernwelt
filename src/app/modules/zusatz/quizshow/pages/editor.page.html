@@ -1,0 +1,73 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>Quiz-Show – Fragen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/zusatz/quizshow/fernbedienung" fill="clear">
+        <ion-icon slot="start" name="game-controller-outline"></ion-icon>
+        <span class="toolbar-action-label">Fernbedienung</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="qs-seite">
+  <div class="ed">
+    <section class="ed-kopf">
+      <select [ngModel]="quiz?.id" (ngModelChange)="oeffnen($event)" aria-label="Quiz wählen">
+        <option *ngFor="let q of quizze" [ngValue]="q.id">{{ q.titel }} ({{ q.anzahl }} Fragen)</option>
+      </select>
+      <button type="button" class="ed-knopf" (click)="neuesQuiz()">+ Neues Quiz</button>
+      <button type="button" class="ed-knopf warn" *ngIf="quiz" (click)="quizLoeschen()">Quiz löschen</button>
+    </section>
+    <p class="ed-fehler" *ngIf="fehler">{{ fehler }}</p>
+
+    <ng-container *ngIf="quiz">
+      <label class="ed-titel">Titel (steht auf der Bühne)
+        <input type="text" [(ngModel)]="quiz.titel" (ngModelChange)="aenderung()" maxlength="120" />
+      </label>
+
+      <ng-container *ngFor="let gruppe of gruppen">
+        <h2 class="ed-gruppe">{{ gruppe.name }} <small>{{ gruppe.liste.length }}</small></h2>
+        <article class="ed-frage" *ngFor="let f of gruppe.liste; let i = index; trackBy: trackId">
+          <div class="ed-frage-kopf">
+            <b>{{ i + 1 }}.</b>
+            <button type="button" class="ed-mini" (click)="verschieben(f, -1)" [disabled]="i === 0" aria-label="nach oben">↑</button>
+            <button type="button" class="ed-mini" (click)="verschieben(f, 1)" [disabled]="i === gruppe.liste.length - 1" aria-label="nach unten">↓</button>
+            <label class="ed-schalter"><input type="checkbox" [(ngModel)]="f.final" (ngModelChange)="finalUmschalten()" /> Zusatzfrage</label>
+            <button type="button" class="ed-mini warn" (click)="loeschen(f)" aria-label="Frage löschen">🗑</button>
+          </div>
+
+          <div class="ed-frage-inhalt">
+            <div class="ed-bild">
+              <img *ngIf="f.bild" [src]="bild(f.bild)" alt="" />
+              <span class="ed-bild-leer" *ngIf="!f.bild">kein Bild</span>
+              <label class="ed-knopf klein">
+                {{ laedtBild === f.id ? 'Lädt …' : f.bild ? 'Bild ändern' : '📷 Bild wählen' }}
+                <input type="file" accept="image/*" hidden (change)="bildWaehlen(f, $event)" />
+              </label>
+              <button type="button" class="ed-knopf klein leise" *ngIf="f.bild" (click)="bildWeg(f)">entfernen</button>
+            </div>
+            <div class="ed-felder">
+              <textarea qsAutoHoehe rows="2" [(ngModel)]="f.text" (ngModelChange)="aenderung()" placeholder="Frage, z. B. „Wie heißt diese Maschine?“" maxlength="500"></textarea>
+              <div class="ed-antworten">
+                <label class="ed-antwort" *ngFor="let a of f.antworten; let j = index; trackBy: trackIndex" [class.richtig]="f.richtig === j">
+                  <input type="radio" [name]="'richtig-' + f.id" [checked]="f.richtig === j" (change)="f.richtig = j; aenderung()" [attr.aria-label]="'Antwort ' + buchstaben[j] + ' ist richtig'" />
+                  <b>{{ buchstaben[j] }}</b>
+                  <input type="text" [(ngModel)]="f.antworten[j]" (ngModelChange)="aenderung()" maxlength="200" [placeholder]="'Antwort ' + buchstaben[j]" />
+                </label>
+              </div>
+              <textarea qsAutoHoehe rows="2" class="ed-notiz" [(ngModel)]="f.notiz" (ngModelChange)="aenderung()" maxlength="1000" placeholder="Notiz nur fürs Tablet (Moderation), optional"></textarea>
+            </div>
+          </div>
+        </article>
+        <button type="button" class="ed-knopf" (click)="frageNeu(gruppe.final)">+ {{ gruppe.final ? 'Zusatzfrage' : 'Frage' }}</button>
+      </ng-container>
+
+      <div class="ed-speichern">
+        <span>{{ meldung || (geaendert ? 'Ungespeicherte Änderungen' : '') }}</span>
+        <button type="button" class="ed-knopf haupt" (click)="speichern()" [disabled]="!geaendert || speichert">{{ speichert ? 'Speichert …' : 'Speichern' }}</button>
+      </div>
+    </ng-container>
+  </div>
+</ion-content>

@@ -26,7 +26,17 @@
     </section>
 
     <ion-card class="bild-card">
-      <img [src]="runde.maschine.bildUrl" [alt]="runde.antwort ? runde.maschine.name : 'Baumaschine'" class="maschine-bild"/>
+      <div class="bild-rahmen">
+        <ng-container *ngFor="let n of [rundenNr]">
+          <img [src]="runde.maschine.bildUrl" [alt]="runde.antwort ? runde.maschine.name : 'Baumaschine'" class="maschine-bild"
+               [class.unsichtbar]="!bildGeladen" (load)="bildOk()" (error)="bildKaputt()"/>
+        </ng-container>
+        <div class="bild-status" *ngIf="!bildGeladen && !bildFehler"><ion-spinner name="crescent"></ion-spinner></div>
+        <div class="bild-status" *ngIf="bildFehler">
+          <p>Bild konnte nicht geladen werden.</p>
+          <ion-button size="small" (click)="neueRunde()">Anderes Bild</ion-button>
+        </div>
+      </div>
       <p class="bild-credit" *ngIf="runde.antwort">{{ runde.maschine.bildCredit }}</p>
     </ion-card>
 

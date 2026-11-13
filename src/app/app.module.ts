@@ -10,10 +10,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SiteGateComponent } from './core/site-gate/site-gate.component';
 import { ChatWidgetComponent } from './core/chat/chat-widget.component';
+import { PostfachWidgetComponent } from './core/postfach/postfach-widget.component';
 import { AuthInterceptor } from './core/auth/interceptors/auth.interceptor';
 
 @NgModule({
-  declarations: [AppComponent, SiteGateComponent, ChatWidgetComponent, MeldeFlaggeComponent],
+  declarations: [AppComponent, SiteGateComponent, ChatWidgetComponent, MeldeFlaggeComponent, PostfachWidgetComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

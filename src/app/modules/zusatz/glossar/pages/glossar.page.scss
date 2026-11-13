@@ -158,3 +158,76 @@ ion-header ion-toolbar {
   text-align: center;
   padding: 30px 0;
 }
+
+// ---------- Quelle + Admin-Prüfung (2026-11-07) ----------
+.e-quelle {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--sp-text-muted);
+
+  .e-quelle-label { font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; margin-right: 4px; }
+  ul { margin: 2px 0 0; padding-left: 16px; }
+  li { margin: 2px 0; }
+  a { color: var(--sp-accent-2); text-decoration: none; word-break: break-word; }
+  .e-quelle-stelle { font-style: italic; }
+  a:hover { text-decoration: underline; }
+}
+
+.e-pruefung {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--sp-border);
+  font-size: 12px;
+
+  .e-pruef-status { color: var(--sp-text-muted); margin-right: auto; }
+  &.geprueft .e-pruef-status { color: var(--sp-success); font-weight: 600; }
+  &.geaendert .e-pruef-status { color: var(--sp-danger); }
+}
+
+.pruef-knopf {
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--sp-border);
+  background: var(--sp-surface-2);
+  color: var(--sp-text);
+  font: 600 13px var(--font-body);
+  cursor: pointer;
+
+  &.ja { background: var(--sp-success); border-color: var(--sp-success); color: var(--sp-on-primary); }
+  &:disabled { opacity: 0.5; cursor: default; }
+}
+
+.pruef-fehler { color: var(--sp-danger); width: 100%; }
+
+.eintrag-card.ist-geprueft { border-color: color-mix(in srgb, var(--sp-success) 45%, var(--sp-border)); }
+
+.pruef-leiste {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: -6px 0 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+  background: var(--sp-surface);
+  font-size: 13px;
+  color: var(--sp-text-muted);
+
+  strong { color: var(--sp-success); }
+  .pruef-filter { display: flex; gap: 6px; flex-wrap: wrap; }
+}
+
+.quellen-stand {
+  color: var(--sp-text-muted);
+  font-size: 12px;
+  text-align: center;
+  margin: 12px 0 0;
+}

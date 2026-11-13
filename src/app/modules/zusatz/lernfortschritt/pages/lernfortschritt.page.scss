@@ -89,7 +89,15 @@ ion-header ion-toolbar {
   margin: 16px 0;
   display: flex;
   justify-content: center;
+
+  ion-segment-button {
+    --color: var(--sp-text-muted);
+    --color-checked: var(--sp-accent);
+    --indicator-color: var(--sp-accent);
+  }
 }
+
+.fi-leer { color: var(--sp-text-muted); font-style: italic; }
 
 .block {
   margin-bottom: 22px;

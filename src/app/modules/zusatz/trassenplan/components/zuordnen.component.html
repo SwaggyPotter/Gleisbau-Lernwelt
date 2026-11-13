@@ -1,0 +1,40 @@
+<section class="zo">
+  <div class="zo-kopf">
+    <div>
+      <h2>Zuordnen</h2>
+      <p class="hinweis">Ziehe jeden Begriff auf die passende Bedeutung. Auf dem Handy: Begriff antippen, dann das Feld antippen.</p>
+    </div>
+    <div class="zo-werkzeug">
+      <select class="btn small" [(ngModel)]="gruppe" (ngModelChange)="neueRunde()" aria-label="Themengruppe">
+        <option *ngFor="let g of gruppen" [ngValue]="g.id">{{ g.name }}</option>
+      </select>
+      <span class="stand" *ngIf="rundenGesamt">{{ richtigGesamt }} / {{ rundenGesamt }} richtig</span>
+    </div>
+  </div>
+
+  <div class="ablage" (dragover)="dragOver($event)" (drop)="drop($event, null)" [class.leer]="!ablage.length">
+    <button type="button" class="karte" *ngFor="let p of ablage; trackBy: trackId"
+      draggable="true" (dragstart)="dragStart($event, p)" (dragend)="dragEnd()"
+      (click)="waehlen(p)" [class.gewaehlt]="gewaehlt?.id === p.id">{{ p.begriff }}</button>
+    <span class="leer-text" *ngIf="!ablage.length && !geprueft">Alle Begriffe liegen – jetzt prüfen.</span>
+  </div>
+
+  <ul class="ziele">
+    <li *ngFor="let z of ziele; trackBy: trackId" [ngClass]="zielKlasse(z)"
+      (dragover)="dragOver($event)" (drop)="drop($event, z)" (click)="zielKlick(z)">
+      <span class="slot">
+        <span class="karte" *ngIf="belegung[z.id] as b" draggable="true"
+          (dragstart)="dragStart($event, b)" (dragend)="dragEnd()">{{ b.begriff }}</span>
+        <span class="platzhalter" *ngIf="!belegung[z.id]">hier ablegen</span>
+      </span>
+      <span class="bedeutung">{{ z.bedeutung }}</span>
+      <span class="loesung" *ngIf="geprueft && belegung[z.id]?.id !== z.id">richtig: <b>{{ z.begriff }}</b></span>
+    </li>
+  </ul>
+
+  <div class="zo-aktionen">
+    <button type="button" class="btn primary" *ngIf="!geprueft" [disabled]="!alleBelegt" (click)="pruefen()">Prüfen</button>
+    <span class="ergebnis" *ngIf="geprueft">{{ richtig }} von {{ ziele.length }} richtig {{ richtig === ziele.length ? '– super!' : '' }}</span>
+    <button type="button" class="btn" [class.primary]="geprueft" (click)="neueRunde()">Neue Runde ↻</button>
+  </div>
+</section>

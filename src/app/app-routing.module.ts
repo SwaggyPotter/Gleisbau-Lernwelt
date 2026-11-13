@@ -43,6 +43,16 @@ const routes: Routes = [
           .then(m => m.ProzentrechnungModule)
       },
       {
+        path: 'zusatz/quizshow',
+        loadChildren: () => import('./modules/zusatz/quizshow/quizshow.module')
+          .then(m => m.QuizshowModule)
+      },
+      {
+        path: 'zusatz/trassenplan',
+        loadChildren: () => import('./modules/zusatz/trassenplan/trassenplan.module')
+          .then(m => m.TrassenplanModule)
+      },
+      {
         path: 'zusatz/gesamtquiz',
         loadChildren: () => import('./modules/zusatz/gesamtquiz/gesamtquiz.module')
           .then(m => m.GesamtquizModule)
@@ -81,11 +91,8 @@ const routes: Routes = [
         loadChildren: () => import('./modules/zusatz/quizduell/quizduell.module')
           .then(m => m.QuizduellModule)
       },
-      {
-        path: 'zusatz/trassierung',
-        loadChildren: () => import('./modules/zusatz/trassierung/trassierung.module')
-          .then(m => m.TrassierungModule)
-      },
+      // Trassierungsrechner entfernt (2026-11-10, doppelt zu Formelsammlung + Trassenplan) – alte Links umleiten
+      { path: 'zusatz/trassierung', redirectTo: 'berufsschule/formelsammlung', pathMatch: 'full' },
       {
         path: 'zusatz/weichenrechner',
         loadChildren: () => import('./modules/zusatz/weichenrechner/weichenrechner.module')
@@ -107,6 +114,11 @@ const routes: Routes = [
           .then(m => m.PruefungssimulationModule)
       },
       {
+        path: 'postfach',
+        loadChildren: () => import('./modules/postfach/postfach.module')
+          .then(m => m.PostfachModule)
+      },
+      {
         path: 'zusatz/lernfortschritt',
         loadChildren: () => import('./modules/zusatz/lernfortschritt/lernfortschritt.module')
           .then(m => m.LernfortschrittModule)
@@ -120,6 +132,11 @@ const routes: Routes = [
         path: 'zusatz/baumaschinen',
         loadChildren: () => import('./modules/zusatz/baumaschinen/baumaschinen.module')
           .then(m => m.BaumaschinenModule)
+      },
+      {
+        path: 'berufsschule/formelsammlung',
+        loadChildren: () => import('./modules/berufsschule/formelsammlung/formelsammlung.module')
+          .then(m => m.FormelsammlungModule)
       },
       {
         path: 'forum',

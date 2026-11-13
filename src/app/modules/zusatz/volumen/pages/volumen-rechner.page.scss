@@ -1,0 +1,201 @@
+// Volumenberechnung (2026-11-06) – Design aus den globalen --sp-*-Tokens; ViewEncapsulation.None, alles unter .vbx
+@use '../../../../shared/schmierblatt/schmierblatt';
+
+app-volumen-rechner ion-header ion-toolbar {
+  --background: var(--sp-surface); --color: var(--sp-text); --border-color: var(--sp-border);
+  ion-title { font-family: var(--font-display); }
+}
+.vbx-content { --background: var(--sp-bg); }
+
+.vbx {
+  height: 100%; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 12px; padding: 12px;
+  background: var(--sp-bg); font-family: var(--font-body); color: var(--sp-text); overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+
+  * { box-sizing: border-box; }
+  button { font: inherit; color: inherit; }
+  b, strong { color: var(--sp-text); }
+  .col { display: flex; flex-direction: column; gap: 12px; min-height: 0; min-width: 0; }
+  .card {
+    background: var(--sp-surface); border: 1px solid var(--sp-border); border-radius: var(--sp-radius);
+    box-shadow: var(--sp-shadow); padding: 12px 14px;
+  }
+  .btn {
+    border: 1px solid var(--sp-border-strong); background: var(--sp-surface-2); color: var(--sp-text);
+    border-radius: var(--sp-radius); padding: 10px 14px; min-height: 44px; cursor: pointer; touch-action: manipulation;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn.primary { background: var(--sp-accent); border-color: var(--sp-accent); color: var(--sp-on-primary); font-weight: 600; }
+  .btn.small { min-height: 38px; padding: 6px 10px; }
+  select.wahl { appearance: auto; cursor: pointer; }
+
+  /* ---------- Schmierblatt mit Aufgabe ---------- */
+  .links { position: relative; }
+  .board { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; padding: 8px; }
+  .tools { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; }
+  .flaeche { flex: 1; min-height: 0; }
+  .aufgabe-kopf {
+    font-family: var(--font-display); font-weight: 700; font-size: 1.02rem; margin-bottom: 2px;
+    .nr { font-family: var(--font-mono); font-weight: 400; color: var(--sp-text-muted); font-size: .85em; }
+  }
+  .aufgabe-text .gesucht { margin-top: 4px; }
+  .aufgabe-blatt.kompakt { background: none; border-bottom: 0; padding: 8px 12px 0; }
+  .nur-werte {
+    display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 2px;
+    .w {
+      display: inline-flex; align-items: baseline; gap: 6px; padding: 2px 8px;
+      border: 1px solid var(--sp-border); border-radius: 999px;
+      background: color-mix(in srgb, var(--sp-surface) 80%, transparent);
+      font-family: var(--font-mono); font-weight: 600; font-size: .86rem;
+    }
+    .w i { font-style: normal; font-family: var(--font-body); font-weight: 400; color: var(--sp-text-muted); font-size: .8rem; }
+  }
+
+  /* ---------- Ergebnisse (klappen über das Schmierblatt auf) ---------- */
+  .answers { position: relative; flex: 0 0 auto; padding: 0; z-index: 5; }
+  .answers-kopf {
+    width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    min-height: 52px; padding: 10px 16px; background: none; border: 0; cursor: pointer;
+    font-family: var(--font-display); font-weight: 700; font-size: 1.02rem; text-align: left;
+    .stand { font-family: var(--font-mono); font-weight: 400; font-size: .82em; color: var(--sp-text-muted); margin-left: 6px; }
+    .pfeil { color: var(--sp-accent); transition: transform .2s; }
+  }
+  .answers-body {
+    display: none; position: absolute; left: -1px; right: -1px; bottom: calc(100% - 1px);
+    max-height: min(70vh, 560px); overflow-y: auto;
+    background: var(--sp-surface); border: 1px solid var(--sp-border-strong); border-bottom: 0;
+    border-radius: var(--sp-radius) var(--sp-radius) 0 0; box-shadow: 0 -10px 30px rgba(0, 0, 0, .28); padding: 12px 14px;
+  }
+  .answers.offen {
+    border-top-left-radius: 0; border-top-right-radius: 0;
+    .answers-body { display: block; }
+    .pfeil { transform: rotate(180deg); }
+  }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; }
+  .field, .mass { display: flex; flex-direction: column; gap: 3px; font-size: .85rem; color: var(--sp-text-muted); }
+  .in { display: flex; align-items: center; gap: 6px; }
+  .field input, .mass input {
+    flex: 1; min-width: 0; font-size: 1.1rem; font-family: var(--font-mono); padding: 9px 10px;
+    border: 2px solid var(--sp-border-strong); border-radius: var(--sp-radius); min-height: 46px; color: var(--sp-text); background: var(--sp-surface-2);
+  }
+  .field input:focus, .mass input:focus { outline: none; border-color: var(--sp-accent); }
+  .field.ok input { border-color: var(--sp-success); background: color-mix(in srgb, var(--sp-success) 14%, var(--sp-surface)); }
+  .field.warn input { border-color: var(--sp-warn); background: color-mix(in srgb, var(--sp-warn) 14%, var(--sp-surface)); }
+  .field.bad input { border-color: var(--sp-danger); background: color-mix(in srgb, var(--sp-danger) 14%, var(--sp-surface)); }
+  .unit { min-width: 2.6em; color: var(--sp-text); }
+  .toleranz { margin: 8px 0 0; font-size: .8rem; color: var(--sp-text-muted); }
+  .actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .solution {
+    margin-top: 10px; padding: 10px 12px; background: color-mix(in srgb, var(--sp-accent) 14%, var(--sp-surface));
+    border-radius: var(--sp-radius); font-size: .92rem; line-height: 1.55;
+    ol { margin: .3rem 0 0; padding-left: 1.3em; }
+  }
+
+  /* ---------- 3D-Modell ---------- */
+  .modellcard { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+  .modus-tabs {
+    display: flex; gap: 4px; padding: 4px; background: var(--sp-surface-2); border-radius: var(--sp-radius); border: 1px solid var(--sp-border);
+    button { flex: 1; border: 0; background: none; padding: 9px 10px; border-radius: calc(var(--sp-radius) - 2px); cursor: pointer; font-weight: 600; color: var(--sp-text-muted); min-height: 40px; }
+    button.aktiv { background: var(--sp-accent); color: var(--sp-on-primary); }
+  }
+  .koerper-wahl { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    border: 1px solid var(--sp-border-strong); background: var(--sp-surface-2); border-radius: 999px; padding: 6px 12px;
+    cursor: pointer; font-size: .88rem; min-height: 36px;
+    &.aktiv { background: color-mix(in srgb, var(--sp-accent) 18%, var(--sp-surface)); border-color: var(--sp-accent); font-weight: 600; }
+  }
+  .modell {
+    position: relative; flex: 1 0 auto; min-height: 300px; height: 42vh; border-radius: var(--sp-radius); overflow: hidden;
+    border: 1px solid var(--sp-border); background: var(--sp-surface-2);
+  }
+  .modell-canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; outline: none; display: block; }
+  .v3d-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .v3d-label {
+    position: absolute; left: 0; top: 0; white-space: nowrap; padding: 2px 8px; border-radius: 999px;
+    font-family: var(--font-mono); font-size: .85rem; font-weight: 700;
+    background: color-mix(in srgb, var(--sp-surface) 88%, transparent); color: var(--sp-text);
+    border: 1px solid var(--sp-accent); box-shadow: 0 2px 6px rgba(0,0,0,.18);
+    &.gesucht { background: var(--sp-accent); color: var(--sp-on-primary); }
+  }
+  .v3d-hinweis {
+    position: absolute; left: 10px; top: 8px; font-size: .75rem; color: var(--sp-text-muted);
+    background: color-mix(in srgb, var(--sp-surface) 80%, transparent); padding: 2px 8px; border-radius: 6px;
+  }
+  .modell.ist-2d .modell-canvas, .modell.ist-2d .v3d-labels { visibility: hidden; }
+  .v2d { display: none; position: absolute; inset: 0; padding: 46px 10px 8px; }
+  .modell.ist-2d .v2d { display: block; }
+  .v2d-panels { display: flex; flex-direction: column; gap: 6px; height: 100%; }
+  .v2d-panel {
+    margin: 0; flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; align-items: center;
+    svg { flex: 1 1 auto; min-height: 0; width: 100%; height: 100%; overflow: visible; }
+    figcaption { font-size: .8rem; color: var(--sp-text-muted); }
+  }
+  .v2d-k { stroke: var(--sp-text); stroke-width: 1.6; stroke-linejoin: round; fill-opacity: .85; }
+  .v2d-m { stroke: var(--sp-accent); stroke-width: 1.4; }
+  .v2d-hilfe { stroke: var(--sp-accent); stroke-width: .8; opacity: .6; }
+  .v2d-achse { stroke: var(--sp-text-muted); stroke-width: .9; stroke-dasharray: 10 3 2 3; }
+  .v2d-kante { stroke: var(--sp-text); stroke-width: .9; opacity: .6; }
+  .v2d-verdeckt { stroke: var(--sp-text); stroke-width: 1; stroke-dasharray: 5 3; opacity: .7; }
+  .v2d-t {
+    // Kein Text-Rand (paint-order) mehr: manche Browser malen ihn ÜBER die Ziffern → hell + dicker Rand.
+    // Maße stehen neben dem Körper auf dem Kartenhintergrund, daher Theme-Textfarbe.
+    font-family: var(--font-mono); font-size: 15px; font-weight: 700; fill: var(--sp-text); stroke: none;
+    &.gesucht { fill: var(--sp-accent); }
+  }
+  .ansicht-wahl {
+    position: absolute; right: 8px; top: 8px; display: flex; gap: 2px; padding: 3px; z-index: 2;
+    background: var(--sp-surface); border: 1px solid var(--sp-border-strong); border-radius: 999px;
+    button { border: 0; background: none; min-width: 44px; min-height: 34px; border-radius: 999px; cursor: pointer; font-weight: 700; color: var(--sp-text-muted); }
+    button.aktiv { background: var(--sp-accent); color: var(--sp-on-primary); }
+  }
+  .modell-tipp { position: absolute; right: 10px; bottom: 8px; font-size: .75rem; color: var(--sp-text-muted); pointer-events: none; }
+  .modell-fehler { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; padding: 20px; text-align: center; color: var(--sp-text-muted); }
+
+  .info { display: flex; flex-direction: column; gap: 8px; }
+  .info-zeile { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .formel {
+    font-family: var(--font-mono); font-weight: 600; font-size: 1.02rem; line-height: 1.6;
+    padding: 8px 12px; border-radius: var(--sp-radius); background: color-mix(in srgb, var(--sp-accent) 12%, var(--sp-surface));
+    border-left: 3px solid var(--sp-accent);
+  }
+
+  .rechner { display: flex; flex-direction: column; gap: 10px; }
+  .beispiel { margin: 0; font-size: .85rem; color: var(--sp-text-muted); }
+  .reihe { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+  .klein {
+    display: flex; flex-direction: column; gap: 3px; font-size: .82rem; color: var(--sp-text-muted);
+    &.breit { flex: 1; min-width: 220px; }
+    &.chk { flex-direction: row; align-items: center; gap: 6px; min-height: 40px; }
+    select, input {
+      font: inherit; font-size: .95rem; color: var(--sp-text); background: var(--sp-surface-2);
+      border: 1px solid var(--sp-border-strong); border-radius: 8px; padding: 8px; min-height: 40px;
+    }
+    input[type=number] { width: 110px; }
+    input[type=checkbox] { min-height: 0; width: 18px; height: 18px; }
+  }
+  .masse { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+  .quelle { margin: -4px 0 0; font-size: .75rem; color: var(--sp-text-muted); }
+  .fehler { margin: 0; color: var(--sp-danger); font-weight: 600; }
+  .ergebnis { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+  .ergebnis .formel { align-self: stretch; }
+  .eingesetzt { font-family: var(--font-mono); font-size: .9rem; line-height: 1.6; }
+  .kacheln { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; align-self: stretch; }
+  .kachel {
+    display: flex; flex-direction: column; gap: 2px; padding: 8px 12px; border-radius: var(--sp-radius);
+    border: 1px solid var(--sp-border); background: var(--sp-surface-2);
+    i { font-style: normal; font-size: .78rem; color: var(--sp-text-muted); }
+    b { font-family: var(--font-mono); font-size: 1.15rem; }
+    small { font-family: var(--font-mono); font-size: .8rem; color: var(--sp-text-muted); }
+    &.haupt { border-color: var(--sp-accent); background: color-mix(in srgb, var(--sp-accent) 12%, var(--sp-surface)); }
+  }
+}
+
+@media (max-width: 700px) {
+  app-volumen-rechner ion-header .toolbar-action-label { display: none; }
+}
+@media (max-width: 900px) {
+  .vbx { grid-template-columns: 1fr; height: auto; min-height: 100%; }
+  .vbx .board { flex: 0 0 auto; height: 80vh; min-height: 560px; }
+  .vbx .modell { height: 46vh; }
+}
+.vbx .links.smb-vollbild .board { flex: 1 1 auto; height: auto; min-height: 0; }

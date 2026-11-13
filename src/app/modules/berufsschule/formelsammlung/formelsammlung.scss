@@ -1,0 +1,820 @@
+// Formelsammlung lernen – gemeinsame Styles aller Seiten/Bausteine dieses Moduls.
+// ViewEncapsulation.None: alle Klassen mit „fs-“ präfixiert. Farben aus dem Theme-System (--skin-*).
+
+@use '../../../shared/schmierblatt/schmierblatt';
+app-fs-hub,
+app-fs-mini-app,
+app-schienendehnung {
+  --fs-bg: var(--skin-bg, #0f1b24);
+  --fs-surface: var(--skin-surface, #16242f);
+  --fs-surface-2: var(--skin-surface-2, #1c2e3b);
+  --fs-accent: var(--skin-accent, #ff8a3d);
+  --fs-accent-2: var(--skin-accent-2, #6fa8dc);
+  --fs-ok: var(--skin-success, #6fbf73);
+  --fs-nok: var(--skin-danger, #e0806f);
+  --fs-text: var(--skin-text, #eaf2f5);
+  --fs-muted: var(--skin-text-muted, #8ca3af);
+  --fs-border: var(--skin-border, rgba(111, 168, 220, 0.22));
+  --fs-on-accent: var(--skin-on-primary, #0f1b24);
+  --fs-font-display: var(--skin-font-display, "Oswald"), ui-sans-serif, system-ui, sans-serif;
+  --fs-font-body: var(--skin-font-body, "Barlow"), ui-sans-serif, system-ui, sans-serif;
+  --fs-font-mono: var(--skin-font-mono, "JetBrains Mono"), ui-monospace, monospace;
+  font-family: var(--fs-font-body);
+  color: var(--fs-text);
+
+  ion-header ion-toolbar {
+    --background: var(--fs-surface);
+    --color: var(--fs-text);
+    --border-color: var(--fs-border);
+  }
+}
+
+.fs-content {
+  --background: var(--fs-bg);
+  background-image:
+    linear-gradient(var(--fs-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--fs-border) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.fs-shell {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px 16px 56px;
+
+  &.breit { max-width: 1040px; }
+}
+
+// ---------- Kopf ----------
+
+.fs-hero {
+  text-align: center;
+  margin: 4px 0 16px;
+
+  h1 {
+    font-family: var(--fs-font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    margin: 0 0 8px;
+    font-size: clamp(22px, 5vw, 32px);
+    color: var(--fs-text);
+  }
+}
+
+.fs-eyebrow {
+  font-family: var(--fs-font-mono);
+  color: var(--fs-accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin: 0 0 6px;
+
+  &.klein { font-size: 10px; margin-bottom: 2px; color: var(--fs-accent-2); }
+}
+
+.fs-lede {
+  color: var(--fs-muted);
+  font-size: 15px;
+  line-height: 1.55;
+  margin: 0 auto;
+  max-width: 640px;
+}
+
+.fs-h2 {
+  font-family: var(--fs-font-display);
+  text-transform: uppercase;
+  font-size: 18px;
+  margin: 24px 0 10px;
+  color: var(--fs-text);
+}
+
+.fs-h3 {
+  font-family: var(--fs-font-display);
+  font-size: 17px;
+  margin: 0 0 10px;
+  color: var(--fs-text);
+}
+
+.fs-sterne {
+  margin: 4px 0 0;
+  font-size: 22px;
+  letter-spacing: 4px;
+  color: var(--fs-border);
+
+  .an { color: var(--fs-accent); }
+  &.klein { font-size: 15px; letter-spacing: 2px; margin: 0; }
+}
+
+// ---------- Modus-Leiste (scrollbar auf dem Handy) ----------
+
+.fs-modi {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 2px 0 10px;
+  margin-bottom: 6px;
+  scrollbar-width: thin;
+}
+
+.fs-modus {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-width: 48px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--fs-border);
+  background: var(--fs-surface);
+  color: var(--fs-muted);
+  font: 600 12px var(--fs-font-body);
+  cursor: pointer;
+
+  ion-icon { font-size: 22px; }
+
+  &.aktiv {
+    background: var(--fs-accent);
+    border-color: var(--fs-accent);
+    color: var(--fs-on-accent);
+  }
+}
+
+// ---------- Karten ----------
+
+.fs-karte {
+  background: var(--fs-surface);
+  border: 1px solid var(--fs-border);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 14px;
+  color: var(--fs-text);
+
+  p { line-height: 1.5; }
+}
+
+.fs-skizzen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+}
+
+.fs-skizze {
+  background: var(--fs-surface-2);
+  border: 1px solid var(--fs-border);
+  border-radius: 8px;
+  padding: 6px;
+  margin-bottom: 12px;
+}
+
+.fs-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 240px;
+}
+
+.fs-d-base { stroke: var(--fs-muted); stroke-width: 2; fill: none; }
+.fs-d-tangente { stroke: var(--fs-muted); stroke-width: 1.5; stroke-dasharray: 6 4; fill: none; }
+.fs-d-curve { stroke: var(--fs-accent); stroke-width: 3.5; fill: none; stroke-linecap: round; }
+.fs-d-hilfe { stroke: var(--fs-muted); stroke-width: 1; stroke-dasharray: 3 3; fill: none; }
+.fs-d-mass { stroke: var(--fs-accent-2); stroke-width: 1.5; fill: none; }
+.fs-d-kraft { stroke: var(--fs-nok); stroke-width: 2.5; fill: none; }
+.fs-d-pfeilkopf { fill: var(--fs-accent-2); }
+.fs-d-punkt { fill: var(--fs-accent); }
+.fs-d-punkt2 { fill: var(--fs-accent-2); }
+.fs-d-flaeche { fill: var(--fs-surface); stroke: var(--fs-border); stroke-width: 1; }
+.fs-d-schwelle { fill: var(--fs-muted); }
+.fs-d-schiene { fill: var(--fs-accent); }
+.fs-d-fahrzeug { fill: none; stroke: var(--fs-accent-2); stroke-width: 2; stroke-dasharray: 5 3; }
+.fs-d-label { fill: var(--fs-text); font: 600 14px var(--fs-font-mono); &.accent { fill: var(--fs-accent); } }
+.fs-d-klein { fill: var(--fs-muted); font: 11px var(--fs-font-body); &.accent { fill: var(--fs-accent); } }
+
+.fs-merk {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.55;
+  li { margin-bottom: 6px; }
+}
+
+.fs-formelbox {
+  background: var(--fs-surface-2);
+  border: 1px solid var(--fs-border);
+  border-left: 3px solid var(--fs-accent);
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin: 8px 0 10px;
+  overflow-x: auto;
+
+  &.gross .katex { font-size: 1.35em; }
+}
+
+.fs-formel { color: inherit; }
+.katex-display { margin: 0.4em 0; overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+.fs-vartabelle {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+
+  td { padding: 5px 6px; border-bottom: 1px solid var(--fs-border); vertical-align: top; }
+  .sym { width: 1%; white-space: nowrap; color: var(--fs-accent); }
+  .einheit { width: 1%; white-space: nowrap; font-family: var(--fs-font-mono); color: var(--fs-muted); }
+}
+
+.fs-grenze, .fs-merkhilfe, .fs-unklar, .fs-warnung, .fs-tipp {
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.fs-grenze { background: color-mix(in srgb, var(--fs-accent) 12%, transparent); }
+.fs-merkhilfe, .fs-tipp { background: color-mix(in srgb, var(--fs-accent-2) 12%, transparent); }
+.fs-unklar { background: color-mix(in srgb, var(--fs-nok) 14%, transparent); }
+.fs-warnung { background: color-mix(in srgb, var(--fs-nok) 16%, transparent); border: 1px solid color-mix(in srgb, var(--fs-nok) 50%, transparent); margin-bottom: 8px; }
+
+.fs-verweise {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  p { margin: 0; color: var(--fs-muted); }
+}
+
+// ---------- Knöpfe, Chips ----------
+
+.fs-knopf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--fs-border);
+  background: var(--fs-surface-2);
+  color: var(--fs-text);
+  font: 600 15px var(--fs-font-body);
+  text-decoration: none;
+  cursor: pointer;
+
+  &.haupt { background: var(--fs-accent); border-color: var(--fs-accent); color: var(--fs-on-accent); }
+  &.klein { min-height: 36px; padding: 6px 12px; font-size: 14px; }
+  &:disabled { opacity: 0.5; cursor: default; }
+}
+
+.fs-stufen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.fs-chip {
+  min-height: 40px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--fs-border);
+  background: var(--fs-surface-2);
+  color: var(--fs-text);
+  font: 600 14px var(--fs-font-body);
+  cursor: pointer;
+
+  small { font-weight: 400; color: var(--fs-muted); margin-left: 2px; }
+  &.aktiv { background: var(--fs-accent-2); border-color: var(--fs-accent-2); color: var(--fs-on-accent); small { color: inherit; } }
+}
+
+.fs-aktionen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.fs-schalter-klein { color: var(--fs-muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
+
+.fs-hinweis-klein { color: var(--fs-muted); font-size: 13px; margin: 6px 0; }
+.fs-modi { align-items: center; }
+.fs-modus-name { margin-left: 6px; font: 700 15px var(--fs-font-body); color: var(--fs-text); white-space: nowrap; }
+
+.fs-modus-info { color: var(--fs-muted); margin: 0 0 10px; font-size: 14px; }
+
+.fs-statzeile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-family: var(--fs-font-mono);
+  font-size: 12px;
+  color: var(--fs-muted);
+  margin-bottom: 12px;
+  strong { color: var(--fs-text); font-size: 15px; }
+}
+
+// ---------- Aufgabe ----------
+
+.fs-text { font-size: 16px; margin: 0 0 10px; }
+
+.fs-gegeben {
+  background: var(--fs-surface-2);
+  border: 1px solid var(--fs-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+}
+.fs-gegeben-titel { display: block; font: 10px var(--fs-font-mono); text-transform: uppercase; letter-spacing: 0.1em; color: var(--fs-muted); margin-bottom: 4px; }
+.fs-gegeben-liste { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.fs-wert {
+  font-size: 16px;
+  strong { font-family: var(--fs-font-mono); }
+  small { display: block; font-size: 11px; color: var(--fs-muted); }
+}
+
+.fs-frage { font-weight: 700; font-size: 16px; margin: 6px 0 10px; }
+
+.fs-eingabe-zeile {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.fs-eingabe-sym { font-size: 18px; white-space: nowrap; }
+.fs-eingabe {
+  flex: 1 1 140px;
+  min-width: 0;
+  height: 52px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 2px solid var(--fs-border);
+  background: var(--fs-bg);
+  color: var(--fs-text);
+  font: 700 20px var(--fs-font-mono);
+
+  &:focus { outline: none; border-color: var(--fs-accent); }
+  &:disabled { opacity: 0.8; }
+}
+.fs-eingabe-einheit { font: 600 16px var(--fs-font-mono); color: var(--fs-muted); min-width: 28px; }
+.fs-pm {
+  width: 44px;
+  height: 52px;
+  border-radius: 8px;
+  border: 1px solid var(--fs-border);
+  background: var(--fs-surface-2);
+  color: var(--fs-text);
+  font-size: 20px;
+  cursor: pointer;
+}
+.fs-eingabe-zeile .fs-knopf { height: 52px; }
+
+.fs-optionen {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+
+  &.formeln { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+}
+.fs-option {
+  min-height: 52px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 2px solid var(--fs-border);
+  background: var(--fs-surface-2);
+  color: var(--fs-text);
+  font: 600 15px var(--fs-font-body);
+  cursor: pointer;
+  overflow-x: auto;
+
+  &.gewaehlt { border-color: var(--fs-accent-2); }
+  &.richtig { border-color: var(--fs-ok); background: color-mix(in srgb, var(--fs-ok) 18%, var(--fs-surface-2)); }
+  &.falsch { border-color: var(--fs-nok); background: color-mix(in srgb, var(--fs-nok) 18%, var(--fs-surface-2)); }
+  &:disabled { cursor: default; color: var(--fs-text); }
+}
+
+.fs-feedback, .fs-note {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--fs-border);
+  font-size: 15px;
+
+  &.ok { border-color: var(--fs-ok); background: color-mix(in srgb, var(--fs-ok) 14%, transparent); }
+  &.nok { border-color: var(--fs-nok); background: color-mix(in srgb, var(--fs-nok) 14%, transparent); }
+}
+.fs-toleranz { color: var(--fs-muted); font-size: 13px; }
+.fs-fehlerhinweis { margin: 6px 0 0; }
+
+.fs-hilfe {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  > p, > div, > ol { flex-basis: 100%; }
+}
+
+.fs-schritte {
+  margin: 8px 0 0;
+  padding-left: 22px;
+  li { margin-bottom: 8px; line-height: 1.45; }
+}
+
+// ---------- Rechner ----------
+
+.fs-rechner-felder {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.fs-rfeld { display: flex; flex-direction: column; gap: 4px; }
+.fs-rfeld-name { font-size: 13px; color: var(--fs-muted); }
+.fs-rfeld-eingabe { display: flex; gap: 6px; align-items: center; }
+.fs-rfeld input, .fs-rfeld select {
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid var(--fs-border);
+  background: var(--fs-bg);
+  color: var(--fs-text);
+  font: 600 17px var(--fs-font-mono);
+  padding: 0 10px;
+}
+.fs-rfeld input { flex: 1 1 auto; min-width: 0; }
+.fs-rfeld select { font-size: 15px; }
+
+.fs-ergebnisse {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+}
+.fs-ergebnis {
+  background: var(--fs-surface-2);
+  border: 1px solid var(--fs-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+
+  strong { font: 700 20px var(--fs-font-mono); small { font-size: 13px; color: var(--fs-muted); } }
+  &.haupt { border-color: var(--fs-accent); strong { color: var(--fs-accent); } }
+}
+.fs-ergebnis-name { font-size: 13px; color: var(--fs-muted); }
+
+.fs-tabelle-wrap { margin-top: 12px; overflow-x: auto; }
+.fs-tabelle-titel { font-weight: 700; margin: 0 0 6px; }
+.fs-tabelle {
+  border-collapse: collapse;
+  width: 100%;
+  font: 13px var(--fs-font-mono);
+  th, td { padding: 5px 8px; text-align: right; border-bottom: 1px solid var(--fs-border); white-space: nowrap; }
+  th { color: var(--fs-muted); font-weight: 600; }
+  tr.markiert td { color: var(--fs-nok); }
+}
+
+// ---------- Prüfung ----------
+
+.fs-pruef-kopf {
+  display: flex;
+  justify-content: space-between;
+  font: 600 14px var(--fs-font-mono);
+  margin-bottom: 6px;
+}
+.fs-uhr.knapp { color: var(--fs-nok); }
+
+.fs-balken {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--fs-surface-2);
+  overflow: hidden;
+  margin-bottom: 10px;
+  > span { display: block; height: 100%; background: var(--fs-accent); transition: width 0.3s; }
+}
+
+.fs-auswertung {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+
+  > li { border: 1px solid var(--fs-border); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+  > li.ok { border-left: 4px solid var(--fs-ok); }
+  > li.nok { border-left: 4px solid var(--fs-nok); }
+}
+.fs-auswertung-kopf {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  color: var(--fs-text);
+  font: 14px var(--fs-font-body);
+  text-align: left;
+  cursor: pointer;
+}
+.fs-auswertung-frage { flex: 1; }
+.fs-auswertung-mehr { color: var(--fs-muted); }
+.fs-auswertung-detail { padding: 0 12px 12px; font-size: 14px; }
+
+// ---------- Hub ----------
+
+.fs-werkzeuge {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.fs-werkzeug {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--fs-accent);
+  background: color-mix(in srgb, var(--fs-accent) 10%, var(--fs-surface));
+  color: var(--fs-text);
+  text-decoration: none;
+
+  ion-icon { font-size: 26px; color: var(--fs-accent); }
+  strong { font-family: var(--fs-font-display); font-size: 17px; }
+  span { font-size: 14px; color: var(--fs-muted); }
+  small { font: 12px var(--fs-font-mono); color: var(--fs-accent); }
+}
+
+.fs-kacheln {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+.fs-kachel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--fs-border);
+  background: var(--fs-surface);
+  color: var(--fs-text);
+  text-decoration: none;
+
+  ion-icon { font-size: 24px; color: var(--fs-accent-2); }
+  strong { font-size: 16px; }
+  .fs-balken { margin: 4px 0 0; }
+
+  &.aus { opacity: 0.55; }
+}
+.fs-kachel-nr { position: absolute; top: 10px; right: 12px; font: 700 12px var(--fs-font-mono); color: var(--fs-muted); }
+.fs-kachel-status { position: absolute; top: 8px; right: 34px; font: 700 13px var(--fs-font-body); color: #d9534f; }
+.fs-kachel-status.ok { color: #2e9e5b; }
+.fs-kachel-status.test { color: #e0a800; }
+.fs-pruefhinweis {
+  display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; margin: 0 0 14px;
+  border: 1px solid #e0a43a; border-left-width: 5px; border-radius: 10px;
+  background: color-mix(in srgb, #e0a43a 14%, var(--fs-surface)); color: var(--fs-text); line-height: 1.45;
+  span { flex: 1; }
+  button { font: inherit; border: 0; background: none; color: var(--fs-muted); cursor: pointer; min-width: 36px; min-height: 36px; margin: -6px -6px -6px 0; }
+}
+.fs-kachel-text { font-size: 13px; color: var(--fs-muted); line-height: 1.4; flex: 1; }
+.fs-kachel-bald { font: 11px var(--fs-font-mono); color: var(--fs-muted); }
+
+.fs-suche {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid var(--fs-border);
+  background: var(--fs-surface);
+  color: var(--fs-text);
+  font: 16px var(--fs-font-body);
+  padding: 0 14px;
+  margin-bottom: 10px;
+}
+.fs-kapitelfilter .fs-chip { min-width: 44px; }
+.fs-badge { font-size: 12px; font-weight: 400; color: var(--fs-nok); margin-left: 6px; }
+.fs-leer { text-align: center; color: var(--fs-muted); }
+.fs-nachschlag .fs-knopf { margin-top: 10px; }
+
+// ---------- Hilfsmittel beim Üben: Taschenrechner + Schmierblatt (2026-11-07) ----------
+.fs-hilfsmittel { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px; }
+
+.fs-tr {
+  margin-top: 14px;
+  max-width: 380px;
+  padding: 10px;
+  border: 1px solid var(--fs-border);
+  border-radius: 12px;
+  background: var(--fs-surface-2);
+}
+.fs-tr-verlauf {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 2px; margin-bottom: 4px;
+  button {
+    border: 0; background: transparent; color: var(--fs-muted); cursor: pointer; padding: 2px 4px;
+    font: 13px var(--fs-font-mono); text-align: right; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    strong { color: var(--fs-text); }
+  }
+}
+.fs-tr-anzeige {
+  display: block; width: 100%; box-sizing: border-box; min-height: 52px; max-height: 40vh; padding: 10px 12px; margin-bottom: 8px;
+  resize: none; overflow-y: auto; white-space: pre-wrap; word-break: break-all;
+  border: 1px solid var(--fs-border); border-radius: 10px; background: var(--fs-bg); color: var(--fs-text);
+  font: 600 22px/1.3 var(--fs-font-mono); text-align: right; outline: none;
+  &:focus { border-color: var(--fs-accent-2); }
+  &.fehler { border-color: var(--fs-nok); color: var(--fs-nok); }
+}
+.fs-tr-tasten { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin-bottom: 8px; }
+.fs-tr-taste {
+  height: 48px; border-radius: 10px; border: 1px solid var(--fs-border); background: var(--fs-surface); color: var(--fs-text);
+  font: 600 18px var(--fs-font-mono); cursor: pointer; touch-action: manipulation; padding: 0;
+  &:active { transform: scale(.96); }
+  &.op, &.fn { color: var(--fs-accent-2); }
+  &.loesch { color: var(--fs-nok); }
+  &.gleich { background: var(--fs-accent); border-color: var(--fs-accent); color: var(--fs-on-accent); }
+  &.breit { grid-column: span 2; }
+}
+
+// ---------- Arbeitsplatz: Schmierblatt + Rechner daneben + Formel-Leiste (Tim, 2026-11-09) ----------
+.fs-shell.sehr-breit { max-width: 1320px; }
+.fs-aktionen .fs-hilfsmittel { margin: 0 0 0 auto; }
+.fs-rechner-allein .fs-tr { margin: 0 auto; }
+
+.fs-platz {
+  display: flex; flex-direction: column; gap: 8px;
+  height: 78vh; min-height: 480px;
+  margin-bottom: 14px;
+
+  .fs-blatt-tools { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .btn {
+    border: 1px solid var(--sp-border-strong); background: var(--sp-surface-2); color: var(--sp-text);
+    border-radius: var(--sp-radius); padding: 6px 10px; min-height: 38px; cursor: pointer; touch-action: manipulation; font: inherit;
+  }
+  .btn:active { transform: scale(.97); }
+  .fs-leisten-knopf { font-weight: 700; }
+
+  .fs-platz-mitte { flex: 1; min-height: 0; display: flex; gap: 10px; }
+  .fs-blatt-spalte { position: relative; flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+  .fs-blatt-bereich { position: relative; flex: 1; min-width: 0; min-height: 0; display: flex; }
+  .fs-stufe-wahl { font-weight: 700; }
+  .btn.primary { background: var(--fs-accent); border-color: var(--fs-accent); color: var(--fs-on-accent); font-weight: 700; }
+
+  // Ergebnis-Leiste unten am Blatt (Vorbild Schotterberechnung): Kopf antippen → Feld klappt über dem Blatt auf
+  .fs-ergebnis-leiste {
+    position: relative; flex: 0 0 auto; z-index: 6; margin-top: 6px;
+    border: 1px solid var(--fs-border); border-radius: 10px; background: var(--fs-surface);
+    &.ok { border-color: #2e9e5b; }
+    &.nok { border-color: #d9534f; }
+  }
+  .fs-ergebnis-kopf {
+    width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    min-height: 50px; padding: 8px 14px; background: none; border: 0; cursor: pointer; color: var(--fs-text);
+    font: 700 16px var(--fs-font-body); text-align: left;
+    .stand { font: 400 13px var(--fs-font-mono); color: var(--fs-muted); margin-left: 8px; }
+    .pfeil { color: var(--fs-accent); transition: transform .2s; }
+  }
+  .fs-ergebnis-leiste.ok .fs-ergebnis-kopf { color: #2e9e5b; }
+  .fs-ergebnis-leiste.nok .fs-ergebnis-kopf { color: #d9534f; }
+  .fs-ergebnis-body {
+    display: none;
+    position: absolute; left: -1px; right: -1px; bottom: calc(100% - 1px);
+    max-height: min(70vh, 560px); overflow-y: auto;
+    background: var(--fs-surface); border: 1px solid var(--fs-border); border-bottom: 0;
+    border-radius: 10px 10px 0 0; box-shadow: 0 -10px 30px rgba(0, 0, 0, .28);
+    padding: 12px 14px;
+    .fs-aktionen { margin-top: 10px; }
+  }
+  .fs-ergebnis-leiste.offen {
+    border-top-left-radius: 0; border-top-right-radius: 0;
+    .fs-ergebnis-body { display: block; }
+    .pfeil { transform: rotate(180deg); }
+  }
+
+  // Testphase (gelb): Rückfrage nach jeder Aufgabe
+  .fs-testphase {
+    margin-top: 12px; padding: 10px 12px; border-radius: 10px;
+    border: 1px solid #e0a800; border-left-width: 5px; background: color-mix(in srgb, #e0a800 12%, var(--fs-surface));
+    p { margin: 0 0 8px; line-height: 1.45; }
+    textarea { width: 100%; box-sizing: border-box; margin: 8px 0; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--fs-border);
+      background: var(--fs-surface); color: var(--fs-text); font: inherit; resize: vertical; }
+  }
+  .fs-testphase-knoepfe { display: flex; flex-wrap: wrap; gap: 8px; }
+  .fs-testphase-gruende { display: flex; flex-wrap: wrap; gap: 6px; }
+  .fs-knopf.warn { border-color: #e0a800; color: #e0a800; }
+  .fs-testphase-danke { margin: 0 !important; font-weight: 700; }
+
+  // Seitenspalte unter dem Rechner: Aufgabe, Skizze, Statistik
+  .fs-seite { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; font-size: 14px; }
+  .fs-platz-rechner > .fs-seite:first-child { margin-top: 0; }
+  .fs-seite-karte {
+    border: 1px solid var(--fs-border); border-radius: 10px; padding: 10px 12px; background: var(--fs-surface);
+    .fs-text { margin: 0 0 8px; }
+    .fs-frage { margin: 8px 0 0; font-weight: 700; }
+  }
+  .fs-seite-titel { margin: 0 0 6px; font: 700 13px var(--fs-font-body); text-transform: uppercase; letter-spacing: .04em; color: var(--fs-accent);
+    small { text-transform: none; letter-spacing: 0; color: var(--fs-muted); font-weight: 400; margin-left: 6px; } }
+  .fs-seite-gegeben { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px;
+    small { color: var(--fs-muted); } }
+  .fs-seite .fs-statzeile { margin: 0; }
+  .fs-seite .fs-modus-info { margin: 0; font-size: 13px; }
+  .fs-blatt-flaeche { flex: 1; min-height: 0; transition: box-shadow .15s; }
+  .fs-blatt-flaeche.ziel { box-shadow: 0 0 0 3px var(--fs-accent); }
+  .aufgabe-blatt { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 15px; }
+  .fs-blatt-wert { white-space: nowrap; &.gesucht { color: var(--fs-accent); } }
+
+  .fs-platz-rechner {
+    flex: 0 0 300px; overflow-y: auto; min-height: 0;
+    .fs-tr { margin: 0; max-width: none; }
+  }
+
+  // Karten aus der Leiste: Formeln schmal, Skizzen mittel
+  .karte.karte-formel { width: auto; min-width: 200px; max-width: min(440px, calc(100% - 24px)); }
+  .karte.karte-skizze { width: 360px; }
+  .karte .katex-display { margin: 0.2em 0; }
+  .karte .fs-skizze { margin: 0; padding: 2px; }
+  // Aufgabe als Karte (Tim, 2026-11-11)
+  .karte.karte-aufgabe { width: 360px; max-width: calc(100% - 24px); }
+}
+.fs-karte-text { margin: 0 0 6px; font-size: 14px; line-height: 1.4; white-space: normal; }
+.fs-karte-gegeben { list-style: none; margin: 0 0 6px; padding: 0; display: grid; gap: 2px; font-size: 14px;
+  small { color: var(--fs-muted); } }
+.fs-karte-frage { margin: 0; font-size: 14px; white-space: normal; }
+
+// Leiste „∑ Formeln & Skizzen“ liegt rechts über dem Blatt
+.fs-leiste {
+  position: absolute; top: 0; right: 0; bottom: 0; z-index: 6;
+  width: min(360px, 92%);
+  display: flex; flex-direction: column;
+  background: var(--fs-surface); color: var(--fs-text);
+  border: 1px solid var(--fs-border); border-radius: 10px;
+  box-shadow: -8px 0 24px rgba(0, 0, 0, .28);
+  transition: opacity .15s;
+
+  // Beim Ziehen fast durchsichtig und durchlässig, damit man sieht, wohin die Karte kommt
+  &.zieht { opacity: .18; pointer-events: none; }
+}
+.fs-leiste-kopf { display: flex; align-items: center; gap: 6px; padding: 8px 8px 0; }
+.fs-leiste-tabs {
+  flex: 1; display: flex; gap: 4px;
+  button {
+    flex: 1; min-height: 38px; border-radius: 8px; border: 1px solid var(--fs-border); background: var(--fs-surface-2);
+    color: var(--fs-muted); font: 600 14px var(--fs-font-body); cursor: pointer;
+    &.aktiv { color: var(--fs-on-accent); background: var(--fs-accent); border-color: var(--fs-accent); }
+  }
+}
+.fs-leiste-zu {
+  width: 38px; height: 38px; border-radius: 8px; border: 1px solid var(--fs-border); background: transparent;
+  color: var(--fs-muted); font-size: 16px; cursor: pointer;
+}
+.fs-leiste-hinweis { margin: 6px 10px; font-size: 12px; color: var(--fs-muted); line-height: 1.35; }
+.fs-leiste-liste { flex: 1; overflow-y: auto; padding: 0 8px 10px; display: flex; flex-direction: column; gap: 8px; }
+.fs-leiste-eintrag {
+  border: 1px solid var(--fs-border); border-radius: 8px; background: var(--fs-surface-2);
+  padding: 6px 8px; cursor: grab; user-select: none; -webkit-user-select: none; touch-action: pan-y;
+  -webkit-touch-callout: none;
+  &:hover { border-color: var(--fs-accent-2); }
+  &.unklar { border-style: dashed; }
+  .fs-skizze { margin: 0; }
+}
+.fs-leiste-titel { display: block; font: 600 13px var(--fs-font-body); color: var(--fs-muted); margin-bottom: 2px; }
+.fs-leiste-inhalt { pointer-events: none; overflow-x: auto; }
+
+// Geist beim Ziehen (hängt am Arbeitsplatz, damit die Theme-Farben greifen)
+.fs-leiste-geist {
+  position: fixed; z-index: 60; pointer-events: none; margin: 0;
+  transform: translate(-30px, -16px) rotate(-2deg);
+  opacity: .92; box-shadow: 0 14px 34px rgba(0, 0, 0, .4);
+  border: 1px solid var(--fs-accent); border-radius: 8px; background: var(--fs-surface-2); padding: 6px 8px;
+}
+
+.fs-platz.smb-vollbild { height: auto; min-height: 0; margin: 0; }
+
+// Handy/Tablet hochkant: Rechner unter das Blatt
+@media (max-width: 860px) {
+  .fs-platz { height: auto; min-height: 0; }
+  .fs-platz .fs-platz-mitte { flex-direction: column; }
+  .fs-platz .fs-blatt-bereich { height: 64vh; min-height: 380px; flex: none; }
+  .fs-platz .fs-platz-rechner { flex: none; }
+  .fs-platz.smb-vollbild .fs-blatt-bereich { flex: 1; height: auto; min-height: 0; }
+  .fs-platz.smb-vollbild .fs-platz-mitte { flex: 1; min-height: 0; }
+  .fs-platz.smb-vollbild .fs-platz-rechner { max-height: 42vh; }
+  .fs-aktionen .fs-hilfsmittel { margin-left: 0; }
+}
+
+/* ---------- Formelquiz: Formelsammlung zum Blättern (2026-11-12) ---------- */
+.fs-buch { margin-top: 14px; border: 1px solid var(--fs-border); border-radius: 10px; padding: 10px; background: var(--fs-surface); color: var(--fs-text); }
+.fs-buch-leiste { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.fs-buch-leiste.unten { margin-top: 10px; }
+.fs-buch-titel { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; background: none; border: 0; color: var(--fs-text); cursor: pointer; padding: 4px; font-family: var(--fs-font-body); }
+.fs-buch-titel span { font-size: 12px; color: var(--fs-muted); }
+.fs-buch-titel strong { font-size: 17px; text-align: center; }
+.fs-buch-titel small { font-size: 11px; color: var(--fs-accent); }
+.fs-buch-inhalt { list-style: none; margin: 8px 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 4px; }
+.fs-buch-inhalt button { width: 100%; text-align: left; padding: 6px 8px; border-radius: 6px; border: 1px solid transparent; background: var(--fs-surface-2); color: var(--fs-text); cursor: pointer; font-size: 13px; }
+.fs-buch-inhalt button.aktiv { border-color: var(--fs-accent); font-weight: 700; }
+.fs-buch-seite { margin-top: 8px; display: flex; flex-direction: column; gap: 8px; }
+.fs-buch-formel { display: flex; flex-direction: column; gap: 6px; text-align: left; padding: 10px 12px; border-radius: 8px; cursor: pointer;
+  border: 2px solid var(--fs-border); background: var(--fs-surface-2); color: var(--fs-text); font: 400 15px var(--fs-font-body); }
+.fs-buch-formel:hover:not(:disabled) { border-color: var(--fs-accent); }
+.fs-buch-formel:disabled { cursor: default; }
+.fs-buch-formel.richtig { border-color: #4caf50; background: rgba(76, 175, 80, .14); }
+.fs-buch-formel.falsch { border-color: #e5534b; background: rgba(229, 83, 75, .14); }
+.fs-buch-formel-titel { font-weight: 700; font-size: 14px; }
+.fs-buch-vars { font-size: 12px; color: var(--fs-muted); line-height: 1.6; }

@@ -111,3 +111,15 @@ ion-spinner {
   margin: 60px auto;
   --color: var(--sp-accent);
 }
+
+
+.pz-umschalter {
+  display: inline-flex; gap: 2px; padding: 3px; margin-right: 6px;
+  border: 1px solid var(--sp-border); border-radius: 999px; background: var(--sp-surface-2);
+  a {
+    display: inline-flex; align-items: center; min-height: 34px; padding: 4px 14px; border-radius: 999px;
+    font-weight: 700; font-size: .88rem; color: var(--sp-text-muted); text-decoration: none; cursor: pointer;
+  }
+  a.aktiv { background: var(--sp-accent); color: var(--sp-on-primary); }
+}
+

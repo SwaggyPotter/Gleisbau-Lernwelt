@@ -35,7 +35,7 @@ export const createServer = () => {
   app.use(compression());
   // /api/photos bringt einen eigenen JSON-Parser mit hoeherem Limit mit (Foto-Upload).
   const jsonParser = express.json({ limit: '1mb' });
-  app.use((req, res, next) => (req.path.startsWith('/api/photos') ? next() : jsonParser(req, res, next)));
+  app.use((req, res, next) => (req.path.startsWith('/api/photos') || req.path === '/api/quizshow/bilder' ? next() : jsonParser(req, res, next)));
   app.use(express.urlencoded({ extended: false }));
 
   // Caddy fragt hier bei jedem /assets-Abruf eines Gastes nach (forward_auth) -- daher vor dem
@@ -48,6 +48,8 @@ export const createServer = () => {
       limit: config.rateLimitMax,
       standardHeaders: true,
       legacyHeaders: false,
+      // Quiz-Show: Bühne fragt zweimal pro Sekunde nach dem Stand, Bilder werden oft geladen
+      skip: req => req.method === 'GET' && (req.path.startsWith('/api/quizshow/sitzung/') || req.path.startsWith('/api/quizshow/bilder/')),
     }),
   );
 

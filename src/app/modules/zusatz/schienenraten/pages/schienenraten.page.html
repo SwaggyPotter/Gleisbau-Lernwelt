@@ -49,9 +49,7 @@
                   [class.falsch]="karte.antwort && karte.antwort.id !== karte.kategorie.id"
                   [disabled]="!!karte.antwort"
                   (click)="waehleKarte(i)">
-            <svg class="schiene-svg-klein" [attr.viewBox]="formenViewBox">
-              <path [attr.d]="karte.pfad" fill="#2a3a47" stroke="#eaf2f5" stroke-width="1.4"/>
-            </svg>
+            <ng-container *ngTemplateOutlet="zeichnung; context: { pfad: karte.pfad, bem: karte.bem, klein: true }"></ng-container>
             <p class="karte-label" *ngIf="karte.antwort">
               <ng-container *ngIf="karte.antwort.id === karte.kategorie.id">{{ karte.kategorie.name }}</ng-container>
               <ng-container *ngIf="karte.antwort.id !== karte.kategorie.id">War: {{ karte.kategorie.name }}</ng-container>
@@ -87,9 +85,7 @@
       <div class="werkbank">
         <div class="panel schiene-panel">
           <p class="panel-label">{{ kategorieName(profilRunde.profil.kategorie) }}</p>
-          <svg class="schiene-svg" [attr.viewBox]="profilRunde.viewBox">
-            <path [attr.d]="profilRunde.pfad" fill="#2a3a47" stroke="#eaf2f5" stroke-width="1.4"/>
-          </svg>
+          <ng-container *ngTemplateOutlet="zeichnung; context: { pfad: profilRunde.pfad, bem: profilRunde.bem, klein: false }"></ng-container>
           <dl class="masse">
             <div><dt>Hoehe</dt><dd>{{ profilRunde.profil.hoeheMm }} mm</dd></div>
             <div><dt>Fussbreite</dt><dd>{{ profilRunde.profil.fussbreiteMm }} mm</dd></div>
@@ -131,9 +127,7 @@
       <div class="werkbank">
         <div class="panel schiene-panel">
           <p class="panel-label">{{ profilLabel(werteProfil) }} &middot; {{ kategorieName(werteProfil.kategorie) }}</p>
-          <svg class="schiene-svg" [attr.viewBox]="werteViewBox">
-            <path [attr.d]="wertePfad" fill="#2a3a47" stroke="#eaf2f5" stroke-width="1.4"/>
-          </svg>
+          <ng-container *ngTemplateOutlet="zeichnung; context: { pfad: wertePfad, bem: werteBem, klein: false }"></ng-container>
         </div>
 
         <div class="panel antwort-panel">
@@ -194,9 +188,23 @@
       <p>
         Die Masse stammen aus einer Tabellenuebersicht und sind fuer dieses Quiz abgetippt — bei
         rund 50 Profilen ist ein Uebertragungsfehler nicht auszuschliessen. Die Silhouetten sind
-        stilisierte Schemazeichnungen je Schienenform (Kopf- und Fusshoehe geschaetzt), keine
-        massstabsgetreuen Konstruktionszeichnungen.
+        massstaeblich aus Hoehe, Kopf-, Fussbreite und Stegstaerke gezeichnet; Kopfhoehe, Fussranddicke
+        und Rundungen sind an typische Profile angelehnt und geschaetzt — keine Konstruktionszeichnungen.
       </p>
     </section>
   </div>
 </ion-content>
+
+<!-- Querschnitt mit Bemassung (Hoehe links, Kopfbreite oben, Fussbreite unten) -->
+<ng-template #zeichnung let-pfad="pfad" let-bem="bem" let-klein="klein">
+  <svg [class.schiene-svg]="!klein" [class.schiene-svg-klein]="klein" [attr.viewBox]="bem.viewBox" role="img" aria-label="Schienenquerschnitt">
+    <path [attr.d]="pfad" class="sz-profil" vector-effect="non-scaling-stroke"/>
+    <path [attr.d]="bem.hilfslinien" class="sz-hilfs" vector-effect="non-scaling-stroke"/>
+    <path [attr.d]="bem.masslinien" class="sz-mass" vector-effect="non-scaling-stroke"/>
+    <path [attr.d]="bem.hoehenlinie" class="sz-mass sz-hoehe" vector-effect="non-scaling-stroke"/>
+    <path [attr.d]="bem.pfeile" class="sz-pfeil"/>
+    <text *ngFor="let t of bem.texte" [attr.x]="t.x" [attr.y]="t.y" [attr.font-size]="t.groesse"
+          [class.sz-text-hoehe]="t.hoehe" class="sz-text" text-anchor="middle"
+          [attr.transform]="t.drehen ? 'rotate(-90 ' + t.x + ' ' + t.y + ')' : null">{{ t.text }}</text>
+  </svg>
+</ng-template>

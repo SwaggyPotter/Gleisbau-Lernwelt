@@ -94,6 +94,12 @@ ion-header ion-toolbar {
   margin: 0 0 16px;
 }
 
+.bild-rahmen { position: relative; min-height: 260px; background: var(--sp-surface-2, #1b2630); }
+.bild-status {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  color: var(--sp-text-muted); text-align: center; padding: 12px;
+}
+.maschine-bild.unsichtbar { visibility: hidden; }
 .maschine-bild {
   width: 100%;
   height: 260px;

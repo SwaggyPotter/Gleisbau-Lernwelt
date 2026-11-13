@@ -4,7 +4,8 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { API_BASE_URL } from '../api-config';
 import { GAST_STANDARD_IDS, QuizTile, alleAppTiles } from '../../shared/katalog';
 
-export type AppPruefStatus = 'geprueft' | 'ungeprueft';
+/** testphase (gelb, 2026-11-11): Azubis prüfen mit – nach jeder Aufgabe „Alles richtig?“ / „Problem melden“ */
+export type AppPruefStatus = 'geprueft' | 'testphase' | 'ungeprueft';
 /** gaeste = alle inkl. Gäste · azubis = alle mit Seiten-Login, keine Gäste · versteckt = nur Admin */
 export type AppSichtbarkeit = 'gaeste' | 'azubis' | 'versteckt';
 export interface AppEinstellung { status: AppPruefStatus; sichtbarkeit: AppSichtbarkeit; }

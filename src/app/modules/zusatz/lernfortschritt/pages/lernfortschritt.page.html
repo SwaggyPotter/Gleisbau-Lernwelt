@@ -16,7 +16,7 @@
     <section class="hero">
       <p class="eyebrow">Übersicht</p>
       <h1>Lernfortschritt</h1>
-      <p class="lede">Alle Module zusammengefasst — Daten stecken lokal in diesem Browser (localStorage), nicht auf dem Server.</p>
+      <p class="lede">Alle Module zusammengefasst — aus diesem Browser und, wenn du angemeldet bist (auch als Gast), aus deinem Konto.</p>
       <div class="stat-row">
         <div class="stat"><span>Beantwortet</span><strong>{{ f.summeBeantwortet }}</strong></div>
         <div class="stat"><span>Richtig</span><strong>{{ f.summeRichtig }}</strong></div>
@@ -56,7 +56,8 @@
           </div>
           <div class="fi-meta">
             <span *ngIf="r.versuche > 0">{{ r.richtig }}/{{ r.versuche }} richtig</span>
-            <span *ngIf="r.bestStreak !== undefined">Beste Serie: {{ r.bestStreak }}</span>
+            <span *ngIf="r.bestStreak">Beste Serie: {{ r.bestStreak }}</span>
+            <span class="fi-leer" *ngIf="r.versuche === 0 && !r.bestStreak">Noch nicht begonnen</span>
           </div>
         </a>
       </div>

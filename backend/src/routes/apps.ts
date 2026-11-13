@@ -6,7 +6,7 @@ import { requireAuth, requireAdmin } from '../middleware/auth';
 
 /**
  * Status und Sichtbarkeit der App-Kacheln auf der Startseite (2026-11-06).
- * status: 'geprueft' (grüner Haken) | 'ungeprueft' (rotes Kreuz)
+ * status: 'geprueft' (grüner Haken) | 'testphase' (gelb: Azubis prüfen mit, Rückfrage nach jeder Aufgabe) | 'ungeprueft' (rotes Kreuz)
  * sichtbarkeit: 'gaeste' (alle inkl. Gäste) | 'azubis' (alle mit Seiten-Login, keine Gäste) | 'versteckt' (nur Admin)
  * Lesen ist offen (Azubis mit reinem Seiten-Login haben kein Konto-Token), Ändern nur für Admins.
  * Fehlt eine Kachel in der Tabelle, gilt der Standard aus dem Frontend (shared/katalog.ts).
@@ -21,7 +21,7 @@ appsRouter.get('/', asyncHandler(async (_req, res) => {
 }));
 
 const updateSchema = z.object({
-  status: z.enum(['geprueft', 'ungeprueft']),
+  status: z.enum(['geprueft', 'testphase', 'ungeprueft']),
   sichtbarkeit: z.enum(['gaeste', 'azubis', 'versteckt']),
 });
 

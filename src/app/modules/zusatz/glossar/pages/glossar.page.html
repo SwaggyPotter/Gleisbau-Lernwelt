@@ -41,18 +41,48 @@
       >{{ kategorieLabels[k] }} ({{ anzahlProKategorie[k] }})</button>
     </section>
 
+    <section class="pruef-leiste" *ngIf="istAdmin">
+      <span class="pruef-zaehler">Admin: <strong>{{ anzahlGeprueft }}</strong> von {{ anzahlGesamt }} Begriffen geprüft</span>
+      <span class="pruef-filter" role="radiogroup" aria-label="Nach Prüfstand filtern">
+        <button class="chip" [class.aktiv]="pruefFilter === 'alle'" (click)="pruefFilter = 'alle'">Alle</button>
+        <button class="chip" [class.aktiv]="pruefFilter === 'offen'" (click)="pruefFilter = 'offen'">Noch prüfen</button>
+        <button class="chip" [class.aktiv]="pruefFilter === 'geprueft'" (click)="pruefFilter = 'geprueft'">Geprüft</button>
+      </span>
+    </section>
+
     <section class="eintrag-liste">
-      <ion-card class="eintrag-card" *ngFor="let e of gefilterteEintraege">
+      <ion-card class="eintrag-card" *ngFor="let z of gefilterteZeilen; trackBy: trackZeile" [class.ist-geprueft]="status(z) === 'geprueft'">
         <ion-card-content>
           <div class="e-head">
-            <span class="e-begriff">{{ e.begriff }}</span>
-            <span class="e-kategorie">{{ kategorieLabels[e.kategorie] }}</span>
+            <span class="e-begriff">{{ z.e.begriff }}</span>
+            <span class="e-kategorie">{{ kategorieLabels[z.e.kategorie] }}</span>
           </div>
-          <p class="e-definition">{{ e.definition }}</p>
+          <p class="e-definition">{{ z.e.definition }}</p>
+          <div class="e-quelle">
+            <span class="e-quelle-label">{{ z.e.quellen.length > 1 ? 'Quellen' : 'Quelle' }}:</span>
+            <ul>
+              <li *ngFor="let q of z.e.quellen">
+                <a *ngIf="q.url; else ohneLink" [href]="q.url" target="_blank" rel="noopener noreferrer">{{ q.titel }} ↗</a>
+                <ng-template #ohneLink>{{ q.titel }}</ng-template>
+                <span class="e-quelle-stelle" *ngIf="q.stelle"> – {{ q.stelle }}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="e-pruefung" [ngClass]="status(z)">
+            <span class="e-pruef-status" *ngIf="status(z) === 'geprueft'">✓ Geprüft<ng-container *ngIf="freigabe(z) as f"> am {{ datum(f.geprueftAm) }}<ng-container *ngIf="istAdmin && f.geprueftVon"> von {{ f.geprueftVon }}</ng-container></ng-container></span>
+            <span class="e-pruef-status" *ngIf="status(z) === 'geaendert'">Text geändert seit der Prüfung – bitte neu prüfen</span>
+            <span class="e-pruef-status" *ngIf="status(z) === 'offen'">Noch nicht geprüft</span>
+            <ng-container *ngIf="istAdmin">
+              <button class="pruef-knopf ja" *ngIf="status(z) !== 'geprueft'" [disabled]="speichert.has(z.id)" (click)="freigeben(z)">✓ Stimmt so</button>
+              <button class="pruef-knopf" *ngIf="status(z) !== 'offen'" [disabled]="speichert.has(z.id)" (click)="zuruecknehmen(z)">Freigabe zurücknehmen</button>
+              <span class="pruef-fehler" *ngIf="fehlerId === z.id">Speichern hat nicht geklappt – bist du als Admin angemeldet?</span>
+            </ng-container>
+          </div>
         </ion-card-content>
       </ion-card>
 
-      <p class="leer-hinweis" *ngIf="gefilterteEintraege.length === 0">Kein Begriff gefunden.</p>
+      <p class="leer-hinweis" *ngIf="gefilterteZeilen.length === 0">Kein Begriff gefunden.</p>
+      <p class="quellen-stand">Alle Beschreibungen wurden am {{ quellenStand }} mit den angegebenen Quellen abgeglichen.</p>
     </section>
   </div>
 </ion-content>

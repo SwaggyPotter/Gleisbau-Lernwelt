@@ -581,7 +581,7 @@ ion-badge {
 
   .icon { position: relative; }
 
-  .haken, .kreuz, .schloss {
+  .haken, .kreuz, .test, .schloss {
     position: absolute;
     right: -5px;
     top: -5px;
@@ -599,6 +599,8 @@ ion-badge {
   }
   .haken { background: #2e9e4f; color: #fff; }
   .kreuz { background: #d63b3b; color: #fff; font-size: 11px; }
+  // Testphase: dunkler Kreis mit gelbem Rand – bleibt auch auf gelben Ordnern (Berufsschule) sichtbar
+  .test { background: #1a1a1a; color: #ffd60a; border-color: #ffd60a !important; font-size: 14px; }
   .schloss {
     background: #6b6b6b;
     ion-icon { font-size: 12px; }
@@ -631,6 +633,14 @@ ion-badge {
     -webkit-box-orient: vertical;
     overflow: hidden;
     max-width: 88px;
+  }
+
+  // Sterne je App: 1 / 10 / 50 / 150 / 250 richtige Antworten
+  .sterne {
+    display: flex; gap: 1px; justify-content: center; margin-top: 1px;
+    font-size: 0.62rem; line-height: 1; letter-spacing: 0;
+    span { color: color-mix(in srgb, var(--sp-text) 22%, transparent); }
+    span.an { color: #f2b705; text-shadow: 0 0 2px rgba(0, 0, 0, .35); }
   }
 }
 
@@ -672,6 +682,13 @@ ion-badge {
   font-size: 9px;
   font-weight: 800;
   vertical-align: 1px;
+}
+
+.test-mini {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 15px; height: 15px; border-radius: 50%;
+  background: #1a1a1a; color: #ffd60a; border: 1.5px solid #ffd60a; box-sizing: border-box;
+  font-size: 10px; font-weight: 800; vertical-align: 1px;
 }
 
 /* Drei-Punkte-Menü (nur Admin), oben links an der Kachel */

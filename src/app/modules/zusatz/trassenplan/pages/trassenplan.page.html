@@ -1,0 +1,101 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>Trassenplan</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Übersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="tp-content">
+  <div class="tp" data-melde-kontext="Trassenplan">
+    <div class="tp-hinweis" role="status" *ngIf="ungeprueft && !hinweisZu">
+      <span class="tp-hinweis-icon" aria-hidden="true">⚠️</span>
+      <p><b>Noch nicht fachlich geprüft.</b> Plan, Aufgaben und Lösungen können Fehler enthalten. Wenn dir etwas komisch vorkommt, melde es bitte über die Flagge ⚑.</p>
+      <button type="button" class="tp-hinweis-zu" (click)="hinweisZu = true" aria-label="Hinweis schließen">✕</button>
+    </div>
+    <nav class="tp-tabs" role="tablist" aria-label="Bereich wählen">
+      <button type="button" role="tab" [class.aktiv]="modus === 'plan'" [attr.aria-selected]="modus === 'plan'" (click)="wechseln('plan')">🗺️ Plan</button>
+      <button type="button" role="tab" [class.aktiv]="modus === 'rechnen'" [attr.aria-selected]="modus === 'rechnen'" (click)="wechseln('rechnen')">🧮 Rechnen</button>
+      <button type="button" role="tab" [class.aktiv]="modus === 'quiz'" [attr.aria-selected]="modus === 'quiz'" (click)="wechseln('quiz')">❓ Quiz</button>
+      <button type="button" role="tab" [class.aktiv]="modus === 'zuordnen'" [attr.aria-selected]="modus === 'zuordnen'" (click)="wechseln('zuordnen')">🧩 Zuordnen</button>
+    </nav>
+
+    <!-- ============ PLAN: kurze Einführung ============ -->
+    <section class="tp-card tp-intro" *ngIf="modus === 'plan'">
+      <p>
+        Der <b>Gleisvermarkungsplan</b> zeigt eine zweigleisige Strecke in Bändern: Neigungen, Überhöhungen, Krümmungslinie mit
+        20 m-Pfeilhöhen, Festpunkte und Grundriß-Pfeilhöhen. Fahre mit der Maus über den Plan, um die Werte an jeder Station zu sehen.
+        Über <b>„Daten bearbeiten“</b> änderst du Radien, Überhöhungen, Neigungen und Festpunkte – der Plan und die fachliche Prüfung
+        rechnen sofort neu.
+      </p>
+      <p class="klein">Grenzwerte angelehnt an Ril 800.0110 – im Unterricht gegen die gültige Fassung prüfen. Übungsplan, keine echte Strecke.</p>
+    </section>
+
+    <!-- ============ RECHNEN: Aufgabe ============ -->
+    <section class="tp-card tp-aufgabe" *ngIf="modus === 'rechnen'">
+      <div class="tp-werkzeug">
+        <button type="button" class="btn small primary" (click)="neueAufgabe()">Neue Aufgabe ↻</button>
+        <select class="btn small" [(ngModel)]="kategorie" (ngModelChange)="neueAufgabe()" aria-label="Aufgabenart">
+          <option *ngFor="let k of kategorien" [ngValue]="k.id">{{ k.name }}</option>
+        </select>
+        <button type="button" class="btn small" (click)="werteVorgeben = !werteVorgeben">{{ werteVorgeben ? 'Werte selbst ablesen' : 'Werte vorgeben' }}</button>
+        <button type="button" class="btn small" (click)="wuerfeln()" title="Zufällige Strecke mit neuen Radien, Überhöhungen und Neigungen">🎲 Neue Übungsstrecke</button>
+        <span class="tp-stand" *ngIf="versuche">{{ geloest }} / {{ versuche }} Aufgaben gelöst</span>
+      </div>
+
+      <p *ngIf="keineAufgabe" class="klein">
+        Im aktuellen Plan gibt es für diese Aufgabenart keine passende Stelle (z. B. kein Kreisbogen oder zu wenige Festpunkte).
+        Wähle eine andere Art oder würfle eine neue Übungsstrecke.
+      </p>
+
+      <ng-container *ngIf="aufgabe as a">
+        <h2>{{ a.titel }}</h2>
+        <p class="tp-text" [innerHTML]="werteVorgeben ? a.text : a.textOrt"></p>
+        <p class="klein">Trage das Ergebnis im Plan unten in das rot markierte Feld ein (Enter oder „Prüfen“). Der Plan rundet Pfeilhöhen auf ganze mm.</p>
+
+        <div class="tp-felder">
+          <button type="button" class="tp-feldchip" *ngFor="let f of a.felder" [ngClass]="bewertung[f.id] || ''" (click)="zumFeld(f)" title="Zum Feld im Plan springen">
+            <span>{{ f.label }}</span><b>{{ bewertungText(f) }}</b>
+          </button>
+        </div>
+
+        <div class="tp-aktionen">
+          <button type="button" class="btn primary" (click)="pruefen()">Prüfen</button>
+          <button type="button" class="btn" (click)="zumFeld()">Zum Eingabefeld ↓</button>
+          <button type="button" class="btn" (click)="formelZeigen = !formelZeigen">{{ formelZeigen ? 'Formel ausblenden' : 'Formel' }}</button>
+          <button type="button" class="btn" (click)="loesungZeigen = !loesungZeigen">{{ loesungZeigen ? 'Lösungsweg ausblenden' : 'Lösungsweg' }}</button>
+          <span class="tp-stand">{{ stand }} richtig</span>
+        </div>
+
+        <div class="tp-erfolg" *ngIf="alleRichtig">✔ Alles richtig! <button type="button" class="btn small primary" (click)="neueAufgabe()">Nächste Aufgabe</button></div>
+        <div class="tp-formel" *ngIf="formelZeigen">{{ a.formel }}</div>
+        <div class="tp-loesung" *ngIf="loesungZeigen">
+          <b>Lösungsweg</b>
+          <ol><li *ngFor="let s of a.weg" [innerHTML]="s"></li></ol>
+          <p class="klein">Sollwerte: <span *ngFor="let f of a.felder; let last = last">{{ f.label }} = {{ sollText(f) }}{{ last ? '' : ' · ' }}</span></p>
+        </div>
+      </ng-container>
+    </section>
+
+    <!-- ============ Generator (bleibt erhalten, nur ausgeblendet) ============ -->
+    <div class="tp-plan" [hidden]="!zeigtPlan">
+      <div #planHost></div>
+    </div>
+
+    <!-- ============ QUIZ ============ -->
+    <section class="tp-quiz" *ngIf="modus === 'quiz'">
+      <app-themenquiz-engine *ngIf="quiz; else quizLaden" [questions]="quiz.questions" topicId="trassenplan" (answered)="quizAnswered($event)"></app-themenquiz-engine>
+      <ng-template #quizLaden>
+        <div class="tp-card"><ion-spinner *ngIf="!quizFehler"></ion-spinner><p *ngIf="quizFehler">{{ quizFehler }}</p></div>
+      </ng-template>
+    </section>
+
+    <!-- ============ ZUORDNEN ============ -->
+    <app-trassenplan-zuordnen *ngIf="modus === 'zuordnen'"></app-trassenplan-zuordnen>
+  </div>
+</ion-content>

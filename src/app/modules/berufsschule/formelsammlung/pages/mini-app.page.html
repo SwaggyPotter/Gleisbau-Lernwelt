@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>{{ meta?.titel ?? 'Formelsammlung' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fs-content">
+  <div class="fs-root fs-shell" [class.sehr-breit]="breit">
+    <ng-container *ngIf="app && meta; else unbekannt">
+      <section class="fs-hero">
+        <p class="fs-eyebrow">Berufsschule · App {{ meta.nr }} · {{ kapitel }}</p>
+        <h1>{{ meta.titel }}</h1>
+        <p class="fs-sterne" [attr.aria-label]="sterne + ' von 5 Sternen'" title="Sterne: ab 1 / 10 / 50 / 150 / 250 richtigen Antworten">
+          <span *ngFor="let i of [0, 1, 2, 3, 4]" [class.an]="i < sterne">★</span>
+        </p>
+      </section>
+
+      <div class="fs-pruefhinweis" *ngIf="ungeprueft && !hinweisZu" role="note">
+        <span *ngIf="testphase">🟡 <strong>Testphase – hilf mit!</strong> Diese App wird gerade gemeinsam geprüft. Nach jeder Aufgabe fragen wir kurz: alles richtig oder Problem melden? Wenn deine Lösung für dich stimmt, die App sie aber falsch wertet, bitte melden – Aufgabe, Formel und dein Ergebnis werden automatisch mitgeschickt.</span>
+        <span *ngIf="!testphase">⚠️ <strong>Noch nicht fachlich geprüft.</strong> Formeln, Aufgaben und Lösungen können Fehler enthalten – wenn dir etwas auffällt, melde es bitte über die Flagge ⚑.</span>
+        <button type="button" (click)="hinweisZu = true" aria-label="Hinweis schließen">✕</button>
+      </div>
+
+      <nav class="fs-modi" aria-label="Modus">
+        <button type="button" *ngFor="let m of modi" class="fs-modus" [class.aktiv]="modus === m.id" (click)="modusSetzen(m.id)"
+                [title]="m.label" [attr.aria-label]="m.label">
+          <ion-icon [name]="m.icon"></ion-icon>
+        </button>
+        <span class="fs-modus-name">{{ modusName }}</span>
+      </nav>
+
+      <!-- 1. Erklären -->
+      <ng-container *ngIf="modus === 'erklaeren'">
+        <section class="fs-karte">
+          <div class="fs-skizzen">
+            <fs-skizze *ngFor="let v of erklaerSkizzen" [typ]="app.skizze" [variante]="v"></fs-skizze>
+          </div>
+          <ul class="fs-merk">
+            <li *ngFor="let m of app.merkhilfen">{{ m }}</li>
+          </ul>
+        </section>
+        <section class="fs-karte" *ngFor="let f of formeln">
+          <h3 class="fs-h3">{{ f.titel }}</h3>
+          <div class="fs-formelbox gross"><fs-formel [tex]="f.latex" [block]="true"></fs-formel></div>
+          <table class="fs-vartabelle">
+            <tr *ngFor="let v of f.variablen">
+              <td class="sym"><fs-formel [tex]="v.symbol"></fs-formel></td>
+              <td>{{ v.name }}</td>
+              <td class="einheit">{{ v.einheit }}</td>
+            </tr>
+          </table>
+          <p class="fs-grenze" *ngFor="let g of f.grenzen">⚠ {{ g }}</p>
+          <p class="fs-merkhilfe" *ngIf="f.hinweis">💡 {{ f.hinweis }}</p>
+          <p class="fs-unklar" *ngIf="f.status === 'unklar'">❓ Noch nicht bestätigt: {{ f.unklar }}</p>
+        </section>
+        <section class="fs-karte fs-verweise" *ngIf="app.verweise?.length">
+          <p>Passt dazu:</p>
+          <a *ngFor="let v of app.verweise" class="fs-knopf" [routerLink]="v.link">{{ v.label }} →</a>
+        </section>
+      </ng-container>
+
+      <!-- 2. Rechner -->
+      <fs-rechner *ngIf="modus === 'rechner'" [app]="app"></fs-rechner>
+
+      <!-- 3.–5. Üben / Umstellen / Einheiten-Falle -->
+      <fs-ueben *ngIf="aufgabenModus as am" [app]="app" [modus]="am"></fs-ueben>
+
+      <!-- 6. Prüfung -->
+      <fs-pruefung *ngIf="modus === 'pruefung'" [apps]="[app]" [anzahl]="8" [minuten]="12"
+                   [titel]="'Prüfungsmodus: ' + meta.titel" [bestwert]="fs.app(app.id).pruefungBest"
+                   (fertig)="pruefungFertig($event)"></fs-pruefung>
+    </ng-container>
+
+    <ng-template #unbekannt>
+      <section class="fs-karte">
+        <p>Diese Formel-App gibt es (noch) nicht.</p>
+        <a class="fs-knopf" routerLink="/berufsschule/formelsammlung">Zur Übersicht</a>
+      </section>
+    </ng-template>
+  </div>
+</ion-content>

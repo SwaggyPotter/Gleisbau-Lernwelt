@@ -1,0 +1,55 @@
+<div class="bs">
+  <div class="bs-auftrag">
+    <span class="bs-schild">Baustelle</span>
+    <p>{{ auftrag }}</p>
+    <p class="bs-tipp" *ngIf="stufe === 'schwer'">Kurzform: Schiene – Schwelle – Befestigung – Schwellenteilung.</p>
+  </div>
+
+  <!-- leicht: Teile + Stückzahl je Schwelle stehen da, Gesamtmenge ankreuzen -->
+  <div *ngIf="stufe === 'leicht'" class="bs-liste">
+    <div class="bs-zeile" *ngFor="let z of leichtZeilen"
+         [class.ok]="geprueft && z.gewaehlt === z.korrekt" [class.fehl]="geprueft && z.gewaehlt !== z.korrekt">
+      <div class="bs-teil"><b>{{ z.bauteil.name }}</b><small>{{ z.jeSchwelle }} je Schwelle</small></div>
+      <div class="bs-optionen">
+        <button type="button" *ngFor="let o of z.optionen" (click)="waehle(z, o)" [disabled]="geprueft"
+                [class.gewaehlt]="z.gewaehlt === o" [class.richtig]="geprueft && o === z.korrekt">{{ zahl(o) }}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- mittel/schwer: selbst rechnen und wissen, was dazugehört -->
+  <div *ngIf="stufe !== 'leicht'" class="bs-liste">
+    <div class="bs-zeile" *ngIf="laenge" [class.ok]="geprueft && laenge.ok" [class.fehl]="geprueft && !laenge.ok">
+      <div class="bs-teil"><b>Baulänge</b><small>in m</small></div>
+      <input type="text" inputmode="decimal" [(ngModel)]="laenge.eingabe" [disabled]="geprueft" placeholder="m">
+    </div>
+    <div class="bs-zeile" *ngIf="schwellenFeld" [class.ok]="geprueft && schwellenFeld.ok" [class.fehl]="geprueft && !schwellenFeld.ok">
+      <div class="bs-teil"><b>Schwellen</b><small>{{ stufe === 'schwer' ? 'Anzahl' : oberbau.schwelle }}</small></div>
+      <input type="text" inputmode="numeric" [(ngModel)]="schwellenFeld.eingabe" [disabled]="geprueft" placeholder="Stück">
+    </div>
+
+    <p class="bs-hinweis">Was wird gebraucht? Anhaken und Stückzahl eintragen – nicht alles gehört zu diesem Oberbau.</p>
+    <div class="bs-zeile" *ngFor="let z of pool" [class.ok]="geprueft && z.ok" [class.fehl]="geprueft && !z.ok">
+      <label class="bs-teil bs-haken">
+        <input type="checkbox" [(ngModel)]="z.angehakt" [disabled]="geprueft">
+        <b>{{ z.bauteil.name }}</b>
+      </label>
+      <input type="text" inputmode="numeric" [(ngModel)]="z.menge" [disabled]="geprueft || !z.angehakt" placeholder="Stück">
+    </div>
+
+    <div class="bs-zeile" *ngIf="schiene" [class.ok]="geprueft && schiene.ok" [class.fehl]="geprueft && !schiene.ok">
+      <div class="bs-teil"><b>Schiene</b><small>Gesamtlänge in m</small></div>
+      <input type="text" inputmode="decimal" [(ngModel)]="schiene.eingabe" [disabled]="geprueft" placeholder="m">
+    </div>
+  </div>
+
+  <div class="bs-knoepfe">
+    <ion-button *ngIf="!geprueft" (click)="pruefen()" [disabled]="stufe === 'leicht' && !leichtFertig">Prüfen</ion-button>
+    <ion-button *ngIf="geprueft" (click)="neu()"><ion-icon slot="start" name="refresh-outline"></ion-icon>Neue Baustelle</ion-button>
+  </div>
+
+  <div class="feedback" *ngIf="geprueft" [class.correct]="allesRichtig" [class.wrong]="!allesRichtig">
+    <strong>{{ allesRichtig ? 'Alles richtig – Material kann bestellt werden!' : 'Nicht ganz – so wär\'s richtig:' }}</strong>
+    <ul><li *ngFor="let l of loesung">{{ l }}</li></ul>
+  </div>
+</div>

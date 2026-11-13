@@ -1,0 +1,99 @@
+<ion-content class="qs-buehne-inhalt" [fullscreen]="true">
+  <div class="qs-buehne" [class.final]="stand?.runde === 'final'">
+    <div class="qs-licht"></div>
+
+    <!-- Kopfzeile -->
+    <header class="qs-kopf" *ngIf="stand">
+      <span class="qs-titel">{{ stand.titel || 'Quiz-Show' }}</span>
+      <span class="qs-stand" *ngIf="stand.phase === 'frage'">
+        <ng-container *ngIf="stand.runde === 'final'">Zusatzrunde · </ng-container>Frage {{ stand.index + 1 }} / {{ stand.anzahl }}
+      </span>
+    </header>
+
+    <!-- Warten auf den Start -->
+    <section class="qs-mitte qs-warten" *ngIf="stand?.phase === 'warten'">
+      <div class="qs-logo">?</div>
+      <h1>{{ stand?.titel || 'Quiz-Show' }}</h1>
+      <p class="qs-unter">Karten A · B · C · D bereithalten – gleich geht's los!</p>
+    </section>
+
+    <!-- Finalrunde ansagen -->
+    <section class="qs-mitte qs-runde" *ngIf="stand?.phase === 'runde'">
+      <h1>Zusatzrunde</h1>
+    </section>
+
+    <!-- Ende -->
+    <section class="qs-mitte qs-ende" *ngIf="stand?.phase === 'ende'">
+      <h1 *ngIf="!siegerFertig">Und gewonnen hat …</h1>
+      <h1 *ngIf="siegerFertig" class="qs-sieger-titel">🏆 {{ siegerText }}</h1>
+      <!-- Siegerehrung: erst alle gleich, Licht läuft über die Balken, dann echte Punkte -->
+      <div class="qs-sieger" *ngIf="stand?.gruppen?.length">
+        <div class="qs-saeule" *ngFor="let g of stand!.gruppen; let i = index"
+             [class.leuchtet]="siegerLeuchtet === i" [class.vorn]="siegerFertig && istVorn(g.punkte)" [class.blass]="siegerFertig && !istVorn(g.punkte)">
+          <span class="qs-saeule-zahl">{{ siegerFertig ? g.punkte : '?' }}</span>
+          <span class="qs-saeule-balken" [style.height.%]="siegerFertig ? hoehe(g.punkte) : 60"></span>
+          <span class="qs-saeule-name">{{ g.name }}</span>
+        </div>
+      </div>
+      <p class="qs-unter" *ngIf="!stand?.gruppen?.length">Danke fürs Mitmachen.</p>
+    </section>
+
+    <!-- Frage -->
+    <ng-container *ngIf="stand?.phase === 'frage' && stand?.frage as fr">
+      <section class="qs-mitte qs-nummer" *ngIf="stand!.schritt === 0">
+        <p class="qs-klein">{{ stand!.runde === 'final' ? 'Zusatzfrage' : 'Frage' }}</p>
+        <h1>{{ stand!.index + 1 }}</h1>
+      </section>
+
+      <section class="qs-frage-bereich" *ngIf="stand!.schritt >= 1">
+        <div class="qs-bild" *ngIf="fr.bild"><img [src]="bild(fr.bild)" alt="" /></div>
+        <div class="qs-frage" [class.ohne-bild]="!fr.bild">
+          <span>{{ fr.text }}</span>
+        </div>
+        <div class="qs-spannung" *ngIf="stand!.schritt === 6">Und die richtige Antwort ist …</div>
+        <div class="qs-antworten">
+          <div class="qs-antwort" *ngFor="let a of fr.antworten; let i = index" [ngClass]="antwortKlasse(i)">
+            <span class="qs-buchstabe">{{ buchstaben[i] }}</span>
+            <span class="qs-antwort-text">{{ a }}</span>
+          </div>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- Punktestand der Gruppen (kleines Säulendiagramm) -->
+    <section class="qs-punkte" *ngIf="stand && stand.punkteSichtbar && stand.gruppen.length && stand.phase !== 'ende'">
+      <!-- Punkte bleiben geheim: Balken wackeln nur, wenn Punkte vergeben werden -->
+      <div class="qs-punkt" *ngFor="let g of stand.gruppen; let i = index" [class.wackelt]="wackeln">
+        <span class="qs-punkt-balken"><i [style.height.%]="wackeln ? wackelHoehen[i] : 18"></i></span>
+        <span class="qs-punkt-text">{{ g.name }}</span>
+      </div>
+    </section>
+
+    <!-- Fuß: Code für die Fernbedienung -->
+    <footer class="qs-fuss" *ngIf="stand">
+      <span class="qs-fehler" *ngIf="fehler">{{ fehler }}</span>
+      <button type="button" class="qs-mini" (click)="vollbild()" title="Vollbild an/aus">⛶</button>
+      <span class="qs-code" [class.gross]="stand.phase === 'warten'">
+        <small>Code</small> <b>{{ stand.code }}</b>
+      </span>
+    </footer>
+
+    <!-- Countdown vom Tablet (5/10 s) -->
+    <div class="qs-countdown" *ngIf="countdown !== null" [class.aus]="zeitAus">
+      <span>{{ zeitAus ? 'Zeit!' : countdown }}</span>
+    </div>
+
+    <!-- Start: ein Klick schaltet den Ton frei (Browser-Regel) und geht in Vollbild -->
+    <div class="qs-start" *ngIf="!gestartet">
+      <button type="button" (click)="starten()">▶ Show starten</button>
+      <p>Schaltet Ton und Vollbild ein. Danach läuft alles über das Tablet.</p>
+      <nav class="qs-links">
+        <a routerLink="/zusatz/quizshow/fernbedienung">🎮 Fernbedienung</a>
+        <a routerLink="/zusatz/quizshow/editor">✎ Fragen &amp; Bilder bearbeiten</a>
+        <button type="button" class="qs-link-knopf" (click)="neueShow()">🆕 Neue Show (neuer Code{{ stand ? ' statt ' + stand.code : '' }})</button>
+        <a routerLink="/dashboard">← Startseite</a>
+      </nav>
+      <p class="qs-fehler" *ngIf="fehler">{{ fehler }}</p>
+    </div>
+  </div>
+</ion-content>

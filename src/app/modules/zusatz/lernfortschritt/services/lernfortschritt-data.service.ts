@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { API_BASE_URL } from '../../../../core/api-config';
+import { AuthService } from '../../../../core/auth/services/auth.service';
+import { LokaleModulStat, ProfilSyncService } from '../../../../core/auth/services/profil-sync.service';
+import { MODUL_LABELS, modulLabel } from '../../../konto/module-labels';
 import { GesamtFortschritt, PruefungsKurz, RechentrainerFortschritt, ThemaFortschritt } from '../models/lernfortschritt.models';
 
 interface TopicMeta {
@@ -36,20 +40,60 @@ function leseStreakProgress(key: string): { correct: number; total: number; stre
   }
 }
 
+/** Module, die es nicht mehr gibt – nicht mehr im Lernfortschritt zeigen */
+const ENTFERNT = new Set(['zusatz:trassierung']);
+
+interface ServerModulStat {
+  moduleKey: string;
+  correct: number;
+  wrong: number;
+  streak: number;
+  bestStreak: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class LernfortschrittDataService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly auth: AuthService,
+  ) {}
 
   laden(): Observable<GesamtFortschritt> {
-    return this.http.get<TopicMeta[]>('assets/themenquiz/topics.json').pipe(
-      map(topics => this.zusammenstellen(topics)),
+    // Server-Statistik (Konto oder Gastzugang) – fehlt sie, zählen nur die Browser-Daten.
+    const server$ = this.auth.isLoggedIn
+      ? this.http.get<{ module: ServerModulStat[] }>(`${API_BASE_URL}/stats/me`).pipe(
+          map(r => r.module ?? []),
+          catchError(() => of([] as ServerModulStat[])),
+        )
+      : of([] as ServerModulStat[]);
+    return forkJoin([this.http.get<TopicMeta[]>('assets/themenquiz/topics.json'), server$]).pipe(
+      map(([topics, server]) => this.zusammenstellen(topics, server)),
     );
   }
 
-  private zusammenstellen(topics: TopicMeta[]): GesamtFortschritt {
+  private zusammenstellen(topics: TopicMeta[], server: ServerModulStat[]): GesamtFortschritt {
+    // Pro Modul-Schlüssel die Quelle mit den meisten Versuchen nehmen (Server, lokale Sync-Statistik)
+    const lokal = ProfilSyncService.lokaleStatistik();
+    const zentral: Record<string, LokaleModulStat> = {};
+    const nimm = (key: string, s: LokaleModulStat) => {
+      const alt = zentral[key];
+      if (!alt || s.correct + s.wrong > alt.correct + alt.wrong) zentral[key] = { ...s, bestStreak: Math.max(s.bestStreak, alt?.bestStreak ?? 0) };
+      else alt.bestStreak = Math.max(alt.bestStreak, s.bestStreak);
+    };
+    for (const [k, s] of Object.entries(lokal)) nimm(k, s);
+    for (const s of server) nimm(s.moduleKey, { correct: s.correct, wrong: s.wrong, streak: s.streak, bestStreak: s.bestStreak });
+
     const themen: ThemaFortschritt[] = topics.map(t => {
       const s = leseQuizStats(`themenquiz-progress-${t.topicId}`);
-      return { topicId: t.topicId, title: t.title, beantwortet: s.beantwortet, gesamt: t.questionCount, richtig: s.correct, falsch: s.wrong };
+      const z = zentral[`themenquiz:${t.topicId}`];
+      const zentralBesser = !!z && z.correct + z.wrong > s.correct + s.wrong;
+      return {
+        topicId: t.topicId, title: t.title,
+        beantwortet: Math.min(t.questionCount, Math.max(s.beantwortet, zentralBesser ? Math.min(t.questionCount, z.correct + z.wrong) : 0)),
+        gesamt: t.questionCount,
+        richtig: zentralBesser ? z.correct : s.correct,
+        falsch: zentralBesser ? z.wrong : s.wrong,
+      };
     });
 
     const gesamtquiz = leseQuizStats('zusatz-gesamtquiz-progress');
@@ -58,7 +102,6 @@ export class LernfortschrittDataService {
     const nivellieren = leseQuizStats('nivellieren-progress');
 
     const materialrechner = this.leseMaterialrechner();
-    const trassierung = leseStreakProgress('trassierung-progress');
     const weichenrechner = leseStreakProgress('weichenrechner-progress');
     const schienendehnung = leseStreakProgress('schienendehnung-progress');
     const nivellierlatteBest = Number(localStorage.getItem('nivellierlatte-highscore') ?? 0);
@@ -69,11 +112,34 @@ export class LernfortschrittDataService {
       { id: 'prozentrechnung', label: 'Prozentrechnung', link: '/zusatz/prozentrechnung', richtig: prozent.correct, versuche: prozent.correct + prozent.wrong },
       { id: 'nivellieren', label: 'Nivellieren im Gleisbau', link: '/zusatz/nivellieren', richtig: nivellieren.correct, versuche: nivellieren.correct + nivellieren.wrong },
       { id: 'materialrechner', label: 'Materialrechner', link: '/zusatz/materialrechner', richtig: materialrechner.correct, versuche: materialrechner.total },
-      { id: 'trassierung', label: 'Trassierungsrechner', link: '/zusatz/trassierung', richtig: trassierung.correct, versuche: trassierung.total, streak: trassierung.streak, bestStreak: trassierung.bestStreak },
       { id: 'weichenrechner', label: 'Weichengeometrie-Rechner', link: '/zusatz/weichenrechner', richtig: weichenrechner.correct, versuche: weichenrechner.total, streak: weichenrechner.streak, bestStreak: weichenrechner.bestStreak },
       { id: 'schienendehnung', label: 'Schienenausdehnungs-Rechner', link: '/zusatz/schienendehnung', richtig: schienendehnung.correct, versuche: schienendehnung.total, streak: schienendehnung.streak, bestStreak: schienendehnung.bestStreak },
       { id: 'nivellierlatte', label: 'Nivellierlatte ablesen', link: '/zusatz/nivellierlatte', richtig: 0, versuche: 0, bestStreak: nivellierlatteBest },
     ];
+
+    // Gegen die zentrale Statistik abgleichen und alle übrigen Module (Schotterbett, Trassenplan,
+    // Baumaschinen, Prüfungssimulation, künftige …) ergänzen – auch wenn noch nichts begonnen wurde.
+    for (const r of rechentrainer) {
+      const z = zentral[`zusatz:${r.id}`];
+      if (!z) continue;
+      if (z.correct + z.wrong > r.versuche) { r.richtig = z.correct; r.versuche = z.correct + z.wrong; }
+      if (z.bestStreak > 0) r.bestStreak = Math.max(r.bestStreak ?? 0, z.bestStreak);
+    }
+    const bekannt = new Set(rechentrainer.map(r => `zusatz:${r.id}`));
+    const weitere = new Set([...Object.keys(MODUL_LABELS), ...Object.keys(zentral)]);
+    for (const key of weitere) {
+      if (bekannt.has(key) || key.startsWith('themenquiz:') || ENTFERNT.has(key)) continue;
+      const z = zentral[key];
+      const name = key.includes(':') ? key.split(':')[1] : key;
+      rechentrainer.push({
+        id: name, label: modulLabel(key),
+        link: key.startsWith('zusatz:') ? `/zusatz/${name}`
+          : key.startsWith('formelsammlung:') ? (name === 'finder' ? '/berufsschule/formelsammlung/formelquiz' : name === 'gemischt' ? '/berufsschule/formelsammlung/pruefung' : `/berufsschule/formelsammlung/${name}`)
+          : '/dashboard',
+        richtig: z?.correct ?? 0, versuche: z ? z.correct + z.wrong : 0,
+        bestStreak: z && z.bestStreak > 0 ? z.bestStreak : undefined,
+      });
+    }
 
     const pruefung = this.lesePruefungshistorie();
 

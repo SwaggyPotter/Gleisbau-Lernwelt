@@ -1,3 +1,4 @@
+import { BERUFSSCHULE_TILES } from '../../shared/katalog';
 /** Menschenlesbare Bezeichnungen fuer die module_key-Werte aus dem Backend (siehe MODUL-SCHLUESSEL unten). */
 export const MODUL_LABELS: Record<string, string> = {
   'themenquiz:grundlagen': 'Gleisbau-Grundlagen',
@@ -9,7 +10,7 @@ export const MODUL_LABELS: Record<string, string> = {
   'themenquiz:handwerkzeuge': 'Handwerkzeuge im Gleisbau',
   'themenquiz:kleingeraete': 'Kleingeräte und Maschinen',
   'themenquiz:messmittel': 'Messmittel und Vermessung',
-  'themenquiz:trassenplan': 'Trassenplan lesen',
+  'themenquiz:trassenplan': 'Trassenplan (Quiz)',
   'themenquiz:arbeitssicherheit': 'Arbeitssicherheit im Gleisbereich',
   'themenquiz:lf01': 'LF01 Baustellen einrichten',
   'themenquiz:lf10': 'LF10 Gleisanlagen neu bauen',
@@ -24,13 +25,26 @@ export const MODUL_LABELS: Record<string, string> = {
   'zusatz:schotterbett': 'Schotterbedarfsrechner',
   'zusatz:volumen': 'Volumen berechnen',
   'zusatz:prozentrechnung': 'Prozentrechnung',
+  'zusatz:trassenplan': 'Trassenplan (Rechnen & Zuordnen)',
   'zusatz:nivellieren': 'Nivellieren im Gleisbau',
   'zusatz:gesamtquiz': 'Gesamtquiz alle Module',
   'zusatz:nivellierlatte': 'Nivellierlatte ablesen',
   'zusatz:baumaschinen': 'Baumaschinen erkennen',
   'zusatz:pruefungssimulation': 'Prüfungssimulation',
+  'zusatz:schienenmesser': 'Schienenkopf-Verschleissmesser',
+  'zusatz:schienenraten': 'Schienen erkennen',
+  'zusatz:quizduell': 'Quiz-Duell',
+  'zusatz:tycoon': 'Gleisbau Tycoon (Fachfragen)',
+  'formelsammlung:finder': 'Formelsammlung: Formelquiz',
+  'formelsammlung:gemischt': 'Formelsammlung: Gemischte Prüfung',
 };
 
 export function modulLabel(key: string): string {
-  return MODUL_LABELS[key] ?? key;
+  if (MODUL_LABELS[key]) return MODUL_LABELS[key];
+  // Formelsammlungs-Themen: Titel von der Startseiten-Kachel „formelsammlung-<id>“
+  if (key.startsWith('formelsammlung:')) {
+    const kachel = BERUFSSCHULE_TILES.find(t => t.id === 'formelsammlung-' + key.slice(15));
+    if (kachel) return 'Formelsammlung: ' + kachel.title;
+  }
+  return key;
 }

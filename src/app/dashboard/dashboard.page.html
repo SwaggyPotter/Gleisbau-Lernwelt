@@ -17,9 +17,9 @@
         <ion-icon name="person-circle-outline"></ion-icon> {{ u.fullName }}
       </a>
       <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/schluessel" routerLinkActive="active">Schlüssel</a>
+      <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/aktivitaet" routerLinkActive="active">Aktivität</a>
       <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/fragen" routerLinkActive="active">Fragen</a>
       <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/bilder" routerLinkActive="active">Bilder</a>
-      <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/benennen" routerLinkActive="active">Benennen</a>
       <a *ngIf="user$ | async" (click)="abmelden()" class="konto-link logout-link">
         <ion-icon name="log-out-outline"></ion-icon> Abmelden
       </a>
@@ -39,7 +39,7 @@
  <div class="dash-shell home">
   <input class="home-suche" type="search" placeholder="App suchen" [value]="suche" (input)="suche = $any($event.target).value" />
   <p class="info-zeile">
-    <span class="haken-mini">✓</span> = fachlich geprüft · <span class="kreuz-mini">✕</span> = noch nicht geprüft, Fehler möglich – gerne melden.
+    <span class="haken-mini">✓</span> = fachlich geprüft · <span class="kreuz-mini">✕</span> = noch nicht geprüft, Fehler möglich – gerne melden · <span class="test-mini">?</span> = Testphase: nach jeder Aufgabe kurz bestätigen oder Problem melden.
     <ng-container *ngIf="gast"><br />Als Gast kannst du nur die farbigen Apps nutzen, die grauen sind gesperrt.</ng-container>
   </p>
 
@@ -58,8 +58,10 @@
                 <ion-icon [name]="t.icon"></ion-icon>
                 <span class="haken" *ngIf="e.status === 'geprueft'" title="Fachlich geprüft">✓</span>
                 <span class="kreuz" *ngIf="e.status === 'ungeprueft'" title="Noch nicht geprüft">✕</span>
+                <span class="test" *ngIf="e.status === 'testphase'" title="Testphase – hilf beim Prüfen mit">?</span>
               </span>
               <span class="label">{{ t.title }}</span>
+              <span class="sterne" *ngIf="sterneById[t.id] as st" [title]="st.titel" [attr.aria-label]="st.anzahl + ' von 5 Sternen, ' + st.titel"><span *ngFor="let i of sternPlaetze" [class.an]="i < st.anzahl">★</span></span>
               <span class="admin-sicht" *ngIf="istAdmin && e.sichtbarkeit !== 'azubis'">{{ e.sichtbarkeit === 'gaeste' ? 'auch Gäste' : 'versteckt' }}</span>
             </a>
           </ng-template>
@@ -71,6 +73,7 @@
             <p class="am-label">Status</p>
             <button type="button" [class.aktiv]="e.status === 'geprueft'" (click)="setzeEinstellung(t, { status: 'geprueft' }, $event)"><span class="haken-mini">✓</span> Geprüft</button>
             <button type="button" [class.aktiv]="e.status === 'ungeprueft'" (click)="setzeEinstellung(t, { status: 'ungeprueft' }, $event)"><span class="kreuz-mini">✕</span> Ungeprüft</button>
+            <button type="button" [class.aktiv]="e.status === 'testphase'" (click)="setzeEinstellung(t, { status: 'testphase' }, $event)"><span class="test-mini">?</span> Testphase (Azubis prüfen mit)</button>
             <p class="am-label">Sichtbarkeit</p>
             <button type="button" [class.aktiv]="e.sichtbarkeit === 'gaeste'" (click)="setzeEinstellung(t, { sichtbarkeit: 'gaeste' }, $event)">Für alle inkl. Gäste</button>
             <button type="button" [class.aktiv]="e.sichtbarkeit === 'azubis'" (click)="setzeEinstellung(t, { sichtbarkeit: 'azubis' }, $event)">Nur Azubis (Gäste gesperrt)</button>

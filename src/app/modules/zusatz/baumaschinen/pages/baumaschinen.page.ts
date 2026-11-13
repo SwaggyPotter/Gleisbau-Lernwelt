@@ -14,10 +14,17 @@ export class BaumaschinenPage {
 
   runde!: Runde;
   progress!: BaumaschinenProgress;
+  /** Bild der aktuellen Runde fertig geladen bzw. fehlgeschlagen */
+  bildGeladen = false;
+  bildFehler = false;
+  /** Zähler, damit Angular das <img> je Runde neu erzeugt (kein altes Bild stehen lassen) */
+  rundenNr = 0;
 
   constructor(private readonly data: BaumaschinenDataService) {
     this.progress = this.data.loadProgress();
     this.neueRunde();
+    // Alle Bilder vorladen, damit „Nächstes Bild“ sofort erscheint
+    for (const m of this.maschinen) { const img = new Image(); img.src = m.bildUrl; }
   }
 
   get quote(): number {
@@ -25,10 +32,19 @@ export class BaumaschinenPage {
   }
 
   neueRunde(): void {
-    const maschine = this.maschinen[Math.floor(Math.random() * this.maschinen.length)];
+    // Nie dieselbe Maschine zweimal hintereinander – sonst wirkt es, als hänge das Bild
+    const letzte = this.runde?.maschine.id;
+    const auswahl = this.maschinen.filter(m => m.id !== letzte);
+    const maschine = auswahl[Math.floor(Math.random() * auswahl.length)];
     const optionen = this.mische([maschine, ...this.waehleDistraktoren(maschine)]);
     this.runde = { maschine, optionen, antwort: null };
+    this.bildGeladen = false;
+    this.bildFehler = false;
+    this.rundenNr++;
   }
+
+  bildOk(): void { this.bildGeladen = true; }
+  bildKaputt(): void { this.bildFehler = true; }
 
   waehleAntwort(option: Maschine): void {
     if (this.runde.antwort) return;

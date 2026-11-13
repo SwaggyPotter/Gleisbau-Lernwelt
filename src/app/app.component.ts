@@ -6,6 +6,7 @@ import { hasStoredSiteAuth, syncGateCookie } from './core/site-gate/site-gate.co
 import { SiteGateStateService } from './core/site-gate/site-gate-state.service';
 import { AuthService } from './core/auth/services/auth.service';
 import { PresenceService } from './core/presence/presence.service';
+import { AktivitaetService } from './core/aktivitaet/aktivitaet.service';
 import { firstValueFrom } from 'rxjs';
 import { NeueErrungenschaft } from './core/auth/services/profil-sync.service';
 import { ThemeService } from './core/theme/theme.service';
@@ -22,6 +23,11 @@ import { NavigationStart, Router } from '@angular/router';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Gleisbau Lernwelt';
   unlocked = hasStoredSiteAuth();
+
+  /** Auf den Quiz-Show-Seiten keine Chat-/Postfach-Knöpfe */
+  get quizshow(): boolean {
+    return this.router.url.startsWith('/zusatz/quizshow');
+  }
   publicMode = false;
 
   private publicModeSub?: Subscription;
@@ -37,6 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly siteGateState: SiteGateStateService,
     private readonly auth: AuthService,
     private readonly presence: PresenceService,
+    private readonly aktivitaet: AktivitaetService,
     private readonly swUpdate: SwUpdate,
     private readonly router: Router,
     private readonly meldungen: QuestionReportService,
@@ -46,7 +53,7 @@ export class AppComponent implements OnInit, OnDestroy {
     void syncGateCookie();
     // Meldungen, die offline oder vor dem Server-Umbau entstanden sind, nachschicken
     setTimeout(() => this.meldungen.ausstehendeSenden(), 3000);
-    if (hasStoredSiteAuth()) this.presence.start();
+    if (hasStoredSiteAuth()) { this.presence.start(); this.aktivitaet.start(); }
     // Gastzugang läuft ab, während die App offen ist: einmal pro Minute prüfen und dann sperren
     setInterval(() => { if (this.unlocked && !hasStoredSiteAuth()) location.reload(); }, 60 * 1000);
     void this.adminAutoLogin();

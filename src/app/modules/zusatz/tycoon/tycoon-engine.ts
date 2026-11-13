@@ -1,3 +1,4 @@
+import { ProfilSyncService } from '../../../core/auth/services/profil-sync.service';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Gleisbau Tycoon -- Spiel-Engine (Canvas). Portiert aus der Einzeldatei-Demo.
@@ -2803,6 +2804,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const quizAntwort = (i: number) => {
     const q = modal; if (q.antwort !== null || q.laden) return;
     q.antwort = i;
+    ProfilSyncService.lokalZaehlen('zusatz:tycoon', i === q.fragen[q.i].correctIndex);
     if (i === q.fragen[q.i].correctIndex) { q.ok++; spiele('erfolg'); } else spiele('fehler');
     renderModal();
   };
@@ -3442,6 +3444,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (isNaN(v)) return;
     const diffMm = Math.round(Math.abs(v - g.rounds[g.i].target) * 1000), good = diffMm <= READ_TOL_MM;
     if (good) g.ok++;
+    ProfilSyncService.lokalZaehlen('zusatz:tycoon', good);
     g.fb = { good, diffMm };
     renderModal();
   };

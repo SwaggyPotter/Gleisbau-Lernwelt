@@ -1,0 +1,73 @@
+// Schmierblatt (schmierblatt.ts) – Styles. Einbinden in eine Seite mit ViewEncapsulation.None:
+//   @import '../../../../shared/schmierblatt/schmierblatt';
+// Alle Farben aus den globalen --sp-*-Tokens des eingestellten Designs.
+
+.smb-root {
+  --ink: var(--sp-text);
+
+  .smb-werkzeuge { display: contents; }
+  .swatches { display: flex; gap: 6px; }
+  .swatch {
+    width: 34px; height: 34px; border-radius: 50%; border: 3px solid var(--sp-surface);
+    box-shadow: 0 0 0 1px var(--sp-border-strong); cursor: pointer; touch-action: manipulation; padding: 0;
+  }
+  .swatch.active { box-shadow: 0 0 0 3px var(--sp-accent); }
+  .tool.active, .tool-an { background: color-mix(in srgb, var(--sp-accent) 14%, var(--sp-surface)); border-color: var(--sp-accent); }
+  .sep { width: 1px; height: 28px; background: var(--sp-border); margin: 0 2px; }
+  label.chk { display: flex; gap: 6px; align-items: center; font-size: .9rem; color: var(--sp-text-muted); min-height: 38px; }
+  input[type=range] { width: 90px; accent-color: var(--sp-accent); }
+  input[type=checkbox] { accent-color: var(--sp-accent); }
+
+  .smb-flaeche {
+    position: relative; flex: 1; min-height: 0; border-radius: var(--sp-radius); border: 1px solid var(--sp-border-strong); overflow: hidden;
+    background-color: var(--sp-surface);
+    background-image:
+      linear-gradient(var(--sp-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--sp-border) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  // Ebenen: Raster → Karten → Aufgabe (fest oben) → Striche → Textnotizen
+  .welt { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-origin: 0 0; z-index: 0; }
+  .kartenlage { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .aufgabe-blatt {
+    position: absolute; top: 0; left: 0; right: 0; padding: 10px 14px 8px; z-index: 1;
+    pointer-events: none; user-select: none;
+    background: color-mix(in srgb, var(--sp-surface) 72%, transparent);
+    border-bottom: 1px dashed var(--sp-border-strong);
+    font-size: .98rem; line-height: 1.42;
+    p { margin: .2rem 0; }
+  }
+  canvas.smb-canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; z-index: 2; }
+
+  .karte {
+    position: absolute; width: 420px; max-width: calc(100% - 24px); background: var(--sp-surface); border: 1px solid var(--sp-border-strong);
+    border-radius: var(--sp-radius); box-shadow: 0 6px 20px rgba(0,0,0,.25); font-size: .95rem; color: var(--sp-text);
+    &.zieht { box-shadow: 0 14px 34px rgba(0,0,0,.4); }
+    .karte-kopf {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+      padding: 8px 10px; background: color-mix(in srgb, var(--sp-accent) 14%, var(--sp-surface)); border-bottom: 1px solid var(--sp-border);
+      border-radius: var(--sp-radius) var(--sp-radius) 0 0; font-family: var(--font-display); font-weight: 700; font-size: .95rem;
+    }
+    .karte-griff { cursor: grab; }
+    .karte-x { padding: 0 6px; color: var(--sp-text-muted); cursor: pointer; font-size: 1.05rem; }
+    .karte-inhalt { padding: 8px 12px 10px; line-height: 1.5; }
+  }
+
+  .textlage { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-origin: 0 0; z-index: 3; pointer-events: none; }
+  .notiz {
+    position: absolute; margin: 0; padding: 2px 4px; border: 1px dashed transparent; border-radius: 4px;
+    background: transparent; resize: none; overflow: hidden; white-space: pre; outline: none;
+    font-family: var(--font-mono); font-size: 18px; line-height: 1.35; font-weight: 600;
+    pointer-events: none; caret-color: var(--sp-accent);
+  }
+  .notiz:focus { border-color: var(--sp-accent); background: color-mix(in srgb, var(--sp-surface) 70%, transparent); }
+  .smb-flaeche.textmodus canvas { cursor: text; }
+  .smb-flaeche.textmodus .notiz { pointer-events: auto; }
+  .smb-flaeche.textmodus .notiz:hover { border-color: var(--sp-border); }
+}
+
+// Vollbild: das Element nimmt den ganzen Bildschirm ein, die App-Kopfleiste verschwindet
+.smb-vollbild {
+  position: fixed !important; inset: 0; z-index: 40; padding: 10px; background: var(--sp-bg); overflow: hidden;
+}
+.smb-vollbild-seite ion-header { display: none; }

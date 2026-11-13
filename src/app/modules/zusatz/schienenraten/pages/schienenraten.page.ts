@@ -1,3 +1,4 @@
+import { ProfilSyncService } from '../../../../core/auth/services/profil-sync.service';
 import { Component } from '@angular/core';
 import {
   KATEGORIEN,
@@ -6,9 +7,11 @@ import {
   PROFILE,
   SchienenProfil,
   schienenPfad,
-  schienenViewBox,
-  KATEGORIE_MUSTERMASSE,
-  FORMEN_VIEWBOX,
+  schienenBemassung,
+  Bemassung,
+  mm,
+  KATEGORIE_BEISPIEL,
+  FORMEN_FLAECHE,
 } from '../../../../shared/schienenprofile';
 
 type Modus = 'formen' | 'profil' | 'werte';
@@ -16,6 +19,7 @@ type Modus = 'formen' | 'profil' | 'werte';
 interface FormenKarte {
   kategorie: KategorieInfo;
   pfad: string;
+  bem: Bemassung;
   antwort: KategorieInfo | null;
 }
 
@@ -28,7 +32,7 @@ interface FormenRunde {
 interface ProfilRunde {
   profil: SchienenProfil;
   pfad: string;
-  viewBox: string;
+  bem: Bemassung;
   optionen: SchienenProfil[];
 }
 
@@ -63,7 +67,6 @@ export class SchienenratenPage {
     werte: { richtig: 0, versuche: 0 },
   };
 
-  readonly formenViewBox = FORMEN_VIEWBOX;
   formenRunde!: FormenRunde;
 
   profilRunde!: ProfilRunde;
@@ -71,7 +74,7 @@ export class SchienenratenPage {
 
   werteProfil!: SchienenProfil;
   wertePfad = '';
-  werteViewBox = '';
+  werteBem!: Bemassung;
   werteEingabe: WerteEingabe = { hoehe: null, fussbreite: null, kopfbreite: null, steg: null };
   werteAusgewertet = false;
   werteErgebnis: WerteErgebnis = { hoehe: false, fussbreite: false, kopfbreite: false, steg: false };
@@ -92,10 +95,11 @@ export class SchienenratenPage {
     const reihenfolge = this.mische(this.kategorien);
     this.formenRunde = {
       karten: reihenfolge.map((kategorie) => {
-        const masse = KATEGORIE_MUSTERMASSE[kategorie.id];
+        const p = PROFILE.find((x) => x.id === KATEGORIE_BEISPIEL[kategorie.id])!;
         return {
           kategorie,
-          pfad: schienenPfad(kategorie.id, masse.hoehe, masse.fussbreite, masse.kopfbreite, masse.steg),
+          pfad: schienenPfad(kategorie.id, p.hoeheMm, p.fussbreiteMm, p.kopfbreiteMm, p.stegstaerkeMm),
+          bem: schienenBemassung(kategorie.id, p.hoeheMm, p.fussbreiteMm, p.kopfbreiteMm, { hoehe: mm(p.hoeheMm), fest: FORMEN_FLAECHE, schrift: 1.5 }),
           antwort: null,
         };
       }),
@@ -117,6 +121,7 @@ export class SchienenratenPage {
     karte.antwort = option;
     this.punkte.formen.versuche++;
     if (option.id === karte.kategorie.id) this.punkte.formen.richtig++;
+    ProfilSyncService.lokalZaehlen('zusatz:schienenraten', option.id === karte.kategorie.id);
     this.formenRunde.ausgewaehlteKarte = null;
   }
 
@@ -132,7 +137,8 @@ export class SchienenratenPage {
     this.profilRunde = {
       profil,
       pfad: schienenPfad(profil.kategorie, profil.hoeheMm, profil.fussbreiteMm, profil.kopfbreiteMm, profil.stegstaerkeMm),
-      viewBox: schienenViewBox(profil.hoeheMm, profil.fussbreiteMm, profil.kopfbreiteMm),
+      bem: schienenBemassung(profil.kategorie, profil.hoeheMm, profil.fussbreiteMm, profil.kopfbreiteMm,
+        { hoehe: mm(profil.hoeheMm), kopf: mm(profil.kopfbreiteMm), fuss: mm(profil.fussbreiteMm) }),
       optionen,
     };
     this.profilAntwort = null;
@@ -143,6 +149,7 @@ export class SchienenratenPage {
     this.profilAntwort = option;
     this.punkte.profil.versuche++;
     if (option.id === this.profilRunde.profil.id) this.punkte.profil.richtig++;
+    ProfilSyncService.lokalZaehlen('zusatz:schienenraten', option.id === this.profilRunde.profil.id);
   }
 
   profilLabel(p: SchienenProfil): string {
@@ -166,7 +173,7 @@ export class SchienenratenPage {
     this.werteProfil = PROFILE[Math.floor(Math.random() * PROFILE.length)];
     const p = this.werteProfil;
     this.wertePfad = schienenPfad(p.kategorie, p.hoeheMm, p.fussbreiteMm, p.kopfbreiteMm, p.stegstaerkeMm);
-    this.werteViewBox = schienenViewBox(p.hoeheMm, p.fussbreiteMm, p.kopfbreiteMm);
+    this.werteBem = schienenBemassung(p.kategorie, p.hoeheMm, p.fussbreiteMm, p.kopfbreiteMm, { hoehe: 'H = ?', kopf: 'Kopf = ?', fuss: 'Fuß = ?' });
     this.werteEingabe = { hoehe: null, fussbreite: null, kopfbreite: null, steg: null };
     this.werteAusgewertet = false;
   }
@@ -186,8 +193,11 @@ export class SchienenratenPage {
       steg: passt(this.werteEingabe.steg, p.stegstaerkeMm),
     };
     this.werteAusgewertet = true;
+    this.werteBem = schienenBemassung(p.kategorie, p.hoeheMm, p.fussbreiteMm, p.kopfbreiteMm,
+      { hoehe: mm(p.hoeheMm), kopf: mm(p.kopfbreiteMm), fuss: mm(p.fussbreiteMm) });
     this.punkte.werte.versuche++;
     if (this.werteAlleRichtig) this.punkte.werte.richtig++;
+    ProfilSyncService.lokalZaehlen('zusatz:schienenraten', this.werteAlleRichtig);
   }
 
   get werteAlleRichtig(): boolean {

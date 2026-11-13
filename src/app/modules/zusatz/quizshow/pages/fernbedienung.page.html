@@ -1,0 +1,119 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>Fernbedienung</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/zusatz/quizshow/editor" fill="clear">
+        <ion-icon slot="start" name="create-outline"></ion-icon>
+        <span class="toolbar-action-label">Fragen bearbeiten</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="qs-seite">
+  <div class="fb">
+    <!-- Verbinden -->
+    <section class="fb-verbinden" *ngIf="!stand">
+      <h2>Mit der Bühne verbinden</h2>
+      <p>Am Laptop <b>/zusatz/quizshow</b> öffnen. Unten rechts steht ein 4-stelliger Code.</p>
+      <div class="fb-code-zeile">
+        <input type="text" inputmode="numeric" maxlength="4" [(ngModel)]="code" (keydown.enter)="verbinden()" placeholder="Code" aria-label="Code der Bühne" />
+        <button type="button" class="fb-knopf haupt" (click)="verbinden()">Verbinden</button>
+      </div>
+      <p class="fb-fehler" *ngIf="fehler">{{ fehler }}</p>
+    </section>
+
+    <ng-container *ngIf="stand as s">
+      <!-- Status -->
+      <section class="fb-status">
+        <div>
+          <span class="fb-pille">Code {{ s.code }}</span>
+          <span class="fb-pille" [class.final]="s.runde === 'final'">{{ s.runde === 'final' ? 'Zusatzrunde' : 'Hauptrunde' }}</span>
+          <span class="fb-pille" *ngIf="s.phase === 'frage'">Frage {{ s.index + 1 }}/{{ s.anzahl }}</span>
+          <span class="fb-pille leise">{{ schrittText }}</span>
+        </div>
+        <select [ngModel]="s.quizId" (ngModelChange)="quizWaehlen($event)" aria-label="Quiz wählen">
+          <option *ngFor="let q of quizze" [ngValue]="q.id">{{ q.titel }} ({{ q.anzahl }})</option>
+        </select>
+      </section>
+      <p class="fb-fehler" *ngIf="fehler">{{ fehler }}</p>
+
+      <!-- Hauptknöpfe -->
+      <section class="fb-haupt">
+        <button type="button" class="fb-zurueck" (click)="senden('zurueck')" [disabled]="sendet">◀<small>Zurück</small></button>
+        <button type="button" class="fb-weiter" (click)="senden('weiter')" [disabled]="sendet || s.phase === 'ende'">
+          {{ weiterText }} ▶
+        </button>
+      </section>
+
+      <!-- Aktuelle Frage mit Lösung (nur hier sichtbar) -->
+      <section class="fb-karte" *ngIf="frage as fr">
+        <div class="fb-frage-kopf">
+          <img *ngIf="fr.bild" [src]="bild(fr.bild)" alt="" />
+          <p class="fb-frage">{{ fr.text }}</p>
+        </div>
+        <ol class="fb-antworten">
+          <li *ngFor="let a of fr.antworten; let i = index" [class.richtig]="i === fr.richtig" [class.gezeigt]="s.schritt >= 2 + i">
+            <b>{{ buchstaben[i] }}</b> {{ a }} <span *ngIf="i === fr.richtig">✓</span>
+          </li>
+        </ol>
+        <p class="fb-notiz" *ngIf="fr.notiz">📝 {{ fr.notiz }}</p>
+      </section>
+
+      <!-- Timer + Hintergrund -->
+      <section class="fb-timer">
+        <button type="button" class="fb-knopf timer" (click)="senden('timer', { sekunden: 5 })" [disabled]="sendet">⏱ 5 s</button>
+        <button type="button" class="fb-knopf timer" (click)="senden('timer', { sekunden: 10 })" [disabled]="sendet">⏱ 10 s</button>
+        <button type="button" class="fb-knopf klein leise" *ngIf="s.timer" (click)="senden('timer', { sekunden: 0 })">Timer stopp</button>
+        <button type="button" class="fb-knopf klein" (click)="senden('hintergrund')">{{ s.hintergrund ? '🎵 Hintergrund an' : '🎵 Hintergrund aus' }}</button>
+      </section>
+
+      <!-- Gruppen und Punkte -->
+      <section class="fb-gruppen">
+        <div class="fb-gruppen-kopf">
+          <h3>Punkte</h3>
+          <button type="button" class="fb-knopf klein" (click)="senden('punkteAnzeige')">{{ s.punkteSichtbar ? '📊 auf Bühne: an' : '📊 auf Bühne: aus' }}</button>
+          <button type="button" class="fb-knopf klein" (click)="namenOffen ? (namenOffen = false) : namenBearbeiten()">✎ Namen</button>
+          <button type="button" class="fb-knopf klein leise" (click)="punkteNull()">↺ 0</button>
+        </div>
+
+        <div class="fb-namen" *ngIf="namenOffen">
+          <input *ngFor="let n of namen; let i = index; trackBy: trackIndex" type="text" maxlength="40" [(ngModel)]="namen[i]" [placeholder]="'Gruppe ' + (i + 1)" />
+          <div class="fb-namen-knoepfe">
+            <button type="button" class="fb-knopf klein" (click)="gruppeWeg()" [disabled]="namen.length <= 1">− Gruppe</button>
+            <button type="button" class="fb-knopf klein" (click)="gruppeDazu()" [disabled]="namen.length >= 8">+ Gruppe</button>
+            <button type="button" class="fb-knopf klein haupt" (click)="namenSpeichern()">Übernehmen</button>
+          </div>
+        </div>
+
+        <div class="fb-gruppe" *ngFor="let g of s.gruppen; let i = index">
+          <span class="fb-gruppe-name">{{ g.name }}</span>
+          <button type="button" class="fb-minus" (click)="senden('punkt', { gruppe: i, delta: -1 })" [disabled]="sendet || !g.punkte" aria-label="Punkt abziehen">−</button>
+          <b class="fb-gruppe-punkte">{{ g.punkte }}</b>
+          <button type="button" class="fb-plus" (click)="senden('punkt', { gruppe: i, delta: 1 })" [disabled]="sendet" [attr.aria-label]="'Punkt für ' + g.name">+1</button>
+        </div>
+      </section>
+
+      <!-- Weitere Steuerung -->
+      <section class="fb-extra">
+        <button type="button" class="fb-knopf final" *ngIf="s.runde === 'haupt'" (click)="senden('runde', { runde: 'final' })" [disabled]="!s.finalAnzahl">
+          🏁 Zusatzfragen{{ s.finalAnzahl ? '' : ' – keine angelegt' }}
+        </button>
+        <button type="button" class="fb-knopf" *ngIf="s.runde === 'final'" (click)="senden('runde', { runde: 'haupt' })">↩ Zurück zur Hauptrunde</button>
+        <button type="button" class="fb-knopf" (click)="senden('ton')">{{ s.ton ? '🔊 Ton an' : '🔇 Ton aus' }}</button>
+        <button type="button" class="fb-knopf" (click)="zeigeListe = !zeigeListe">☰ Frage wählen</button>
+        <button type="button" class="fb-knopf sieger" (click)="siegerZeigen()">🏆 Gewinner anzeigen</button>
+        <button type="button" class="fb-knopf" (click)="senden('neustart')">⟲ Startbild</button>
+        <button type="button" class="fb-knopf leise" (click)="trennen()">Andere Bühne</button>
+      </section>
+
+      <section class="fb-liste" *ngIf="zeigeListe">
+        <button type="button" *ngFor="let f of s.liste; let i = index" [class.aktiv]="s.phase === 'frage' && i === s.index"
+                (click)="senden('springen', { index: i }); zeigeListe = false">
+          <b>{{ i + 1 }}</b> {{ f.text }} <small>→ {{ buchstaben[f.richtig] }}</small>
+        </button>
+      </section>
+    </ng-container>
+  </div>
+</ion-content>

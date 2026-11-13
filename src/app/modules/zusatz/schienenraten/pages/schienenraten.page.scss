@@ -399,3 +399,12 @@ ion-button {
     max-width: 80ch;
   }
 }
+
+/* Querschnitt-Zeichnung mit Bemassung */
+.sz-profil { fill: #2a3a47; stroke: #eaf2f5; stroke-width: 1.6px; stroke-linejoin: round; }
+.sz-hilfs { fill: none; stroke: #8fa3b0; stroke-width: 0.8px; opacity: .7; }
+.sz-mass { fill: none; stroke: #b9c9d3; stroke-width: 1.1px; }
+.sz-hoehe { stroke: #ffc94d; }
+.sz-pfeil { fill: #b9c9d3; }
+.sz-text { fill: #eaf2f5; font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 600; dominant-baseline: auto; }
+.sz-text-hoehe { fill: #ffc94d; font-weight: 800; }

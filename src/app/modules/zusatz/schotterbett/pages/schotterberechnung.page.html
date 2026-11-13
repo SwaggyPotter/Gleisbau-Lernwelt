@@ -23,6 +23,8 @@
           <button class="btn small" id="nurWerte" type="button" aria-pressed="false">Nur Werte</button>
           <button class="btn small" id="hint" type="button">Regelwerte</button>
           <button class="btn small" id="melden" type="button" title="Fehler in dieser Aufgabe melden">⚑ Melden</button>
+          <button class="btn small idee-knopf" id="ideeMustafa" type="button" aria-pressed="false"
+                  title="Rechnen mit Einheiten, m² beim Tippen, Schriftfarbe, Teilung selbst ermitteln (Schwer/Experte)">💡 Mustafas Rechner-Idee</button>
           <span class="sep"></span>
           <button class="btn small tool active" data-tool="pen" title="Stift" type="button">✏️ Stift</button>
           <button class="btn small tool" data-tool="eraser" title="Radierer" type="button">🧽 Radierer</button>
@@ -38,6 +40,12 @@
           <button class="btn small" id="zoomReset" type="button" title="Zoom zurücksetzen">🔍 <span id="zoomWert">100 %</span></button>
           <button class="btn small" id="vollbild" type="button">Vollbild</button>
           <label class="chk"><input type="checkbox" id="penOnly"> Nur Stift</label>
+        </div>
+        <div class="idee-leiste" id="ideeLeiste" hidden>
+          <span><b>💡 Mustafas Rechner-Idee ist an:</b> im Text-Werkzeug mit Einheiten rechnen (<code>1t + 2t =</code> → 3t,
+            <code>3t/m³ × 1,5m³ =</code> → 4,5t), <code>m2</code> wird zu m², Farbe wählen färbt den Text, bei Schwer/Experte
+            die Schwellenteilung aus dem Aufmaß selbst ausrechnen.</span>
+          <button class="btn small primary" id="ideeRueckmeldung" type="button">Passt das so? Rückmeldung geben</button>
         </div>
         <div class="canvaswrap" id="canvasWrap">
           <div class="welt" id="welt"></div>
@@ -82,6 +90,7 @@
             <option>Tabellenwert passt nicht</option>
             <option>Rechtschreibung / Darstellung</option>
             <option>Sonstiges</option>
+            <option>Rückmeldung zu Mustafas Rechner-Idee</option>
           </select>
         </label>
         <label>Kommentar (freiwillig)

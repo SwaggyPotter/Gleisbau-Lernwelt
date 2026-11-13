@@ -6,6 +6,7 @@ import { pool } from './db/pool';
 import { purgeDueDeletedUsers } from './user-deletion';
 import { starteTycoonBots } from './tycoon-bots';
 import { seedAchievements } from './achievements';
+import { quizshowTabellen } from './routes/quizshow';
 
 const app = createServer();
 
@@ -69,6 +70,50 @@ const runStartupMigrations = async () => {
       geaendert_von uuid REFERENCES users(id) ON DELETE SET NULL,
       PRIMARY KEY (topic_id, question_id)
     )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS glossar_freigaben (
+      begriff_id text PRIMARY KEY,
+      pruefsumme text NOT NULL,
+      geprueft_am timestamptz NOT NULL DEFAULT now(),
+      geprueft_von uuid REFERENCES users(id) ON DELETE SET NULL
+    )`);
+    // Postfach (2026-11-10): persönliche Nachrichten, z. B. vom Admin an ein (Gast-)Konto
+    await pool.query(`CREATE TABLE IF NOT EXISTS nachrichten (
+      id serial PRIMARY KEY,
+      empfaenger_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      absender_id uuid REFERENCES users(id) ON DELETE SET NULL,
+      betreff text NOT NULL,
+      text text NOT NULL,
+      link text,
+      link_text text,
+      erstellt_am timestamptz NOT NULL DEFAULT now(),
+      gelesen_am timestamptz
+    )`);
+    await pool.query('CREATE INDEX IF NOT EXISTS nachrichten_empfaenger_idx ON nachrichten (empfaenger_id, erstellt_am DESC)');
+    // Aktivität (2026-11-11): zuletzt aktiv, aktive Tage, geöffnete Apps – je Konto bzw. anonymem Gerät
+    await pool.query(`CREATE TABLE IF NOT EXISTS aktivitaet (
+      schluessel text PRIMARY KEY,
+      user_id uuid REFERENCES users(id) ON DELETE CASCADE,
+      client_id text,
+      erste timestamptz NOT NULL DEFAULT now(),
+      zuletzt timestamptz NOT NULL DEFAULT now(),
+      letzte_seite text
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS aktivitaet_tage (
+      schluessel text NOT NULL REFERENCES aktivitaet(schluessel) ON DELETE CASCADE,
+      tag date NOT NULL,
+      aktionen int NOT NULL DEFAULT 0,
+      seiten int NOT NULL DEFAULT 0,
+      PRIMARY KEY (schluessel, tag)
+    )`);
+    await pool.query(`CREATE TABLE IF NOT EXISTS aktivitaet_apps (
+      schluessel text NOT NULL REFERENCES aktivitaet(schluessel) ON DELETE CASCADE,
+      app text NOT NULL,
+      anzahl int NOT NULL DEFAULT 0,
+      zuletzt timestamptz NOT NULL DEFAULT now(),
+      PRIMARY KEY (schluessel, app)
+    )`);
+    // Quiz-Show für Vorträge (2026-11-11)
+    await quizshowTabellen();
 
     const adminPasswordHash = await bcrypt.hash(config.adminPassword, 10);
     await pool.query(

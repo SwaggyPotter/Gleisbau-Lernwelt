@@ -5,9 +5,10 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { MATERIALRECHNER_ROUTES } from './materialrechner.routes';
 import { MaterialrechnerPage } from './pages/materialrechner.page';
+import { BaustelleComponent } from './pages/baustelle.component';
 
 @NgModule({
-  declarations: [MaterialrechnerPage],
+  declarations: [MaterialrechnerPage, BaustelleComponent],
   imports: [
     CommonModule,
     FormsModule,

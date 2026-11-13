@@ -2,5 +2,7 @@
 <ion-app *ngIf="unlocked || publicMode">
   <ion-router-outlet></ion-router-outlet>
 </ion-app>
-<app-chat-widget *ngIf="unlocked"></app-chat-widget>
+<!-- Quiz-Show: keine schwebenden Knöpfe (Beamer-Bild, Editor-Speichern) -->
+<app-chat-widget *ngIf="unlocked && !quizshow"></app-chat-widget>
+<app-postfach-widget *ngIf="unlocked && !quizshow"></app-postfach-widget>
 <app-melde-flagge *ngIf="unlocked || publicMode"></app-melde-flagge>

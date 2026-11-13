@@ -4,6 +4,229 @@ autor: Claude
 ---
 
 
+### 2026-11-12 (50) — Formelfinder → „Formelquiz“ zum Blättern; Admin „Benennen“ entfernt (deployt 2026-11-12)
+- Formelquiz (`/berufsschule/formelsammlung/formelquiz`, alter Pfad `formelfinder` leitet um; Kachel-ID `formelsammlung-formelfinder` bleibt wegen Status/Sternen): oben die Textaufgabe, darunter die Formelsammlung zum Blättern – 17 Seiten in fester Reihenfolge (Nr. der App), jede gleich aufgebaut: Skizze(n) wie im Erklären-Modus, dann alle Formeln mit Variablen + Einheiten. Formel antippen = Antwort. Gleichwertige Formeln (z. B. hf-sehne/hf-halbsehne) zählen als richtig. Blättern per ◀/▶, Wischen oder Inhaltsverzeichnis; Seite wird gemerkt (wie ein offenes Buch). Nach falscher Antwort: „Zur richtigen Seite blättern“. Thema wird erst nach der Antwort verraten.
+- Admin-Leiste: „Benennen“ raus (doppelt zu „Bilder“), `/konto/benennen` leitet auf `/konto/bilder`.
+
+### Gleisbau-Guru (Tims Vorgabe 2026-11-12, Plan)
+- Läuft auf dem michiserver (schwach → erst regelbasiert, KI später), liest NUR Website-Daten (Meldungen, Forum/Chat-Texte, Aktivität, Fehler), ändert nichts an der Website.
+- Eigenes „Gehirn“ aus Markdown-Dateien, die er selbst anlegen/ändern/löschen darf – sonst nichts.
+- Weiß er nicht weiter → legt er eine Notiz für Claude ab. Wöchentlich: Claude + Tim prüfen, was er gesammelt hat, und korrigieren.
+- Tägliche Zusammenfassung im Admin-Bereich (später optional E-Mail).
+
+### 2026-11-12 (49) — Formel-Prüfbot + 3 Korrekturen in der Formelsammlung (deployt 2026-11-12)
+- Neu: `tools/formelsammlung-tests/pruefbot.ts` (+ `.cjs`), Start: `node tools/formelsammlung-tests/pruefbot.cjs bericht.md` (PRUEF_N = Aufgaben je App/Modus/Stufe, Standard 150).
+- Rechnet die ANGEZEIGTEN Lösungswege nach (jede „= … =“-Kette, Einheiten umgerechnet mm/cm/m/km, N/kN, %/‰ …), prüft Endergebnis = Lösung, Einheit vorhanden + gleich der gesuchten, gegebene Werte mit Einheit; dazu alle Rechner (Startwerte + 40 realistische Eingaben) und alle Variablen der Formeldaten.
+- Gefunden + behoben: Temperatur-Rechner sprang von σ·A direkt zu kN ohne Einheiten (jetzt „σ · A = … N/mm² · … mm² = … N = … kN“); Ausrundung Kette zeigte y gerundet auf ganze mm (13 mm), Lösung aber 12,5 mm (jetzt gleiche Nachkommastellen); Ausrundung Einheiten-Falle: Mindestwert 2000 m jetzt auch als Rechnung im Lösungsweg.
+- Endstand: 47.180 Aufgaben, 84.617 Rechenschritte, 0 Fundstellen; `npm run test:formeln` 60/60 grün.
+- „Fallhöhe“ gibt es nicht – vermutlich Pfeilhöhe (Spracherkennung); Pfeilhöhe ist sauber.
+
+### 2026-11-12 (48) — Sternstufen neu: 1 / 10 / 50 / 150 / 250 (deployt 2026-11-12)
+- Tim wollte 1/10/100/200/250; gleichmäßiger gestaffelt (kein Hängen bei 2 Sternen, 5. Stern nicht nur 50 nach dem 4.). `shared/sterne.ts` + Texte Startseite/Formelsammlung.
+
+### Offene Wünsche Tim 2026-11-12 (Reihenfolge laut Tim)
+1. Formel-Prüfbot: jede Formelsammlungs-App durchrechnen, Ergebnis + Einheiten prüfen, Screenshot je App.
+2. Tycoon: Störungen/Trupps/Wetter-Störungen raus; Geld 50 % passiv + 50 % tägliche Fragen mit Tageslimit; Antworten zählen in die Sterne der passenden App.
+3. Sprach-Meldungen (Mikrofon im Melde-Fenster) + Sammelstelle: tägliche Zusammenfassung im Admin, erst regelbasiert ohne KI, KI später.
+4. Prüfungsrelevanz-Abzeichen je App (★★★ Kernthema/★★/★), Admin änderbar, „kam bei mir dran“-Rückmeldung. Basis: IHK-PAL-Struktur (W26: Gleise + Weichen je 25 gebundene + 8 offene Aufgaben, WiSo; Hilfsmittel Formelsammlung/Tabellenbuch/Taschenrechner), Praxis S25: Holzschwelle aufplatten, Rippenplatten, Ausgleichslaschen, Brennschneiden, Stoß herstellen, Weicheninspektion, Schienenkopfverschleiß, Stoßlücke, Visiergerät. Echte Prüfungsaufgaben sind NICHT öffentlich.
+5. Bilder: alle automatisch gesetzten Bilder raus; Admin lädt eigene Fotos hoch (Handy) und beschreibt/kategorisiert per Spracheingabe.
+
+### 2026-11-12 (47) — Materialrechner: Modus „Baustelle“ (Gleiserneuerung) (deployt 2026-11-12)
+- Neuer Standardmodus „🏗 Baustelle“, alter Modus bleibt als „📐 Volumen & Gewicht“.
+- leicht: Länge, Oberbau und Schwellenzahl vorgegeben, Teile + Stück je Schwelle stehen da → Gesamtmenge je Teil ankreuzen.
+- mittel: Länge + Oberbau in Worten + Teilung; Schwellen selbst rechnen, aus 12 Kleineisen die richtigen anhaken + Menge (Folgefehler aus falscher Schwellenzahl wird nicht doppelt bestraft).
+- schwer: nur „km von – bis, Gleiserneuerung gegen Oberbauanordnung 60E2 – B90 – W 14 – 60 cm“ (oder „1.667 Schw./km“); Baulänge, Schwellen, Teile, Schiene (2 × L) eintragen.
+- Daten: `materialrechner/data/oberbau.ts` (B90/B70 mit W 14, Holz mit Ks und K). **Zu prüfen (Tim):** Ss 8 je Rippenplatte (4), Teilungen (Beton 60 / Holz 65 cm), Schienenzuordnung B70→54E4, Holz→49E1.
+
+### 2026-11-12 (46) — Schienen erkennen: neue Querschnittszeichnungen mit Bemaßung (deployt 2026-11-12)
+- `shared/schienenprofile.ts`: neue Zeichenfunktionen (gewölbte Fahrfläche, runde Kopfkanten, Laschenschrägen 1:4, ausgerundeter Steg, geneigter Fuß mit Fußrand; Rillenschiene asymmetrisch mit Fahrkopf/Rille/Leitlippe; Kran, Stromschiene, Spurrille neu).
+- `schienenBemassung()`: Höhe links (gelb hervorgehoben), Kopfbreite oben, Fußbreite unten mit Maßpfeilen.
+- Modus 1 zeigt je Form ein echtes Beispielprofil (S 14, UIC 60, A 75, Ri 60/10, Zu 1-60, Form S 49, STR 40) mit Höhe, gleicher Maßstab. Modus 2 alle Maße. Modus 3 „H = ?“, nach Prüfen echte Werte.
+- Fertige frei nutzbare Maßzeichnungen für ~50 Profile gibt es nicht (Norm EN 13674-1 kostenpflichtig) → selbst gezeichnet.
+
+### 2026-11-12 (45) — Quiz-Show: „Neue Show (neuer Code)“ auf der Bühne (deployt 2026-11-12)
+- Tim kam nicht aus Show 4619 raus: Bühne merkt sich den Code (localStorage `glw-quizshow-code`) und lädt immer dieselbe Sitzung.
+- Startbild der Bühne: Knopf „🆕 Neue Show (neuer Code statt XXXX)“ mit Rückfrage → Code vergessen, Klänge/Timer/Siegerehrung stoppen, frische Sitzung holen. Nur Frontend.
+- Tablet danach per „Andere Bühne“ auf den neuen Code umstellen.
+
+### 2026-11-12 (44) — Quiz-Show: „Gewinner anzeigen“ mit Drama, Punkte geheim (deployt 2026-11-12)
+- Backend: Aktion „sieger“ (phase=ende, siegerNr++), siegerNr in der Bühnensicht.
+- Bühne: Siegerehrung „Und gewonnen hat …“ – alle Balken gleich mit „?“, Licht läuft 4 Runden klackend über die Balken, wird langsamer, stoppt beim Gewinner → echte Punkte, Gewinner grün, Rest blass, Fanfare; Gleichstand wird genannt.
+- Während des Quiz keine Punktzahlen mehr auf dem Beamer: Balken klein/gleich, bei jeder Punktvergabe wackeln alle zufällig (~3 s), bei der nächsten Frage wieder klein.
+- Fernbedienung: grüner Knopf „🏆 Gewinner anzeigen“ (mit Rückfrage).
+
+### 2026-11-12 (43) — Quiz-Show: Hintergrund-Atmosphäre + Countdown 5/10 s (deployt 2026-11-12)
+- ton.ts: ambienteStart/Stopp (leiser Teppich + sanftes „Ding“ alle 1,5 s), countdownTick, zeitAus.
+- Bühne: Atmosphäre nur wenn kein Fragen-Sound läuft (Startbild, Zusatzrunde, nach der Auflösung ~3,5 s verzögert, Ende); stoppt bei Frage-Start und Countdown. Countdown-Kreis oben rechts, Restzeit vom Server (Uhrzeit egal).
+- Fernbedienung: „⏱ 5 s“, „⏱ 10 s“, „Timer stopp“, „🎵 Hintergrund an/aus“. Backend: Aktionen hintergrund/timer.
+
+### 2026-11-12 (42) — Quiz-Show: Gruppen + Punkte, „Zusatzrunde“, nur Code im Fuß (deployt 2026-11-12)
+- Backend quizshow.ts: Sitzung hat gruppen (Standard 4, 1–8, Namen frei) + punkteSichtbar; Aktionen gruppen/punkt/punkteAnzeige/punkteNull.
+- Bühne: kleines Säulendiagramm unten (führende Gruppe grün), am Ende große Siegerehrung; „Zusatzrunde“/„Zusatzfrage“ statt Finalrunde/Gleichstand; Fuß zeigt nur noch „Code 1234“.
+- Fernbedienung: Bereich „Punkte“ mit +1/−1 je Gruppe, Namen eintippen (+/− Gruppe), Diagramm an/aus, Punkte auf 0.
+
+### 2026-11-12 (41) — Quiz-Show: Moderationsnotizen + mitwachsende Notizfelder (deployt 2026-11-12)
+- Notizen zu den 6 Maschinen direkt in quizshow_quiz (id 1) geschrieben (auf Tims Wunsch; technische Daten aus Geismar-/Robel-Datenblättern, als Beispiele mit Modellnamen).
+- Editor: Notiz (und Fragetext) als mitwachsendes Textfeld (auto-hoehe.directive.ts) statt einzeiliger Eingabe.
+- Fernbedienung: Notiz größer, umbrechend, mit gelbem Rand.
+
+### 2026-11-11 (40) — Quiz-Show-Fixes: Editor hing, Chat-Blase, Links auf der Bühne (deployt 2026-11-11)
+- editor.page: Gruppen (Haupt/Zusatz) als feste Objekte statt Array-Literal mit Gettern im Template – vorher baute ngFor die Liste endlos neu auf → „Seite reagiert nicht“.
+- app.component: Chat- und Postfach-Knopf auf /zusatz/quizshow ausgeblendet (lagen über „Speichern“ und wären auf dem Beamer sichtbar).
+- Editor/Fernbedienung mit Theme-Hintergrund (Überschriften waren hell auf Weiß).
+- Bühne: Startbild mit Links „Fernbedienung“, „Fragen & Bilder bearbeiten“, „Startseite“.
+
+### 2026-11-11 (39) — Quiz-Show für Vorträge: Bühne + Fernbedienung + Editor (deployt 2026-11-11)
+- Neu: src/app/modules/zusatz/quizshow (Route /zusatz/quizshow = Bühne am Beamer, /fernbedienung und /editor nur Admin). Kachel „Quiz-Show für Vorträge“ (spiel-quizshow) in Spiele.
+- Backend routes/quizshow.ts: Tabellen quizshow_quiz (Fragen als jsonb) + quizshow_bild (JPEG bytea, zufällige ID), Start-Quiz „Kleingeräte im Gleisbau“ (10 Haupt- + 4 Zusatzfragen) wird beim ersten Start angelegt. Sitzungen (4-stelliger Code) nur im Speicher, 24 h. GET /sitzung/:code und /bilder/:id vom Rate-Limit ausgenommen (server.ts), Bild-Upload eigener 8-MB-Parser.
+- Ablauf je Frage: Nummer → Frage + Bild → A → B → C → D → Spannung → Auflösung (Licht läuft im Kreis, wird langsamer, richtige Antwort grün). Finalrunde mit Zusatzfragen per Knopf.
+- Klänge eigen per Web Audio (ton.ts): Eröffnung, Metronom-Ticken beim Vorlesen, Spannungswirbel, Klacken, Erfolgsakkord – bewusst keine Originalmusik aus TV-Shows.
+
+### 2026-11-11 (38) — Aufgabe aufs Blatt ziehen, Rechner-Spalte nur noch ausklappbar (deployt 2026-11-11)
+- schmierblatt.component.ts: neuer Knopf „📄 Aufgabe“ + Tab „Aufgabe“ in der Leiste – Aufgabe (Text, Werte, Frage) lässt sich wie Formeln antippen/ziehen (Karte .karte-aufgabe). Inputs aufgabeZiehbar, seiteKlappbar, seiteOffen(+Change).
+- Rechte Spalte (Rechner + Aufgabe + Statistik) nur noch per „🧮 ◀/▶“ ausklappbar, Standard zu, Wahl gemerkt (glw-formelsammlung-hilfsmittel v3). Liegt die Aufgabe auf dem Blatt, klappt die Spalte zu.
+- Neue Aufgabe bei eingeklappter Spalte → Aufgabe-Leiste öffnet sich automatisch zum Lesen/Rüberziehen.
+- Prüfung: Aufgabe ebenfalls ziehbar (Formeln dort weiter gesperrt).
+
+### 2026-11-11 (37) — Aufgaben nennen die gesuchte Form/Variante, „Alle Formel-Apps“ entfernt (deployt 2026-11-11)
+- app15-uebergangslaenge.ts: jede Aufgabe nennt die Form (Klothoide, linear verlaufend / Bloss, S-förmig / Schramm, S-förmig), auch in der Ergebnis-Leiste („gesucht: Mindestlänge Klothoide“).
+- app05-gleisverziehung.ts: jede Aufgabe sagt „ohne Zwischengerade“ bzw. „Mindestlänge Zwischengerade“. 5.2 „mit Zwischengerade“ hat weiter keine Aufgaben (Formel unklar).
+- app17-rampenvolumen.ts + formelsammlung.json: Fall steht in der Aufgabe (allgemein l1, l2, l3 verschieden vs. Variante l2 = l3), Formel-Titel umbenannt („Rampenvolumen allgemein …“ / „– Variante (l2 = l3)“), Beschreibung „Erdrampe, die an einer Wand senkrecht endet“.
+- mini-app.page.html + hub.page.html: Knopf „Alle Formel-Apps“ entfernt – zurück geht es über das Logo oben links.
+
+### 2026-11-11 (36) — Ergebnis-Leiste ohne Auto-Tastatur, Taschenrechner-Anzeige wächst mit (deployt 2026-11-11)
+- ueben.component.ts: beim Aufklappen „Ergebnis eintragen“ kein automatischer Fokus mehr (sonst sprang auf dem iPad sofort die Zahlen-Tastatur auf).
+- taschenrechner.component.ts: Anzeige ist jetzt eine mitwachsende Textarea (Umbruch, Höhe passt sich an, max. 40 % Bildschirmhöhe), Enter rechnet weiter.
+
+### 2026-11-11 (35) — Themen-Apps starten im Üben, gelbes „?“ sichtbar (deployt 2026-11-11)
+- mini-app.page.ts: START_MODUS = 'ueben' (Rechenfläche + Ergebnis-Leiste), Üben-Symbol zuerst; Erklären jetzt über ?modus=erklaeren.
+- Dashboard: Testphase-Abzeichen dunkler Kreis mit gelbem Rand + gelbem „?“ (vorher auf dem gelben Berufsschul-Ordner unsichtbar).
+
+### 2026-11-11 (34) — Ausdehnungsrechner: Rechenfläche links, kein fertiger Rechner mehr (deployt 2026-11-11)
+- Rechnen-Ansicht: links die Rechenfläche (breit), rechts Umschalter Längenänderung/Lückenschluss mit Skizze, Formel, Legende, Merkhilfe. Der Rechner mit Eingabefeldern und fertigem Ergebnis ist raus (Tim: man soll selbst rechnen). Quiz unverändert.
+
+### 2026-11-11 (33) — Status „Testphase“ (gelb): Azubis prüfen mit (deployt 2026-11-11)
+- Neuer App-Status `testphase` neben geprüft/ungeprüft (Backend-Enum in routes/apps.ts, AppPruefStatus). Startseite: gelbes „?“ an der Kachel, im Drei-Punkte-Menü „? Testphase (Azubis prüfen mit)“, Legende ergänzt. Formelsammlungs-Übersicht zeigt „?“.
+- In Testphase-Apps (Formelsammlung Üben/Umstellen/Einheiten + Quiz im Ausdehnungsrechner): nach jeder beantworteten Aufgabe im Ergebnis-Popup „✓ Alles richtig“ / „⚑ Problem melden“. Melden: Grund-Auswahl (z. B. „Meine Lösung ist richtig, die App sagt falsch“) + Kommentar; mitgeschickt werden Werte, Frage, Lösung der App, Eingabe, Bewertung, Formel → question_reports (question_id `testphase:<app>:<formel>`).
+- Gelber Hinweis oben in der App erklärt die Testphase. „Alles richtig“ wird nicht an den Server geschickt.
+
+### 2026-11-11 (32) — Aktivität: wer war wann und wie oft aktiv (deployt 2026-11-11)
+- Backend: routes/aktivitaet.ts, Tabellen aktivitaet / aktivitaet_tage / aktivitaet_apps (index.ts). POST /api/aktivitaet (optionalAuth: mit Token → Konto, sonst Geräte-ID), GET nur Admin. Keine IPs; Tageswerte > 180 Tage werden gelöscht.
+- Frontend: core/aktivitaet/aktivitaet.service.ts meldet jede geöffnete Seite/App + Bedienung (höchstens alle 3 Min). Admin-Seite /konto/aktivitaet (Link „Aktivität“ oben auf der Startseite): Status-Punkt (gerade aktiv/heute/7 Tage/älter), zuletzt aktiv, Aktionen heute, aktive Tage 7/30/gesamt, letzte App, Top-5-Apps; Filter Konten/Geräte, Suche.
+- SQL nicht vorab gegen die DB getestet (Auto-Mode hat den Rollback-Test blockiert) → beim Deploy prüfen.
+
+### 2026-11-11 (31) — Formelsammlung-Apps: Layout wie Schotterberechnung (deployt 2026-11-11)
+- Üben/Umstellen/Einheiten-Falle und Prüfung: großes Schmierblatt; „Neue Aufgabe ↻“ und Stufe (Auswahl) in der Werkzeugleiste; Ergebnis unten in aufklappbarer Leiste (klappt über dem Blatt auf, Eingabe fokussiert, Prüfen, Tipp/Formel/Lösungsweg, Neue Aufgabe); Aufgabe/Skizze/Statistik unter dem Rechner (Seitenspalte bleibt auch ohne Rechner).
+- Modi (Erklären, Rechner, Üben, Umstellen, Einheiten-Falle, Prüfung) nur noch als Symbole, Name des aktiven Modus daneben.
+- Schmierblatt nicht mehr abschaltbar (ist jetzt der Arbeitsplatz). Gilt auch für das Quiz im Ausdehnungsrechner.
+
+### 2026-11-11 (30) — Sterne für alle Apps + Formelsammlung-Hub-Kachel ersetzt (deployt 2026-11-11)
+- Startseite: jede App mit Fragen hat 5 Sterne unter dem Namen: ★ ab 1 richtigen Antwort, ★★ ab 10, ★★★ ab 100, ★★★★ ab 500, ★★★★★ ab 1000 (shared/sterne.ts). Tooltip zeigt Anzahl + nächste Schwelle.
+- Zählung lokal aus „glw-modul-statistik“ (ProfilSyncService) + Altspeicher der Apps (jeweils der größere Wert). Keine Sterne: Lernfortschritt, Glossar, Offline, Nachschlagen, Forum, 3D-Modelle.
+- Neu angebunden: Formelsammlung (Üben/Umstellen/Einheiten/Prüfung je App, Formelfinder, Gemischte Prüfung), Schienenmesser, Schienen erkennen, Quiz-Duell, Tycoon (Fachfragen + Latte ablesen). Lernfortschritt-Labels ergänzt.
+- Formelsammlung: Hub-Kachel weg, dafür eigene Kacheln Formelfinder / Gemischte Prüfung / Formeln nachschlagen. Sterne in der Formelsammlung jetzt auch 5er-System (statt 3 Sterne nach Modi).
+- Offen: Sterne nur pro Gerät (Server-Statistik eingeloggter Nutzer noch nicht eingerechnet).
+
+### 2026-11-11 (29) — Formelsammlung: alle 17 Themen-Apps als eigene Kacheln (deployt 2026-11-11)
+- shared/katalog.ts BERUFSSCHULE_TILES: Hub + 17 Kacheln `formelsammlung-<app-id>` (vorher 4) → im Drei-Punkte-Menü einzeln geprüft/ungeprüft und Gäste/Azubis/versteckt.
+- Hub zeigt ✓/✕ je App, versteckt Apps für Nicht-Admins, sperrt nicht freigegebene für Gäste (🔒). Mini-App-Seite: gelber Hinweis „Noch nicht fachlich geprüft“ (wegklickbar).
+- site-gate.guard: Gast-Freigabe entscheidet jetzt die genaueste passende Kachel – freier Hub öffnet nicht mehr automatisch alle Unter-Apps.
+
+### 2026-11-11 (28) — Schmierblatt: Richtung (Steigung/Gefälle) bei Neigungswerten (deployt 2026-11-11)
+- Tims Foto: s₁/s₂ standen ohne Richtung oben auf dem Blatt → gleich-/entgegengesetzt nicht erkennbar. Jetzt Zusatz aus dem Namen hinter „ – “ (schmierblatt.component.ts `zusatz()`). Formel/Lösung selbst waren korrekt.
+
+### 2026-11-11 (27) — Schienenausdehnungs-Rechner umgebaut: Rechnen ↔ Quiz (deployt 2026-11-11)
+- Tim: „schöne Zeichnungen wie bei der Pfeilhöhe mit Angabe was was ist, Rechenfläche daneben, Wechsel zwischen Rechnen und Quiz mit Rechner zum Aufmachen“.
+- Formelsammlung-Bausteine (Skizze, Formel, Rechner, Üben, Aufgabe, Prüfung, Taschenrechner, Schmierblatt) in eigenes Modul `formelsammlung/komponenten/formel-komponenten.module.ts` ausgelagert – Formelsammlung und Ausdehnungsrechner nutzen es.
+- Neue Skizze `schienendehnung` (Varianten Längenänderung / Lückenschluss) in skizze.component.ts; Rechner kann Variante von außen bekommen (`varianteId`), Üben meldet `(ergebnis)` und kann die Skizze gleich zeigen (`skizzeAnfangs`).
+- Neue App-Definition `zusatz/schienendehnung/services/dehnung-app.ts`: Rechner (Längenänderung; Lückenschluss mit Stoßlücke s₁ → s₂), Quiz in 3 Stufen (Δl, l, ΔT, T₂, Stoßlücke bei Erwärmung/Abkühlung, ab Stufe 2 Textaufgaben). Alter Generator + Utils gelöscht.
+- **α jetzt 11,5 · 10⁻⁶ 1/K wie in der Formelsammlung** (vorher 11 · 10⁻⁶) – beide Apps rechnen gleich.
+- Seite: Umschalter 🧮 Rechnen / ❓ Quiz (`?modus=quiz`); Rechnen = Skizze + Formel + Legende + Rechner mit Rechenweg, daneben Rechenfläche (Schmierblatt mit ∑-Leiste, Rechner zuschaltbar); Quiz = fs-ueben mit Schmierblatt und aufklappbarem Taschenrechner. Statistik weiter unter `zusatz:schienendehnung`.
+
+### 2026-11-11 (26) — Trassenplan: Hinweis „Noch nicht fachlich geprüft“ (deployt 2026-11-11)
+- Gelber Hinweisbalken oben im Trassenplan, solange die Kachel `themenquiz-trassenplan` auf „ungeprüft“ steht (AppStatusService); wegklickbar, verschwindet automatisch, sobald Tim sie auf „geprüft“ setzt.
+
+### 2026-11-10 (25) — Postfach für alle Konten, „Mustafas Rechner-Idee“ im Schotterrechner, reg ra in App 4, /api/users abgesichert (deployt 2026-11-10, Backend + Frontend; Vorlage zielt auf Konto „Mustafa (Gast)“, Absender von Meldung #7)
+- **Postfach:** neue Tabelle `nachrichten` (Migration in backend/src/index.ts), Route backend/src/routes/nachrichten.ts (`/api/nachrichten`, eigenes Postfach lesen/gelesen/löschen; schreiben + Empfängerliste nur Admin, an ein Konto oder „alle“, optional App-Link). Frontend: Briefsymbol rechts unten über der Melde-Flagge (core/postfach/postfach-widget.component.ts, Abruf jede Minute), Hinweis „Du hast eine neue Nachricht“ von unten (einmal je Nachricht), Seite /postfach (modules/postfach/, für Gäste freigegeben) mit Schreib-Formular für den Admin und Vorlage „Mustafas Rechner-Idee“.
+- **Sicherheit:** `/api/users` (Liste aller Konten mit E-Mail, Snapshots, Löschen von Nicht-Admin-Konten!) war ohne Anmeldung erreichbar → jetzt `requireAuth, requireAdmin` (Frontend nutzt den Endpunkt nicht).
+- **Schotterrechner – Mustafas Meldung #7:** Knopf „💡 Mustafas Rechner-Idee“ (gemerkt in `glw-schotter-mustafa-idee`, an per Link `?idee=mustafa`): Rechnen mit Einheiten im Text-Werkzeug (shared/schmierblatt/einheiten-rechner.ts: 1t+2t=3t, 3t/m³×1,5m³=4,5t, 3m²+1m²=4m², verschiedene Einheiten bei +/− → kein Ergebnis), m2/m3 → m²/m³ beim Tippen, Farbwahl färbt das aktive Textfeld, bei Schwer/Experte Schwellenteilung aus Aufmaß („auf 31,5 m genau 51 Schwellen“) inkl. Lösungsschritt. Infoleiste + „Rückmeldung geben“ (Meldegrund „Rückmeldung zu Mustafas Rechner-Idee“). Aus = alles wie vorher; gemeinsames Schmierblatt der anderen Apps unverändert.
+- **App 4 Ausrundung:** Symbole wie in der Formelsammlung – gesucht `reg r_a` (Regelwert), `min r_a` (Ermessen), `r_a` (Genehmigung, Kuppe/Wanne) statt immer nur `r_a`; Frage „Berechne reg ra (Regelwert) …“; zur Hälfte als kleine Textaufgabe (Baustellen-Situation), Frage-Zeile bleibt.
+
+### 2026-11-10 (24) — Startseite: freigegebene/geprüfte Apps rutschen im Ordner nach vorne (deployt 2026-11-10, Chunk 1116.7666b03f4e7f8460.js)
+- dashboard.page.ts: innerhalb jedes Ordners (außer „Mehr“) stabil sortiert nach Rang: freigegeben (Sichtbarkeit „auch Gäste“) + geprüft → freigegeben → geprüft → Rest → versteckt (nur Admin sichtbar). Reagiert sofort auf Änderungen im Drei-Punkte-Menü.
+- Nebenbei: ein echtes NUL-Zeichen im String-Literal `filterKey` durch die Escape-Sequenz `'\0'` ersetzt (gleicher Wert, Datei ist jetzt normaler Text statt „binary“ für git/Editor).
+
+### 2026-11-10 (23) — Baumaschinen-Bilder lokal, Trassierungsrechner entfernt, Text-Ränder in Prozent/Volumen weg (deployt 2026-11-10, main.1e7c4eaf45243041.js)
+- Baumaschinen erkennen: 5 Bilder von Wikimedia nach src/assets/bilder/baumaschinen/ geholt (960 px, Lizenzhinweis bleibt im bildCredit); nie dieselbe Maschine zweimal hintereinander; Lade-Spinner, <img> wird je Runde neu erzeugt, Fehler → „Anderes Bild“; alle Bilder werden vorgeladen.
+- Trassierungsrechner: Kachel aus katalog.ts entfernt, /zusatz/trassierung leitet auf /berufsschule/formelsammlung um, nicht mehr im Lernfortschritt. Verweise in Formelsammlung-Apps 1/3/4/11/12 zeigen jetzt auf /zusatz/trassenplan, App 5 ohne Verweis. Code bleibt liegen (trassierung-utils wird von der Formelsammlung genutzt).
+- Prozentrechnung + Volumen-2D: Text-Rand (paint-order: stroke) entfernt – auf manchen Geräten über die Ziffern gemalt → „hell, dicke Ränder“. Jetzt reine Theme-Textfarbe.
+
+### 2026-11-10 (22) — Lernfortschritt zeigt alle Module (auch für Gäste) + Volumen-2D-Beschriftung lesbar (deployt 2026-11-10, main.4fe4f3351aef384e.js)
+- ProfilSyncService.melde() zählt jetzt immer zusätzlich lokal (localStorage `glw-modul-statistik`), auch ohne Konto.
+- Lernfortschritt: führt lokale Zählung, alte Modul-Speicher und Server-Statistik (/stats/me, auch Gastkonten) zusammen – je Modul die Quelle mit den meisten Versuchen. Alle Module aus MODUL_LABELS erscheinen (neu: Schotterbedarf, Trassenplan, Baumaschinen, Prüfungssimulation); Standard-Filter „Alle“, „Noch nicht begonnen“-Hinweis, Umschalter im dunklen Design lesbar.
+- Volumenrechner 2D: Maßtexte fest dunkel mit weißem Rand (vorher Theme-Textfarbe → im dunklen Design weiß auf hellem Stoff).
+
+### 2026-11-10 (21) — „Trassenplan lesen“ → neue Seite „Trassenplan“ mit Generator, Rechnen, Quiz, Zuordnen (deployt 2026-11-10, main.ff176a0cc6d30099.js)
+- Neue Route /zusatz/trassenplan (Modul src/app/modules/zusatz/trassenplan/), Kachel im Katalog umbenannt + umverlinkt (id/topicId bleiben, Fortschritt bleibt erhalten).
+- Plan: Tims Gleisvermarkungsplan-Generator (Single-HTML) als Engine generator/trassenplan-generator.ts übernommen (Editor, fachliche Prüfung, JSON, SVG, Druck jetzt per eigenem Fenster). localStorage-Schlüssel gbl_trassenplan_v2 wie vorher.
+- Rechnen: Aufgaben aus dem aktuellen Plan (20 m-Pfeilhöhe im KB/ÜB, Grundriß-Pfeilhöhe, u₀/uf, Rampe 1:m, u in der Rampe, T/f am NW). Gesuchte Werte werden im Plan ausgeblendet, Eingabefeld sitzt an der richtigen Stelle im Band; Lösungsweg, Formel, „Werte selbst ablesen“, Zufalls-Übungsstrecke. Nur Stellen, an denen die Handformel exakt gilt. Fortschritt: zusatz:trassenplan.
+- Quiz: bisherige Fragen (themenquiz/trassenplan); Quiz-Engine dafür in ThemenquizEngineModule ausgelagert. Zuordnen: Drag & Drop (Abkürzungen, Formeln, Bänder), am Handy per Antippen.
+- Getestet im Browser: 27 Aufgaben auf Beispielplan + 7 Zufallsstrecken gelöst und als richtig erkannt.
+
+### 2026-11-09 (20) — Formelsammlung: alle 17 Apps + Arbeitsplatz mit Formel-Leiste (deployt 2026-11-09)
+- Restliche 13 Apps gebaut (Übergangsbogen, Gleisverziehung, Temperatur, atmendes Gleisende, Fahrzeugkräfte, Querbeschleunigung, Weichen, Rampen, Rampenverlauf, Krümmung/Ruck, Übergangslänge, Zweiggleis, Rampenvolumen) – keine grauen Kacheln mehr.
+- Arbeitsplatz beim Üben: Schmierblatt + Taschenrechner daneben (abschaltbar), Leiste „∑ Formeln & Skizzen“ (antippen oder ziehen legt Karte aufs Blatt); in der Prüfung Schmierblatt + Rechner ohne Leiste.
+- Tests 60/60 grün. Rampenvolumen-Deutung (hK, l1–l3) noch von Tim zu bestätigen.
+
+### 2026-11-07 (19) — Glossar: Admin-Freigabe je Begriff + Quellen für jede Beschreibung (deployt 2026-11-09 inkl. Backend)
+- Wunsch Tim: einzelne Begriffe als Admin absegnen („stimmt so“) und für jede Beschreibung eine Quelle als Nachweis.
+- Backend: neue Tabelle `glossar_freigaben` (begriff_id, pruefsumme, geprueft_am, geprueft_von) in index.ts, Route backend/src/routes/glossar-freigaben.ts (GET offen, PUT/DELETE nur Admin) unter /api/glossar-freigaben.
+- Frontend: ID je Begriff aus dem Begriff (glossarId), Prüfsumme (FNV-1a) über Begriff+Beschreibung+Quellen – ändert sich der Text, verfällt die Freigabe („Text geändert seit der Prüfung“). Admin sieht Zähler, Filter „Noch prüfen/Geprüft“ und Knöpfe „✓ Stimmt so“ / „Freigabe zurücknehmen“; alle sehen „✓ Geprüft am …“.
+- Alle 61 Beschreibungen gegen Quellen abgeglichen (EBO §§ 5–7, Wikipedia, Trackopedia, DGUV Information 201-021, TU Dresden, DB InfraGO, DGUV FB PSA); alle 51 Links geprüft (HTTP 200). Korrigiert u. a.: Hakenschraube (war mit Schwellenschraube verwechselt), Federring, Sicherungsaufsicht/Fremdsicherung (Warnen macht der Sicherungsposten), Herzstück, Riffel, Zwischenlage, Regelspur, Spurkranz. Umbenannt: Seitengraben → Bahngraben (Seitengraben), Tragschicht → Tragschicht (Planumsschutzschicht, PSS), Neigung/Weichenwinkel → Weichenneigung (Weichenwinkel), Hakenschraube (Schwellenschraube) → Hakenschraube.
+
+### 2026-11-07 (18) — Formelsammlung: Taschenrechner + Schmierblatt beim Üben (deployt 2026-11-07)
+- Wunsch Tim (Ausrundung, Neigungswechsel rechnen): in Üben/Umstellen/Einheiten-Falle aller Formel-Apps zwei Knöpfe „🧮 Taschenrechner“ und „✏️ Schmierblatt“ (Zustand in localStorage `glw-formelsammlung-hilfsmittel`).
+- Taschenrechner: komponenten/taschenrechner.component.ts, Rechenkern kern/taschenrechner.ts (nutzt `rechne()` aus shared/schmierblatt, ergänzt √, Ans, Verlauf). Tasten statt Handy-Tastatur (abschaltbar). Test in bausteine.test.ts.
+- Schmierblatt: komponenten/schmierblatt.component.ts = shared/schmierblatt (wie Prozent/Volumen), gegebene Werte + Gesucht fest oben, wird bei neuer Aufgabe geleert. Nicht in der Prüfung.
+
+### 2026-11-06 (17) — Neue Kategorie „Berufsschule – Formelsammlung lernen“: Hub + Apps 1, 2, 4, 11 (deployt 2026-11-07)
+- Neue Route /berufsschule/formelsammlung (Modul src/app/modules/berufsschule/formelsammlung/), neuer Ordner auf der Startseite (BERUFSSCHULE_TILES in katalog.ts).
+- Zentrale Daten: data/formelsammlung.json mit allen Formeln aller 17 Apps (LaTeX, Variablen, Einheiten, Bereiche, Grenzen, Merkhilfen), UNKLAR-Stellen mit status "unklar" markiert.
+- KaTeX lokal gebündelt (npm katex 0.16.11, CSS in angular.json), tsconfig resolveJsonModule.
+- Fertig: Pfeilhöhe, Kreisbogen von der x-Achse, Ausrundung, Überhöhung – je 6 Modi (Erklären, Rechner, Üben in 3 Stufen, Umstellen, Einheiten-Falle, Prüfung). Hub: Kacheln mit Sternen/Fortschritt (localStorage), Formelfinder, gemischte Prüfung, Nachschlagen mit Suche + Kapitelfilter. Übrige 13 Apps als „in Arbeit“.
+- Tests: npm run test:formeln (tools/formelsammlung-tests, Node + esbuild) – Referenzwerte von Hand, 400 Zufallsaufgaben je App/Modus/Stufe, KaTeX-Render-Check, Profil-Kontrollwerte A·α·E. Alles grün.
+
+### 2026-11-08 (18) — Schienenkopf-Verschleißmesser durch neue SKM1-Version ersetzt (deployt 2026-11-08, Chunk 9398.b5151bb26e18368e.js)
+- Tims neue Vorlage skm1-verschleissmesser.html 1:1 nach /zusatz/schienenmesser übernommen (alte Simulation ersetzt): Rahmen mit Magnet, Stegfühler-Schieber, Messkopf (Block SKM1) mit Profilmarken, Höhenmesslatte, 45°-Fühler; Zufallsschiene 49E5/54E4/60E2 mit Höhen-/Fahrkantenverschleiß; drei Lupen; Eingabe Höhe/Höhenverschleiß/45° mit Prüfen (±0,5 mm), Lösung, Punktestand, Ansicht Gesamt/Messkopf, Sollprofil, Ausbildermodus.
+- Angular: ViewEncapsulation.None, Styles unter .skm1; Abfragen aufs Komponenten-Root, Tastatur-Listener wird beim Verlassen entfernt. Unsichtbare Greifflächen bekommen fill als Attribut (sonst in den <use>-Lupen schwarz).
+- Korrektur ggü. alter Seite: 54E4 jetzt 159 mm hoch (Kopf 70, Fuß 140, Steg 16) statt 154 mm.
+
+### 2026-11-08 (17) — Schotterberechnung: Tabellen-Karten einzeln skalierbar, ＋ für weitere Ausschnitte (deployt 2026-11-08, main.7209ec5bfacc24d6.js)
+- Karte auf dem Schmierblatt kurz antippen (Kopf oder Tabelle) → ausgewählt (Rahmen) mit Anfasser ⤡ an der Ecke: größer/kleiner ziehen (35–250 %). Die eigene Größe bleibt beim Zoomen erhalten. Antippen der freien Fläche hebt die Auswahl auf; der Tipp-Punkt auf der Karte wird nicht als Strich gespeichert.
+- ＋ im Kartenkopf öffnet die ganze Tabelle über dem Blatt (blätterbar, startet bei der Tabelle der Karte): Zeile antippen → neue Karte direkt darunter (gleiche Größe), Zeile gedrückt halten → frei aufs Blatt ziehen. Esc/✕ schließt.
+- Code: schotterberechnung.logik.ts (Karte mit g/ti/gi, karteUnter mit Teilen groesse/x/plus/griff/flaeche, tabellenWahl) + Styles in schotterberechnung.page.scss.
+
+### 2026-11-06 (16) — Prozentrechnung neu: Aufgaben leicht–schwer mit Schmierblatt, Bild, freier Rechner (deployt 2026-11-06, main.f4cab50026b1c176.js)
+- /zusatz/prozentrechnung ist jetzt eine Rechen-Seite wie Volumen/Schotter: links Aufgabe + Schmierblatt + Ergebnisse (Prüfen, Lösungsweg mit „typischer Fehler“-Hinweisen), rechts „Bild zur Aufgabe“ (Prozentstreifen Anteil/Erhöhung/Minderung, Rechenkette, Neigungsdreieck) und „Freier Rechner“ (G·W·p, Erhöhen/Vermindern inkl. Rückrechnung, Neigung ‰). Formeln nur per „📌 Formel“ aufs Schmierblatt bzw. „Formel zeigen“.
+- Generator (prozent-aufgaben.ts, 18 Vorlagen): leicht = Prozentwert/Grundwert/Prozentsatz (Gleisbau-Beispiele); mittel = MwSt 19 %, Rabatt, Schotter-Zuschlag, Preiserhöhung, km/m-Prozentsatz, Längsneigung ‰/%, Toleranz; schwer = brutto→netto, Rabatt+Skonto+MwSt, Rückrechnung vorher/nachher, Veränderung in %, Gradiente mit Kilometrierung und Höhe ü. NN, Schienen mit Verschnitt (120-m-Längen, Stückzahl).
+- Prüfen: Geldbeträge ± 1 Cent grün, sonst 1 %/5 %; Stückzahlen exakt. Getestet: 4.500 Zufallsaufgaben ohne Fehler, eingetragene Lösungen alle grün.
+- Altes 8-Fragen-Quiz unter /zusatz/prozentrechnung/quiz (Knopf „Quiz“ oben rechts). Kachel-Text in katalog.ts angepasst.
+
+### 2026-11-06 (15) — Volumenberechnung: Rechteck/Dreieck, 3D/2D-Umschalter, Drehen nur am Anfang (deployt 2026-11-06, main.9bb5a6d99953e8d9.js)
+- Freier Rechner: neue ebene Flächen „Rechteck“ (A = l × b) und „Dreieck“ (A = g × h ÷ 2), nur Fläche, ohne Stoff/Gewicht; in 3D als dünne Platte.
+- Umschalter 3D/2D oben rechts im Modell (wird gemerkt). 2D = technische Zeichnung als SVG (src/app/modules/zusatz/volumen/three/zeichnung-2d.ts): Querschnitt/Grundfläche + Seitenansicht mit Maßlinien, Körnung als Muster, „nicht maßstäblich“ bei Stauchung.
+- 3D dreht sich nur noch am Anfang; sobald man das Modell anfasst (Ziehen/Mausrad), bleibt es stehen.
+- Freier Rechner: Formel und eingesetzte Rechnung entfernt (Formel gibt’s über „📌 Formel“ aufs Schmierblatt), Ergebnis-Kacheln bleiben.
+
+### 2026-11-06 (14) — Volumenberechnung neu: 3D-Modelle, Stoffe/Gewicht, Trapez mit Schotter, Schmierblatt (deployt 2026-11-06, main.716a8f1fdef7bf08.js)
+- /zusatz/volumen ist jetzt eine Rechen-Seite wie die Schotterberechnung: links Aufgabe + Schmierblatt (Stift, Radierer, Text mit „=“-Rechnen inkl. π/²/³, Zoom, Vollbild, „📌 Formel“-Karte) + ausklappbare Ergebnisfelder mit Prüfen und Lösungsweg; rechts 3D-Modell (Babylon.js, drehbar, Maßlinien mit Beschriftung, „?“ für gesuchte Maße, „nicht maßstäblich“ bei gestauchten Körpern).
+- Aufgabenarten: „Trapez mit Schotter“ (Schotterbett, Schottermiete) und „Alle Körper“ (Mastfundament, Sauberkeitsschicht, Prüfwürfel, Bohrpfahl, Schachtring, Schüttkegel, Schotterhaufen, Schottermiete, Graben). Stufen leicht (alles in m, t/m³) / mittel (cm/mm/km, kg/m³, Gewicht in t oder kg) / schwer (Böschung 1 : n, Kilometrierung, Schwellenlänge + Einschotterung, Wagen/LKW/Fahrmischer, Stückzahlen).
+- Freier Rechner: 9 Körper (Trapez-Prisma, Quader, Würfel, Zylinder, Hohlzylinder, Kegel, Pyramide, Dreiecks-Prisma, Kugel), Maße in m/cm/mm, Trapez wahlweise über Böschung, 14 Stoffe mit Quelle (DIN EN 1991-1-1 Anhang A bzw. Baustoffhandel-Richtwerte; Gleisschotter 1,5/1,7 wie Schotterberechnung) oder eigene Dichte; Ergebnis A, V, Gewicht in t und kg.
+- Altes 10-Fragen-Quiz unter /zusatz/volumen/quiz (Knopf oben rechts).
+- Schmierblatt als wiederverwendbares Modul src/app/shared/schmierblatt/ (Schotterberechnung noch mit eigener Kopie).
+- Melde-Flagge liest data-melde-kontext der Seite (Volumen schickt Aufgabe + Musterlösung mit).
+- Geprüft: 2.400 Zufallsaufgaben ohne NaN/undefined; Browser-Test Desktop + Handy, richtige Werte → 3 von 3 grün, Rechner-Werte nachgerechnet.
+
 ### 2026-11-06 (13) — Logo oben links, Melde-Flagge in jeder App, Gäste einzeln rauswerfen, Schotter-Karten behalten Größe (deployt 2026-11-06, Backend + Frontend; Spalte users.gast_gesperrt live)
 
 - **Autor:** Claude

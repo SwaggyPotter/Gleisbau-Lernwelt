@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>Aktivität</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="laden()" [disabled]="laedt">
+        <ion-icon slot="start" name="refresh-outline"></ion-icon>
+        <span class="toolbar-action-label">Aktualisieren</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell akt">
+    <section class="hero">
+      <p class="eyebrow">Admin</p>
+      <h1>Aktivität</h1>
+      <p class="lede">Wann war jemand zuletzt aktiv (App geöffnet, getippt, gerechnet) und wie oft. Mit Konto oder Gastkonto unter dem Namen, sonst als „Gerät ohne Konto“. Erfasst seit 11.11.2026.</p>
+    </section>
+
+    <div class="akt-zahlen">
+      <div><strong>{{ zahlen.jetzt }}</strong><span>gerade aktiv</span></div>
+      <div><strong>{{ zahlen.heute }}</strong><span>Konten heute</span></div>
+      <div><strong>{{ zahlen.woche }}</strong><span>Konten in 7 Tagen</span></div>
+      <div><strong>{{ zahlen.konten }}</strong><span>Konten erfasst</span></div>
+    </div>
+
+    <div class="akt-filter">
+      <div class="akt-tabs" role="tablist">
+        <button type="button" [class.aktiv]="filter === 'konten'" (click)="filter = 'konten'">Konten</button>
+        <button type="button" [class.aktiv]="filter === 'geraete'" (click)="filter = 'geraete'">Geräte ohne Konto</button>
+        <button type="button" [class.aktiv]="filter === 'alle'" (click)="filter = 'alle'">Alle</button>
+      </div>
+      <input type="search" placeholder="Name suchen" [(ngModel)]="suche" />
+    </div>
+
+    <p class="akt-fehler" *ngIf="ladefehler">Konnte die Aktivität nicht laden (nur für Admins, Server erreichbar?).</p>
+    <p class="akt-leer" *ngIf="!ladefehler && !laedt && gefiltert.length === 0">Noch keine Einträge.</p>
+
+    <div class="akt-liste">
+      <article class="akt-karte" *ngFor="let e of gefiltert; trackBy: trackSchluessel">
+        <div class="akt-kopf">
+          <span class="akt-punkt" [class]="'akt-punkt ' + status(e)" [title]="status(e) === 'jetzt' ? 'gerade aktiv' : ''"></span>
+          <strong class="akt-name">{{ name(e) }}</strong>
+          <span class="akt-badge" *ngIf="e.gast">Gast</span>
+          <span class="akt-badge admin" *ngIf="e.role === 'admin'">Admin</span>
+          <span class="akt-zuletzt" [title]="datum(e.zuletzt)">{{ vor(e.zuletzt) }}</span>
+        </div>
+        <div class="akt-werte">
+          <span>Heute <b>{{ e.aktionen_heute }}</b> Aktionen</span>
+          <span>Aktive Tage <b>{{ e.tage7 }}</b>/7 · <b>{{ e.tage30 }}</b>/30 · gesamt <b>{{ e.tage_gesamt }}</b></span>
+          <span>Aktionen (30 T.) <b>{{ e.aktionen30 }}</b></span>
+          <span>Zuletzt in <b>{{ appName(e.letzte_seite) }}</b></span>
+          <span class="leise">Erstmals {{ datum(e.erste) }}</span>
+        </div>
+        <div class="akt-apps" *ngIf="e.apps?.length">
+          <span *ngFor="let a of e.apps" class="akt-app" [title]="'zuletzt ' + datum(a.zuletzt)">{{ appName(a.app) }} <b>{{ a.anzahl }}×</b></span>
+        </div>
+      </article>
+    </div>
+  </div>
+</ion-content>

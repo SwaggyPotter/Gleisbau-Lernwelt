@@ -2,6 +2,10 @@
   <ion-toolbar>
     <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
     <ion-title>Prozentrechnung</ion-title>
+    <nav class="pz-umschalter" slot="end" aria-label="Rechnen oder Quiz">
+      <a routerLink="/zusatz/prozentrechnung">Rechnen</a>
+      <a routerLink="/zusatz/prozentrechnung/quiz" class="aktiv" aria-current="page">Quiz</a>
+    </nav>
     <ion-buttons slot="end">
       <ion-button routerLink="/dashboard" fill="clear">
         <ion-icon slot="start" name="grid-outline"></ion-icon>

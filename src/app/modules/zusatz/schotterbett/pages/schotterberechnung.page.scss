@@ -108,7 +108,21 @@ app-schotterberechnung {
   .karte {
     position: absolute; width: 460px; max-width: calc(100% - 24px); background: var(--card); border: 1px solid var(--line);
     border-radius: var(--radius); box-shadow: 0 6px 20px rgba(0,0,0,.25); font-size: .95rem;   // gleiche Schriftgröße wie die Aufgabe
+    transform-origin: 0 0;
     &.zieht { box-shadow: 0 14px 34px rgba(0,0,0,.4); }
+    &.gewaehlt { outline: 2px solid var(--brand); outline-offset: 3px; }
+    .karte-knoepfe { display: flex; align-items: center; gap: 4px; }
+    .karte-plus {
+      display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 28px; border-radius: 8px;
+      background: var(--brand); color: var(--card); font-weight: 800; font-size: 1.1rem; cursor: pointer;
+    }
+    .karte-groesse {
+      display: none; position: absolute; right: -14px; bottom: -14px; width: 30px; height: 30px; border-radius: 50%;
+      background: var(--brand); border: 2px solid var(--card); box-shadow: 0 2px 8px rgba(0,0,0,.35);
+      transform: scale(calc(1 / var(--g, 1))); transform-origin: center;
+      &::after { content: '⤡'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--card); font-weight: 800; font-size: 1rem; }
+    }
+    &.gewaehlt .karte-groesse { display: block; }
     .karte-kopf {
       display: flex; justify-content: space-between; align-items: center; gap: 8px;
       padding: 8px 10px; background: var(--brand2); border-bottom: 1px solid var(--line-soft);
@@ -125,6 +139,14 @@ app-schotterberechnung {
     tbody tr.gewaehlt td { background: color-mix(in srgb, var(--brand) 22%, var(--card)); }
   }
   .tool-an { background: var(--brand2); border-color: var(--brand); }
+  .idee-knopf.tool-an { font-weight: 700; }
+  .idee-leiste {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between;
+    margin: 6px 0; padding: 8px 10px; border-radius: var(--radius); font-size: .88rem; line-height: 1.4;
+    background: color-mix(in srgb, var(--brand) 14%, var(--card)); border: 1px solid var(--brand);
+    code { font-family: var(--font-mono, monospace); background: var(--card); padding: 0 4px; border-radius: 4px; }
+  }
+  .idee-leiste[hidden] { display: none; }
   .hinweis { background: var(--brand2); padding: 6px 10px; border-radius: var(--radius); font-size: .9rem; margin-top: 6px !important; }
   canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; z-index: 2; }
   label.chk { display: flex; gap: 6px; align-items: center; font-size: .9rem; color: var(--muted); min-height: 38px; }
@@ -279,3 +301,17 @@ app-schotterberechnung.vollbild ion-header { display: none; }
 .sbx .melde-hinweis { margin: 0; font-size: .82rem; color: var(--muted); }
 .sbx .melde-status { margin: 0; min-height: 1.2em; font-size: .85rem; }
 .sbx .melde-knoepfe { display: flex; justify-content: flex-end; gap: 8px; }
+
+/* ＋ auf der Karte: ganze Tabelle über dem Blatt (2026-11-08) */
+.sbx .tabellen-wahl {
+  position: absolute; inset: 8px; z-index: 6; display: flex; flex-direction: column; gap: 6px; padding: 8px;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  &[hidden] { display: none; }
+  &.zieht { opacity: .12; transition: opacity .15s; }
+  .tw-kopf { display: flex; gap: 6px; align-items: center; }
+  .tw-titel { flex: 1; text-align: center; font-family: var(--font-display); font-weight: 700; font-size: .9rem; }
+  .tw-hinweis { margin: 0; font-size: .82rem; color: var(--muted); }
+  .tw-scroll { flex: 1; min-height: 0; overflow: auto; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  .tw-host tbody tr { cursor: pointer; }
+  .tw-host tbody tr:hover td { background: color-mix(in srgb, var(--brand) 14%, var(--card)); }
+}

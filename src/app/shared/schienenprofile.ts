@@ -10,7 +10,7 @@
  * Die SVG-Silhouetten sind STILISIERTE Schemazeichnungen je Schienenform-
  * Familie, keine massstabsgetreuen Konstruktionszeichnungen — der Kopf-/
  * Fusshoehen-Anteil an der Gesamthoehe ist mangels Tabellenwert geschaetzt
- * (Kopf ca. 26 %, Fuss ca. 18 % der Gesamthoehe), nur Hoehe, Fussbreite,
+ * (siehe Abschnitt "Querschnitte" unten), nur Hoehe, Fussbreite,
  * Kopfbreite und Stegstaerke stammen direkt aus der Tabelle.
  */
 
@@ -118,196 +118,319 @@ export const PROFILE: SchienenProfil[] = [
 ];
 
 // ---------------------------------------------------------------------
-// Silhouetten. Stilisierte SVG-Pfade je Schienenform-Familie, aus Hoehe /
-// Fussbreite / Kopfbreite / Stegstaerke berechnet. Koordinatenursprung
-// liegt an der Schienenoberkante (Fahrflaeche), y waechst nach unten.
+// Querschnitte (2026-11-12 ueberarbeitet). Realistischere Schemazeichnungen:
+// gewoelbte Fahrflaeche mit runden Kopfkanten, Laschenanlageflaechen 1:4,
+// ausgerundete Uebergaenge Kopf/Steg/Fuss, geneigte Fussoberseite mit
+// Fussrand. Hoehe, Fuss-, Kopfbreite und Stegstaerke kommen aus der Tabelle;
+// Kopfhoehe (~22 % H), Fussranddicke (~7 % H) und Neigungen sind an typische
+// Vignolprofile (z. B. 60E1: H 172, Fussrand ca. 11,5) angelehnt und geschaetzt.
+// Ursprung = Schienenoberkante Mitte, y waechst nach unten.
 // ---------------------------------------------------------------------
 
 function rund(n: number): number {
   return Math.round(n * 100) / 100;
 }
 
-/** Klassische Vignol-Silhouette (I-Profil) — auch fuer Konstruktionsschienen als Vereinfachung genutzt. */
-function vignolPfad(hoehe: number, fussbreite: number, kopfbreite: number, steg: number): string {
-  const halbFuss = fussbreite / 2;
-  const halbSteg = Math.min(steg, kopfbreite * 0.7) / 2;
-  const halbKopf = kopfbreite / 2;
-  const kopfHoehe = hoehe * 0.26;
-  const fussHoehe = hoehe * 0.18;
-  const stegObenY = kopfHoehe + hoehe * 0.03;
-  const stegUntenY = hoehe - fussHoehe;
-  const fussKanteY = hoehe - fussHoehe * 0.4;
-  const kopfFase = Math.min(4, halbKopf * 0.3);
+type Pkt = [number, number];
+/** Segment der rechten Haelfte: Linie zu p oder quadratische Kurve (Kontrollpunkt c) zu p. */
+interface Seg { p: Pkt; c?: Pkt }
 
-  return [
-    `M ${rund(-halbKopf + kopfFase)} 0`,
-    `L ${rund(halbKopf - kopfFase)} 0`,
-    `L ${rund(halbKopf)} ${rund(kopfFase)}`,
-    `L ${rund(halbKopf)} ${rund(kopfHoehe)}`,
-    `L ${rund(halbSteg)} ${rund(stegObenY)}`,
-    `L ${rund(halbSteg)} ${rund(stegUntenY)}`,
-    `L ${rund(halbFuss)} ${rund(fussKanteY)}`,
-    `L ${rund(halbFuss)} ${rund(hoehe)}`,
-    `L ${rund(-halbFuss)} ${rund(hoehe)}`,
-    `L ${rund(-halbFuss)} ${rund(fussKanteY)}`,
-    `L ${rund(-halbSteg)} ${rund(stegUntenY)}`,
-    `L ${rund(-halbSteg)} ${rund(stegObenY)}`,
-    `L ${rund(-halbKopf)} ${rund(kopfHoehe)}`,
-    `L ${rund(-halbKopf)} ${rund(kopfFase)}`,
-    'Z',
-  ].join(' ');
+/** Rechte Profilhaelfte (von oben Mitte bis unten Mitte) spiegeln und zu einem geschlossenen Pfad machen. */
+function spiegelPfad(start: Pkt, rechts: Seg[]): string {
+  const f = (p: Pkt) => `${rund(p[0])} ${rund(p[1])}`;
+  const teile = [`M ${f(start)}`];
+  for (const s of rechts) teile.push(s.c ? `Q ${f(s.c)} ${f(s.p)}` : `L ${f(s.p)}`);
+  // links: rueckwaerts, x gespiegelt
+  const punkte: Pkt[] = [start, ...rechts.map(s => s.p)];
+  for (let i = rechts.length - 1; i >= 0; i--) {
+    const s = rechts[i];
+    const ziel: Pkt = [-punkte[i][0], punkte[i][1]];
+    teile.push(s.c ? `Q ${f([-s.c[0], s.c[1]])} ${f(ziel)}` : `L ${f(ziel)}`);
+  }
+  teile.push('Z');
+  return teile.join(' ');
 }
 
-/** Kranschiene: breite, flache Basis, kaum Taillierung, kraeftiger runder Kopf. */
-function kranPfad(hoehe: number, fussbreite: number, kopfbreite: number, steg: number): string {
-  const halbFuss = fussbreite / 2;
-  const halbKopf = kopfbreite / 2;
-  const halbSteg = Math.max(steg, kopfbreite * 0.55) / 2;
-  const fussHoehe = hoehe * 0.22;
-  const kopfHoehe = hoehe * 0.42;
-  const stegUntenY = hoehe - fussHoehe;
-  const kopfFase = Math.min(6, halbKopf * 0.35);
-
-  return [
-    `M ${rund(-halbKopf + kopfFase)} 0`,
-    `L ${rund(halbKopf - kopfFase)} 0`,
-    `L ${rund(halbKopf)} ${rund(kopfFase)}`,
-    `L ${rund(halbKopf)} ${rund(kopfHoehe)}`,
-    `L ${rund(halbSteg)} ${rund(kopfHoehe + hoehe * 0.06)}`,
-    `L ${rund(halbSteg)} ${rund(stegUntenY)}`,
-    `L ${rund(halbFuss)} ${rund(hoehe)}`,
-    `L ${rund(-halbFuss)} ${rund(hoehe)}`,
-    `L ${rund(-halbSteg)} ${rund(stegUntenY)}`,
-    `L ${rund(-halbSteg)} ${rund(kopfHoehe + hoehe * 0.06)}`,
-    `L ${rund(-halbKopf)} ${rund(kopfHoehe)}`,
-    `L ${rund(-halbKopf)} ${rund(kopfFase)}`,
-    'Z',
-  ].join(' ');
+interface Form {
+  kopfTiefe: number;     // Kopfhoehe an der Flanke, Anteil von H
+  fussRand: number;      // Dicke am Fussrand, Anteil von H
+  fussNeigung: number;   // Fussoberseite 1:n
+  laschNeigung: number;  // Kopfunterseite 1:n
+  woelbung: number;      // Fahrflaechen-Woelbung, Anteil von H
+  kopfEcke: number;      // Radius obere Kopfkante, Anteil der halben Kopfbreite
 }
 
-/** Rillenschiene: Vignol-Grundform plus erhoehte Fuehrungslippe rechts neben dem Kopf. */
-function rillenPfad(hoehe: number, fussbreite: number, kopfbreite: number, steg: number): string {
-  const basis = vignolPfad(hoehe, fussbreite, kopfbreite * 0.72, steg);
-  const halbKopf = (kopfbreite * 0.72) / 2;
-  const rilleBreite = kopfbreite * 0.28;
-  const kopfHoehe = hoehe * 0.26;
-  const rilleTiefe = kopfHoehe * 0.55;
+const VIGNOL: Form = { kopfTiefe: 0.22, fussRand: 0.07, fussNeigung: 3.2, laschNeigung: 4, woelbung: 0.008, kopfEcke: 0.32 };
+const KRAN: Form = { kopfTiefe: 0.36, fussRand: 0.15, fussNeigung: 2.4, laschNeigung: 1.6, woelbung: 0.035, kopfEcke: 0.3 };
+const KONSTRUKTION: Form = { kopfTiefe: 0.27, fussRand: 0.09, fussNeigung: 3, laschNeigung: 3, woelbung: 0.006, kopfEcke: 0.28 };
 
-  const lippe = [
-    `M ${rund(halbKopf)} 0`,
-    `L ${rund(halbKopf + rilleBreite)} 0`,
-    `L ${rund(halbKopf + rilleBreite)} ${rund(kopfHoehe)}`,
-    `L ${rund(halbKopf)} ${rund(kopfHoehe)}`,
-    `L ${rund(halbKopf)} ${rund(rilleTiefe)}`,
-    `L ${rund(halbKopf + rilleBreite * 0.55)} ${rund(rilleTiefe)}`,
-    `L ${rund(halbKopf + rilleBreite * 0.55)} ${rund(kopfHoehe * 0.15)}`,
-    `L ${rund(halbKopf)} ${rund(kopfHoehe * 0.15)}`,
-    'Z',
-  ].join(' ');
-
-  return `${basis} ${lippe}`;
+/** Untere Haelfte rechts: Kopfunterseite → Steg → Fuss, ab dem Punkt (kx, ky) an der Kopfflanke unten. */
+function unterteil(h: number, F: number, s: number, kx: number, ky: number, form: Form): Seg[] {
+  const fe = Math.max(2, h * form.fussRand);
+  let yU = ky + Math.max(0, kx - s) / form.laschNeigung;   // Kopfunterseite trifft Steg
+  let yF = h - fe - Math.max(0, F - s) / form.fussNeigung;  // Fussoberseite trifft Steg
+  if (yF < yU + 4) { const m = (yU + yF) / 2; yU = Math.min(yU, m - 2); yF = Math.max(yF, m + 2); }
+  const rk = Math.min(4, (kx - s) * 0.25, h * 0.03);
+  const r = Math.max(0.5, Math.min(h * 0.06, (yF - yU) / 3, Math.max(1, kx - s) * 0.5));
+  const re = Math.min(3, fe * 0.35, (F - s) * 0.2);
+  const segs: Seg[] = [];
+  if (kx - s > 1) {
+    segs.push({ p: [kx - rk, ky + rk / form.laschNeigung], c: [kx, ky] });
+    segs.push({ p: [s + r, yU - r / form.laschNeigung] });
+    segs.push({ p: [s, yU + r], c: [s, yU] });
+  } else {
+    segs.push({ p: [s, ky] });
+  }
+  if (F - s > 1) {
+    segs.push({ p: [s, yF - r] });
+    segs.push({ p: [s + r, yF + r / form.fussNeigung], c: [s, yF] });
+    segs.push({ p: [F - re, h - fe - re / form.fussNeigung] });
+    segs.push({ p: [F, h - fe + re], c: [F, h - fe] });
+    segs.push({ p: [F, h - 1] });
+    segs.push({ p: [F - 1, h], c: [F, h] });
+  } else {
+    segs.push({ p: [s, h] });
+  }
+  segs.push({ p: [0, h] });
+  return segs;
 }
 
-/** Spurrille: niedriges, asymmetrisches Fuehrungsstueck. */
-function spurrillePfad(hoehe: number, fussbreite: number, kopfbreite: number, steg: number): string {
-  const halbFuss = fussbreite / 2;
-  const kopfHoehe = hoehe * 0.3;
-  const rille = hoehe * 0.18;
-
-  return [
-    `M ${rund(-halbFuss * 0.5)} 0`,
-    `L ${rund(halbFuss * 0.9)} 0`,
-    `L ${rund(halbFuss * 0.9)} ${rund(rille)}`,
-    `L ${rund(halbFuss * 0.35)} ${rund(rille)}`,
-    `L ${rund(halbFuss * 0.35)} ${rund(kopfHoehe)}`,
-    `L ${rund(halbFuss * 0.7)} ${rund(hoehe * 0.55)}`,
-    `L ${rund(halbFuss * 0.7)} ${rund(hoehe)}`,
-    `L ${rund(-halbFuss * 0.5)} ${rund(hoehe)}`,
-    `L ${rund(-halbFuss * 0.5)} ${rund(hoehe * 0.55)}`,
-    `L ${rund(-halbFuss * 0.2)} ${rund(kopfHoehe)}`,
-    `L ${rund(-halbFuss * 0.2)} 0`,
-    'Z',
-  ].join(' ');
-}
-
-/** Stromschiene: breite Basis, kein schlanker Steg, Pilzkopf. */
-function stromschienePfad(hoehe: number, fussbreite: number, kopfbreite: number): string {
-  const halbFuss = fussbreite / 2;
-  const halbKopf = kopfbreite / 2;
-  const kopfHoehe = hoehe * 0.34;
-  const kopfFase = Math.min(8, halbKopf * 0.4);
-
-  return [
-    `M ${rund(-halbKopf + kopfFase)} 0`,
-    `L ${rund(halbKopf - kopfFase)} 0`,
-    `L ${rund(halbKopf)} ${rund(kopfFase)}`,
-    `L ${rund(halbKopf)} ${rund(kopfHoehe)}`,
-    `L ${rund(halbFuss)} ${rund(kopfHoehe + hoehe * 0.1)}`,
-    `L ${rund(halbFuss)} ${rund(hoehe)}`,
-    `L ${rund(-halbFuss)} ${rund(hoehe)}`,
-    `L ${rund(-halbFuss)} ${rund(kopfHoehe + hoehe * 0.1)}`,
-    `L ${rund(-halbKopf)} ${rund(kopfHoehe)}`,
-    `L ${rund(-halbKopf)} ${rund(kopfFase)}`,
-    'Z',
-  ].join(' ');
+/** Symmetrisches Profil mit Kopf, Steg und Fuss (Vignol, Kran, Konstruktion). */
+function symPfad(h: number, fussbreite: number, kopfbreite: number, steg: number, form: Form): string {
+  const F = fussbreite / 2;
+  const K = kopfbreite / 2;
+  const s = Math.max(1, Math.min(steg / 2, K * 0.85, F * 0.95));
+  const w = h * form.woelbung;
+  const rc = Math.min(K * form.kopfEcke, 14);
+  const hk = h * form.kopfTiefe;
+  const kx = K * 0.985; // Kopfflanke leicht geneigt
+  const kopf: Seg[] = [
+    { p: [K - rc, w + rc * 0.08], c: [K * 0.5, 0] },
+    { p: [K, w + rc], c: [K, w] },
+    { p: [kx, hk] },
+  ];
+  return spiegelPfad([0, 0], [...kopf, ...unterteil(h, F, s, kx, hk, form)]);
 }
 
 /**
- * Liefert die Silhouette fuer ein Profil ODER pauschal fuer eine Kategorie
- * (mit typischen Platzhalter-Massen, falls kein konkretes Profil vorliegt —
- * genutzt im "Form erkennen"-Modus, wo nur die Kategorie gefragt ist).
+ * Rillenschiene: asymmetrischer Kopf — links der Fahrkopf, in der Mitte die Rille
+ * fuer den Spurkranz, rechts die etwas niedrigere Leitlippe. Steg unter der Kopfmitte.
  */
+function rillenPfad(h: number, fussbreite: number, kopfbreite: number, steg: number): string {
+  const F = fussbreite / 2;
+  const K = kopfbreite / 2;
+  const s = Math.max(1, Math.min(steg / 2, K * 0.4));
+  const xL = -K, xR = K;
+  const fahr = kopfbreite * 0.5;      // Breite Fahrkopf
+  const lippe = kopfbreite * 0.15;    // Breite Leitlippe
+  const g = h * 0.24;                 // Rillentiefe
+  const hk = h * 0.33;                // Kopfhoehe
+  const gr = Math.min(6, (kopfbreite - fahr - lippe) * 0.35);
+  const rc = Math.min(8, fahr * 0.18);
+  const lo = h * 0.03;                // Leitlippe etwas tiefer
+  const f = (x: number, y: number) => `${rund(x)} ${rund(y)}`;
+  const rechts = unterteil(h, F, s, xR, hk, VIGNOL);
+  const links = unterteil(h, F, s, -xL, hk, VIGNOL); // gespiegelt verwenden
+  const segStr = (sg: Seg, spiegel: boolean) => {
+    const m = (p: Pkt): Pkt => (spiegel ? [-p[0], p[1]] : p);
+    return sg.c ? `Q ${f(...m(sg.c))} ${f(...m(sg.p))}` : `L ${f(...m(sg.p))}`;
+  };
+  // linke Seite rueckwaerts (von unten Mitte hoch zur Kopfflanke)
+  const linksPunkte: Pkt[] = [[-xL, hk], ...links.map(sg => sg.p)];
+  const linksRueck: string[] = [];
+  for (let i = links.length - 1; i >= 0; i--) {
+    const sg = links[i];
+    const ziel = linksPunkte[i];
+    linksRueck.push(sg.c ? `Q ${f(-sg.c[0], sg.c[1])} ${f(-ziel[0], ziel[1])}` : `L ${f(-ziel[0], ziel[1])}`);
+  }
+  const xR1 = xL + fahr;          // Rillenrand Fahrkopfseite
+  const xR2 = xR - lippe;         // Rillenrand Lippenseite
+  return [
+    `M ${f(xL + rc, 0)}`,
+    `L ${f(xR1 - 2, 0)}`, `Q ${f(xR1, 0)} ${f(xR1, 2)}`,
+    `L ${f(xR1 + 1, g - gr)}`, `Q ${f(xR1 + 1, g)} ${f(xR1 + 1 + gr, g)}`,
+    `L ${f(xR2 - gr, g)}`, `Q ${f(xR2, g)} ${f(xR2, g - gr)}`,
+    `L ${f(xR2, lo + 2)}`, `Q ${f(xR2, lo)} ${f(xR2 + 2, lo)}`,
+    `L ${f(xR - 2, lo)}`, `Q ${f(xR, lo)} ${f(xR, lo + 2)}`,
+    `L ${f(xR, hk)}`,
+    ...rechts.map(sg => segStr(sg, false)),
+    ...linksRueck,
+    `L ${f(xL, rc)}`, `Q ${f(xL, 0)} ${f(xL + rc, 0)}`,
+    'Z',
+  ].join(' ');
+}
+
+/** Spurrille (Herzstueck-Fuehrung): schmales, hohes, asymmetrisches Stueck mit Rille oben. */
+function spurrillePfad(h: number, fussbreite: number): string {
+  const b = Math.max(fussbreite, h * 0.18);
+  const f = (x: number, y: number) => `${rund(x)} ${rund(y)}`;
+  const g = h * 0.2;
+  return [
+    `M ${f(-b / 2 + 2, 0)}`, `L ${f(-b * 0.05, 0)}`,
+    `L ${f(-b * 0.05, g - 2)}`, `Q ${f(-b * 0.05, g)} ${f(b * 0.05, g)}`,
+    `L ${f(b * 0.25, g)}`, `Q ${f(b * 0.35, g)} ${f(b * 0.35, g - 2)}`,
+    `L ${f(b * 0.35, 1)}`, `L ${f(b / 2 - 1, 1)}`, `Q ${f(b / 2, 1)} ${f(b / 2, 3)}`,
+    `L ${f(b / 2, h - 1)}`, `Q ${f(b / 2, h)} ${f(b / 2 - 1, h)}`,
+    `L ${f(-b / 2 + 1, h)}`, `Q ${f(-b / 2, h)} ${f(-b / 2, h - 1)}`,
+    `L ${f(-b / 2, 2)}`, `Q ${f(-b / 2, 0)} ${f(-b / 2 + 2, 0)}`,
+    'Z',
+  ].join(' ');
+}
+
+/** Stromschiene: Pilzkopf auf breiter, massiger Basis. */
+function stromschienePfad(h: number, fussbreite: number, kopfbreite: number): string {
+  const F = fussbreite / 2;
+  const K = kopfbreite / 2;
+  const hk = h * 0.32;
+  const hals = Math.min(K, F) * 0.55;
+  const rc = Math.min(10, K * 0.35);
+  return spiegelPfad([0, 0], [
+    { p: [K - rc, 0.5], c: [K * 0.5, 0] },
+    { p: [K, rc], c: [K, 0.5] },
+    { p: [K, hk - 3] },
+    { p: [K - 3, hk], c: [K, hk] },
+    { p: [hals + 4, hk + 2] },
+    { p: [hals, hk + 8], c: [hals, hk + 2] },
+    { p: [hals, h * 0.55] },
+    { p: [F, h * 0.62], c: [hals, h * 0.62] },
+    { p: [F, h - 2] },
+    { p: [F - 2, h], c: [F, h] },
+    { p: [0, h] },
+  ]);
+}
+
+/** Querschnitt als SVG-Pfad fuer ein Profil der jeweiligen Familie. */
 export function schienenPfad(kategorie: SchienenKategorie, hoehe: number, fussbreite: number, kopfbreite: number, steg: number): string {
   switch (kategorie) {
     case 'leichte-vignol':
     case 'schwere-vignol':
+      return symPfad(hoehe, fussbreite, kopfbreite, steg, VIGNOL);
     case 'konstruktion':
-      return vignolPfad(hoehe, fussbreite, kopfbreite, steg);
+      return symPfad(hoehe, fussbreite, kopfbreite, steg, KONSTRUKTION);
     case 'kran':
-      return kranPfad(hoehe, fussbreite, kopfbreite, steg);
+      return symPfad(hoehe, fussbreite, kopfbreite, steg, KRAN);
     case 'rillen':
       return rillenPfad(hoehe, fussbreite, kopfbreite, steg);
     case 'spurrille':
-      return spurrillePfad(hoehe, fussbreite, kopfbreite, steg);
+      return spurrillePfad(hoehe, fussbreite);
     case 'stromschiene':
       return stromschienePfad(hoehe, fussbreite, kopfbreite);
   }
 }
 
-/** viewBox fuer eine Silhouette, aus ihren eigenen Massen berechnet (zentriert, mit Rand). */
-export function schienenViewBox(hoehe: number, fussbreite: number, kopfbreite: number): string {
-  const breite = Math.max(fussbreite, kopfbreite) + 36;
-  return `${rund(-breite / 2)} -8 ${rund(breite)} ${rund(hoehe + 16)}`;
+// ---------------------------------------------------------------------
+// Bemassung: Hoehe links, Kopfbreite oben, Fussbreite unten — wie in einer
+// Profilzeichnung. Texte koennen "?" sein (Modus "Werte eintragen").
+// ---------------------------------------------------------------------
+
+export interface MassText { x: number; y: number; text: string; drehen: boolean; groesse: number; hoehe: boolean }
+
+export interface Bemassung {
+  viewBox: string;
+  /** duenne Hilfslinien von der Kontur zur Masslinie */
+  hilfslinien: string;
+  /** Masslinien (Hoehe extra, damit sie hervorgehoben werden kann) */
+  masslinien: string;
+  hoehenlinie: string;
+  /** gefuellte Pfeilspitzen */
+  pfeile: string;
+  texte: MassText[];
 }
 
-/** Typische Platzhaltermasse je Kategorie, fuer den reinen Formen-Erkennen-Modus. */
-export const KATEGORIE_MUSTERMASSE: Record<SchienenKategorie, { hoehe: number; fussbreite: number; kopfbreite: number; steg: number }> = {
-  'leichte-vignol': { hoehe: 90, fussbreite: 75, kopfbreite: 40, steg: 9 },
-  'schwere-vignol': { hoehe: 160, fussbreite: 140, kopfbreite: 70, steg: 15 },
-  kran: { hoehe: 100, fussbreite: 190, kopfbreite: 100, steg: 60 },
-  rillen: { hoehe: 160, fussbreite: 165, kopfbreite: 115, steg: 12 },
-  konstruktion: { hoehe: 150, fussbreite: 130, kopfbreite: 68, steg: 45 },
-  spurrille: { hoehe: 110, fussbreite: 60, kopfbreite: 60, steg: 14 },
-  stromschiene: { hoehe: 100, fussbreite: 80, kopfbreite: 80, steg: 18 },
-};
+export interface BemassungOptionen {
+  hoehe?: string | null;
+  kopf?: string | null;
+  fuss?: string | null;
+  /** feste Zeichenflaeche (fuer Vergleichskarten gleicher Massstab) */
+  fest?: { hoehe: number; breite: number };
+  /** Schriftfaktor (kleine Karten brauchen groessere Schrift) */
+  schrift?: number;
+}
+
+export function schienenBemassung(kategorie: SchienenKategorie, h: number, fussbreite: number, kopfbreite: number, opt: BemassungOptionen): Bemassung {
+  const bFuss = kategorie === 'spurrille' ? Math.max(fussbreite, h * 0.18) : fussbreite;
+  const W = Math.max(bFuss, kopfbreite);
+  const refH = opt.fest?.hoehe ?? h;
+  const refW = opt.fest?.breite ?? W;
+  const u = Math.max(refH, refW) / 100;
+  const fs = 6.2 * u * (opt.schrift ?? 1);
+  const a = 2.4 * u; // Pfeillaenge
+  const f = (x: number, y: number) => `${rund(x)} ${rund(y)}`;
+  const pfeil = (x: number, y: number, dx: number, dy: number) => {
+    // Spitze bei (x,y), zeigt in Richtung (dx,dy)
+    const bx = x - dx * a, by = y - dy * a;
+    const nx = -dy * a * 0.38, ny = dx * a * 0.38;
+    return `M ${f(x, y)} L ${f(bx + nx, by + ny)} L ${f(bx - nx, by - ny)} Z`;
+  };
+  let hilfs = '', mass = '', hoeheL = '', pfeile = '';
+  const texte: MassText[] = [];
+
+  const links = -W / 2; // Masslinie dicht am eigenen Profil, auch auf fester Zeichenflaeche
+  if (opt.hoehe != null) {
+    const xKante = kategorie === 'spurrille' ? -bFuss / 2 : -Math.max(bFuss, kopfbreite) / 2;
+    const xm = links - 9 * u;
+    hilfs += `M ${f(-kopfbreite / 2 - 1.5 * u, 0)} L ${f(xm - 2 * u, 0)} M ${f(xKante - 1.5 * u, h)} L ${f(xm - 2 * u, h)} `;
+    hoeheL += `M ${f(xm, 0)} L ${f(xm, h)}`;
+    pfeile += pfeil(xm, 0, 0, -1) + ' ' + pfeil(xm, h, 0, 1) + ' ';
+    texte.push({ x: xm - 2.2 * u, y: h / 2, text: opt.hoehe, drehen: true, groesse: fs * 1.15, hoehe: true });
+  }
+  if (opt.kopf != null) {
+    const ym = -7 * u;
+    hilfs += `M ${f(-kopfbreite / 2, -1.5 * u)} L ${f(-kopfbreite / 2, ym - 2 * u)} M ${f(kopfbreite / 2, -1.5 * u)} L ${f(kopfbreite / 2, ym - 2 * u)} `;
+    mass += `M ${f(-kopfbreite / 2, ym)} L ${f(kopfbreite / 2, ym)} `;
+    pfeile += pfeil(-kopfbreite / 2, ym, -1, 0) + ' ' + pfeil(kopfbreite / 2, ym, 1, 0) + ' ';
+    texte.push({ x: 0, y: ym - 2 * u, text: opt.kopf, drehen: false, groesse: fs, hoehe: false });
+  }
+  if (opt.fuss != null) {
+    const ym = h + 8 * u;
+    hilfs += `M ${f(-bFuss / 2, h + 1.5 * u)} L ${f(-bFuss / 2, ym + 2 * u)} M ${f(bFuss / 2, h + 1.5 * u)} L ${f(bFuss / 2, ym + 2 * u)} `;
+    mass += `M ${f(-bFuss / 2, ym)} L ${f(bFuss / 2, ym)} `;
+    pfeile += pfeil(-bFuss / 2, ym, -1, 0) + ' ' + pfeil(bFuss / 2, ym, 1, 0) + ' ';
+    texte.push({ x: 0, y: ym + 2 * u + fs, text: opt.fuss, drehen: false, groesse: fs, hoehe: false });
+  }
+
+  const BW = opt.fest ? refW : W;
+  const BH = opt.fest ? refH : h;
+  const x0 = -BW / 2 - (opt.hoehe != null ? 13 * u + fs * 1.3 : 5 * u);
+  const x1 = BW / 2 + 5 * u;
+  const y0 = opt.kopf != null ? -9 * u - fs * 1.2 : -4 * u;
+  const y1 = BH + (opt.fuss != null ? 11 * u + fs * 1.4 : 4 * u);
+  return {
+    viewBox: `${rund(x0)} ${rund(y0)} ${rund(x1 - x0)} ${rund(y1 - y0)}`,
+    hilfslinien: hilfs.trim(),
+    masslinien: mass.trim(),
+    hoehenlinie: hoeheL,
+    pfeile: pfeile.trim(),
+    texte,
+  };
+}
+
+/** Masszahl schoen: 172 → "172 mm", 60.3 → "60,3 mm" */
+export function mm(wert: number): string {
+  return `${String(wert).replace('.', ',')} mm`;
+}
 
 /**
- * Eine EINZIGE, feste viewBox fuer den Formen-Erkennen-Modus (Modus 1), aus
- * der groessten Kategorie berechnet. Wichtig: leichte und schwere
- * Vignolschiene nutzen dieselbe Silhouetten-Formel (vignolPfad) und
- * unterscheiden sich nur in der absoluten Groesse — mit einer je Kategorie
- * selbst zugeschnittenen viewBox (wie in Modus 2/3, wo Zahlen zur
- * Unterscheidung helfen) wuerde dieser Groessenunterschied verschwinden,
- * weil jede Silhouette gleich gross ins Bild skaliert wuerde. Mit einer
- * gemeinsamen festen viewBox bleibt die tatsaechliche Groessenrelation
- * sichtbar (schwere Vignolschiene wirkt spuerbar groesser als leichte).
+ * Je Schienenform ein ECHTES Beispielprofil fuer den Modus "Form erkennen"
+ * (damit die Hoehenangabe stimmt). Alle Karten nutzen dieselbe Zeichenflaeche,
+ * so bleibt der Groessenunterschied (leicht ↔ schwer) sichtbar.
  */
-export const FORMEN_VIEWBOX: string = (() => {
-  let maxBreite = 0;
-  let maxHoehe = 0;
-  for (const m of Object.values(KATEGORIE_MUSTERMASSE)) {
-    maxBreite = Math.max(maxBreite, m.fussbreite, m.kopfbreite);
-    maxHoehe = Math.max(maxHoehe, m.hoehe);
+export const KATEGORIE_BEISPIEL: Record<SchienenKategorie, string> = {
+  'leichte-vignol': 's14',
+  'schwere-vignol': 'uic60',
+  kran: 'a75',
+  rillen: 'ri60-10',
+  konstruktion: 'zu1-60',
+  spurrille: 'form-s49',
+  stromschiene: 'str40',
+};
+
+export const FORMEN_FLAECHE: { hoehe: number; breite: number } = (() => {
+  let hoehe = 0, breite = 0;
+  for (const id of Object.values(KATEGORIE_BEISPIEL)) {
+    const p = PROFILE.find(x => x.id === id)!;
+    hoehe = Math.max(hoehe, p.hoeheMm);
+    breite = Math.max(breite, p.fussbreiteMm, p.kopfbreiteMm);
   }
-  return schienenViewBox(maxHoehe, maxBreite, maxBreite);
+  return { hoehe, breite };
 })();

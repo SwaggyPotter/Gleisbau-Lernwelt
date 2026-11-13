@@ -1,0 +1,88 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>Postfach</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Übersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="pf-content">
+  <div class="pf">
+    <section class="pf-hero">
+      <p class="eyebrow">Nachrichten</p>
+      <h1>Postfach</h1>
+      <p class="lede" *ngIf="angemeldet">
+        {{ ungelesen ? ungelesen + ' ungelesen' : 'Alles gelesen' }} · {{ nachrichten.length }} Nachricht{{ nachrichten.length === 1 ? '' : 'en' }}
+      </p>
+    </section>
+
+    <p class="pf-leer" *ngIf="!angemeldet">
+      Das Postfach gibt es für angemeldete Konten (auch Gastzugänge). <a routerLink="/konto/anmelden">Anmelden</a>
+    </p>
+
+    <!-- ===== Admin: Nachricht schreiben ===== -->
+    <section class="pf-karte pf-schreiben" *ngIf="istAdmin">
+      <div class="pf-zeile">
+        <button type="button" class="pf-btn primary" (click)="schreibenOffen = !schreibenOffen">{{ schreibenOffen ? 'Schreiben schließen' : '✉️ Nachricht schreiben' }}</button>
+        <span class="pf-klein">Vorlage:</span>
+        <button type="button" class="pf-btn" *ngFor="let v of vorlagen" (click)="vorlageNehmen(v)">{{ v.name }}</button>
+      </div>
+
+      <form *ngIf="schreibenOffen" (ngSubmit)="senden()" class="pf-form">
+        <label>An
+          <select name="an" [(ngModel)]="entwurf.an" required>
+            <option value="" disabled>Empfänger wählen …</option>
+            <option value="alle">Alle Konten</option>
+            <option *ngFor="let e of empfaenger" [value]="e.id">{{ empfaengerName(e) }}</option>
+          </select>
+        </label>
+        <label>Betreff
+          <input name="betreff" [(ngModel)]="entwurf.betreff" maxlength="120" required />
+        </label>
+        <label>Text
+          <textarea name="text" [(ngModel)]="entwurf.text" rows="9" maxlength="4000" required></textarea>
+        </label>
+        <div class="pf-zwei">
+          <label>Link in der App (freiwillig)
+            <input name="link" [(ngModel)]="entwurf.link" placeholder="/zusatz/schotterbett" maxlength="300" />
+          </label>
+          <label>Knopftext
+            <input name="linkText" [(ngModel)]="entwurf.linkText" placeholder="Zur App" maxlength="80" />
+          </label>
+        </div>
+        <div class="pf-zeile">
+          <button type="submit" class="pf-btn primary" [disabled]="!sendenMoeglich">{{ sendet ? 'Sendet …' : 'Senden' }}</button>
+          <span class="pf-status" *ngIf="sendeStatus">{{ sendeStatus }}</span>
+        </div>
+      </form>
+      <p class="pf-status" *ngIf="!schreibenOffen && sendeStatus">{{ sendeStatus }}</p>
+    </section>
+
+    <!-- ===== Eigene Nachrichten ===== -->
+    <ng-container *ngIf="angemeldet">
+      <div class="pf-karte" *ngIf="laedt"><ion-spinner name="crescent"></ion-spinner></div>
+      <p class="pf-fehler" *ngIf="fehler">{{ fehler }}</p>
+      <p class="pf-leer" *ngIf="!laedt && !fehler && !nachrichten.length">Noch keine Nachrichten. Wenn dir jemand schreibt, siehst du es am Briefsymbol rechts unten.</p>
+
+      <article class="pf-nachricht" *ngFor="let n of nachrichten" [class.ungelesen]="!n.gelesen" [class.offen]="offen === n.id">
+        <button type="button" class="pf-kopf" (click)="umschalten(n)" [attr.aria-expanded]="offen === n.id">
+          <span class="pf-punkt" *ngIf="!n.gelesen" aria-label="ungelesen"></span>
+          <span class="pf-betreff">{{ n.betreff }}</span>
+          <span class="pf-meta">{{ n.absender }} · {{ n.erstelltAm | date:'dd.MM.yyyy, HH:mm' }}</span>
+        </button>
+        <div class="pf-inhalt" *ngIf="offen === n.id">
+          <p class="pf-text">{{ n.text }}</p>
+          <div class="pf-zeile">
+            <button type="button" class="pf-btn primary" *ngIf="n.link" (click)="oeffneLink(n, $event)">{{ n.linkText || 'Öffnen' }} →</button>
+            <button type="button" class="pf-btn" (click)="loeschen(n, $event)">Löschen</button>
+          </div>
+        </div>
+      </article>
+    </ng-container>
+  </div>
+</ion-content>

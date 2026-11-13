@@ -1,0 +1,164 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>Prozentrechnung</ion-title>
+    <nav class="pz-umschalter" slot="end" aria-label="Rechnen oder Quiz">
+      <a routerLink="/zusatz/prozentrechnung" class="aktiv" aria-current="page">Rechnen</a>
+      <a routerLink="/zusatz/prozentrechnung/quiz">Quiz</a>
+    </nav>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Übersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="pzx-content">
+  <div class="pzx smb-root" [attr.data-melde-kontext]="meldeKontext">
+
+    <!-- ============ LINKS: Aufgabe + Schmierblatt + Ergebnisse ============ -->
+    <div class="col links" #linkeSpalte>
+      <section class="card board">
+        <div class="tools">
+          <button class="btn small primary" type="button" (click)="neu()">Neue Aufgabe ↻</button>
+          <select class="btn small wahl" [(ngModel)]="stufe" (ngModelChange)="stufeGeaendert()" aria-label="Schwierigkeitsgrad">
+            <option value="leicht">Leicht</option>
+            <option value="mittel">Mittel</option>
+            <option value="schwer">Schwer</option>
+          </select>
+          <button class="btn small" type="button" (click)="nurWerteUmschalten()">{{ nurWerte ? 'Ganzer Text' : 'Nur Werte' }}</button>
+          <button class="btn small" type="button" (click)="formelAufsBlatt()" title="Formel als Karte aufs Schmierblatt legen">📌 Formel</button>
+          <span class="smb-werkzeuge" #werkzeuge></span>
+        </div>
+
+        <div class="flaeche" #flaeche>
+          <div class="aufgabe-blatt" [class.kompakt]="nurWerte">
+            <div class="aufgabe-kopf">{{ aufgabe.titel }} <span class="nr">#{{ aufgabe.nr }} · {{ stufeName }}</span></div>
+            <div *ngIf="!nurWerte" class="aufgabe-text" [innerHTML]="aufgabe.text"></div>
+            <div *ngIf="nurWerte" class="nur-werte">
+              <span class="w" *ngFor="let w of aufgabe.werte"><i>{{ w.name }}</i>{{ w.wert }}</span>
+              <span class="w"><i>Gesucht</i>{{ aufgabe.felder.length }} Werte (siehe Ergebnisse)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card answers" [class.offen]="ergebnisseOffen">
+        <button class="answers-kopf" type="button" (click)="ergebnisseOffen = !ergebnisseOffen" [attr.aria-expanded]="ergebnisseOffen">
+          <span>Ergebnisse <span class="stand">{{ stand }}</span></span>
+          <span class="pfeil">▲</span>
+        </button>
+        <div class="answers-body">
+          <div class="fields">
+            <label class="field" *ngFor="let feld of aufgabe.felder" [ngClass]="bewertung[feld.key] || ''">
+              <span>{{ feld.label }}</span>
+              <span class="in">
+                <input inputmode="decimal" autocomplete="off" placeholder="…" [(ngModel)]="eingaben[feld.key]" (keydown.enter)="pruefen()">
+                <span class="unit">{{ feld.einheit }}</span>
+              </span>
+            </label>
+          </div>
+          <p class="toleranz">Geldbeträge auf den Cent genau. Sonst auf 1 % genau grün, bis 5 % gelb. Stückzahlen müssen genau stimmen.</p>
+          <div class="actions">
+            <button class="btn primary" type="button" (click)="pruefen()">Prüfen</button>
+            <button class="btn" type="button" (click)="loesungZeigen = !loesungZeigen">{{ loesungZeigen ? 'Lösungsweg ausblenden' : 'Lösungsweg' }}</button>
+            <button class="btn" type="button" (click)="ergebnisseOffen = false">Einklappen ▼</button>
+          </div>
+          <div class="solution" *ngIf="loesungZeigen">
+            <b>Lösungsweg</b>
+            <ol><li *ngFor="let s of aufgabe.weg" [innerHTML]="s"></li></ol>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ RECHTS: Bild + Rechner ============ -->
+    <div class="col rechts">
+      <section class="card bildcard">
+        <div class="modus-tabs" role="tablist">
+          <button type="button" role="tab" [class.aktiv]="modus === 'aufgabe'" [attr.aria-selected]="modus === 'aufgabe'" (click)="modusSetzen('aufgabe')">Bild zur Aufgabe</button>
+          <button type="button" role="tab" [class.aktiv]="modus === 'rechner'" [attr.aria-selected]="modus === 'rechner'" (click)="modusSetzen('rechner')">Freier Rechner</button>
+        </div>
+
+        <div class="koerper-wahl" *ngIf="modus === 'rechner'">
+          <button type="button" class="chip" [class.aktiv]="rModus === 'grund'" (click)="rModusSetzen('grund')">G · W · p</button>
+          <button type="button" class="chip" [class.aktiv]="rModus === 'aendern'" (click)="rModusSetzen('aendern')">Erhöhen / Vermindern</button>
+          <button type="button" class="chip" [class.aktiv]="rModus === 'neigung'" (click)="rModusSetzen('neigung')">Neigung ‰</button>
+        </div>
+
+        <div class="bild" #bildEl aria-label="Zeichnung zur Aufgabe"></div>
+
+        <!-- Bild zur Aufgabe -->
+        <div class="info" *ngIf="modus === 'aufgabe'">
+          <div class="info-zeile">
+            <span><b>{{ formeln[aufgabe.formel].name }}</b></span>
+            <button class="btn small" type="button" (click)="formelZeigen = !formelZeigen">{{ formelZeigen ? 'Formel ausblenden' : 'Formel zeigen' }}</button>
+          </div>
+          <div class="formel" *ngIf="formelZeigen" [innerHTML]="formeln[aufgabe.formel].html"></div>
+          <p class="beispiel">Merke: Der Grundwert G ist immer 100 % – das, wovon man ausgeht.</p>
+        </div>
+
+        <!-- Freier Rechner -->
+        <div class="rechner" *ngIf="modus === 'rechner'">
+          <ng-container *ngIf="rModus === 'grund'">
+            <div class="reihe">
+              <span class="klein">Gesucht:</span>
+              <button type="button" class="chip" [class.aktiv]="gesucht === 'W'" (click)="gesucht = 'W'; bildZeigen()">Prozentwert W</button>
+              <button type="button" class="chip" [class.aktiv]="gesucht === 'G'" (click)="gesucht = 'G'; bildZeigen()">Grundwert G</button>
+              <button type="button" class="chip" [class.aktiv]="gesucht === 'p'" (click)="gesucht = 'p'; bildZeigen()">Prozentsatz p</button>
+            </div>
+            <div class="masse">
+              <label class="mass" *ngIf="gesucht !== 'G'"><span><b>G</b> Grundwert (100 %)</span>
+                <span class="in"><input type="number" min="0" step="any" inputmode="decimal" [(ngModel)]="rG" (ngModelChange)="bildZeigen()"></span></label>
+              <label class="mass" *ngIf="gesucht !== 'p'"><span><b>p</b> Prozentsatz</span>
+                <span class="in"><input type="number" min="0" step="any" inputmode="decimal" [(ngModel)]="rP" (ngModelChange)="bildZeigen()"><span class="unit">%</span></span></label>
+              <label class="mass" *ngIf="gesucht !== 'W'"><span><b>W</b> Prozentwert</span>
+                <span class="in"><input type="number" min="0" step="any" inputmode="decimal" [(ngModel)]="rW" (ngModelChange)="bildZeigen()"></span></label>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="rModus === 'aendern'">
+            <div class="reihe">
+              <button type="button" class="chip" [class.aktiv]="aRichtung === 'plus'" (click)="aRichtung = 'plus'; bildZeigen()">+ Erhöhen (Zuschlag, MwSt)</button>
+              <button type="button" class="chip" [class.aktiv]="aRichtung === 'minus'" (click)="aRichtung = 'minus'; bildZeigen()">− Vermindern (Rabatt, Skonto)</button>
+            </div>
+            <div class="masse">
+              <label class="mass"><span>Gegeben ist</span>
+                <span class="in"><select [(ngModel)]="aGegeben" (ngModelChange)="bildZeigen()">
+                  <option value="start">der Ausgangswert (100 %)</option>
+                  <option value="ende">der neue Wert (Rückrechnung)</option>
+                </select></span></label>
+              <label class="mass"><span>{{ aGegeben === 'start' ? 'Ausgangswert' : 'neuer Wert' }}</span>
+                <span class="in"><input type="number" min="0" step="any" inputmode="decimal" [(ngModel)]="aWert" (ngModelChange)="bildZeigen()"></span></label>
+              <label class="mass"><span><b>p</b> {{ aRichtung === 'plus' ? 'Erhöhung' : 'Minderung' }}</span>
+                <span class="in"><input type="number" min="0" step="any" inputmode="decimal" [(ngModel)]="aP" (ngModelChange)="bildZeigen()"><span class="unit">%</span></span></label>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="rModus === 'neigung'">
+            <div class="reihe">
+              <span class="klein">Gesucht:</span>
+              <button type="button" class="chip" [class.aktiv]="nGesucht === 'promille'" (click)="nGesucht = 'promille'; bildZeigen()">Neigung in ‰</button>
+              <button type="button" class="chip" [class.aktiv]="nGesucht === 'dh'" (click)="nGesucht = 'dh'; bildZeigen()">Höhenunterschied Δh</button>
+            </div>
+            <div class="masse">
+              <label class="mass"><span><b>l</b> Länge</span>
+                <span class="in"><input type="number" min="0" step="any" inputmode="decimal" [(ngModel)]="nL" (ngModelChange)="bildZeigen()"><span class="unit">m</span></span></label>
+              <label class="mass" *ngIf="nGesucht === 'promille'"><span><b>Δh</b> Höhenunterschied</span>
+                <span class="in"><input type="number" min="0" step="any" inputmode="decimal" [(ngModel)]="nDh" (ngModelChange)="bildZeigen()"><span class="unit">m</span></span></label>
+              <label class="mass" *ngIf="nGesucht === 'dh'"><span>Neigung</span>
+                <span class="in"><input type="number" min="0" step="any" inputmode="decimal" [(ngModel)]="nPromille" (ngModelChange)="bildZeigen()"><span class="unit">‰</span></span></label>
+            </div>
+          </ng-container>
+
+          <p class="fehler" *ngIf="rErgebnis.fehler">{{ rErgebnis.fehler }}</p>
+          <div class="kacheln" *ngIf="!rErgebnis.fehler">
+            <div class="kachel" *ngFor="let k of rErgebnis.kacheln" [class.haupt]="k.haupt"><i>{{ k.name }}</i><b>{{ k.wert }}</b></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</ion-content>

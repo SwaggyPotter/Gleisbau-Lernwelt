@@ -1,3 +1,4 @@
+import { ProfilSyncService } from '../../../../../core/auth/services/profil-sync.service';
 import { Component } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { ThemenquizDataService } from '../../../../themenquiz/services/themenquiz-data.service';
@@ -173,6 +174,7 @@ export class DuellPage {
   onAntwort(event: DuellAntwortEvent): void {
     if (!this.match || !this.aktuelleRunde || !this.aktuelleFrage) return;
     const richtig = event.index !== null && event.index === this.aktuelleFrage.correctIndex;
+    ProfilSyncService.lokalZaehlen('zusatz:quizduell', richtig);
     this.aktuelleRunde.spielerAntworten.push({
       frageId: this.aktuelleFrage.id,
       gewaehlterIndex: event.index,

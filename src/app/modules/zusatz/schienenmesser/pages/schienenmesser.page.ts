@@ -1,842 +1,528 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { ProfilSyncService } from '../../../../core/auth/services/profil-sync.service';
 
 /**
- * 1:1-Uebernahme der von Tim gelieferten Referenz-Simulation
- * (schienenkopf-verschleissmesser.html). Die gesamte Geraete-Physik
- * (Geometrie, Zieh-Interaktion, SVG-Aufbau) ist bewusst NICHT in
- * Angular-Bindings uebersetzt, sondern als eigenstaendige Funktion
- * `initSchienenmesser()` fast wortgleich uebernommen und nur an die
- * Komponenten-Lebensdauer angebunden (siehe Klasse unten):
- *  - `document.getElementById` -> auf das Komponenten-Root-Element
- *    beschraenkte Abfrage (Ionic haelt vorherige Seiten ausgeblendet im
- *    DOM, ein globales getElementById koennte sonst ein Element einer
- *    frueher besuchten, toten Seiteninstanz treffen).
- *  - `window.addEventListener('keydown', ...)` wird beim Verlassen der
- *    Seite wieder entfernt (sonst Speicher-/Verhaltensleck über die
- *    Seite hinaus).
- * Alle Zahlenwerte, Formeln und die Reihenfolge der Berechnungen sind
- * unveraendert aus der Vorlage uebernommen.
- *
- * ACHTUNG — Datenlage: Belegt sind die Gesamthoehen (49E5 = 149 mm,
- * 54E4 = 154 mm, 60E2 = 172 mm) sowie die Messtiefe von 14 mm unter
- * Schienenoberkante fuer den Seitenverschleiss. Die uebrigen Masse
- * (Kopf-/Fuss-/Steg-Halbmasse der Profilgeometrie) dienen nur dem
- * massstaeblichen Zeichnen und sind vereinfacht.
+ * SKM1 · Schienenkopf-Verschleißmesser — 1:1-Übernahme von Tims Vorlage
+ * skm1-verschleissmesser.html (2026-11-08, ersetzt die ältere Simulation).
+ * Geometrie, Kalibrierung, Zieh-Logik und Auswertung sind wortgleich übernommen,
+ * nur an die Komponente angebunden:
+ *  - Element-Abfragen laufen über das Komponenten-Root (Ionic hält alte Seiten im DOM),
+ *  - der Tastatur-Listener wird beim Verlassen der Seite entfernt.
+ * Profilmaße (Höhe/Kopf/Fuß/Steg) 49E5 149/67/125/14, 54E4 159/70/140/16,
+ * 60E2 172/72/150/16,5 mm; übrige Querschnittsmaße und Gerätebau sind vereinfacht.
  */
 
-type ProfileKey = '49E5' | '54E4' | '60E2';
+type P2 = number[];
+interface Prof { H: number; B: number; F: number; w: number; te: number; hd: number; }
+interface Pt { x: number; y: number; }
+type Kind = 'rod' | 'probe' | 'steg' | 'carr';
 
-interface ProfileGeom {
-  H: number;
-  hh: number;
-  fh: number;
-  wh: number;
-  headH: number;
-  name: string;
-}
-
-const PR: Record<ProfileKey, ProfileGeom> = {
-  '49E5': { H: 149, hh: 33.5, fh: 62.5, wh: 7.0, headH: 42.0, name: '49E5 (S49)' },
-  '54E4': { H: 154, hh: 33.5, fh: 62.5, wh: 8.0, headH: 45.0, name: '54E4 (S54)' },
-  '60E2': { H: 172, hh: 36.0, fh: 75.0, wh: 8.25, headH: 47.5, name: '60E2 (UIC60)' },
-};
-const KEYS: ProfileKey[] = ['49E5', '54E4', '60E2'];
-
-interface Geom {
-  R0: number;
-  TH0: number;
-  ARM_MIN: number;
-  ARM_MAX: number;
-  ROD_X: number;
-  ROD_MIN: number;
-  ROD_BAR: number;
-  ROD_SLEEVE_TOP: number;
-  ROD_SLEEVE_BOT: number;
-  STEG_TIP_Y: number;
-  BASE_PROBE_Y: number;
-  BASE_ZERO_X: number;
-  PY: number;
-  DIRX: number;
-  DIRY: number;
-}
-
-type SelKind = 'rod' | 'latte' | 'steg' | 'arm';
-
-interface SkmState {
-  actual: ProfileKey;
-  hwear: number;
-  swear: number;
-  setSteg: ProfileKey;
-  setLatte: ProfileKey;
-  rodTip: number;
-  armReach: number;
-  showNom: boolean;
-  blind: boolean;
-  revealed: boolean;
-  sel: SelKind | null;
-}
-
-interface DragInfo {
-  kind: SelKind;
-  off: number;
-}
-
-interface TxtOpts {
-  fill?: string;
-  fs?: number;
-  ls?: number;
-  a?: string;
-  w?: number;
-}
-
-/**
- * Baut die komplette interaktive Simulation innerhalb von `root` auf und
- * gibt eine Aufraeum-Funktion zurueck (entfernt den globalen
- * Keydown-Listener). Wird pro Seitenbesuch neu aufgerufen — alle
- * "Modul-Level"-Werte der Vorlage sind deshalb bewusst lokale Variablen
- * dieser Funktion statt echter Modul-Konstanten, damit zwei Besuche
- * derselben Seite sich nicht gegenseitig beeinflussen.
- */
-function initSchienenmesser(root: HTMLElement): () => void {
-  // ------------------------------------------------------------------
-  // 2 · GERAETEGEOMETRIE
-  // Lokales Koordinatensystem des Geraets: Nullpunkt = Auflagekante am
-  // Schienenfuss (Fussaussenkante / Fussunterseite). x nach rechts,
-  // y nach unten. Das Geraet wird mit translate(-fh, H) in die
-  // Schienenkoordinaten gesetzt.
-  // ------------------------------------------------------------------
-  const G: Geom = {
-    R0: 62, // Achsabstand Pivot -> Nullstellung (fester Fuehlerarm-Winkel)
-    TH0: 43, // fester Winkel des Fuehlerarms [Grad, von der Senkrechten] — aendert sich NICHT
-    ARM_MIN: 26, // kuerzeste Ausfahrt (zurueckgezogen)
-    ARM_MAX: 96, // laengste Ausfahrt
-    ROD_X: 66, // Achse der Hoehenmesslatte (lokal, Geraetekoordinaten)
-    ROD_MIN: -178, // ganz zurueckgezogen (Fuehlerspitze)
-    ROD_BAR: 58, // gezeichnete Laenge des Messingstabs
-    ROD_SLEEVE_TOP: -222, // feste Fuehrungshuelse, in der die Latte gleitet
-    ROD_SLEEVE_BOT: -190,
-    STEG_TIP_Y: -79, // Hoehe, auf der der Steg-Fuehler antastet (Referenz 60E2)
-    BASE_PROBE_Y: -158, // Antastlinie bei Einstellung 60E2 = -(172-14), echte Messtiefe
-    BASE_ZERO_X: 39, // Nullpunkt Seitenskala bei 60E2 = fh-hh
-    PY: 0,
-    DIRX: 0,
-    DIRY: 0,
+function initSkm1(root: HTMLElement): () => void {
+  const SQ = Math.SQRT1_2;
+  const U = { x: SQ, y: -SQ };               // Vorschubrichtung 45°-Fühler (zur Schiene hin)
+  const PROF: Record<string, Prof> = {
+    '49E5': { H: 149, B: 67, F: 125, w: 14, te: 10.5, hd: 35 },
+    '54E4': { H: 159, B: 70, F: 140, w: 16, te: 11, hd: 36 },
+    '60E2': { H: 172, B: 72, F: 150, w: 16.5, te: 11.5, hd: 37.5 },
   };
-  G.PY = G.BASE_PROBE_Y - G.R0 * Math.cos((G.TH0 * Math.PI) / 180); // Pivot y (lokal) — gilt fuer jedes Profil
-  G.DIRX = Math.sin((G.TH0 * Math.PI) / 180); // feste Fuehlerrichtung (Einheitsvektor)
-  G.DIRY = Math.cos((G.TH0 * Math.PI) / 180);
+  const ORDER = ['49E5', '54E4', '60E2'];
+  const SMARK: Record<string, number> = { '49E5': -79, '54E4': -70, '60E2': -61 }; // Marken auf dem Steg-Messingschieber
+  const MOFF: Record<string, number> = { '60E2': -6, '54E4': -14, '49E5': -22 };   // Marken auf dem Messingstreifen unter dem SKM1-Block
+  const S_IDX = -30, T_MIN = -25, T_MAX = 22;       // 45°-Fühler
+  const ROD_X = 0, ROD_IDX = 190, ROD_MAX = 186;    // Höhenmesslatte
+  const STEG_Y = 70;
 
-  /**
-   * Pivot-X haengt von der physisch wirklich anliegenden Schiene ab (der
-   * Haken haengt am echten Fuss — unterschiedliche Fussbreiten
-   * verschieben die Lage automatisch), NICHT von einer Kalibrierwahl.
-   * Dadurch trifft der Fuehler bei korrektem Winkel/Weg fuer JEDES
-   * Profil exakt auf die Fahrkante bei 14 mm unter SOK — unabhaengig
-   * davon, was an Steg/Kopf eingestellt ist.
-   */
-  function pivotPX(profileKey: ProfileKey): number {
-    const p = PR[profileKey];
-    return p.fh - p.hh - G.R0 * G.DIRX;
+  const $ = <T extends Element = HTMLElement>(id: string): T => root.querySelector('#' + id) as unknown as T;
+  const f1 = (v: number) => v.toFixed(1).replace('.', ',');
+  const n2 = (v: number) => +v.toFixed(2);
+  const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
+
+  /* ---------- Profilkonstruktion: Polygon mit ausgerundeten Ecken ---------- */
+  function roundedPoly(V: P2[]): P2[] {
+    const n = V.length, T: any[] = [];
+    for (let i = 0; i < n; i++) {
+      const P = V[i], A = V[(i - 1 + n) % n], C = V[(i + 1) % n];
+      let ax = A[0] - P[0], ay = A[1] - P[1], cx = C[0] - P[0], cy = C[1] - P[1];
+      const la = Math.hypot(ax, ay), lc = Math.hypot(cx, cy);
+      ax /= la; ay /= la; cx /= lc; cy /= lc;
+      const half = Math.acos(clamp(ax * cx + ay * cy, -1, 1)) / 2;
+      T.push({ t: P[2] > 0 ? P[2] / Math.tan(half) : 0, ax, ay, cx, cy, half, lc });
+    }
+    for (let pass = 0; pass < 2; pass++) for (let i = 0; i < n; i++) {
+      const j = (i + 1) % n, s = T[i].t + T[j].t, L = T[i].lc * 0.96;
+      if (s > L) { const k = L / s; T[i].t *= k; T[j].t *= k; }
+    }
+    const out: P2[] = [];
+    for (let i = 0; i < n; i++) {
+      const P = V[i], q = T[i];
+      if (q.t <= 1e-6) { out.push([P[0], P[1]]); continue; }
+      const r = q.t * Math.tan(q.half);
+      const t1 = [P[0] + q.ax * q.t, P[1] + q.ay * q.t], t2 = [P[0] + q.cx * q.t, P[1] + q.cy * q.t];
+      let bx = q.ax + q.cx, by = q.ay + q.cy; const bl = Math.hypot(bx, by); bx /= bl; by /= bl;
+      const d = r / Math.sin(q.half), c = [P[0] + bx * d, P[1] + by * d];
+      const a1 = Math.atan2(t1[1] - c[1], t1[0] - c[0]);
+      let da = Math.atan2(t2[1] - c[1], t2[0] - c[0]) - a1;
+      while (da > Math.PI) da -= 2 * Math.PI; while (da < -Math.PI) da += 2 * Math.PI;
+      const steps = Math.max(2, Math.ceil(Math.max(Math.abs(da) / (1.5 * Math.PI / 180), r * Math.abs(da) / 0.5)));
+      for (let k = 0; k <= steps; k++) { const a = a1 + da * k / steps; out.push([c[0] + r * Math.cos(a), c[1] + r * Math.sin(a)]); }
+    }
+    return out;
   }
-
-  // Rastpositionen der beiden Einstellbalken
-  const LATTE_DY: Record<ProfileKey, number> = { '60E2': 0, '54E4': 18, '49E5': 23 }; // = 172 - H
-  const STEG_DX: Record<ProfileKey, number> = { '60E2': 0, '54E4': -14, '49E5': -28 }; // gleichmaessig gerastet
-  const carrierDy = (k: ProfileKey): number => LATTE_DY[k];
-
-  // ------------------------------------------------------------------
-  // 3 · ZUSTAND
-  // ------------------------------------------------------------------
-  const state: SkmState = {
-    actual: '60E2',
-    hwear: 0,
-    swear: 0,
-    setSteg: '60E2',
-    setLatte: '60E2',
-    rodTip: G.ROD_MIN, // lokale y der Fuehlerspitze (Hoehe)
-    armReach: G.ARM_MIN, // Ausfahrlaenge des Seitenfuehlers (fester Winkel!)
-    showNom: true,
-    blind: false,
-    revealed: false,
-    sel: null, // zuletzt angefasstes Bauteil (Tastatur)
-  };
-
-  // ------------------------------------------------------------------
-  // 4 · PROFIL-GEOMETRIE
-  // ------------------------------------------------------------------
-  function halfProfile(p: ProfileGeom): Array<[number, number]> {
-    // rechte Haelfte, oben -> unten
-    const { H, hh, fh, wh, headH } = p;
-    return [
-      [0, 0], [hh * 0.45, 1.2], [hh * 0.75, 3.5], [hh * 0.92, 7], [hh, 14], [hh, 30],
-      [hh * 0.95, headH - 9], [hh * 0.6, headH - 2],
-      [wh + 4.5, headH + 6], [wh, headH + 18],
-      [wh, H - 52], [wh + 5, H - 40],
-      [fh * 0.32, H - 27], [fh * 0.68, H - 19],
-      [fh, H - 11], [fh, H - 4], [fh * 0.82, H], [0, H],
-    ];
+  function profVerts(P: Prof, d: number): P2[] {
+    const { H, B, F, w, te, hd } = P;
+    const yfw = te + (F / 2 - w / 2) / 4;          // Fußoberseite Neigung 1:4
+    const yhb = H - hd;                             // Unterkante Kopfseite
+    const yhw = yhb - (B / 2 - w / 2) / 4;          // Kopfunterseite Neigung 1:4
+    const R: P2[] = [[F / 2, 0, 2], [F / 2, te, 4], [w / 2, yfw, 22], [w / 2, yhw, 16], [B / 2, yhb, 4], [B / 2, H - 5, 13], [0, H + d, 300]];
+    const L = R.slice(0, 6).reverse().map(([x, y, r]) => [-x, y, r]);
+    return R.concat(L);
   }
-  const f2 = (n: number): number => Math.round(n * 100) / 100;
-  function xAtY(pts: Array<[number, number]>, y: number): number {
-    for (let i = 0; i < pts.length - 1; i++) {
-      const [x1, y1] = pts[i];
-      const [x2, y2] = pts[i + 1];
-      if (y >= y1 && y <= y2) {
-        const t = y2 - y1 ? (y - y1) / (y2 - y1) : 0;
-        return x1 + (x2 - x1) * t;
+  function buildProfile(p: string): P2[] {
+    const P = PROF[p]; let d = 0, pts: P2[] = [];
+    for (let k = 0; k < 5; k++) { pts = roundedPoly(profVerts(P, d)); let ym = -1e9; for (const q of pts) ym = Math.max(ym, q[1]); d += P.H - ym; }
+    return pts;
+  }
+  function tangent45(pts: P2[]): Pt { let best: P2 = pts[0], bv = -1e9; for (const q of pts) { const v = -q[0] + q[1]; if (v > bv) { bv = v; best = q; } } return { x: best[0], y: best[1] }; }
+
+  /* ---------- Geometrie-Helfer ---------- */
+  function clipHalf(poly: P2[], a: number, b: number, c: number): P2[] { // behalte a*x+b*y <= c
+    const out: P2[] = [], n = poly.length;
+    for (let i = 0; i < n; i++) {
+      const P = poly[i], Q = poly[(i + 1) % n], fp = a * P[0] + b * P[1] - c, fq = a * Q[0] + b * Q[1] - c;
+      if (fp <= 0) out.push(P);
+      if ((fp < 0 && fq > 0) || (fp > 0 && fq < 0)) { const k = fp / (fp - fq); out.push([P[0] + (Q[0] - P[0]) * k, P[1] + (Q[1] - P[1]) * k]); }
+    }
+    return out;
+  }
+  function chaikin(poly: P2[], it: number): P2[] {
+    for (let k = 0; k < it; k++) {
+      const o: P2[] = [], n = poly.length;
+      for (let i = 0; i < n; i++) {
+        const P = poly[i], Q = poly[(i + 1) % n];
+        o.push([P[0] * .75 + Q[0] * .25, P[1] * .75 + Q[1] * .25], [P[0] * .25 + Q[0] * .75, P[1] * .25 + Q[1] * .75]);
       }
+      poly = o;
     }
-    return pts[pts.length - 1][0];
+    return poly;
   }
-  const wearDepth = (y: number): number => (y <= 30 ? 1 : Math.max(0, 1 - (y - 30) / 9)); // Tiefenverlauf
-  const wearLat = (x: number, hh: number): number => Math.min(1, Math.max(0, (x - hh * 0.55) / (hh * 0.25))); // seitl. Auslauf
-
-  function pathFrom(pts: Array<[number, number]>): string {
-    const r = pts.map(([x, y]) => `${f2(x)},${f2(y)}`).join(' L ');
-    const l = [...pts].reverse().map(([x, y]) => `${f2(-x)},${f2(y)}`).join(' L ');
-    return `M ${r} L ${l} Z`;
-  }
-  function nomPath(p: ProfileGeom): string {
-    return pathFrom(halfProfile(p));
-  }
-  function wornPath(p: ProfileGeom): string {
-    const h = halfProfile(p);
-    const right: Array<[number, number]> = h.map(([x, y]) => [x, Math.max(y, state.hwear)]);
-    const left: Array<[number, number]> = h.map(([x, y]) => {
-      const ny = Math.max(y, state.hwear);
-      return [-x + state.swear * wearDepth(ny) * wearLat(x, p.hh), ny];
-    });
-    const r = right.map(([x, y]) => `${f2(x)},${f2(y)}`).join(' L ');
-    const l = [...left].reverse().map(([x, y]) => `${f2(x)},${f2(y)}`).join(' L ');
-    return `M ${r} L ${l} Z`;
-  }
-  /** x der Fahrkante (Geraeteseite, negativ) auf Hoehe y — null = ueber der Fahrflaeche */
-  function flankX(y: number): number | null {
-    if (y < state.hwear) return null;
-    const p = PR[state.actual];
-    const nx = xAtY(halfProfile(p), y);
-    return -nx + state.swear * wearDepth(y) * wearLat(nx, p.hh);
-  }
-
-  // ------------------------------------------------------------------
-  // 5 · KINEMATIK & ABLESUNGEN
-  // ------------------------------------------------------------------
-  const A = (): ProfileGeom => PR[state.actual];
-  const gOrigin = (): [number, number] => [-A().fh, A().H]; // Geraeteursprung in Schienenkoordinaten
-  const toRail = (lx: number, ly: number): [number, number] => {
-    const [ox, oy] = gOrigin();
-    return [lx + ox, ly + oy];
-  };
-  const toLocal = (rx: number, ry: number): [number, number] => {
-    const [ox, oy] = gOrigin();
-    return [rx - ox, ry - oy];
-  };
-
-  function armTipLocal(reach: number): [number, number] {
-    return [pivotPX(state.actual) + reach * G.DIRX, G.PY + carrierDy(state.setLatte) + reach * G.DIRY];
-  }
-  function armTipRail(reach: number): [number, number] {
-    const [x, y] = armTipLocal(reach);
-    return toRail(x, y);
-  }
-  function armBlocked(reach: number): boolean {
-    const [tx, ty] = armTipRail(reach);
-    const fx = flankX(ty);
-    return fx !== null && tx > fx;
-  }
-  /** groesste freie Ausfahrt <= reachWish (erste Beruehrung von ARM_MIN aus gesucht) */
-  function clampArm(reachWish: number): number {
-    const want = Math.min(G.ARM_MAX, Math.max(G.ARM_MIN, reachWish));
-    if (!armBlocked(want)) return want;
-    let lo = G.ARM_MIN;
-    let hi = want;
-    if (armBlocked(lo)) return lo;
-    for (let r = G.ARM_MIN; r < want; r += 0.25) {
-      if (armBlocked(r)) {
-        hi = r;
-        lo = r - 0.25;
-        break;
-      }
-    }
-    for (let i = 0; i < 24; i++) {
-      const m = (lo + hi) / 2;
-      if (armBlocked(m)) hi = m;
-      else lo = m;
-    }
-    return lo;
-  }
-  function clampRod(yWish: number): number {
-    const stop = state.hwear - A().H; // Kontakt mit der Fahrflaeche
-    return Math.min(stop, Math.max(G.ROD_MIN, yWish));
-  }
-  const rodContact = (): boolean => state.rodTip >= state.hwear - A().H - 0.02;
-  const armContact = (): boolean => state.armReach < G.ARM_MAX - 0.05 && armBlocked(state.armReach + 0.2);
-
-  const rodReading = (): number => -state.rodTip; // Schienenhoehe ab Auflage
-
-  /**
-   * Simuliert den Antastpunkt gegen eine gedachte, unverschlissene
-   * Schiene des Profils k (gleiche feste Pivot-/Winkelgeometrie). Das
-   * ist der "Nullpunkt" fuer die Seitenablesung — dadurch stimmt die
-   * Anzeige immer exakt, unabhaengig von Kurvenform oder Winkelwahl.
-   */
-  function idealContactX(k: ProfileKey): number {
-    const p = PR[k];
-    const oxK = -p.fh;
-    const oyK = p.H;
-    const cyK = carrierDy(k);
-    const pxK = pivotPX(k);
-    const tip = (reach: number): [number, number] => {
-      const lx = pxK + reach * G.DIRX;
-      const ly = G.PY + cyK + reach * G.DIRY;
-      return [lx + oxK, ly + oyK];
-    };
-    const blocked = (reach: number): boolean => {
-      const [tx, ty] = tip(reach);
-      if (ty < 0) return false;
-      const nx = xAtY(halfProfile(p), Math.max(ty, 1.4));
-      return tx > -nx;
-    };
-    let lo = G.ARM_MIN;
-    let hi = G.ARM_MAX;
-    if (blocked(lo)) return tip(lo)[0];
-    if (!blocked(hi)) return tip(hi)[0];
-    for (let r = G.ARM_MIN; r <= hi; r += 0.25) {
-      if (blocked(r)) {
-        hi = r;
-        lo = r - 0.25;
-        break;
-      }
-    }
-    for (let i = 0; i < 24; i++) {
-      const m = (lo + hi) / 2;
-      if (blocked(m)) hi = m;
-      else lo = m;
-    }
-    return tip(lo)[0];
-  }
-  const zeroXRail = (): number => idealContactX(state.setLatte);
-  const armReading = (): number => armTipRail(state.armReach)[0] - zeroXRail();
-
-  /** Zielpunkt am Schienensteg fuer ein gegebenes Profil (feste Antasthoehe, Steg-Mitte) */
-  function stegTargetXRailFor(p: ProfileGeom): number {
-    return -xAtY(halfProfile(p), Math.max(G.STEG_TIP_Y + p.H, p.headH + 2));
-  }
-  const stegTargetXRail = (): number => stegTargetXRailFor(A()); // Ziel am tatsaechlich verbauten Profil
-
-  /**
-   * Feste Zielposition je Profilwahl (wie ein Massband, das genau bis
-   * zur Marke des gewaehlten Profils reicht — NICHT dynamisch an die
-   * tatsaechliche Schiene angepasst). Der goldene Balken reicht bis
-   * hierhin; der graue Anschlag am Ende bleibt immer klein und gleich
-   * gross. Nur wenn die Wahl zum wirklich verbauten Profil passt,
-   * landet die Spitze exakt auf dem Steg.
-   */
-  const STEG_BAR_LEN = 95; // feste Laenge des Messingbalkens (er gleitet, dehnt sich nicht)
-  const STEG_HOUSE_L = -70; // silbernes Fuehrungsgehaeuse, fest am Gusskoerper
-  const STEG_HOUSE_R = 46; // reicht fast bis an den Schienensteg
-  const STEG_TARGET_X: Record<ProfileKey, number> = { '49E5': 0, '54E4': 0, '60E2': 0 };
-  for (const k of KEYS) {
-    STEG_TARGET_X[k] = stegTargetXRailFor(PR[k]) + PR[k].fh; // Ziel, als waere k selbst die verbaute Schiene
-  }
-  const heightWear = (): number => PR[state.setLatte].H - rodReading();
-  const stegOk = (): boolean => state.setSteg === state.actual;
-  const latteOk = (): boolean => state.setLatte === state.actual;
-  const refOk = (): boolean => stegOk() && latteOk();
-
-  // ------------------------------------------------------------------
-  // 6 · ZEICHNEN
-  // ------------------------------------------------------------------
-  const DEFS = `
-<defs>
-  <linearGradient id="cast" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
-    <stop offset="0"   stop-color="#b9c3cc"/>
-    <stop offset=".35" stop-color="#8d99a5"/>
-    <stop offset=".62" stop-color="#a7b2bc"/>
-    <stop offset="1"   stop-color="#727e8a"/>
-  </linearGradient>
-  <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#dfe6ec"/><stop offset=".5" stop-color="#b3bec8"/>
-    <stop offset="1" stop-color="#cbd5dd"/>
-  </linearGradient>
-  <linearGradient id="brass" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0"   stop-color="#a97f22"/>
-    <stop offset=".22" stop-color="#f2d787"/>
-    <stop offset=".55" stop-color="#d3a63f"/>
-    <stop offset="1"   stop-color="#8f6a19"/>
-  </linearGradient>
-  <linearGradient id="brassV" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0"   stop-color="#a97f22"/>
-    <stop offset=".22" stop-color="#f2d787"/>
-    <stop offset=".55" stop-color="#d3a63f"/>
-    <stop offset="1"   stop-color="#8f6a19"/>
-  </linearGradient>
-  <linearGradient id="rail" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0"   stop-color="#6b5946"/>
-    <stop offset=".3"  stop-color="#8b7358"/>
-    <stop offset=".55" stop-color="#6e5c48"/>
-    <stop offset="1"   stop-color="#4e4133"/>
-  </linearGradient>
-  <filter id="drop" x="-30%" y="-20%" width="170%" height="150%">
-    <feDropShadow dx="1.5" dy="2.5" stdDeviation="2.5" flood-color="#000" flood-opacity=".45"/>
-  </filter>
-</defs>`;
-
-  const TXT = (x: number, y: number, s: string, o: TxtOpts = {}): string =>
-    `<text x="${f2(x)}" y="${f2(y)}" fill="${o.fill || '#5d7a91'}" font-size="${o.fs || 4.4}"
-     font-family="ui-monospace,monospace" letter-spacing="${o.ls || 0.2}"
-     text-anchor="${o.a || 'start'}" ${o.w ? `font-weight="${o.w}"` : ''}>${s}</text>`;
-
-  function railMarkup(p: ProfileGeom): string {
-    const topY = state.hwear;
-    const xr = xAtY(halfProfile(p), Math.max(topY, 1.4));
-    const xl = -xr + state.swear;
-    return `
-  <g>
-    <path d="${wornPath(p)}" fill="url(#rail)" stroke="#3b3126" stroke-width="0.9" filter="url(#drop)"/>
-    <path d="M ${f2(xl)},${f2(topY)} L ${f2(xr)},${f2(topY)}" stroke="#eef3f7" stroke-width="1.8"
-          stroke-linecap="round" opacity=".9"/>
-    ${state.showNom ? `<path d="${nomPath(p)}" fill="none" stroke="#79c8f2" stroke-width="0.7"
-          stroke-dasharray="3.5 3" opacity=".8"/>` : ''}
-    <line x1="${f2(-p.hh - 46)}" y1="14" x2="${f2(p.hh + 4)}" y2="14"
-          stroke="#79c8f2" stroke-width="0.5" stroke-dasharray="2 2.5" opacity=".65"/>
-    ${TXT(p.hh + 7, 15.6, '14 mm unter SOK', { fill: '#5f7f94', fs: 4.2 })}
-  </g>`;
-  }
-
-  function gaugeMarkup(): string {
-    const dyL = LATTE_DY[state.setLatte];
-    const cy = carrierDy(state.setLatte);
-    const rod = state.rodTip;
-    const reach = state.armReach;
-
-    // --- Skalenstriche Hoehenmesslatte (auf dem Stab, wandert mit) ---
-    let rodTicks = '';
-    for (let i = 0; i <= G.ROD_BAR; i += 4) {
-      const y = -i;
-      const maj = i % 20 === 0;
-      rodTicks += `<line x1="${G.ROD_X - 7}" y1="${y}" x2="${G.ROD_X - (maj ? 1 : 3.5)}" y2="${y}"
-                  stroke="#5a4517" stroke-width="${maj ? 0.7 : 0.4}"/>`;
-    }
-    // --- Skalenstriche Seitenfuehler (auf dem Stab, wandert mit) ---
-    let armTicks = '';
-    for (let i = 0; i <= G.ARM_MAX - G.ARM_MIN + 24; i += 4) {
-      const y = -i;
-      const maj = i % 20 === 0;
-      armTicks += `<line x1="-5.5" y1="${y}" x2="${maj ? -1 : -3.5}" y2="${y}"
-                  stroke="#5a4517" stroke-width="${maj ? 0.7 : 0.4}"/>`;
-    }
-
-    // --- Ablesungen ---
-    const rd = rodReading();
-    const ar = armReading();
-    const rodTxt = `${rd.toFixed(1).replace('.', ',')}`;
-    const armTxt = `${ar >= 0 ? '' : '−'}${Math.abs(ar).toFixed(1).replace('.', ',')}`;
-
-    // --- Steg-Fuehler: der goldene Balken reicht bis zur festen
-    //     Zielmarke des gewaehlten Profils (linke Verankerung bleibt
-    //     starr) — der graue Anschlag am Ende bleibt immer klein und
-    //     gleich gross, wie am Original.
-    // Exakt am Steg NUR wenn setSteg wirklich zum tatsaechlichen Profil
-    // passt (echte Physik). Bei falscher Wahl wird der (in Wirklichkeit
-    // oft nur ~1mm kleine) Unterschied zwischen den Stegdicken bewusst
-    // auf den deutlich sichtbaren Rasterabstand der Auswahl gestreckt —
-    // sodass eine falsche Wahl klar als Luecke bzw. Ueberlappung zu
-    // erkennen ist.
-    const stegTargetX = STEG_TARGET_X[state.actual] + (STEG_DX[state.setSteg] - STEG_DX[state.actual]); // fest, kein echter Bezug
-    const STEG_TIP_LEN = 8; // Laenge des Anschlagblocks — immer konstant
-    const stegBarRight = stegTargetX - STEG_TIP_LEN;
-    const stegBarLeft = stegBarRight - STEG_BAR_LEN; // feste Laenge: der Balken gleitet
-    const stegMatch = state.setSteg === state.actual;
-    const stegMaxTarget = Math.max(...KEYS.map((k) => STEG_TARGET_X[k]));
-
-    const latteMarks: Array<[ProfileKey, number]> = [
-      ['60E2', -168],
-      ['54E4', -150],
-      ['49E5', -145],
-    ];
-
-    return `
-  <!-- ============ Gusskoerper (Hakenklemme + Steg + Kopfplatte) ============ -->
-  <defs>
-    <mask id="hookHole" maskUnits="userSpaceOnUse" x="-92" y="-16" width="115" height="60">
-      <rect x="-92" y="-16" width="115" height="60" fill="#fff"/>
-      <ellipse cx="-40" cy="10" rx="14" ry="10.5" fill="#000"/>
-    </mask>
-  </defs>
-  <g filter="url(#drop)">
-    <rect x="-60" y="-6"  width="74" height="30" rx="8" fill="url(#cast)" mask="url(#hookHole)"/>
-    <rect x="-58" y="-195" width="44" height="199" rx="10" fill="url(#cast)"/>
-    <rect x="-70" y="-215" width="70" height="35"  rx="8"  fill="url(#cast)"/>
-    <rect x="-58" y="-195" width="10" height="199" fill="#fff" opacity=".14"/>
-    <rect x="-70" y="-215" width="70" height="6" fill="#fff" opacity=".25"/>
-    <rect x="-58" y="-190" width="44" height="4" fill="#000" opacity=".16"/>
-  </g>
-
-  <!-- ============ Feste Fuehrungshuelse fuer die Hoehenmesslatte ============ -->
-  <rect x="${G.ROD_X - 10}" y="${G.ROD_SLEEVE_TOP}" width="20" height="${G.ROD_SLEEVE_BOT - G.ROD_SLEEVE_TOP}"
-        rx="3" fill="url(#steel)" stroke="#5f6c78" stroke-width="0.6"/>
-  <rect x="${G.ROD_X - 10}" y="${G.ROD_SLEEVE_TOP}" width="20" height="5" fill="#000" opacity=".18"/>
-  <rect x="-4" y="-219" width="${G.ROD_X - 10 + 4}" height="8" rx="3" fill="url(#steel)" stroke="#6d7a86" stroke-width="0.4"/>
-
-  <!-- ============ Fuehlerlehre am Steg: Messingbalken gleitet im silbernen Gehaeuse ============ -->
-  <g transform="translate(0,${G.STEG_TIP_Y})">
-    <!-- Silbernes Fuehrungsgehaeuse (fest) — reicht fast bis an den Steg -->
-    <rect x="${STEG_HOUSE_L}" y="-14" width="${STEG_HOUSE_R - STEG_HOUSE_L}" height="28" rx="7"
-          fill="url(#steel)" stroke="#6d7a86" stroke-width="0.6"/>
-    <rect x="${STEG_HOUSE_L}" y="-14" width="${STEG_HOUSE_R - STEG_HOUSE_L}" height="5" rx="2.5"
-          fill="#fff" opacity=".3"/>
-    <rect x="${STEG_HOUSE_L}" y="9" width="${STEG_HOUSE_R - STEG_HOUSE_L}" height="5" rx="2.5"
-          fill="#000" opacity=".14"/>
-    <!-- Schlitz, in dem der Balken laeuft -->
-    <rect x="${STEG_HOUSE_L + 3}" y="-8.6" width="${STEG_HOUSE_R - STEG_HOUSE_L - 6}" height="17.2" rx="2"
-          fill="#000" opacity=".22"/>
-    <!-- Feste Indexmarke am Gehaeuse -->
-    <path d="M 0,-13.6 l 2.4,-3.2 l -4.8,0 Z" fill="#f0872f"/>
-    <line x1="0" y1="-13.6" x2="0" y2="-9" stroke="#f0872f" stroke-width="0.8"/>
-    <line x1="0" y1="9" x2="0" y2="13.6" stroke="#f0872f" stroke-width="0.8"/>
-
-    <!-- Messingbalken (gleitet mit der Profilwahl) -->
-    <rect x="${f2(stegBarLeft)}" y="-8" width="${STEG_BAR_LEN}" height="16" rx="2"
-          fill="url(#brass)" stroke="#6c5113" stroke-width="0.4"/>
-    <rect x="${f2(stegBarLeft)}" y="-7" width="${STEG_BAR_LEN}" height="2.6" fill="#fff" opacity=".3"/>
-    <circle cx="${f2(stegBarLeft + 7)}" cy="0" r="1.7" fill="#8a6a1c"/>
-    <!-- Eingravierte Profilmarken auf dem Messingbalken -->
-    ${KEYS.map((k) => {
-      const mx = STEG_DX[state.setSteg] - STEG_DX[k];
-      const on = state.setSteg === k;
-      return `<line x1="${f2(mx)}" y1="1.4" x2="${f2(mx)}" y2="5.2"
-                 stroke="${on ? '#a8410f' : '#5c4512'}" stroke-width="${on ? 1 : 0.6}"/>
-              ${TXT(mx, -1.2, k, { fill: on ? '#a8410f' : '#5c4512', fs: 3.7, a: 'middle', w: on ? 800 : 700 })}`;
-    }).join('')}
-
-    <!-- Kleiner Anschlagblock am Balkenende — immer gleich gross -->
-    <path d="M ${f2(stegBarRight)},-8 L ${f2(stegTargetX - 3)},-8
-             L ${f2(stegTargetX)},-4 L ${f2(stegTargetX)},8 L ${f2(stegBarRight)},8 Z"
-          fill="url(#steel)" stroke="${stegMatch ? '#f0872f' : '#5f6c78'}" stroke-width="${stegMatch ? 1 : 0.6}"/>
-    <path d="M ${f2(stegBarRight)},-8 L ${f2(stegTargetX - 3)},-8 L ${f2(stegTargetX)},-4 L ${f2(stegBarRight + 1.5)},-4 Z"
-          fill="#fff" opacity=".3"/>
-    <rect x="${f2(stegBarRight)}" y="4.4" width="${STEG_TIP_LEN}" height="3.6" fill="#000" opacity=".16"/>
-  </g>
-  <rect x="${f2(Math.min(STEG_HOUSE_L, stegBarLeft) - 2)}" y="${G.STEG_TIP_Y - 15}"
-        width="${f2(stegMaxTarget - Math.min(STEG_HOUSE_L, stegBarLeft) + 46)}" height="30"
-        fill="transparent" data-h="steg" style="cursor:grab"/>
-
-  <!-- ============ Messlatte am Kopf (beweglich, vertikal) ============ -->
-  ${latteMarks.map(([k, y]) => `
-    <line x1="-56" y1="${y}" x2="-50" y2="${y}" stroke="#33414f" stroke-width="0.7"/>
-    ${TXT(-48, y + 1.4, k, { fill: state.setLatte === k ? '#f0872f' : '#41525f', fs: 3.6, w: 700 })}
-  `).join('')}
-  <g transform="translate(0,${dyL})">
-    <rect x="-40" y="-188" width="12" height="46" rx="2" fill="url(#brassV)" stroke="#6c5113" stroke-width="0.4"/>
-    <rect x="-38" y="-188" width="2.4" height="46" fill="#fff" opacity=".3"/>
-    <path d="M -28,-168 l 3.4,2.6 l 0,-5.2 Z" fill="#f0872f"/>
-    <rect x="-42" y="-190" width="16" height="50" fill="transparent" data-h="latte" style="cursor:grab"/>
-  </g>
-
-  <!-- ============ Messkopf mit Seitenfuehler (nur die Hoehe folgt Kopf/Latte — Steg bleibt starr) ============ -->
-  <g transform="translate(0,${cy})">
-    <rect x="-58" y="-214" width="66" height="30" rx="6" fill="url(#steel)"
-          stroke="#6d7a86" stroke-width="0.5"/>
-    ${TXT(-53, -197, 'SKM1', { fill: '#3d4c5b', fs: 6, w: 800, ls: 0.6 })}
-    <!-- Bezugslinie 14 mm unter SOK -->
-    <line x1="-6" y1="${G.BASE_PROBE_Y}" x2="22" y2="${G.BASE_PROBE_Y}"
-          stroke="#f0872f" stroke-width="0.4" stroke-dasharray="2 2" opacity=".5"/>
-    <!-- Seitenfuehler: Schieber mit festem Winkel, nur Ein-/Ausfahren -->
-    <g transform="translate(${f2(pivotPX(state.actual))},${f2(G.PY)}) rotate(${f2(-G.TH0)})">
-      <!-- feste Fuehrungsoese am Schlitten -->
-      <rect x="-7" y="-14" width="14" height="20" rx="3" fill="url(#steel)" stroke="#5f6c78" stroke-width="0.5"/>
-      <g transform="translate(0,${f2(reach - G.ARM_MIN)})">
-        <rect x="-5.5" y="${-56}" width="11" height="${56 + G.ARM_MIN - 11}" rx="2" fill="url(#brass)" stroke="#6c5113" stroke-width="0.4"/>
-        <rect x="-5.5" y="${-56}" width="2.2" height="${56 + G.ARM_MIN - 11}" fill="#fff" opacity=".3"/>
-        ${armTicks}
-        <!-- duenne, scharfe Nadelspitze (wie am Original) — Spitze exakt auf dem Kontaktpunkt -->
-        <path d="M -2.4,${G.ARM_MIN - 11} L 2.4,${G.ARM_MIN - 11} L 0,${G.ARM_MIN + 0.3} Z" fill="#2c3138"/>
-        <line x1="0" y1="${G.ARM_MIN - 10}" x2="0" y2="${G.ARM_MIN - 0.2}" stroke="#565f6a" stroke-width="0.3"/>
-        <rect x="-7.5" y="${-58}" width="15" height="${58 + G.ARM_MIN + 14}" fill="transparent" data-h="arm" style="cursor:grab"/>
-      </g>
-    </g>
-    ${TXT(-53, -203, 'SEITE (fest 43°)', { fill: '#4a5b6b', fs: 3, w: 700 })}
-    ${TXT(-53, -171, armTxt + ' mm', { fill: armContact() ? '#f0872f' : '#4a5b6b', fs: 7, w: 800 })}
-  </g>
-
-  <!-- ============ Hoehenmesslatte (beweglich, unabhaengig von der Kopf-Kalibrierung) ============ -->
-  <g transform="translate(0,${f2(rod)})">
-    <rect x="${G.ROD_X - 7}" y="${-G.ROD_BAR}" width="14" height="${G.ROD_BAR}" rx="2" fill="url(#brass)"
-          stroke="#6c5113" stroke-width="0.4"/>
-    <rect x="${G.ROD_X - 7}" y="${-G.ROD_BAR}" width="2.6" height="${G.ROD_BAR}" fill="#fff" opacity=".3"/>
-    ${rodTicks}
-    <path d="M ${G.ROD_X - 2.3},-8.5 L ${G.ROD_X + 2.3},-8.5 L ${G.ROD_X + 0.5},0.5 L ${G.ROD_X - 0.5},0.5 Z" fill="#2c3138"/>
-    <line x1="${G.ROD_X}" y1="-7.5" x2="${G.ROD_X}" y2="-0.2" stroke="#565f6a" stroke-width="0.3"/>
-    <rect x="${G.ROD_X - 9}" y="${-G.ROD_BAR - 4}" width="20" height="${G.ROD_BAR + 8}" fill="transparent" data-h="rod" style="cursor:grab"/>
-  </g>
-  ${TXT(G.ROD_X + 13, G.ROD_SLEEVE_TOP - 6, 'HOEHE', { fill: '#4a5b6b', fs: 3.4, w: 700 })}
-  ${TXT(G.ROD_X + 13, G.ROD_SLEEVE_TOP + 4, rodTxt + ' mm', { fill: rodContact() ? '#f0872f' : '#4a5b6b', fs: 7, w: 800 })}
-  `;
-  }
-
-  function sceneMarkup(): string {
-    const p = A();
-    const [ox, oy] = gOrigin();
-    return `<g>
-    ${railMarkup(p)}
-    <g transform="translate(${ox},${oy})">${gaugeMarkup()}</g>
-  </g>`;
-  }
-
-  // ------------------------------------------------------------------
-  // 7 · RENDER
-  // ------------------------------------------------------------------
-  function $<T extends Element>(id: string): T {
-    const el = root.querySelector<T>('#' + id);
-    if (!el) throw new Error(`Element #${id} nicht gefunden`);
-    return el;
-  }
-  const scene = $<SVGSVGElement>('scene');
-  const detail = $<SVGSVGElement>('detail');
-
-  function render(): void {
-    const m = sceneMarkup();
-    scene.innerHTML = DEFS + m;
-    detail.innerHTML = m; // gleiche Geometrie, engerer viewBox
-    renderPanel();
-  }
-
-  function fmt(n: number, d = 1): string {
-    return n.toFixed(d).replace('.', ',');
-  }
-
-  function renderPanel(): void {
-    $('vSteg').textContent = state.setSteg;
-    $('vLatte').textContent = state.setLatte;
-    $('tagProfile').textContent = state.blind ? 'Verbaut: ??? — selbst bestimmen' : 'Verbaut: ' + PR[state.actual].name;
-
-    const ok = refOk();
-    const rs = $('refState');
-    const stegBad = !stegOk();
-    const latteBad = !latteOk();
-    if (ok) {
-      rs.className = 'state ok';
-      rs.textContent = 'Bezug stimmt — du kannst messen.';
-    } else if (stegBad && latteBad) {
-      rs.className = 'state bad';
-      rs.textContent =
-        'Fuehlerlehre und Messlatte stehen auf dem falschen Profil — der Anlageschuh liegt nicht flaechig am Steg an, und der Messkopf sitzt in der Hoehe versetzt.';
-    } else if (stegBad) {
-      rs.className = 'state bad';
-      rs.textContent =
-        'Fuehlerlehre (Steg) steht auf dem falschen Profil — der Anlageschuh liegt nicht flaechig am Schienensteg an. Der Messkopf selbst bleibt unveraendert.';
-    } else {
-      rs.className = 'state bad';
-      rs.textContent = 'Messlatte (Kopf) steht auf dem falschen Profil — der Messkopf sitzt in der Hoehe versetzt, die Ablesung stimmt nicht.';
-    }
-
-    // Fuehler
-    const rc = rodContact();
-    const ac = armContact();
-    $('vRod').textContent = fmt(rodReading()) + ' mm';
-    $('cRod').textContent = rc ? 'Kontakt' : 'kein Kontakt';
-    $('cRod').className = rc ? 'chip live' : 'chip';
-    $('vArm').textContent = fmt(armReading()) + ' mm';
-    $('cArm').textContent = ac ? 'Kontakt' : 'kein Kontakt';
-    $('cArm').className = ac ? 'chip live' : 'chip';
-
-    // Ergebnis
-    const hv = heightWear();
-    const sv = armReading();
-    const boxH = $('rHeight');
-    const boxS = $('rSide');
-    const tH = $('tHeight');
-    const tS = $('tSide');
-
-    if (rc) {
-      boxH.textContent = fmt(hv) + ' mm';
-      boxH.className = 'v';
-    } else {
-      boxH.textContent = '—';
-      boxH.className = 'v muted';
-    }
-    if (ac) {
-      boxS.textContent = fmt(sv) + ' mm';
-      boxS.className = 'v';
-    } else {
-      boxS.textContent = '—';
-      boxS.className = 'v muted';
-    }
-
-    if (state.revealed) {
-      const dh = rc ? hv - state.hwear : null;
-      const ds = ac ? sv - state.swear : null;
-      tH.textContent = 'echt ' + fmt(state.hwear) + ' mm' + (dh === null ? '' : '  ·  Δ' + fmt(dh));
-      tS.textContent = 'echt ' + fmt(state.swear) + ' mm' + (ds === null ? '' : '  ·  Δ' + fmt(ds));
-      tH.className = 't ' + (dh !== null && Math.abs(dh) <= 0.5 ? 'hit' : 'miss');
-      tS.className = 't ' + (ds !== null && Math.abs(ds) <= 0.5 ? 'hit' : 'miss');
-    } else {
-      tH.textContent = rc ? 'Sollhoehe ' + state.setLatte + ' = ' + PR[state.setLatte].H + ' mm' : 'Fahrflaeche';
-      tS.textContent = 'Fahrkante, 14 mm unter SOK';
-      tH.className = 't';
-      tS.className = 't';
-    }
-  }
-
-  // ------------------------------------------------------------------
-  // 8 · INTERAKTION
-  // ------------------------------------------------------------------
-  let drag: DragInfo | null = null;
-
-  function localPoint(evt: PointerEvent): [number, number] {
-    const pt = scene.createSVGPoint();
-    pt.x = evt.clientX;
-    pt.y = evt.clientY;
-    const ctm = scene.getScreenCTM();
-    if (!ctm) return [0, 0];
-    const r = pt.matrixTransform(ctm.inverse());
-    return toLocal(r.x, r.y);
-  }
-  function nearestKey(map: Record<ProfileKey, number>, v: number): ProfileKey {
-    let best: ProfileKey = KEYS[0];
-    let d = Infinity;
-    for (const k of KEYS) {
-      const dd = Math.abs(map[k] - v);
-      if (dd < d) {
-        d = dd;
-        best = k;
-      }
+  function rayHit(poly: P2[], ox: number, oy: number, dx: number, dy: number): number {
+    let best = Infinity; const n = poly.length;
+    for (let i = 0; i < n; i++) {
+      const P = poly[i], Q = poly[(i + 1) % n], ex = Q[0] - P[0], ey = Q[1] - P[1];
+      const den = dx * ey - dy * ex; if (Math.abs(den) < 1e-12) continue;
+      const wx = P[0] - ox, wy = P[1] - oy, t = (wx * ey - wy * ex) / den, s = (wx * dy - wy * dx) / den;
+      if (t >= 0 && s >= 0 && s <= 1 && t < best) best = t;
     }
     return best;
   }
-  function reclamp(): void {
-    state.rodTip = clampRod(state.rodTip);
-    state.armReach = clampArm(state.armReach);
+  function inside(poly: P2[], x: number, y: number): boolean {
+    let c = false;
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      const a = poly[i], b = poly[j];
+      if (((a[1] > y) !== (b[1] > y)) && (x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0])) c = !c;
+    }
+    return c;
   }
-  /** Ausfahrlaenge des Seitenfuehlers aus einem Punkt (Projektion auf feste Achse) */
-  function reachAt(lx: number, ly: number): number {
-    const px = pivotPX(state.actual);
-    const py = G.PY + carrierDy(state.setLatte);
-    return (lx - px) * G.DIRX + (ly - py) * G.DIRY;
+  const pathOf = (pts: P2[]) => 'M' + pts.map(q => q[0].toFixed(2) + ',' + (-q[1]).toFixed(2)).join('L') + 'Z';
+
+  /* ---------- Kalibrierung des Messers ---------- */
+  const NEW: Record<string, P2[]> = {}, TP: Record<string, Pt> = {};
+  for (const p of ORDER) { NEW[p] = buildProfile(p); TP[p] = tangent45(NEW[p]); }
+  const Z = TP['60E2'];                                     // Nullpunkt 45°-Spitze (Messerkoordinaten)
+  const CAL: Record<string, { dx: number; v: number; tip: number; b: number }> = {};
+  for (const p of ORDER) {
+    const dx = TP[p].x - Z.x, v = TP[p].y - Z.y;
+    CAL[p] = { dx, v, tip: -PROF[p].w / 2 - dx, b: 0 };
+  }
+  for (const p of ORDER) CAL[p].b = CAL[p].tip - CAL['60E2'].tip;   // Schieberweg je Profil
+  function tipDev(b: number) { return CAL['60E2'].tip + b; }       // Anschlagklotz sitzt fest am Schieberende
+
+  /* ---------- Zustand ---------- */
+  const S = {
+    prof: '60E2', poly: [] as P2[], wear: { hv: 0, w45: 0, ws: 0 }, b: 25, v: 0, yt: ROD_MAX, t: -7, active: null as Kind | null,
+    n: 0, ok: 0, tries: 0, checked: false, solved: false, view: 'all',
+  };
+
+  function newTask(): void {
+    S.prof = ORDER[Math.floor(Math.random() * 3)];
+    const P = PROF[S.prof], T = TP[S.prof];
+    const hv = Math.random() < 0.15 ? Math.random() * 0.8 : 0.5 + Math.random() * 8.5;
+    const w45 = Math.random() < 0.15 ? Math.random() * 0.8 : 0.5 + Math.random() * 13;
+    const ws = Math.max(0, w45 * 0.55 - 1.5);
+    let poly = NEW[S.prof];
+    poly = clipHalf(poly, 0, 1, P.H - hv);
+    if (w45 > 0.05) poly = clipHalf(poly, -SQ, SQ, (-T.x + T.y) * SQ - w45);
+    if (ws > 0.05) { // Seitenverschleiß nur an der Kopfflanke, nach unten auslaufend
+      const yhb = P.H - P.hd;
+      poly = poly.map(q => { const lim = -P.B / 2 + ws * clamp((q[1] - yhb) / (P.hd * 0.5), 0, 1); return q[1] > yhb && q[0] < lim ? [lim, q[1]] : q; });
+    }
+    poly = chaikin(poly, 2);
+    S.poly = poly; S.wear = { hv, w45, ws };
+    // Messer bleibt auf irgendeinem Profil vom letzten Einsatz eingestellt
+    const off = () => Math.random() < 0.5 ? 0 : (Math.random() < 0.5 ? -1 : 1) * (2 + Math.random() * 2.5);
+    do { S.b = Math.random() < 0.4 ? CAL[ORDER[Math.floor(Math.random() * 3)]].b : -2.2 + Math.random() * 3.8; }
+    while (ORDER.some(p => Math.abs(S.b - CAL[p].b) > 1e-9 && Math.abs(S.b - CAL[p].b) < 0.3));
+    S.v = CAL[ORDER[Math.floor(Math.random() * 3)]].v + off();
+    S.yt = ROD_MAX; S.t = -7; S.checked = false; S.solved = false; S.n++;
+    $('profName').textContent = S.prof;
+    $('taskNo').textContent = 'Messung ' + S.n;
+    for (const id of ['inH', 'inHW', 'in45']) { const el = $<HTMLInputElement>(id); el.value = ''; el.className = ''; }
+    $('fb').className = ''; $('sol').className = 'sol';
+    buildRail(); clampAll(); update(); applyView();
   }
 
-  const onPointerDown = (e: PointerEvent): void => {
-    const target = e.target as Element | null;
-    const h = target ? target.closest('[data-h]') : null;
-    if (!h) return;
-    const kind = h.getAttribute('data-h') as SelKind | null;
-    if (!kind) return;
-    const [lx, ly] = localPoint(e);
-    state.sel = kind;
-    if (kind === 'rod') drag = { kind, off: ly - state.rodTip };
-    if (kind === 'latte') drag = { kind, off: ly - LATTE_DY[state.setLatte] };
-    if (kind === 'steg') drag = { kind, off: lx - STEG_DX[state.setSteg] };
-    if (kind === 'arm') drag = { kind, off: reachAt(lx, ly) - state.armReach };
-    scene.setPointerCapture(e.pointerId);
-    e.preventDefault();
-    render();
-  };
-
-  const onPointerMove = (e: PointerEvent): void => {
-    if (!drag) return;
-    const [lx, ly] = localPoint(e);
-    if (drag.kind === 'rod') state.rodTip = clampRod(ly - drag.off);
-    if (drag.kind === 'latte') {
-      state.setLatte = nearestKey(LATTE_DY, ly - drag.off);
-      reclamp();
-    }
-    if (drag.kind === 'steg') {
-      state.setSteg = nearestKey(STEG_DX, lx - drag.off);
-      reclamp();
-    }
-    if (drag.kind === 'arm') {
-      state.armReach = clampArm(reachAt(lx, ly) - drag.off);
-    }
-    e.preventDefault();
-    render();
-  };
-
-  const endDrag = (e: PointerEvent): void => {
-    if (drag) {
-      drag = null;
-      try {
-        scene.releasePointerCapture(e.pointerId);
-      } catch {
-        /* Zeiger war bereits freigegeben */
-      }
-    }
-  };
-
-  scene.addEventListener('pointerdown', onPointerDown);
-  scene.addEventListener('pointermove', onPointerMove);
-  scene.addEventListener('pointerup', endDrag);
-  scene.addEventListener('pointercancel', endDrag);
-
-  /** Tastatur: zuletzt angefasstes Bauteil mit den Pfeiltasten feinjustieren */
-  const keydownHandler = (e: KeyboardEvent): void => {
-    if (!state.sel) return;
-    const k = e.key;
-    const up = k === 'ArrowUp' || k === 'ArrowRight';
-    const dn = k === 'ArrowDown' || k === 'ArrowLeft';
-    if (!up && !dn) return;
-    const step = e.shiftKey ? 0.1 : 0.5;
-    if (state.sel === 'rod') state.rodTip = clampRod(state.rodTip + (up ? -step : step));
-    if (state.sel === 'arm') state.armReach = clampArm(state.armReach + (up ? step : -step));
-    if (state.sel === 'latte' || state.sel === 'steg') {
-      const cur = state.sel === 'latte' ? state.setLatte : state.setSteg;
-      let i = KEYS.indexOf(cur) + (up ? 1 : -1);
-      i = Math.max(0, Math.min(KEYS.length - 1, i));
-      if (state.sel === 'latte') state.setLatte = KEYS[i];
-      else state.setSteg = KEYS[i];
-      reclamp();
-    }
-    e.preventDefault();
-    render();
-  };
-  window.addEventListener('keydown', keydownHandler);
-
-  // ------------------------------------------------------------------
-  // 9 · AUFGABEN-STEUERUNG
-  // ------------------------------------------------------------------
-  function newRail(): void {
-    state.actual = KEYS[Math.floor(Math.random() * KEYS.length)];
-    state.hwear = Math.round(Math.random() * 22) / 2; // 0 … 11,0 mm
-    state.swear = Math.round(Math.random() * 22) / 2;
-    state.rodTip = G.ROD_MIN;
-    state.armReach = G.ARM_MIN;
-    state.revealed = false;
-    reclamp();
-    render();
+  /* ---------- Messphysik ---------- */
+  function geom(st: { b: number; v: number } = S) {
+    const dx = -PROF[S.prof].w / 2 - tipDev(st.b);
+    const Zw = { x: Z.x + dx, y: Z.y + st.v };
+    const rodX = ROD_X + dx;
+    const rodC = 300 - rayHit(S.poly, rodX, 300, 0, -1);
+    const O = { x: Zw.x + T_MIN * U.x, y: Zw.y + T_MIN * U.y };
+    const tc = inside(S.poly, O.x, O.y) ? T_MIN : T_MIN + rayHit(S.poly, O.x, O.y, U.x, U.y);
+    return { dx, Zw, rodX, rodC, tc };
   }
-  $('btnNew').addEventListener('click', newRail);
-  $('btnReset').addEventListener('click', () => {
-    state.rodTip = G.ROD_MIN;
-    state.armReach = G.ARM_MIN;
-    state.revealed = false;
-    render();
-  });
-  $('btnReveal').addEventListener('click', () => {
-    state.revealed = !state.revealed;
-    render();
-  });
-  $('btnNominal').addEventListener('click', (e) => {
-    state.showNom = !state.showNom;
-    (e.currentTarget as HTMLElement).setAttribute('aria-pressed', String(state.showNom));
-    render();
-  });
-  $('btnBlind').addEventListener('click', (e) => {
-    state.blind = !state.blind;
-    (e.currentTarget as HTMLElement).setAttribute('aria-pressed', String(state.blind));
-    render();
-  });
+  function clampAll(): void {
+    const g = geom();
+    S.yt = clamp(S.yt, g.rodC, ROD_MAX);
+    S.t = clamp(S.t, T_MIN, Math.min(T_MAX, g.tc));
+  }
+  function truth() {
+    const c = CAL[S.prof], g = geom({ b: c.b, v: c.v });
+    const h = g.rodC, r = Math.max(0, g.tc);
+    return { h, hw: PROF[S.prof].H - h, r };
+  }
 
-  newRail();
+  /* ---------- Zeichnen: statischer Teil ---------- */
+  const ENG_B = '#2e2208', ENG_S = '#2b333b';
+  function txt(x: number, y: number, s: string | number, o: any = {}): string {
+    return `<text x="${x}" y="${y}" font-size="${o.fs || 3}" fill="${o.fill || ENG_S}" font-weight="${o.w || 600}"
+  text-anchor="${o.a || 'start'}" font-family="Bahnschrift,'DIN Alternate','Arial Narrow',Arial,sans-serif"
+  ${o.ls ? `letter-spacing="${o.ls}"` : ''} ${o.tr ? `transform="${o.tr}"` : ''}>${s}</text>`;
+  }
+  function screw(x: number, y: number, r = 1.8): string {
+    return `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#gSteel)" stroke="#5c6670" stroke-width=".3"/>
+  <path d="M${x - r * .55},${y} h${r * 1.1} M${x},${y - r * .55} v${r * 1.1}" stroke="#4a545e" stroke-width=".35"/>`;
+  }
 
-  return () => {
-    window.removeEventListener('keydown', keydownHandler);
+  function buildStatic(): void {
+    const I = { x: Z.x + S_IDX * U.x, y: Z.y + S_IDX * U.y };   // Indexpunkt 45°-Skala (Messkopf bei 60E2)
+    const r2 = n2;
+    const FRAME = 'M-22,0 L-22,9 Q-22,15 -28,15 L-110,15 C-138,15 -150,-8 -144,-38 L-130,-118 L-127,-214 Q-127,-224 -117,-224 L8,-224 Q14,-224 14,-218 L14,-208 Q14,-204 10,-204 L-98,-204 Q-104,-204 -104,-198 L-104,-36 C-104,-8 -92,0 -72,0 Z';
+    const RECESS = 'M-135,-50 L-124,-118 L-121,-190 Q-121,-194 -117,-194 L-112,-194 Q-109,-194 -109,-190 L-109,-52 Q-109,-46 -115,-46 L-131,-46 Z';
+    const RECESS2 = 'M-126,6 C-120,8 -104,9 -96,8 L-80,8 Q-76,8 -76,4 L-76,3 L-96,3 C-108,3 -112,-6 -114,-14 L-118,-26 Q-120,-32 -124,-28 Q-132,-14 -126,6 Z';
+
+    /* --- Messkopf-Führung (fest am Rahmen) mit Profilgrenzen am Rand --- */
+    const gx0 = I.x - 14, gx1 = I.x + 10;
+    const sx0 = I.x - 12.5, sx1 = I.x - 3.5;
+    const blkB = I.y - 10;
+    let gMarks = '';
+    for (const p of ORDER) {
+      const y = r2(-(blkB + MOFF[p] + CAL[p].v));
+      gMarks += `<path d="M${r2(sx1 + .4)},${y} h8.6 M${r2(sx1 + .6)},${y} v-3.4" stroke="${ENG_S}" stroke-width=".32" fill="none"/>` +
+        txt(r2(sx1 + 1.6), r2(y - .8), p, { fs: 2.5, w: 700, fill: ENG_S });
+    }
+    const guide = `
+    <path d="M${r2(gx0)},${r2(-205)} L${r2(gx1)},${r2(-205)} L${r2(gx1)},${r2(-(blkB - 76))} Q${r2(gx1)},${r2(-(blkB - 80))} ${r2(gx1 - 4)},${r2(-(blkB - 80))} L${r2(gx0 + 4)},${r2(-(blkB - 80))} Q${r2(gx0)},${r2(-(blkB - 80))} ${r2(gx0)},${r2(-(blkB - 76))} Z"
+          fill="url(#gAlu)" stroke="#6b7680" stroke-width=".5"/>
+    <rect x="${r2(sx0 - .6)}" y="-204" width="${r2(sx1 - sx0 + 1.2)}" height="${r2(204 - (blkB - 77))}" rx="1" fill="#4f5962" stroke="#3d464e" stroke-width=".3"/>
+    ${gMarks}`;
+
+    /* --- SKM1-Block + Messingstreifen (beweglich) --- */
+    let sMarks = '';
+    for (const p of ORDER) {
+      const y = r2(-(blkB + MOFF[p]));
+      sMarks += `<line x1="${r2(sx0)}" y1="${y}" x2="${r2(sx1)}" y2="${y}" stroke="${ENG_B}" stroke-width=".32"/>` +
+        txt(r2((sx0 + sx1) / 2), r2(y - .8), p, { fs: 2.4, w: 700, fill: ENG_B, a: 'middle' });
+    }
+    const bx0 = I.x - 21, bx1 = I.x + 10, by0 = I.y - 10, by1 = I.y + 21;
+    const carr = `
+    <rect x="${r2(sx0)}" y="${r2(-blkB)}" width="${r2(sx1 - sx0)}" height="54" rx="1" fill="url(#gBrassH)" stroke="#6b5014" stroke-width=".35"/>
+    <rect x="${r2(sx0 + .4)}" y="${r2(-blkB)}" width="1.3" height="54" fill="#fff" opacity=".22"/>
+    <circle cx="${r2((sx0 + sx1) / 2)}" cy="${r2(-blkB + 50.5)}" r=".9" fill="#3b2c0c"/>
+    ${sMarks}
+    <rect x="${r2(bx0)}" y="${r2(-by1)}" width="${r2(bx1 - bx0)}" height="${r2(by1 - by0)}" rx="1.6" fill="url(#gPlate)" stroke="#7a858f" stroke-width=".5"/>
+    <rect x="${r2(bx0)}" y="${r2(-by1)}" width="${r2(bx1 - bx0)}" height="${r2(by1 - by0)}" rx="1.6" fill="#000" filter="url(#fCast)" opacity=".1"/>
+    ${txt(r2(bx1 - 1.8), r2(-by1 + 8.2), 'SKM1', { fs: 5.4, w: 500, a: 'end', ls: .3, fill: '#3b4650' })}
+    ${screw(r2(bx1 - 5), r2(-by1 + 12.5), 1.5)} ${screw(r2(bx0 + 5.5), r2(-by0 - 5), 1.5)}
+    <rect class="hit" fill="transparent" x="${r2(bx0)}" y="${r2(-by1)}" width="${r2(bx1 - bx0)}" height="${r2(by1 - by0 + 56)}"/>
+    <rect class="hl" fill="none" stroke="none" x="${r2(bx0 - 1)}" y="${r2(-by1 - 1)}" width="${r2(bx1 - bx0 + 2)}" height="${r2(by1 - by0 + 56)}" rx="2"/>`;
+
+    /* --- Stegfühler: Messingschieber läuft in der Nut des Halters, Anschlagklotz am Schieberende --- */
+    const HX0 = -106, HX1 = -30, HY0 = 54, HY1 = 86, SL0 = 65.6, SL1 = 74.4;
+    const BAR_R = CAL['60E2'].tip - 11;
+    let barMarks = '', houseMarks = '';
+    for (const p of ORDER) {
+      const xb = SMARK[p];
+      barMarks += `<line x1="${xb}" y1="${-SL0 - .8}" x2="${xb}" y2="${-SL0 - 4.4}" stroke="${ENG_B}" stroke-width=".3"/>` +
+        txt(xb, -SL0 - 4.9, p, { fs: 2.4, w: 600, fill: ENG_B, a: 'middle' });
+      const xh = n2(SMARK[p] + CAL[p].b);
+      houseMarks += `<line x1="${xh}" y1="${-SL0 + .3}" x2="${xh}" y2="${-SL0 + 3.8}" stroke="${ENG_S}" stroke-width=".3"/>` +
+        txt(xh, -SL0 + 6.8, p, { fs: 2.4, w: 600, fill: ENG_S, a: 'middle' });
+    }
+
+    let rodTicks = '';
+    for (let v = 130; v <= 180; v++) {
+      const y = -(ROD_IDX - v), L = v % 10 === 0 ? 5 : v % 5 === 0 ? 3.4 : 2.1;
+      rodTicks += `<line x1="-5.5" y1="${y}" x2="${n2(-5.5 + L)}" y2="${y}" stroke="${ENG_B}" stroke-width="${v % 5 === 0 ? .32 : .24}"/>`;
+      if (v % 10 === 0) rodTicks += txt(5, y + 1, v, { fs: 2.8, fill: ENG_B, a: 'end', w: 700 });
+    }
+    let prTicks = '';
+    for (let r = 0; r <= 20; r++) {
+      const x = S_IDX - r, L = r % 5 === 0 ? (r % 10 === 0 ? 3.6 : 2.8) : 1.7;
+      prTicks += `<line x1="${x}" y1="3.8" x2="${x}" y2="${n2(3.8 - L)}" stroke="${ENG_B}" stroke-width="${r % 5 === 0 ? .3 : .22}"/>`;
+      if (r % 5 === 0) prTicks += txt(x, -0.9, r, { fs: 2.5, fill: ENG_B, a: 'middle', w: 700 });
+    }
+
+    $('skmScene').innerHTML = `
+  <g id="gRail"></g>
+
+  <g id="gFrame" filter="url(#fShadow)">
+    <path d="${FRAME}" fill="url(#gAlu)" stroke="#6b7680" stroke-width=".6"/>
+    <path d="${FRAME}" fill="#000" filter="url(#fCast)" opacity=".28"/>
+    <path d="${RECESS}" fill="url(#gAluDark)" stroke="#5d6871" stroke-width=".45"/>
+    <path d="${RECESS}" fill="#000" filter="url(#fCast)" opacity=".25"/>
+    <path d="${RECESS2}" fill="url(#gAluDark)" stroke="#5d6871" stroke-width=".45" opacity=".9"/>
+    <rect x="-72" y="-1.6" width="50" height="1.6" fill="#59636c"/>
+    ${txt(-62, 9.5, 'MAGNET', { fs: 2.6, fill: '#4b555e', w: 700, ls: .6 })}
+    ${guide}
+    <rect x="${HX0}" y="${-HY1}" width="${HX1 - HX0}" height="${HY1 - HY0}" rx="4" fill="url(#gSteel)" stroke="#66717b" stroke-width=".45"/>
+    <rect x="${HX0 + 2}" y="${-HY1 + .6}" width="${HX1 - HX0 - 4}" height="1.8" rx=".9" fill="#fff" opacity=".25"/>
+    <rect x="${HX0}" y="${-SL1}" width="${HX1 - HX0}" height="${SL1 - SL0}" fill="#59636c"/>
+    <rect x="${HX0}" y="${-SL1}" width="${HX1 - HX0}" height=".9" fill="#000" opacity=".35"/>
+    ${houseMarks}
+    ${screw(HX0 + 6, -(HY1 - 5.5), 1.4)} ${screw(HX0 + 6, -(HY0 + 5.5), 1.4)}
+    <g id="gSteg" class="drag" data-k="steg">
+      <rect class="hit" fill="transparent" x="-102" y="${-SL1 - 1}" width="${n2(BAR_R + 104)}" height="${SL1 - SL0 + 2}"/>
+      <rect x="-102" y="${-SL1 + .5}" width="${n2(BAR_R + 102)}" height="${SL1 - SL0 - 1}" rx=".5" fill="url(#gBrassV)" stroke="#6b5014" stroke-width=".3"/>
+      <rect x="-102" y="${-SL1 + .6}" width="${n2(BAR_R + 102)}" height="1.2" fill="#fff" opacity=".25"/>
+      <circle cx="-98.5" cy="${-(SL0 + SL1) / 2}" r=".9" fill="#3b2c0c"/>
+      ${barMarks}
+      <rect class="hl" fill="none" stroke="none" x="-102.5" y="${-SL1}" width="${n2(BAR_R + 103)}" height="${SL1 - SL0}"/>
+    </g>
+    <rect x="-11" y="-207" width="22" height="26" rx="2" fill="url(#gSteel)" stroke="#66717b" stroke-width=".45"/>
+    <line x1="-11" y1="-190" x2="-5.5" y2="-190" stroke="${ENG_S}" stroke-width=".4"/>
+    <line x1="5.5" y1="-190" x2="11" y2="-190" stroke="${ENG_S}" stroke-width=".4"/>
+    <path d="M-5.6,-190 l-2.2,-1.3 v2.6 Z" fill="#f0872f"/>
+    ${screw(8, -201, 1.4)}
+    ${screw(-112, -212)} ${screw(-80, -214)}
+  </g>
+
+  <g id="gBlock" class="drag" data-k="steg" filter="url(#fShadow)">
+    <path d="M-12,-9 L-4.5,-9 L-4.5,-6.5 L0,-6.5 L0,6.5 L-12,6.5 Z" fill="url(#gSteel)" stroke="#5d6871" stroke-width=".45"/>
+    <path d="M-4.5,-9 L-4.5,-6.5 L0,-6.5" fill="none" stroke="#5d6871" stroke-width=".45"/>
+    <path d="M-11.4,-8.4 L-5.1,-8.4" stroke="#fff" stroke-width=".6" opacity=".55"/>
+    <line x1="0" y1="-6.2" x2="0" y2="6.2" stroke="#eef2f5" stroke-width=".5" opacity=".7"/>
+  </g>
+
+  <g id="gRod" class="drag" data-k="rod" filter="url(#fShadow)">
+    <rect class="hit" fill="transparent" x="-10" y="-88" width="20" height="92"/>
+    <path d="M0,0 L-1.3,-5 L1.3,-5 Z" fill="url(#gSteelDark)"/>
+    <rect x="-2.6" y="-8.6" width="5.2" height="3.8" rx=".6" fill="url(#gSteel)" stroke="#4d5964" stroke-width=".3"/>
+    <rect x="-5.5" y="-84" width="11" height="75.6" rx="1.2" fill="url(#gBrassH)" stroke="#6b5014" stroke-width=".35"/>
+    <rect x="-5.1" y="-84" width="1.5" height="75.6" fill="#fff" opacity=".2"/>
+    ${rodTicks}
+    <circle cx="0" cy="-80.4" r="1.1" fill="#3b2c0c"/>
+    <rect class="hl" fill="none" stroke="none" x="-6.6" y="-85" width="13.2" height="86" rx="2"/>
+  </g>
+
+  <g id="gCarr" class="drag" data-k="carr" filter="url(#fShadow)">${carr}</g>
+
+  <g id="gGuide">
+    <line x1="${S_IDX}" y1="3.9" x2="${S_IDX}" y2="10" stroke="${ENG_S}" stroke-width=".42"/>
+    <path d="M${S_IDX},4.1 l-1.25,2.3 h2.5 Z" fill="#f0872f"/>
+  </g>
+
+  <g id="gProbe" class="drag" data-k="probe" filter="url(#fShadow)">
+    <rect class="hit" fill="transparent" x="-82" y="-8" width="86" height="16"/>
+    <path d="M0,0 L-6.6,-1.4 L-6.6,1.4 Z" fill="url(#gSteelDark)"/>
+    <path d="M-10.6,-2.9 h4 l.6,1.2 v3.4 l-.6,1.2 h-4 Z" fill="url(#gSteel)" stroke="#4d5964" stroke-width=".3"/>
+    <rect x="-78" y="-3.8" width="67.4" height="7.6" rx="1" fill="url(#gBrassV)" stroke="#6b5014" stroke-width=".35"/>
+    <rect x="-78" y="-3.4" width="67.4" height="1.2" fill="#fff" opacity=".22"/>
+    ${prTicks}
+    <circle cx="-74.5" cy="0" r="1.1" fill="#3b2c0c"/>
+    <rect class="hl" fill="none" stroke="none" x="-79" y="-5" width="80.5" height="10" rx="2"/>
+  </g>
+
+  <g id="gKnob">
+    <circle cx="-56.5" cy="0" r="3.3" fill="url(#gSteel)" stroke="#59646e" stroke-width=".4"/>
+    <circle cx="-56.5" cy="0" r="3.3" fill="none" stroke="#6f7a84" stroke-width=".9" stroke-dasharray=".5 .55"/>
+    <circle cx="-56.5" cy="0" r="1" fill="#8f9aa4"/>
+  </g>`;
+  }
+
+  /* ---------- Zeichnen: Schiene ---------- */
+  function buildRail(): void {
+    const P = PROF[S.prof], T = TP[S.prof], w = S.wear, poly = S.poly;
+    let ytop = -1e9; for (const q of poly) ytop = Math.max(ytop, q[1]);
+    const c45 = (-T.x + T.y) * SQ - w.w45, yhb = P.H - P.hd, xs = (y: number) => -P.B / 2 + w.ws * clamp((y - yhb) / (P.hd * 0.5), 0, 1);
+    const pol = (q: P2) => (q[1] >= ytop - 1.1 && Math.abs(q[0]) < P.B / 2 - 5) ||
+      (w.w45 > 0.2 && (-q[0] + q[1]) * SQ >= c45 - 0.4 && q[1] > yhb) ||
+      (w.ws > 0.2 && q[0] <= xs(q[1]) + 0.3 && q[1] > yhb + P.hd * 0.3);
+    let shine = '', run: P2[] = [];
+    const flush = () => { if (run.length > 1) shine += 'M' + run.map(q => q[0].toFixed(2) + ',' + (-q[1]).toFixed(2)).join('L'); run = []; };
+    for (const q of poly) { if (pol(q)) run.push(q); else flush(); } flush();
+    const d = pathOf(poly);
+    const sollAn = $<HTMLInputElement>('tSoll').checked || S.solved;
+    $('gRail').innerHTML = `
+    <g filter="url(#fShadow)"><path d="${d}" fill="url(#gRust)"/></g>
+    <path d="${d}" fill="#000" filter="url(#fGrainRust)" opacity=".3"/>
+    <path d="${d}" fill="#000" filter="url(#fGrainDark)" opacity=".22"/>
+    <path d="${d}" fill="none" stroke="#2b160a" stroke-width=".55"/>
+    <path d="${d}" fill="none" stroke="#c98a5a" stroke-width=".35" opacity=".18" transform="translate(.35,.35)"/>
+    <path d="${shine}" fill="none" stroke="#e2e8ec" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="${shine}" fill="none" stroke="#ffffff" stroke-width=".5" stroke-linecap="round" opacity=".8"/>
+    <path id="soll" d="${pathOf(NEW[S.prof])}" fill="none" stroke="#6ec1ff" stroke-width=".45" stroke-dasharray="1.6 1.2" opacity=".9"
+          style="display:${sollAn ? 'inline' : 'none'}"/>`;
+  }
+
+  /* ---------- Zeichnen: bewegliche Teile ---------- */
+  function update(): void {
+    const g = geom(), dx = g.dx;
+    const tw = { x: g.Zw.x + S.t * U.x, y: g.Zw.y + S.t * U.y };
+    $('gFrame').setAttribute('transform', `translate(${n2(dx)},0)`);
+    $('gSteg').setAttribute('transform', `translate(${n2(S.b)},0)`);
+    $('gBlock').setAttribute('transform', `translate(${n2(dx + tipDev(S.b))},${-STEG_Y})`);
+    $('gRod').setAttribute('transform', `translate(${n2(g.rodX)},${n2(-S.yt)})`);
+    $('gCarr').setAttribute('transform', `translate(${n2(dx)},${n2(-S.v)})`);
+    $('gGuide').setAttribute('transform', `translate(${n2(g.Zw.x)},${n2(-g.Zw.y)}) rotate(45)`);
+    $('gKnob').setAttribute('transform', `translate(${n2(g.Zw.x)},${n2(-g.Zw.y)}) rotate(45)`);
+    $('gProbe').setAttribute('transform', `translate(${n2(tw.x)},${n2(-tw.y)}) rotate(45)`);
+    for (const id of ['gSteg', 'gRod', 'gCarr', 'gProbe']) { const el = $(id); el.classList.toggle('active', S.active === el.dataset['k']); }
+
+    // Lupen
+    const L = 22;
+    const rc = { x: g.rodX - 1.5, y: ROD_IDX + 1 };
+    $('lpRod').setAttribute('viewBox', `${n2(rc.x - L / 2)} ${n2(-rc.y - L / 2)} ${L} ${L}`);
+    const pc = { x: g.Zw.x + (S_IDX - 6) * U.x, y: g.Zw.y + (S_IDX - 6) * U.y };
+    $('lpProbe').setAttribute('viewBox', `${n2(pc.x - L / 2)} ${n2(-pc.y - L / 2)} ${L} ${L}`);
+    $('lpSteg').setAttribute('viewBox', `${n2(dx - 70 - 15)} ${n2(-70 - 15)} 30 30`);
+
+    if ($<HTMLInputElement>('tTeach').checked) {
+      $('live').innerHTML = `Höhe: ${f1(S.yt)} mm${S.yt - g.rodC < 0.15 ? ' (sitzt auf)' : ''}<br>45°: ${f1(S.t)} mm${g.tc - S.t < 0.15 ? ' (liegt an)' : ''}` +
+        `<br>Steg: ${Math.abs(S.b - CAL[S.prof].b) <= 0.08 ? '✓' : '✗'} · Messkopf: ${Math.abs(S.v - CAL[S.prof].v) <= 0.2 ? '✓' : '✗'}`;
+    }
+  }
+
+  /* ---------- Ziehen ---------- */
+  const svg = $<SVGSVGElement>('skmMain');
+  function worldPt(e: PointerEvent): Pt {
+    const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+    const p = pt.matrixTransform(svg.getScreenCTM()!.inverse());
+    return { x: p.x, y: -p.y };
+  }
+  const proj = (p: Pt) => p.x * U.x + p.y * U.y;
+  let drag: { k: Kind; off: number } | null = null;
+  function valOf(k: Kind, p: Pt) { return k === 'rod' ? p.y : k === 'probe' ? proj(p) : k === 'steg' ? p.x : p.y; }
+  function setVal(k: Kind, v: number): void {
+    const vmin = CAL['49E5'].v - 8, vmax = CAL['60E2'].v + 8;
+    if (k === 'rod') S.yt = clamp(v, 0, ROD_MAX);
+    if (k === 'probe') S.t = clamp(v, T_MIN, T_MAX);
+    if (k === 'steg') S.b = clamp(v, -2.5, 2);
+    if (k === 'carr') S.v = clamp(v, vmin, vmax);
+    clampAll(); update();
+  }
+  const cur = (k: Kind) => k === 'rod' ? S.yt : k === 'probe' ? S.t : k === 'steg' ? S.b : S.v;
+  svg.addEventListener('pointerdown', (e: PointerEvent) => {
+    const g = (e.target as Element).closest('.drag') as HTMLElement | null;
+    if (!g) { S.active = null; update(); return; }
+    const k = g.dataset['k'] as Kind, p = worldPt(e);
+    S.active = k; drag = { k, off: valOf(k, p) - cur(k) };
+    svg.setPointerCapture(e.pointerId); e.preventDefault(); update();
+  });
+  svg.addEventListener('pointermove', (e: PointerEvent) => { if (!drag) return; const p = worldPt(e); setVal(drag.k, valOf(drag.k, p) - drag.off); });
+  function snap(k: Kind): void { // Rastung: nahe an einer Profilmarke rastet der Schieber ein
+    for (const p of ORDER) {
+      if (k === 'steg' && Math.abs(S.b - CAL[p].b) < 0.18) { setVal('steg', CAL[p].b); return; }
+      if (k === 'carr' && Math.abs(S.v - CAL[p].v) < 0.6) { setVal('carr', CAL[p].v); return; }
+    }
+  }
+  const end = () => { if (drag) snap(drag.k); drag = null; };
+  svg.addEventListener('pointerup', end); svg.addEventListener('pointercancel', end);
+  const onKey = (e: KeyboardEvent) => {
+    if (!S.active || !root.isConnected || /INPUT|TEXTAREA/.test(document.activeElement?.tagName ?? '')) return;
+    const st = e.shiftKey ? 1 : 0.1, k = S.active;
+    const dirs = ({ ArrowUp: [0, 1], ArrowDown: [0, -1], ArrowLeft: [-1, 0], ArrowRight: [1, 0] } as Record<string, number[]>)[e.key];
+    if (!dirs) return; e.preventDefault();
+    let d = 0;
+    if (k === 'rod' || k === 'carr') d = dirs[1];
+    if (k === 'steg') d = dirs[0];
+    if (k === 'probe') d = (dirs[0] || -dirs[1]);
+    setVal(k, cur(k) + d * st);
   };
+  document.addEventListener('keydown', onKey);
+
+  /* ---------- Auswertung ---------- */
+  const num = (id: string) => { const s = $<HTMLInputElement>(id).value.trim().replace(',', '.'); return s === '' ? NaN : parseFloat(s); };
+  function check(): void {
+    const tr = truth(), g = geom(), c = CAL[S.prof], P = PROF[S.prof];
+    const h = num('inH'), hw = num('inHW'), r = num('in45');
+    const okH = Math.abs(h - tr.h) <= 0.5, okHW = Math.abs(hw - tr.hw) <= 0.5, okR = Math.abs(r - tr.r) <= 0.5;
+    const stegOk = Math.abs(S.b - c.b) <= 0.08, carrOk = Math.abs(S.v - c.v) <= 0.2;
+    const rodOn = S.yt - g.rodC < 0.15, prOn = g.tc - S.t < 0.15;
+    $('inH').className = isNaN(h) ? '' : okH ? 'ok' : 'bad';
+    $('inHW').className = isNaN(hw) ? '' : okHW ? 'ok' : 'bad';
+    $('in45').className = isNaN(r) ? '' : okR ? 'ok' : 'bad';
+    const li: string[][] = [];
+    li.push(stegOk ? ['ok', 'Stegfühler steht auf ' + S.prof + '.'] : ['bad', 'Stegfühler steht nicht auf ' + S.prof + ' – der Messer sitzt seitlich versetzt, die Messwerte verfälschen sich.']);
+    li.push(carrOk ? ['ok', 'Messkopf ist auf ' + S.prof + ' eingestellt.'] : ['bad', 'Messkopf steht nicht auf der Marke ' + S.prof + ' – der 45°-Fühler trifft die Fahrkante an der falschen Stelle.']);
+    if (!rodOn) li.push(['bad', 'Die Höhenmesslatte sitzt nicht auf dem Schienenkopf auf.']);
+    if (!prOn) li.push(['bad', 'Die Spitze des 45°-Fühlers liegt nicht an der Fahrkante an.']);
+    if (isNaN(h)) li.push(['info', 'Schienenhöhe fehlt.']);
+    else if (okH) li.push(['ok', 'Schienenhöhe richtig abgelesen.']);
+    else li.push(['bad', stegOk && carrOk && rodOn ? 'Schienenhöhe falsch abgelesen – in der Lupe genau prüfen, welcher Strich am Index steht.' : 'Schienenhöhe stimmt nicht – erst den Aufbau korrigieren.']);
+    if (isNaN(hw)) li.push(['info', 'Höhenverschleiß fehlt.']);
+    else if (okHW) li.push(['ok', 'Höhenverschleiß richtig berechnet.']);
+    else li.push(['bad', !isNaN(h) && Math.abs((P.H - h) - hw) > 0.2 ? `Rechnung prüfen: Sollhöhe ${S.prof} = ${P.H} mm minus deinem Messwert.` : 'Höhenverschleiß stimmt nicht (Folgefehler aus der Höhe).']);
+    if (isNaN(r)) li.push(['info', '45°-Verschleiß fehlt.']);
+    else if (okR) li.push(['ok', '45°-Verschleiß richtig abgelesen.']);
+    else li.push(['bad', stegOk && carrOk && prOn ? '45°-Wert falsch abgelesen – Teilung läuft von der Spitze weg: 0 vorne, 20 hinten.' : '45°-Wert stimmt nicht – erst den Aufbau korrigieren.']);
+    $('fb').querySelector('ul')!.innerHTML = li.map(([c2, t]) => `<li class="${c2}">${t}</li>`).join('');
+    $('fb').className = 'show';
+    const all = okH && okHW && okR;
+    if (!S.checked && !S.solved) { S.tries++; if (all) S.ok++; S.checked = true; ProfilSyncService.lokalZaehlen('zusatz:schienenmesser', all); }
+    $('score').textContent = `${S.ok} / ${S.tries} richtig`;
+  }
+  function solve(): void {
+    const c = CAL[S.prof], tr = truth();
+    S.b = c.b; S.v = c.v; S.yt = 0; S.t = T_MAX; clampAll();
+    S.solved = true; S.active = null;
+    $('soll').style.display = 'inline';
+    $('sol').innerHTML = `<div><span>Schienenhöhe</span><b>${f1(tr.h)} mm</b></div>
+    <div><span>Höhenverschleiß</span><b>${f1(tr.hw)} mm</b></div>
+    <div><span>Verschleiß 45°</span><b>${f1(tr.r)} mm</b></div>
+    <div style="margin-top:6px;color:#8aa0b4;font-family:system-ui;font-size:12px;display:block">Messer ist jetzt richtig eingestellt und angelegt – vergleiche die Lupen. Blau gestrichelt: Sollprofil ${S.prof}.</div>`;
+    $('sol').className = 'sol show';
+    update();
+  }
+
+  /* ---------- UI ---------- */
+  $('bCheck').onclick = check;
+  $('bSol').onclick = solve;
+  $('bNew').onclick = newTask;
+  $('tSoll').onchange = () => { $('soll').style.display = ($<HTMLInputElement>('tSoll').checked || S.solved) ? 'inline' : 'none'; };
+  $('tTeach').onchange = () => { $('live').className = $<HTMLInputElement>('tTeach').checked ? 'show' : ''; update(); };
+  function applyView(): void {
+    if (S.view === 'all') { svg.setAttribute('viewBox', '-162 -282 258 308'); return; }
+    const yb = PROF[S.prof].H - 38, yt = 272;
+    svg.setAttribute('viewBox', `-140 ${-yt} 190 ${yt - yb}`);
+  }
+  $('viewSeg').addEventListener('click', (e: Event) => {
+    const b = (e.target as Element).closest('button') as HTMLElement | null; if (!b) return;
+    for (const x of Array.from($('viewSeg').children)) x.classList.toggle('on', x === b);
+    S.view = b.dataset['v'] ?? 'all'; applyView();
+  });
+
+  buildStatic();
+  newTask();
+
+  return () => document.removeEventListener('keydown', onKey);
 }
 
 @Component({
   selector: 'app-schienenmesser',
   templateUrl: './schienenmesser.page.html',
   styleUrls: ['./schienenmesser.page.scss'],
+  encapsulation: ViewEncapsulation.None,
   standalone: false,
 })
 export class SchienenmesserPage implements AfterViewInit, OnDestroy {
@@ -845,7 +531,7 @@ export class SchienenmesserPage implements AfterViewInit, OnDestroy {
   constructor(private readonly host: ElementRef<HTMLElement>) {}
 
   ngAfterViewInit(): void {
-    this.cleanup = initSchienenmesser(this.host.nativeElement);
+    this.cleanup = initSkm1(this.host.nativeElement);
   }
 
   ngOnDestroy(): void {

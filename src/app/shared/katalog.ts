@@ -43,7 +43,7 @@ export const RECHENTRAINER_TILES: QuizTile[] = [
   {
     id: 'quiz-volumen',
     title: 'Volumen berechnen',
-    description: '10 Quizaufgaben zu Volumenberechnung im Gleisbau.',
+    description: 'Volumen und Gewicht mit 3D-Modellen und Schmierblatt: Trapez mit Schotter, Quader, Zylinder, Kegel, Pyramide und mehr. Dazu das Quiz mit 10 Fragen.',
     tag: 'Quiz',
     icon: 'cube-outline',
     link: '/zusatz/volumen',
@@ -53,7 +53,7 @@ export const RECHENTRAINER_TILES: QuizTile[] = [
   {
     id: 'quiz-prozentrechnung',
     title: 'Prozentrechnung',
-    description: 'Prozentwert, Rabatt, Erhoehung, Rueckrechnung und Toleranzen als Quiz.',
+    description: 'Prozentaufgaben leicht bis schwer mit Schmierblatt: Rabatt, MwSt, Zuschlag, Rückrechnung, Neigung in ‰ – plus freier Rechner.',
     tag: 'Quiz',
     icon: 'calculator-outline',
     link: '/zusatz/prozentrechnung',
@@ -79,16 +79,6 @@ export const RECHENTRAINER_TILES: QuizTile[] = [
     link: '/zusatz/materialrechner',
     image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Loading_bay_at_Hakkila_rail_yard_in_Vantaa%2C_Finland%2C_2021.jpg?width=900',
     imageCredit: 'Coen, CC BY-SA 4.0, via Wikimedia Commons',
-  },
-  {
-    id: 'quiz-trassierung',
-    title: 'Trassierungsrechner',
-    description: 'Neigungswechsel (Ausrundung) und Überhöhungsrampen selbst durchrechnen — 16 Formel-Kategorien, unbegrenzt neue Aufgaben.',
-    icon: 'analytics-outline',
-    tag: 'Quiz',
-    link: '/zusatz/trassierung',
-    image: 'assets/bilder/trassierung-diagramm.svg',
-    imageCredit: 'Eigene Grafik',
   },
   {
     id: 'quiz-weichenrechner',
@@ -216,6 +206,14 @@ export const SPIELE_TILES: QuizTile[] = [
     imageCredit: 'Eigene Grafik',
   },
   {
+    id: 'spiel-quizshow',
+    title: 'Quiz-Show für Vorträge',
+    description: 'Fragen mit Bildern am Beamer zeigen, vom Tablet aus steuern – mit Spannung, Klängen und Finalrunde.',
+    tag: 'Vortrag',
+    icon: 'tv-outline',
+    link: '/zusatz/quizshow',
+  },
+  {
     id: 'spiel-baumaschinen',
     title: 'Baumaschinen erkennen',
     description: 'Stopfmaschine, Schienenschleifzug, Gleisbaukran und mehr am Foto erkennen.',
@@ -339,11 +337,11 @@ export const WISSENSTEST_TILES: QuizTile[] = [
     },
     {
       id: 'themenquiz-trassenplan',
-      title: 'Trassenplan lesen',
-      description: 'Kilometrierung, Lageplan, Laengsschnitt und Symbole.',
+      title: 'Trassenplan',
+      description: 'Plan-Generator, Pfeilhöhen und Überhöhungen rechnen und im Plan eintragen, Quiz und Zuordnen.',
       tag: 'Planung',
       icon: 'map-outline',
-      link: '/themenquiz/trassenplan',
+      link: '/zusatz/trassenplan',
       topicId: 'trassenplan',
       questionCount: 23,
       image: 'assets/bilder/trassenplan-diagramm.svg',
@@ -443,12 +441,177 @@ export const BAUBERUFE_TILES: QuizTile[] = [
     },
 ];
 
+/** Berufsschule – Formelsammlung lernen: Formelfinder, Gemischte Prüfung, Nachschlagen + alle 17 Themen-Apps als eigene Kacheln (einzeln prüf-/freigebbar; Hub-Kachel entfernt, Tim 2026-11-11). */
+export const BERUFSSCHULE_TILES: QuizTile[] = [
+  {
+    id: 'formelsammlung-formelfinder',
+    title: 'Formelquiz',
+    description: 'Aufgabe lesen, durch die Formelsammlung blättern und die passende Formel antippen – wie in der Prüfung.',
+    tag: 'Formelsammlung',
+    icon: 'book-outline',
+    link: '/berufsschule/formelsammlung/formelquiz',
+  },
+  {
+    id: 'formelsammlung-pruefung',
+    title: 'Gemischte Prüfung',
+    description: 'Aufgaben aus allen Formelsammlungs-Themen gemischt auf Zeit, mit Auswertung.',
+    tag: 'Formelsammlung',
+    icon: 'timer-outline',
+    link: '/berufsschule/formelsammlung/pruefung',
+  },
+  {
+    id: 'formelsammlung-nachschlagen',
+    title: 'Formeln nachschlagen',
+    description: 'Alle Formeln der Berufsschul-Formelsammlung durchsuchen und nach Kapitel filtern.',
+    tag: 'Formelsammlung',
+    icon: 'library-outline',
+    link: '/berufsschule/formelsammlung/nachschlagen',
+  },
+  {
+    id: 'formelsammlung-pfeilhoehe',
+    title: 'Pfeilhöhe',
+    description: 'Gleisbögen mit der Sehne überprüfen: hf = ls²/(8r) und a·b/(2r) – erklären, rechnen, üben, Prüfung.',
+    tag: 'Kapitel 01',
+    icon: 'analytics-outline',
+    link: '/berufsschule/formelsammlung/pfeilhoehe',
+  },
+  {
+    id: 'formelsammlung-kreisbogen',
+    title: 'Kreisbogen von der x-Achse',
+    description: 'Ordinaten y genau und mit Näherung – wann ist die Näherung erlaubt?',
+    tag: 'Kapitel 02',
+    icon: 'radio-button-off-outline',
+    link: '/berufsschule/formelsammlung/kreisbogen',
+  },
+  {
+    id: 'formelsammlung-uebergangsbogen',
+    title: 'Übergangsbogen abstecken',
+    description: 'Kubische Parabel: Ordinaten y entlang des Übergangsbogens.',
+    tag: 'Kapitel 03',
+    icon: 'trending-up-outline',
+    link: '/berufsschule/formelsammlung/uebergangsbogen',
+  },
+  {
+    id: 'formelsammlung-ausrundung',
+    title: 'Ausrunden von Neigungswechseln',
+    description: 'Ausrundungsradius, Tangentenlänge, Kuppe oder Wanne, Absteckmaß y.',
+    tag: 'Kapitel 04',
+    icon: 'git-commit-outline',
+    link: '/berufsschule/formelsammlung/ausrundung',
+  },
+  {
+    id: 'formelsammlung-gleisverziehung',
+    title: 'Gleisverziehungen',
+    description: 'S-Verziehung mit und ohne Zwischengerade.',
+    tag: 'Kapitel 05',
+    icon: 'swap-horizontal-outline',
+    link: '/berufsschule/formelsammlung/gleisverziehung',
+  },
+  {
+    id: 'formelsammlung-temperatur',
+    title: 'Temperatur und Kräfte im Gleis',
+    description: 'Längenänderung, Spannung und Kraft in der Schiene.',
+    tag: 'Kapitel 06',
+    icon: 'thermometer-outline',
+    link: '/berufsschule/formelsammlung/temperatur',
+  },
+  {
+    id: 'formelsammlung-atmend',
+    title: 'Atmendes Gleisende',
+    description: 'Länge des atmenden Bereichs aus Längskraft und Verschiebewiderstand.',
+    tag: 'Kapitel 06',
+    icon: 'pulse-outline',
+    link: '/berufsschule/formelsammlung/atmend',
+  },
+  {
+    id: 'formelsammlung-fahrzeugkraefte',
+    title: 'Kräfte am Fahrzeug',
+    description: 'Fliehkraft, Hangabtriebskraft und Vertikalkraft.',
+    tag: 'Kapitel 07-09',
+    icon: 'speedometer-outline',
+    link: '/berufsschule/formelsammlung/fahrzeugkraefte',
+  },
+  {
+    id: 'formelsammlung-querbeschleunigung',
+    title: 'Querbeschleunigung',
+    description: 'Freie Seitenbeschleunigung aus v, r und Überhöhung.',
+    tag: 'Kapitel 10',
+    icon: 'navigate-outline',
+    link: '/berufsschule/formelsammlung/querbeschleunigung',
+  },
+  {
+    id: 'formelsammlung-weichen',
+    title: 'Weichen',
+    description: 'Zulässige Geschwindigkeit und Zwischengerade in Gleisverbindungen.',
+    tag: 'Kapitel 11-12',
+    icon: 'git-branch-outline',
+    link: '/berufsschule/formelsammlung/weichen',
+  },
+  {
+    id: 'formelsammlung-ueberhoehung',
+    title: 'Überhöhung',
+    description: 'u0, Regelüberhöhung, Mindestüberhöhung, Fehlbetrag – und Radius umgestellt.',
+    tag: 'Kapitel 13-15',
+    icon: 'reorder-three-outline',
+    link: '/berufsschule/formelsammlung/ueberhoehung',
+  },
+  {
+    id: 'formelsammlung-rampen',
+    title: 'Überhöhungsrampen',
+    description: 'Rampenlänge und Rampenneigung 1 : m gegen Tabelle 7 prüfen.',
+    tag: 'Kapitel 16-17',
+    icon: 'trending-up-outline',
+    link: '/berufsschule/formelsammlung/rampen',
+  },
+  {
+    id: 'formelsammlung-rampenverlauf',
+    title: 'Überhöhung entlang der Rampe',
+    description: 'ux an jedem Punkt der geraden und S-förmigen Rampe.',
+    tag: 'Kapitel 18',
+    icon: 'stats-chart-outline',
+    link: '/berufsschule/formelsammlung/rampenverlauf',
+  },
+  {
+    id: 'formelsammlung-kruemmung',
+    title: 'Krümmung und Ruck-Kriterium',
+    description: 'Ist ein Übergangsbogen nötig? Entscheidung mit Rechenweg.',
+    tag: 'Kapitel 19-20',
+    icon: 'help-circle-outline',
+    link: '/berufsschule/formelsammlung/kruemmung',
+  },
+  {
+    id: 'formelsammlung-uebergangslaenge',
+    title: 'Mindestlänge Übergangsbogen',
+    description: 'Klothoide, Bloss und Schramm im Vergleich.',
+    tag: 'Kapitel 21',
+    icon: 'bar-chart-outline',
+    link: '/berufsschule/formelsammlung/uebergangslaenge',
+  },
+  {
+    id: 'formelsammlung-zweiggleis',
+    title: 'Zweiggleisradius bei Weichen',
+    description: 'Innenbogen- und Außenbogenweiche.',
+    tag: 'Kapitel 22-23',
+    icon: 'git-network-outline',
+    link: '/berufsschule/formelsammlung/zweiggleis',
+  },
+  {
+    id: 'formelsammlung-rampenvolumen',
+    title: 'Rampenvolumen im Erdbau',
+    description: 'Rampe gegen lotrechte Wand: Zerlegung in Körper und Kurzformel.',
+    tag: 'Kapitel A',
+    icon: 'cube-outline',
+    link: '/berufsschule/formelsammlung/rampenvolumen',
+  },
+];
+
 const ALLE_KATALOG_TILES: QuizTile[] = [
   ...RECHENTRAINER_TILES,
   ...SPIELE_TILES,
   ...WISSENSTEST_TILES,
   ...GLEISBAU_LERNFELD_TILES,
   ...BAUBERUFE_TILES,
+  ...BERUFSSCHULE_TILES,
 ];
 
 /** Alle lokal gehosteten Kachel-Bilder (assets/...), fuer den Offline-Download. */
@@ -469,5 +632,5 @@ export const FORUM_TILE: QuizTile = { id: 'app-forum', title: 'Forum', descripti
 
 /** Alle Kacheln der Startseite (für Status/Sichtbarkeit und die Gast-Sperre). */
 export function alleAppTiles(): QuizTile[] {
-  return [...SPIELE_TILES, ...RECHENTRAINER_TILES, ...GLEISBAU_LERNFELD_TILES, ...BAUBERUFE_TILES, ...WISSENSTEST_TILES, FORUM_TILE, ...MEHR_TILES];
+  return [...SPIELE_TILES, ...RECHENTRAINER_TILES, ...BERUFSSCHULE_TILES, ...GLEISBAU_LERNFELD_TILES, ...BAUBERUFE_TILES, ...WISSENSTEST_TILES, FORUM_TILE, ...MEHR_TILES];
 }

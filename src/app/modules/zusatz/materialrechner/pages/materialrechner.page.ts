@@ -19,6 +19,8 @@ export class MaterialrechnerPage implements OnInit {
   readonly materialien = MATERIALIEN;
 
   difficulty: Difficulty = 'leicht';
+  /** Baustelle = Materialbedarf einer Gleiserneuerung; rechnen = Volumen/Gewicht-Aufgaben */
+  modus: 'baustelle' | 'rechnen' = 'baustelle';
   question!: GeneratedQuestion;
   selectedChoiceId: string | null = null;
   showTable = false;
@@ -43,6 +45,10 @@ export class MaterialrechnerPage implements OnInit {
   newQuestion(): void {
     this.question = this.generator.generate(this.difficulty);
     this.selectedChoiceId = null;
+  }
+
+  baustelleErgebnis(ok: boolean): void {
+    this.progress = this.data.recordResult(this.difficulty, ok);
   }
 
   select(choiceId: string): void {

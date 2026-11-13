@@ -11,7 +11,7 @@ import { LernfortschrittDataService } from '../services/lernfortschritt-data.ser
 export class LernfortschrittPage implements OnInit {
   fortschritt: GesamtFortschritt | null = null;
   ladefehler = false;
-  nurBegonnen = true;
+  nurBegonnen = false;
 
   constructor(private readonly data: LernfortschrittDataService) {}
 

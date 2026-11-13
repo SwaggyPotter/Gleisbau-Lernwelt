@@ -11,6 +11,13 @@ export interface NeueErrungenschaft {
   icon: string;
 }
 
+export interface LokaleModulStat {
+  correct: number;
+  wrong: number;
+  streak: number;
+  bestStreak: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ProfilSyncService {
   constructor(
@@ -24,6 +31,7 @@ export class ProfilSyncService {
    * dieser Aufruf ist rein additiv und blockiert die UI nie.
    */
   melde(moduleKey: string, correct: boolean): void {
+    ProfilSyncService.lokalZaehlen(moduleKey, correct);
     if (!this.auth.isLoggedIn) return;
 
     this.http.post<{ neueErrungenschaften: NeueErrungenschaft[] }>(`${API_BASE_URL}/stats/sync`, { moduleKey, correct })
@@ -33,6 +41,33 @@ export class ProfilSyncService {
           this.zeigeErrungenschaften(res.neueErrungenschaften);
         }
       });
+  }
+
+  /** Lokale Modul-Statistik (auch ohne Konto/als Gast) – Grundlage für die Lernfortschritt-Seite. */
+  static readonly LOKAL_KEY = 'glw-modul-statistik';
+
+  static lokaleStatistik(): Record<string, LokaleModulStat> {
+    try {
+      const raw = localStorage.getItem(ProfilSyncService.LOKAL_KEY);
+      const p = raw ? JSON.parse(raw) : {};
+      return p && typeof p === 'object' ? p : {};
+    } catch {
+      return {};
+    }
+  }
+
+  /** Nur lokal zählen (für Code ohne Angular-DI, z. B. die Tycoon-Engine). Grundlage der Sterne auf der Startseite. */
+  static lokalZaehlen(moduleKey: string, correct: boolean): void {
+    try {
+      const alle = ProfilSyncService.lokaleStatistik();
+      const s = alle[moduleKey] ?? { correct: 0, wrong: 0, streak: 0, bestStreak: 0 };
+      if (correct) { s.correct++; s.streak++; s.bestStreak = Math.max(s.bestStreak, s.streak); }
+      else { s.wrong++; s.streak = 0; }
+      alle[moduleKey] = s;
+      localStorage.setItem(ProfilSyncService.LOKAL_KEY, JSON.stringify(alle));
+    } catch {
+      // localStorage nicht verfügbar – Statistik bleibt dann nur serverseitig
+    }
   }
 
   private zeigeErrungenschaften(neu: NeueErrungenschaft[]): void {

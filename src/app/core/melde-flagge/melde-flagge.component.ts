@@ -31,7 +31,7 @@ export class MeldeFlaggeComponent {
   constructor(private readonly router: Router, private readonly meldungen: QuestionReportService) {
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd)).subscribe(e => {
       this.url = e.urlAfterRedirects.split('?')[0].split('#')[0];
-      this.sichtbar = !/^\/($|dashboard|konto\/|oeffentlich$)/.test(this.url);
+      this.sichtbar = !/^\/($|dashboard|konto\/|oeffentlich$|zusatz\/quizshow)/.test(this.url);
       this.offen = false;
     });
   }
@@ -48,8 +48,10 @@ export class MeldeFlaggeComponent {
     // Was gerade zu sehen ist, für Tim mitschicken: markierter Text oder Überschrift/Frage der Seite
     const markiert = (window.getSelection()?.toString() ?? '').trim();
     const seite = document.querySelector('ion-router-outlet > .ion-page:not(.ion-page-hidden)') ?? document.body;
+    // Seiten mit Aufgaben legen die ganze Aufgabe samt Lösung in data-melde-kontext ab
+    const seitenKontext = (seite.querySelector('[data-melde-kontext]') as HTMLElement | null)?.dataset['meldeKontext']?.trim() ?? '';
     const ueberschrift = (seite.querySelector('ion-card-title, h1, h2') as HTMLElement | null)?.innerText?.trim() ?? '';
-    this.kontext = (markiert || ueberschrift).replace(/\s+/g, ' ').slice(0, 600);
+    this.kontext = [markiert, seitenKontext || ueberschrift].filter(Boolean).join(' | ').replace(/\s+/g, ' ').slice(0, 2500);
     this.grund = this.gruende[0];
     this.kommentar = '';
     this.status = '';

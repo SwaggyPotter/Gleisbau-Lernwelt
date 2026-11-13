@@ -1,0 +1,188 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>Formelsammlung lernen</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/dashboard" fill="clear">
+        <ion-icon slot="start" name="grid-outline"></ion-icon>
+        <span class="toolbar-action-label">Zur Übersicht</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fs-content">
+  <div class="fs-root fs-shell breit">
+
+    <!-- ================= Start ================= -->
+    <ng-container *ngIf="ansicht === 'start'">
+      <section class="fs-hero">
+        <p class="fs-eyebrow">Berufsschule</p>
+        <h1>Formelsammlung lernen</h1>
+        <p class="fs-lede">Jedes Thema der Formelsammlung als eigene kleine Übungs-App: erklären, rechnen, üben, umstellen,
+          Einheiten-Fallen und Prüfungsmodus. Formel erkennen ist die halbe Prüfung – dafür gibt es das Formelquiz.</p>
+      </section>
+
+      <div class="fs-werkzeuge">
+        <a class="fs-werkzeug" routerLink="formelquiz">
+          <ion-icon name="search-outline"></ion-icon>
+          <strong>Formelquiz</strong>
+          <span>Aufgabe lesen, passende Formel wählen.</span>
+          <small *ngIf="fs.finder.gesamt">{{ fs.finder.richtig }}/{{ fs.finder.gesamt }} richtig</small>
+        </a>
+        <a class="fs-werkzeug" routerLink="pruefung">
+          <ion-icon name="timer-outline"></ion-icon>
+          <strong>Gemischte Prüfung</strong>
+          <span>Aufgaben aus allen fertigen Apps auf Zeit.</span>
+          <small *ngIf="fs.gemischtBest >= 0">Bestwert {{ fs.gemischtBest }} %</small>
+        </a>
+        <a class="fs-werkzeug" routerLink="nachschlagen">
+          <ion-icon name="library-outline"></ion-icon>
+          <strong>Nachschlagen</strong>
+          <span>Alle Formeln durchsuchen, nach Kapitel filtern.</span>
+        </a>
+      </div>
+
+      <h2 class="fs-h2">Themen-Apps</h2>
+      <div class="fs-kacheln">
+        <ng-container *ngFor="let a of apps; trackBy: trackApp">
+         <ng-container *ngIf="sichtbar(a.id)">
+          <div *ngIf="istGebaut(a.id) && gesperrt(a.id)" class="fs-kachel aus" aria-disabled="true" title="Für Gäste noch nicht freigegeben">
+            <span class="fs-kachel-nr">{{ a.nr }}</span>
+            <ion-icon [name]="a.icon"></ion-icon>
+            <strong>{{ a.titel }}</strong>
+            <span class="fs-kachel-text">{{ a.kurz }}</span>
+            <span class="fs-kachel-bald">🔒 für Gäste noch nicht freigegeben</span>
+          </div>
+          <ng-container *ngIf="!istGebaut(a.id)"><ng-container *ngTemplateOutlet="inArbeit"></ng-container></ng-container>
+          <a *ngIf="istGebaut(a.id) && !gesperrt(a.id)" class="fs-kachel" [routerLink]="a.id">
+            <span class="fs-kachel-nr">{{ a.nr }}</span>
+            <span class="fs-kachel-status" [class.ok]="!ungeprueft(a.id)" [class.test]="testphase(a.id)" [title]="testphase(a.id) ? 'Testphase – hilf beim Prüfen mit' : ungeprueft(a.id) ? 'Noch nicht fachlich geprüft' : 'Fachlich geprüft'">{{ testphase(a.id) ? '?' : ungeprueft(a.id) ? '✕' : '✓' }}</span>
+            <ion-icon [name]="a.icon"></ion-icon>
+            <strong>{{ a.titel }}</strong>
+            <span class="fs-kachel-text">{{ a.kurz }}</span>
+            <span class="fs-sterne klein"><span *ngFor="let i of [0, 1, 2, 3, 4]" [class.an]="i < sterne(a.id)">★</span></span>
+            <span class="fs-balken"><span [style.width.%]="anteil(a.id)"></span></span>
+          </a>
+          <ng-template #inArbeit>
+            <div class="fs-kachel aus" aria-disabled="true" title="Noch in Arbeit">
+              <span class="fs-kachel-nr">{{ a.nr }}</span>
+              <ion-icon [name]="a.icon"></ion-icon>
+              <strong>{{ a.titel }}</strong>
+              <span class="fs-kachel-text">{{ a.kurz }}</span>
+              <span class="fs-kachel-bald">in Arbeit – Formeln schon im Nachschlagen</span>
+            </div>
+          </ng-template>
+         </ng-container>
+        </ng-container>
+      </div>
+      <p class="fs-hinweis-klein">Sterne nach richtigen Antworten: ★ ab 1 · ★★ ab 10 · ★★★ ab 50 · ★★★★ ab 150 · ★★★★★ ab 250. Der Fortschritt wird auf diesem Gerät gespeichert.</p>
+    </ng-container>
+
+    <!-- ================= Formelquiz (früher Formelfinder) ================= -->
+    <ng-container *ngIf="ansicht === 'finder' && finderAufgabe as a">
+      <section class="fs-hero">
+        <p class="fs-eyebrow">Formelquiz</p>
+        <h1>Welche Formel brauchst du?</h1>
+        <p class="fs-lede">Wie in der Prüfung: Aufgabe lesen, in der Formelsammlung blättern und die passende Formel antippen – ohne zu rechnen.</p>
+      </section>
+      <section class="fs-karte fs-quiz-aufgabe">
+        <p class="fs-hinweis-klein">bisher {{ fs.finder.richtig }}/{{ fs.finder.gesamt }} richtig</p>
+        <p class="fs-text">{{ a.text }}</p>
+        <div class="fs-gegeben">
+          <span class="fs-gegeben-titel">Gegeben</span>
+          <div class="fs-gegeben-liste">
+            <span class="fs-wert" *ngFor="let g of a.gegeben">{{ g.name }}: <strong>{{ wert(g.wert, g.nk) }}</strong> {{ g.einheit }}</span>
+          </div>
+        </div>
+        <p class="fs-frage">{{ a.frage }}</p>
+        <div class="fs-feedback" *ngIf="finderGewaehltId !== null" [class.ok]="finderIstRichtig(finderGewaehltId)" [class.nok]="!finderIstRichtig(finderGewaehltId)">
+          <strong>{{ finderIstRichtig(finderGewaehltId) ? 'Richtig gefunden!' : 'Nicht ganz.' }}</strong>
+          Gesucht war: {{ finderRichtigeFormel?.titel }} (Seite {{ richtigeSeite + 1 }} · {{ appTitel(a.appId) }}).
+          <p class="fs-merkhilfe" *ngIf="finderRichtigeFormel?.hinweis">💡 {{ finderRichtigeFormel?.hinweis }}</p>
+        </div>
+        <div class="fs-aktionen" *ngIf="finderGewaehltId !== null">
+          <button type="button" class="fs-knopf haupt" (click)="neueFinderAufgabe()">Nächste Aufgabe →</button>
+          <button type="button" class="fs-knopf" *ngIf="!finderIstRichtig(finderGewaehltId) && seite !== richtigeSeite" (click)="zuSeite(richtigeSeite)">Zur richtigen Seite blättern</button>
+          <a class="fs-knopf" [routerLink]="'../' + a.appId" [queryParams]="{ modus: 'ueben' }">Diese Aufgabe in der App üben</a>
+        </div>
+      </section>
+
+      <!-- Formelsammlung zum Blättern: jede Seite gleich aufgebaut (Skizze, dann Formeln), feste Reihenfolge -->
+      <section class="fs-buch" (touchstart)="wischStart($event)" (touchend)="wischEnde($event)">
+        <div class="fs-buch-leiste">
+          <button type="button" class="fs-knopf" (click)="blaettern(-1)" aria-label="Seite zurück">◀</button>
+          <button type="button" class="fs-buch-titel" (click)="inhaltOffen = !inhaltOffen" [attr.aria-expanded]="inhaltOffen">
+            <span>Seite {{ seite + 1 }} / {{ seiten.length }}</span>
+            <strong>{{ seiten[seite].meta.titel }}</strong>
+            <small>Inhalt ▾</small>
+          </button>
+          <button type="button" class="fs-knopf" (click)="blaettern(1)" aria-label="Seite vor">▶</button>
+        </div>
+        <ol class="fs-buch-inhalt" *ngIf="inhaltOffen">
+          <li *ngFor="let sx of seiten; let i = index"><button type="button" [class.aktiv]="i === seite" (click)="zuSeite(i)">{{ sx.meta.nr }}. {{ sx.meta.titel }}</button></li>
+        </ol>
+        <div class="fs-buch-seite">
+          <div class="fs-skizzen">
+            <fs-skizze *ngFor="let v of seiten[seite].skizzen" [typ]="seiten[seite].app.skizze" [variante]="v"></fs-skizze>
+          </div>
+          <button type="button" *ngFor="let f of seiten[seite].formeln" class="fs-buch-formel"
+                  [class.richtig]="finderGewaehltId !== null && finderIstRichtig(f.id)"
+                  [class.falsch]="finderGewaehltId === f.id && !finderIstRichtig(f.id)"
+                  [disabled]="finderGewaehltId !== null" (click)="finderWaehlen(f)">
+            <span class="fs-buch-formel-titel">{{ f.titel }}</span>
+            <fs-formel [tex]="f.latex" [block]="true"></fs-formel>
+            <span class="fs-buch-vars"><ng-container *ngFor="let v of f.variablen; let last = last"><fs-formel [tex]="v.symbol"></fs-formel> {{ v.name }}<ng-container *ngIf="v.einheit"> [{{ v.einheit }}]</ng-container><ng-container *ngIf="!last"> · </ng-container></ng-container></span>
+          </button>
+        </div>
+        <div class="fs-buch-leiste unten">
+          <button type="button" class="fs-knopf" (click)="blaettern(-1)">◀ Zurück</button>
+          <span class="fs-hinweis-klein">Wischen oder Pfeile zum Blättern</span>
+          <button type="button" class="fs-knopf" (click)="blaettern(1)">Weiter ▶</button>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- ================= Gemischte Prüfung ================= -->
+    <ng-container *ngIf="ansicht === 'pruefung'">
+      <section class="fs-hero">
+        <p class="fs-eyebrow">Gemischte Prüfung</p>
+        <h1>Alle Themen gemischt</h1>
+        <p class="fs-lede">Aufgaben aus: {{ gebautTitel }}</p>
+      </section>
+      <fs-pruefung [apps]="gebaut" [anzahl]="12" [minuten]="20" titel="Gemischte Prüfung" [bestwert]="fs.gemischtBest" (fertig)="gemischtFertig($event)"></fs-pruefung>
+    </ng-container>
+
+    <!-- ================= Nachschlagen ================= -->
+    <ng-container *ngIf="ansicht === 'nachschlagen'">
+      <section class="fs-hero">
+        <p class="fs-eyebrow">Nachschlagen</p>
+        <h1>Gesamte Formelsammlung</h1>
+        <p class="fs-lede">Stand {{ stand }}. Formeln mit ❓ sind noch nicht bestätigt.</p>
+      </section>
+      <input class="fs-suche" type="search" placeholder="Suchen: z. B. Pfeilhöhe, u0, Wanne, ‰ …" [(ngModel)]="suche" />
+      <div class="fs-stufen fs-kapitelfilter">
+        <button type="button" class="fs-chip" [class.aktiv]="!kapitelFilter" (click)="kapitelFilter = ''">Alle</button>
+        <button type="button" *ngFor="let k of kapitel" class="fs-chip" [class.aktiv]="kapitelFilter === k.id" (click)="kapitelFilter = k.id" [title]="k.titel">{{ k.id }}</button>
+      </div>
+      <p class="fs-hinweis-klein" *ngIf="kapitelFilter">Kap. {{ kapitelFilter }} – {{ kapitelName(kapitelFilter) }}</p>
+      <section class="fs-karte fs-nachschlag" *ngFor="let f of gefilterteFormeln">
+        <p class="fs-eyebrow klein">Kap. {{ f.kapitel }} · {{ appTitel(f.app) }}</p>
+        <h3 class="fs-h3">{{ f.titel }} <span class="fs-badge" *ngIf="f.status === 'unklar'" [title]="f.unklar">❓ unklar</span></h3>
+        <div class="fs-formelbox"><fs-formel [tex]="f.latex" [block]="true"></fs-formel></div>
+        <table class="fs-vartabelle">
+          <tr *ngFor="let v of f.variablen">
+            <td class="sym"><fs-formel [tex]="v.symbol"></fs-formel></td>
+            <td>{{ v.name }}</td>
+            <td class="einheit">{{ v.einheit }}</td>
+          </tr>
+        </table>
+        <p class="fs-grenze" *ngFor="let g of f.grenzen">⚠ {{ g }}</p>
+        <p class="fs-merkhilfe" *ngIf="f.hinweis">💡 {{ f.hinweis }}</p>
+        <p class="fs-unklar" *ngIf="f.status === 'unklar'">❓ {{ f.unklar }}</p>
+        <a *ngIf="istGebaut(f.app)" class="fs-knopf klein" [routerLink]="'../' + f.app">Zur App „{{ appTitel(f.app) }}“ →</a>
+      </section>
+      <p class="fs-leer" *ngIf="gefilterteFormeln.length === 0">Keine Formel gefunden.</p>
+    </ng-container>
+  </div>
+</ion-content>

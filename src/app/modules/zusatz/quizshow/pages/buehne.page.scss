@@ -1,0 +1,171 @@
+// Bühne für den Beamer: dunkel, große Schrift, Signalgelb als Akzent (eigene Gestaltung).
+:host { --qs-gelb: #ffc81e; --qs-gruen: #22c55e; --qs-tief: #050b18; --qs-panel: rgba(12, 26, 54, .92); }
+
+.qs-buehne-inhalt { --background: var(--qs-tief); }
+
+.qs-buehne {
+  position: relative; min-height: 100vh; height: 100%; overflow: hidden; color: #f4f6fb;
+  display: flex; flex-direction: column;
+  background: radial-gradient(ellipse at 50% 30%, #17305e 0%, #0a1630 45%, var(--qs-tief) 80%);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  &.final { background: radial-gradient(ellipse at 50% 30%, #4a2a07 0%, #241404 45%, #0b0602 80%); }
+}
+
+// langsam kreisende Lichtkegel im Hintergrund
+.qs-licht {
+  position: absolute; inset: -50%; pointer-events: none; opacity: .35;
+  background: conic-gradient(from 0deg, transparent 0 20deg, rgba(120, 170, 255, .18) 30deg, transparent 45deg 140deg,
+    rgba(255, 200, 30, .12) 160deg, transparent 180deg 260deg, rgba(120, 170, 255, .15) 280deg, transparent 300deg);
+  animation: qs-drehen 40s linear infinite;
+}
+@keyframes qs-drehen { to { transform: rotate(360deg); } }
+
+.qs-kopf {
+  position: relative; display: flex; justify-content: space-between; align-items: center;
+  padding: 1.6vh 2.5vw; font-size: clamp(14px, 1.6vw, 28px); letter-spacing: .04em;
+  .qs-titel { font-weight: 700; color: var(--qs-gelb); text-transform: uppercase; }
+  .qs-stand { font-weight: 600; opacity: .9; }
+}
+
+.qs-mitte {
+  position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  h1 { margin: 0; font-size: clamp(40px, 7vw, 140px); font-weight: 800; letter-spacing: .02em; text-shadow: 0 0 40px rgba(255, 200, 30, .35); }
+  .qs-klein { margin: 0 0 1vh; font-size: clamp(18px, 2.4vw, 44px); text-transform: uppercase; letter-spacing: .3em; color: var(--qs-gelb); }
+  .qs-unter { margin: 2vh 0 0; font-size: clamp(16px, 2vw, 36px); opacity: .85; }
+}
+.qs-logo {
+  width: 18vh; height: 18vh; border-radius: 50%; display: grid; place-items: center; margin-bottom: 3vh;
+  font-size: 11vh; font-weight: 900; color: var(--qs-tief); background: radial-gradient(circle at 35% 30%, #fff3b0, var(--qs-gelb) 55%, #b98500);
+  box-shadow: 0 0 60px rgba(255, 200, 30, .5); animation: qs-puls 2.4s ease-in-out infinite;
+}
+@keyframes qs-puls { 50% { transform: scale(1.06); box-shadow: 0 0 90px rgba(255, 200, 30, .7); } }
+
+.qs-nummer h1 { font-size: clamp(80px, 18vw, 320px); animation: qs-rein .7s cubic-bezier(.2, 1.4, .4, 1); }
+.qs-runde h1, .qs-ende h1 { animation: qs-rein .8s cubic-bezier(.2, 1.4, .4, 1); }
+@keyframes qs-rein { from { transform: scale(.3); opacity: 0; } }
+
+// ---------- Frage ----------
+.qs-frage-bereich {
+  position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 2.2vh;
+  padding: 0 4vw 1vh;
+}
+.qs-bild {
+  flex: 1 1 auto; min-height: 0; max-height: 42vh; display: flex; justify-content: center; animation: qs-blende .6s ease;
+  img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 14px; border: 3px solid rgba(255, 200, 30, .6);
+        box-shadow: 0 10px 50px rgba(0, 0, 0, .6); background: #fff; }
+}
+.qs-frage {
+  width: min(1500px, 100%); padding: 2.2vh 3vw; border-radius: 999px; text-align: center;
+  background: var(--qs-panel); border: 3px solid var(--qs-gelb); box-shadow: 0 0 30px rgba(255, 200, 30, .25);
+  font-size: clamp(20px, 2.8vw, 54px); font-weight: 700; line-height: 1.25; animation: qs-blende .5s ease;
+  &.ohne-bild { margin-top: 6vh; font-size: clamp(24px, 3.4vw, 64px); }
+}
+@keyframes qs-blende { from { opacity: 0; transform: translateY(12px); } }
+
+.qs-spannung {
+  font-size: clamp(18px, 2.2vw, 40px); font-style: italic; color: var(--qs-gelb); letter-spacing: .03em;
+  animation: qs-blende .4s ease, qs-flackern 1.2s ease-in-out infinite;
+}
+@keyframes qs-flackern { 50% { opacity: .55; } }
+
+.qs-antworten {
+  width: min(1500px, 100%); display: grid; grid-template-columns: 1fr 1fr; gap: 2vh 2.5vw; margin-bottom: 1vh;
+}
+.qs-antwort {
+  display: flex; align-items: center; gap: 1.2vw; min-height: 9vh; padding: 1.2vh 2vw; border-radius: 999px;
+  background: var(--qs-panel); border: 3px solid rgba(255, 255, 255, .25);
+  font-size: clamp(18px, 2.3vw, 46px); font-weight: 600; visibility: hidden; opacity: 0;
+  transition: background .12s, border-color .12s, opacity .4s, transform .4s, box-shadow .12s;
+  transform: translateX(-20px);
+  &.sichtbar { visibility: visible; opacity: 1; transform: none; }
+  .qs-buchstabe {
+    flex: 0 0 auto; width: 1.7em; height: 1.7em; border-radius: 50%; display: grid; place-items: center;
+    background: var(--qs-gelb); color: var(--qs-tief); font-weight: 900;
+  }
+  &.leuchtet { background: #ff9d00; border-color: #fff; color: #1a0e00; box-shadow: 0 0 40px rgba(255, 160, 0, .9);
+    .qs-buchstabe { background: #fff; } }
+  &.richtig { background: var(--qs-gruen); border-color: #d9ffe6; color: #04210f; box-shadow: 0 0 60px rgba(34, 197, 94, .9);
+    animation: qs-gewonnen .9s ease 3; .qs-buchstabe { background: #fff; } }
+  &.blass { opacity: .35; }
+}
+@keyframes qs-gewonnen { 50% { transform: scale(1.04); box-shadow: 0 0 90px rgba(34, 197, 94, 1); } }
+
+// ---------- Fuß ----------
+.qs-fuss {
+  position: relative; margin-top: auto; display: flex; justify-content: flex-end; align-items: center; gap: 14px;
+  padding: 1vh 2vw 1.4vh; font-size: clamp(12px, 1.1vw, 20px); opacity: .75;
+  .qs-code b { color: var(--qs-gelb); font-size: 1.4em; letter-spacing: .12em; }
+  .qs-code.gross { opacity: 1; font-size: clamp(16px, 1.7vw, 32px); }
+  .qs-fehler { margin-right: auto; }
+}
+.qs-mini { background: none; border: 1px solid rgba(255, 255, 255, .3); color: inherit; border-radius: 8px; padding: 2px 10px; font-size: 1.2em; cursor: pointer; }
+.qs-fehler { color: #ff8a8a; }
+
+// ---------- Start-Overlay ----------
+.qs-start {
+  position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  background: rgba(3, 8, 18, .82); backdrop-filter: blur(4px); text-align: center; padding: 16px;
+  button { font: 800 clamp(22px, 3vw, 44px) 'Segoe UI', system-ui, sans-serif; padding: .6em 1.6em; border-radius: 999px; border: 0; cursor: pointer;
+           background: var(--qs-gelb); color: var(--qs-tief); box-shadow: 0 0 50px rgba(255, 200, 30, .5); }
+  p { margin: 0; opacity: .85; font-size: clamp(14px, 1.4vw, 22px); }
+  .qs-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 10px;
+    a { color: #f4f6fb; text-decoration: none; padding: 10px 16px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, .3); font-size: 16px; }
+    a, .qs-link-knopf { color: #f4f6fb; text-decoration: none; padding: 10px 16px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, .3);
+      font: 400 16px 'Segoe UI', system-ui, sans-serif; background: transparent; box-shadow: none; cursor: pointer; }
+    a:hover, .qs-link-knopf:hover { border-color: var(--qs-gelb); } }
+}
+
+@media (max-width: 700px) {
+  .qs-antworten { grid-template-columns: 1fr; }
+  .qs-frage, .qs-antwort { border-radius: 22px; }
+}
+
+// ---------- Punktestand (Tim, 2026-11-12) ----------
+.qs-punkte {
+  position: relative; display: flex; justify-content: center; gap: 2.5vw; padding: .6vh 4vw 0;
+}
+.qs-punkt {
+  display: flex; align-items: flex-end; gap: .6vw; min-width: 0;
+  .qs-punkt-balken { width: 2vw; min-width: 16px; height: 10vh; display: flex; align-items: flex-end; border-radius: 6px; background: rgba(255, 255, 255, .08);
+    i { display: block; width: 100%; border-radius: 6px; background: linear-gradient(#ffe27a, var(--qs-gelb)); transition: height .6s cubic-bezier(.2, 1.3, .4, 1); } }
+  .qs-punkt-text { font-size: clamp(14px, 1.7vw, 30px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 16vw; opacity: .9;
+    b { color: var(--qs-gelb); font-size: 1.3em; margin-right: .2em; } }
+  &.vorn .qs-punkt-balken i { background: linear-gradient(#bfffd4, var(--qs-gruen)); box-shadow: 0 0 18px rgba(34, 197, 94, .7); }
+}
+
+.qs-sieger {
+  display: flex; align-items: flex-end; justify-content: center; gap: 4vw; height: 46vh; margin-top: 4vh; width: min(1300px, 92vw);
+}
+.qs-saeule {
+  flex: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 1vh;
+  .qs-saeule-zahl { font-size: clamp(24px, 3.4vw, 64px); font-weight: 800; color: var(--qs-gelb); }
+  .qs-saeule-balken { width: 100%; max-width: 220px; border-radius: 14px 14px 0 0; background: linear-gradient(#ffe27a, var(--qs-gelb));
+    animation: qs-wachsen 1.4s cubic-bezier(.2, 1.1, .4, 1); transform-origin: bottom; }
+  .qs-saeule-name { font-size: clamp(16px, 2vw, 36px); font-weight: 700; text-align: center; }
+  &.vorn .qs-saeule-balken { background: linear-gradient(#bfffd4, var(--qs-gruen)); box-shadow: 0 0 50px rgba(34, 197, 94, .8); }
+  &.vorn .qs-saeule-zahl { color: var(--qs-gruen); }
+}
+@keyframes qs-wachsen { from { transform: scaleY(0); } }
+
+// ---------- Countdown ----------
+.qs-countdown {
+  position: absolute; z-index: 4; top: 12vh; right: 3vw; width: 22vh; height: 22vh; border-radius: 50%;
+  display: grid; place-items: center; background: rgba(5, 11, 24, .92); border: 6px solid var(--qs-gelb);
+  box-shadow: 0 0 50px rgba(255, 200, 30, .5);
+  span { font-size: 12vh; font-weight: 900; color: var(--qs-gelb); line-height: 1; }
+  span { animation: qs-zaehlen 1s ease-out infinite; }
+  &.aus { border-color: #ef4444; box-shadow: 0 0 60px rgba(239, 68, 68, .8);
+    span { font-size: 6vh; color: #ff8a8a; animation: none; } }
+}
+@keyframes qs-zaehlen { from { transform: scale(1.25); } to { transform: scale(1); } }
+
+// ---------- Geheime Punkte + Siegerehrung (Tim, 2026-11-12) ----------
+.qs-punkt .qs-punkt-balken i { background: linear-gradient(#9cc0ff, #3b6fd8); transition: height .35s ease-in-out; }
+.qs-punkt.wackelt .qs-punkt-balken i { background: linear-gradient(#ffe27a, var(--qs-gelb)); }
+.qs-saeule {
+  .qs-saeule-balken { transition: height 1.1s cubic-bezier(.2, 1.2, .4, 1), background .1s, box-shadow .1s; }
+  &.leuchtet .qs-saeule-balken { background: linear-gradient(#fff, #ff9d00); box-shadow: 0 0 50px rgba(255, 160, 0, .9); }
+  &.leuchtet .qs-saeule-name { color: #ffb84d; }
+  &.blass { opacity: .5; }
+}
+.qs-sieger-titel { font-size: clamp(32px, 5vw, 96px) !important; color: #bfffd4; text-shadow: 0 0 40px rgba(34, 197, 94, .6) !important; }

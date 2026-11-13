@@ -1,3 +1,4 @@
+import { AktivitaetPage } from './pages/aktivitaet/aktivitaet.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +19,7 @@ import { GastZugaengeComponent } from './components/gast-zugaenge/gast-zugaenge.
 import { MeldungenListeComponent } from './components/meldungen-liste/meldungen-liste.component';
 
 @NgModule({
-  declarations: [AnmeldenPage, RegistrierenPage, ProfilPage, SchluesselPage, FragenUebersichtPage, FragenBearbeitenPage, BilderVerwaltungPage, BilderBenennenPage, GastZugaengeComponent, MeldungenListeComponent],
+  declarations: [AktivitaetPage, AnmeldenPage, RegistrierenPage, ProfilPage, SchluesselPage, FragenUebersichtPage, FragenBearbeitenPage, BilderVerwaltungPage, BilderBenennenPage, GastZugaengeComponent, MeldungenListeComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -20,6 +20,7 @@
       <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/aktivitaet" routerLinkActive="active">Aktivität</a>
       <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/fragen" routerLinkActive="active">Fragen</a>
       <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/bilder" routerLinkActive="active">Bilder</a>
+      <a *ngIf="(user$ | async)?.role === 'admin'" routerLink="/konto/guru" routerLinkActive="active">🤖 Guru</a>
       <a *ngIf="user$ | async" (click)="abmelden()" class="konto-link logout-link">
         <ion-icon name="log-out-outline"></ion-icon> Abmelden
       </a>
@@ -53,8 +54,9 @@
             <span class="label">{{ t.title }}</span>
           </span>
           <ng-template #offen>
-            <a class="app" [class.versteckt]="e.sichtbarkeit === 'versteckt'" [routerLink]="t.link" [queryParams]="t.queryParams">
+            <a class="app" [class.versteckt]="e.sichtbarkeit === 'versteckt'" [class.bot-hier]="botHier(t)" [routerLink]="t.link" [queryParams]="t.queryParams">
               <span class="icon">
+                <span class="live-punkt" *ngIf="liveAnzahl(t) as n" [title]="n + (n === 1 ? ' Person gerade aktiv' : ' Personen gerade aktiv')">{{ n }}</span>
                 <ion-icon [name]="t.icon"></ion-icon>
                 <span class="haken" *ngIf="e.status === 'geprueft'" title="Fachlich geprüft">✓</span>
                 <span class="kreuz" *ngIf="e.status === 'ungeprueft'" title="Noch nicht geprüft">✕</span>
@@ -62,6 +64,7 @@
               </span>
               <span class="label">{{ t.title }}</span>
               <span class="sterne" *ngIf="sterneById[t.id] as st" [title]="st.titel" [attr.aria-label]="st.anzahl + ' von 5 Sternen, ' + st.titel"><span *ngFor="let i of sternPlaetze" [class.an]="i < st.anzahl">★</span></span>
+              <span class="bot-label" *ngIf="botHier(t) as b" [title]="b">🤖 Bot gerade hier aktiv</span>
               <span class="admin-sicht" *ngIf="istAdmin && e.sichtbarkeit !== 'azubis'">{{ e.sichtbarkeit === 'gaeste' ? 'auch Gäste' : 'versteckt' }}</span>
             </a>
           </ng-template>

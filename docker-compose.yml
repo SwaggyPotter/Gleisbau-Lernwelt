@@ -30,9 +30,25 @@ services:
       LOG_LEVEL: info
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      # Gleisbau-Guru (2026-11-13): kleines Sprachmodell im eigenen Container, nur intern erreichbar
+      GURU_LLM_URL: ${GURU_LLM_URL:-http://ki:11434}
+      GURU_LLM_MODELL: ${GURU_LLM_MODELL:-qwen3.5:4b}
     depends_on:
       db:
         condition: service_healthy
+
+  # Lokale KI fuer den Gleisbau-Guru (Ollama, nur CPU). Kein Port nach aussen; begrenzt, damit API und DB fluessig bleiben.
+  ki:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    environment:
+      OLLAMA_KEEP_ALIVE: 5m
+      OLLAMA_NUM_PARALLEL: 1
+      OLLAMA_MAX_LOADED_MODELS: 1
+    volumes:
+      - ki_daten:/root/.ollama
+    cpus: 4
+    mem_limit: 4500m
 
   proxy:
     image: caddy:2
@@ -54,6 +70,7 @@ services:
       - api
 
 volumes:
+  ki_daten:
   db_data:
   caddy_data:
   caddy_config:

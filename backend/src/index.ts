@@ -7,6 +7,7 @@ import { purgeDueDeletedUsers } from './user-deletion';
 import { starteTycoonBots } from './tycoon-bots';
 import { seedAchievements } from './achievements';
 import { quizshowTabellen } from './routes/quizshow';
+import { guruTabellen, starteGuruArbeiter, starteGuruNachtschicht } from './routes/guru';
 
 const app = createServer();
 
@@ -114,6 +115,8 @@ const runStartupMigrations = async () => {
     )`);
     // Quiz-Show für Vorträge (2026-11-11)
     await quizshowTabellen();
+    // Gleisbau-Guru (2026-11-13): Admin-Chatbot mit eigenem Markdown-Gedaechtnis
+    await guruTabellen();
 
     const adminPasswordHash = await bcrypt.hash(config.adminPassword, 10);
     await pool.query(
@@ -500,4 +503,6 @@ runStartupMigrations().finally(() => {
   });
   startDeletionCleanupJob();
   void starteTycoonBots();
+  starteGuruNachtschicht();
+  starteGuruArbeiter();
 });

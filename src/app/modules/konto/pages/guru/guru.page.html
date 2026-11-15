@@ -1,0 +1,153 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><a class="glw-home" routerLink="/dashboard" title="Zur Startseite" aria-label="Zur Startseite"><span class="glw-logo"></span></a></ion-buttons>
+    <ion-title>Gleisbau-Guru</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="game-content">
+  <div class="page-shell guru">
+    <section class="hero">
+      <p class="eyebrow">Admin · Bahn-Guru</p>
+      <h1>🤖 Gleisbau-Guru</h1>
+      <p class="lede">Dein Bahn-Guru mit eigener kleiner KI auf dem Server. Er liest die Website (Apps, Formeln, Glossar, Quizfragen, Meldungen, Forum), arbeitet deine Aufträge ab, lernt nachts selbstständig und schreibt alles in sein Gehirn aus verlinkten Markdown-Notizen. Ändern kann er an der Seite nichts.</p>
+    </section>
+
+    <!-- Live: was macht der Guru gerade? -->
+    <section class="guru-live" *ngIf="status as s">
+      <div class="guru-live-kopf">
+        <span class="guru-ki" [class.an]="s.ki">{{ s.ki ? '🟢 KI bereit' : '⚪ KI aus' }} · {{ s.modell }}</span>
+        <span class="guru-live-zahl">🧠 {{ s.notizen }} Notizen</span>
+        <button type="button" (click)="websiteEinlesen(true)" title="Apps, Formeln, Glossar und Quizfragen neu an den Guru geben">📥 Website einlesen</button>
+        <span class="guru-hinweis" *ngIf="einlesen">{{ einlesen }}</span>
+      </div>
+      <div class="guru-jetzt" [class.aktiv]="s.jetzt || s.chat">
+        <span class="guru-spinner" *ngIf="s.jetzt || s.chat"></span>
+        <strong>{{ s.chat ? '💬 Beantwortet deine Frage: „' + s.chat.text + '“' : s.jetzt ? s.jetzt.text : 'Wartet auf Aufträge.' }}</strong>
+        <small *ngIf="s.chat && s.jetzt">· parallel: {{ s.jetzt.text }}</small>
+        <small *ngIf="!s.jetzt && !s.chat">Nachts (1–5:30 Uhr) lernt er selbstständig App für App.</small>
+      </div>
+      <div class="guru-auftraege" *ngIf="offeneAuftraege.length || fertigeAuftraege.length">
+        <span *ngFor="let a of offeneAuftraege" class="guru-auftrag" [class.laeuft]="a.status === 'laeuft'">{{ a.status === 'laeuft' ? '⚙️' : '⏳' }} #{{ a.id }} {{ a.text }}</span>
+        <span *ngFor="let a of fertigeAuftraege" class="guru-auftrag fertig" [class.fehler]="a.status === 'fehler'" (click)="a.ergebnis && oeffneName(a.ergebnis)">{{ a.status === 'fehler' ? '⚠' : '✅' }} #{{ a.id }} {{ a.text }}</span>
+      </div>
+      <details class="guru-log">
+        <summary>Arbeitsprotokoll ({{ s.log.length }})</summary>
+        <ol>
+          <li *ngFor="let l of s.log"><time>{{ l.zeit | date: 'dd.MM. HH:mm:ss' }}</time> {{ l.text }}</li>
+        </ol>
+      </details>
+    </section>
+
+    <div class="guru-tabs" role="tablist">
+      <button type="button" [class.aktiv]="ansicht === 'chat'" (click)="ansicht = 'chat'">💬 Chat</button>
+      <button type="button" [class.aktiv]="ansicht === 'gehirn'" (click)="ansicht = 'gehirn'; ladeNotizen()">🧠 Gehirn ({{ notizen.length }})</button>
+    </div>
+
+    <p class="guru-fehler" *ngIf="fehler">{{ fehler }}</p>
+
+    <!-- ================= Chat ================= -->
+    <section *ngIf="ansicht === 'chat'" class="guru-chat">
+      <div class="guru-verlauf" #verlauf>
+        <div *ngFor="let n of nachrichten" class="guru-blase" [class.tim]="n.rolle === 'tim'">
+          <div class="guru-text" [innerHTML]="formatiere(n.text)" (click)="linkKlick($event)"></div>
+          <ul class="guru-treffer" *ngIf="n.daten?.treffer?.length">
+            <li *ngFor="let t of n.daten!.treffer!">
+              <a *ngIf="t.link; else ohneLink" [routerLink]="t.link">{{ t.titel }}</a>
+              <ng-template #ohneLink><strong>{{ t.titel }}</strong></ng-template>
+              <span *ngIf="t.text">{{ t.text }}</span>
+            </li>
+          </ul>
+          <time>{{ n.zeit | date: 'dd.MM. HH:mm' }}</time>
+        </div>
+        <div class="guru-blase guru-denkt" *ngIf="denktSeit !== null" aria-live="polite">
+          <span class="guru-punkte"><i></i><i></i><i></i></span>
+          <span>🤖 {{ denktText }} <small>{{ sekunden }} s</small></span>
+        </div>
+      </div>
+
+      <div class="guru-schnell">
+        <button type="button" (click)="schnell('Bericht')">📊 Bericht</button>
+        <button type="button" (click)="schnell('Meldungen')">⚑ Meldungen</button>
+        <button type="button" (click)="schnell('Hilfe')">❔ Hilfe</button>
+        <button type="button" (click)="eingabe = 'Auftrag: '">👷 Auftrag …</button>
+        <button type="button" (click)="eingabe = 'Merke: '">✍️ Merke …</button>
+        <button type="button" (click)="eingabe = 'Für Claude: '">📌 Für Claude …</button>
+      </div>
+
+      <div class="guru-eingabe">
+        <textarea [(ngModel)]="eingabe" rows="2" placeholder="Frag mich etwas, „Auftrag: …“ oder „Merke: Thema: …“ – Enter sendet" (keydown)="tasteGedrueckt($event)"></textarea>
+        <button type="button" class="mikro" *ngIf="spracheMoeglich" [class.an]="hoert" (click)="sprache()" [attr.aria-label]="hoert ? 'Aufnahme stoppen' : 'Spracheingabe'" [title]="hoert ? 'Aufnahme stoppen' : 'Sprechen statt tippen'">
+          {{ hoert ? '⏹' : '🎤' }}
+        </button>
+        <button type="button" class="senden" (click)="senden()" [disabled]="!eingabe.trim()">Senden</button>
+      </div>
+      <p class="guru-hinweis" *ngIf="hoert">🎙 Ich höre zu … sprich einfach, dann „Senden“.</p>
+      <p class="guru-hinweis" *ngIf="!spracheMoeglich">Spracheingabe geht in diesem Browser nicht – in Chrome oder Edge (auch am Handy) klappt es.</p>
+    </section>
+
+    <!-- ================= Gehirn ================= -->
+    <section *ngIf="ansicht === 'gehirn'" class="guru-gehirn">
+      <div class="guru-leiste">
+        <input type="search" placeholder="Notiz suchen" [(ngModel)]="filter" />
+        <button type="button" (click)="neu()">＋ Neue Notiz</button>
+        <button type="button" (click)="allesHerunterladen()" [disabled]="!notizen.length">⬇ Alles als .md</button>
+      </div>
+      <div class="guru-spalten">
+        <nav class="guru-liste">
+          <p class="guru-leer" *ngIf="!notizen.length">Noch leer – schreib ihm im Chat etwas.</p>
+          <div *ngFor="let o of ordner" class="guru-ordner">
+            <h3>{{ o.name || 'Hauptordner' }}</h3>
+            <button type="button" *ngFor="let n of o.notizen" [class.aktiv]="offen?.id === n.id" (click)="oeffne(n)">
+              {{ dateiname(n.pfad) }} <small>{{ n.geaendert_am | date: 'dd.MM.' }}</small>
+            </button>
+          </div>
+        </nav>
+        <article class="guru-notiz" *ngIf="offen">
+          <ng-container *ngIf="!bearbeiten">
+            <div class="guru-notiz-kopf">
+              <strong>{{ offen.pfad }}</strong>
+              <span>
+                <button type="button" (click)="starteBearbeiten()">✏️ Bearbeiten</button>
+                <button type="button" (click)="herunterladen()">⬇ .md</button>
+                <button type="button" class="weg" (click)="loeschen()">🗑</button>
+              </span>
+            </div>
+            <div class="guru-md" [innerHTML]="notizHtml(offen.inhalt)" (click)="linkKlick($event)"></div>
+            <div class="guru-rueck" *ngIf="rueckverweise.length">
+              <h4>↩ Verlinkt von</h4>
+              <button type="button" *ngFor="let r of rueckverweise" (click)="oeffneName(r.pfad)">{{ r.pfad.replace('.md', '') }}</button>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="bearbeiten">
+            <label>Ordner/Name <input [(ngModel)]="entwurfPfad" /></label>
+            <textarea [(ngModel)]="entwurfInhalt" rows="16"></textarea>
+            <div class="guru-notiz-kopf">
+              <span></span>
+              <span>
+                <button type="button" (click)="bearbeiten = false; offen.id || (offen = null)">Abbrechen</button>
+                <button type="button" class="haupt" (click)="speichern()">Speichern</button>
+              </span>
+            </div>
+          </ng-container>
+        </article>
+      </div>
+    </section>
+
+    <details class="guru-stand">
+      <summary>Wie weit ist der Guru? (Stand 13.11.2026)</summary>
+      <ul>
+        <li>✅ Chat mit Spracheingabe, Verlauf wird gespeichert</li>
+        <li>✅ Gehirn aus Markdown-Notizen: Gesprächsprotokoll je Tag, Wissen („Merke: …“), Berichte, Offene Fragen, Für Claude</li>
+        <li>✅ Sucht in Apps, Glossar, allen Quizfragen, seinen Notizen, Meldungen und Forum</li>
+        <li>✅ Tagesbericht auf Knopfdruck (Meldungen, Aktivität, Forum, neue Konten)</li>
+        <li>✅ Eigene KI auf dem Server (qwen3.5:4b, nur Prozessor): Antworten in 20–60 s, versteht ganze Sätze und falsch verstandene Wörter</li>
+        <li>✅ Aufträge („Auftrag: Pfeilhöhe“) arbeitet er selbstständig ab und schreibt Lernnotizen mit Prüfungsfragen</li>
+        <li>✅ Liest die Website ein: alle Apps, Formeln mit Einheiten, Glossar, Quizfragen</li>
+        <li>✅ Nachtschicht: Meldungen je Thema sammeln, Tagebuch, Morgenbericht um 6 Uhr, nachts Apps lernen</li>
+        <li>⏳ Bilder erkennen (das Modell kann Bilder sehen, ist für Fachteile aber noch zu ungenau – kommt mit deinen eigenen Fotos)</li>
+        <li>⏳ Bericht per E-Mail</li>
+      </ul>
+    </details>
+  </div>
+</ion-content>

@@ -15,7 +15,7 @@ import {
 import { HOEHEN_QUELLE, hoehenGeladen, ladeHoehen, meterBei, reliefBild } from './tycoon-hoehen';
 import { EREIGNIS_TAKT, EREIGNISSE, Gelaende, gelaendeVon } from './tycoon-ereignisse';
 import { FAHRT_ARTEN, FahrtErgebnis, fehlerBild, starteFahrt, zeichneLegende } from './tycoon-inspektion';
-import { MEMORY, MemoryBild, memoryLohn, PRUEFUNG, PRUEFUNG_THEMEN, starteMemory, TAGES_FRAGEN, TAGES_NEED, tagesLohn, tagesThema, tagHeute, tageZwischen } from './tycoon-lernen';
+import { MEMORY, MemoryBild, memoryLohn, PRUEFUNG, PRUEFUNG_THEMEN, starteMemory, TAGES_FRAGEN, TAGES_NEED, TAGES_THEMEN, TAGESFRAGEN, tagesLohn, tagesThema, tagHeute, tageZwischen } from './tycoon-lernen';
 import { starteVermessung } from './tycoon-vermessung';
 import { starteStellwerk } from './tycoon-stellwerk';
 import { WERBUNG, werbungFrei, zeigeWerbung } from './tycoon-werbung';
@@ -54,6 +54,8 @@ export interface TycoonOptions {
   /** Clan-Grossprojekt starten bzw. beitragen (Server); Erfolg meldet die Seite ueber handle.clanBezahlt zurueck. */
   onClanProjekt?: (art: string) => void;
   onClanBeitrag?: (betrag: number, schicht: boolean) => void;
+  /** Jede beantwortete Fachfrage (Schluessel wie im Themenquiz, z. B. themenquiz:schiene) -- zaehlt fuer die Sterne der App. */
+  onAntwort?: (modulKey: string, richtig: boolean) => void;
   /** Ausschreibungen gegen andere Spieler (Server): neue anlegen, bieten, gewonnenen Vertrag abholen (Seite ruft handle.vertrag). */
   onAusschreibungNeu?: (bl: string, richt: number, gegner: { n: string; gebot: number }[]) => void;
   onAusschreibungGebot?: (id: string, gebot: number, versprechen: number) => void;
@@ -422,7 +424,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       S.wachs[id] = Math.round(neu * 1000) / 1000;
       const g = gebietMitId(id);
       if (g && alt < 1.25 && neu >= 1.25) toast('📈 ' + kurzName(g) + ' wächst dank deiner guten Anbindung – mehr Fahrgäste!', 4500);
-      if (g && alt > 0.85 && neu <= 0.85) toast('📉 ' + kurzName(g) + ' schrumpft: Störungen und Verspätungen vertreiben die Fahrgäste.', 5000);
+      if (g && alt > 0.85 && neu <= 0.85) toast('📉 ' + kurzName(g) + ' schrumpft: Verspätungen vertreiben die Fahrgäste.', 5000);
     }
   };
   /** Einwohner, Entwicklung und "Lohnt sich?" fuer ein Gebiet (Panel). */
@@ -430,7 +432,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const w = wachs(g.id), x = besitz(g.id), basis = x ? x.basis : g.basis;
     let h = '<div class="row"><span>👥 Einwohner</span><b>' + (g.ewGeschaetzt ? 'ca. ' : '') + g.ew.toLocaleString('de-DE') + '</b></div>';
     if (Math.abs(w - 1) >= 0.01) h += '<div class="row"><span>Entwicklung</span><b class="' + (w >= 1 ? 'pos' : 'neg') + '">' + (w >= 1 ? '▲ +' : '▼ ') + Math.round((w - 1) * 100) + ' %</b></div>';
-    h += '<div class="mut">Fahrgäste: Züge von und nach hier verdienen ' + pct(ewFaktor(g) * w) + ' der normalen Miete. Gute Anbindung (eigener Zug, pünktlich, keine Störung) lässt das Gebiet wachsen, schlechte schrumpfen.</div>';
+    h += '<div class="mut">Fahrgäste: Züge von und nach hier verdienen ' + pct(ewFaktor(g) * w) + ' der normalen Miete. Gute Anbindung (eigener Zug, pünktlich) lässt das Gebiet wachsen, schlechte schrumpfen.</div>';
     if (!istMein(x) && !RO) {
       const preis = x ? basis * 3 : basis, proMin = basis * 0.0015 * 60 * w, min = proMin > 0 ? preis / proMin : 0;
       h += '<div class="row"><span>Lohnt sich?</span><b>' + (min <= 20 ? '👍 schnell' : min <= 60 ? '👌 mittel' : '🐢 langsam') + '</b></div><div class="mut">Angeschlossen bringt es ca. ' + fmt(proMin) + '/Min. – der Preis von ' + fmt(preis) +
@@ -496,7 +498,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     }
   };
   const albumHTML = () => {
-    const hatT = new Set(gesammelt()), ab = S.abzeichen || [];
+    const hatT = new Set(gesammelt()), ab = (S.abzeichen || []).filter((id: string) => ABZEICHEN.some((a) => a.id === id));
     let h = '<h2>🏅 Sammelalbum</h2><h3>Züge (' + hatT.size + ' / ' + TRAINS.length + ')</h3><div class="mut">Jeden Zugtyp einmal besitzen – auch wenn du ihn später wieder verkaufst, bleibt er im Album.</div><div class="album">';
     TRAINS.forEach((z, i) => {
       const da = hatT.has(i);
@@ -516,6 +518,31 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const tagesErledigt = () => S.taeglich?.tag === tagHeute();
   const lernWarten = (id: string) => Math.max(0, Math.ceil(((S.lernAb || {})[id] || 0) - S.time));
   const lernPause = (id: string, sek: number) => { S.lernAb = { ...(S.lernAb || {}), [id]: S.time + sek }; };
+  /** Stand der Tagesfragen heute (wechselt um Mitternacht). */
+  const tfHeute = (): { tag: string; richtig: number } => (S.tf?.tag === tagHeute() ? S.tf : { tag: tagHeute(), richtig: 0 });
+  const themaName = (id: string | undefined) => TAGES_THEMEN.find((x) => x[0] === id)?.[1] ?? '';
+  /**
+   * Passive Einnahmen je Minute (echte Zeit): gleitender Mittelwert ueber ca. 5 Minuten, gemessen im Spieltakt.
+   * Vor der ersten Messung: Gebiete + Bahnhoefe als Schaetzung.
+   */
+  const passivMessen = (betrag: number, sek: number) => {
+    if (sek <= 0) return;
+    const jetzt = Math.max(0, betrag) / sek * 60;
+    if (S.passivMin === undefined || S.passivMin === null) S.passivMin = passivSchaetzung();
+    S.passivMin += (jetzt - S.passivMin) * Math.min(1, sek / 300);
+  };
+  const passivSchaetzung = () => (meineGebiete().reduce((a, id) => a + gebietRate(id), 0) + (S.bf || []).reduce((a: number, b: any) => a + bfRate(b), 0)) * 60;
+  /** Lernpraemie je richtiger Tagesfrage: ca. TAGESFRAGEN.minuten Minuten passiver Einnahmen (mindestens TAGESFRAGEN.mindest). */
+  const lernPraemie = () => Math.round(Math.max(TAGESFRAGEN.mindest, (S.passivMin ?? passivSchaetzung()) * TAGESFRAGEN.minuten) * (1 + personal('gleisbauer')) * (hat('messzug') ? 1.25 : 1) / 10) * 10;
+  /** Eine richtige Tagesfrage bezahlen (bis zum Tageslimit); liefert den Betrag (0 = Limit erreicht). */
+  const tfBezahlen = (): number => {
+    const tf = tfHeute();
+    if (tf.richtig >= TAGESFRAGEN.maxProTag) return 0;
+    const geld = lernPraemie();
+    S.tf = { tag: tf.tag, richtig: tf.richtig + 1 };
+    S.money += geld; S.lernSumme = (S.lernSumme || 0) + geld;
+    return geld;
+  };
   const tagesFertig = () => {
     const heute = tagHeute(), serie = tagesSerie() + 1, l = tagesLohn(serie);
     S.taeglich = { tag: heute, serie, best: Math.max(serie, S.taeglich?.best || 0) };
@@ -536,7 +563,11 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const lernKnopf = (id: string, act: string, txt: string) => { const w = lernWarten(id); return w > 0 ? '<button disabled>wieder in ' + w + ' s</button>' : '<button data-act="' + act + '">' + txt + '</button>'; };
   const lernenHTML = () => {
     const serie = tagesSerie(), heute = tagHeute(), [, themaN] = tagesThema(heute), l = tagesLohn(serie + 1);
-    let h = '<h2>🎓 Lernen</h2><div class="mut">Fachwissen bringt im Spiel Geld, Erfahrung und Abzeichen. Die Fragen stammen aus dem Themenquiz der Lernwelt.</div><div class="shop-liste">';
+    let h = '<h2>🎓 Lernen</h2><div class="mut">Fachwissen bringt im Spiel Geld, Erfahrung und Abzeichen. Die Fragen stammen aus dem Themenquiz der Lernwelt – jede Antwort zählt auch für die Sterne der passenden App.</div><div class="shop-liste">';
+    const tf = tfHeute(), rest = TAGESFRAGEN.maxProTag - tf.richtig;
+    h += lernKarte('💶', 'Tagesfragen – die Hälfte deines Einkommens', 'Fragen quer durch alle Themen. Jede richtige Antwort bringt ca. ' + TAGESFRAGEN.minuten + ' Minuten deiner laufenden Einnahmen: gerade <b>' + fmt(lernPraemie()) + '</b>. ' +
+      'Heute <b>' + tf.richtig + ' / ' + TAGESFRAGEN.maxProTag + '</b> bezahlt' + (rest > 0 ? '' : ' – Limit erreicht, morgen geht es weiter. Üben kannst du trotzdem (ohne Geld, zählt für die Sterne)') + '.',
+      '<button data-act="ltf">' + (rest > 0 ? TAGESFRAGEN.runde + ' Fragen · je +' + fmt(lernPraemie()) : 'Weiter üben') + '</button>');
     h += lernKarte('📅', 'Tägliche Aufgabe', 'Heute: ' + TAGES_FRAGEN + ' Fragen „' + themaN + '“, mind. ' + TAGES_NEED + ' richtig. Serie: <b>' + serie + (serie === 1 ? ' Tag' : ' Tage') + '</b> (Bestwert ' + (S.taeglich?.best || 0) + '). ' +
       'Jeden Tag am Stück mehr Belohnung, jeder 7. Tag zusätzlich ein 🏆.', tagesErledigt() ? '<button disabled>✓ Heute erledigt</button>' : '<button data-act="ltag">Los · +' + fmt(l.geld) + '</button>');
     h += lernKarte('🧩', 'Fehlerbilder-Memory', 'Finde zu jedem Bild eines Gleisfehlers den richtigen Namen. Wenige Züge = volle Prämie (bis ' + fmt(MEMORY.paare * MEMORY.lohnJePaar) + ').', lernKnopf('memory', 'lmem', 'Spielen'));
@@ -1105,6 +1136,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     const dt = Math.min(dtReal, .1) * S.speed;
     if (!dt) return;
     S.time += dt;
+    const geldVorher = S.money;
     for (const L of S.lines) {
       if (L.gast) continue;
       L.spawnT -= dt;
@@ -1113,13 +1145,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         if (!gesperrt(L) && S.trains.filter((t: any) => t.line === L.id && !t.own).length < Math.min(MAX_FREMD, Math.max(1, kap(L) - S.trains.filter((t: any) => t.line === L.id && t.own).length))) spawnForeign(L);
       }
     }
-    // Stoerungen: hoechstens eine pro Intervall aktiver Spielzeit (echte Zeit, nicht Spielgeschwindigkeit).
-    if (!S.anyFault) {
-      if (S.passes >= 4 && S.tut >= TUT_STOERUNG) createFault(true);   // erste Stoerung = Tutorial, immer leicht
-    } else {
-      S.faultIn -= Math.min(dtReal, .25);
-      if (S.faultIn <= 0) createFault(false);   // wartet, solange noch eine Stoerung offen ist
-    }
+    // Stoerungen gibt es seit 2026-11-13 nicht mehr (Tims Wunsch): Geld kommt halb passiv, halb aus den Tagesfragen.
     wetterTakt(dt);
     for (const L of S.lines) if (L.bau && S.time >= L.bau.bis) beendeBau(L);
     for (const L of S.lines) { const ziel = kapTempo(L) < 1 ? 35 : 100; L.puenkt = puenkt(L) + (ziel - puenkt(L)) * Math.min(1, dt * 0.03); }
@@ -1144,6 +1170,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       t.s += t.dir * pxs(vKmh(t, L)) * (L.fault ? CFG.faultSpeed : 1) * wetterTempo(L) * bauTempo(L) * kapTempo(L) * (t.own && ereignisAktiv('streik') ? 0.3 : 1) * dt;
       if (t.s >= L.len || t.s <= 0) { t.s = Math.max(0, Math.min(L.len, t.s)); arrive(t, L); }
     }
+    passivMessen(S.money - geldVorher, Math.min(dtReal, .1));
     for (let i = popups.length - 1; i >= 0; i--) { popups[i].age += dtReal; if (popups[i].age > 1.4) popups.splice(i, 1); }
   };
   /** Kosten einer Baustelle: Arbeit, Maschinenmiete (entfaellt mit eigener Maschine), Ersatzverkehr. */
@@ -1529,15 +1556,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       else h += '<button data-act="plehr" data-arg="' + r.id + '" ' + (S.money < preis ? 'disabled' : '') + '>🎓 Lehrgang → Stufe ' + ziel + ' · ' + fmt(preis) + '</button>';
       h += '</div>';
     });
-    h += '</div><h3 style="margin-top:14px">👷 Streckentrupps</h3><div class="mut">Trupps setzt du direkt auf eine Strecke: aus der Leiste „👷 Trupps“ an der Karte ziehen oder bei der Strecke wählen. Sie fangen Störungen ab und bekommen dafür einen Anteil der Einnahmen dieser Strecke.</div>';
-    const mit = S.lines.filter((L: any) => truppVon(L));
-    if (!mit.length) h += '<p class="hinweis">Noch kein Trupp im Einsatz.</p>';
-    mit.forEach((L: any) => {
-      const t = truppVon(L)!;
-      h += '<div class="bezirk" data-act="linie" data-arg="' + L.id + '"><span class="farbpunkt" style="background:' + L.color + '"></span><span class="bz-n">' + t.icon + ' ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n +
-        ' <span class="mut">· fängt ' + pct(t.schutz) + ' ab · Lohn ' + pct(t.lohn) + ' · bisher ' + fmt(L.lohn || 0) + '</span></span></div>';
-    });
-    return h + '<div class="opts"><button data-act="close">Schließen</button></div>';
+    return h + '</div><div class="opts"><button data-act="close">Schließen</button></div>';
   };
   const stelleEin = (id: string) => {
     const r = ROLLEN.find((x) => x.id === id), preis = TESTMODUS ? 0 : r?.einstellen ?? 0;
@@ -1588,21 +1607,6 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     let txt = w.icon + ' ' + w.n + ' in ' + regionVon(gs[0]) + ': ' + w.text;
     const offen = S.lines.filter((L: any) => wetterTrifft(L));
     if (offen.length) txt += ' Ohne ' + SCHUTZ.find((x) => x.id === w.schutz)!.n + ' fahren deine Züge dort langsamer.';
-    // Wetter-Stoerung auf einer ungeschuetzten Strecke (zusaetzlich zu den normalen Stoerungen).
-    if (w.fehler >= 0) {
-      const frei = offen.filter((L: any) => !L.fault);
-      if (frei.length && Math.random() < 0.6) {
-        const L = frei[ri(0, frei.length - 1)], t = truppVon(L);
-        if (t && Math.random() < t.schutz) {
-          L.abgefangen = (L.abgefangen || 0) + 1; zaehle('abgefangen');
-          txt += ' ' + t.icon + ' Dein Trupp auf ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + ' hat eine Störung (' + FEHLER_ARTEN[w.fehler].n + ') verhindert.';
-        } else {
-          L.fault = { t: rand(.25, .75), diff: Math.min(maxFixable(), ri(0, 1)), art: w.fehler };
-          S.anyFault = true;
-          txt += ' ⚠ ' + FEHLER_ARTEN[w.fehler].n + ' auf ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + '!';
-        }
-      }
-    }
     toast(txt, 9000);
     save();
   };
@@ -1667,7 +1671,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const arrive = (t: any, L: any) => {
     const p = posAt(L, t.s);
     S.passes++;
-    if (!L.gast) L.cond = Math.max(0, L.cond - CFG.wearPerPass * klasse(L).wear * (t.own ? tdef(t).wear * (hatUpg(t, 'drehgestell') ? 0.7 : 1) : 1.4) * (hat('stopfmaschine') ? 0.75 : 1) * ((L.neuBis || 0) > S.time ? 0.5 : 1));
+    if (!L.gast) L.cond = Math.max(0, L.cond - CFG.wearPerPass * klasse(L).wear * (t.own ? tdef(t).wear * (hatUpg(t, 'drehgestell') ? 0.7 : 1) : 1.4) * (hat('stopfmaschine') ? 0.75 : 1) * (hat('schleifzug') ? 0.8 : 1) * ((L.neuBis || 0) > S.time ? 0.5 : 1));
     t.trips++;
     if (t.own) {
       // Keine Wartungskosten mehr: Wartungsstau und Stoerung senken nur die Einnahmen.
@@ -2281,7 +2285,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       h += '<div class="row"><span>Trassenentgelt (Fremdzüge)</span><span class="pos">' + sgn(L.inF) + '</span></div>';
       h += '<div class="row"><span>Miete eigene Züge</span><span class="pos">' + sgn(L.inO) + '</span></div>';
       h += '<div class="row"><b>Einnahmen Strecke</b><b class="pos">' + sgn(L.inF + L.inO) + '</b></div>';
-      h += '<div class="row"><span>Entgangen (Wartungsstau/Störung)</span><span class="neg">' + sgn(-(L.verlust || 0)) + '</span></div>';
+      h += '<div class="row"><span>Entgangen (Wartungsstau, Wetter)</span><span class="neg">' + sgn(-(L.verlust || 0)) + '</span></div>';
       h += '<div class="mut">Zustand ' + Math.round(L.cond) + ' % → ' + Math.round(condFaktor(L) * 100) + ' % der möglichen Einnahmen. Ausgegeben für Ausbau/Reparatur: ' + fmt(L.rep) + '</div>';
       if (!RO) {
         if (gesperrt(L)) h += '<p class="neg"><b>🚧 Totalsperrung</b> – hier fährt gerade kein Zug, Bahnhöfe und Gebiete an der Strecke bringen nur die Hälfte.</p>';
@@ -2295,7 +2299,6 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         h += '<div class="btns"><button data-act="abzbau" data-arg="' + L.id + '" ' + (geht && S.money >= ABZ_PREIS() ? '' : 'disabled') + '>🔀 Abzweigstelle an der angeklickten Stelle · ' + fmt(ABZ_PREIS()) + '</button></div>' +
           (geht ? '' : '<div class="mut">Für eine Abzweigstelle die Strecke an der gewünschten Stelle anklicken (nicht zu nah an den Enden).</div>');
       }
-      h += truppHTML(L);
       h += kapHTML(L);
       h += schutzHTML(L);
       h += '<b>Eigene Züge (' + own.length + ')</b>';
@@ -2326,7 +2329,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       '<div class="mut">' + (bis === undefined ? 'Höchstes Level erreicht' : Math.floor(S.xp || 0).toLocaleString('de-DE') + ' / ' + bis.toLocaleString('de-DE') + ' Erfahrung') + '</div>' +
       '<div class="ov-chips"><span class="chip">' + jzA.icon + ' ' + jzA.n + '</span><span class="chip">' + (dunkel > 0.6 ? '🌙 Nacht' : dunkel > 0.05 ? '🌆 Dämmerung' : '☀ Tag') + '</span>' +
       (wochenende() ? '<span class="chip">Wochenende</span>' : '') + (wa ? '<span class="chip">' + wa.icon + ' ' + wa.n + '</span>' : '') + '</div></div></div>';
-    if (bis !== undefined) h += '<div class="mut ov-tipp">Fahrten, neue Strecken, Ausbau und behobene Störungen bringen Erfahrung.</div>';
+    if (bis !== undefined) h += '<div class="mut ov-tipp">Fahrten, neue Strecken, Ausbau und 🎓 Lernen bringen Erfahrung.</div>';
     if (wa) h += '<div class="ov-meldung"><b>' + wa.icon + ' ' + wa.n + ' · ' + regionVon(gebieteIm(S.wetter.bl)[0]) + '</b><div class="mut">' + wa.text + '</div></div>';
     const ev = ereignisHTML();
     if (ev) h += '<div class="ov-meldung">' + ev + '</div>';
@@ -2340,26 +2343,15 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     quellen.forEach(([ic, t, v]) => {
       h += '<div class="ov-q"><span class="ov-qn">' + ic + ' ' + t + '</span><span class="pos">' + sgn(v) + '</span><i class="ov-qb"><i style="width:' + Math.round(Math.max(0, v) / groesste * 100) + '%"></i></i></div>';
     });
-    h += '</div>' + (S.lohnSumme ? '<div class="row ov-verlust"><span>👷 Löhne Streckentrupps</span><span class="neg">' + sgn(-S.lohnSumme) + '</span></div>' : '') + '<div class="row ov-verlust"><span>Entgangen (Wartungsstau, Störungen)</span><span class="neg">' + sgn(-verlust) + '</span></div>';
-    h += '<div class="mut">Laufende Kosten gibt es nicht – schlechter Zustand und Störungen senken nur die Einnahmen. Selbst beheben lohnt sich!</div>';
+    h += '</div>' + (S.lohnSumme ? '<div class="row ov-verlust"><span>👷 Löhne Streckentrupps</span><span class="neg">' + sgn(-S.lohnSumme) + '</span></div>' : '') + '<div class="row ov-verlust"><span>Entgangen (Wartungsstau, Wetter, Baustellen)</span><span class="neg">' + sgn(-verlust) + '</span></div>';
+    h += '<div class="mut">Laufende Kosten gibt es nicht – schlechter Zustand senkt nur die Einnahmen.</div>';
+    h += '<div class="row"><span>🎓 Lernprämien (Tagesfragen)</span><b class="pos">' + sgn(S.lernSumme || 0) + '</b></div>';
+    h += '<div class="mut">Die zweite Hälfte deines Geldes: unter „🎓 Lernen“ bringt jede richtige Tagesfrage ca. ' + TAGESFRAGEN.minuten + ' Minuten deiner laufenden Einnahmen (gerade ' + fmt(lernPraemie()) + ').</div>';
     h += '<div class="row"><span>🕑 Spielzeit</span><b>' + datumText(zeit()) + ', ' + uhrText(zeit()) + '</b></div>';
-    h += '<h3 style="margin-top:16px">Können (Eigenleistung)</h3>';
-    DIFF.forEach((d, i) => {
-      const u = unlocked(i);
-      h += '<div class="row"><span><span class="tag" style="background:' + d.col + '">' + d.n + '</span> ' + (u ? '' : '🔒') + '</span><span>' + S.skill[i] + ' erledigt</span></div>';
-      h += '<div class="mut">' + d.task + (u || RO ? '' : ' · frei nach ' + CFG.unlockNeed + '× ' + DIFF[i - 1].n) + '</div>';
-    });
-    h += '<h3 style="margin-top:16px">Schwierigkeit</h3>';
-    if (RO) {
-      h += '<div class="row"><span>' + MODES[S.mode ?? 0].n + '</span><span class="mut">Störung ca. alle ' + MODES[S.mode ?? 0].min + ' Min.</span></div>';
-    } else {
-      h += '<div class="modes">' + MODES.map((m, i) => '<button data-act="mode" data-arg="' + i + '" class="sm' + (S.mode === i ? ' on' : '') + '">' + m.n + '</button>').join('') + '</div>';
-      h += '<div class="mut">Höchstens eine Störung ca. alle ' + MODES[S.mode].min + ' Minuten aktiver Spielzeit. Je höher, desto öfter und härter.</div>';
-    }
     if (RO) {
       h += '<p class="mut" style="margin-top:14px">Du siehst das Netz nur zum Ansehen. Strecke anklicken = Details.</p>';
     } else {
-      h += '<p class="mut" style="margin-top:14px">Gebiet (Landkreis, Bezirk) auf der Karte anklicken = kaufen; rechts siehst du dann das ganze Bundesland und kannst dort weitere Gebiete kaufen. In eigenen Gebieten baust du über „🏗 Bauen“ (über dem Gebiet) einen 🚉 Bahnhof – in Gebieten mit Stadt ist die Stadt der Bahnhof. Stadt oder Bahnhof anklicken → „Strecke zeichnen/herstellen“ und über deine Gebiete bis zur nächsten Stadt oder zu deinem nächsten Bahnhof fahren. Strecke anklicken = Details & Züge. Rotes ! = Störung. Mit jeder Verbindung schalten sich neue Städte frei.</p>';
+      h += '<p class="mut" style="margin-top:14px">Gebiet (Landkreis, Bezirk) auf der Karte anklicken = kaufen; rechts siehst du dann das ganze Bundesland und kannst dort weitere Gebiete kaufen. In eigenen Gebieten baust du über „🏗 Bauen“ (über dem Gebiet) einen 🚉 Bahnhof – in Gebieten mit Stadt ist die Stadt der Bahnhof. Stadt oder Bahnhof anklicken → „Strecke zeichnen/herstellen“ und über deine Gebiete bis zur nächsten Stadt oder zu deinem nächsten Bahnhof fahren. Strecke anklicken = Details & Züge. Mit jeder Verbindung schalten sich neue Städte frei.</p>';
       h += '<div class="btns"><button data-act="reset" class="sm">Spiel zurücksetzen</button></div>';
     }
     h += '<div class="mut ov-quelle">' + HOEHEN_QUELLE + ' · Karte: Natural Earth · ' + GEBIET_QUELLE + ' · Einwohner: Wikidata (CC0)</div>';
@@ -2381,7 +2373,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (!istMein(besitz(g.id))) return '';
     if (!angeschlossen(g.id)) return '<div class="mut">Bringt Geld, sobald eine deiner Strecken hindurchführt.</div>';
     const stoerung = S.lines.some((l: any) => l.fault && l.gebiete.includes(g.id));
-    return '<div class="mut">Bringt ' + fmt(gebietRate(g.id) * 60) + ' pro Minute' + (stoerung ? ' – eine Störung auf einer Strecke hier halbiert das!' : '') +
+    return '<div class="mut">Bringt ' + fmt(gebietRate(g.id) * 60) + ' pro Minute' + (stoerung ? ' – eine Baustelle auf einer Strecke hier halbiert das!' : '') +
       (clanBonus(g.id) ? ' (🤝 +25 % Clan-Verbindung)' : '') + '.</div>';
   };
   /** Panel eines Gebiets (auf der Karte angeklickt). */
@@ -2467,7 +2459,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
         h += '<div class="bezirk" data-act="linie" data-arg="' + L.id + '"><span class="farbpunkt" style="background:' + L.color + '"></span><span class="bz-n">' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n +
           ' <span class="mut">· Zustand ' + Math.round(L.cond) + ' %</span>' + (L.fault ? ' <span class="neg">⚠ Störung</span>' : '') + '</span></div>';
       });
-      h += '<div class="mut">Je Strecke ' + fmt(BAHNHOF.proStrecke * 60) + ' pro Minute bei vollem Zustand. Wartungsstau senkt das, eine Störung halbiert es – halte die Strecken mit Inspektionen und Reparaturen in Schuss (🛠 Arbeiten).</div>';
+      h += '<div class="mut">Je Strecke ' + fmt(BAHNHOF.proStrecke * 60) + ' pro Minute bei vollem Zustand. Wartungsstau senkt das, eine Baustelle mit Sperrung halbiert es – halte die Strecken mit Inspektionen und Reparaturen in Schuss (🛠 Arbeiten).</div>';
     } else h += '<div class="mut">Noch keine Strecke angeschlossen – der Bahnhof bringt erst Geld, wenn eine Strecke hier endet.</div>';
     h += gbfTeil(BF0 + b.id);
     if (!RO) {
@@ -2636,7 +2628,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   };
   /** Liste aller Arbeiten: offene Stoerungen und faellige Inspektionen. */
   const arbeitHTML = () => {
-    let h = '<h2>🛠 Arbeiten</h2><div class="mut">Selbst erledigen bringt Geld und Erfahrung, Fehlversuche kosten nichts. Störungen senken die Einnahmen der Strecke und deiner Gebiete entlang der Strecke.</div><div class="shop-liste">';
+    let h = '<h2>🛠 Arbeiten</h2><div class="mut">Selbst erledigen bringt Geld und Erfahrung, Fehlversuche kosten nichts.</div><div class="shop-liste">';
     let n = 0;
     S.lines.forEach((L: any) => {
       if (L.gast) return;
@@ -2686,7 +2678,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       h += '<p>Der Messwagen fährt die Strecke ab. <b>Tippe jeden Fehler im Gleis an</b>, bevor er links aus dem Bild läuft. Laub und Steine sind harmlos – sie anzutippen ist ein Fehlalarm.</p>';
       h += '<canvas id="leg" style="width:100%;display:block;border-radius:8px"></canvas>';
       h += '<div class="mut">Auf dieser Strecke ca. ' + fahrtAnzahl(L) + ' Fehler (je schlechter der Zustand, desto mehr). Je gefundenem Fehler: +5 % Zustand und +' + fmt(fahrtEinheit(L)) +
-        '. Übersehene Fehler machen eine Störung auf dieser Strecke wahrscheinlicher.' + (hat('messzug') ? ' Dein Gleismesszug fährt langsamer – mehr Zeit zum Hinsehen.' : '') + '</div>';
+        '. Übersehene Fehler bleiben als ⚠ an der Strecke stehen, bis du sie bei der nächsten Fahrt findest.' + (hat('messzug') ? ' Dein Gleismesszug fährt langsamer – mehr Zeit zum Hinsehen.' : '') + '</div>';
       return h + '<div class="opts"><button data-act="fstart">▶ Losfahren</button><button data-act="close">Abbrechen</button></div>';
     }
     if (m.phase === 'lauf') return h + '<canvas id="fahrt" style="width:100%;display:block;border-radius:8px;touch-action:none;cursor:crosshair"></canvas><div class="opts"><button data-act="close">Abbrechen</button></div>';
@@ -2694,7 +2686,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (m.phase === 'ende') {
       h += '<div class="fb ' + (e.gefunden >= e.gesamt * 0.6 ? 'good' : 'bad') + '"><b>' + e.gefunden + ' von ' + e.gesamt + ' Fehlern gefunden</b>' + (e.fehlalarm ? ' · ' + e.fehlalarm + ' Fehlalarm' + (e.fehlalarm > 1 ? 'e' : '') : '') + '</div>';
       h += '<div class="row"><span>Zustand</span><b>+' + m.plusZustand + ' %</b></div><div class="row"><span>Prämie</span><b class="pos">+' + fmt(m.plusGeld) + '</b></div><div class="row"><span>Erfahrung</span><b>+' + m.plusXp + '</b></div>';
-      if (e.verpasst.length) h += '<p class="neg">Übersehen: ' + e.verpasst.join(', ') + ' – eine Störung auf dieser Strecke wird wahrscheinlicher. Gefundene Fehler und behobene Störungen senken das Risiko wieder.</p>';
+      if (e.verpasst.length) h += '<p class="neg">Übersehen: ' + e.verpasst.join(', ') + ' – sie bleiben als ⚠ an der Strecke stehen. Bei der nächsten Fahrt kannst du sie finden.</p>';
       else h += '<p class="pos">Alles gefunden – die Strecke ist sauber dokumentiert!</p>';
       h += '<div class="opts">';
       if (fotoFragen?.length) h += '<button data-act="ffoto">📷 Bonus: Schienenfehler auf einem echten Foto bestimmen (+' + fmt(fahrtEinheit(L) * 2) + ')</button>';
@@ -2753,7 +2745,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (!r.ok) throw new Error('Fragen nicht ladbar');
     const j = await r.json();
     // Fragen, die sich auf ein Bild beziehen, gehen hier nicht (das Spiel zeigt keine Bilder).
-    const liste = (j.questions || []).filter((q: any) => Array.isArray(q.choices) && typeof q.correctIndex === 'number' && !/(Bild|Abbildung|Foto)/i.test(q.question));
+    const liste = (j.questions || []).filter((q: any) => Array.isArray(q.choices) && typeof q.correctIndex === 'number' && !/(Bild|Abbildung|Foto)/i.test(q.question)).map((q: any) => ({ ...q, _thema: thema }));
     if (!liste.length) throw new Error('keine Fragen');
     fragenCache.set(thema, liste);
     return liste;
@@ -2764,7 +2756,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     return { ...q, choices: reihe.map((i: number) => q.choices[i]), correctIndex: reihe.indexOf(q.correctIndex) };
   };
   /** zweck: 'stoerung' (Stoerung auf modal.line beheben), 'inspektion' oder 'bau' (Arbeitsvorbereitung). */
-  const startQuiz = (line: number, thema: string, themaN: string, n: number, need: number, zweck: 'stoerung' | 'inspektion' | 'bau' | 'lehrgang' | 'schicht' | 'taeglich' | 'pruefung', extra?: any) => {
+  const startQuiz = (line: number, thema: string, themaN: string, n: number, need: number, zweck: 'stoerung' | 'inspektion' | 'bau' | 'lehrgang' | 'schicht' | 'taeglich' | 'pruefung' | 'tagesfragen', extra?: any) => {
     modal = { kind: 'quiz', line, zweck, themaN, laden: true, extra };
     renderModal();
     // Mehrere Themen (durch Komma getrennt): alle laden und mischen.
@@ -2782,11 +2774,12 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   };
   const quizHTML = () => {
     const q = modal, L = S.lines[q.line];
-    let h = '<h2>' + (q.zweck === 'taeglich' ? '📅 Tägliche Aufgabe · ' + q.themaN + '</h2>' : q.zweck === 'pruefung' ? '📝 Zwischenprüfung</h2>' : q.zweck === 'schicht' ? '👷 Arbeitsschicht · Clan-Großprojekt</h2>' : q.zweck === 'lehrgang' ? '🎓 Lehrgang · ' + ROLLEN.find((r) => r.id === q.extra.rolle)!.n + '</h2>'
+    let h = '<h2>' + (q.zweck === 'tagesfragen' ? '💶 Tagesfragen</h2>' : q.zweck === 'taeglich' ? '📅 Tägliche Aufgabe · ' + q.themaN + '</h2>' : q.zweck === 'pruefung' ? '📝 Zwischenprüfung</h2>' : q.zweck === 'schicht' ? '👷 Arbeitsschicht · Clan-Großprojekt</h2>' : q.zweck === 'lehrgang' ? '🎓 Lehrgang · ' + ROLLEN.find((r) => r.id === q.extra.rolle)!.n + '</h2>'
       : (q.zweck === 'stoerung' ? '⚠ ' + FEHLER_ARTEN[L.fault?.art ?? 0].n : q.zweck === 'bau' ? '📋 Arbeitsvorbereitung' : '🔧 Inspektion') + ' <span class="mut">· ' + knoten(L.a).n + ' ⇄ ' + knoten(L.b).n + '</span></h2>');
     if (q.laden) return h + '<p class="mut">Fragen werden geladen …</p>';
     const f = q.fragen[q.i];
-    h += '<div class="mut">Thema ' + q.themaN + ' · Frage ' + (q.i + 1) + ' / ' + q.fragen.length + ' · mind. ' + q.need + ' richtig · bisher ' + q.ok + ' richtig</div>';
+    if (q.zweck === 'tagesfragen') h += '<div class="mut">Thema ' + (themaName(f._thema) || q.themaN) + ' · Frage ' + (q.i + 1) + ' / ' + q.fragen.length + ' · heute ' + tfHeute().richtig + ' / ' + TAGESFRAGEN.maxProTag + ' bezahlt · bisher +' + fmt(q.geld || 0) + '</div>';
+    else h += '<div class="mut">Thema ' + q.themaN + ' · Frage ' + (q.i + 1) + ' / ' + q.fragen.length + ' · mind. ' + q.need + ' richtig · bisher ' + q.ok + ' richtig</div>';
     h += '<p><b>' + f.question + '</b></p><div class="opts">';
     f.choices.forEach((c: string, i: number) => {
       const kl = q.antwort === null ? '' : i === f.correctIndex ? ' class="good"' : i === q.antwort ? ' class="bad"' : '';
@@ -2795,7 +2788,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     h += '</div>';
     if (q.antwort !== null) {
       const richtig = q.antwort === f.correctIndex;
-      h += '<div class="fb ' + (richtig ? 'good' : 'bad') + '"><b>' + (richtig ? 'Richtig!' : 'Leider falsch.') + '</b>' + (f.explanation ? '<br>' + f.explanation : '') + '</div>';
+      const praemie = q.zweck === 'tagesfragen' && richtig ? (q.letzte ? ' +' + fmt(q.letzte) : ' (Tageslimit erreicht – zählt nur noch für die Sterne)') : '';
+      h += '<div class="fb ' + (richtig ? 'good' : 'bad') + '"><b>' + (richtig ? 'Richtig!' : 'Leider falsch.') + praemie + '</b>' + (f.explanation ? '<br>' + f.explanation : '') + '</div>';
       if (f.sourceUrl) h += '<div class="mut">Quelle: <a href="' + f.sourceUrl + '" target="_blank" rel="noopener">' + (f.source || f.sourceUrl) + '</a></div>';
       h += '<div class="opts"><button data-act="qnext">' + (q.i < q.fragen.length - 1 ? 'Nächste Frage' : 'Fertig') + '</button></div>';
     }
@@ -2804,8 +2798,13 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const quizAntwort = (i: number) => {
     const q = modal; if (q.antwort !== null || q.laden) return;
     q.antwort = i;
-    ProfilSyncService.lokalZaehlen('zusatz:tycoon', i === q.fragen[q.i].correctIndex);
-    if (i === q.fragen[q.i].correctIndex) { q.ok++; spiele('erfolg'); } else spiele('fehler');
+    const f = q.fragen[q.i], richtig = i === f.correctIndex;
+    // Jede Antwort zaehlt fuer die Sterne der passenden Lern-App (Themenquiz-Thema der Frage).
+    const key = f._thema ? 'themenquiz:' + f._thema : 'zusatz:tycoon';
+    if (opts.onAntwort) opts.onAntwort(key, richtig); else ProfilSyncService.lokalZaehlen(key, richtig);
+    q.letzte = 0;
+    if (richtig && q.zweck === 'tagesfragen') { q.letzte = tfBezahlen(); q.geld = (q.geld || 0) + q.letzte; }
+    if (richtig) { q.ok++; spiele('erfolg'); } else spiele('fehler');
     renderModal();
   };
   const quizWeiter = () => {
@@ -2815,6 +2814,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (q.zweck === 'stoerung') { if (L.fault) resolveFault(L, ok ? 'self-ok' : 'self-fail'); }
     else if (q.zweck === 'bau') starteBau(L, q.extra.m, q.extra.sp, q.ok);
     else if (q.zweck === 'lehrgang') lehrgangErgebnis(q.extra.rolle, ok);
+    else if (q.zweck === 'tagesfragen') { addXp(2 * q.ok); if (q.geld) toast('💶 Tagesfragen: ' + q.ok + ' von ' + q.fragen.length + ' richtig · +' + fmt(q.geld), 5000); }
     else if (q.zweck === 'taeglich') { if (ok) tagesFertig(); else { addXp(2); toast('Leider nur ' + q.ok + ' richtig – versuch es gleich nochmal (andere Fragen).', 4500); } }
     else if (q.zweck === 'pruefung') {
       if (ok) { S.money += PRUEFUNG.lohn; addXp(PRUEFUNG.xp); zaehle('pruefung'); lernPause('pruefung', PRUEFUNG.pause); toast('📝 Zwischenprüfung bestanden: ' + q.ok + ' von ' + q.fragen.length + ' richtig! +' + fmt(PRUEFUNG.lohn), 6000); }
@@ -2851,7 +2851,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     if (xb) xb.style.width = (xBis === undefined ? 100 : Math.max(0, Math.min(100, ((S.xp || 0) - xVon) / (xBis - xVon) * 100))) + '%';
     root.querySelectorAll('#speeds button[data-act="speed"]').forEach((b: any) => b.classList.toggle('on', +b.dataset.arg === S.speed));
     const tb = $('#tonbtn'); if (tb) tb.textContent = tonAn() ? '🔊' : '🔇';
-    const lp = $('#lernpunkt'); if (lp) lp.style.display = RO || tagesErledigt() ? 'none' : 'block';
+    const lp = $('#lernpunkt'); if (lp) lp.style.display = RO || (tagesErledigt() && tfHeute().richtig >= TAGESFRAGEN.maxProTag) ? 'none' : 'block';
     const h = panelHTML();
     if (h !== lastPanel) {
       $('#panel').innerHTML = h; lastPanel = h;
@@ -2932,7 +2932,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const mitteVon = (L: any) => posAt(L, L.len * 0.5);
   const TUT: TutSchritt[] = [
     { titel: 'Startpunkt wählen',
-      t: () => tutIntro() ? '<b class="tut-gross">Willkommen bei Gleisbau Tycoon! 🚆</b>Du baust dein eigenes Bahnnetz – in ganz Europa. Kauf Gebiete, bau Bahnhöfe, verbinde sie mit Strecken und verdien Geld mit Zügen. Störungen löst du mit deinem Fachwissen.<br><br>Du bist nicht allein: 🤖 Bot-Firmen und andere Spieler bauen auch – ihre Gebiete und Strecken sind farbig.'
+      t: () => tutIntro() ? '<b class="tut-gross">Willkommen bei Gleisbau Tycoon! 🚆</b>Du baust dein eigenes Bahnnetz – in ganz Europa. Kauf Gebiete, bau Bahnhöfe, verbinde sie mit Strecken und verdien Geld mit Zügen – und mit deinem Fachwissen.<br><br>Du bist nicht allein: 🤖 Bot-Firmen und andere Spieler bauen auch – ihre Gebiete und Strecken sind farbig.'
         : selFrei() ? 'Gute Wahl? Das bringt dir dieses Gebiet:'
         : selFremd() ? 'Hier hat schon ' + selFremd().ownerName + ' angefangen – such dir ein freies Gebiet aus.'
           : tippe() + ' auf der Karte ein freies Gebiet an – irgendwo in Europa. Farbige gehören schon anderen Spielern; mit − siehst du mehr von Europa.',
@@ -2976,19 +2976,15 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       ziel: () => ['#mcard [data-act="buyok"]', '#mcard [data-act="pick"]', '#panel [data-act="shop"][data-arg^="z:"]'],
       karte: () => (sel.line === null && !modal && S.lines[0] ? { ...mitteVon(S.lines[0]), t: tippe() + ' die Strecke an' } : null),
       ok: () => S.trains.some((t: any) => t.own) },
-    { titel: 'Störung beheben',
-      t: () => 'Züge verschleißen das Gleis – bald gibt es eine Störung. Sobald ein rotes „!“ erscheint: antippen und die Aufgabe selbst lösen. Das spart die Fremdfirma und bringt Bonus.',
-      karte: () => { const L = S.lines.find((l: any) => l.fault); return L && !modal ? { ...posAt(L, L.len * L.fault.t), t: 'Störung – ' + tippe().toLowerCase() + ' hier' } : null; },
-      ok: () => S.faultsFixed > 0 },
-    { titel: 'Streckentrupp einsetzen',
-      t: () => 'Du kannst nicht überall sein: Zieh einen Trupp aus der Leiste „👷 Trupps“ auf eine Strecke (oder wähl ihn bei der Strecke). Je nach Lohn fängt er 50–95 % der Störungen ab und bekommt dafür einen Anteil der Einnahmen dieser Strecke.',
-      ziel: () => ['#trupps .tr-karte[data-arg="laeufer"]'],
-      ok: () => S.lines.some((L: any) => L.trupp) },
+    { titel: 'Mit Wissen verdienen',
+      t: () => 'Die Hälfte deines Geldes kommt aus deinem Fachwissen: Unter „🎓 Lernen“ → „Tagesfragen“ bringt jede richtige Antwort ca. ' + TAGESFRAGEN.minuten + ' Minuten deiner laufenden Einnahmen (gerade ' + fmt(lernPraemie()) + '). Beantworte eine Frage richtig.',
+      ziel: () => ['#mcard [data-act="ltf"]', '[data-act="lernen"]'],
+      ok: () => (S.tf?.tag === tagHeute() && (S.tf?.richtig || 0) > 0) || (S.lernSumme || 0) > 0 },
     { titel: 'Netz ausbauen',
-      t: () => 'Stark! Kauf weitere Gebiete, bau dort über „🏗 Bauen“ Bahnhöfe und verbinde sie. Im Gebiet siehst du Einwohner und wohin die Leute pendeln – Pendlerstrecken bringen mehr Fahrgäste. Am meisten verdienst du mit eigenem Wissen: 🎓 Lernen und selbst behobene Störungen.',
+      t: () => 'Stark! Kauf weitere Gebiete, bau dort über „🏗 Bauen“ Bahnhöfe und verbinde sie. Im Gebiet siehst du Einwohner und wohin die Leute pendeln – Pendlerstrecken bringen mehr Fahrgäste. Und vergiss die 🎓 Tagesfragen nicht – sie sind die zweite Hälfte deines Einkommens.',
       ok: () => false, reset: true },
   ];
-  const TUT_V = 3, TUT_START = 0, TUT_NACHBAR = 2, TUT_STRECKE = 4, TUT_STOERUNG = 7, TUT_TRUPP = 8;
+  const TUT_V = 3, TUT_START = 0, TUT_NACHBAR = 2, TUT_STRECKE = 4, TUT_STOERUNG = 7;
   /** Bis hier (ausschliesslich) nur Karte und Hinweis: Menue, Panel und Leisten sind ausgeblendet. */
   const TUT_FOKUS_BIS = 5;
   /** Startpunkt-Wahl laeuft: noch kein eigenes Gebiet (nur mit geladener Welt, sonst ist Besitz unbekannt). */
@@ -3105,7 +3101,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   const truppLeiste = () => {
     const el = $('#trupps');
     if (!el) return;
-    const an = !RO && S.lines.some((L: any) => !L.gast) && S.tut >= TUT_TRUPP && !zeichnung;
+    const an = false;   // Streckentrupps abgeschafft (2026-11-13), Leiste bleibt leer
     let h = '';
     if (an) {
       h = '<button type="button" class="tr-knopf' + (truppLeisteAuf ? ' on' : '') + '" data-act="truppleiste" title="Streckentrupps">👷 Trupps</button>';
@@ -3208,9 +3204,8 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
     h += z('🌉', 'Flüsse und Kreuzungen', 'Über Flüsse kommen Brücken (je größer der Fluss, desto teurer). Kreuzt du eine eigene Strecke, wählst du am grauen Feld Brücke oder Tunnel.');
     h += z('💬', 'Fremde Gebiete', 'Wegkaufen geht nicht – mach dem Besitzer ein Gebot (Gebiet antippen → „Gebot“).');
     h += z('3', 'Züge und Geld', 'Fremdzüge zahlen Trassenentgelt. Eigene Züge gibt es im 🛒 Shop.');
-    h += z('4', 'Störungen', 'Ein rotes „!“ auf der Strecke antippen und die Aufgabe lösen.');
-    h += z('👷', 'Streckentrupps', 'Aus der Leiste „👷 Trupps“ auf eine Strecke ziehen: fangen 50–95 % der Störungen ab, kosten aber einen Anteil der Einnahmen.');
-    h += z('🕑', 'Spielzeit und Wetter', 'Tag, Uhrzeit und Jahreszeit laufen mit dem Spiel. Im Norden bringt der Winter Frost (Schienenbrüche), im Süden der Sommer Hitze (Gleisverwerfungen).');
+    h += z('4', 'Lernen = halbes Einkommen', 'Unter „🎓 Lernen“ die Tagesfragen beantworten: jede richtige bringt ca. ' + TAGESFRAGEN.minuten + ' Minuten deiner laufenden Einnahmen (bis ' + TAGESFRAGEN.maxProTag + ' am Tag) und zählt für die Sterne der passenden Lern-App.');
+    h += z('🕑', 'Spielzeit und Wetter', 'Tag, Uhrzeit und Jahreszeit laufen mit dem Spiel. Im Norden bringt der Winter Frost, im Süden der Sommer Hitze – ohne passenden Wetterschutz fahren die Züge dort langsamer.');
     h += '</div><h3>Menü</h3><div class="hilfe hilfe-menue">';
     h += z('🛠', 'Arbeiten', 'Selbst anpacken: bringt Geld und Erfahrung.') + z('🎓', 'Lernen', 'Fachwissen-Aufgaben, roter Punkt = heute noch offen.') + z('👷', 'Personal', 'Leute einstellen und per Lehrgang befördern.')
       + z('📦', 'Aufträge', 'Güteraufträge an deinen Güterbahnhöfen.') + z('🏅', 'Album', 'Sammelalbum: Züge und Abzeichen.') + z('🛒', 'Shop', 'Züge und Ausrüstung kaufen.');
@@ -3535,6 +3530,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       else { S.money -= streikPreis(); S.ereignis = null; addXp(5); toast('🤝 Tarifeinigung: Der Streik ist vorbei, deine Züge fahren wieder normal.', 4500); save(); if (modal?.kind === 'arbeit') renderModal(); }
     }
     else if (a === 'lernen') { modal = { kind: 'lernen' }; renderModal(); ladeFotoFragen(); }
+    else if (a === 'ltf') startQuiz(-1, TAGES_THEMEN.map((x) => x[0]).join(','), 'Gemischt', TAGESFRAGEN.runde, 0, 'tagesfragen');
     else if (a === 'ltag' && !tagesErledigt()) { const [t, tn] = tagesThema(tagHeute()); startQuiz(-1, t, tn, TAGES_FRAGEN, TAGES_NEED, 'taeglich'); }
     else if (a === 'lmem' && !lernWarten('memory')) { modal = { kind: 'memory' }; renderModal(); }
     else if (a === 'lverm' && !lernWarten('vermessen')) { modal = { kind: 'vermessen' }; renderModal(); }
@@ -3655,7 +3651,7 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
   let toastT: any;
   const toast = (t: string, ms = 2600) => { const e = $('#toast'); e.textContent = t; e.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => e.classList.remove('show'), ms); };
   const serialize = () => ({
-    money: S.money, bezirkSumme: S.bezirkSumme, bf: S.bf, bfNext: S.bfNext, bfSumme: S.bfSumme, time: S.time, vis: S.vis, skill: S.skill, xp: S.xp, pokale: S.pokale, skins: S.skins, skin: S.skin, ausr: S.ausr, lager: S.lager, mode: S.mode, faultIn: S.faultIn, wetter: S.wetter, wetterIn: S.wetterIn, jz: S.jz, personal: S.personal, lehrAb: S.lehrAb, schichtAb: S.schichtAb, depot: S.depot, trassenSumme: S.trassenSumme, ausGesehen: S.ausGesehen, werbung: S.werbung, wachs: S.wachs, ereignis: S.ereignis, ereignisIn: S.ereignisIn, taeglich: S.taeglich, lernAb: S.lernAb, stats: S.stats, album: S.album, abzeichen: S.abzeichen, aus: S.aus, ausIn: S.ausIn, vertraege: S.vertraege, vertragSumme: S.vertragSumme, abz: S.abz, abzNext: S.abzNext, gbf: S.gbf, auftraege: S.auftraege, auftragIn: S.auftragIn, auftragNr: S.auftragNr, gueterSumme: S.gueterSumme, tut: S.tut, tutV: S.tutV, heim: S.heim, lohnSumme: S.lohnSumme, faultsFixed: S.faultsFixed, passes: S.passes,
+    money: S.money, bezirkSumme: S.bezirkSumme, bf: S.bf, bfNext: S.bfNext, bfSumme: S.bfSumme, time: S.time, vis: S.vis, skill: S.skill, xp: S.xp, pokale: S.pokale, skins: S.skins, skin: S.skin, ausr: S.ausr, lager: S.lager, mode: S.mode, faultIn: S.faultIn, wetter: S.wetter, wetterIn: S.wetterIn, jz: S.jz, personal: S.personal, lehrAb: S.lehrAb, schichtAb: S.schichtAb, depot: S.depot, trassenSumme: S.trassenSumme, ausGesehen: S.ausGesehen, werbung: S.werbung, wachs: S.wachs, ereignis: S.ereignis, ereignisIn: S.ereignisIn, taeglich: S.taeglich, tf: S.tf, passivMin: S.passivMin, lernSumme: S.lernSumme, lernAb: S.lernAb, stats: S.stats, album: S.album, abzeichen: S.abzeichen, aus: S.aus, ausIn: S.ausIn, vertraege: S.vertraege, vertragSumme: S.vertragSumme, abz: S.abz, abzNext: S.abzNext, gbf: S.gbf, auftraege: S.auftraege, auftragIn: S.auftragIn, auftragNr: S.auftragNr, gueterSumme: S.gueterSumme, tut: S.tut, tutV: S.tutV, heim: S.heim, lohnSumme: S.lohnSumme, faultsFixed: S.faultsFixed, passes: S.passes,
     anyFault: S.anyFault, openedLine: S.openedLine, nextId: S.nextId,
     lines: S.lines.map((l: any) => ({ a: l.a, b: l.b, p: l.p, gast: l.gast, cond: l.cond, inF: l.inF, inO: l.inO, up: l.up, rep: l.rep, fault: l.fault, color: l.color, cls: l.cls, ol: l.ol, verlust: l.verlust, inspAb: l.inspAb, fahrtAb: l.fahrtAb, risiko: l.risiko, schutz: l.schutz, bau: l.bau, neuBis: l.neuBis, gleise: l.gleise, signal: l.signal, puenkt: l.puenkt, kr: l.kr, trupp: l.trupp, lohn: l.lohn, abgefangen: l.abgefangen })),
     own: S.trains.filter((t: any) => t.own),
@@ -3668,10 +3664,11 @@ export function startTycoon(root: HTMLElement, opts: TycoonOptions): TycoonHandl
       // vis auf die aktuelle Staedteliste bringen (alte Staende kennen weniger Staedte).
       const bf = Array.isArray(d.bf) ? d.bf : [];
       Object.assign(S, { money: Math.max(0, d.money || 0), bezirkSumme: d.bezirkSumme || 0, bf, bfNext: d.bfNext ?? bf.reduce((m: number, b: any) => Math.max(m, b.id + 1), 1), bfSumme: d.bfSumme || 0, time: d.time, vis: CITIES.map((_, i) => !!d.vis?.[i]), skill: d.skill, mode: d.mode ?? 0, faultIn: d.faultIn ?? modeInterval(d.mode ?? 0), tut: d.tut, faultsFixed: d.faultsFixed, passes: d.passes, anyFault: d.anyFault, openedLine: d.openedLine, nextId: d.nextId });
-      d.lines.forEach((o: any) => { const L: any = addLine(o.a, o.b, Array.isArray(o.p) ? o.p : undefined); Object.assign(L, { cond: o.cond, inF: o.inF, inO: o.inO, up: o.up, rep: o.rep, fault: o.fault, color: o.color, cls: o.cls ?? 1, ol: o.ol ?? (o.cls ?? 1) >= 1, verlust: o.verlust || 0, inspAb: o.inspAb || 0, fahrtAb: o.fahrtAb || 0, risiko: o.risiko || 0, schutz: o.schutz || [], bau: o.bau || null, neuBis: o.neuBis || 0, gleise: o.gleise || 1, signal: o.signal || 0, puenkt: o.puenkt ?? 100, gast: o.gast || undefined, kr: Array.isArray(o.kr) ? o.kr : undefined, trupp: o.trupp || null, lohn: o.lohn || 0, abgefangen: o.abgefangen || 0 }); });
+      d.lines.forEach((o: any) => { const L: any = addLine(o.a, o.b, Array.isArray(o.p) ? o.p : undefined); Object.assign(L, { cond: o.cond, inF: o.inF, inO: o.inO, up: o.up, rep: o.rep, fault: null, color: o.color, cls: o.cls ?? 1, ol: o.ol ?? (o.cls ?? 1) >= 1, verlust: o.verlust || 0, inspAb: o.inspAb || 0, fahrtAb: o.fahrtAb || 0, risiko: o.risiko || 0, schutz: o.schutz || [], bau: o.bau || null, neuBis: o.neuBis || 0, gleise: o.gleise || 1, signal: o.signal || 0, puenkt: o.puenkt ?? 100, gast: o.gast || undefined, kr: Array.isArray(o.kr) ? o.kr : undefined, trupp: null, lohn: o.lohn || 0, abgefangen: o.abgefangen || 0 }); });
+      S.anyFault = false;   // Stoerungen und Streckentrupps gibt es seit 2026-11-13 nicht mehr
       S.trains = d.own || [];
       // Alte Staende ohne Erfahrung: aus dem bisherigen Fortschritt schaetzen. Alte Strecken gelten als Hauptbahn (cls 1, s. o.).
-      S.schichtAb = d.schichtAb ?? 0; S.depot = d.depot ?? []; S.trassenSumme = d.trassenSumme ?? 0; S.ausGesehen = d.ausGesehen ?? []; S.werbung = d.werbung ?? []; S.wachs = d.wachs ?? {}; S.ereignis = d.ereignis ?? null; S.ereignisIn = d.ereignisIn ?? 240; S.taeglich = d.taeglich ?? null; S.lernAb = d.lernAb ?? {}; S.stats = d.stats ?? {}; S.album = d.album ?? []; S.abzeichen = d.abzeichen ?? [];
+      S.schichtAb = d.schichtAb ?? 0; S.depot = d.depot ?? []; S.trassenSumme = d.trassenSumme ?? 0; S.ausGesehen = d.ausGesehen ?? []; S.werbung = d.werbung ?? []; S.wachs = d.wachs ?? {}; S.ereignis = d.ereignis ?? null; S.ereignisIn = d.ereignisIn ?? 240; S.taeglich = d.taeglich ?? null; S.tf = d.tf ?? null; S.passivMin = d.passivMin ?? null; S.lernSumme = d.lernSumme ?? 0; S.lernAb = d.lernAb ?? {}; S.stats = d.stats ?? {}; S.album = d.album ?? []; S.abzeichen = d.abzeichen ?? [];
       S.aus = d.aus ?? null; S.ausIn = d.ausIn ?? 120; S.vertraege = d.vertraege ?? []; S.vertragSumme = d.vertragSumme ?? 0;
       S.abz = Array.isArray(d.abz) ? d.abz : []; S.abzNext = d.abzNext ?? S.abz.reduce((m: number, z: any) => Math.max(m, z.id + 1), 1);
       S.gbf = d.gbf ?? []; S.auftraege = d.auftraege ?? []; S.auftragIn = d.auftragIn ?? 30; S.auftragNr = d.auftragNr ?? 0; S.gueterSumme = d.gueterSumme ?? 0;

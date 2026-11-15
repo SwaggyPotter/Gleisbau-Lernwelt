@@ -9,6 +9,7 @@ import { FragenUebersichtPage } from './pages/fragen-uebersicht/fragen-uebersich
 import { FragenBearbeitenPage } from './pages/fragen-bearbeiten/fragen-bearbeiten.page';
 import { authGuard } from '../../core/auth/guards/auth.guard';
 import { adminGuard } from '../../core/auth/guards/admin.guard';
+import { GuruPage } from './pages/guru/guru.page';
 
 export const KONTO_ROUTES: Routes = [
   { path: 'anmelden', component: AnmeldenPage },
@@ -21,5 +22,6 @@ export const KONTO_ROUTES: Routes = [
   { path: 'fragen', component: FragenUebersichtPage, canActivate: [authGuard, adminGuard] },
   { path: 'fragen-bearbeiten/:topicId', component: FragenBearbeitenPage, canActivate: [authGuard, adminGuard] },
   { path: 'fragen-bearbeiten', redirectTo: 'fragen-bearbeiten/grundlagen', pathMatch: 'full' },
+  { path: 'guru', component: GuruPage, canActivate: [authGuard, adminGuard] },
   { path: 'gaeste', redirectTo: 'schluessel', pathMatch: 'full' },
 ];

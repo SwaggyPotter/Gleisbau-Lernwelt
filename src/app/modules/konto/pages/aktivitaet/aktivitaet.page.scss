@@ -1,3 +1,11 @@
+@use '../../konto-theme' as theme;
+
+:host {
+  @include theme.theme-vars;
+}
+
+@include theme.page-base;
+
 .akt {
   .akt-zahlen {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 14px;
@@ -30,3 +38,6 @@
   .akt-apps { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
   .akt-app { font-size: .8rem; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--sp-border); background: var(--sp-surface-2); }
 }
+
+// breiter als die übrigen Konto-Seiten (Listen/Chat)
+.page-shell.akt { max-width: 1100px; }

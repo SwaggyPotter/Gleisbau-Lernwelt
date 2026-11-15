@@ -22,6 +22,7 @@ import { quizAenderungenRouter } from './quiz-aenderungen';
 import { appsRouter } from './apps';
 import { glossarFreigabenRouter } from './glossar-freigaben';
 import { nachrichtenRouter } from './nachrichten';
+import { guruRouter } from './guru';
 import { requireAuth, requireAdmin } from '../middleware/auth';
 
 export const apiRouter = Router();
@@ -50,3 +51,4 @@ apiRouter.use('/apps', appsRouter);
 apiRouter.use('/quiz-aenderungen', quizAenderungenRouter);
 apiRouter.use('/glossar-freigaben', glossarFreigabenRouter);
 apiRouter.use('/nachrichten', requireAuth, nachrichtenRouter);
+apiRouter.use('/guru', requireAuth, requireAdmin, guruRouter);

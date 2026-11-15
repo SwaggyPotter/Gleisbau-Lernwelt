@@ -14,7 +14,7 @@ export interface Rolle {
 }
 export const ROLLEN: Rolle[] = [
   { id: 'gleisbauer', n: 'Gleisbau-Rotte', icon: '👷', themen: ['grundlagen', 'schwellen', 'kleineisen', 'bettung', 'lf10'],
-    wirkung: 'Baustellen {p} schneller, Bonus für selbst behobene Störungen +{p}', proStufe: 6, einstellen: 3000 },
+    wirkung: 'Baustellen {p} schneller, Lernprämie der Tagesfragen +{p}', proStufe: 6, einstellen: 3000 },
   { id: 'lokfuehrer', n: 'Triebfahrzeugführer', icon: '🧑‍✈️', themen: ['schiene', 'spurweite', 'arbeitssicherheit'],
     wirkung: 'Miete eigener Züge +{p}', proStufe: 4, einstellen: 4000 },
   { id: 'fdl', n: 'Fahrdienstleiter', icon: '🚦', themen: ['lf12', 'lf13', 'trassenplan'],

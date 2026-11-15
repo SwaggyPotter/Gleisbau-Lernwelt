@@ -23,6 +23,12 @@ export const tagesThema = (tag: string): [string, string] => {
   return TAGES_THEMEN[h % TAGES_THEMEN.length];
 };
 export const TAGES_FRAGEN = 3, TAGES_NEED = 2;
+/**
+ * Tagesfragen (seit 2026-11-13, ersetzt die Stoerungen): die zweite Haelfte des Einkommens. Jede richtige Antwort bringt
+ * ca. `minuten` Minuten der laufenden (passiven) Einnahmen, hoechstens `maxProTag` bezahlte Antworten je Kalendertag.
+ * Wer taeglich rund eine Stunde spielt, verdient so etwa halb passiv, halb mit Wissen.
+ */
+export const TAGESFRAGEN = { runde: 5, maxProTag: 20, minuten: 3, mindest: 150 };
 /** Belohnung fuer Tag n der Serie: steigt bis Tag 10; jeder 7. Tag am Stueck gibt zusaetzlich einen Pokal. */
 export const tagesLohn = (serie: number) => ({ geld: 300 + 150 * Math.min(serie, 10), xp: 10 + 2 * Math.min(serie, 10), pokal: serie > 0 && serie % 7 === 0 ? 1 : 0 });
 

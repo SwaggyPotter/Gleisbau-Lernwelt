@@ -760,3 +760,15 @@ ion-badge {
 @media (max-width: 600px) {
   .app-menue { position: fixed; left: 16px; right: 16px; top: auto; bottom: 16px; width: auto; }
 }
+
+/* ---------- Live-Anzeige (nur Admin, 2026-11-13) ---------- */
+.app .icon { position: relative; }
+.live-punkt {
+  position: absolute; bottom: -5px; right: -5px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px;
+  background: #22c55e; color: #fff; font-size: 11px; font-weight: 700; line-height: 18px; text-align: center; z-index: 2;
+  box-shadow: 0 0 0 2px var(--sp-bg, #0f1b24), 0 0 10px #22c55e; animation: live-puls 1.8s ease-in-out infinite;
+}
+.app.bot-hier .icon { outline: 3px solid #f59e0b; outline-offset: 2px; animation: bot-glimm 1.6s ease-in-out infinite; }
+.bot-label { font-size: 10px; font-weight: 700; color: #f59e0b; text-align: center; line-height: 1.2; max-width: 90px; }
+@keyframes live-puls { 50% { box-shadow: 0 0 0 2px var(--sp-bg, #0f1b24), 0 0 18px 4px #22c55e; } }
+@keyframes bot-glimm { 0%, 100% { box-shadow: 0 0 6px 1px #f59e0b88; } 50% { box-shadow: 0 0 18px 6px #f59e0bcc; } }

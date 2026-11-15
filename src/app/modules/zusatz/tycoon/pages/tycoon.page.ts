@@ -10,6 +10,7 @@ import { switchMap } from 'rxjs/operators';
 import { TycoonWelt3D, zugDateien } from '../tycoon-3d';
 import { ladeHoehen } from '../tycoon-hoehen';
 import { Engine3D } from '../../../../shared/engine3d/engine3d';
+import { ProfilSyncService } from '../../../../core/auth/services/profil-sync.service';
 
 /** Neuer Schluessel (2026-10-27): 2D ist jetzt Standard, alte gemerkte 3D-Wahl gilt nicht mehr. */
 const ANSICHT_KEY = 'tycoon-ansicht3d-v2';
@@ -107,7 +108,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
   private vorschauEl: HTMLElement | null = null;
   private hoehenBereit = false;
 
-  constructor(private readonly api: TycoonApiService, private readonly route: ActivatedRoute, private readonly zone: NgZone) {}
+  constructor(private readonly api: TycoonApiService, private readonly route: ActivatedRoute, private readonly zone: NgZone, private readonly profilSync: ProfilSyncService) {}
 
   ngAfterViewInit(): void {
     document.body.classList.add('tycoon-offen');
@@ -168,6 +169,7 @@ export class TycoonPage implements AfterViewInit, OnDestroy {
         next: () => { this.handle?.meldung('🤝 Clan-Großprojekt gestartet!'); this.ladeWelt(); },
         error: (err) => this.handle?.meldung(err?.error?.error ?? 'Projekt konnte nicht gestartet werden.'),
       }),
+      onAntwort: (key, richtig) => this.profilSync.melde(key, richtig),
       onClanBeitrag: (betrag, schicht) => this.api.clanBeitrag(betrag, schicht).subscribe({
         next: (r) => { this.handle?.clanBezahlt(schicht ? 0 : betrag, r.fertig ? '🎉 Clan-Großprojekt fertig!' : '🤝 Beitrag: ' + betrag.toLocaleString('de-DE') + ' € (' + Math.round(r.stand / r.ziel * 100) + ' %)'); this.ladeWelt(); },
         error: (err) => this.handle?.meldung(err?.error?.error ?? 'Beitrag nicht möglich.'),

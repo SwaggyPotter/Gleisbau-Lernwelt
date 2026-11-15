@@ -135,9 +135,9 @@ export const upgradePreis = (zugKosten: number, faktor: number): number => Math.
 export const KOHLELAGER = { n: 'Kohlelager', preis: 2500, text: 'Versorgt Dampfloks auf allen Strecken, die hier enden. Ohne Kohle: nur 60 % Einnahmen und 80 % Tempo.' };
 /**
  * Bahnhofsgebaeude: hoechstens eins je eigenem Gebiet. Bahnhoefe (und Staedte) werden mit Strecken verbunden;
- * jeder Bahnhof bringt je angeschlossener Strecke laufend Geld (weniger bei Wartungsstau, halb bei Stoerung).
+ * jeder Bahnhof bringt je angeschlossener Strecke laufend Geld (weniger bei Wartungsstau, halb bei Sperrung).
  */
-export const BAHNHOF = { n: 'Bahnhof', preis: 1000, proStrecke: 0.4, text: 'Bringt je angeschlossener Strecke laufend Geld. Wartungsstau und Störungen auf der Strecke senken das.' };
+export const BAHNHOF = { n: 'Bahnhof', preis: 1000, proStrecke: 0.4, text: 'Bringt je angeschlossener Strecke laufend Geld. Wartungsstau und Sperrungen auf der Strecke senken das.' };
 /** Oberleitung je Strecke: Preis je Laengeneinheit. */
 export const OBERLEITUNG = { n: 'Oberleitung', proEinheit: 4, lvl: 2, text: 'Strom für E-Loks und Triebzüge. Ohne Oberleitung fahren hier nur Diesel- und Dampfloks.' };
 
@@ -158,9 +158,9 @@ export const SKINS: Skin[] = [
 export interface Ausruestung { id: string; n: string; text: string; lvl: number; preis: number; pokale: number }
 export const AUSRUESTUNG: Ausruestung[] = [
   { id: 'stopfmaschine', n: 'Stopfmaschine', text: 'Stopft den Schotter unter den Schwellen nach: Gleisverschleiß −25 %. Baustellen „Stopfen“ ohne Miete.', lvl: 2, preis: 6000, pokale: 0 },
-  { id: 'schleifzug', n: 'Schienenschleifzug', text: 'Schleift Riffeln und Head Checks weg: Störungen kommen 30 % seltener. Schleif-Baustellen ohne Miete.', lvl: 3, preis: 9000, pokale: 0 },
+  { id: 'schleifzug', n: 'Schienenschleifzug', text: 'Schleift Riffeln und Head Checks weg: deine Strecken verschleißen 20 % langsamer. Schleif-Baustellen ohne Miete.', lvl: 3, preis: 9000, pokale: 0 },
   { id: 'werkstatt', n: 'Moderne Werkstatt', text: 'Wartungsstau kostet nur noch halb so viele Einnahmen.', lvl: 4, preis: 12000, pokale: 0 },
-  { id: 'messzug', n: 'Gleismesszug', text: 'Findet Fehler früh: +50 % Bonus für selbst behobene Störungen.', lvl: 5, preis: 15000, pokale: 0 },
+  { id: 'messzug', n: 'Gleismesszug', text: 'Findet Fehler früh: Inspektionsfahrten langsamer (mehr Zeit) und +25 % Lernprämie bei den Tagesfragen.', lvl: 5, preis: 15000, pokale: 0 },
   { id: 'fahrgastinfo', n: 'Fahrgastinformation', text: 'Anzeigen und App für Fahrgäste: Miete +10 %.', lvl: 6, preis: 20000, pokale: 0 },
   { id: 'umbauzug', n: 'Umbauzug', text: 'Erneuert Gleise in einem Durchgang: Streckenausbau −20 %. Gleiserneuerung ohne Miete.', lvl: 7, preis: 30000, pokale: 0 },
   { id: 'reinigung', n: 'Bettungsreinigungsmaschine', text: 'Eigene Maschine für die Bettungsreinigung: Baustellen ohne Miete.', lvl: 4, preis: 14000, pokale: 0 },

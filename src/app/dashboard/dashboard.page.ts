@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { API_BASE_URL } from '../core/api-config';
 import {
   QuizTile,
   WISSENSTEST_TILES,
@@ -218,12 +220,14 @@ export class DashboardPage {
     private readonly presence: PresenceService,
     private readonly appStatus: AppStatusService,
     aktivitaet: AktivitaetService,
+    private readonly http: HttpClient,
   ) {
     this.presence.start();
     aktivitaet.start();
     this.auth.currentUser$.subscribe(u => {
       this.eingeloggt = !!u;
       this.istAdmin = u?.role === 'admin';
+      this.liveStarten();
     });
     this.appStatus.einstellungen$.subscribe(() => this.statusVersion++);
     this.appStatus.laden();
@@ -234,6 +238,41 @@ export class DashboardPage {
   ionViewWillEnter(): void {
     this.refreshProgress();
     this.appStatus.laden();
+    this.liveStarten();
+  }
+
+  ionViewDidLeave(): void {
+    clearInterval(this.liveTimer);
+    this.liveTimer = null;
+  }
+
+  /* ---------- Live-Anzeige für den Admin (Tim, 2026-11-13): wer ist gerade in welcher App, wo lernt der Guru? ---------- */
+  private liveTimer: any = null;
+  private liveSeiten: { seite: string; n: number }[] = [];
+  private liveBot: { app: string; text: string } | null = null;
+
+  private liveStarten(): void {
+    if (!this.istAdmin || this.liveTimer) return;
+    const laden = () => this.http.get<{ seiten: { seite: string; n: number }[]; bot: { app: string; text: string } | null }>(`${API_BASE_URL}/guru/live`)
+      .subscribe({ next: (r) => { this.liveSeiten = r.seiten; this.liveBot = r.bot; }, error: () => {} });
+    laden();
+    this.liveTimer = setInterval(laden, 15000);
+  }
+
+  private passt(seite: string, link: string): boolean {
+    const l = link.split('?')[0].replace(/\/$/, '');
+    return !!l && (seite === l || seite.startsWith(l + '/'));
+  }
+
+  /** Wie viele Leute sind gerade (letzte 3 Min.) in dieser App? 0 = niemand. */
+  liveAnzahl(t: QuizTile): number {
+    if (!this.istAdmin || !this.liveSeiten.length) return 0;
+    return this.liveSeiten.reduce((a, s) => a + (this.passt(s.seite, t.link) ? s.n : 0), 0);
+  }
+
+  /** Lernt der Guru gerade in dieser App? */
+  botHier(t: QuizTile): string | null {
+    return this.istAdmin && this.liveBot && this.passt(this.liveBot.app, t.link) ? this.liveBot.text : null;
   }
 
   abmelden(): void {

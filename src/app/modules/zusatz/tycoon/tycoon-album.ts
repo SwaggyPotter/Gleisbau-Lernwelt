@@ -8,7 +8,6 @@ export const ABZEICHEN: Abzeichen[] = [
   { id: 'strecke10', n: 'Netzbauer', icon: '🗺', text: '10 eigene Strecken.', lohn: 2000 },
   { id: 'zuege5', n: 'Fuhrpark', icon: '🚆', text: '5 verschiedene Zugtypen besessen.', lohn: 1500 },
   { id: 'zuegeAlle', n: 'Zugsammler', icon: '🏆', text: 'Jeden Zugtyp einmal besessen.', lohn: 10000 },
-  { id: 'stoerung25', n: 'Störungsprofi', icon: '🔧', text: '25 Störungen behoben.', lohn: 3000 },
   { id: 'perfekt', n: 'Adlerauge', icon: '🦅', text: 'Eine Inspektionsfahrt ohne übersehenen Fehler und ohne Fehlalarm.', lohn: 800 },
   { id: 'jahr', n: 'Ein ganzes Jahr', icon: '📅', text: 'Alle vier Jahreszeiten erlebt.', lohn: 1000 },
   { id: 'wetterfest', n: 'Wetterfest', icon: '🛡', text: 'Eine Strecke mit allen vier Wetterschutz-Maßnahmen.', lohn: 1500 },

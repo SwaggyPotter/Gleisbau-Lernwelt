@@ -4,6 +4,35 @@ autor: Claude
 ---
 
 
+### 2026-11-13 (54) — Guru-Chat: sofortiges Feedback (deployt 2026-11-13)
+- Enter → eigene Nachricht erscheint sofort, Feld wird frei, Denkblase „🤖 Denkt nach … 12 s“ (zählt hoch). Server antwortet sofort, die Guru-Antwort entsteht im Hintergrund; die Seite fragt alle 1,5 s nach (`GET /guru/chat?nach=<id>`).
+- KI-Warteschlange mit Vorrang: Chat-Fragen vor Aufträgen/Nachtarbeit (laufende Rechnung wird nicht abgebrochen); Denkblase sagt dann „Wartet kurz – die KI rechnet noch an einem Auftrag …“. Live-Ansicht oben: „💬 Beantwortet deine Frage: …“.
+
+### 2026-11-13 (53) — Bahn-Guru mit eigener KI, Aufträgen, Nachtschicht, Live-Anzeige (deployt 2026-11-13)
+- **KI auf dem michiserver**: neuer Container `ki` (Ollama, `docker-compose.yml`), Modell **qwen3.5:4b** (Q4, 3,3 GB, kann auch Bilder sehen). Nur CPU: max. 4 von 6 Kernen, 4,5 GB RAM-Grenze, entlädt nach 5 Min. Messung: Text ~6 Token/s (Antwort 20–60 s), Foto ~50 s; API-Antwortzeit währenddessen 2–27 ms (Website bleibt flüssig). 2B-Modell getestet und verworfen (erfindet mehr). Bilderkennung von Fachteilen noch zu ungenau (Spannklemme nicht erkannt) → später mit Tims eigenen Fotos als Vorschlag + Bestätigung.
+- **Website einlesen**: Beim Öffnen der Guru-Seite schickt Tims Browser einen Snapshot (alle Apps, 49 Formeln mit Variablen/Einheiten, Glossar, alle Quizfragen) → Notizen `Seite/Apps/…`, `Seite/Formeln/…`, `Seite/Glossar.md` (nur bei Änderung, Hash in `System/Website-Stand.md`).
+- **Chat mit KI**: Antworten nur aus gefundenem Kontext (Notizen, Seite, Meldungen, Forum); bei Rechen-Begriffen bekommt die KI das Formelverzeichnis und ordnet falsch verstandene Wörter zu („Fallhöhe“ → Pfeilhöhe). Weiß sie nichts → `Offene Fragen.md`.
+- **Aufträge**: „Auftrag: …“ / „Guck mal nach …“ → Warteschlange `guru_auftraege`; der Guru wählt passende Formeln/Apps (auch per KI), schreibt `Lernen/<Thema>.md` (Worum geht es, Formel + Einheiten, 3 Prüfungsfragen, Unklar) und meldet sich im Chat.
+- **Nachtschicht**: ab 2 Uhr `Meldungen/<Thema>.md` + Übersicht, `Tagebuch/<gestern>.md` (KI-Zusammenfassung); 6 Uhr `Berichte/<heute>.md`; 1–5:30 Uhr lernt er selbstständig App für App → `Lernen/Apps/<App>.md` (alle 14 Tage neu).
+- **Obsidian-Stil**: [[Verknüpfungen]] klickbar, Rückverweise („Verlinkt von“), #tags, Markdown-Darstellung.
+- **Live**: Guru-Seite zeigt „Was macht er gerade“, Aufträge, Arbeitsprotokoll (`guru_log`, alle 4 s). Startseite (nur Admin): grüner leuchtender Punkt mit Anzahl aktiver Leute je App (letzte 3 Min.), orange leuchtender Rand + „🤖 Bot gerade hier aktiv“ wo der Guru lernt.
+- Aktivität- und Guru-Seite hatten das Konto-Design nicht eingebunden (weißer Hintergrund) → nachgezogen.
+- Spiegel ins Obsidian-Gehirn: `node tools/guru-sync.cjs` → `Ki Datenspeicher/21-Gleisbau-Guru/` (nur lesend vom Server).
+
+### 2026-11-13 (52) — Gleisbau-Guru: Admin-Chatbot (regelbasiert, ohne KI) (deployt 2026-11-13)
+- Admin-Leiste „🤖 Guru“ → `/konto/guru`. Chat mit Spracheingabe (Mikrofon, Web Speech API), Schnellknöpfe Bericht/Meldungen/Hilfe/Merke/Für Claude.
+- Backend `backend/src/routes/guru.ts` (`/api/guru`, nur Admin), Tabellen `guru_notizen` (Gehirn: Markdown-Dokumente mit Pfad) und `guru_chat`. Liest Meldungen, Forum, Chat, Aktivität, Konten – schreibt NUR in die eigenen Tabellen.
+- Alles, was Tim schreibt → `Gespräche/JJJJ-MM-TT.md`. „Merke: Thema: …“ → `Wissen/Thema.md`. „Für Claude: …“ → `Für Claude.md`. „Bericht“ → `Berichte/JJJJ-MM-TT.md`. Nichts gefunden → `Offene Fragen.md` (Wochen-Durchsicht Claude + Tim).
+- Suche: Apps (Katalog), Glossar, alle Themenquiz-Fragen (im Browser), dazu Notizen, Meldungen, Forum (Server).
+- Gehirn-Ansicht: Notizen nach Ordnern, lesen, bearbeiten, löschen, einzeln oder alle als .md herunterladen.
+- Offen: Bericht automatisch jeden Morgen (+ optional E-Mail), echte KI später.
+
+### 2026-11-13 (51) — Tycoon: Störungen raus, Geld halb aus Lernen (deployt 2026-11-13)
+- Keine Störungen mehr (weder Verschleiß noch Wetter), keine Streckentrupps (Leiste, Strecken-Panel, Personal), Schwierigkeitsmodus und „Können (Eigenleistung)“ raus, Abzeichen „Störungsprofi“ raus. Alte Spielstände: offene Störungen/Trupps werden beim Laden verworfen. Wetter bremst weiterhin ohne Schutz.
+- Neu „💶 Tagesfragen“ unter 🎓 Lernen: 5 Fragen quer durch alle Themen; jede richtige bringt ca. 3 Minuten der laufenden Einnahmen (gleitender Mittelwert der passiven Einnahmen, mind. 150 €), höchstens 20 bezahlte Antworten pro Tag → bei ~1 Std. Spielen am Tag etwa 50 % passiv / 50 % Wissen. Danach weiter üben ohne Geld.
+- Jede Antwort im Tycoon zählt jetzt für die Sterne der passenden Lern-App (`themenquiz:<thema>`, auch serverseitig über ProfilSync), statt nur `zusatz:tycoon`.
+- Tutorial-Schritt „Störung beheben“/„Streckentrupp“ ersetzt durch „Mit Wissen verdienen“ (9 statt 10 Schritte). Gleisbau-Rotte und Gleismesszug geben jetzt Lernprämie statt Störungsbonus, Schleifzug: 20 % weniger Verschleiß.
+
 ### 2026-11-12 (50) — Formelfinder → „Formelquiz“ zum Blättern; Admin „Benennen“ entfernt (deployt 2026-11-12)
 - Formelquiz (`/berufsschule/formelsammlung/formelquiz`, alter Pfad `formelfinder` leitet um; Kachel-ID `formelsammlung-formelfinder` bleibt wegen Status/Sternen): oben die Textaufgabe, darunter die Formelsammlung zum Blättern – 17 Seiten in fester Reihenfolge (Nr. der App), jede gleich aufgebaut: Skizze(n) wie im Erklären-Modus, dann alle Formeln mit Variablen + Einheiten. Formel antippen = Antwort. Gleichwertige Formeln (z. B. hf-sehne/hf-halbsehne) zählen als richtig. Blättern per ◀/▶, Wischen oder Inhaltsverzeichnis; Seite wird gemerkt (wie ein offenes Buch). Nach falscher Antwort: „Zur richtigen Seite blättern“. Thema wird erst nach der Antwort verraten.
 - Admin-Leiste: „Benennen“ raus (doppelt zu „Bilder“), `/konto/benennen` leitet auf `/konto/bilder`.

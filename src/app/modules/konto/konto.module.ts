@@ -17,9 +17,10 @@ import { FragenUebersichtPage } from './pages/fragen-uebersicht/fragen-uebersich
 import { FragenBearbeitenPage } from './pages/fragen-bearbeiten/fragen-bearbeiten.page';
 import { GastZugaengeComponent } from './components/gast-zugaenge/gast-zugaenge.component';
 import { MeldungenListeComponent } from './components/meldungen-liste/meldungen-liste.component';
+import { GuruPage } from './pages/guru/guru.page';
 
 @NgModule({
-  declarations: [AktivitaetPage, AnmeldenPage, RegistrierenPage, ProfilPage, SchluesselPage, FragenUebersichtPage, FragenBearbeitenPage, BilderVerwaltungPage, BilderBenennenPage, GastZugaengeComponent, MeldungenListeComponent],
+  declarations: [AktivitaetPage, AnmeldenPage, RegistrierenPage, ProfilPage, SchluesselPage, FragenUebersichtPage, FragenBearbeitenPage, BilderVerwaltungPage, BilderBenennenPage, GastZugaengeComponent, MeldungenListeComponent, GuruPage],
   imports: [
     CommonModule,
     FormsModule,
